@@ -1,0 +1,14 @@
+EESchema-DOCLIB  Version 2.0  Date: Sun 13 Nov 2016 14:16:29 EST
+#
+$CMP LM556N
+D Dual LM555
+K LM555
+F ns/lm555.pdf
+$ENDCMP
+#
+$CMP MCT6H
+D MCT6H dual Optocoupler
+K NPN DC Optocoupler
+$ENDCMP
+#
+#End Doc Library
