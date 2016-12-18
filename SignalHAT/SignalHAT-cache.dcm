@@ -1,0 +1,13 @@
+EESchema-DOCLIB  Version 2.0  Date: Sat 29 Oct 2016 15:27:43 EDT
+#
+$CMP 74AHCT125
+D Quad buffer 3 State out
+K TTL buffer 3State
+$ENDCMP
+#
+$CMP 74HCT125
+D Quad buffer 3 State out
+K TTL buffer 3State
+$ENDCMP
+#
+#End Doc Library

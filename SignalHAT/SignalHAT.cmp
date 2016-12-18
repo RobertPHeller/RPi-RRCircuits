@@ -1,0 +1,108 @@
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Sat 29 Oct 2016 15:59:49 EDT
+
+BeginCmp
+TimeStamp = /580EAA81;
+Reference = C1;
+ValeurCmp = 10uf 25V;
+IdModule  = C1V5;
+EndCmp
+
+BeginCmp
+TimeStamp = /580EAA6C;
+Reference = C2;
+ValeurCmp = 100pf 50V;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5516AE26;
+Reference = J0;
+ValeurCmp = RPi_GPIO;
+IdModule  = RPi_Hat:Pin_Header_Straight_2x20;
+EndCmp
+
+BeginCmp
+TimeStamp = /580EA758;
+Reference = J1;
+ValeurCmp = DIL Header 2x5;
+IdModule  = PIN_ARRAY_5x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /580EA767;
+Reference = J2;
+ValeurCmp = DIL Header 2x5;
+IdModule  = PIN_ARRAY_5x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /580EA776;
+Reference = J3;
+ValeurCmp = DIL Header 2x5;
+IdModule  = PIN_ARRAY_5x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /580EA785;
+Reference = J4;
+ValeurCmp = DIL Header 2x5;
+IdModule  = PIN_ARRAY_5x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /580EA794;
+Reference = J5;
+ValeurCmp = DIL Header 2x5;
+IdModule  = PIN_ARRAY_5x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /580EA7A3;
+Reference = J6;
+ValeurCmp = DIL Header 2x5;
+IdModule  = PIN_ARRAY_5x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /580EA7F8;
+Reference = J7;
+ValeurCmp = DIL Header 2x5;
+IdModule  = PIN_ARRAY_5x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /580EA807;
+Reference = J8;
+ValeurCmp = DIL Header 2x5;;
+IdModule  = PIN_ARRAY_5x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /580EA953;
+Reference = J9;
+ValeurCmp = SIL 3 header;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /580EAA59;
+Reference = R1;
+ValeurCmp = 33K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /580EA749;
+Reference = U1;
+ValeurCmp = MAX7221;
+IdModule  = DIP-24__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5814F97E;
+Reference = U2;
+ValeurCmp = 74AHCT125;
+IdModule  = DIP-14__300;
+EndCmp
+
+EndListe
