@@ -1,0 +1,30 @@
+eeschema (2013-june-11)-stable  >> Creation date: Mon 05 Dec 2016 10:20:13 EST
+#Cmp ( order = Reference )
+| C1         10 pf       ; 594-S100K25SL0N63L6R;             
+| C2         10 pf       ; 594-S100K25SL0N63L6R;             
+| C3         10 uf, 50V  ; 140-REA100M1HBK0511P;             
+| C4         10 uf, 50V  ; 140-REA100M1HBK0511P;             
+| D1         6A05-T      ; 621-6A05-T  ;             
+| D2         6A05-T      ; 621-6A05-T  ;             
+| IC1        MCT6H       ; 782-MCT6H   ;             
+| J0         RPi_GPIO    ; 517-929975-01-20; 2223        
+| Q1         TIP120      ; 863-TIP120G ;             
+| Q2         TIP120      ; 863-TIP120G ;             
+| R1         270 Ohms    ; 603-CFR-25JR-52-270R;             
+| R2         270 Ohms    ; 603-CFR-25JR-52-270R;             
+| R3         1K Ohms     ; 279-2-1623927-3;             
+| R4         1K Ohms     ; 279-2-1623927-3;             
+| R5         510K Ohms   ; 660-CF1/4CT52R514J;             
+| R6         510K Ohms   ; 660-CF1/4CT52R514J;             
+| R7         1K Ohms     ; 279-2-1623927-3;             
+| R8         1K Ohms     ; 279-2-1623927-3;             
+| R9         1K Ohms     ; 279-2-1623927-3 ;             
+| R10        1K Ohms     ; 279-2-1623927-3;             
+| RV1        500K Ohms   ; 652-3309P-1-504;             
+| RV2        500K Ohms   ; 652-3309P-1-504;             
+| T1         Uncoupler 1 ; 571-2828374 ;             
+| T2         Uncoupler 2 ; 571-2828374 ;             
+| U1         LM556N      ; 926-LM556CN/NOP;             
+#End Cmp
+
+#End List

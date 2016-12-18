@@ -1,0 +1,178 @@
+Cmp-Mod V01 Created by PcbNew date = Mon 05 Dec 2016 10:25:32 EST
+
+BeginCmp
+TimeStamp = /58261F79;
+Reference = C1;
+ValeurCmp = 10 pf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /58261F5B;
+Reference = C2;
+ValeurCmp = 10 pf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /58261F6A;
+Reference = C3;
+ValeurCmp = 10 uf;
+IdModule  = C1V5;
+EndCmp
+
+BeginCmp
+TimeStamp = /58261F4C;
+Reference = C4;
+ValeurCmp = 10 uf;
+IdModule  = C1V5;
+EndCmp
+
+BeginCmp
+TimeStamp = /58261FB5;
+Reference = D1;
+ValeurCmp = VDO200;
+IdModule  = D4;
+EndCmp
+
+BeginCmp
+TimeStamp = /58261FA6;
+Reference = D2;
+ValeurCmp = VDO200;
+IdModule  = D4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5826233F;
+Reference = IC1;
+ValeurCmp = MCT6H;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5516AE26;
+Reference = J0;
+ValeurCmp = RPi_GPIO;
+IdModule  = RPi_Hat:Pin_Header_Straight_2x20;
+EndCmp
+
+BeginCmp
+TimeStamp = /58261FD3;
+Reference = Q1;
+ValeurCmp = TIP120;
+IdModule  = TO220_VERT;
+EndCmp
+
+BeginCmp
+TimeStamp = /58261FC4;
+Reference = Q2;
+ValeurCmp = TIP120;
+IdModule  = TO220_VERT;
+EndCmp
+
+BeginCmp
+TimeStamp = /5826236C;
+Reference = R1;
+ValeurCmp = 270 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5826235D;
+Reference = R2;
+ValeurCmp = 270 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5826237B;
+Reference = R3;
+ValeurCmp = 1K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5826238A;
+Reference = R4;
+ValeurCmp = 1K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /58261EDC;
+Reference = R5;
+ValeurCmp = 510K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /58261ECD;
+Reference = R6;
+ValeurCmp = 510K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /58261EFA;
+Reference = R7;
+ValeurCmp = 1K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /58261EEB;
+Reference = R8;
+ValeurCmp = 1K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /58261F97;
+Reference = R9;
+ValeurCmp = 1K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /58261F88;
+Reference = R10;
+ValeurCmp = 1K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /58261EBE;
+Reference = RV1;
+ValeurCmp = 510K Ohms;
+IdModule  = RV2;
+EndCmp
+
+BeginCmp
+TimeStamp = /58261EAF;
+Reference = RV2;
+ValeurCmp = 510K Ohms;
+IdModule  = RV2;
+EndCmp
+
+BeginCmp
+TimeStamp = /58262A4D;
+Reference = T1;
+ValeurCmp = Uncoupler 1;
+IdModule  = bornier4;
+EndCmp
+
+BeginCmp
+TimeStamp = /58262A5C;
+Reference = T2;
+ValeurCmp = Uncoupler 2;
+IdModule  = bornier4;
+EndCmp
+
+BeginCmp
+TimeStamp = /58261E2E;
+Reference = U1;
+ValeurCmp = LM556N;
+IdModule  = DIP-14__300;
+EndCmp
+
+EndListe
