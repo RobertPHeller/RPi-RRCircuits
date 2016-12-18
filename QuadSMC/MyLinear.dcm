@@ -1,0 +1,8 @@
+EESchema-DOCLIB  Version 2.0  Date: Mon 07 Nov 2016 13:05:34 EST
+#
+$CMP RESISTORNET
+D Resistor net, 8 resistors on a common buss
+K Resistor, multi, network
+$ENDCMP
+#
+#End Doc Library
