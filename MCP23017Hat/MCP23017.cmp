@@ -1,0 +1,52 @@
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Fri 25 Nov 2016 14:40:06 EST
+
+BeginCmp
+TimeStamp = /581F8250;
+Reference = C1;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5516AE26;
+Reference = J0;
+ValeurCmp = RPi_GPIO;
+IdModule  = RPi_Hat:Pin_Header_Straight_2x20;
+EndCmp
+
+BeginCmp
+TimeStamp = /581F7DF9;
+Reference = J1;
+ValeurCmp = Address Jumper;
+IdModule  = pin_array_3x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /583890F5;
+Reference = RR1;
+ValeurCmp = 10K Ohms;
+IdModule  = SIL-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /581F8300;
+Reference = T1;
+ValeurCmp = GP0;
+IdModule  = SIL-10;
+EndCmp
+
+BeginCmp
+TimeStamp = /581F830F;
+Reference = T2;
+ValeurCmp = GP1;
+IdModule  = SIL-10;
+EndCmp
+
+BeginCmp
+TimeStamp = /58389039;
+Reference = U1;
+ValeurCmp = MCP23017;
+IdModule  = DIP-28__300;
+EndCmp
+
+EndListe
