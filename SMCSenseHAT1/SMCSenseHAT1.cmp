@@ -1,0 +1,227 @@
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Mon 31 Oct 2016 10:55:29 AM EDT
+
+BeginCmp
+TimeStamp = /5816531B;
+Reference = C1;
+ValeurCmp = 1uf 35V;
+IdModule  = C1V5;
+EndCmp
+
+BeginCmp
+TimeStamp = /58168EC8;
+Reference = C2;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /58165882;
+Reference = D1;
+ValeurCmp = 1N4002;
+IdModule  = D3;
+EndCmp
+
+BeginCmp
+TimeStamp = /58165A47;
+Reference = D2;
+ValeurCmp = 1N4002;
+IdModule  = D3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5816468C;
+Reference = IC1;
+ValeurCmp = MCT6H;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5516AE26;
+Reference = J0;
+ValeurCmp = RPi_GPIO;
+IdModule  = RPi_Hat:Pin_Header_Straight_2x20;
+EndCmp
+
+BeginCmp
+TimeStamp = /58167E7D;
+Reference = Q1;
+ValeurCmp = MPQ3725A;
+IdModule  = DIP-14__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /581655E0;
+Reference = R1;
+ValeurCmp = 100 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /581658F3;
+Reference = R2;
+ValeurCmp = 100 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /58165480;
+Reference = R3;
+ValeurCmp = 1K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5816591C;
+Reference = R4;
+ValeurCmp = 1K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /581653CD;
+Reference = R5;
+ValeurCmp = 1K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /58164730;
+Reference = R6;
+ValeurCmp = 270 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5816473F;
+Reference = R7;
+ValeurCmp = 270 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /581649CF;
+Reference = R8;
+ValeurCmp = 1K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /581649F2;
+Reference = R9;
+ValeurCmp = 1K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /58164A2D;
+Reference = R10;
+ValeurCmp = 1K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /58164A6E;
+Reference = R11;
+ValeurCmp = 1K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /58167F2C;
+Reference = R12;
+ValeurCmp = 1K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /58167F59;
+Reference = R13;
+ValeurCmp = 470 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /58167F1D;
+Reference = R14;
+ValeurCmp = 1K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /58167F81;
+Reference = R15;
+ValeurCmp = 470 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /58167F0E;
+Reference = R16;
+ValeurCmp = 1K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /58168000;
+Reference = R17;
+ValeurCmp = 470 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /58167EF0;
+Reference = R18;
+ValeurCmp = 1K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /581680D9;
+Reference = R19;
+ValeurCmp = 470 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /581675AC;
+Reference = T1;
+ValeurCmp = Motor 1;
+IdModule  = SIL-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5816771F;
+Reference = T2;
+ValeurCmp = Motor 2;
+IdModule  = SIL-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /58168C22;
+Reference = T3;
+ValeurCmp = 12 to 16 Volts;
+IdModule  = SIL-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /58163F91;
+Reference = U1;
+ValeurCmp = 74AHCT00;
+IdModule  = DIP-14__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /58164F2A;
+Reference = U2;
+ValeurCmp = LM324N;
+IdModule  = DIP-14__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /58165802;
+Reference = Z1;
+ValeurCmp = 1N5229B;
+IdModule  = D3;
+EndCmp
+
+EndListe

@@ -1,0 +1,37 @@
+EESchema-DOCLIB  Version 2.0  Date: Sun 30 Oct 2016 15:37:57 EDT
+#
+$CMP LM2902N
+D Quad Op amp.
+K AmpliOp
+F op_amps/lm324.pdf
+$ENDCMP
+#
+$CMP LM324
+D Quad Op amp.
+K AmpliOp
+F op_amps/lm324.pdf
+$ENDCMP
+#
+$CMP LM324AN
+D Quad Op amp.
+K AmpliOp
+F op_amps/lm324.pdf
+$ENDCMP
+#
+$CMP LM324N
+D Quad Op amp.
+K AmpliOp
+F op_amps/lm324.pdf
+$ENDCMP
+#
+$CMP TL074
+D Quad Op amp. Mos
+K AmpliOp Mos
+$ENDCMP
+#
+$CMP TLC274
+D Quad Op amp. Mos
+K AmpliOp Mos
+$ENDCMP
+#
+#End Doc Library

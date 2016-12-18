@@ -1,0 +1,37 @@
+eeschema (2013-june-11)-stable  >> Creation date: Mon 05 Dec 2016 10:36:33 EST
+#Cmp ( order = Reference )
+| C1         1uf 35V     ; 74-199D105X9035A1VE3;             
+| C2         .1 uf       ; 21RZ310-RC  ;             
+| D1         1N4002      ; 833-1N4002-TP;             
+| D2         1N4002      ; 833-1N4002-TP;             
+| IC1        MCT6H       ; 782-MCT6H   ;             
+| J0         RPi_GPIO    ; 517-929975-01-20; 2223        
+| Q1         MPQ3725A    ; 610-MPQ3725A ;             
+| R1         100 Ohms    ; 603-CFR-25JR-52100R;             
+| R2         100 Ohms    ; 603-CFR-25JR-52100R;             
+| R3         1K Ohms     ; 279-2-1623927-3 ;             
+| R4         1K Ohms     ; 279-2-1623927-3;             
+| R5         1K Ohms     ; 279-2-1623927-3 ;             
+| R6         270 Ohms    ; 603-CFR-25JR-52-270R;             
+| R7         270 Ohms    ; 603-CFR-25JR-52-270R;             
+| R8         10K Ohms    ; 603-CFR-25JB-1K0;             
+| R9         10K Ohms    ; 603-CFR-25JB-1K0;             
+| R10        10K Ohms    ; 603-CFR-25JB-1K0;             
+| R11        10K Ohms    ; 603-CFR-25JB-1K0;             
+| R12        1K Ohms     ; 279-2-1623927-3;             
+| R13        470 Ohms    ; 279-CFR50J470R;             
+| R14        1K Ohms     ; 279-2-1623927-3;             
+| R15        470 Ohms    ; 279-CFR50J470R;             
+| R16        1K Ohms     ; 279-2-1623927-3;             
+| R17        470 Ohms    ; 279-CFR50J470R;             
+| R18        1K Ohms     ; 279-2-1623927-3;             
+| R19        470 Ohms    ; 279-CFR50J470R;             
+| T1         Motor 1     ; 571-282834-5;             
+| T2         Motor 2     ; 571-282834-5;             
+| T3         12 to 16 Volts; 571-282834-2;             
+| U1         74AHCT00    ; 595-SN74AHC00N;             
+| U2         LM324N      ; 512-LM324N  ;             
+| Z1         1N5229B     ; 512-1N5229BTR;             
+#End Cmp
+
+#End List
