@@ -1,0 +1,22 @@
+<?xml version='1.0'?>
+<OpenLCB_PiGPIO>
+  <pin frame="pin1">
+    <number>21</number>
+    <mode>out</mode>
+    <description>Uncoupler 1</description>
+  </pin>
+  <pin frame="pin2">
+    <number>22</number>
+    <mode>out</mode>
+    <description>Uncoupler 2</description>
+  </pin>
+  <transport>
+    <constructor/>
+    <options/>
+  </transport>
+  <identification>
+    <name>DualUncouplerHAT</name>
+    <description>DualUncouplerHAT 21 &amp; 22</description>
+  </identification>
+  <pollinterval>500</pollinterval>
+</OpenLCB_PiGPIO>

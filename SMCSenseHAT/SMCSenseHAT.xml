@@ -1,0 +1,32 @@
+<?xml version='1.0'?>
+<OpenLCB_PiGPIO>
+  <pin frame="pin1">
+    <number>0</number>
+    <mode>out</mode>
+    <description>MSelect 1</description>
+  </pin>
+  <pin frame="pin2">
+    <number>1</number>
+    <mode>out</mode>
+    <description>MSelect 2</description>
+  </pin>
+  <pin frame="pin3">
+    <number>2</number>
+    <mode>in</mode>
+    <description>Point Sense 1</description>
+  </pin>
+  <pin frame="pin4">
+    <number>3</number>
+    <mode>in</mode>
+    <description>Point Sense 2</description>
+  </pin>
+  <transport>
+    <constructor/>
+    <options/>
+  </transport>
+  <identification>
+    <name>SMCSenseHAT</name>
+    <description>SMCSenseHAT (0-3)</description>
+  </identification>
+  <pollinterval>500</pollinterval>
+</OpenLCB_PiGPIO>
