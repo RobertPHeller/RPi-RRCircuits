@@ -1,0 +1,13 @@
+EESchema-DOCLIB  Version 2.0  Date: Tue 31 Jan 2017 16:52:01 EST
+#
+$CMP RR5
+D 8 resistors
+K R DEV
+$ENDCMP
+#
+$CMP RR8
+D 8 resistors
+K R DEV
+$ENDCMP
+#
+#End Doc Library
