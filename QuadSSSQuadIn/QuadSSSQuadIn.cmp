@@ -1,0 +1,80 @@
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Wed 01 Feb 2017 10:50:06 EST
+
+BeginCmp
+TimeStamp = /58913B07;
+Reference = IC1;
+ValeurCmp = ASSR-4128;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /58913B3E;
+Reference = IC2;
+ValeurCmp = ASSR-4128;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5516AE26;
+Reference = J0;
+ValeurCmp = RPi_GPIO;
+IdModule  = RPi_Hat:Pin_Header_Straight_2x20;
+EndCmp
+
+BeginCmp
+TimeStamp = /589102CA;
+Reference = J1;
+ValeurCmp = CONN_3X2;
+IdModule  = pin_adday_3x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /58913B67;
+Reference = RP1;
+ValeurCmp = R_PACK4;
+IdModule  = SIL-8;
+EndCmp
+
+BeginCmp
+TimeStamp = /589105E8;
+Reference = RR1;
+ValeurCmp = RR5;
+IdModule  = SIL-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /58914989;
+Reference = RR2;
+ValeurCmp = RR8;
+IdModule  = SIL-9;
+EndCmp
+
+BeginCmp
+TimeStamp = /58914DBB;
+Reference = T1;
+ValeurCmp = CONN_8;
+IdModule  = SIL-8;
+EndCmp
+
+BeginCmp
+TimeStamp = /58915323;
+Reference = T2;
+ValeurCmp = CONN_5;
+IdModule  = SIL-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5890FF83;
+Reference = U1;
+ValeurCmp = MCP23008;
+IdModule  = DIP-18__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /589147C8;
+Reference = U2;
+ValeurCmp = 74AHC132;
+IdModule  = DIP-14__300;
+EndCmp
+
+EndListe

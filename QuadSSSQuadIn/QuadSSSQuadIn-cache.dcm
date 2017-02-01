@@ -1,12 +1,23 @@
-EESchema-DOCLIB  Version 2.0  Date: Tue 31 Jan 2017 16:52:01 EST
+EESchema-DOCLIB  Version 2.0  Date: Wed 01 Feb 2017 10:14:47 EST
+#
+$CMP 74AHC132
+D Quad Nand2 schmitt trigger
+K TTL Nand2
+$ENDCMP
+#
+$CMP ASSR-4128
+D TLP222A-2, DIP8, Dual MOSFET Photorelay 1-Form-A, Voff 60V, Ion 0,5A
+K Dual MOSFET Output Photorelay 1-Form-A
+F http://www.semicon.toshiba.co.jp/docs/datasheet/en/Opto/TLP222A_TLP222A-2_en_datasheet_071001.pdf
+$ENDCMP
 #
 $CMP RR5
 D 8 resistors
 K R DEV
 $ENDCMP
 #
-$CMP RR8
-D 8 resistors
+$CMP SIP-R_PACK4
+D 4 resistors Pack
 K R DEV
 $ENDCMP
 #
