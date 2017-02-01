@@ -1,5 +1,7 @@
-eeschema (2013-june-11)-stable  >> Creation date: Wed 01 Feb 2017 10:46:35 EST
+eeschema (2013-june-11)-stable  >> Creation date: Wed 01 Feb 2017 11:01:20 EST
 #Cmp ( order = Reference )
+| C1         .1 uf       ; 21RZ310-RC  ;             
+| C2         .1 uf       ; 21RZ310-RC  ;             
 | IC1        ASSR-4128   ; 630-ASSR-4128-002E ;             
 | IC2        ASSR-4128   ; 630-ASSR-4128-002E ;             
 | J0         RPi_GPIO    ;             ;             

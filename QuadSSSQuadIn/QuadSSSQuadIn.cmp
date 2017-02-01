@@ -1,4 +1,18 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Wed 01 Feb 2017 10:50:06 EST
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Wed 01 Feb 2017 11:01:31 EST
+
+BeginCmp
+TimeStamp = /5892054E;
+Reference = C1;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5892055D;
+Reference = C2;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
 
 BeginCmp
 TimeStamp = /58913B07;
@@ -25,27 +39,27 @@ BeginCmp
 TimeStamp = /589102CA;
 Reference = J1;
 ValeurCmp = CONN_3X2;
-IdModule  = pin_adday_3x2;
+IdModule  = pin_array_3x2;
 EndCmp
 
 BeginCmp
-TimeStamp = /58913B67;
+TimeStamp = /5891FBF0;
 Reference = RP1;
-ValeurCmp = R_PACK4;
+ValeurCmp = 330 Ohms;
 IdModule  = SIL-8;
 EndCmp
 
 BeginCmp
 TimeStamp = /589105E8;
 Reference = RR1;
-ValeurCmp = RR5;
+ValeurCmp = 10K Ohms;
 IdModule  = SIL-5;
 EndCmp
 
 BeginCmp
 TimeStamp = /58914989;
 Reference = RR2;
-ValeurCmp = RR8;
+ValeurCmp = 10K Ohms;
 IdModule  = SIL-9;
 EndCmp
 
