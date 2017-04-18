@@ -1,8 +1,13 @@
-EESchema-DOCLIB  Version 2.0  Date: Wed 01 Feb 2017 10:14:47 EST
+EESchema-DOCLIB  Version 2.0  Date: Sun 02 Apr 2017 15:28:14 EDT
 #
 $CMP 74AHC132
 D Quad Nand2 schmitt trigger
 K TTL Nand2
+$ENDCMP
+#
+$CMP 74LV125AN
+D Quad buffer 3 State out
+K TTL buffer 3State
 $ENDCMP
 #
 $CMP ASSR-4128
