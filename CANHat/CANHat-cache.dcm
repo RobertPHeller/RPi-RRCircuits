@@ -1,0 +1,13 @@
+EESchema-DOCLIB  Version 2.0  Date: Thu 20 Apr 2017 10:21:09 EDT
+#
+$CMP MCP2515
+D Stand-Alone CAN Controller with SPI Interface
+K CAN, Controller,SPI Interface
+$ENDCMP
+#
+$CMP MCP2551
+D High-Speed CAN Transceiver
+K CAN Transceiver
+$ENDCMP
+#
+#End Doc Library

@@ -1,0 +1,101 @@
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 20 Apr 2017 15:50:25 EDT
+
+BeginCmp
+TimeStamp = /58F8C71E;
+Reference = C1;
+ValeurCmp = 10 uf;
+IdModule  = C1V5;
+EndCmp
+
+BeginCmp
+TimeStamp = /58F8C8BA;
+Reference = C2;
+ValeurCmp = 22 pf;
+IdModule  = C2;
+EndCmp
+
+BeginCmp
+TimeStamp = /58F8C6B8;
+Reference = C3;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /58F8C8D3;
+Reference = C4;
+ValeurCmp = 22 pf;
+IdModule  = C2;
+EndCmp
+
+BeginCmp
+TimeStamp = /58F8C768;
+Reference = C5;
+ValeurCmp = 15 uf;
+IdModule  = C1V7;
+EndCmp
+
+BeginCmp
+TimeStamp = /58F8C777;
+Reference = C6;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5516AE26;
+Reference = J0;
+ValeurCmp = RPi_GPIO;
+IdModule  = RPi_Hat:Pin_Header_Straight_2x20;
+EndCmp
+
+BeginCmp
+TimeStamp = /58F8C62A;
+Reference = J1;
+ValeurCmp = SPI Select;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /58F8C44A;
+Reference = J2;
+ValeurCmp = RJ45;
+IdModule  = RJ45_8;
+EndCmp
+
+BeginCmp
+TimeStamp = /58F8C45E;
+Reference = J3;
+ValeurCmp = RJ45;
+IdModule  = RJ45_8;
+EndCmp
+
+BeginCmp
+TimeStamp = /58F8C5D7;
+Reference = R1;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /58F8C405;
+Reference = U1;
+ValeurCmp = MCP2515;
+IdModule  = DIP-18__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /58F8C41A;
+Reference = U2;
+ValeurCmp = MCP2551;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /58F8C85A;
+Reference = X1;
+ValeurCmp = 8 MHz;
+IdModule  = HC-49V;
+EndCmp
+
+EndListe
