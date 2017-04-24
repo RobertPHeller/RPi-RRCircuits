@@ -39,7 +39,7 @@ $Descr USLetter 11000 8500
 encoding utf-8
 Sheet 1 1
 Title "Swich Motor Control and sense"
-Date "5 dec 2016"
+Date "23 apr 2017"
 Rev "1.0"
 Comp "Deepwoods Software"
 Comment1 ""
@@ -409,7 +409,7 @@ F 0 "R8" V 1930 3300 40  0000 C CNN
 F 1 "10K Ohms" V 1857 3301 40  0000 C CNN
 F 2 "~" V 1780 3300 30  0000 C CNN
 F 3 "~" H 1850 3300 30  0000 C CNN
-F 4 "603-CFR-25JB-1K0" V 1850 3300 60  0001 C CNN "Mouser Part Number"
+F 4 "603-CFR-25JR-5210K" V 1850 3300 60  0001 C CNN "Mouser Part Number"
 	1    1850 3300
 	0    -1   -1   0   
 $EndComp
@@ -421,7 +421,7 @@ F 0 "R9" V 1980 4700 40  0000 C CNN
 F 1 "10K Ohms" V 1907 4701 40  0000 C CNN
 F 2 "~" V 1830 4700 30  0000 C CNN
 F 3 "~" H 1900 4700 30  0000 C CNN
-F 4 "603-CFR-25JB-1K0" V 1900 4700 60  0001 C CNN "Mouser Part Number"
+F 4 "603-CFR-25JR-5210K" V 1900 4700 60  0001 C CNN "Mouser Part Number"
 	1    1900 4700
 	0    1    1    0   
 $EndComp
@@ -435,7 +435,7 @@ F 0 "R10" V 1980 4850 40  0000 C CNN
 F 1 "10K Ohms" V 1907 4851 40  0000 C CNN
 F 2 "~" V 1830 4850 30  0000 C CNN
 F 3 "~" H 1900 4850 30  0000 C CNN
-F 4 "603-CFR-25JB-1K0" V 1900 4850 60  0001 C CNN "Mouser Part Number"
+F 4 " 603-CFR-25JR-5210K" V 1900 4850 60  0001 C CNN "Mouser Part Number"
 	1    1900 4850
 	0    1    1    0   
 $EndComp
@@ -449,7 +449,7 @@ F 0 "R11" V 1980 6150 40  0000 C CNN
 F 1 "10K Ohms" V 1907 6151 40  0000 C CNN
 F 2 "~" V 1830 6150 30  0000 C CNN
 F 3 "~" H 1900 6150 30  0000 C CNN
-F 4 "603-CFR-25JB-1K0" V 1900 6150 60  0001 C CNN "Mouser Part Number"
+F 4 "603-CFR-25JR-5210K" V 1900 6150 60  0001 C CNN "Mouser Part Number"
 	1    1900 6150
 	0    1    1    0   
 $EndComp
