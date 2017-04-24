@@ -39,11 +39,7 @@ $Descr USLetter 11000 8500
 encoding utf-8
 Sheet 1 1
 Title "Swich Motor Control and sense"
-<<<<<<< HEAD
 Date "24 apr 2017"
-=======
-Date "23 apr 2017"
->>>>>>> f8122d0dbd898732339af1ae69a0a68c82c09fe9
 Rev "1.0"
 Comp "Deepwoods Software"
 Comment1 ""
@@ -58,13 +54,8 @@ P 1150 950
 F 0 "J0" H 1900 1200 60  0000 C CNN
 F 1 "RPi_GPIO" H 1900 1100 60  0000 C CNN
 F 2 "RPi_Hat:Pin_Header_Straight_2x20" H 1150 950 60  0001 C CNN
-<<<<<<< HEAD
 F 3 "" H 1150 950 60  0000 C CNN
 F 4 "855-M20-6102045" H 1150 950 60  0001 C CNN "Mouser Part Number"
-=======
-F 3 "~" H 1150 950 60  0000 C CNN
-F 4 "517-929975-01-20" H 1150 950 60  0001 C CNN "Mouser Part Number"
->>>>>>> f8122d0dbd898732339af1ae69a0a68c82c09fe9
 F 5 "2223" H 1150 950 60  0001 C CNN "AdaFruit Part Number"
 	1    1150 950 
 	1    0    0    -1  
@@ -89,7 +80,7 @@ F 0 "U1" H 2200 4500 60  0000 C CNN
 F 1 "74AHCT00" H 2200 4350 60  0000 C CNN
 F 2 "~" H 2200 4450 60  0000 C CNN
 F 3 "~" H 2200 4450 60  0000 C CNN
-F 4 "595-SN74AHC00N" H 2200 4450 60  0001 C CNN "Mouser part Number"
+F 4 "603-CFR-25JB-1K0" H 2200 4450 60  0001 C CNN "Mouser part Number"
 	2    2200 4450
 	1    0    0    -1  
 $EndComp
@@ -418,7 +409,7 @@ F 0 "R8" V 1930 3300 40  0000 C CNN
 F 1 "10K Ohms" V 1857 3301 40  0000 C CNN
 F 2 "~" V 1780 3300 30  0000 C CNN
 F 3 "~" H 1850 3300 30  0000 C CNN
-F 4 "603-CFR-25JR-5210K" V 1850 3300 60  0001 C CNN "Mouser Part Number"
+F 4 "603-CFR-25JB-1K0" V 1850 3300 60  0001 C CNN "Mouser Part Number"
 	1    1850 3300
 	0    -1   -1   0   
 $EndComp
@@ -430,7 +421,7 @@ F 0 "R9" V 1980 4700 40  0000 C CNN
 F 1 "10K Ohms" V 1907 4701 40  0000 C CNN
 F 2 "~" V 1830 4700 30  0000 C CNN
 F 3 "~" H 1900 4700 30  0000 C CNN
-F 4 "603-CFR-25JR-5210K" V 1900 4700 60  0001 C CNN "Mouser Part Number"
+F 4 "603-CFR-25JB-1K0" V 1900 4700 60  0001 C CNN "Mouser Part Number"
 	1    1900 4700
 	0    1    1    0   
 $EndComp
@@ -444,7 +435,7 @@ F 0 "R10" V 1980 4850 40  0000 C CNN
 F 1 "10K Ohms" V 1907 4851 40  0000 C CNN
 F 2 "~" V 1830 4850 30  0000 C CNN
 F 3 "~" H 1900 4850 30  0000 C CNN
-F 4 "603-CFR-25JR-5210K" V 1900 4850 60  0001 C CNN "Mouser Part Number"
+F 4 "603-CFR-25JB-1K0" V 1900 4850 60  0001 C CNN "Mouser Part Number"
 	1    1900 4850
 	0    1    1    0   
 $EndComp
@@ -458,7 +449,7 @@ F 0 "R11" V 1980 6150 40  0000 C CNN
 F 1 "10K Ohms" V 1907 6151 40  0000 C CNN
 F 2 "~" V 1830 6150 30  0000 C CNN
 F 3 "~" H 1900 6150 30  0000 C CNN
-F 4 "603-CFR-25JR-5210K" V 1900 6150 60  0001 C CNN "Mouser Part Number"
+F 4 "603-CFR-25JB-1K0" V 1900 6150 60  0001 C CNN "Mouser Part Number"
 	1    1900 6150
 	0    1    1    0   
 $EndComp
