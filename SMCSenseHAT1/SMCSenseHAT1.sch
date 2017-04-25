@@ -39,7 +39,7 @@ $Descr USLetter 11000 8500
 encoding utf-8
 Sheet 1 1
 Title "Swich Motor Control and sense"
-Date "23 apr 2017"
+Date "25 apr 2017"
 Rev "1.0"
 Comp "Deepwoods Software"
 Comment1 ""
@@ -55,7 +55,7 @@ F 0 "J0" H 1900 1200 60  0000 C CNN
 F 1 "RPi_GPIO" H 1900 1100 60  0000 C CNN
 F 2 "RPi_Hat:Pin_Header_Straight_2x20" H 1150 950 60  0001 C CNN
 F 3 "" H 1150 950 60  0000 C CNN
-F 4 "517-929975-01-20" H 1150 950 60  0001 C CNN "Mouser Part Number"
+F 4 "855-M20-6102045" H 1150 950 60  0001 C CNN "Mouser Part Number"
 F 5 "2223" H 1150 950 60  0001 C CNN "AdaFruit Part Number"
 	1    1150 950 
 	1    0    0    -1  
@@ -80,7 +80,7 @@ F 0 "U1" H 2200 4500 60  0000 C CNN
 F 1 "74AHCT00" H 2200 4350 60  0000 C CNN
 F 2 "~" H 2200 4450 60  0000 C CNN
 F 3 "~" H 2200 4450 60  0000 C CNN
-F 4 "603-CFR-25JB-1K0" H 2200 4450 60  0001 C CNN "Mouser part Number"
+F 4 "595-SN74AHC00N" H 2200 4450 60  0001 C CNN "Mouser part Number"
 	2    2200 4450
 	1    0    0    -1  
 $EndComp
