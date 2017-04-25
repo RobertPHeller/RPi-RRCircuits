@@ -32,13 +32,13 @@ LIBS:valves
 LIBS:CANHat-cache
 EELAYER 27 0
 EELAYER END
-$Descr A4 11693 8268
+$Descr USLetter 11000 8500
 encoding utf-8
 Sheet 1 1
-Title ""
-Date "20 apr 2017"
+Title "CAN Bus (MCP2515) Hat"
+Date "25 apr 2017"
 Rev ""
-Comp ""
+Comp "Deepwoods Software"
 Comment1 ""
 Comment2 ""
 Comment3 ""
@@ -52,7 +52,7 @@ F 0 "J0" H 1950 1350 60  0000 C CNN
 F 1 "RPi_GPIO" H 1950 1250 60  0000 C CNN
 F 2 "RPi_Hat:Pin_Header_Straight_2x20" H 1200 1100 60  0001 C CNN
 F 3 "" H 1200 1100 60  0000 C CNN
-F 4 "517-929975-01-20" H 1200 1100 60  0001 C CNN "Mouser part number"
+F 4 "855-M20-6102045" H 1200 1100 60  0001 C CNN "Mouser part number"
 F 5 "2223" H 1200 1100 60  0001 C CNN "Adafruit part number"
 	1    1200 1100
 	1    0    0    -1  
