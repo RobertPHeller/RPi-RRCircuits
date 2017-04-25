@@ -33,13 +33,13 @@ LIBS:MCPtemp
 LIBS:QuadSSSQuadIn-cache
 EELAYER 27 0
 EELAYER END
-$Descr A4 11693 8268
+$Descr USLetter 11000 8500
 encoding utf-8
 Sheet 1 1
-Title ""
+Title "Quad SSR (output) and Quad 5V logic in"
 Date "24 apr 2017"
 Rev ""
-Comp ""
+Comp "Deepwoods Software"
 Comment1 ""
 Comment2 ""
 Comment3 ""
