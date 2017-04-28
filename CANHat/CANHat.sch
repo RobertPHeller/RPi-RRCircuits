@@ -36,7 +36,7 @@ $Descr USLetter 11000 8500
 encoding utf-8
 Sheet 1 1
 Title "CAN Bus (MCP2515) Hat"
-Date "25 apr 2017"
+Date "28 apr 2017"
 Rev ""
 Comp "Deepwoods Software"
 Comment1 ""
@@ -318,7 +318,7 @@ Wire Wire Line
 	6200 4350 5950 4350
 Connection ~ 6550 4200
 Wire Wire Line
-	6550 4600 7000 4600
+	6550 4600 9050 4600
 $Comp
 L GND #PWR09
 U 1 1 58F8C7F5
@@ -519,13 +519,13 @@ Wire Wire Line
 Wire Wire Line
 	9400 3850 8650 3850
 Wire Wire Line
-	8650 3850 8650 5850
+	8650 3350 8650 5850
 Wire Wire Line
 	8650 5850 9450 5850
 Wire Wire Line
 	9400 3950 8550 3950
 Wire Wire Line
-	8550 3950 8550 5950
+	8550 3550 8550 5950
 Wire Wire Line
 	8550 5950 9450 5950
 $Comp
@@ -554,4 +554,35 @@ Wire Wire Line
 	10250 6150 10250 6300
 Wire Wire Line
 	10200 4150 10200 4350
+$Comp
+L CONN_2 P?
+U 1 1 590378B2
+P 6650 3450
+F 0 "P?" V 6600 3450 40  0000 C CNN
+F 1 "12V supply" V 6700 3450 40  0000 C CNN
+F 2 "~" H 6650 3450 60  0000 C CNN
+F 3 "~" H 6650 3450 60  0000 C CNN
+	1    6650 3450
+	-1   0    0    1   
+$EndComp
+$Comp
+L DIODE D?
+U 1 1 590378E2
+P 7200 3550
+F 0 "D?" H 7200 3650 40  0000 C CNN
+F 1 "1N4001" H 7200 3450 40  0000 C CNN
+F 2 "~" H 7200 3550 60  0000 C CNN
+F 3 "~" H 7200 3550 60  0000 C CNN
+	1    7200 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7400 3550 8550 3550
+Connection ~ 8550 3950
+Wire Wire Line
+	7000 3350 8650 3350
+Connection ~ 8650 3850
+Connection ~ 8750 4600
+Connection ~ 9050 4600
+Connection ~ 7000 4600
 $EndSCHEMATC
