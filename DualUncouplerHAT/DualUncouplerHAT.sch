@@ -37,7 +37,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "5 dec 2016"
+Date "29 apr 2017"
 Rev ""
 Comp ""
 Comment1 ""
@@ -53,7 +53,7 @@ F 0 "J0" H 2450 1800 60  0000 C CNN
 F 1 "RPi_GPIO" H 2450 1700 60  0000 C CNN
 F 2 "RPi_Hat:Pin_Header_Straight_2x20" H 1700 1550 60  0001 C CNN
 F 3 "" H 1700 1550 60  0000 C CNN
-F 4 "517-929975-01-20" H 1700 1550 60  0001 C CNN "Mouser Part Number"
+F 4 "855-M20-6102045" H 1700 1550 60  0001 C CNN "Mouser Part Number"
 F 5 "2223" H 1700 1550 60  0001 C CNN "AdaFruit Part Number"
 	1    1700 1550
 	1    0    0    -1  
