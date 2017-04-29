@@ -39,7 +39,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "10 nov 2016"
+Date "29 apr 2017"
 Rev ""
 Comp ""
 Comment1 ""
@@ -1251,7 +1251,7 @@ F 0 "C3" H 7100 1000 50  0000 L CNN
 F 1 "1 uf 35V" H 7100 800 50  0000 L CNN
 F 2 "~" H 7050 900 60  0000 C CNN
 F 3 "~" H 7050 900 60  0000 C CNN
-F 4 "598-SK1R0M050ST" H 7050 900 60  0001 C CNN "Mouser Part Number"
+F 4 "74-199D105X9035A1VE3" H 7050 900 60  0001 C CNN "Mouser Part Number"
 F 5 "33662" H 7050 900 60  0001 C CNN "Jameco Part Number"
 	1    7050 900 
 	1    0    0    -1  
@@ -1264,7 +1264,7 @@ F 0 "C4" H 7100 4300 50  0000 L CNN
 F 1 "1 uf 35V" H 7100 4100 50  0000 L CNN
 F 2 "~" H 7050 4200 60  0000 C CNN
 F 3 "~" H 7050 4200 60  0000 C CNN
-F 4 "598-SK1R0M050ST" H 7050 4200 60  0001 C CNN "Mouser Part Number"
+F 4 "74-199D105X9035A1VE3" H 7050 4200 60  0001 C CNN "Mouser Part Number"
 F 5 "33662" H 7050 4200 60  0001 C CNN "Jameco Part Number"
 	1    7050 4200
 	1    0    0    -1  
