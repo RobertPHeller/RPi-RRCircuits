@@ -36,7 +36,7 @@ EELAYER END
 $Descr USLetter 11000 8500
 encoding utf-8
 Sheet 1 1
-Title "Quad SSR (output) and Quad 5V logic in"
+Title "Quad SSR (output) and Quad 5V logic in "
 Date "24 apr 2017"
 Rev ""
 Comp "Deepwoods Software"
