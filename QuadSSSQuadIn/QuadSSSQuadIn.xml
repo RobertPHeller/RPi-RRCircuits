@@ -1,0 +1,45 @@
+<?xml version='1.0'?>
+<OpenLCB_PiMCP23008>
+  <pin frame="pin1">
+    <number>0</number>
+    <mode>out</mode>
+  </pin>
+  <pin frame="pin2">
+    <number>1</number>
+    <mode>out</mode>
+  </pin>
+  <pin frame="pin3">
+    <number>2</number>
+    <mode>out</mode>
+  </pin>
+  <pin frame="pin4">
+    <number>3</number>
+    <mode>out</mode>
+  </pin>
+  <pin frame="pin5">
+    <number>4</number>
+    <mode>in</mode>
+  </pin>
+  <pin frame="pin6">
+    <number>5</number>
+    <mode>in</mode>
+  </pin>
+  <pin frame="pin7">
+    <number>6</number>
+    <mode>in</mode>
+  </pin>
+  <pin frame="pin8">
+    <number>7</number>
+    <mode>in</mode>
+  </pin>
+  <transport>
+    <constructor/>
+    <options/>
+  </transport>
+  <identification>
+    <name>QuadSSSQuadIn</name>
+    <description>Base configuration for a QuadSSSQuadIn Hat Board</description>
+  </identification>
+  <pollinterval>500</pollinterval>
+  <i2caddress>7</i2caddress>
+</OpenLCB_PiMCP23008>
