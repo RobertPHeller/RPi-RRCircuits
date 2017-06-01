@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Wed May 31 20:05:00 2017
-%  Last Modified : <170531.2005>
+%  Last Modified : <170531.2304>
 %
 %  Description 
 %
@@ -41,3 +41,54 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{SMCSenseHAT: Stall Motor Control and Sense HAT}
+
+This is a circuit board to for an add-on board for a Raspberry Pi B+ that will
+control  two  stall-motor  turnout  motors for a model  railroad.  It also has
+sense  logic to return the state of the  turnouts,  using one pole of the DPDT
+contacts in the stall-motor (typical of Tortoise stall-motors).
+
+The circuit board uses a 40pin header socket to connect to the 40pin header on
+the  Raspberry Pi B+ and can use a  stack-through  header to allow  additional
+boards to be stacked on top of it.
+
+\section{GPIO Pins Used and stacking restrictions.}
+
+This board uses four GPIO pins:
+
+\begin{description}
+\item[WiringPi 0, BCM 17] Motor Select 1: select the position of stall motor 
+1. 
+\item[WiringPi 1, BCM 18] Motor Select 2: select the position of stall motor 
+2. 
+\item[WiringPi 2, BCM 27] Point Sense 1: return the state of the points for 
+stall motor 1. 
+\item[WiringPi 3, BCM 22] Point Sense 2: return the state of the points for 
+stall motor 2. 
+\end{description}
+
+Each of the motor drive circuits is through a transistor that can handle 1 amp 
+continuious colector current, which is way more needed to drive typical stall 
+motor.  It is enough to drive a pair of stall motors, wired in parallel as 
+would be the case for a cross over.
+
+Because this board is hardwired to use four specicic GPIO pins it is not 
+possible to use two or more of these boards on given Raspberry Pi.  But in the 
+SMCSenseHAT1 directory is a nearly identical board, that uses a different set 
+of four GPIO pins:
+
+\begin{description}
+\item[WiringPi 4, BCM 23] Motor Select 1: select the position of stall motor 
+1. 
+\item[WiringPi 5, BCM 24] Motor Select 2: select the position of stall motor 
+2. 
+\item[WiringPi 6, BCM 25] Point Sense 1: return the state of the points for 
+stall motor 1. 
+\item[WiringPi 7, BCM 4] Point Sense 2: return the state of the points for 
+stall motor 2. 
+\end{description}
+
+It is possible use one each of the SMCSenseHAT and SMCSenseHAT1 boards to 
+handle four separate turnouts.  You should only connect at most one of each of 
+these boards on a single Raspberry Pi.
+
+

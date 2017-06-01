@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Wed May 31 19:37:01 2017
-%  Last Modified : <170531.2016>
+%  Last Modified : <170531.2303>
 %
 %  Description 
 %
@@ -95,10 +95,50 @@ Deepwoods Software's web site URL: \url{http://www.deepsoft.com/}.
 \cleardoublepage
 \chapter*{Preface}
 \addcontentsline{toc}{chapter}{Preface}
+
+This booklet describes a collection of circuit boards I designed to make use 
+of Raspberry Pi GPIO pins to be used in the control of a model railroad 
+layout.  I am not formally trained as an electronics engineer, but these 
+circuits are fairly simple and are readily cribbed from the data sheets of the 
+various microchips used.  If someone who is a trained electronics engineer 
+finds something wrong, I would of course like to hear about it.
+
 \cleardoublepage
 \pagenumbering{arabic}
-\chapter{Introduction}
 \chapter{General Information}
+
+All but two of the boards are add on boards for a Raspberry Pi ``B'' model, 
+one with a 40-pin header and have the mechanical form factor of a Raspberry Pi 
+``HAT''.  Since none of them have an eeprom on them, they are technically not 
+actual ``HATs''.  These boards can be ``stacked'', with some limitations, as 
+indicated in their respective chapters, mainly because some of these boards 
+are hard wired to use specific GPIO pins.  It is therefore possible to use 
+``stacking'' (or ``stack through'') headers, headers that are both female 
+sockets and male pins.  The end user has a choice of headers to use: standard 
+female only headers, long female only headers, standard ``stacking'' headers 
+or long/tall ``stacking'' headers.  In the chapters for each board in the 
+parts list section, I list the various header options, with part numbers and 
+suppliers.
+
+Another place where the end user has choices is in the terminal blocks.  With 
+some exceptions (mostly for higher power cases), all of the terminal blocks 
+are specified as .1'' (2.54mm) pitch screw terminals.  It is possible to 
+substitute other .1'' (2.54mm) pitch connections, including vertical or right 
+angle pin arrays or even spring terminals.  This will depend on what sort of 
+interconnection technology the end user would prefer.  In the parts list will 
+be the various alternative options.
+
+All of the boards use through-hole parts and should be fairly easy to hand 
+solder with a basic good quality soldering iron.  All of the components are 
+standard and readily available from various suppliers (like Mouser or 
+Digi-Key).
+
+All of the boards have mounting holes.  The mounting holes on the HAT-like 
+boards align over the mounting holes in the Raspberry Pi.  Using standard 
+height headers allows about 3/8'' between boards and using tall headers allows 
+1/2'' between boards.  It is probably a good idea to use spacer hardware to 
+secure the boards.  Male/female 4-40 threaded hex spacers would quite well.
+
 \include{SMCSenseHAT}
 \include{QuadSSSQuadIn}
 \include{SignalHAT}
