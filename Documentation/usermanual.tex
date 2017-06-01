@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Wed May 31 19:37:01 2017
-%  Last Modified : <170531.2303>
+%  Last Modified : <170601.1312>
 %
 %  Description 
 %
@@ -45,6 +45,23 @@
 \usepackage{mathptm}
 \usepackage{times}
 \usepackage{makeidx}
+\usepackage{ifpdf}
+\ifpdf
+\usepackage[pdftex,
+            pagebackref=true,
+            colorlinks=true,
+            linkcolor=blue,
+            unicode
+           ]{hyperref}
+\else
+\usepackage[ps2pdf,
+            pagebackref=true,
+            colorlinks=true,
+            linkcolor=blue,
+            unicode
+           ]{hyperref}
+\usepackage{pspicture}
+\fi
 \usepackage{url}
 \pagestyle{headings}
 \makeindex
@@ -76,7 +93,7 @@ documents.
 \vspace{.125in}
 
 The author, Robert Heller, may be contacted electronically (E-Mail) via
-\url{heller@deepsoft.com}.
+\url{mailto:heller@deepsoft.com}.
 
 \vspace{.25in}
 
