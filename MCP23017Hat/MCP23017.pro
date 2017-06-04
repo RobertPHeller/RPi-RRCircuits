@@ -1,5 +1,5 @@
-update=Sat 03 Dec 2016 04:10:46 PM EST
-last_client=kicad
+update=Sun 04 Jun 2017 13:50:06 EDT
+last_client=pcbnew
 [eeschema]
 version=1
 LibDir=
@@ -39,6 +39,8 @@ LibName27=opto
 LibName28=atmel
 LibName29=contrib
 LibName30=valves
+[general]
+version=1
 [pcbnew]
 version=1
 LastNetListRead=
@@ -78,5 +80,4 @@ LibName15=pga_sockets
 LibName16=valves
 LibName17=DWSLogoBCU
 LibName18=DWSLogoSilk
-[general]
-version=1
+LibName19=Screw2.54-10

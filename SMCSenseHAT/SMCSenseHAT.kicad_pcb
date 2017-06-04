@@ -1541,7 +1541,7 @@
       (xy -1.35382 -1.35382) (xy 0.02032 -1.33604) (xy 1.397 -1.31826) (xy 1.397 -1.31826)) (layer B.Cu) (width 0.00254))
   )
 
-  (module PIN_ARRAY_5x1 (layer F.Cu) (tedit 5934228F) (tstamp 581684D7)
+  (module ScrewTerm_2.54-5 (layer F.Cu) (tedit 5934228F) (tstamp 581684D7)
     (at 91.6178 121.1072)
     (descr "Double rangee de contacts 2 x 5 pins")
     (tags CONN)
@@ -1583,7 +1583,7 @@
     )
   )
 
-  (module PIN_ARRAY_5x1 (layer F.Cu) (tedit 59342294) (tstamp 581684E5)
+  (module ScrewTerm_2.54-5 (layer F.Cu) (tedit 59342294) (tstamp 581684E5)
     (at 118.5418 121.1834)
     (descr "Double rangee de contacts 2 x 5 pins")
     (tags CONN)
@@ -1625,7 +1625,7 @@
     )
   )
 
-  (module PIN_ARRAY_2X1 (layer F.Cu) (tedit 59342299) (tstamp 581684EF)
+  (module ScrewTerm2.54-2 (layer F.Cu) (tedit 59342299) (tstamp 581684EF)
     (at 134.366 111.506 90)
     (descr "Connecteurs 2 pins")
     (tags "CONN DEV")
