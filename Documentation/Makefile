@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed May 31 19:27:54 2017
-#  Last Modified : <170531.2002>
+#  Last Modified : <170601.1158>
 #
 #  Description	
 #
@@ -53,10 +53,11 @@ TEXS=usermanual.tex ../CANHat/CANHat.tex ../QuadSSSQuadIn/QuadSSSQuadIn.tex \
 	../MCP23008Hat/MCP23008Hat.tex ../SignalHAT/SignalHAT.tex \
 	../MCP23017Hat/MCP23017.tex ../SMCSenseHAT/SMCSenseHAT.tex \
 	../QuadSMC/QuadSMC.tex
-FIGURES=
+FIGURES= ../SMCSenseHAT/SMCSenseHAT3DTop.png \
+	 ../SMCSenseHAT/SMCSenseHAT.png
 
 usermanual.pdf : $(TEXS) $(FIGURES)
-	for f in $(TEXS);  do \
+	for f in $(TEXS) $(FIGURES);  do \
 	  if test -f "`basename $$f`"; then continue; else ln -s $$f ./; fi; \
 	done
 	$(LATEX) usermanual
