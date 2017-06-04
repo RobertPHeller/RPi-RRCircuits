@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Sun 27 Nov 2016 09:17:09 EST
+Cmp-Mod V01 Created by PcbNew date = Sat 03 Jun 2017 09:05:09 PM EDT
 
 BeginCmp
 TimeStamp = /5816531B;
@@ -186,21 +186,21 @@ BeginCmp
 TimeStamp = /581675AC;
 Reference = T1;
 ValeurCmp = Motor 1;
-IdModule  = SIL-5;
+IdModule  = PIN_ARRAY_5x1;
 EndCmp
 
 BeginCmp
 TimeStamp = /5816771F;
 Reference = T2;
 ValeurCmp = Motor 2;
-IdModule  = SIL-5;
+IdModule  = PIN_ARRAY_5x1;
 EndCmp
 
 BeginCmp
 TimeStamp = /58168C22;
 Reference = T3;
 ValeurCmp = 12 to 16 Volts;
-IdModule  = SIL-2;
+IdModule  = PIN_ARRAY_2X1;
 EndCmp
 
 BeginCmp
