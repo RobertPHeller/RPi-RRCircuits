@@ -1,0 +1,283 @@
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 08 Jun 2017 12:16:46 PM EDT
+
+BeginCmp
+TimeStamp = /5938B600;
+Reference = Q1;
+ValeurCmp = MPQ6002;
+IdModule  = DIP-14__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5938B6C2;
+Reference = Q2;
+ValeurCmp = MPQ6002;
+IdModule  = DIP-14__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5938B740;
+Reference = Q3;
+ValeurCmp = MPQ6002;
+IdModule  = DIP-14__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5938B78E;
+Reference = Q4;
+ValeurCmp = MPQ6002;
+IdModule  = DIP-14__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5938CC45;
+Reference = R1;
+ValeurCmp = 270 Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /59393317;
+Reference = R2;
+ValeurCmp = 1K Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5938CB01;
+Reference = R3;
+ValeurCmp = 330 Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5938CDB4;
+Reference = R4;
+ValeurCmp = 100 Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5938CC54;
+Reference = R5;
+ValeurCmp = 270 Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /59393554;
+Reference = R6;
+ValeurCmp = 1K Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5938CC02;
+Reference = R7;
+ValeurCmp = 330 Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5939352C;
+Reference = R8;
+ValeurCmp = 100 Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5938CC63;
+Reference = R9;
+ValeurCmp = 270 Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /593935BA;
+Reference = R10;
+ValeurCmp = 1k Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5938CBBC;
+Reference = R11;
+ValeurCmp = 330 Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /593935AB;
+Reference = R12;
+ValeurCmp = 100 Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5938CC72;
+Reference = R13;
+ValeurCmp = 270 Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /59393887;
+Reference = R14;
+ValeurCmp = 1K Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5938CB67;
+Reference = R15;
+ValeurCmp = 330 Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /59393896;
+Reference = R16;
+ValeurCmp = 100 Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5938CCAE;
+Reference = R17;
+ValeurCmp = 270 Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /593938AD;
+Reference = R18;
+ValeurCmp = 1K Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5938CB36;
+Reference = R19;
+ValeurCmp = 330 Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /593938BC;
+Reference = R20;
+ValeurCmp = 100 Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5938CC9F;
+Reference = R21;
+ValeurCmp = 270 Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /593938CB;
+Reference = R22;
+ValeurCmp = 1K Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5938CBF3;
+Reference = R23;
+ValeurCmp = 330 Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /593938DA;
+Reference = R24;
+ValeurCmp = 100 Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5938CC90;
+Reference = R25;
+ValeurCmp = 270 Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /593938E9;
+Reference = R26;
+ValeurCmp = 1K Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5938CBAD;
+Reference = R27;
+ValeurCmp = 330 Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /593938F8;
+Reference = R28;
+ValeurCmp = 100 Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5938CC81;
+Reference = R29;
+ValeurCmp = 270 Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /59393907;
+Reference = R30;
+ValeurCmp = 1K Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5938CB80;
+Reference = R31;
+ValeurCmp = 330 Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /59393916;
+Reference = R32;
+ValeurCmp = 100 Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /593933D0;
+Reference = T1;
+ValeurCmp = GPIO (3.3V);
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /59393450;
+Reference = T2;
+ValeurCmp = LED Power (5V);
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /59393410;
+Reference = T3;
+ValeurCmp = LEDs (Common Cathode);
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /59397A6F;
+Reference = T4;
+ValeurCmp = LED Power (5V);
+IdModule  = ;
+EndCmp
+
+EndListe
