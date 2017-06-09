@@ -198,8 +198,8 @@
     )
   )
 
-  (module ScrewTerm_2.54-10 (layer F.Cu) (tedit 59344AD6) (tstamp 0)
-    (at 77.216 82.4738)
+  (module ScrewTerm_2.54-10 (layer F.Cu) (tedit 59344AD6) (tstamp 5936EFF1)
+    (at 77.216 82.4484)
     (descr "Screw Terminals, 2.54 pitch, 10 position")
     (tags CONN)
     (path /581E3F5A)
