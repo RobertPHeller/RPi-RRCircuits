@@ -1,13 +1,11 @@
-update=Thu 08 Jun 2017 09:12:20 AM EDT
+update=Sat 10 Jun 2017 08:03:48 AM EDT
 version=1
-last_client=pcbnew
+last_client=kicad
 [cvpcb]
 version=1
 NetIExt=net
 [cvpcb/libraries]
 EquName1=devcms
-[general]
-version=1
 [eeschema]
 version=1
 LibDir=
@@ -87,3 +85,5 @@ LibName15=pga_sockets
 LibName16=valves
 LibName17=/home/heller/RRCircuits/Screw2.54-8
 LibName18=/home/heller/RRCircuits/Screw2.54-10
+[general]
+version=1
