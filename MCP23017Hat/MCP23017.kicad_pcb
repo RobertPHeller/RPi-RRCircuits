@@ -68,7 +68,7 @@
     (aux_axis_origin 0 0)
     (visible_elements 7FFEFFFF)
     (pcbplotparams
-      (layerselection 3178497)
+      (layerselection 5242881)
       (usegerberextensions false)
       (excludeedgelayer false)
       (linewidth 0.100000)
@@ -89,10 +89,10 @@
       (padsonsilk false)
       (subtractmaskfromsilk false)
       (outputformat 2)
-      (mirror false)
+      (mirror true)
       (drillshape 0)
       (scaleselection 1)
-      (outputdirectory BreadBoard/))
+      (outputdirectory meta/))
   )
 
   (net 0 "")
