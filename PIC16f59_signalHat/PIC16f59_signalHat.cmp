@@ -1,0 +1,304 @@
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 15 Jun 2017 10:30:00 PM EDT
+
+BeginCmp
+TimeStamp = /5942B2BA;
+Reference = C1;
+ValeurCmp = 15 pf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5942B2C9;
+Reference = C2;
+ValeurCmp = 15 pf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5943C074;
+Reference = C3;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5943C065;
+Reference = C4;
+ValeurCmp = 1 uf, 35V;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/5943B02D;
+Reference = C5;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/5943B03C;
+Reference = C6;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/5943B04B;
+Reference = C7;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/5943B05A;
+Reference = C8;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/5943B069;
+Reference = C9;
+ValeurCmp = 10 uf, 35 V;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /5516AE26;
+Reference = J0;
+ValeurCmp = RPi_GPIO;
+IdModule  = RPi_Hat:Pin_Header_Straight_2x20;
+EndCmp
+
+BeginCmp
+TimeStamp = /5942A3DE;
+Reference = J1;
+ValeurCmp = Prog Header;
+IdModule  = PIN_ARRAY_3x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /594286FC;
+Reference = J2;
+ValeurCmp = SPI Channel;
+IdModule  = PIN_ARRAY_3x1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5942A69C;
+Reference = J3;
+ValeurCmp = Buffer Board Header;
+IdModule  = PIN_ARRAY_10x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/59435587;
+Reference = J4;
+ValeurCmp = Signal 0;
+IdModule  = PIN_ARRAY_5X2;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/594355B9;
+Reference = J5;
+ValeurCmp = Signal 1;
+IdModule  = PIN_ARRAY_5X2;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/594355BF;
+Reference = J6;
+ValeurCmp = Signal 2;
+IdModule  = PIN_ARRAY_5X2;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/594355C5;
+Reference = J7;
+ValeurCmp = Signal 3;
+IdModule  = PIN_ARRAY_5X2;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/594355DF;
+Reference = J8;
+ValeurCmp = Signal 4;
+IdModule  = PIN_ARRAY_5X2;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/594355E5;
+Reference = J9;
+ValeurCmp = Signal 5;
+IdModule  = PIN_ARRAY_5X2;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/594355EB;
+Reference = J10;
+ValeurCmp = Signal 6;
+IdModule  = PIN_ARRAY_5X2;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/594355F1;
+Reference = J11;
+ValeurCmp = Signal 7;
+IdModule  = PIN_ARRAY_5X2;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/5942B512;
+Reference = J12;
+ValeurCmp = Buffer Board Header;
+IdModule  = PIN_ARRAY_10x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/5943409D;
+Reference = JP1;
+ValeurCmp = Common Anode (PNP/74LSO6 on Ss);
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/594348B5;
+Reference = JP2;
+ValeurCmp = Common Cathode (NPN/74LS07 on Ss);
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/594349C3;
+Reference = JP3;
+ValeurCmp = Common Cathode (PNP/74LS06 on Ls);
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/594349AA;
+Reference = JP4;
+ValeurCmp = Common Anode (NPN/74LS07 on Ls);
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/5943181F;
+Reference = Q1;
+ValeurCmp = MPQ2907;
+IdModule  = DIP-14__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/59431876;
+Reference = Q2;
+ValeurCmp = MPQ2907;
+IdModule  = DIP-14__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/594318A4;
+Reference = Q3;
+ValeurCmp = MPQ3725A;
+IdModule  = DIP-14__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/594318E9;
+Reference = Q4;
+ValeurCmp = MPQ3725A;
+IdModule  = DIP-14__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5942A5C0;
+Reference = R1;
+ValeurCmp = 10K Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5942B175;
+Reference = R2;
+ValeurCmp = R;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/594317C5;
+Reference = RP1;
+ValeurCmp = 1K Ohms;
+IdModule  = DIP-16__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/594317E3;
+Reference = RP2;
+ValeurCmp = 150 Ohms;
+IdModule  = DIP-16__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/594317D4;
+Reference = RP3;
+ValeurCmp = 1K Ohms;
+IdModule  = DIP-16__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/5942D7F4;
+Reference = RR1;
+ValeurCmp = 10K Ohms;
+IdModule  = r_pack9;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/5942D931;
+Reference = RR2;
+ValeurCmp = 10K Ohms;
+IdModule  = r_pack9;
+EndCmp
+
+BeginCmp
+TimeStamp = /5942857E;
+Reference = U1;
+ValeurCmp = PIC16F57;
+IdModule  = DIP-28__600;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/5942C60C;
+Reference = U2;
+ValeurCmp = 74LS06;
+IdModule  = DIP-14__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/5942C68E;
+Reference = U3;
+ValeurCmp = 74LS06;
+IdModule  = DIP-14__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/5942C3B3;
+Reference = U4;
+ValeurCmp = 74LS07;
+IdModule  = DIP-14__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /59428574/5942C42B;
+Reference = U5;
+ValeurCmp = 74LS07;
+IdModule  = DIP-14__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5942B152;
+Reference = X1;
+ValeurCmp = 4 MHz;
+IdModule  = HC-49V;
+EndCmp
+
+EndListe
