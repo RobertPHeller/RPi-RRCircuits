@@ -1,7 +1,5 @@
-update=Thu 15 Jun 2017 03:02:15 PM EDT
-last_client=eeschema
-[general]
-version=1
+update=Thu 15 Jun 2017 10:52:09 PM EDT
+last_client=kicad
 [eeschema]
 version=1
 LibDir=/home/heller/RRCircuits
@@ -45,3 +43,5 @@ LibName31=atmel
 LibName32=contrib
 LibName33=valves
 LibName34=MicroChip
+[general]
+version=1
