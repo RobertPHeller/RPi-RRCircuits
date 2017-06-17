@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 15 Jun 2017 10:30:00 PM EDT
+Cmp-Mod V01 Created by PcbNew date = Fri 16 Jun 2017 11:57:17 PM EDT
 
 BeginCmp
 TimeStamp = /5942B2BA;
@@ -74,14 +74,14 @@ BeginCmp
 TimeStamp = /5942A3DE;
 Reference = J1;
 ValeurCmp = Prog Header;
-IdModule  = PIN_ARRAY_3x2;
+IdModule  = pin_array_3x2;
 EndCmp
 
 BeginCmp
 TimeStamp = /594286FC;
 Reference = J2;
 ValeurCmp = SPI Channel;
-IdModule  = PIN_ARRAY_3x1;
+IdModule  = PIN_ARRAY_3X1;
 EndCmp
 
 BeginCmp
@@ -95,56 +95,56 @@ BeginCmp
 TimeStamp = /59428574/59435587;
 Reference = J4;
 ValeurCmp = Signal 0;
-IdModule  = PIN_ARRAY_5X2;
+IdModule  = PIN_ARRAY_5x2;
 EndCmp
 
 BeginCmp
 TimeStamp = /59428574/594355B9;
 Reference = J5;
 ValeurCmp = Signal 1;
-IdModule  = PIN_ARRAY_5X2;
+IdModule  = PIN_ARRAY_5x2;
 EndCmp
 
 BeginCmp
 TimeStamp = /59428574/594355BF;
 Reference = J6;
 ValeurCmp = Signal 2;
-IdModule  = PIN_ARRAY_5X2;
+IdModule  = PIN_ARRAY_5x2;
 EndCmp
 
 BeginCmp
 TimeStamp = /59428574/594355C5;
 Reference = J7;
 ValeurCmp = Signal 3;
-IdModule  = PIN_ARRAY_5X2;
+IdModule  = PIN_ARRAY_5x2;
 EndCmp
 
 BeginCmp
 TimeStamp = /59428574/594355DF;
 Reference = J8;
 ValeurCmp = Signal 4;
-IdModule  = PIN_ARRAY_5X2;
+IdModule  = PIN_ARRAY_5x2;
 EndCmp
 
 BeginCmp
 TimeStamp = /59428574/594355E5;
 Reference = J9;
 ValeurCmp = Signal 5;
-IdModule  = PIN_ARRAY_5X2;
+IdModule  = PIN_ARRAY_5x2;
 EndCmp
 
 BeginCmp
 TimeStamp = /59428574/594355EB;
 Reference = J10;
 ValeurCmp = Signal 6;
-IdModule  = PIN_ARRAY_5X2;
+IdModule  = PIN_ARRAY_5x2;
 EndCmp
 
 BeginCmp
 TimeStamp = /59428574/594355F1;
 Reference = J11;
 ValeurCmp = Signal 7;
-IdModule  = PIN_ARRAY_5X2;
+IdModule  = PIN_ARRAY_5x2;
 EndCmp
 
 BeginCmp
@@ -158,28 +158,28 @@ BeginCmp
 TimeStamp = /59428574/5943409D;
 Reference = JP1;
 ValeurCmp = Common Anode (PNP/74LSO6 on Ss);
-IdModule  = ;
+IdModule  = R4;
 EndCmp
 
 BeginCmp
 TimeStamp = /59428574/594348B5;
 Reference = JP2;
 ValeurCmp = Common Cathode (NPN/74LS07 on Ss);
-IdModule  = ;
+IdModule  = R4;
 EndCmp
 
 BeginCmp
 TimeStamp = /59428574/594349C3;
 Reference = JP3;
 ValeurCmp = Common Cathode (PNP/74LS06 on Ls);
-IdModule  = ;
+IdModule  = R4;
 EndCmp
 
 BeginCmp
 TimeStamp = /59428574/594349AA;
 Reference = JP4;
 ValeurCmp = Common Anode (NPN/74LS07 on Ls);
-IdModule  = ;
+IdModule  = R4;
 EndCmp
 
 BeginCmp
@@ -249,14 +249,14 @@ BeginCmp
 TimeStamp = /59428574/5942D7F4;
 Reference = RR1;
 ValeurCmp = 10K Ohms;
-IdModule  = r_pack9;
+IdModule  = r_pack8;
 EndCmp
 
 BeginCmp
 TimeStamp = /59428574/5942D931;
 Reference = RR2;
 ValeurCmp = 10K Ohms;
-IdModule  = r_pack9;
+IdModule  = r_pack8;
 EndCmp
 
 BeginCmp
