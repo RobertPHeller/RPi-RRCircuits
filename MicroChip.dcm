@@ -1,0 +1,13 @@
+EESchema-DOCLIB  Version 2.0  Date: Thu 15 Jun 2017 07:48:44 AM EDT
+#
+$CMP PIC16F57
+D 28 pins -  FLASH-Based 8-Bit CMOS Microcontroller
+K 16F57
+$ENDCMP
+#
+$CMP PIC16F59
+D 40 pins -  FLASH-Based 8-Bit CMOS Microcontroller
+K 16F59
+$ENDCMP
+#
+#End Doc Library
