@@ -3,7 +3,7 @@
   (general
     (links 84)
     (no_connects 0)
-    (area 51.384999 42.240999 103.494601 128.345401)
+    (area 32.798573 36.723201 117.591029 141.13)
     (thickness 1.6)
     (drawings 37)
     (tracks 497)
@@ -59,7 +59,7 @@
     (aux_axis_origin 0 0)
     (visible_elements FFFFFFBF)
     (pcbplotparams
-      (layerselection 5242881)
+      (layerselection 535855105)
       (usegerberextensions false)
       (excludeedgelayer true)
       (linewidth 0.150000)
@@ -79,8 +79,8 @@
       (plotinvisibletext false)
       (padsonsilk false)
       (subtractmaskfromsilk false)
-      (outputformat 2)
-      (mirror true)
+      (outputformat 1)
+      (mirror false)
       (drillshape 0)
       (scaleselection 1)
       (outputdirectory meta))
@@ -237,7 +237,7 @@
     (fp_text reference R21 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "270 Ohms" (at 0 0 90) (layer F.SilkS)
+    (fp_text value "1.5K Ohms" (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.75 0.75) (thickness 0.2032)))
     )
     (fp_line (start -5.08 0) (end -4.064 0) (layer F.SilkS) (width 0.3048))
@@ -272,7 +272,7 @@
     (fp_text reference R17 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "270 Ohms" (at 0 0 90) (layer F.SilkS)
+    (fp_text value "1.5K Ohms" (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.75 0.75) (thickness 0.2032)))
     )
     (fp_line (start -5.08 0) (end -4.064 0) (layer F.SilkS) (width 0.3048))
@@ -342,7 +342,7 @@
     (fp_text reference R2 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "1K Ohms" (at 0 0 90) (layer F.SilkS)
+    (fp_text value "10K Ohms" (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.75 0.75) (thickness 0.2032)))
     )
     (fp_line (start -5.08 0) (end -4.064 0) (layer F.SilkS) (width 0.3048))
@@ -412,7 +412,7 @@
     (fp_text reference R6 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "1K Ohms" (at 0 0 90) (layer F.SilkS)
+    (fp_text value "10K Ohms" (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.75 0.75) (thickness 0.2032)))
     )
     (fp_line (start -5.08 0) (end -4.064 0) (layer F.SilkS) (width 0.3048))
@@ -482,7 +482,7 @@
     (fp_text reference R10 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "1k Ohms" (at 0 0 90) (layer F.SilkS)
+    (fp_text value "10K Ohms" (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.75 0.75) (thickness 0.2032)))
     )
     (fp_line (start -5.08 0) (end -4.064 0) (layer F.SilkS) (width 0.3048))
@@ -517,7 +517,7 @@
     (fp_text reference R14 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "1K Ohms" (at 0 0 90) (layer F.SilkS)
+    (fp_text value "10K Ohms" (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.75 0.75) (thickness 0.2032)))
     )
     (fp_line (start -5.08 0) (end -4.064 0) (layer F.SilkS) (width 0.3048))
@@ -587,7 +587,7 @@
     (fp_text reference R18 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "1K Ohms" (at 0.7112 0.0254 90) (layer F.SilkS)
+    (fp_text value "10K Ohms" (at 0.7112 0.0254 90) (layer F.SilkS)
       (effects (font (size 0.75 0.75) (thickness 0.2032)))
     )
     (fp_line (start -5.08 0) (end -4.064 0) (layer F.SilkS) (width 0.3048))
@@ -657,7 +657,7 @@
     (fp_text reference R22 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "1K Ohms" (at 0 0 90) (layer F.SilkS)
+    (fp_text value "10K Ohms" (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.75 0.75) (thickness 0.2032)))
     )
     (fp_line (start -5.08 0) (end -4.064 0) (layer F.SilkS) (width 0.3048))
@@ -727,7 +727,7 @@
     (fp_text reference R26 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "1K Ohms" (at 0 0 90) (layer F.SilkS)
+    (fp_text value "10K Ohms" (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.75 0.75) (thickness 0.2032)))
     )
     (fp_line (start -5.08 0) (end -4.064 0) (layer F.SilkS) (width 0.3048))
@@ -797,7 +797,7 @@
     (fp_text reference R30 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "1K Ohms" (at -1.3208 0.1524 90) (layer F.SilkS)
+    (fp_text value "10K Ohms" (at -1.3208 0.1524 90) (layer F.SilkS)
       (effects (font (size 0.75 0.75) (thickness 0.2032)))
     )
     (fp_line (start -5.08 0) (end -4.064 0) (layer F.SilkS) (width 0.3048))
@@ -867,7 +867,7 @@
     (fp_text reference R3 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "330 Ohms" (at 0 0 90) (layer F.SilkS)
+    (fp_text value "2K Ohms" (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.75 0.75) (thickness 0.2032)))
     )
     (fp_line (start -5.08 0) (end -4.064 0) (layer F.SilkS) (width 0.3048))
@@ -902,7 +902,7 @@
     (fp_text reference R19 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "330 Ohms" (at 0 0 90) (layer F.SilkS)
+    (fp_text value "2K Ohms" (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.75 0.75) (thickness 0.2032)))
     )
     (fp_line (start -5.08 0) (end -4.064 0) (layer F.SilkS) (width 0.3048))
@@ -937,7 +937,7 @@
     (fp_text reference R15 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "330 Ohms" (at 0 0 90) (layer F.SilkS)
+    (fp_text value "2K Ohms" (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.75 0.75) (thickness 0.2032)))
     )
     (fp_line (start -5.08 0) (end -4.064 0) (layer F.SilkS) (width 0.3048))
@@ -972,7 +972,7 @@
     (fp_text reference R31 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "330 Ohms" (at 0 0 90) (layer F.SilkS)
+    (fp_text value "2K Ohms" (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.75 0.75) (thickness 0.2032)))
     )
     (fp_line (start -5.08 0) (end -4.064 0) (layer F.SilkS) (width 0.3048))
@@ -1007,7 +1007,7 @@
     (fp_text reference R27 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "330 Ohms" (at 0 0 90) (layer F.SilkS)
+    (fp_text value "2K Ohms" (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.75 0.75) (thickness 0.2032)))
     )
     (fp_line (start -5.08 0) (end -4.064 0) (layer F.SilkS) (width 0.3048))
@@ -1042,7 +1042,7 @@
     (fp_text reference R11 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "330 Ohms" (at 0 0 90) (layer F.SilkS)
+    (fp_text value "2K Ohms" (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.75 0.75) (thickness 0.2032)))
     )
     (fp_line (start -5.08 0) (end -4.064 0) (layer F.SilkS) (width 0.3048))
@@ -1077,7 +1077,7 @@
     (fp_text reference R23 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "330 Ohms" (at 0 0 90) (layer F.SilkS)
+    (fp_text value "2K Ohms" (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.75 0.75) (thickness 0.2032)))
     )
     (fp_line (start -5.08 0) (end -4.064 0) (layer F.SilkS) (width 0.3048))
@@ -1112,7 +1112,7 @@
     (fp_text reference R7 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "330 Ohms" (at 0 0 90) (layer F.SilkS)
+    (fp_text value "2K Ohms" (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.75 0.75) (thickness 0.2032)))
     )
     (fp_line (start -5.08 0) (end -4.064 0) (layer F.SilkS) (width 0.3048))
@@ -1147,7 +1147,7 @@
     (fp_text reference R1 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "270 Ohms" (at 0 0 90) (layer F.SilkS)
+    (fp_text value "1.5K Ohms" (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.75 0.75) (thickness 0.2032)))
     )
     (fp_line (start -5.08 0) (end -4.064 0) (layer F.SilkS) (width 0.3048))
@@ -1182,7 +1182,7 @@
     (fp_text reference R5 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "270 Ohms" (at 0 0 90) (layer F.SilkS)
+    (fp_text value "1.5K Ohms" (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.75 0.75) (thickness 0.2032)))
     )
     (fp_line (start -5.08 0) (end -4.064 0) (layer F.SilkS) (width 0.3048))
@@ -1217,7 +1217,7 @@
     (fp_text reference R9 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "270 Ohms" (at 0 0 90) (layer F.SilkS)
+    (fp_text value "1.5K Ohms" (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.75 0.75) (thickness 0.2032)))
     )
     (fp_line (start -5.08 0) (end -4.064 0) (layer F.SilkS) (width 0.3048))
@@ -1252,7 +1252,7 @@
     (fp_text reference R13 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "270 Ohms" (at 0 0 90) (layer F.SilkS)
+    (fp_text value "1.5K Ohms" (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.75 0.75) (thickness 0.2032)))
     )
     (fp_line (start -5.08 0) (end -4.064 0) (layer F.SilkS) (width 0.3048))
@@ -1287,7 +1287,7 @@
     (fp_text reference R29 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "270 Ohms" (at 0 0 90) (layer F.SilkS)
+    (fp_text value "1.5K Ohms" (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.75 0.75) (thickness 0.2032)))
     )
     (fp_line (start -5.08 0) (end -4.064 0) (layer F.SilkS) (width 0.3048))
@@ -1322,7 +1322,7 @@
     (fp_text reference R25 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "270 Ohms" (at 0 0 90) (layer F.SilkS)
+    (fp_text value "1.5K Ohms" (at 0 0 90) (layer F.SilkS)
       (effects (font (size 0.75 0.75) (thickness 0.2032)))
     )
     (fp_line (start -5.08 0) (end -4.064 0) (layer F.SilkS) (width 0.3048))
