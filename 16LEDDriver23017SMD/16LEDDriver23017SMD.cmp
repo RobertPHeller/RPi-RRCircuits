@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Fri 23 Jun 2017 08:42:07 EDT
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Sun 25 Jun 2017 10:03:09 EDT
 
 BeginCmp
 TimeStamp = /594C1FCA;
@@ -150,476 +150,476 @@ EndCmp
 BeginCmp
 TimeStamp = /594BFA84;
 Reference = R1;
-ValeurCmp = 10K Ohms;
+ValeurCmp = 10K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594BFA93;
 Reference = R2;
-ValeurCmp = 10K Ohms;
+ValeurCmp = 10K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594BFAA2;
 Reference = R3;
-ValeurCmp = 10K Ohms;
+ValeurCmp = 10K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594BFAB1;
 Reference = R4;
-ValeurCmp = 10K Ohms;
+ValeurCmp = 10K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1342;
 Reference = R5;
-ValeurCmp = 15K Ohms;
+ValeurCmp = 15K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1348;
 Reference = R6;
-ValeurCmp = 10K Ohms;
+ValeurCmp = 10K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C133C;
 Reference = R7;
-ValeurCmp = 2K Ohms;
+ValeurCmp = 2K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C134F;
 Reference = R8;
-ValeurCmp = 150 Ohms;
+ValeurCmp = 150;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1367;
 Reference = R9;
-ValeurCmp = 15K Ohms;
+ValeurCmp = 15K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C136D;
 Reference = R10;
-ValeurCmp = 10K Ohms;
+ValeurCmp = 10K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1361;
 Reference = R11;
-ValeurCmp = 2K Ohms;
+ValeurCmp = 2K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1374;
 Reference = R12;
-ValeurCmp = 150 Ohms;
+ValeurCmp = 150;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C138C;
 Reference = R13;
-ValeurCmp = 15K Ohms;
+ValeurCmp = 15K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1392;
 Reference = R14;
-ValeurCmp = 10K Ohms;
+ValeurCmp = 10K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1386;
 Reference = R15;
-ValeurCmp = 2K Ohms;
+ValeurCmp = 2K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1399;
 Reference = R16;
-ValeurCmp = 150 Ohms;
+ValeurCmp = 150;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C13B1;
 Reference = R17;
-ValeurCmp = 15K Ohms;
+ValeurCmp = 15K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C13B7;
 Reference = R18;
-ValeurCmp = 10K Ohms;
+ValeurCmp = 10K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C13AB;
 Reference = R19;
-ValeurCmp = 2K Ohms;
+ValeurCmp = 2K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C13BE;
 Reference = R20;
-ValeurCmp = 150 Ohms;
+ValeurCmp = 150;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C13D6;
 Reference = R21;
-ValeurCmp = 15K Ohms;
+ValeurCmp = 15K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C13DC;
 Reference = R22;
-ValeurCmp = 10K Ohms;
+ValeurCmp = 10K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C13D0;
 Reference = R23;
-ValeurCmp = 2K Ohms;
+ValeurCmp = 2K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C13E3;
 Reference = R24;
-ValeurCmp = 150 Ohms;
+ValeurCmp = 150;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C13FB;
 Reference = R25;
-ValeurCmp = 15K Ohms;
+ValeurCmp = 15K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1401;
 Reference = R26;
-ValeurCmp = 10K Ohms;
+ValeurCmp = 10K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C13F5;
 Reference = R27;
-ValeurCmp = 2K Ohms;
+ValeurCmp = 2K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1408;
 Reference = R28;
-ValeurCmp = 150 Ohms;
+ValeurCmp = 150;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1420;
 Reference = R29;
-ValeurCmp = 15K Ohms;
+ValeurCmp = 15K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1426;
 Reference = R30;
-ValeurCmp = 10K Ohms;
+ValeurCmp = 10K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C141A;
 Reference = R31;
-ValeurCmp = 2K Ohms;
+ValeurCmp = 2K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C142D;
 Reference = R32;
-ValeurCmp = 150 Ohms;
+ValeurCmp = 150;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1445;
 Reference = R33;
-ValeurCmp = 15K Ohms;
+ValeurCmp = 15K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C144B;
 Reference = R34;
-ValeurCmp = 10K Ohms;
+ValeurCmp = 10K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C143F;
 Reference = R35;
-ValeurCmp = 2K Ohms;
+ValeurCmp = 2K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1452;
 Reference = R36;
-ValeurCmp = 150 Ohms;
+ValeurCmp = 150;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C14FE;
 Reference = R37;
-ValeurCmp = 15K Ohms;
+ValeurCmp = 15K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1504;
 Reference = R38;
-ValeurCmp = 10K Ohms;
+ValeurCmp = 10K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C14F8;
 Reference = R39;
-ValeurCmp = 2K Ohms;
+ValeurCmp = 2K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C150B;
 Reference = R40;
-ValeurCmp = 150 Ohms;
+ValeurCmp = 150;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1523;
 Reference = R41;
-ValeurCmp = 15K Ohms;
+ValeurCmp = 15K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1529;
 Reference = R42;
-ValeurCmp = 10K Ohms;
+ValeurCmp = 10K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C151D;
 Reference = R43;
-ValeurCmp = 2K Ohms;
+ValeurCmp = 2K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1530;
 Reference = R44;
-ValeurCmp = 150 Ohms;
+ValeurCmp = 150;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1548;
 Reference = R45;
-ValeurCmp = 15K Ohms;
+ValeurCmp = 15K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C154E;
 Reference = R46;
-ValeurCmp = 10K Ohms;
+ValeurCmp = 10K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1542;
 Reference = R47;
-ValeurCmp = 2K Ohms;
+ValeurCmp = 2K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1555;
 Reference = R48;
-ValeurCmp = 150 Ohms;
+ValeurCmp = 150;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C156D;
 Reference = R49;
-ValeurCmp = 15K Ohms;
+ValeurCmp = 15K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1573;
 Reference = R50;
-ValeurCmp = 10K Ohms;
+ValeurCmp = 10K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1567;
 Reference = R51;
-ValeurCmp = 2K Ohms;
+ValeurCmp = 2K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C157A;
 Reference = R52;
-ValeurCmp = 150 Ohms;
+ValeurCmp = 150;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C146A;
 Reference = R53;
-ValeurCmp = 15K Ohms;
+ValeurCmp = 15K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1470;
 Reference = R54;
-ValeurCmp = 10K Ohms;
+ValeurCmp = 10K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1464;
 Reference = R55;
-ValeurCmp = 2K Ohms;
+ValeurCmp = 2K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1477;
 Reference = R56;
-ValeurCmp = 150 Ohms;
+ValeurCmp = 150;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C148F;
 Reference = R57;
-ValeurCmp = 15K Ohms;
+ValeurCmp = 15K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1495;
 Reference = R58;
-ValeurCmp = 10K Ohms;
+ValeurCmp = 10K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C1489;
 Reference = R59;
-ValeurCmp = 2K Ohms;
+ValeurCmp = 2K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C149C;
 Reference = R60;
-ValeurCmp = 150 Ohms;
+ValeurCmp = 150;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C14B4;
 Reference = R61;
-ValeurCmp = 15K Ohms;
+ValeurCmp = 15K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C14BA;
 Reference = R62;
-ValeurCmp = 10K Ohms;
+ValeurCmp = 10K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C14AE;
 Reference = R63;
-ValeurCmp = 2K Ohms;
+ValeurCmp = 2K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C14C1;
 Reference = R64;
-ValeurCmp = 150 Ohms;
+ValeurCmp = 150;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C14D9;
 Reference = R65;
-ValeurCmp = 15K Ohms;
+ValeurCmp = 15K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C14DF;
 Reference = R66;
-ValeurCmp = 10K Ohms;
+ValeurCmp = 10K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C14D3;
 Reference = R67;
-ValeurCmp = 2K Ohms;
+ValeurCmp = 2K;
 IdModule  = R_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /594C1268/594C14E6;
 Reference = R68;
-ValeurCmp = 150 Ohms;
+ValeurCmp = 150;
 IdModule  = R_0805;
 EndCmp
 
@@ -638,9 +638,9 @@ IdModule  = ScrewTerm254-8;
 EndCmp
 
 BeginCmp
-TimeStamp = /594C1DEA;
+TimeStamp = /594CFFFD;
 Reference = T3;
-ValeurCmp = GND -- Cathodes;
+ValeurCmp = Common Cathodes;
 IdModule  = ScrewTerm254_2;
 EndCmp
 
