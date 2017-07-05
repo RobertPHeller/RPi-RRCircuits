@@ -1,10 +1,5 @@
-update=Thu 20 Apr 2017 06:34:22 PM EDT
-last_client=pcbnew
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
+update=Wed 05 Jul 2017 14:51:45 EDT
+last_client=cvpcb
 [general]
 version=1
 [pcbnew]
@@ -27,7 +22,6 @@ DrawSegmentWidth="    0.200000"
 BoardOutlineThickness="    0.100000"
 ModuleOutlineThickness="    0.150000"
 [pcbnew/libraries]
-LibDir=../../RRCircuits
 LibName1=sockets
 LibName2=connect
 LibName3=discret
@@ -46,3 +40,9 @@ LibName15=pga_sockets
 LibName16=valves
 LibName17=RJ45-8N-S
 LibName18=DWSLogoBCU
+LibDir=../../RRCircuits
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms

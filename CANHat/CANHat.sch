@@ -36,7 +36,7 @@ $Descr USLetter 11000 8500
 encoding utf-8
 Sheet 1 1
 Title "CAN Bus (MCP2515) Hat"
-Date "28 apr 2017"
+Date "5 jul 2017"
 Rev ""
 Comp "Deepwoods Software"
 Comment1 ""
@@ -111,8 +111,6 @@ Wire Wire Line
 	5050 4800 5050 4750
 Wire Wire Line
 	5050 4750 5300 4750
-Wire Wire Line
-	3650 4900 5100 4900
 Wire Wire Line
 	5100 4900 5100 4850
 Wire Wire Line
@@ -587,4 +585,39 @@ Connection ~ 8650 3850
 Connection ~ 8750 4600
 Connection ~ 9050 4600
 Connection ~ 7000 4600
+$Comp
+L R R2
+U 1 1 595D3071
+P 4850 4900
+F 0 "R2" V 4930 4900 40  0000 C CNN
+F 1 "220 Ohms" V 4857 4901 40  0000 C CNN
+F 2 "~" V 4780 4900 30  0000 C CNN
+F 3 "~" H 4850 4900 30  0000 C CNN
+	1    4850 4900
+	0    -1   -1   0   
+$EndComp
+$Comp
+L ZENER D2
+U 1 1 595D308E
+P 4600 5100
+F 0 "D2" H 4600 5200 50  0000 C CNN
+F 1 "1N5226BTR" H 4600 5000 40  0000 C CNN
+F 2 "~" H 4600 5100 60  0000 C CNN
+F 3 "~" H 4600 5100 60  0000 C CNN
+	1    4600 5100
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	4600 4900 3650 4900
+$Comp
+L GND #PWR014
+U 1 1 595D310B
+P 4600 5300
+F 0 "#PWR014" H 4600 5300 30  0001 C CNN
+F 1 "GND" H 4600 5230 30  0001 C CNN
+F 2 "" H 4600 5300 60  0000 C CNN
+F 3 "" H 4600 5300 60  0000 C CNN
+	1    4600 5300
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
