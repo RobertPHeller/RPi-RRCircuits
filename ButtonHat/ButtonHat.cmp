@@ -1,0 +1,255 @@
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Mon 02 Oct 2017 13:48:50 EDT
+
+BeginCmp
+TimeStamp = /59D270A0;
+Reference = C1;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D270AF;
+Reference = C2;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D270BE;
+Reference = C3;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D270CD;
+Reference = C4;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D270DC;
+Reference = C5;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D270EB;
+Reference = C6;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D27221;
+Reference = C7;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D27212;
+Reference = C8;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D27145;
+Reference = C9;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D27136;
+Reference = C10;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D27127;
+Reference = C11;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D27118;
+Reference = C12;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D27109;
+Reference = C13;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D270FA;
+Reference = C14;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D27518;
+Reference = J0;
+ValeurCmp = RPI_GPIO;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D27868;
+Reference = J1;
+ValeurCmp = Buttons 1 to 6;
+IdModule  = PIN_ARRAY-6X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D27886;
+Reference = J2;
+ValeurCmp = Buttons 7 to 12;
+IdModule  = PIN_ARRAY-6X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D27895;
+Reference = J3;
+ValeurCmp = GPIO A;
+IdModule  = PIN_ARRAY-6X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D278A4;
+Reference = J4;
+ValeurCmp = GPIO B;
+IdModule  = PIN_ARRAY-6X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D271B8;
+Reference = R1;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D271C7;
+Reference = R2;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D271D6;
+Reference = R3;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D271E5;
+Reference = R4;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D271F4;
+Reference = R5;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D27203;
+Reference = R6;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D27154;
+Reference = R7;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D27163;
+Reference = R8;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D27172;
+Reference = R9;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2718B;
+Reference = R10;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2719A;
+Reference = R11;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D271A9;
+Reference = R12;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D27859;
+Reference = T1;
+ValeurCmp = Buttons 1 to 6;
+IdModule  = PIN_ARRAY-6X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D28959;
+Reference = T2;
+ValeurCmp = Ground;
+IdModule  = PIN_ARRAY_2X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D27877;
+Reference = T3;
+ValeurCmp = Buttons 7 to 12;
+IdModule  = PIN_ARRAY-6X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D26FC2;
+Reference = U1;
+ValeurCmp = 74AHC14;
+IdModule  = DIP-14__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2705D;
+Reference = U2;
+ValeurCmp = 74AHC14;
+IdModule  = DIP-14__300;
+EndCmp
+
+EndListe
