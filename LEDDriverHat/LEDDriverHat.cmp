@@ -1,0 +1,164 @@
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Mon 02 Oct 2017 09:29:43 PM EDT
+
+BeginCmp
+TimeStamp = /5516AE26;
+Reference = J0;
+ValeurCmp = RPi_GPIO;
+IdModule  = RPi_Hat:Pin_Header_Straight_2x20;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2E184;
+Reference = J1;
+ValeurCmp = LED Drivers;
+IdModule  = PIN_HEADER-8X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2E1D8;
+Reference = J2;
+ValeurCmp = GPIO;
+IdModule  = PIN_HEADER-8X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2DE81;
+Reference = Q1;
+ValeurCmp = MPQ2222A;
+IdModule  = DIP-14__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2E07B;
+Reference = Q2;
+ValeurCmp = MPQ2222A;
+IdModule  = DIP-14__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2DEBD;
+Reference = R1;
+ValeurCmp = 1K;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2DFC9;
+Reference = R2;
+ValeurCmp = 1K;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2E04F;
+Reference = R3;
+ValeurCmp = 1K;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2E068;
+Reference = R4;
+ValeurCmp = 1K;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2E081;
+Reference = R5;
+ValeurCmp = 1K;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2E09A;
+Reference = R6;
+ValeurCmp = 1K;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2E0B3;
+Reference = R7;
+ValeurCmp = 1K;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2E0CC;
+Reference = R8;
+ValeurCmp = 1K;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2DECC;
+Reference = R9;
+ValeurCmp = 150;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2DFCF;
+Reference = R10;
+ValeurCmp = 150;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2E055;
+Reference = R11;
+ValeurCmp = 150;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2E06E;
+Reference = R12;
+ValeurCmp = 150;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2E087;
+Reference = R13;
+ValeurCmp = 150;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2E0A0;
+Reference = R14;
+ValeurCmp = 150;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2E0B9;
+Reference = R15;
+ValeurCmp = 150;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2E0D2;
+Reference = R16;
+ValeurCmp = 150;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2E169;
+Reference = T1;
+ValeurCmp = LED Cathodes;
+IdModule  = ScrewTerm2.54-8;
+EndCmp
+
+BeginCmp
+TimeStamp = /59D2E19F;
+Reference = T2;
+ValeurCmp = Common Anodes (+5V);
+IdModule  = TE_282834-2;
+EndCmp
+
+EndListe
