@@ -1,0 +1,63 @@
+PCBNEW-LibModule-V1  Mon 26 Jun 2017 10:31:22 EDT
+# encoding utf-8
+Units mm
+$INDEX
+ScrewTerm_2.54-5
+$EndINDEX
+$MODULE ScrewTerm_2.54-5
+Po 0 0 0 15 5934228F 00000000 ~~
+Li ScrewTerm_2.54-5
+Cd Screw Terminals on 2.54mm centers, 5 position
+Kw CONN
+Sc 0
+AR /581675AC
+Op 0 0 0
+T0 0 -2.54 1.016 1.016 0 0.2032 N V 21 N "T?"
+T1 0 2.54 1.016 1.016 0 0.2032 N V 21 N "VAL**"
+DS -6.35 -1.27 -6.35 1.27 0.3048 21
+DS 6.35 1.27 6.35 -1.27 0.3048 21
+DS -6.35 -1.27 6.35 -1.27 0.3048 21
+DS 6.35 1.27 -6.35 1.27 0.3048 21
+$PAD
+Sh "1" R 1.524 1.524 0 0 0
+Dr 1.016 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -5.08 0
+$EndPAD
+$PAD
+Sh "2" C 1.524 1.524 0 0 0
+Dr 1.016 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -2.54 0
+$EndPAD
+$PAD
+Sh "3" C 1.524 1.524 0 0 0
+Dr 1.016 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 0 0
+$EndPAD
+$PAD
+Sh "4" C 1.524 1.524 0 0 0
+Dr 1.016 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 2.54 0
+$EndPAD
+$PAD
+Sh "5" C 1.524 1.524 0 0 0
+Dr 1.016 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 5.08 0
+$EndPAD
+$SHAPE3D
+Na "walter/conn_screw/mors_5p.wrl"
+Sc 0.5 0.5 0.5
+Of 0 0 0
+Ro 0 0 180
+$EndSHAPE3D
+$EndMODULE ScrewTerm_2.54-5
+$EndLIBRARY

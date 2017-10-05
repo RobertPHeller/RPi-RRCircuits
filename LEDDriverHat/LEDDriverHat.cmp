@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Mon 02 Oct 2017 09:29:43 PM EDT
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 05 Oct 2017 12:46:19 EDT
 
 BeginCmp
 TimeStamp = /5516AE26;
@@ -11,14 +11,14 @@ BeginCmp
 TimeStamp = /59D2E184;
 Reference = J1;
 ValeurCmp = LED Drivers;
-IdModule  = PIN_HEADER-8X1;
+IdModule  = PIN_HEADER_8X1;
 EndCmp
 
 BeginCmp
-TimeStamp = /59D2E1D8;
+TimeStamp = /59D65F0F;
 Reference = J2;
 ValeurCmp = GPIO;
-IdModule  = PIN_HEADER-8X1;
+IdModule  = PIN_HEADER_17x1;
 EndCmp
 
 BeginCmp

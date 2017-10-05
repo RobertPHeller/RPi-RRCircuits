@@ -37,7 +37,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "2 oct 2017"
+Date "5 oct 2017"
 Rev ""
 Comp ""
 Comment1 ""
@@ -915,28 +915,6 @@ F 3 "~" H 6200 3250 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L CONN_6 J3
-U 1 1 59D27895
-P 7150 2450
-F 0 "J3" V 7100 2450 60  0000 C CNN
-F 1 "GPIO A" V 7200 2450 60  0000 C CNN
-F 2 "~" H 7150 2450 60  0000 C CNN
-F 3 "~" H 7150 2450 60  0000 C CNN
-	1    7150 2450
-	-1   0    0    -1  
-$EndComp
-$Comp
-L CONN_6 J4
-U 1 1 59D278A4
-P 10600 2400
-F 0 "J4" V 10550 2400 60  0000 C CNN
-F 1 "GPIO B" V 10650 2400 60  0000 C CNN
-F 2 "~" H 10600 2400 60  0000 C CNN
-F 3 "~" H 10600 2400 60  0000 C CNN
-	1    10600 2400
-	1    0    0    -1  
-$EndComp
-$Comp
 L +3.3V #PWR037
 U 1 1 59D28706
 P 2400 1500
@@ -979,6 +957,39 @@ F 2 "" H 2400 5450 60  0000 C CNN
 F 3 "" H 2400 5450 60  0000 C CNN
 	1    2400 5450
 	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_2 T2
+U 1 1 59D28959
+P 1100 6550
+F 0 "T2" V 1050 6550 40  0000 C CNN
+F 1 "Ground" V 1150 6550 40  0000 C CNN
+F 2 "~" H 1100 6550 60  0000 C CNN
+F 3 "~" H 1100 6550 60  0000 C CNN
+	1    1100 6550
+	-1   0    0    -1  
+$EndComp
+$Comp
+L GND #PWR041
+U 1 1 59D28968
+P 1450 6850
+F 0 "#PWR041" H 1450 6850 30  0001 C CNN
+F 1 "GND" H 1450 6780 30  0001 C CNN
+F 2 "" H 1450 6850 60  0000 C CNN
+F 3 "" H 1450 6850 60  0000 C CNN
+	1    1450 6850
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_17 J3
+U 1 1 59D63CAB
+P 9200 5150
+F 0 "J3" V 9160 5150 60  0000 C CNN
+F 1 "GPIO" V 9280 5150 60  0000 C CNN
+F 2 "~" H 9200 5150 60  0000 C CNN
+F 3 "~" H 9200 5150 60  0000 C CNN
+	1    9200 5150
+	0    -1   1    0   
 $EndComp
 Wire Wire Line
 	1150 1600 2000 1600
@@ -1153,104 +1164,142 @@ Wire Wire Line
 Wire Wire Line
 	5850 5300 5700 5300
 Wire Wire Line
-	7950 1950 7500 1950
-Wire Wire Line
-	7500 1950 7500 2200
-Wire Wire Line
-	7950 2150 7950 2200
-Wire Wire Line
-	7950 2200 7550 2200
-Wire Wire Line
-	7550 2200 7550 2300
-Wire Wire Line
-	7550 2300 7500 2300
-Wire Wire Line
-	7950 2250 7600 2250
-Wire Wire Line
-	7600 2250 7600 2400
-Wire Wire Line
-	7600 2400 7500 2400
-Wire Wire Line
-	7950 2350 7700 2350
-Wire Wire Line
-	7700 2350 7700 2500
-Wire Wire Line
-	7700 2500 7500 2500
-Wire Wire Line
-	7950 3050 7650 3050
-Wire Wire Line
-	7650 3050 7650 2600
-Wire Wire Line
-	7650 2600 7500 2600
-Wire Wire Line
-	7950 3150 7500 3150
-Wire Wire Line
-	7500 3150 7500 2700
-Wire Wire Line
-	9850 2150 10250 2150
-Wire Wire Line
-	9850 2400 9850 2350
-Wire Wire Line
-	10250 2250 10000 2250
-Wire Wire Line
-	10000 2250 10000 2400
-Wire Wire Line
-	10000 2400 9850 2400
-Wire Wire Line
-	9850 2450 10050 2450
-Wire Wire Line
-	10050 2450 10050 2350
-Wire Wire Line
-	10050 2350 10250 2350
-Wire Wire Line
-	9850 2650 9850 2700
-Wire Wire Line
-	9850 2700 10100 2700
-Wire Wire Line
-	10100 2700 10100 2450
-Wire Wire Line
-	10100 2450 10250 2450
-Wire Wire Line
-	9850 3150 9850 3200
-Wire Wire Line
-	9850 3200 10150 3200
-Wire Wire Line
-	10150 3200 10150 2550
-Wire Wire Line
-	10150 2550 10250 2550
-Wire Wire Line
-	9850 3350 9850 3400
-Wire Wire Line
-	10250 3400 10250 2650
-Wire Wire Line
-	9850 3400 10250 3400
-Wire Wire Line
 	5200 5400 5200 5500
 Wire Wire Line
 	2400 5450 2400 5350
-$Comp
-L CONN_2 T2
-U 1 1 59D28959
-P 1100 6550
-F 0 "T2" V 1050 6550 40  0000 C CNN
-F 1 "Ground" V 1150 6550 40  0000 C CNN
-F 2 "~" H 1100 6550 60  0000 C CNN
-F 3 "~" H 1100 6550 60  0000 C CNN
-	1    1100 6550
-	-1   0    0    -1  
-$EndComp
-$Comp
-L GND #PWR041
-U 1 1 59D28968
-P 1450 6850
-F 0 "#PWR041" H 1450 6850 30  0001 C CNN
-F 1 "GND" H 1450 6780 30  0001 C CNN
-F 2 "" H 1450 6850 60  0000 C CNN
-F 3 "" H 1450 6850 60  0000 C CNN
-	1    1450 6850
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	1450 6450 1450 6850
 Connection ~ 1450 6650
+Wire Wire Line
+	10050 2150 9850 2150
+Wire Wire Line
+	10050 2350 10000 2350
+Wire Wire Line
+	10000 2350 10000 2400
+Wire Wire Line
+	10000 2400 9850 2400
+Wire Wire Line
+	9850 2400 9850 2350
+Wire Wire Line
+	10050 2450 9850 2450
+Wire Wire Line
+	10050 2650 10000 2650
+Wire Wire Line
+	10000 2650 10000 2700
+Wire Wire Line
+	10000 2700 9850 2700
+Wire Wire Line
+	9850 2700 9850 2650
+Wire Wire Line
+	10050 3150 10000 3150
+Wire Wire Line
+	10000 3150 10000 3200
+Wire Wire Line
+	10000 3200 9850 3200
+Wire Wire Line
+	9850 3200 9850 3150
+Wire Wire Line
+	10050 3350 10000 3350
+Wire Wire Line
+	10000 3350 10000 3400
+Wire Wire Line
+	10000 3400 9850 3400
+Wire Wire Line
+	9850 3400 9850 3350
+Wire Wire Line
+	10050 3450 9850 3450
+Wire Wire Line
+	10050 3550 9850 3550
+Wire Wire Line
+	7700 1950 7950 1950
+Wire Wire Line
+	7700 2150 7750 2150
+Wire Wire Line
+	7750 2150 7750 2200
+Wire Wire Line
+	7750 2200 7950 2200
+Wire Wire Line
+	7950 2200 7950 2150
+Wire Wire Line
+	7700 2250 7950 2250
+Wire Wire Line
+	7700 2350 7950 2350
+Wire Wire Line
+	7700 3050 7950 3050
+Wire Wire Line
+	7700 3150 7950 3150
+Wire Wire Line
+	7700 3250 7950 3250
+Wire Wire Line
+	7700 3350 7950 3350
+Wire Wire Line
+	7700 3450 7950 3450
+Text GLabel 7700 1950 0    47   Input ~ 0
+BCM4, wPi 7
+Text GLabel 7700 2150 0    47   Input ~ 0
+BCM17, wPi 0
+Text GLabel 7700 2250 0    47   Input ~ 0
+BCM27, wPi 2
+Text GLabel 7700 2350 0    47   Input ~ 0
+BCM22, wPi 3
+Text GLabel 7700 3050 0    47   Input ~ 0
+BCM5, wPi 21
+Text GLabel 7700 3150 0    47   Input ~ 0
+BCM6, wPi 22
+Text GLabel 7700 3250 0    47   Input ~ 0
+BCM13, wPi 23
+Text GLabel 7700 3350 0    47   Input ~ 0
+BCM19, wPi 24
+Text GLabel 7700 3450 0    47   Input ~ 0
+BCM26, wPi 25
+Text GLabel 10050 2150 2    47   Input ~ 0
+BCM18, wPi 1
+Text GLabel 10050 2350 2    47   Input ~ 0
+BCM23, wPi 4
+Text GLabel 10050 2450 2    47   Input ~ 0
+BCM24, wPi 5
+Text GLabel 10050 2650 2    47   Input ~ 0
+BCM25, wPi 6
+Text GLabel 10050 3150 2    47   Input ~ 0
+BCM12, wPi 26
+Text GLabel 10050 3350 2    47   Input ~ 0
+BCM16, wPi 27
+Text GLabel 10050 3450 2    47   Input ~ 0
+BCM20, wPi 28
+Text GLabel 10050 3550 2    47   Input ~ 0
+BCM21, wPi 29
+Text GLabel 8400 4800 1    47   Input ~ 0
+BCM17, wPi 0
+Text GLabel 8500 4800 1    47   Input ~ 0
+BCM18, wPi 1
+Text GLabel 8600 4800 1    47   Input ~ 0
+BCM27, wPi 2
+Text GLabel 8700 4800 1    47   Input ~ 0
+BCM22, wPi 3
+Text GLabel 8800 4800 1    47   Input ~ 0
+BCM23, wPi 4
+Text GLabel 8900 4800 1    47   Input ~ 0
+BCM24, wPi 5
+Text GLabel 9000 4800 1    47   Input ~ 0
+BCM25, wPi 6
+Text GLabel 9100 4800 1    47   Input ~ 0
+BCM4, wPi 7
+Text GLabel 9200 4800 1    47   Input ~ 0
+BCM5, wPi 21
+Text GLabel 9300 4800 1    47   Input ~ 0
+BCM6, wPi 22
+Text GLabel 9400 4800 1    47   Input ~ 0
+BCM13, wPi 23
+Text GLabel 9500 4800 1    47   Input ~ 0
+BCM19, wPi 24
+Text GLabel 9600 4800 1    47   Input ~ 0
+BCM26, wPi 25
+Text GLabel 9700 4800 1    47   Input ~ 0
+BCM12, wPi 26
+Text GLabel 9800 4800 1    47   Input ~ 0
+BCM16, wPi 27
+Text GLabel 9900 4800 1    47   Input ~ 0
+BCM20, wPi 28
+Text GLabel 10000 4800 1    47   Input ~ 0
+BCM21, wPi 29
 $EndSCHEMATC

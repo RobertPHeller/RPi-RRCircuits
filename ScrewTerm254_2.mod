@@ -1,0 +1,42 @@
+PCBNEW-LibModule-V1  Fri 23 Jun 2017 07:32:15 EDT
+# encoding utf-8
+Units mm
+$INDEX
+ScrewTerm2.54-2
+$EndINDEX
+$MODULE ScrewTerm2.54-2
+Po 0 0 0 15 594CFC1E 00000000 ~~
+Li ScrewTerm2.54-2
+Cd Connecteurs 2 pins
+Kw CONN DEV
+Sc 0
+AR /58168C22
+Op 0 0 0
+T0 -2.7 -1.9 0.762 0.762 0 0.1524 N I 21 N "T?"
+T1 0 -1.905 0.762 0.762 0 0.1524 N V 21 N "Val***"
+DS -2.54 1.27 -2.54 -1.27 0.1524 21
+DS -2.54 -1.27 2.54 -1.27 0.1524 21
+DS 2.54 -1.27 2.54 1.27 0.1524 21
+DS 2.54 1.27 -2.54 1.27 0.1524 21
+$PAD
+Sh "1" R 1.524 1.524 0 0 900
+Dr 1.016 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -1.27 0
+$EndPAD
+$PAD
+Sh "2" C 1.524 1.524 0 0 900
+Dr 1.016 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 1.27 0
+$EndPAD
+$SHAPE3D
+Na "walter/conn_screw/mors_2p.wrl"
+Sc 0.5 0.5 0.5
+Of 0 0 0
+Ro 0 0 180
+$EndSHAPE3D
+$EndMODULE ScrewTerm2.54-2
+$EndLIBRARY

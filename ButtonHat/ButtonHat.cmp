@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Mon 02 Oct 2017 13:48:50 EDT
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 05 Oct 2017 10:31:46 EDT
 
 BeginCmp
 TimeStamp = /59D270A0;
@@ -109,28 +109,21 @@ BeginCmp
 TimeStamp = /59D27868;
 Reference = J1;
 ValeurCmp = Buttons 1 to 6;
-IdModule  = PIN_ARRAY-6X1;
+IdModule  = PIN_HEADER-6X1;
 EndCmp
 
 BeginCmp
 TimeStamp = /59D27886;
 Reference = J2;
 ValeurCmp = Buttons 7 to 12;
-IdModule  = PIN_ARRAY-6X1;
+IdModule  = PIN_HEADER-6X1;
 EndCmp
 
 BeginCmp
-TimeStamp = /59D27895;
+TimeStamp = /59D63CAB;
 Reference = J3;
-ValeurCmp = GPIO A;
-IdModule  = PIN_ARRAY-6X1;
-EndCmp
-
-BeginCmp
-TimeStamp = /59D278A4;
-Reference = J4;
-ValeurCmp = GPIO B;
-IdModule  = PIN_ARRAY-6X1;
+ValeurCmp = GPIO;
+IdModule  = PIN_HEADER_17x1;
 EndCmp
 
 BeginCmp
