@@ -913,10 +913,10 @@
       (layers F.Cu F.Mask)
       (net 1 +5V)
     )
-    (model Housings_DIP.3dshapes/DIP-8_W9.53mm_SMD.wrl
+    (model walter/smd_dil/pdso-8.wrl
       (at (xyz 0 0 0))
-      (scale (xyz 1 1 1))
-      (rotate (xyz 0 0 0))
+      (scale (xyz 4.8 3.5 3.5))
+      (rotate (xyz 0 0 90))
     )
   )
 
