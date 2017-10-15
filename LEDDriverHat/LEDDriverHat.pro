@@ -1,5 +1,5 @@
-update=Thu 05 Oct 2017 13:15:20 EDT
-last_client=kicad
+update=Sun 15 Oct 2017 17:08:37 EDT
+last_client=pcbnew
 [eeschema]
 version=1
 LibDir=
@@ -40,6 +40,8 @@ LibName28=opto
 LibName29=atmel
 LibName30=contrib
 LibName31=valves
+[general]
+version=1
 [pcbnew]
 version=1
 LastNetListRead=
@@ -81,5 +83,4 @@ LibName17=led
 LibName18=dip_sockets
 LibName19=pga_sockets
 LibName20=valves
-[general]
-version=1
+LibName21=/home/heller/RRCircuits/DWSLogoBCU

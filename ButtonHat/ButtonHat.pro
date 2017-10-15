@@ -1,4 +1,4 @@
-update=Thu 05 Oct 2017 10:34:12 EDT
+update=Sun 15 Oct 2017 17:05:58 EDT
 last_client=pcbnew
 [general]
 version=1
@@ -46,10 +46,10 @@ LibName31=valves
 version=1
 LastNetListRead=
 UseCmpFile=1
-PadDrill="    2.750000"
-PadDrillOvalY="    2.750000"
-PadSizeH="    2.750000"
-PadSizeV="    2.750000"
+PadDrill="    1.016000"
+PadDrillOvalY="    1.016000"
+PadSizeH="    1.524000"
+PadSizeV="    1.524000"
 PcbTextSizeV="    1.500000"
 PcbTextSizeH="    1.500000"
 PcbTextThickness="    0.300000"
@@ -80,3 +80,4 @@ LibName14=led
 LibName15=dip_sockets
 LibName16=pga_sockets
 LibName17=valves
+LibName18=/home/heller/RRCircuits/DWSLogoBCU
