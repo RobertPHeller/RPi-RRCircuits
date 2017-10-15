@@ -1,10 +1,10 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Tue 10 Oct 2017 12:47:57 EDT
+Cmp-Mod V01 Created by PcbNew date = Sun 15 Oct 2017 13:53:18 EDT
 
 BeginCmp
 TimeStamp = /59DCC6EA;
 Reference = C1;
 ValeurCmp = 10 uf;
-IdModule  = C1;
+IdModule  = C1V5;
 EndCmp
 
 BeginCmp
