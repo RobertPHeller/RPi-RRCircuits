@@ -3,9 +3,9 @@
   (general
     (links 110)
     (no_connects 0)
-    (area 74.896512 41.522 201.332429 122.597)
+    (area 77.845734 41.522 201.332429 122.597)
     (thickness 1.6)
-    (drawings 16)
+    (drawings 19)
     (tracks 426)
     (zones 0)
     (modules 49)
@@ -36,7 +36,7 @@
   )
 
   (setup
-    (last_trace_width 0.25)
+    (last_trace_width 0.01)
     (user_trace_width 0.01)
     (user_trace_width 0.02)
     (user_trace_width 0.05)
@@ -430,7 +430,7 @@
     (fp_text reference H2 (at 0 -4.0005) (layer B.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
-    (fp_text value CONN_5 (at 0.09906 3.59918) (layer B.SilkS) hide
+    (fp_text value "" (at 0.09906 3.59918) (layer B.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
     (fp_circle (center 0 0) (end 1.375 0) (layer Cmts.User) (width 0.15))
@@ -454,7 +454,7 @@
     (fp_text reference H4 (at 0 -4.0005) (layer B.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
-    (fp_text value CONN_5 (at 0.09906 3.59918) (layer B.SilkS) hide
+    (fp_text value "" (at 0.09906 3.59918) (layer B.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
     (fp_circle (center 0 0) (end 1.375 0) (layer Cmts.User) (width 0.15))
@@ -478,7 +478,7 @@
     (fp_text reference H3 (at 0 -4.0005) (layer B.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
-    (fp_text value CONN_5 (at 0.09906 3.59918) (layer B.SilkS) hide
+    (fp_text value "" (at 0.09906 3.59918) (layer B.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
     (fp_circle (center 0 0) (end 1.375 0) (layer Cmts.User) (width 0.15))
@@ -502,7 +502,7 @@
     (fp_text reference H1 (at 0 -4.0005) (layer B.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
-    (fp_text value CONN_5 (at 0.09906 3.59918) (layer B.SilkS) hide
+    (fp_text value "" (at 0.09906 3.59918) (layer B.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
     (fp_circle (center 0 0) (end 1.375 0) (layer Cmts.User) (width 0.15))
@@ -518,7 +518,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B5F8)
+  (module R1 (layer F.Cu) (tedit 59E8D9A1) (tstamp 59E8B5F8)
     (at 118.11 86.36 180)
     (descr "Resistance verticale")
     (tags R)
@@ -528,8 +528,8 @@
     (fp_text reference R12 (at -1.016 2.54 180) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "1k Ohms" (at -1.143 2.54 180) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "1k Ohms" (at 0.1524 -1.9304 180) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -548,7 +548,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B600)
+  (module R1 (layer F.Cu) (tedit 59E8D9A5) (tstamp 59E8B600)
     (at 118.11 83.82)
     (descr "Resistance verticale")
     (tags R)
@@ -558,8 +558,8 @@
     (fp_text reference R16 (at -1.016 2.54) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "150 Ohms" (at -1.143 2.54) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "150 Ohms" (at 0.1016 -2.032) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -578,7 +578,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B608)
+  (module R1 (layer F.Cu) (tedit 59E8D78F) (tstamp 59E8B608)
     (at 102.87 74.93)
     (descr "Resistance verticale")
     (tags R)
@@ -588,8 +588,8 @@
     (fp_text reference R28 (at -1.016 2.54) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "1K Ohms" (at -1.143 2.54) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "1K Ohms" (at 0.3556 -1.9812) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -608,7 +608,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B610)
+  (module R1 (layer F.Cu) (tedit 59E8D8B1) (tstamp 59E8B610)
     (at 96.52 74.93 180)
     (descr "Resistance verticale")
     (tags R)
@@ -618,8 +618,8 @@
     (fp_text reference R17 (at -1.016 2.54 180) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "1K Ohms" (at -1.143 2.54 180) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "1K Ohms" (at 0.3556 1.9812 180) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -638,7 +638,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B618)
+  (module R1 (layer F.Cu) (tedit 59E8D8C1) (tstamp 59E8B618)
     (at 96.52 77.47)
     (descr "Resistance verticale")
     (tags R)
@@ -648,8 +648,8 @@
     (fp_text reference R21 (at -1.016 2.54) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "150 Ohms" (at -1.143 2.54) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "150 Ohms" (at -0.254 2.1336) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -668,7 +668,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B620)
+  (module R1 (layer F.Cu) (tedit 59E8D82F) (tstamp 59E8B620)
     (at 96.52 64.77 180)
     (descr "Resistance verticale")
     (tags R)
@@ -678,8 +678,8 @@
     (fp_text reference R18 (at -1.016 2.54 180) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "1K Ohms" (at -1.143 2.54 180) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "1K Ohms" (at 0.2032 -1.9304 180) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -698,7 +698,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B628)
+  (module R1 (layer F.Cu) (tedit 59E8D84A) (tstamp 59E8B628)
     (at 96.52 62.23)
     (descr "Resistance verticale")
     (tags R)
@@ -708,8 +708,8 @@
     (fp_text reference R22 (at -1.016 2.54) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "150 Ohms" (at -1.143 2.54) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "150 Ohms" (at 0.4064 -2.032) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -728,7 +728,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B630)
+  (module R1 (layer F.Cu) (tedit 59E8D811) (tstamp 59E8B630)
     (at 81.28 64.77)
     (descr "Resistance verticale")
     (tags R)
@@ -738,8 +738,8 @@
     (fp_text reference R19 (at -1.016 2.54) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "1K Ohms" (at -1.143 2.54) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "1K Ohms" (at 0.2032 2.1336) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -758,7 +758,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B638)
+  (module R1 (layer F.Cu) (tedit 59E8D800) (tstamp 59E8B638)
     (at 81.28 62.23 180)
     (descr "Resistance verticale")
     (tags R)
@@ -768,8 +768,8 @@
     (fp_text reference R23 (at -1.016 2.54 180) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "150 Ohms" (at -1.143 2.54 180) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "150 Ohms" (at -0.3048 2.0828 180) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -788,7 +788,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B640)
+  (module R1 (layer F.Cu) (tedit 59E8D89B) (tstamp 59E8B640)
     (at 81.28 74.93)
     (descr "Resistance verticale")
     (tags R)
@@ -798,8 +798,8 @@
     (fp_text reference R20 (at -1.016 2.54) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "1K Ohms" (at -1.143 2.54) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "1K Ohms" (at 0.9144 -1.9812) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -818,7 +818,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B648)
+  (module R1 (layer F.Cu) (tedit 59E8D880) (tstamp 59E8B648)
     (at 81.28 77.47 180)
     (descr "Resistance verticale")
     (tags R)
@@ -828,8 +828,8 @@
     (fp_text reference R24 (at -1.016 2.54 180) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "150 Ohms" (at -1.143 2.54 180) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "150 Ohms" (at -0.0508 -2.032 180) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -848,7 +848,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B650)
+  (module R1 (layer F.Cu) (tedit 59E8D727) (tstamp 59E8B650)
     (at 102.87 62.23 180)
     (descr "Resistance verticale")
     (tags R)
@@ -858,8 +858,8 @@
     (fp_text reference R31 (at -1.016 2.54 180) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "150 Ohms" (at -1.143 2.54 180) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "150 Ohms" (at -0.508 2.032 180) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -878,7 +878,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B658)
+  (module R1 (layer F.Cu) (tedit 59E8D7B6) (tstamp 59E8B658)
     (at 118.11 74.93 180)
     (descr "Resistance verticale")
     (tags R)
@@ -888,8 +888,8 @@
     (fp_text reference R25 (at -1.016 2.54 180) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "1K Ohms" (at -1.143 2.54 180) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "1K Ohms" (at -0.0508 2.0828 180) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -908,7 +908,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B660)
+  (module R1 (layer F.Cu) (tedit 59E8D7BA) (tstamp 59E8B660)
     (at 118.11 77.47)
     (descr "Resistance verticale")
     (tags R)
@@ -918,8 +918,8 @@
     (fp_text reference R29 (at -1.016 2.54) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "150 Ohms" (at -1.143 2.54) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "150 Ohms" (at -0.0508 2.032) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -938,7 +938,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B668)
+  (module R1 (layer F.Cu) (tedit 59E8D6DF) (tstamp 59E8B668)
     (at 118.11 64.77 180)
     (descr "Resistance verticale")
     (tags R)
@@ -948,8 +948,8 @@
     (fp_text reference R26 (at -1.016 2.54 180) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "1K Ohms" (at -1.143 2.54 180) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "1K Ohms" (at 0.2032 -1.9304 180) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -968,7 +968,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B670)
+  (module R1 (layer F.Cu) (tedit 59E8D6DA) (tstamp 59E8B670)
     (at 118.11 62.23)
     (descr "Resistance verticale")
     (tags R)
@@ -978,8 +978,8 @@
     (fp_text reference R30 (at -1.016 2.54) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "150 Ohms" (at -1.143 2.54) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "150 Ohms" (at 0.1524 -2.032) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -998,7 +998,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B678)
+  (module R1 (layer F.Cu) (tedit 59E8D740) (tstamp 59E8B678)
     (at 102.87 64.77)
     (descr "Resistance verticale")
     (tags R)
@@ -1008,8 +1008,8 @@
     (fp_text reference R27 (at -1.016 2.54) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "1K Ohms" (at -1.143 2.54) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "1K Ohms" (at 0.9652 2.032) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -1028,7 +1028,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B688)
+  (module R1 (layer F.Cu) (tedit 59E8D909) (tstamp 59E8B688)
     (at 81.28 86.36)
     (descr "Resistance verticale")
     (tags R)
@@ -1038,8 +1038,8 @@
     (fp_text reference R1 (at -1.016 2.54) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "1K Ohms" (at -1.143 2.54) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "1K Ohms" (at 0 2.1336) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -1058,7 +1058,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B690)
+  (module R1 (layer F.Cu) (tedit 59E8D906) (tstamp 59E8B690)
     (at 81.28 83.82 180)
     (descr "Resistance verticale")
     (tags R)
@@ -1068,8 +1068,8 @@
     (fp_text reference R5 (at -1.016 2.54 180) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "150 Ohms" (at -1.143 2.54 180) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "150 Ohms" (at -0.3556 2.0828 180) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -1088,7 +1088,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B698)
+  (module R1 (layer F.Cu) (tedit 59E8DA73) (tstamp 59E8B698)
     (at 81.28 96.52)
     (descr "Resistance verticale")
     (tags R)
@@ -1098,8 +1098,8 @@
     (fp_text reference R2 (at -1.016 2.54) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "1K Ohms" (at -1.143 2.54) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "1K Ohms" (at 0.254 -2.1336) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -1118,7 +1118,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B6A0)
+  (module R1 (layer F.Cu) (tedit 59E8DA8C) (tstamp 59E8B6A0)
     (at 81.28 99.06 180)
     (descr "Resistance verticale")
     (tags R)
@@ -1128,8 +1128,8 @@
     (fp_text reference R6 (at -1.016 2.54 180) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "150 Ohms" (at -1.143 2.54 180) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "150 Ohms" (at -0.1016 -1.9812 180) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -1148,7 +1148,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B6A8)
+  (module R1 (layer F.Cu) (tedit 59E8DA4F) (tstamp 59E8B6A8)
     (at 96.52 96.52 180)
     (descr "Resistance verticale")
     (tags R)
@@ -1158,8 +1158,8 @@
     (fp_text reference R3 (at -1.016 2.54 180) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "1K Ohms" (at -1.143 2.54 180) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "1K Ohms" (at 0.0508 2.032 180) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -1178,7 +1178,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B6B0)
+  (module R1 (layer F.Cu) (tedit 59E8DA47) (tstamp 59E8B6B0)
     (at 96.52 99.06)
     (descr "Resistance verticale")
     (tags R)
@@ -1188,8 +1188,8 @@
     (fp_text reference R7 (at -1.016 2.54) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "150 Ohms" (at -1.143 2.54) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "150 Ohms" (at -0.1524 2.1336) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -1208,7 +1208,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B6B8)
+  (module R1 (layer F.Cu) (tedit 59E8D924) (tstamp 59E8B6B8)
     (at 96.52 86.36 180)
     (descr "Resistance verticale")
     (tags R)
@@ -1218,8 +1218,8 @@
     (fp_text reference R4 (at -1.016 2.54 180) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "1K Ohms" (at -1.143 2.54 180) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "1K Ohms" (at -0.0508 -2.0828 180) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -1238,7 +1238,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B6C0)
+  (module R1 (layer F.Cu) (tedit 59E8D93A) (tstamp 59E8B6C0)
     (at 96.52 83.82)
     (descr "Resistance verticale")
     (tags R)
@@ -1248,8 +1248,8 @@
     (fp_text reference R8 (at -1.016 2.54) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "150 Ohms" (at -1.143 2.54) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "150 Ohms" (at -0.2032 -2.032) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -1268,7 +1268,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B6C8)
+  (module R1 (layer F.Cu) (tedit 59E8D76E) (tstamp 59E8B6C8)
     (at 102.87 77.47 180)
     (descr "Resistance verticale")
     (tags R)
@@ -1278,8 +1278,8 @@
     (fp_text reference R32 (at -1.016 2.54 180) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "150 Ohms" (at -1.143 2.54 180) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "150 Ohms" (at 0 -1.9812 180) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -1298,7 +1298,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B6D0)
+  (module R1 (layer F.Cu) (tedit 59E8D96E) (tstamp 59E8B6D0)
     (at 102.87 86.36)
     (descr "Resistance verticale")
     (tags R)
@@ -1308,8 +1308,8 @@
     (fp_text reference R9 (at -1.016 2.54) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "1K Ohms" (at -1.143 2.54) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "1K Ohms" (at -0.0508 2.2352) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -1328,7 +1328,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B6D8)
+  (module R1 (layer F.Cu) (tedit 59E8D96A) (tstamp 59E8B6D8)
     (at 102.87 83.82 180)
     (descr "Resistance verticale")
     (tags R)
@@ -1338,8 +1338,8 @@
     (fp_text reference R13 (at -1.016 2.54 180) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "150 Ohms" (at -1.143 2.54 180) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "150 Ohms" (at -0.4064 2.1336 180) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -1358,7 +1358,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B6E0)
+  (module R1 (layer F.Cu) (tedit 59E8DA19) (tstamp 59E8B6E0)
     (at 102.87 96.52)
     (descr "Resistance verticale")
     (tags R)
@@ -1368,8 +1368,8 @@
     (fp_text reference R10 (at -1.016 2.54) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "1K Ohms" (at -1.143 2.54) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "1K Ohms" (at 0 -2.032) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -1388,7 +1388,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B6E8)
+  (module R1 (layer F.Cu) (tedit 59E8DA1D) (tstamp 59E8B6E8)
     (at 102.87 99.06 180)
     (descr "Resistance verticale")
     (tags R)
@@ -1398,8 +1398,8 @@
     (fp_text reference R14 (at -1.016 2.54 180) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "150 Ohms" (at -1.143 2.54 180) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "150 Ohms" (at 0.0508 -1.8796 180) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -1418,7 +1418,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B6F0)
+  (module R1 (layer F.Cu) (tedit 59E8D9CA) (tstamp 59E8B6F0)
     (at 118.11 96.52 180)
     (descr "Resistance verticale")
     (tags R)
@@ -1428,8 +1428,8 @@
     (fp_text reference R11 (at -1.016 2.54 180) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "1K Ohms" (at -1.143 2.54 180) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "1K Ohms" (at -0.1016 2.032 180) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -1448,7 +1448,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 200000) (tstamp 59E8B6F8)
+  (module R1 (layer F.Cu) (tedit 59E8D9DF) (tstamp 59E8B6F8)
     (at 118.11 99.06)
     (descr "Resistance verticale")
     (tags R)
@@ -1458,8 +1458,8 @@
     (fp_text reference R15 (at -1.016 2.54) (layer F.SilkS)
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "150 Ohms" (at -1.143 2.54) (layer F.SilkS) hide
-      (effects (font (size 1.397 1.27) (thickness 0.2032)))
+    (fp_text value "150 Ohms" (at 0 2.0828) (layer F.SilkS)
+      (effects (font (size 0.6 0.6) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
     (fp_circle (center -1.27 0) (end -0.635 1.27) (layer F.SilkS) (width 0.381))
@@ -1478,7 +1478,7 @@
     )
   )
 
-  (module pin_array_3x2 (layer F.Cu) (tedit 42931587) (tstamp 59E8B706)
+  (module pin_array_3x2 (layer F.Cu) (tedit 59E8D5CA) (tstamp 59E8B706)
     (at 168.656 96.52 270)
     (descr "Double rangee de contacts 2 x 4 pins")
     (tags CONN)
@@ -1486,7 +1486,7 @@
     (fp_text reference J1 (at 0 -3.81 270) (layer F.SilkS)
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
-    (fp_text value "Address Jumper" (at 0 3.81 270) (layer F.SilkS) hide
+    (fp_text value "Address Jumper" (at 0 3.81 270) (layer F.SilkS)
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
     (fp_line (start 3.81 2.54) (end -3.81 2.54) (layer F.SilkS) (width 0.2032))
@@ -1840,7 +1840,7 @@
     )
   )
 
-  (module C1 (layer F.Cu) (tedit 3F92C496) (tstamp 59E8B79C)
+  (module C1 (layer F.Cu) (tedit 59E8D662) (tstamp 59E8B79C)
     (at 148.59 60.96)
     (descr "Condensateur e = 1 pas")
     (tags C)
@@ -1848,8 +1848,8 @@
     (fp_text reference C1 (at 0.254 -2.286) (layer F.SilkS)
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
-    (fp_text value ".1 uf" (at 0 -2.286) (layer F.SilkS) hide
-      (effects (font (size 1.016 1.016) (thickness 0.2032)))
+    (fp_text value ".1 uf" (at 0 0 90) (layer F.SilkS)
+      (effects (font (size 0.5 0.5) (thickness 0.1016)))
     )
     (fp_line (start -2.4892 -1.27) (end 2.54 -1.27) (layer F.SilkS) (width 0.3048))
     (fp_line (start 2.54 -1.27) (end 2.54 1.27) (layer F.SilkS) (width 0.3048))
@@ -1871,7 +1871,7 @@
     )
   )
 
-  (module ScrewTerm_2.54-5 (layer F.Cu) (tedit 5934228F) (tstamp 59E8B839)
+  (module ScrewTerm_2.54-5 (layer F.Cu) (tedit 59E8DB27) (tstamp 59E8B839)
     (at 86.36 106.68)
     (descr "Screw Terminals on 2.54mm centers, 5 position")
     (tags CONN)
@@ -1879,7 +1879,7 @@
     (fp_text reference T1 (at 0 -2.54) (layer F.SilkS)
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
-    (fp_text value CONN_5 (at 0 2.54) (layer F.SilkS)
+    (fp_text value H1 (at -5.08 -2.54) (layer F.SilkS)
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
     (fp_line (start -6.35 -1.27) (end -6.35 1.27) (layer F.SilkS) (width 0.3048))
@@ -1913,7 +1913,7 @@
     )
   )
 
-  (module ScrewTerm_2.54-5 (layer F.Cu) (tedit 59E8B909) (tstamp 59E8B846)
+  (module ScrewTerm_2.54-5 (layer F.Cu) (tedit 59E8DB30) (tstamp 59E8B846)
     (at 99.06 106.68)
     (descr "Screw Terminals on 2.54mm centers, 5 position")
     (tags CONN)
@@ -1921,7 +1921,7 @@
     (fp_text reference T2 (at 0 -2.54) (layer F.SilkS)
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
-    (fp_text value CONN_5 (at 0 2.54) (layer F.SilkS)
+    (fp_text value H2 (at 5.08 -2.54) (layer F.SilkS)
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
     (fp_line (start -6.35 -1.27) (end -6.35 1.27) (layer F.SilkS) (width 0.3048))
@@ -1955,7 +1955,7 @@
     )
   )
 
-  (module ScrewTerm_2.54-5 (layer F.Cu) (tedit 5934228F) (tstamp 59E8B853)
+  (module ScrewTerm_2.54-5 (layer F.Cu) (tedit 59E8DAF2) (tstamp 59E8B853)
     (at 99.06 54.61 180)
     (descr "Screw Terminals on 2.54mm centers, 5 position")
     (tags CONN)
@@ -1963,7 +1963,7 @@
     (fp_text reference T3 (at 0 -2.54 180) (layer F.SilkS)
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
-    (fp_text value CONN_5 (at 0 2.54 180) (layer F.SilkS)
+    (fp_text value H3 (at -5.08 -2.54 180) (layer F.SilkS)
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
     (fp_line (start -6.35 -1.27) (end -6.35 1.27) (layer F.SilkS) (width 0.3048))
@@ -1997,7 +1997,7 @@
     )
   )
 
-  (module ScrewTerm_2.54-5 (layer F.Cu) (tedit 5934228F) (tstamp 59E8B860)
+  (module ScrewTerm_2.54-5 (layer F.Cu) (tedit 59E8DADA) (tstamp 59E8B860)
     (at 86.36 54.61 180)
     (descr "Screw Terminals on 2.54mm centers, 5 position")
     (tags CONN)
@@ -2005,7 +2005,7 @@
     (fp_text reference T4 (at 0 -2.54 180) (layer F.SilkS)
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
-    (fp_text value CONN_5 (at 0 2.54 180) (layer F.SilkS)
+    (fp_text value H4 (at 5.08 -2.54 180) (layer F.SilkS)
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
     (fp_line (start -6.35 -1.27) (end -6.35 1.27) (layer F.SilkS) (width 0.3048))
@@ -2172,7 +2172,7 @@
     )
   )
 
-  (module SIL-5 (layer F.Cu) (tedit 200000) (tstamp 59E8B8A6)
+  (module SIL-5 (layer F.Cu) (tedit 59E8D5BC) (tstamp 59E8B8A6)
     (at 160.02 95.25 270)
     (descr "Connecteur 5 pins")
     (tags "CONN DEV")
@@ -2180,8 +2180,8 @@
     (fp_text reference RR1 (at -0.635 -2.54 270) (layer F.SilkS)
       (effects (font (size 1.72974 1.08712) (thickness 0.3048)))
     )
-    (fp_text value "10K Ohms" (at 0 -2.54 270) (layer F.SilkS) hide
-      (effects (font (size 1.524 1.016) (thickness 0.3048)))
+    (fp_text value "10K Ohms" (at 0 2.54 270) (layer F.SilkS)
+      (effects (font (size 0.75 0.75) (thickness 0.1524)))
     )
     (fp_line (start -7.62 1.27) (end -7.62 -1.27) (layer F.SilkS) (width 0.3048))
     (fp_line (start -7.62 -1.27) (end 5.08 -1.27) (layer F.SilkS) (width 0.3048))
@@ -2215,6 +2215,15 @@
     )
   )
 
+  (gr_text 2 (at 172.4152 93.7768 90) (layer F.SilkS)
+    (effects (font (size 1.5 1.5) (thickness 0.3)))
+  )
+  (gr_text 1 (at 172.466 96.6724 90) (layer F.SilkS)
+    (effects (font (size 1.5 1.5) (thickness 0.3)))
+  )
+  (gr_text 0 (at 172.5168 99.1108 90) (layer F.SilkS)
+    (effects (font (size 1.5 1.5) (thickness 0.3)))
+  )
   (gr_arc (start 81.106 55.722) (end 78.106 55.722) (angle 90) (layer Edge.Cuts) (width 0.1) (tstamp 5516A6F0))
   (gr_text "Dimensions taken from\nhttps://github.com/raspberrypi/hats/blob/master/hat-board-mechanical.pdf" (at 145.086 119.222) (layer Cmts.User)
     (effects (font (size 1.5 1.5) (thickness 0.15) italic))
