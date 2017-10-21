@@ -1,10 +1,24 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 19 Oct 2017 10:32:59 EDT
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Sat 21 Oct 2017 11:38:39 EDT
 
 BeginCmp
 TimeStamp = /59E8B377;
 Reference = C1;
 ValeurCmp = .1 uf;
 IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /59EB5FAA;
+Reference = C2;
+ValeurCmp = 10 uf, 50V;
+IdModule  = CP_Radial_D5.0mm_P2.00mm;
+EndCmp
+
+BeginCmp
+TimeStamp = /59EB5FB9;
+Reference = C3;
+ValeurCmp = 15 uf, 50V;
+IdModule  = CP_Radial_D5.0mm_P2.00mm;
 EndCmp
 
 BeginCmp
@@ -283,28 +297,28 @@ EndCmp
 BeginCmp
 TimeStamp = /59E8B093;
 Reference = T1;
-ValeurCmp = CONN_5;
+ValeurCmp = H1;
 IdModule  = ScrewTerm_2.54-5;
 EndCmp
 
 BeginCmp
 TimeStamp = /59E8B0A2;
 Reference = T2;
-ValeurCmp = CONN_5;
+ValeurCmp = H2;
 IdModule  = ScrewTerm_2.54-5;
 EndCmp
 
 BeginCmp
 TimeStamp = /59E8B0B1;
 Reference = T3;
-ValeurCmp = CONN_5;
+ValeurCmp = H3;
 IdModule  = ScrewTerm_2.54-5;
 EndCmp
 
 BeginCmp
 TimeStamp = /59E8B0C0;
 Reference = T4;
-ValeurCmp = CONN_5;
+ValeurCmp = H4;
 IdModule  = ScrewTerm_2.54-5;
 EndCmp
 
