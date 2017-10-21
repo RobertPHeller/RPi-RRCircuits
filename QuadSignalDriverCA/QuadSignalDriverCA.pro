@@ -1,4 +1,4 @@
-update=Thu 19 Oct 2017 10:20:51 EDT
+update=Sat 21 Oct 2017 09:33:24 EDT
 last_client=pcbnew
 [general]
 version=1
@@ -40,3 +40,4 @@ LibName14=led
 LibName15=dip_sockets
 LibName16=pga_sockets
 LibName17=valves
+LibName18=/home/heller/RRCircuits/DWSLogoBCU
