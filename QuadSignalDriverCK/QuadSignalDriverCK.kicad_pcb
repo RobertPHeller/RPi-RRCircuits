@@ -2385,10 +2385,10 @@
       (layers *.Cu *.Mask)
       (net 2 Common)
     )
-    (model Capacitors_THT.3dshapes/CP_Radial_D5.0mm_P2.00mm.wrl
-      (at (xyz 0 0 0))
-      (scale (xyz 0.393701 0.393701 0.393701))
-      (rotate (xyz 0 0 0))
+    (model walter/capacitors/cp_5x11mm.wrl
+      (at (xyz 0.03937 0 0))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 90))
     )
   )
 
@@ -2537,10 +2537,10 @@
       (layers *.Cu *.Mask)
       (net 2 Common)
     )
-    (model Capacitors_THT.3dshapes/CP_Radial_D5.0mm_P2.00mm.wrl
-      (at (xyz 0 0 0))
-      (scale (xyz 0.393701 0.393701 0.393701))
-      (rotate (xyz 0 0 0))
+    (model walter/capacitors/cp_5x6mm.wrl
+      (at (xyz 0.03937 0 0))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 90))
     )
   )
 
