@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Wed May 31 19:37:01 2017
-%  Last Modified : <170601.1312>
+%  Last Modified : <171103.1502>
 %
 %  Description 
 %
@@ -68,6 +68,7 @@
 \emergencystretch=50pt
 \setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{3}
+\includeonly{SMCSenseHAT,QuadSSSQuadIn,MCP23017,OctalLEDDriver}
 \begin{document}
 \title{Railroad Circuits for the Raspberry Pi}
 \author{Robert Heller \\ Deepwoods Software \\ Wendell, MA, USA}
@@ -124,7 +125,7 @@ finds something wrong, I would of course like to hear about it.
 \pagenumbering{arabic}
 \chapter{General Information}
 
-All but two of the boards are add on boards for a Raspberry Pi ``B'' model, 
+All but three of the boards are add on boards for a Raspberry Pi ``B'' model, 
 one with a 40-pin header and have the mechanical form factor of a Raspberry Pi 
 ``HAT''.  Since none of them have an eeprom on them, they are technically not 
 actual ``HATs''.  These boards can be ``stacked'', with some limitations, as 
@@ -154,13 +155,21 @@ All of the boards have mounting holes.  The mounting holes on the HAT-like
 boards align over the mounting holes in the Raspberry Pi.  Using standard 
 height headers allows about 3/8'' between boards and using tall headers allows 
 1/2'' between boards.  It is probably a good idea to use spacer hardware to 
-secure the boards.  Male/female 4-40 threaded hex spacers would quite well.
+secure the boards.  Male/female 4-40 threaded hex spacers work quite well, 
+although the boards are designed to use M2.5 hardware (Adafruit sells M2.5 
+male/female threaded hex spacers in pairs).
 
 \include{SMCSenseHAT}
 \include{QuadSSSQuadIn}
+\include{MCP23017}
+\include{OctalLEDDriver}
+\include{CANHat2}
+\include{ButtonHat}
+\include{LEDDriverHat}
+\include{QuadSignalDriverCK}
+\include{QuadSignalDriverCA}
 \include{SignalHAT}
 \include{DualUncouplerHAT}
-\include{MCP23017}
 \include{MCP23008Hat}
 \include{CANHat}
 \include{QuadUncoupler}

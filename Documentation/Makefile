@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed May 31 19:27:54 2017
-#  Last Modified : <170601.1158>
+#  Last Modified : <171103.1558>
 #
 #  Description	
 #
@@ -47,14 +47,27 @@ LATEX=/usr/bin/pdflatex
 BIBTEX=/usr/bin/bibtex
 MAKEINDEX=/usr/bin/makeindex
 
-TEXS=usermanual.tex ../CANHat/CANHat.tex ../QuadSSSQuadIn/QuadSSSQuadIn.tex \
-	../QuadUncoupler/QuadUncoupler.tex \
-	../DualUncouplerHAT/DualUncouplerHAT.tex \
-	../MCP23008Hat/MCP23008Hat.tex ../SignalHAT/SignalHAT.tex \
-	../MCP23017Hat/MCP23017.tex ../SMCSenseHAT/SMCSenseHAT.tex \
-	../QuadSMC/QuadSMC.tex
+TEXS=usermanual.tex ../SMCSenseHAT/SMCSenseHAT.tex \
+		    ../QuadSSSQuadIn/QuadSSSQuadIn.tex \
+		    ../MCP23017Hat/MCP23017.tex \
+		    ../OctalLEDDriver/OctalLEDDriver.tex \
+		    ../CANHat2/CANHat2.tex \
+		    ../ButtonHat/ButtonHat.tex \
+		    ../LEDDriverHat/LEDDriverHat.tex \
+		    ../QuadSignalDriverCK/QuadSignalDriverCK.tex \
+		    ../QuadSignalDriverCA/QuadSignalDriverCA.tex \
+		    ../SignalHAT/SignalHAT.tex \
+		    ../DualUncouplerHAT/DualUncouplerHAT.tex \
+		    ../MCP23008Hat/MCP23008Hat.tex \
+		    ../CANHat/CANHat.tex \
+		    ../QuadUncoupler/QuadUncoupler.tex \
+		    ../QuadSMC/QuadSMC.tex
 FIGURES= ../SMCSenseHAT/SMCSenseHAT3DTop.png \
-	 ../SMCSenseHAT/SMCSenseHAT.png
+	 ../SMCSenseHAT/SMCSenseHAT.png \
+	 ../SMCSenseHAT/SMCSenseHAT.pdf \
+	 ../QuadSSSQuadIn/QuadSSSQuadIn3DTop.png \
+	 ../QuadSSSQuadIn/QuadSSSQuadIn.png \
+	 ../QuadSSSQuadIn/QuadSSSQuadIn.pdf
 
 usermanual.pdf : $(TEXS) $(FIGURES)
 	for f in $(TEXS) $(FIGURES);  do \

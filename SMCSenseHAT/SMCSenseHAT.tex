@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Wed May 31 20:05:00 2017
-%  Last Modified : <170601.1322>
+%  Last Modified : <171103.1450>
 %
 %  Description 
 %
@@ -71,11 +71,11 @@ stall motor 2.
 \end{description}
 
 Each of the motor drive circuits is through a transistor that can handle 1 amp 
-continuious colector current, which is way more needed to drive typical stall 
+continuous collector current, which is way more needed to drive typical stall 
 motor.  It is enough to drive a pair of stall motors, wired in parallel as 
 would be the case for a cross over.
 
-Because this board is hardwired to use four specicic GPIO pins it is not 
+Because this board is hardwired to use four specific GPIO pins it is not 
 possible to use two or more of these boards on given Raspberry Pi.  But in the 
 SMCSenseHAT1 directory is a nearly identical board, that uses a different set 
 of four GPIO pins:
@@ -97,6 +97,10 @@ these boards on a single Raspberry Pi.
 
 \section{Circuit Description}
 
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{SMCSenseHAT.pdf}
+\caption{Circuit Diagram of the SMCSenseHAT}
+\end{centering}\end{figure}
 This circuit contains two sections.  There is an output section that contains 
 a dual opto-isolator, a quad op-amp, and a quad driver (NPN) transistor.  An 
 opto-isolated GPIO output pin drives one pair of op-amps, which in turn drive 
@@ -159,7 +163,7 @@ LM324N&1&U2&512-LM324N& \\
 \url{http://www.mouser.com/ProjectManager/ProjectDetail.aspx?AccessID=259711af97}.}
 
 
-The only parts that might be subsituted are J0 (the RPi GPIO Header), and T1 
+The only parts that might be substituted are J0 (the RPi GPIO Header), and T1 
 and T2 (the Motor terminals) and T3 (the 12 to 16 Volts terminals).  The parts 
 listed are for the stacking headers for the RPi GPIO Header, and screw 
 terminals for the Motor terminals and the motor power terminals.  Feel free to 
@@ -177,5 +181,11 @@ arrays or spring terminals for the T1, T2, and T3.
 \includegraphics[width=5in]{SMCSenseHAT.png}
 \caption{Fabrication image of the SMCSenseHAT board}
 \end{centering}\end{figure}
-
+Board assembly is straight forward.  You need to be careful orienting the ICs, 
+diodes, and the electrolytic capacitor\footnote{The first batch of the boards 
+I ordered used the wrong PCB modules for the terminals and the holes are too 
+small for the screw terminal pins to go all the way in.  They can be 
+``jammed'' in enough to be soldered. Pin arrays fit a little better, but still 
+need some effort to seat.  The next batch I order will not have this 
+problem.}. 
 
