@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed May 31 19:27:54 2017
-#  Last Modified : <171103.1558>
+#  Last Modified : <171103.2113>
 #
 #  Description	
 #
@@ -67,7 +67,14 @@ FIGURES= ../SMCSenseHAT/SMCSenseHAT3DTop.png \
 	 ../SMCSenseHAT/SMCSenseHAT.pdf \
 	 ../QuadSSSQuadIn/QuadSSSQuadIn3DTop.png \
 	 ../QuadSSSQuadIn/QuadSSSQuadIn.png \
-	 ../QuadSSSQuadIn/QuadSSSQuadIn.pdf
+	 ../QuadSSSQuadIn/QuadSSSQuadIn.pdf \
+	 ../MCP23017Hat/MCP230173DTop.png \
+	 ../MCP23017Hat/MCP23017.png \
+	 ../MCP23017Hat/MCP23017.pdf \
+	 ../OctalLEDDriver/OctalLEDDriver3DTop.png \
+	 ../OctalLEDDriver/OctalLEDDriver.png \
+	 ../OctalLEDDriver/OctalLEDDriver.pdf
+	 
 
 usermanual.pdf : $(TEXS) $(FIGURES)
 	for f in $(TEXS) $(FIGURES);  do \
