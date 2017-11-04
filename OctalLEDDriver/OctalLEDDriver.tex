@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Fri Nov 3 11:46:41 2017
-%  Last Modified : <171103.2143>
+%  Last Modified : <171104.0951>
 %
 %  Description 
 %
@@ -42,9 +42,9 @@
 
 \chapter{OctalLEDDriver: Octal LED (Common Cathode) driver board.}
 
-This is a standalone board that takes 8 3V GPIO pins (such as from a MCP23017 
-or MCP23008 HAT board or just from 8 of a Raspberry Pi's GPIO pins and buffers 
-them to drive up to 8 LEDs from a 5V supply.  It is specificly designed for 
+This is a standalone board that takes eight 3V GPIO pins (such as from a MCP23017 
+or MCP23008 HAT board or just from eight of a Raspberry Pi's GPIO pins and buffers 
+them to drive up to eight LEDs from a 5V supply.  It is specificly designed for 
 common cathode signals.  It has a ten position screw terminal at one end, for 
 GND, GPIO 0 through 7, and +3V (it does not actually use the +3V connection, 
 but includes it to match the terminals on a MCP23017 or MCP23008 HAT board and 
@@ -59,11 +59,11 @@ LEDs 0 though 7 and the common cathode (K), which is ground.
 \includegraphics[width=5in]{OctalLEDDriver.pdf}
 \caption{Circuit Diagram of the OctalLEDDriver}
 \end{centering}\end{figure}
-The circuit is just eight driver circuits, each featuring a NPN and a PNP 
-transistor, that level shift and buffer the 3V logic to 20 milliamp, 5V LED 
-drive circuits.  The circuits include a current limiting series resistor, so 
-there is no need to include resistors.  The circuit assumes 2V LEDs (typical 
-of standard red, green, and yellow LEDs).
+The circuit is just eight driver circuits, each featuring a NPN and a PNP
+transistor, that level shift and buffer the 3V logic to 20 milliamp, 5V LED
+drive circuits. The circuits include a current limiting series resistor, so
+there is no need to include external resistors on your LEDs. The circuit
+assumes 2V LEDs (typical of standard red, green, and yellow LEDs).
 
 \section{Parts List}
 
