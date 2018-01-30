@@ -1,7 +1,5 @@
-update=Tue 30 Jan 2018 13:20:17 EST
-last_client=pcbnew
-[general]
-version=1
+update=Tue 30 Jan 2018 15:26:29 EST
+last_client=kicad
 [pcbnew]
 version=1
 LastNetListRead=
@@ -40,3 +38,5 @@ LibName14=dip_sockets
 LibName15=pga_sockets
 LibName16=valves
 LibName17=/home/heller/RRCircuits/TO220_11Pin
+[general]
+version=1
