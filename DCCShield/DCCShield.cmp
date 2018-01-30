@@ -1,0 +1,115 @@
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Tue 30 Jan 2018 14:22:47 EST
+
+BeginCmp
+TimeStamp = /5A70BF77;
+Reference = C1;
+ValeurCmp = .01;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A70BF86;
+Reference = C2;
+ValeurCmp = .01;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A70C400;
+Reference = D1;
+ValeurCmp = Thermal Warning;
+IdModule  = LED-3MM;
+EndCmp
+
+BeginCmp
+TimeStamp = /56D70129;
+Reference = P1;
+ValeurCmp = Power;
+IdModule  = Socket_Arduino_Uno:Socket_Strip_Arduino_1x08;
+EndCmp
+
+BeginCmp
+TimeStamp = /56D70DD8;
+Reference = P2;
+ValeurCmp = Analog;
+IdModule  = Socket_Arduino_Uno:Socket_Strip_Arduino_1x06;
+EndCmp
+
+BeginCmp
+TimeStamp = /56D721E0;
+Reference = P3;
+ValeurCmp = Digital;
+IdModule  = Socket_Arduino_Uno:Socket_Strip_Arduino_1x10;
+EndCmp
+
+BeginCmp
+TimeStamp = /56D7164F;
+Reference = P4;
+ValeurCmp = Digital;
+IdModule  = Socket_Arduino_Uno:Socket_Strip_Arduino_1x08;
+EndCmp
+
+BeginCmp
+TimeStamp = /56D71177;
+Reference = P5;
+ValeurCmp = CONN_01X01;
+IdModule  = Socket_Arduino_Uno:Arduino_1pin;
+EndCmp
+
+BeginCmp
+TimeStamp = /56D71274;
+Reference = P6;
+ValeurCmp = CONN_01X01;
+IdModule  = Socket_Arduino_Uno:Arduino_1pin;
+EndCmp
+
+BeginCmp
+TimeStamp = /56D712A8;
+Reference = P7;
+ValeurCmp = CONN_01X01;
+IdModule  = Socket_Arduino_Uno:Arduino_1pin;
+EndCmp
+
+BeginCmp
+TimeStamp = /56D712DB;
+Reference = P8;
+ValeurCmp = CONN_01X01;
+IdModule  = Socket_Arduino_Uno:Arduino_1pin;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A70C583;
+Reference = P9;
+ValeurCmp = TRK Power In;
+IdModule  = bornier2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A70C574;
+Reference = P10;
+ValeurCmp = DCC Power Out;
+IdModule  = bornier2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A70BFD9;
+Reference = R1;
+ValeurCmp = 2.7K Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A70C40F;
+Reference = R2;
+ValeurCmp = 2.7K Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A70BCC9;
+Reference = U1;
+ValeurCmp = LMD18200;
+IdModule  = TO220_11PIN_VERT;
+EndCmp
+
+EndListe

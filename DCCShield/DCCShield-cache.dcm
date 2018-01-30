@@ -1,0 +1,8 @@
+EESchema-DOCLIB  Version 2.0  Date: Tue 30 Jan 2018 13:42:14 EST
+#
+$CMP LMD18200
+D 3A, 55V H-Bridge
+K H-Bridge
+$ENDCMP
+#
+#End Doc Library
