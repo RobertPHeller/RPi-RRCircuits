@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed Jan 31 13:20:49 2018
-#  Last Modified : <180131.1512>
+#  Last Modified : <180201.1737>
 #
 #  Description	
 #
@@ -47,10 +47,12 @@ ARDUINO_DIR = /usr/local/arduino-1.0.5/
 ARDMK_DIR   = /home/heller/Arduino-Makefile/
 BOARD_TAG   = uno
 USER_LIB_PATH := /home/heller/
-ARDUINO_LIBS = CmdrArduino EEPROM Wire
+ARDUINO_LIBS = CmdrArduino EEPROM Wire LiquidCrystal_I2C
 BISON = /usr/bin/bison
 
 OTHER_OBJS = build-uno/DCCCommands.tab.cpp.o
+
+#DEBUG = yes
 
 include $(ARDMK_DIR)/Arduino.mk
 
