@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed Jan 31 13:20:49 2018
-#  Last Modified : <180201.1737>
+#  Last Modified : <180203.0753>
 #
 #  Description	
 #
@@ -50,7 +50,7 @@ USER_LIB_PATH := /home/heller/
 ARDUINO_LIBS = CmdrArduino EEPROM Wire LiquidCrystal_I2C
 BISON = /usr/bin/bison
 
-OTHER_OBJS = build-uno/DCCCommands.tab.cpp.o
+#OTHER_OBJS = build-uno/DCCCommands.tab.cpp.o
 
 #DEBUG = yes
 

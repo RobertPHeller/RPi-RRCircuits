@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Feb 1 09:33:11 2018
-//  Last Modified : <180201.1613>
+//  Last Modified : <180203.1144>
 //
 //  Description	
 //
@@ -45,11 +45,15 @@
 
 #include "Arduino.h"
 #include <EEPROM.h>
+#ifdef DCCLIB
 #include <DCCPacket.h>
 #include <DCCPacketQueue.h>
 #include <DCCPacketScheduler.h>
+#else
+#define DCCPacketScheduler void
+#endif
 
-#define DCCSTATE_MAXSTACK 64
+#define DCCSTATE_MAXSTACK 32
 
 class DCCState {
 private:

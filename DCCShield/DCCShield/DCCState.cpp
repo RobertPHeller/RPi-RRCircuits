@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Feb 1 09:51:00 2018
-//  Last Modified : <180201.1611>
+//  Last Modified : <180203.1212>
 //
 //  Description	
 //
@@ -42,7 +42,7 @@
 
 #include "DCCState.h"
 
-static const char rcsid[] PROGMEM = "@(#) : $Id$";
+static const char rcsid[] = "@(#) : $Id$";
 
 uint8_t DCCState::stack_size = 0;
 uint8_t DCCState::currentPointer = 0;
@@ -118,17 +118,26 @@ bool DCCState::eStop(void)
     for (p = 0; p < stack_size; p++) {
         stack[p].currentSpeed = 0;
     }
-    return dps->eStop();
+#ifdef DCCLIB
+    if (dps) return dps->eStop();
+    else return true;
+#else
+    return true;
+#endif
 }
 
 bool DCCState::eStop(uint16_t address)
 {
-    bool result;
+    bool result = true;
     DCCState *loco = LookupDecoder(address);
     if (address < 100) {
-        result = dps->eStop(address,DCC_SHORT_ADDRESS);
+#ifdef DCCLIB
+        if (dps) result = dps->eStop(address,DCC_SHORT_ADDRESS);
+#endif
     } else {
-        result = dps->eStop(address,DCC_LONG_ADDRESS);
+#ifdef DCCLIB
+        if (dps) result = dps->eStop(address,DCC_LONG_ADDRESS);
+#endif
     }
     if (result) loco->currentSpeed = 0;
     return result;
@@ -136,17 +145,21 @@ bool DCCState::eStop(uint16_t address)
 
 bool DCCState::setSpeed(uint16_t address,int8_t new_speed, uint8_t steps)
 {
-    bool result;
-    if (steps != 14 || steps != 28 || steps != 128) {
-        Serial.print(F("Invalid number of steps specified: "));
+    bool result = true;
+    if (steps != 14 && steps != 28 && steps != 128) {
+        Serial.print("Invalid number of steps specified: ");
         Serial.println(steps);
         return false;
     }
     DCCState *loco = LookupDecoder(address);
     if (address < 100) {
-        result = dps->setSpeed(address,DCC_SHORT_ADDRESS,new_speed,steps);
+#ifdef DCCLIB
+        if (dps) result = dps->setSpeed(address,DCC_SHORT_ADDRESS,new_speed,steps);
+#endif
     } else {
-        result = dps->setSpeed(address,DCC_LONG_ADDRESS,new_speed,steps);
+#ifdef DCCLIB
+        if (dps) result = dps->setSpeed(address,DCC_LONG_ADDRESS,new_speed,steps);
+#endif
     }
     if (result) {
         loco->currentSpeed = new_speed;
@@ -157,12 +170,16 @@ bool DCCState::setSpeed(uint16_t address,int8_t new_speed, uint8_t steps)
 
 bool DCCState::setFunctions(uint16_t address, uint16_t functions)
 {
-    bool result;
+    bool result = true;
     DCCState *loco = LookupDecoder(address);
     if (address < 100) {
-        result = dps->setFunctions(address,DCC_SHORT_ADDRESS,functions);
+#ifdef DCCLIB
+        if (dps) result = dps->setFunctions(address,DCC_SHORT_ADDRESS,functions);
+#endif
     } else {
-        result = dps->setFunctions(address,DCC_LONG_ADDRESS,functions);
+#ifdef DCCLIB
+        if (dps) result = dps->setFunctions(address,DCC_LONG_ADDRESS,functions);
+#endif
     }
     if (result) loco->currentFunctions = functions;
     return result;
@@ -170,18 +187,22 @@ bool DCCState::setFunctions(uint16_t address, uint16_t functions)
 
 bool DCCState::setBasicAccessory(uint16_t address, uint8_t function)
 {
-    bool result;
+    bool result = true;
     DCCState *acc = LookupDecoder(address);
-    result = dps->setBasicAccessory(address,function);
+#ifdef DCCLIB
+    if (dps) result = dps->setBasicAccessory(address,function);
+#endif
     if (result) acc->currentFunctions = function;
     return result;
 }
 
 bool DCCState::unsetBasicAccessory(uint16_t address, uint8_t function)
 {
-    bool result;
+    bool result = true;
     DCCState *acc = LookupDecoder(address);
-    result = dps->unsetBasicAccessory(address,function);
+#ifdef DCCLIB
+    if (dps) result = dps->unsetBasicAccessory(address,function);
+#endif
     if (result) acc->currentFunctions = ~function;
     return result;
 }
@@ -249,10 +270,14 @@ bool DCCState::updateDCC()
     uint8_t p;
     for (p = 0; p < stack_size; p++) {
         if (stack[p].address != 0 && stack[p].currentSteps != 0) {
+#ifdef DCCLIB
             setSpeed(stack[p].address,stack[p].currentSpeed,stack[p].currentSteps);
             setFunctions(stack[p].address,stack[p].currentFunctions);
+#endif
         } else if (stack[p].address != 0) {
+#ifdef DCCLIB
             setBasicAccessory(stack[p].address,stack[p].currentFunctions);
+#endif
         }
     }
     return true;
