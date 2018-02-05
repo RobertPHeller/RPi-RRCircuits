@@ -1,0 +1,759 @@
+#* 
+#* ------------------------------------------------------------------
+#* GenericThrottle.src - Generic Throttle
+#* Created by Robert Heller on Sun Apr 22 09:47:46 2012
+#* ------------------------------------------------------------------
+#* Modification History: $Log$
+#* Modification History: Revision 1.1  2002/07/28 14:03:50  heller
+#* Modification History: Add it copyright notice headers
+#* Modification History:
+#* ------------------------------------------------------------------
+#* Contents:
+#* ------------------------------------------------------------------
+#*  
+#*     Model RR System, Version 2
+#*     Copyright (C) 1994,1995,2002-2012  Robert Heller D/B/A Deepwoods Software
+#* 			51 Locke Hill Road
+#* 			Wendell, MA 01379-9728
+#* 
+#*     This program is free software; you can redistribute it and/or modify
+#*     it under the terms of the GNU General Public License as published by
+#*     the Free Software Foundation; either version 2 of the License, or
+#*     (at your option) any later version.
+#* 
+#*     This program is distributed in the hope that it will be useful,
+#*     but WITHOUT ANY WARRANTY; without even the implied warranty of
+#*     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#*     GNU General Public License for more details.
+#* 
+#*     You should have received a copy of the GNU General Public License
+#*     along with this program; if not, write to the Free Software
+#*     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#* 
+#*  
+#* 
+
+## @defgroup GenericThrottle GenericThrottle
+#  @brief XPressNet Throttle Program
+#
+# @section SYNOPSIS
+#
+# GenericThrottle [X11 Resource Options]
+#
+# @section DESCRIPTION
+# 
+# This program is a GUI program that implements a software / computer screen
+# generic throttle.  Both train / accessory operation and 
+# programming functions are implemented.
+# 
+# The use of this program is fully described in the <em>Model Railroad
+# System User Manual</em>, in Part I.
+#
+# 
+# @section PARAMETERS
+#
+# None.
+#  
+# @section AUTHOR 
+# Robert Heller \<heller\@deepsoft.com\>
+#
+
+set argv0 [file join  [file dirname [info nameofexecutable]] GenericThrottle]
+
+package require gettext
+package require Tk
+package require tile
+package require snit
+package require snitStdMenuBar
+package require HTMLHelp 2.0
+package require LabelFrames
+package require CabWidgets 2.0
+package require MainFrame
+package require PagesManager
+
+global HelpDir
+set HelpDir [file join [file dirname [file dirname [file dirname \
+							[info script]]]] Help]
+#puts stderr "*** HelpDir = $HelpDir"
+set msgfiles [::msgcat::mcload [file join [file dirname [file dirname [file dirname \
+							[info script]]]] Messages]]
+#puts stderr "*** msgfiles = $msgfiles"
+
+snit::widgetadaptor NoteBook {
+    variable leavecmd -array {}
+    variable raisecmd -array {}
+    delegate option * to hull
+    delegate method * to hull except {add insert}
+    constructor {args} {
+        installhull using ttk::notebook -class NoteBook
+        $self configurelist $args
+    }
+    typeconstructor {
+        bind NoteBook <ButtonPress-1> [mytypemethod _Press %W %x %y]
+        bind NoteBook <Key-Right> "[mytypemethod _CycleTab %W  1]; break"
+        bind NoteBook <Key-Left>  "[mytypemethod _CycleTab %W -1]; break"
+        bind NoteBook <Control-Key-Tab> "[mytypemethod _CycleTab %W  1]; break"
+        bind NoteBook <Control-Shift-Key-Tab> "[mytypemethod _CycleTab %W -1]; break"
+        catch {
+            bind NoteBook <Control-ISO_Left_Tab> "[mytypemethod _CycleTab %W -1]; break"
+        }
+        ttk::style configure NoteBook.Tab \
+              -padding [ttk::style lookup TNotebook.Tab -padding] \
+              -background [ttk::style lookup TNotebook.Tab -background]
+        ttk::style layout NoteBook [ttk::style layout TNotebook]
+        ttk::style layout NoteBook.Tab [ttk::style layout TNotebook.Tab]
+    }
+    typemethod _Press {w x y} {
+        $w _Press_ $x $y
+    }
+    typemethod _CycleTab {w dir} {
+        $w _CycleTab_ $dir
+    }
+    method _Press_ {x y} {
+        set index [$hull index @$x,$y]
+        if {$index ne ""} {
+            $self _ActivateTab $index
+        }
+    }
+    method _CycleTab_ {dir} {
+        if {[$hull index end] != 0} {
+            set current [$hull index current]
+            set select [expr {($current + $dir) % [$hull index end]}]
+            while {[$hull tab $select -state] != "normal" && ($select != $current)} {
+                set select [expr {($select + $dir) % [$hull index end]}]
+            }
+            if {$select != $current} {
+                $self _ActivateTab $select
+            }
+        }
+    }
+    method _ActivateTab {tab} {
+        if {[$hull index $tab] eq [$hull index current]} {
+            if {[info exists raisecmd([$hull index current])]} {
+                uplevel #0 $raisecmd([$hull index current])
+            }
+            focus $win
+        } else {
+            set canleave yes
+            #puts stderr "*** $self _ActivateTab: leavecmd([$hull index current]) = $leavecmd([$hull index current])"
+            if {[info exists leavecmd([$hull index current])] &&
+                $leavecmd([$hull index current]) ne ""} {
+                set canleave [uplevel #0 $leavecmd([$hull index current])]
+            }
+            #puts stderr "*** $self _ActivateTab: canleave = $canleave"
+            if {!$canleave} {return}
+            $hull select $tab
+            #puts stderr "*** $self _ActivateTab: raisecmd([$hull index current]) = $raisecmd([$hull index current])"
+            if {[info exists raisecmd([$hull index current])]} {
+                uplevel #0 $raisecmd([$hull index current])
+            }
+            update ;# needed so focus logic sees correct mapped/unmapped states
+            if {[set f [ttk::focusFirst [$hull select]]] ne ""} {
+                tk::TabToWindow $f
+            }
+        }
+    }
+    method add {window args} {
+        set _raisecmd [from args -raisecmd]
+        set _leavecmd [from args -leavecmd]
+        eval [list $hull add $window] $args
+        set index [$hull index $window]
+        set raisecmd($index) $_raisecmd
+        set leavecmd($index) $_leavecmd
+    }
+    method insert {index window args} {
+        set _raisecmd [from args -raisecmd]
+        set _leavecmd [from args -leavecmd]
+        eval [list $hull insert $index $window] $args
+        set index [$hull index $window]
+        set raisecmd($index) $_raisecmd
+        set leavecmd($index) $_leavecmd
+    }
+}
+
+
+namespace eval GenericThrottle {
+  snit::integer ubyte -min 0 -max 255
+  snit::integer cvnumber -min 1 -max 256
+  snit::widget SingleCV {
+    delegate option -name to le as -label
+    option -command -default {}
+    option -number  -default 1 -type GenericThrottle::cvnumber
+    delegate option -labelwidth to le
+    delegate option -writable to le as -editable
+    component le
+    constructor {args} {
+      install le using LabelEntry $win.le -text {0}
+      $le bind <Return> [mymethod _ecommand]
+      pack $le -fill x
+      $self configurelist $args
+    }
+    method value {} {
+      return [$le cget -text]
+    }
+    method _ecommand {} {
+      set v [$le cget -text]
+      if {[catch {GenericThrottle::ubyte validate $v}]} {
+	tk_messageBox -type ok -icon error -message [_ "Not an 8bit integer: %s" $v]
+	return
+      }
+      $self invoke
+    }
+    method invoke {} {
+      set cmd [concat $options(-command) [$self cget -number] [$self value]]
+      uplevel #0 $cmd
+    }
+    method setvalue {v} {
+      puts stderr "*** $self setvalue $v"
+      if {[catch {GenericThrottle::ubyte validate $v}]} {
+        tk_messageBox -type ok -icon error -message [_ "Not an 8bit integer: %s" $v]
+	return
+      }
+      $le configure -text $v
+    }
+  }
+  snit::integer address -min 0 -max 0x27ff
+  snit::widget LongAddress {
+    option -command -default {}
+    delegate option -labelwidth to le
+    component le
+    constructor {args} {
+      install le using LabelEntry $win.le -label [_m "Label|Extended Address"] \
+		         -text {0}
+      $le bind <Return> [mymethod _ecommand]
+      pack $le -fill x
+      $self configurelist $args
+    }
+    method value {} {
+      return [$le cget -text]
+    }
+    method _ecommand {} {
+      set v [$le cget -text]
+      if {[catch {GenericThrottle::address validate $v}]} {
+	tk_messageBox -type ok -icon error -message [_ "Not an address: %s" $v]
+	return
+      }
+      $self invoke
+    }
+    method invoke {} {
+      set cmd [concat $options(-command) [$self value]]
+      uplevel #0 $cmd
+    }
+    method setvalue {v} {
+      puts stderr "*** $self setvalue $v"
+      if {[catch {GenericThrottle::address validate $v}]} {
+        tk_messageBox -type ok -icon error -message [_ "Not an address: %s" $v]
+	return
+      }
+      $le configure -text $v
+    }
+  }
+  snit::type DummyCommandStation {
+    option -port -readonly yes -default {}
+    option -portspeed -readonly yes -default 9600
+    option -readcvcallback -default {}
+    option -functionstatecallback -default {}
+    option -lococharcallback -default {}
+    option -messagetext -default {}
+
+    constructor {args} {
+      $self configurelist $args
+    }
+
+    method getcvvalue {CV} {}
+    method setcvvalue {CV Value} {}
+    method setprogrammode {} {}
+    method setnormalmode  {} {}
+    method emergencystop  {} {}
+    method getlocoinfo    {address} {}
+    method setlocospeed   {address direction speedsteps speed} {}
+    method setlocofunctiong1 {address f0 f1 f2 f3 f4} {}
+    method setlocofunctiong2a {address f5 f6 f7 f8} {}
+    method setlocofunctiong2b {address f9 f10 f11 f12} {}
+  }
+
+  snit::widget Throttle {
+      typeconstructor {
+          eval [list ttk::style configure TButtonBlack] [ttk::style configure TButton]
+          eval [list ttk::style configure TButtonRed] [ttk::style configure TButton]
+          ttk::style configure TButtonBlack -foreground black -activeforeground black
+          ttk::style configure TButtonRed -foreground red -activeforeground red
+          ttk::style layout TButtonBlack [ttk::style layout TButton]
+          ttk::style layout TButtonRed [ttk::style layout TButton]
+      }
+    component commandstation;# The command station object
+
+    component response;#	Response log
+    component notebook;#	Throttle/Program screens
+    component throttle;#	Throttle screen
+    component locoaddress;#	Loco address
+    component locodirection;#	Loco direction
+    component locospeed;#	Loco Speed
+    component locospeedstep;#	Loco Speed Step
+    component locofunctions;#	Loco Functions
+    variable  _functions -array {};# Function Array
+    variable  _fgroup -array {};# Function group map
+    component program;#		Programming screen
+    component themanid;#	Manufacturer ID
+    component themanversion;#	Manufacturer Version
+    component selectcv;#	CV Selector
+    component programpages;#	Programming pages
+    component thesinglecv;#	A single 8-bit CV
+    component thelongaddress;#	A long address
+
+    option -commandstationtype -readonly yes -default dummy \
+				-type {snit::enum -values {dummy xpressnet 
+                                                           nce loconet arduino}}
+    option -port -readonly yes -default {}
+    option -portspeed -readonly yes -default 9600
+    method _resumeNormal {} {
+      $commandstation setnormalmode
+    }
+    method _selectLocomotive {address} {
+        puts stderr "*** $self _selectLocomotive $address"
+      $commandstation getlocoinfo $address
+    }
+    method _changeSpeed {newspeed} {
+      set cmd [list $commandstation setlocospeed [$locoaddress currentLocomotive]]
+      set ssMode [$locospeedstep get]
+      lappend cmd $ssMode
+      lappend cmd [$locodirection direction]
+      lappend cmd $newspeed
+      eval $cmd
+    }
+    method _togglebutton {i} {
+        set group $_functions($i,group)
+        set glist $_fgroup($group)
+        
+        if {$_functions($i,value) == 1} {
+            set _functions($i,value) 0
+            $_functions($i,button) configure -style TButtonBlack
+            #$_functions($i,button) configure -foreground black
+            #$_functions($i,button) configure -activeforeground black
+            
+        } else {
+            set _functions($i,value) 1
+            $_functions($i,button) configure -style TButtonRed
+            #$_functions($i,button) configure -foreground red
+            #$_functions($i,button) configure -activeforeground red
+        }
+        set cmd [list $commandstation]
+        switch $group {
+            1 {lappend cmd setlocofunctiong1}
+            2 {lappend cmd setlocofunctiong2a}
+            3 {lappend cmd setlocofunctiong2b}
+        }
+        lappend cmd [$locoaddress currentLocomotive]
+        foreach i $glist {
+            lappend cmd $_functions($i,value)
+        }
+        eval $cmd	
+    }
+    method _updateButtonColors {} {
+        for {set i 0} {$i < 13} {incr i} {
+            if {$_functions($i,value) == 1} {
+                $_functions($i,button) configure -style TButtonRed
+                #$_functions($i,button) configure -foreground red
+                #$_functions($i,button) configure -activeforeground red
+            } else {
+                $_functions($i,button) configure -style TButtonBlack
+                #$_functions($i,button) configure -foreground black
+                #$_functions($i,button) configure -activeforeground black
+            }
+        }
+    }
+    method _groupargorder {a b} {
+      return [expr {$_functions($a,arg) - $_functions($b,arg)}]
+    }
+    method _programmingMode {} {
+      $commandstation getcvvalue 7
+      $commandstation getcvvalue 8
+      $self _doselectcv
+    }
+    method _doselectcv {} {
+      set selection [$selectcv cget -text]
+      if {[regexp {^([[:digit:]]+)} "$selection" => cv] > 0} {
+	if {$cv == 17 || $cv == 18} {
+	  $programpages raise address
+	  $commandstation getcvvalue 17
+	  $commandstation getcvvalue 18
+	} else {
+	  if {[catch {GenericThrottle::cvnumber validate $cv}]} {
+	    tk_messageBox -type ok -icon error -message [_ "Not a valid CV number: %s" $cv]
+	    return
+	  }
+	  $programpages raise single
+	  if {$cv == 256} {
+	    $commandstation getcvvalue 0
+	  } else {
+	    $commandstation getcvvalue $cv
+	  }
+	  $thesinglecv configure -number $cv
+	  $thesinglecv configure -name $selection
+	}
+      } else {
+	tk_messageBox -type ok -icon error -message [_ "Not a valid CV number: %s" $selection]
+      }
+    }
+    method _setcv {index value} {
+      if {$index == 256} {
+	$commandstation setcvvalue 0 $value
+      } else {
+	$commandstation setcvvalue $index $value
+      }
+    }
+    method _setlongaddress {value} {
+      if {$value != 0} {
+	set highbyte [expr {(($value >> 8) & 0x27) | 0x0c0}]
+	set lowbyte  [expr {$value & 0x0ff}]
+	$self setcv 17 $highbyte
+	$self setcv 18 $lowbyte
+      } else {
+	$self setcv 17 0
+	$self setcv 18 0
+      }
+    }
+    method _readCV {cv data} {
+      if {$cv == 7} {
+	$themanversion setvalue $data
+      }
+      if {$cv == 8} {
+	$themanid setvalue $data
+      }
+      if {$cv == 17} {
+	set addr [$thelongaddress value]
+	set lbyte [expr {$addr & 0x0ff}]
+	set hbyte [expr {$value & 0x027}]
+	set newaddr [expr {($hbyte << 8) | $lbyte}]
+	$thelongaddress setvalue $newaddr
+      }
+      if {$cv == 18} {
+	set addr [$thelongaddress value]
+	set lbyte [expr {$value & 0x0ff}]
+	set hbyte [expr {($addr >> 8) & 0x027}]
+	set newaddr [expr {($hbyte << 8) | $lbyte}]
+	$thelongaddress setvalue $newaddr
+      }
+      if {$cv == 0 && [$thesinglecv cget -number] == 256} {
+	$thesinglecv setvalue $value
+      } elseif {$cv == [$thesinglecv cget -number]} {
+	$thesinglecv setvalue $value
+      }
+    }
+    method _functionState {address f0 f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12} {
+        puts stderr "*** $self _functionState $address $f0 $f1 $f2 $f3 $f4 $f5 $f6 $f7 $f8 $f9 $f10 $f11 $f12"
+        for {set i 0} {$i < 13} {incr i} {
+            set _functions($i,value) [set f$i]
+        }
+        $self _updateButtonColors
+    }
+    method _locoChar {address direction steps speed} {
+      $locodirection direction_sense $direction
+      $locospeedstep set $steps
+      $locospeed setspeed $speed
+    }
+    constructor {args} {
+      set tf [ttk::labelframe $win.tf -text "Communications Log:"]
+      pack $tf -expand yes -fill both
+      pack [ScrolledWindow $tf.sw -auto both -scrollbar both] \
+		-fill both -expand yes
+      install response using text [$tf.sw getframe].response -height 5
+      $tf.sw setwidget $response
+      pack [ttk::button $tf.clear -text [_m "Label|Clear Communications Log"] \
+		 -command "$response delete 1.0 end"] -fill x
+      install notebook using NoteBook $win.noteBook
+      pack $notebook -expand yes -fill both
+
+      install throttle using ttk::frame $notebook.throttle
+      $notebook insert end $throttle \
+			-raisecmd [mymethod _resumeNormal] \
+			-text [_m "Label|Throttle Mode"]
+      set speedanddir [labelframe $throttle.speedanddir \
+			-text [_m "Label|Address, Speed, and Direction"]]
+      grid columnconfigure $throttle 0 -weight 1
+      grid columnconfigure $throttle 1 -weight 4
+      grid $speedanddir -column 0 -row 0 -sticky news
+      install locoaddress using SelectLocomotive \
+		$speedanddir.locoaddress -command [mymethod _selectLocomotive] \
+		-label [_m "Label|Address:"]
+      pack $locoaddress -fill x
+      install locodirection using LocomotiveDirection \
+					$speedanddir.locodirection
+      pack $locodirection -fill x
+      install locospeed using LocomotiveSpeed \
+					$speedanddir.locoSpeed \
+					-command [mymethod _changeSpeed]
+      pack $locospeed -fill y
+      install locospeedstep using LabelComboBox $speedanddir.locoSpeedStep \
+			-editable no -values {S14 S27 S28 S128} \
+			-label [_m "Label|Speed Steps:"]
+      $locospeedstep set [lindex [$locospeedstep cget -values] 0]
+      pack $locospeedstep -fill x
+      install locofunctions using ttk::labelframe $throttle.locoFunctions \
+			 -text [_m "Label|Functions"]
+      grid $locofunctions -column 1 -row 0 -sticky news
+      foreach f  [list 1   2  3  4  5  6  7  8  9  [_m "Label|0\nHead Light"] F10 F11 F12] \
+	      n  {     f1 f2 f3 f4 f5 f6 f7 f8 f9  f0 f10 f11 f12} \
+	      c  {     0   1  2  0  1  2  0  1  2  0  0   1   2} \
+	      r  {     0   0  0  1  1  1  2  2  2  3  4   4   4} \
+	      gr {     1   1  1  1  2  2  2  2  3  1  3   3   3} \
+	      i  {     1   2  3  4  5  6  7  8  9  0  10  11  12} \
+	      cs {     1   1  1  1  1  1  1  1  1  3  1   1   1} \
+	      a  {     1   2  3  4  0  1  2  3  0  0  1   2   3} {	
+        set b [ttk::button $locofunctions.$n \
+			-command [mymethod _togglebutton $i] \
+			-text $f]
+        grid $b -column $c -row $r -sticky news -columnspan $cs
+        set _functions($i,group) $gr
+        set _functions($i,arg)   $a
+        set _functions($i,value) 0
+        set _functions($i,button) $locofunctions.$n
+        lappend _fgroup($gr) $i
+      }
+      foreach g [array names _fgroup] {
+        set _fgroup($g) [lsort  -command [mymethod _groupargorder] $_fgroup($g)]
+      }
+      install program using ttk::frame $notebook.program
+      $notebook insert end $program \
+			-raisecmd [mymethod _programmingMode] \
+			-text [_m "Label|Programming Mode"]
+      install themanid using GenericThrottle::SingleCV $program.theManID -number 8 -writable no \
+			-name [_m "Label|Manufacturer ID"]
+      pack $themanid -fill x
+      install themanversion using GenericThrottle::SingleCV $program.theManVersion -number 7 \
+			-writable no -name [_m "Label|Manufacturer Version No"]
+      pack $themanversion -fill x
+
+      install selectcv using LabelComboBox $program.selectCV \
+	-label [_m "Label|Select a CV"] \
+	-editable yes \
+	-values [list \
+	    [_m "Label|1 Primary Address"] \
+	    [_m "Label|2 Vstart"] \
+	    [_m "Label|3 Acceleration Rate"] \
+	    [_m "Label|4 Deceleration Rate"] \
+	    [_m "Label|5 Vhigh"] \
+	    [_m "Label|6 Vmid"] \
+	    [_m "Label|9 Total PWM Period"] \
+	    [_m "Label|10 EMF Feedback Cutout"] \
+	    [_m "Label|11 Packet Time-Out Value"] \
+	    [_m "Label|12 Power Source Conversion"] \
+	    [_m "Label|13 Alternate Mode Function Status F1-F8"] \
+	    [_m "Label|14 Alternate Mode Function Status FL,F9-F12"] \
+	    [_m "Label|15 Decoder Lock (Key)"] \
+	    [_m "Label|16 Decoder Lock (Decode)"] \
+	    [_m "Label|17 & 18 Extended Address"] \
+	    [_m "Label|19 Consist Address"] \
+	    [_m "Label|21 Consist Addr Active for F1-F8"] \
+	    [_m "Label|22 Consist Addr Active for FL,F9-F12"] \
+	    [_m "Label|23 Acceleration Adjustment"] \
+	    [_m "Label|24 Deceleration Adjustment"] \
+	    [_m "Label|25 Speed Table / Mid-range Cab Speed Step"] \
+	    [_m "Label|27 Decoder Automatic Stopping Configuration"] \
+	    [_m "Label|28 Bi-Directional Communication Configuration"] \
+	    [_m "Label|29 Configuration Data #1"] \
+	    [_m "Label|30 Error Information"] \
+	    [_m "Label|31 Index High Byte"] \
+	    [_m "Label|32 Index Low Byte"] \
+	    [_m "Label|33 Output Loc. FL(f)"] \
+	    [_m "Label|34 Output Loc. FL(r)"] \
+	    [_m "Label|35 Output Loc. F1"] \
+	    [_m "Label|36 Output Loc. F2"] \
+	    [_m "Label|37 Output Loc. F3"] \
+	    [_m "Label|38 Output Loc. F4"] \
+	    [_m "Label|39 Output Loc. F5"] \
+	    [_m "Label|40 Output Loc. F6"] \
+	    [_m "Label|41 Output Loc. F7"] \
+	    [_m "Label|42 Output Loc. F8"] \
+	    [_m "Label|43 Output Loc. F9"] \
+	    [_m "Label|44 Output Loc. F10"] \
+	    [_m "Label|45 Output Loc. F11"] \
+	    [_m "Label|46 Output Loc. F12"] \
+	    [_m "Label|65 Kick Start"] \
+	    [_m "Label|66 Forward Trim"] \
+	    [_m "Label|95 Reverse Trim"] \
+	    [_m "Label|105 User Identifier #1"] \
+	    [_m "Label|106 User Identifier #2"] \
+	]
+      $selectcv bind <Return> [mymethod _doselectcv]
+      $selectcv bind <<ComboboxSelected>> [mymethod _doselectcv]
+      $selectcv set [lindex [$selectcv cget -values] 0]
+      pack $selectcv -fill x
+      install programpages using PagesManager $program.pages
+      pack $programpages -expand yes -fill both
+      set single [$programpages add single]
+      install thesinglecv using GenericThrottle::SingleCV $single.singleCV -command [mymethod _setcv]
+      pack $thesinglecv -fill x
+      set address [$programpages add address]
+      install thelongaddress using GenericThrottle::LongAddress $address.longAddress -command [mymethod _setlongaddress]
+      pack $thelongaddress -fill x
+      set options(-commandstationtype) [from args -commandstationtype]
+      set options(-port) [from args -port]
+      set options(-portspeed) [from args -portspeed]
+      switch $options(-commandstationtype) {
+        dummy {
+	   install commandstation \
+		using GenericThrottle::DummyCommandStation %%AUTO%% \
+		-port $options(-port) \
+		-portspeed $options(-portspeed) \
+		-readcvcallback [mymethod _readCV] \
+		-functionstatecallback [mymethod _functionState] \
+		-lococharcallback [mymethod _locoChar] \
+		-messagetext $response
+	}
+        arduino {
+            package require ArduinoThrottleHost
+            install commandstation \
+                  using ArduinoThrottleHost %AUTO% \
+                  -port $options(-port) \
+                  -lococharcallback [mymethod _locoChar] \
+                  -functionstatecallback [mymethod _functionState]
+        }                  
+	default {
+	  error "Unimplemented yet"
+	}
+      }
+      $notebook select $throttle
+    }    
+  }
+}
+
+proc GenericThrottle::MainWindow {port commandstationtype} {
+  # Window manager configurations
+  wm minsize . 300 1
+  wm protocol . WM_DELETE_WINDOW {CareFulExit}
+  wm title . [_ "Generic Throttle Program"]
+
+  set menubar [StdMenuBar MakeMenu \
+	-file [list [_m "Menu|&File"] {file} {file} 0 [list \
+	        [list command [_m "Menu|File|E&xit"] {file:exit} [_ "Exit the application"] {} -command {GenericThrottle::CareFulExit}] \
+		] \
+	] -help [list [_m "Menu|&Help"] {help} {help} 0 [list \
+		[list command [_m "Menu|Help|On &Help..."] {help:help} [_ "Help on help"] {} -command "HTMLHelp help Help"]\
+		[list command [_m "Menu|Help|On &Version"] {help:version} [_ "Version"] {} -command "HTMLHelp help Version"]\
+		[list command [_m "Menu|Help|Warranty"] {help:warranty} [_ "Warranty"] {} -command "HTMLHelp help Warranty"]\
+		[list command [_m "Menu|Help|Copying"] {help:copying} [_ "Copying"] {} -command "HTMLHelp help Copying"]\
+		[list command [_m "Menu|Help|Reference Manual"] {help:reference} [_ "Reference Manual"] {} -command {HTMLHelp help "Generic Throttle Reference"}]\
+		] \
+        ]]
+
+  variable Main [MainFrame .main -menu $menubar \
+	-progressmax 100 -progresstype normal -progressvar ::progress \
+	-textvariable status \
+	-separator both]
+  pack $Main -expand yes -fill both
+  $Main showstatusbar progression
+
+  variable MainFrame [$Main getframe]
+
+  HTMLHelp setDefaults "$::HelpDir" "index.html#toc"
+
+  if {$commandstationtype eq ""} {set commandstationtype dummy}
+  set th [Throttle $MainFrame.th -port $port -commandstationtype $commandstationtype]
+  pack $th -fill both -expand yes
+  set w .
+  global IsSlave
+  if {!$IsSlave} {
+    wm withdraw $w
+    update idletasks
+    set rw [winfo reqwidth $w]
+    if {$rw < 200} {set rw 300}
+    set rh [winfo reqheight $w]
+    set x [expr {[winfo screenwidth $w]/2 - $rw/2 \
+            - [winfo vrootx $w]}]
+    set y [expr {[winfo screenheight $w]/2 - $rh/2 \
+            - [winfo vrooty $w]}]
+    wm geom $w =${rw}x${rh}+$x+$y
+    wm deiconify .
+  }
+  update idletasks
+  wm minsize . [winfo reqwidth $w] [expr [winfo reqheight $w] + 35]
+  bind all <q> GenericThrottle::CareFulExit
+  bind all <Q> GenericThrottle::CareFulExit
+}
+
+proc GenericThrottle::CareFulExit {} {
+# Procedure to carefully exit.
+# [index] CarefulExit!procedure
+
+  if {[string compare \
+        [tk_messageBox -default no -icon question -message [_ "Really Quit?"] \
+                -title [_ "Careful Exit"] -type yesno] {yes}] == 0} {
+    global IsSlave
+    #puts stderr "*** CarefulExit: IsSlave = $IsSlave"
+    flush stderr
+    if {$IsSlave} {
+      puts stdout "101 Exit"
+      flush stdout
+      set ans [gets stdin]
+      #puts stderr "*** CarefulExit: ans = '$ans'"
+    }
+    # Close command station connection?
+    exit
+  }
+}
+
+
+# Process command line options.
+
+global IsSlave
+set IsSlave 0
+global argcTest
+set argcTest 0
+global argc argv argv0
+global Port
+set Port {}
+global CommandStationType
+set CommandStationType {}
+
+for {set ia 0} {$ia < $argc} {incr ia} {
+  switch -glob -- "[lindex $argv $ia]" {
+    -isslave* {
+      set IsSlave 1
+      incr argcTest
+      fconfigure stdin -buffering line
+      fconfigure stdout -buffering line
+    }
+    -psn* {
+    }
+    default {
+      if {$Port eq ""} {
+	set Port "[lindex $argv $ia]"
+      } elseif {$CommandStationType eq ""} {
+	set CommandStationType "[lindex $argv $ia]"
+      } else {
+	puts stderr "usage: $argv0 \[wish options\] \[SerialPort\] \[CommandStationType\]"
+	exit 96
+      }
+    }
+  }
+}
+
+if {0 && $Port eq ""} {
+  Dialog .openPort -title [_ "Open Serial Port"] -modal local -parent . \
+			-transient yes -side bottom -bitmap questhead \
+			-default 0 -cancel 1
+  .openPort add -text [_m "Button|Open"]
+  .openPort add -text [_m "Button|Cancel"]
+  .openPort add -text [_m "Button|Help"] -command {HTMLHelp help {Open Port}}
+  wm protocol .openPort WM_DELETE_WINDOW {.openPort enddialog 1}
+
+  set uframe [.openPort getframe]
+  pack [ComboBox $uframe.serialPort \
+		-textvariable ::OpenPortState(Port) -editable no \
+		-values [GetAllSerialPorts]] -fill x
+  set ::OpenPortState(Port) [lindex [$uframe.serialPort cget -values] 0]
+  set result [.openPort draw]
+  .openPort withdraw
+  if {$result == 1} {
+    tk_messageBox -type ok -icon warning -message "No serial port specified!"
+    exit 99
+  }
+  set Port $::OpenPortState(Port)
+}
+
+GenericThrottle::MainWindow $Port $CommandStationType
+
+
+
+
