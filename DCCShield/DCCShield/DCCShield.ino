@@ -77,7 +77,7 @@ void loop() {
             lcd.setCursor(0,0);
             lcd.print("Cmd Status: ");
             lcd.print(result);
-            if (result == 1) DCCState::saveState();
+            if (result == 0) DCCState::saveState();
         }
         Serial.println("Ready");
         lcd.setCursor(0,1);
@@ -157,8 +157,8 @@ int ProcessCommandLine (char *line) {
                 if (*line != '\0')  return 1;
                 if (!DCCState::setSpeed(address,speed,steps)) return -1;
                 return 0;
-            } else if (strncasecmp(line,"FUNCTIONS",9) == 0) {
-                line += 9;
+            } else if (strncasecmp(line,"FUNCTIONS1",10) == 0) {
+                line += 10;
                 while (*line != '\0' && isspace(*line)) line++;
                 uint16_t address = strtoul(line,&p,10);
                 if (p == line)  return 1;
@@ -168,7 +168,33 @@ int ProcessCommandLine (char *line) {
                 line = p;
                 while (*line != '\0' && isspace(*line)) line++;
                 if (*line != '\0')  return 1;
-                if (!DCCState::setFunctions(address,functions)) return -1;
+                if (!DCCState::setFunctions0to4(address,functions)) return -1;
+                return 0;
+            } else if (strncasecmp(line,"FUNCTIONS2",10) == 0) {
+                line += 10;
+                while (*line != '\0' && isspace(*line)) line++;
+                uint16_t address = strtoul(line,&p,10);
+                if (p == line)  return 1;
+                line = p;
+                uint16_t functions = strtoul(line,&p,16);
+                if (p == line)  return 1;
+                line = p;
+                while (*line != '\0' && isspace(*line)) line++;
+                if (*line != '\0')  return 1;
+                if (!DCCState::setFunctions5to8(address,functions)) return -1;
+                return 0;
+            } else if (strncasecmp(line,"FUNCTIONS3",10) == 0) {
+                line += 10;
+                while (*line != '\0' && isspace(*line)) line++;
+                uint16_t address = strtoul(line,&p,10);
+                if (p == line)  return 1;
+                line = p;
+                uint16_t functions = strtoul(line,&p,16);
+                if (p == line)  return 1;
+                line = p;
+                while (*line != '\0' && isspace(*line)) line++;
+                if (*line != '\0')  return 1;
+                if (!DCCState::setFunctions9to12(address,functions)) return -1;
                 return 0;
             } else if (strncasecmp(line,"ACCESSORY",9) == 0) {
                 line += 9;
@@ -292,7 +318,28 @@ int ProcessCommandLine (char *line) {
         } else {
             return 1;
         }
-        break;        
+        break;
+    case 'G':
+        if (strncasecmp(line,"GET",3) == 0) {
+            line += 3;
+            while (*line != '\0' && isspace(*line)) line++;
+            if (strncasecmp(line,"INFORMATION",11) == 0) {
+                line += 11;
+                while (*line != '\0' && isspace(*line)) line++;
+                uint16_t address = strtoul(line,&p,10);
+                if (p == line)  return 1;
+                line = p;
+                while (*line != '\0' && isspace(*line)) line++;
+                if (*line != '\0')  return 1;
+                if (!DCCState::getInformation(address)) return -1;
+                return 0;
+            } else {
+                return 1;
+            }
+        } else {
+            return 1;
+        }
+        break;
     } 
     //Serial.println("Parse error");
     return 1;

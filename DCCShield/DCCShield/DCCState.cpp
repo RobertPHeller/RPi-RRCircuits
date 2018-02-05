@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Feb 1 09:51:00 2018
-//  Last Modified : <180203.1212>
+//  Last Modified : <180205.1539>
 //
 //  Description	
 //
@@ -53,7 +53,9 @@ DCCPacketScheduler *DCCState::dps = NULL;
 DCCState::DCCState(uint16_t addr)
 {
     address = addr;
-    currentFunctions = 0;
+    currentFunctions[0] = 0;
+    currentFunctions[1] = 0;
+    currentFunctions[2] = 0;
     currentSpeed = 0;
     currentSteps = 0;
     uint8_t p;
@@ -168,20 +170,54 @@ bool DCCState::setSpeed(uint16_t address,int8_t new_speed, uint8_t steps)
     return result;
 }
 
-bool DCCState::setFunctions(uint16_t address, uint16_t functions)
+bool DCCState::setFunctions0to4(uint16_t address, uint8_t functions)
 {
     bool result = true;
     DCCState *loco = LookupDecoder(address);
     if (address < 100) {
 #ifdef DCCLIB
-        if (dps) result = dps->setFunctions(address,DCC_SHORT_ADDRESS,functions);
+        if (dps) result = dps->setFunctions0to4(address,DCC_SHORT_ADDRESS,functions);
 #endif
     } else {
 #ifdef DCCLIB
-        if (dps) result = dps->setFunctions(address,DCC_LONG_ADDRESS,functions);
+        if (dps) result = dps->setFunctions0to4(address,DCC_LONG_ADDRESS,functions);
 #endif
     }
-    if (result) loco->currentFunctions = functions;
+    if (result) loco->currentFunctions[0] = functions;
+    return result;
+}
+
+bool DCCState::setFunctions5to8(uint16_t address, uint8_t functions)
+{
+    bool result = true;
+    DCCState *loco = LookupDecoder(address);
+    if (address < 100) {
+#ifdef DCCLIB
+        if (dps) result = dps->setFunctions5to8(address,DCC_SHORT_ADDRESS,functions);
+#endif
+    } else {
+#ifdef DCCLIB
+        if (dps) result = dps->setFunctions5to8(address,DCC_LONG_ADDRESS,functions);
+#endif
+    }
+    if (result) loco->currentFunctions[1] = functions;
+    return result;
+}
+
+bool DCCState::setFunctions9to12(uint16_t address, uint8_t functions)
+{
+    bool result = true;
+    DCCState *loco = LookupDecoder(address);
+    if (address < 100) {
+#ifdef DCCLIB
+        if (dps) result = dps->setFunctions9to12(address,DCC_SHORT_ADDRESS,functions);
+#endif
+    } else {
+#ifdef DCCLIB
+        if (dps) result = dps->setFunctions9to12(address,DCC_LONG_ADDRESS,functions);
+#endif
+    }
+    if (result) loco->currentFunctions[2] = functions;
     return result;
 }
 
@@ -192,7 +228,7 @@ bool DCCState::setBasicAccessory(uint16_t address, uint8_t function)
 #ifdef DCCLIB
     if (dps) result = dps->setBasicAccessory(address,function);
 #endif
-    if (result) acc->currentFunctions = function;
+    if (result) acc->currentFunctions[0] = function;
     return result;
 }
 
@@ -203,7 +239,7 @@ bool DCCState::unsetBasicAccessory(uint16_t address, uint8_t function)
 #ifdef DCCLIB
     if (dps) result = dps->unsetBasicAccessory(address,function);
 #endif
-    if (result) acc->currentFunctions = ~function;
+    if (result) acc->currentFunctions[0] = ~function;
     return result;
 }
 
@@ -223,10 +259,11 @@ bool DCCState::saveState()
         int eaddr = 2 + (sizeof(stack[p])*p);
         EEPROM.write(eaddr  ,(stack[p].address&0x0FF));
         EEPROM.write(eaddr+1,((stack[p].address>>8)&0x0FF));
-        EEPROM.write(eaddr+2,(stack[p].currentFunctions&0x0FF));
-        EEPROM.write(eaddr+3,((stack[p].currentFunctions>>8)&0x0FF));
-        EEPROM.write(eaddr+4,stack[p].currentSpeed);
-        EEPROM.write(eaddr+5,stack[p].currentSteps);
+        EEPROM.write(eaddr+2,stack[p].currentFunctions[0]);
+        EEPROM.write(eaddr+3,stack[p].currentFunctions[1]);
+        EEPROM.write(eaddr+4,stack[p].currentFunctions[2]);
+        EEPROM.write(eaddr+5,stack[p].currentSpeed);
+        EEPROM.write(eaddr+6,stack[p].currentSteps);
     }
     return true;
 }
@@ -240,10 +277,11 @@ bool DCCState::loadState()
         int eaddr = 2 + (sizeof(stack[p])*p);
         stack[p].address = 
               EEPROM.read(eaddr) | (EEPROM.read(eaddr+1) << 8);
-        stack[p].currentFunctions = 
-              EEPROM.read(eaddr+2) | (EEPROM.read(eaddr+3) << 8);
-        stack[p].currentSpeed = EEPROM.read(eaddr+4);
-        stack[p].currentSteps  = EEPROM.read(eaddr+5);
+        stack[p].currentFunctions[0] = EEPROM.read(eaddr+2);
+        stack[p].currentFunctions[1] = EEPROM.read(eaddr+3);
+        stack[p].currentFunctions[2] = EEPROM.read(eaddr+4);
+        stack[p].currentSpeed = EEPROM.read(eaddr+5);
+        stack[p].currentSteps  = EEPROM.read(eaddr+6);
     }
     return true;
 }
@@ -256,7 +294,11 @@ bool DCCState::dumpState()
     for (p = 0; p < stack_size; p++) {
         Serial.print(stack[p].address);
         Serial.print(",");
-        Serial.print(stack[p].currentFunctions);
+        Serial.print(stack[p].currentFunctions[0],HEX);
+        Serial.print(",");
+        Serial.print(stack[p].currentFunctions[1],HEX);
+        Serial.print(",");
+        Serial.print(stack[p].currentFunctions[2],HEX);
         Serial.print(",");
         Serial.print(stack[p].currentSpeed);
         Serial.print(",");
@@ -272,14 +314,34 @@ bool DCCState::updateDCC()
         if (stack[p].address != 0 && stack[p].currentSteps != 0) {
 #ifdef DCCLIB
             setSpeed(stack[p].address,stack[p].currentSpeed,stack[p].currentSteps);
-            setFunctions(stack[p].address,stack[p].currentFunctions);
+            setFunctions0to4(stack[p].address,stack[p].currentFunctions[0]);
+            setFunctions5to8(stack[p].address,stack[p].currentFunctions[1]);
+            setFunctions9to12(stack[p].address,stack[p].currentFunctions[2]);
 #endif
         } else if (stack[p].address != 0) {
 #ifdef DCCLIB
-            setBasicAccessory(stack[p].address,stack[p].currentFunctions);
+            setBasicAccessory(stack[p].address,stack[p].currentFunctions[0]);
 #endif
         }
     }
     return true;
 }
 
+bool DCCState::getInformation(uint16_t address)
+{
+    bool result = true;
+    DCCState *loco = LookupDecoder(address);
+    Serial.print("Decoder Info ");
+    Serial.print(address);
+    Serial.print(",");
+    Serial.print(loco->currentSteps);
+    Serial.print(",");
+    Serial.print(loco->currentSpeed);
+    Serial.print(",");
+    Serial.print(loco->currentFunctions[0],HEX);
+    Serial.print(",");
+    Serial.print(loco->currentFunctions[1],HEX);
+    Serial.print(",");
+    Serial.print(loco->currentFunctions[2],HEX);
+    Serial.println("");
+}
