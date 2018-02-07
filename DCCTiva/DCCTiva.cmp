@@ -1,0 +1,87 @@
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Wed 07 Feb 2018 11:15:43 EST
+
+BeginCmp
+TimeStamp = /5A7B1EB9;
+Reference = C1;
+ValeurCmp = .01 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A7B1EAA;
+Reference = C2;
+ValeurCmp = .01 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A7B1EE6;
+Reference = D1;
+ValeurCmp = Thermal Warning;
+IdModule  = LED-3MM;
+EndCmp
+
+BeginCmp
+TimeStamp = /5080DB5C;
+Reference = J1;
+ValeurCmp = TI_BOOSTER_40_J1;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /5080DBF4;
+Reference = J2;
+ValeurCmp = TI_BOOSTER_40_J2;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /5080DC03;
+Reference = J3;
+ValeurCmp = TI_BOOSTER_40_J3;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /5080DC12;
+Reference = J4;
+ValeurCmp = TI_BOOSTER_40_J4;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /5080A33C;
+Reference = J5;
+ValeurCmp = CONN_3;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A7B253F;
+Reference = P1;
+ValeurCmp = Power and DCC;
+IdModule  = bornier4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A7B1EC8;
+Reference = R1;
+ValeurCmp = 2.7K Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A7B1ED7;
+Reference = R2;
+ValeurCmp = 2.7K Ohms;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A7B1E9B;
+Reference = U1;
+ValeurCmp = LMD18200;
+IdModule  = ;
+EndCmp
+
+EndListe
