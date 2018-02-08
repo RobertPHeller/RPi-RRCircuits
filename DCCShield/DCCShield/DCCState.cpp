@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Feb 1 09:51:00 2018
-//  Last Modified : <180205.1539>
+//  Last Modified : <180207.2130>
 //
 //  Description	
 //
@@ -39,6 +39,8 @@
 // 
 //
 //////////////////////////////////////////////////////////////////////////////
+
+#define DCCLIB
 
 #include "DCCState.h"
 
