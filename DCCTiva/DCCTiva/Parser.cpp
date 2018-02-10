@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sat Feb 10 11:32:16 2018
-//  Last Modified : <180210.1249>
+//  Last Modified : <180210.1537>
 //
 //  Description	
 //
@@ -65,12 +65,19 @@ static struct {
     { "INIT" , Parser::INIT }, 
     { "HELP" , Parser::HELP }, 
     { "GET" , Parser::GET }, 
+    { "INFORMATION", Parser::INFORMATION },
     { "ESTABLISH" , Parser::ESTABLISH }, 
     { "DOUBLE" , Parser::DOUBLE }, 
     { "HEADER" , Parser::HEADER }, 
     { "DISSOLVE" , Parser::DISSOLVE }, 
     { "ADD" , Parser::ADD }, 
+    { "TO" , Parser::TO },
+    { "MULTIPLE" , Parser::MULTIPLE },
+    { "UNIT" , Parser::UNIT },
+    { "FORWARD" , Parser::FORWARD },
+    { "REVERSE" , Parser::REVERSE },
     { "REMOVE" , Parser::REMOVE }, 
+    { "FROM" , Parser::FROM },
     { "NEXT" , Parser::NEXT }, 
     { "PREVIOUS" , Parser::PREVIOUS }
 };
@@ -97,9 +104,9 @@ int Parser::ProcessCommandLine(const char* line)
     expectedBase = 10;
     expectingSigned = false;
     Token next;
-    uint16_t address;
+    uint16_t address,address2;
     int8_t speed;
-    uint8_t steps, functions;
+    uint8_t steps, functions,muaddress;
     switch (processNextWord()) {
     case EMERGENCY:
         if (processNextWord() != STOP) {
@@ -194,30 +201,200 @@ int Parser::ProcessCommandLine(const char* line)
         }
         break;
     case SAVE:
+        if (processNextWord() != STATE) {
+            return 1;
+        }
+        if (processNextWord() != EOL) return 1;
+        if (!DCCState::saveState()) return -1;
+        return 0;
         break;
     case UNSET:
+        if (processNextWord() != ACCESSORY) return 1;
+        expectedBase = 10;
+        expectingSigned = false;
+        if (processNextWord() == unsignedInt) {
+            address = currentValue.uval;
+            expectedBase = 16;
+            if (processNextWord() == unsignedInt) {
+                functions = currentValue.uval;
+                if (processNextWord() != EOL) return 1;
+                if (!DCCState::unsetBasicAccessory(address,functions)) return -1;
+                return 0;
+            } else return 1;
+        } else return 1;
         break;
     case LOAD:
+        if (processNextWord() != STATE) {
+            return 1;
+        }
+        if (processNextWord() != EOL) return 1;
+        if (!DCCState::loadState()) return -1;
+        return 0;
         break;
     case DUMP:
+        if (processNextWord() != STATE) {
+            return 1;
+        }
+        if (processNextWord() != EOL) return 1;
+        if (!DCCState::dumpState()) return -1;
+        return 0;
         break;
     case INIT:
+        if (processNextWord() != STATE) {
+            return 1;
+        }
+        if (processNextWord() != EOL) return 1;
+        if (!DCCState::initState()) return -1;
+        return 0;
         break;
     case HELP:
+        if (processNextWord() != EOL) return 1;
+        printHelp();
+        return 0;
         break;
     case GET:
+        if (processNextWord() != INFORMATION) {
+            return 1;
+        }
+        expectedBase = 10;
+        expectingSigned = false;
+        if (processNextWord() == unsignedInt) {
+            address = currentValue.uval;
+            if (processNextWord() != EOL) return 1;
+            if (!DCCState::getInformation(address)) return -1;
+            return 0;
+        } else return 1;
         break;
     case ESTABLISH:
+        if (processNextWord() != DOUBLE) {
+            return 1;
+        }
+        if (processNextWord() != HEADER) {
+            return 1;
+        }
+        expectedBase = 10;
+        expectingSigned = false;
+        if (processNextWord() == unsignedInt) {
+            address = currentValue.uval;
+            if (processNextWord() == unsignedInt) {
+                address2 = currentValue.uval;
+                if (processNextWord() != EOL) return 1;
+                if (!DHList::createDoubleHeader(address,address2)) return -1;
+                return 0;
+            } else return 1;
+        } else return 1;
         break;
     case DISSOLVE:
+        if (processNextWord() != DOUBLE) {
+            return 1;
+        }
+        if (processNextWord() != HEADER) {
+            return 1;
+        }
+        expectedBase = 10;
+        expectingSigned = false;
+        if (processNextWord() == unsignedInt) {
+            address = currentValue.uval;
+            if (processNextWord() == unsignedInt) {
+                address2 = currentValue.uval;
+                if (processNextWord() != EOL) return 1;
+                if (!DHList::disolveDoubleHeader(address,address2)) return -1;
+                return 0;
+            } else return 1;
+        } else return 1;
         break;
     case ADD:
+        expectedBase = 10;
+        expectingSigned = false;
+        if (processNextWord() == unsignedInt) {
+            address = currentValue.uval;
+        } else return 1;
+        if (processNextWord() != TO) {
+            return 1;
+        }
+        if (processNextWord() != MULTIPLE) {
+            return 1;
+        }
+        if (processNextWord() != UNIT) {
+            return 1;
+        }
+        expectedBase = 10;
+        expectingSigned = false;
+        if (processNextWord() == unsignedInt) {
+            muaddress = currentValue.uval;
+        } else return 1;
+        next = processNextWord();
+        if (next == FORWARD) {
+            if (processNextWord() != EOL) return 1;
+            if (!MUList::addUnitToConsist(muaddress,address,true)) return -1;
+            return 0;
+        } else if (next == REVERSE) {
+            if (processNextWord() != EOL) return 1;
+            if (!MUList::addUnitToConsist(muaddress,address,false)) return -1;
+            return 0;
+        }  else return 1;
         break;
     case REMOVE:
+        expectedBase = 10;
+        expectingSigned = false;
+        if (processNextWord() == unsignedInt) {
+            address = currentValue.uval;
+        } else return 1;
+        if (processNextWord() != FROM) {
+            return 1;
+        }
+        if (processNextWord() != MULTIPLE) {
+            return 1;
+        }
+        if (processNextWord() != UNIT) {
+            return 1;
+        }
+        expectedBase = 10;
+        expectingSigned = false;
+        if (processNextWord() == unsignedInt) {
+            muaddress = currentValue.uval;
+        } else return 1;
+        if (processNextWord() != EOL) return 1;
+        if (!MUList::deleteUnitFromConsist(muaddress,address)) return -1;
+        return 0;
         break;
     case NEXT:
+        if (processNextWord() != UNIT) {
+            return 1;
+        }
+        expectedBase = 10;
+        expectingSigned = false;
+        if (processNextWord() == unsignedInt) {
+            muaddress = currentValue.uval;
+        } else return 1;
+        expectedBase = 10;
+        expectingSigned = false;
+        if (processNextWord() == unsignedInt) {
+            address = currentValue.uval;
+        } else return 1;
+        if (processNextWord() != EOL) return 1;
+        address2 = MUList::nextUnit(muaddress,address);
+        Serial.println(address2);
+        return 0;
         break;
     case PREVIOUS:
+        if (processNextWord() != UNIT) {
+            return 1;
+        }
+        expectedBase = 10;
+        expectingSigned = false;
+        if (processNextWord() == unsignedInt) {
+            muaddress = currentValue.uval;
+        } else return 1;
+        expectedBase = 10;
+        expectingSigned = false;
+        if (processNextWord() == unsignedInt) {
+            address = currentValue.uval;
+        } else return 1;
+        if (processNextWord() != EOL) return 1;
+        address2 = MUList::prevUnit(muaddress,address);
+        Serial.println(address2);
+        return 0;
         break;
     default:
         return 1;
@@ -266,3 +443,29 @@ Parser::Token Parser::processNextWord()
     }
     return (Token)(*currentPos++);
 }
+
+void Parser::printHelp()
+{
+    Serial.println("EMERGENCY STOP ALL");
+    Serial.println("EMERGENCY STOP address");
+    Serial.println("SET SPEED address speed steps");
+    Serial.println("SET FUNCTIONS1 address functions");
+    Serial.println("SET FUNCTIONS2 address functions");
+    Serial.println("SET FUNCTIONS3 address functions");
+    Serial.println("SET ACCESSORY address functions");
+    Serial.println("UNSET ACCESSORY address functions");
+    Serial.println("SAVE STATE");
+    Serial.println("LOAD STATE");
+    Serial.println("DUMP STATE");
+    Serial.println("INIT STATE");
+    Serial.println("HELP");
+    Serial.println("GET INFORMATION address");
+    Serial.println("ESTABLISH DOUBLE HEADER address1 address2");
+    Serial.println("DISSOLVE DOUBLE HEADER address1 address2");
+    Serial.println("ADD address TO MULTIPLE UNIT muaddress FORWARD");
+    Serial.println("ADD address TO MULTIPLE UNIT muaddress REVERSE");
+    Serial.println("REMOVE address FROM MULTIPLE UNIT muaddress");
+    Serial.println("NEXT UNIT muaddress address");
+    Serial.println("PREVIOUS UNIT muaddress address");
+}
+

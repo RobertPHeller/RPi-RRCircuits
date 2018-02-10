@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sat Feb 10 11:27:17 2018
-//  Last Modified : <180210.1238>
+//  Last Modified : <180210.1429>
 //
 //  Description	
 //
@@ -57,8 +57,9 @@ public:
     int ProcessCommandLine(const char *line); 
     enum Token {EOL = 256, unsignedInt, signedInt, EMERGENCY, STOP, ALL, SET, 
               SPEED, FUNCTIONS1, FUNCTIONS2, FUNCTIONS3, ACCESSORY, SAVE, 
-              STATE, UNSET, LOAD, DUMP, INIT, HELP, GET, ESTABLISH, DOUBLE, 
-              HEADER, DISSOLVE, ADD, REMOVE, NEXT, PREVIOUS, BADSYMBOL=9999};
+              STATE, UNSET, LOAD, DUMP, INIT, HELP, GET, INFORMATION, 
+              ESTABLISH, DOUBLE, HEADER, DISSOLVE, ADD, TO, MULTIPLE, UNIT, 
+              FORWARD, REVERSE, REMOVE, FROM, NEXT, PREVIOUS, BADSYMBOL=9999};
 private:
     const char *currentPos;
     uint8_t expectedBase;

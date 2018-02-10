@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Feb 1 09:51:00 2018
-//  Last Modified : <180207.1651>
+//  Last Modified : <180210.1505>
 //
 //  Description	
 //
@@ -110,9 +110,12 @@ MUList *MUList::muFromMuAddr(uint8_t muaddr)
     return &(mus[currentPointer]);
 }
 
-void     MUList::addUnitToConsist(uint8_t muaddress, uint16_t unitaddress,bool forward)
+bool     MUList::addUnitToConsist(uint8_t muaddress, uint16_t unitaddress,bool forward)
 {
+    if (isMemberOfConsist(muaddress,unitaddress)) return true;
+    if (DCCState::isMuOrDh(unitaddress)) return false;
     MUList *mu = muFromMuAddr(muaddress);
+    
     if (mu->unitcount < MULIST_MAXUNITS) {
         mu->units[mu->unitcount] = unitaddress;
         if (forward) {
@@ -126,8 +129,10 @@ void     MUList::addUnitToConsist(uint8_t muaddress, uint16_t unitaddress,bool f
     }
 }
 
-void     MUList::deleteUnitFromConsist(uint8_t muaddress, uint16_t unitaddress)
+bool     MUList::deleteUnitFromConsist(uint8_t muaddress, uint16_t unitaddress)
 {
+    if (!isMemberOfConsist(muaddress,unitaddress)) return true;
+    if (DCCState::isMuOrDh(unitaddress)) return false;
     MUList *mu = muFromMuAddr(muaddress);
     uint8_t ui, uj;
     for (ui = 0; ui < mu->unitcount; ui++) {
@@ -140,7 +145,7 @@ void     MUList::deleteUnitFromConsist(uint8_t muaddress, uint16_t unitaddress)
             if (mu->unitcount == 0) {
                 mu->muaddress = 0;
             }
-            return;
+            return true;
         }
     }
 }
@@ -347,20 +352,26 @@ DHList *DHList::dhFromUnit(uint16_t u)
     return NULL;
 }
 
-void DHList::createDoubleHeader(uint16_t u1, uint16_t u2)
+bool DHList::createDoubleHeader(uint16_t u1, uint16_t u2)
 {
-    if (isDoubleHeader(u1) || isDoubleHeader(u2)) return;
+    if (isDoubleHeader(u1) || isDoubleHeader(u2)) return false;
+    if (DCCState::isMuOrDh(u1)) return false;
+    if (DCCState::isMuOrDh(u2)) return false;
     DHList(u1,u2);
+    return true;
 }
 
-void DHList::disolveDoubleHeader(uint16_t u1, uint16_t u2)
+bool DHList::disolveDoubleHeader(uint16_t u1, uint16_t u2)
 {
     DHList *dh = dhFromUnit(u1);
-    if (dh == NULL) return;
+    if (dh == NULL) return false;
+    if (dh->unit1 == u1 && dh->unit2 != u2) false;
+    if (dh->unit2 == u1 && dh->unit2 != u1) false;
     DCCState::clearDh(u1);
     DCCState::clearDh(u2);
     dh->unit1 = 0;
     dh->unit2 = 0;
+    return true;
 }
 
 bool DHList::isDoubleHeader(uint16_t u)

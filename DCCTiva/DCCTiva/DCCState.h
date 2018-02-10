@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Feb 1 09:33:11 2018
-//  Last Modified : <180207.1641>
+//  Last Modified : <180210.1448>
 //
 //  Description	
 //
@@ -76,8 +76,8 @@ public:
     static MUList  *muFromMuAddr(uint8_t muaddr);
     bool eStop();
     bool setSpeed(int8_t new_speed, uint8_t steps);
-    static void     addUnitToConsist(uint8_t muaddress, uint16_t unitaddress,bool forward = true);
-    static void     deleteUnitFromConsist(uint8_t muaddress, uint16_t unitaddress);
+    static bool     addUnitToConsist(uint8_t muaddress, uint16_t unitaddress,bool forward = true);
+    static bool     deleteUnitFromConsist(uint8_t muaddress, uint16_t unitaddress);
     static bool     isMemberOfConsist(uint8_t muaddress, uint16_t unitaddress);
     static uint16_t nextUnit(uint8_t muaddress, uint16_t unitaddress = 0);
     static uint16_t prevUnit(uint8_t muaddress, uint16_t unitaddress = 0);
@@ -109,8 +109,8 @@ public:
     static DHList *dhFromUnit(uint16_t u);
     uint16_t get1() {return unit1;}
     uint16_t get2() {return unit2;}
-    static void createDoubleHeader(uint16_t u1, uint16_t u2);
-    static void disolveDoubleHeader(uint16_t u1, uint16_t u2);
+    static bool createDoubleHeader(uint16_t u1, uint16_t u2);
+    static bool disolveDoubleHeader(uint16_t u1, uint16_t u2);
     static bool isDoubleHeader(uint16_t u);
     static DHList *dhFromIndex(uint8_t index) {
         if (index < dhcount) {
@@ -174,6 +174,21 @@ public:
         insertPointer = 0;
     }
     static DCCState *LookupDecoder(uint16_t addr=3);
+    static bool isMu(uint16_t addr) {
+        DCCState *u = LookupDecoder(addr);
+        if (u && ((u->address)&ISMU) != 0) return true;
+        else return false;
+    }
+    static bool isDh(uint16_t addr) {
+        DCCState *u = LookupDecoder(addr);
+        if (u && ((u->address)&ISDH) != 0) return true;
+        else return false;
+    }
+    static bool isMuOrDh(uint16_t addr) {
+        DCCState *u = LookupDecoder(addr);
+        if (u && ((u->address)&FLAGMASK) != 0) return true;
+        else return false;
+    }
     static bool eStop(void); //all locos
     static bool eStop(uint16_t address); //just one specific loco
     static bool getInformation(uint16_t address);
