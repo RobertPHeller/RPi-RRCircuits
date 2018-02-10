@@ -8,7 +8,7 @@
  *  Author        : $Author$
  *  Created By    : Robert Heller
  *  Created       : Thu Feb 8 20:24:17 2018
- *  Last Modified : <180210.1047>
+ *  Last Modified : <180210.1112>
  *
  *  Description	
  *
@@ -44,18 +44,18 @@ static const char rcsid[] = "@(#) : $Id$";
 
 
 
-#include "driverlib/pin_map.h"
-#include <stdint.h>
-#include <stdbool.h>
-#include "inc/hw_gpio.h"
-#include "inc/hw_types.h"
-#include "inc/hw_memmap.h"
-#include "driverlib/sysctl.h"
-#include "driverlib/pin_map.h"
-#include "driverlib/gpio.h"
-#include "driverlib/pwm.h"
 
 #include "DCCHardware.h"
+
+#include "inc/hw_ints.h"
+#include "inc/hw_memmap.h"
+#include "inc/hw_types.h"
+#include "driverlib/debug.h"
+#include "driverlib/gpio.h"
+#include "driverlib/pin_map.h"
+#include "driverlib/rom.h"
+#include "driverlib/sysctl.h"
+#include "driverlib/timer.h"
 
 /// An enumerated type for keeping track of the state machine used in the timer1 ISR
 /** Given the structure of a DCC packet, the ISR can be in one of 5 states.
@@ -128,7 +128,7 @@ static void DCCIntHandler(void);
 void setup_DCC_waveform_generator(int pin) {
     
     // Enable timer
-    ROM_SysCtlPerPeripheralEnable(DCC_TIMER_PERIPH);
+    ROM_SysCtlPeripheralEnable(DCC_TIMER_PERIPH);
     
     //Enable processor interrupts
     ROM_IntMasterEnable();

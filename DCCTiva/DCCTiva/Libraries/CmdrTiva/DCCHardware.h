@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Feb 8 20:23:56 2018
-//  Last Modified : <180209.1507>
+//  Last Modified : <180210.1105>
 //
 //  Description	
 //
@@ -43,6 +43,8 @@
 #ifndef __DCCHARDWARE_H
 #define __DCCHARDWARE_H
 
+#include "Energia.h"
+#include <inttypes.h>
 
 
 #ifdef __cplusplus
