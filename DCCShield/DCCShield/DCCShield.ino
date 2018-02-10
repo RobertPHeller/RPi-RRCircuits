@@ -24,7 +24,7 @@ int ProcessCommandLine (char *line);
 void setup() {  
     pinMode(LED, OUTPUT);    
     pinMode(Enable_PIN, OUTPUT);
-    pinMode(CurrentSense, INPUT);
+    pinMode(DCC_CurrentSense, INPUT);
     analogReference(EXTERNAL);    
     lcd.begin (); 
     lcd.setBacklight(HIGH);  // Switch on the backlight
