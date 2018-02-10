@@ -6,6 +6,8 @@
 #include <EEPROM.h>
 int LED = 13; // LED to blink when DCC packets are sent in loop
 int Enable_PIN = 8; //low to enable DCC, high to stop
+#define DCC_CurrentSense A0 
+#define DCC_Current() (analogRead(DCC_CurrentSense)*(3.0/4095))
 #include <Wire.h>
 #include "DCCState.h"
 DCCPacketScheduler dps;
@@ -21,7 +23,9 @@ int ProcessCommandLine (char *line);
 
 void setup() {  
     pinMode(LED, OUTPUT);    
-    pinMode(Enable_PIN, OUTPUT);    
+    pinMode(Enable_PIN, OUTPUT);
+    pinMode(CurrentSense, INPUT);
+    analogReference(EXTERNAL);    
     lcd.begin (); 
     lcd.setBacklight(HIGH);  // Switch on the backlight
     lcd.home (); // go home
@@ -55,6 +59,7 @@ void loop() {
         DCCState::updateDCC();
         digitalWrite(LED, !digitalRead(LED));
     }
+
     
     digitalWrite(Enable_PIN, LOW);// HIGH = disable DCC
     if (Serial.available() > 0) {
@@ -82,6 +87,10 @@ void loop() {
         Serial.println("Ready");
         lcd.setCursor(0,1);
         lcd.print("Ready");
+        double currentSensed = DCC_Current();
+        lcd.print(" ");
+        lcd.print(currentSensed);
+        lcd.print(" Amps");
     }
     dps.update();
 }  //END LOOP

@@ -36,7 +36,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "30 jan 2018"
+Date "10 feb 2018"
 Rev ""
 Comp ""
 Comment1 ""
@@ -252,7 +252,7 @@ Wire Wire Line
 Wire Wire Line
 	9150 1900 9150 1450
 Wire Wire Line
-	9400 2500 8900 2500
+	8700 2500 9400 2500
 Wire Wire Line
 	9400 2600 8900 2600
 Wire Wire Line
@@ -287,7 +287,7 @@ Wire Wire Line
 Wire Wire Line
 	10200 1600 10550 1600
 Wire Wire Line
-	10200 1400 10550 1400
+	10200 1400 10900 1400
 Wire Wire Line
 	10200 1300 10550 1300
 Wire Wire Line
@@ -572,4 +572,17 @@ Text Label 6450 1600 0    60   ~ 0
 A4(SDA)
 Text Label 6450 1700 0    60   ~ 0
 A5(SCL)
+Text Label 8700 2500 2    60   ~ 0
+Current Sense
+$Comp
+L +3.3V #PWR011
+U 1 1 5A7F0D88
+P 10900 1400
+F 0 "#PWR011" H 10900 1360 30  0001 C CNN
+F 1 "+3.3V" H 10900 1510 30  0000 C CNN
+F 2 "" H 10900 1400 60  0000 C CNN
+F 3 "" H 10900 1400 60  0000 C CNN
+	1    10900 1400
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
