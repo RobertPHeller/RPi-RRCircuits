@@ -43,7 +43,7 @@
 #ifndef __DCCSTATE_H
 #define __DCCSTATE_H
 
-#include "Arduino.h"
+#include "Energia.h"
 #include <EEPROM.h>
 #ifdef DCCLIB
 #include <DCCPacket.h>
