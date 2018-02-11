@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Wed 07 Feb 2018 11:15:43 EST
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Sat 10 Feb 2018 18:59:49 EST
 
 BeginCmp
 TimeStamp = /5A7B1EB9;
@@ -61,6 +61,20 @@ TimeStamp = /5A7B253F;
 Reference = P1;
 ValeurCmp = Power and DCC;
 IdModule  = bornier4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A7F8158;
+Reference = P2;
+ValeurCmp = I2C 1;
+IdModule  = PIN_ARRAY_4x1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A7F86EA;
+Reference = P3;
+ValeurCmp = I2C 0;
+IdModule  = PIN_ARRAY_4x1;
 EndCmp
 
 BeginCmp

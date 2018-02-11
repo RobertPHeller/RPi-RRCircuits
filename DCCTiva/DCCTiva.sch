@@ -36,7 +36,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "7 feb 2018"
+Date "10 feb 2018"
 Rev ""
 Comp ""
 Comment1 ""
@@ -361,4 +361,86 @@ Text Label 7200 2900 2    60   ~ 0
 DCC A
 Text Label 7200 3000 2    60   ~ 0
 DCC B
+$Comp
+L CONN_4 P2
+U 1 1 5A7F8158
+P 7450 3500
+F 0 "P2" V 7400 3500 50  0000 C CNN
+F 1 "I2C 1" V 7500 3500 50  0000 C CNN
+F 2 "~" H 7450 3500 60  0000 C CNN
+F 3 "~" H 7450 3500 60  0000 C CNN
+	1    7450 3500
+	-1   0    0    -1  
+$EndComp
+$Comp
+L GND #PWR011
+U 1 1 5A7F81A1
+P 7800 3350
+F 0 "#PWR011" H 7800 3350 30  0001 C CNN
+F 1 "GND" H 7800 3280 30  0001 C CNN
+F 2 "" H 7800 3350 60  0000 C CNN
+F 3 "" H 7800 3350 60  0000 C CNN
+	1    7800 3350
+	0    -1   -1   0   
+$EndComp
+$Comp
+L +5V #PWR012
+U 1 1 5A7F81B0
+P 7800 3450
+F 0 "#PWR012" H 7800 3540 20  0001 C CNN
+F 1 "+5V" H 7800 3540 30  0000 C CNN
+F 2 "" H 7800 3450 60  0000 C CNN
+F 3 "" H 7800 3450 60  0000 C CNN
+	1    7800 3450
+	0    1    1    0   
+$EndComp
+Text Label 7800 3550 0    60   ~ 0
+SDA - 1
+Text Label 7800 3650 0    60   ~ 0
+SCL - 1
+Text Label 9150 1700 2    60   ~ 0
+SCL - 1
+Text Label 9150 1800 2    60   ~ 0
+SDA - 1
+Text Label 9150 2550 2    60   ~ 0
+SCL - 0
+Text Label 9150 5750 2    60   ~ 0
+SDA - 0
+$Comp
+L CONN_4 P3
+U 1 1 5A7F86EA
+P 7450 4000
+F 0 "P3" V 7400 4000 50  0000 C CNN
+F 1 "I2C 0" V 7500 4000 50  0000 C CNN
+F 2 "~" H 7450 4000 60  0000 C CNN
+F 3 "~" H 7450 4000 60  0000 C CNN
+	1    7450 4000
+	-1   0    0    -1  
+$EndComp
+$Comp
+L GND #PWR013
+U 1 1 5A7F871E
+P 7800 3850
+F 0 "#PWR013" H 7800 3850 30  0001 C CNN
+F 1 "GND" H 7800 3780 30  0001 C CNN
+F 2 "" H 7800 3850 60  0000 C CNN
+F 3 "" H 7800 3850 60  0000 C CNN
+	1    7800 3850
+	0    -1   -1   0   
+$EndComp
+$Comp
+L +5V #PWR014
+U 1 1 5A7F8732
+P 7800 3950
+F 0 "#PWR014" H 7800 4040 20  0001 C CNN
+F 1 "+5V" H 7800 4040 30  0000 C CNN
+F 2 "" H 7800 3950 60  0000 C CNN
+F 3 "" H 7800 3950 60  0000 C CNN
+	1    7800 3950
+	0    1    1    0   
+$EndComp
+Text Label 7800 4050 0    60   ~ 0
+SDA - 0
+Text Label 7800 4150 0    60   ~ 0
+SCL - 0
 $EndSCHEMATC

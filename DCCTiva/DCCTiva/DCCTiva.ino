@@ -1,3 +1,4 @@
+
 #include <Energia.h>
 #include <EEPROM.h>
 #define DCC_PWM PF_2
@@ -13,6 +14,7 @@
 DCCPacketScheduler dps;
 #include "Parser.h"
 Parser parser;
+#include <LiquidCrystal_I2C.h>
 
 unsigned long previousMillis = 0; // last time update
 unsigned long interval = 2000; // interval at which to do refresh (milliseconds)
