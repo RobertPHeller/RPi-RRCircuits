@@ -15,23 +15,38 @@ DCCPacketScheduler dps;
 #include "Parser.h"
 Parser parser;
 #include <LiquidCrystal_I2C.h>
+#define I2C_ADDR    0x27 // <<----- Add your address here.  Find it from I2C Scanner
+LiquidCrystal_I2C	lcd(I2C_ADDR,16,2);//  LCD is 16 characters x 2 lines  
+
 
 unsigned long previousMillis = 0; // last time update
 unsigned long interval = 2000; // interval at which to do refresh (milliseconds)
 
 void setup() {
-  // put your setup code here, to run once:
-  pinMode(DCC_PWM,OUTPUT);
-  pinMode(DCC_Enable,OUTPUT);
-  pinMode(DCC_CurrentSense,INPUT_PULLUP);
-  Serial.begin(115200);
-  parser.setup();
-  dps.setup(DCC_PWM);
-  DCCState::setup(&dps);
-  DCCState::loadState();
-  DCCState::eStop();
-  DCCState::updateDCC();
-  Serial.println("Ready");
+    // put your setup code here, to run once:
+    pinMode(DCC_PWM,OUTPUT);
+    pinMode(DCC_Enable,OUTPUT);
+    pinMode(DCC_CurrentSense,INPUT_PULLUP);
+    lcd.begin (); 
+    lcd.setBacklight(HIGH);  // Switch on the backlight
+    lcd.home (); // go home
+    Serial.begin(115200);
+    lcd.setCursor(0,0);  
+    lcd.print("Version 1.0 ");
+    lcd.setCursor(0,1);
+    lcd.print("2-1-2018 ");
+    delay(1500);
+    lcd.clear();
+    parser.setup();
+    dps.setup(DCC_PWM);
+    DCCState::setup(&dps);
+    DCCState::loadState();
+    DCCState::eStop();
+    DCCState::updateDCC();
+    Serial.println("Ready");
+    lcd.home ();
+    lcd.setCursor(0,1);
+    lcd.print("Ready");
 }
 
 void loop() {
@@ -51,6 +66,9 @@ void loop() {
     digitalWrite(DCC_Enable, LOW);// HIGH = disable DCC
     if (Serial.available() > 0) {
         char buffer[128];
+        lcd.clear();
+        lcd.setCursor(0,1);
+        lcd.print("Working");
         int len = Serial.readBytesUntil('\r',buffer,sizeof(buffer)-1);
         if (len > 0) {
             //buffer[len++] = '\n';
@@ -62,9 +80,19 @@ void loop() {
             Serial.print(buffer);
             Serial.print(" - ");
             Serial.println(result);
+            lcd.clear();
+            lcd.setCursor(0,0);
+            lcd.print("Cmd Status: ");
+            lcd.print(result);
             if (result == 0) DCCState::saveState();
         }
         Serial.println("Ready");
+        lcd.setCursor(0,1);
+        lcd.print("Ready");
+        double currentSensed = DCC_Current();
+        lcd.print(" ");
+        lcd.print(currentSensed);
+        lcd.print(" Amps");
     }
     dps.update();
 }
