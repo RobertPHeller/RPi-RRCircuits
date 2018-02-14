@@ -87,12 +87,16 @@ void loop() {
             if (result == 0) DCCState::saveState();
         }
         Serial.println("Ready");
+    } else if (currentMillis == previousMillis) {
+        lcd.setCursor(0,0);
+        lcd.print("Idle");
+    }
+    {
+        char buf[16];
         lcd.setCursor(0,1);
-        lcd.print("Ready");
         double currentSensed = DCC_Current();
-        lcd.print(" ");
-        lcd.print(currentSensed);
-        lcd.print(" Amps");
+        snprintf(buf,sizeof(buf),"Ready. %6.3f A",currentSensed);
+        lcd.print(buf);
     }
     dps.update();
 }
