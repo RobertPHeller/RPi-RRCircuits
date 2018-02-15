@@ -564,7 +564,7 @@
     )
   )
 
-  (module LED-3MM (layer F.Cu) (tedit 5A73BB69) (tstamp 5A70C449)
+  (module LED-3MM (layer F.Cu) (tedit 5A85AEA2) (tstamp 5A70C449)
     (at 170.815 91.186)
     (descr "LED 3mm - Lead pitch 100mil (2,54mm)")
     (tags "LED led 3mm 3MM 100mil 2,54mm")
@@ -572,7 +572,7 @@
     (fp_text reference D1 (at 1.778 -2.794) (layer F.SilkS)
       (effects (font (size 0.762 0.762) (thickness 0.0889)))
     )
-    (fp_text value "Thermal Warning" (at -4.699 0.381 90) (layer F.SilkS)
+    (fp_text value Thermal (at -3.175 0.127 90) (layer F.SilkS)
       (effects (font (size 0.762 0.762) (thickness 0.0889)))
     )
     (fp_line (start 1.8288 1.27) (end 1.8288 -1.27) (layer F.SilkS) (width 0.254))
@@ -671,7 +671,7 @@
     )
   )
 
-  (module bornier2 (layer F.Cu) (tedit 5A73BB1E) (tstamp 5A70C618)
+  (module bornier2 (layer F.Cu) (tedit 5A85AFC0) (tstamp 5A70C618)
     (at 174.879 108.712 90)
     (descr "Bornier d'alimentation 2 pins")
     (tags DEV)
@@ -679,7 +679,7 @@
     (fp_text reference P10 (at -0.254 -2.032 90) (layer F.SilkS) hide
       (effects (font (size 1.524 1.524) (thickness 0.3048)))
     )
-    (fp_text value "DCC Power Out" (at -1.778 -5.461 90) (layer F.SilkS)
+    (fp_text value DCC (at -1.778 -5.461 90) (layer F.SilkS)
       (effects (font (size 1.524 1.524) (thickness 0.3048)))
     )
     (fp_line (start 5.08 2.54) (end -5.08 2.54) (layer F.SilkS) (width 0.3048))
@@ -702,7 +702,7 @@
     )
   )
 
-  (module bornier2 (layer F.Cu) (tedit 5A73BB24) (tstamp 5A70C623)
+  (module bornier2 (layer F.Cu) (tedit 5A85AE6A) (tstamp 5A70C623)
     (at 171.45 82.804 90)
     (descr "Bornier d'alimentation 2 pins")
     (tags DEV)
@@ -710,7 +710,7 @@
     (fp_text reference P9 (at 0.762 -2.032 90) (layer F.SilkS) hide
       (effects (font (size 1.524 1.524) (thickness 0.3048)))
     )
-    (fp_text value "TRK Power In" (at 0 -5.08 90) (layer F.SilkS)
+    (fp_text value "+ 15V -" (at 0 -5.08 90) (layer F.SilkS)
       (effects (font (size 1.524 1.524) (thickness 0.3048)))
     )
     (fp_line (start 5.08 2.54) (end -5.08 2.54) (layer F.SilkS) (width 0.3048))
@@ -801,8 +801,8 @@
   (gr_line (start 120.523 82.55) (end 120.523 93.98) (angle 90) (layer Dwgs.User) (width 0.15))
   (gr_line (start 104.648 82.55) (end 120.523 82.55) (angle 90) (layer Dwgs.User) (width 0.15))
 
-  (segment (start 146.558 123.825) (end 146.558 122.809) (width 0.25) (layer B.Cu) (net 1) (status C00000))
-  (segment (start 134.874 77.089) (end 134.874 75.565) (width 0.25) (layer B.Cu) (net 1) (tstamp 5A7F0DD9) (status 800000))
+  (segment (start 146.558 123.825) (end 146.558 122.809) (width 0.25) (layer B.Cu) (net 1))
+  (segment (start 134.874 77.089) (end 134.874 75.565) (width 0.25) (layer B.Cu) (net 1) (tstamp 5A7F0DD9))
   (segment (start 133.731 78.232) (end 134.874 77.089) (width 0.25) (layer B.Cu) (net 1) (tstamp 5A7F0DD6))
   (segment (start 128.143 78.232) (end 133.731 78.232) (width 0.25) (layer B.Cu) (net 1) (tstamp 5A7F0DD5))
   (via (at 128.143 78.232) (size 0.6) (layers F.Cu B.Cu) (net 1))
@@ -810,7 +810,7 @@
   (segment (start 131.318 121.412) (end 128.143 118.237) (width 0.25) (layer F.Cu) (net 1) (tstamp 5A7F0DC3))
   (via (at 131.318 121.412) (size 0.6) (layers F.Cu B.Cu) (net 1))
   (segment (start 145.161 121.412) (end 131.318 121.412) (width 0.25) (layer B.Cu) (net 1) (tstamp 5A7F0DB4))
-  (segment (start 146.558 122.809) (end 145.161 121.412) (width 0.25) (layer B.Cu) (net 1) (tstamp 5A7F0DAE) (status 400000))
+  (segment (start 146.558 122.809) (end 145.161 121.412) (width 0.25) (layer B.Cu) (net 1) (tstamp 5A7F0DAE))
   (segment (start 134.874 83.185) (end 147.32 83.185) (width 0.25) (layer B.Cu) (net 2))
   (segment (start 147.701 83.566) (end 147.701 91.186) (width 0.25) (layer F.Cu) (net 2) (tstamp 5A70D2D6))
   (segment (start 147.32 83.185) (end 147.701 83.566) (width 0.25) (layer F.Cu) (net 2) (tstamp 5A70D2D5))
