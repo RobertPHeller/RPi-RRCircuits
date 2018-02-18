@@ -37,7 +37,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "15 oct 2017"
+Date "18 feb 2018"
 Rev ""
 Comp ""
 Comment1 ""
@@ -394,7 +394,7 @@ F 0 "J3" H 9800 2800 60  0000 C CNN
 F 1 "RJ45" H 9450 2800 60  0000 C CNN
 F 2 "~" H 9600 2300 60  0000 C CNN
 F 3 "~" H 9600 2300 60  0000 C CNN
-F 4 "592-RJ45-8N-S" H 9600 2300 60  0001 C CNN "Mouser Part Number"
+F 4 "710-615008144221" H 9600 2300 60  0001 C CNN "Mouser Part Number"
 	1    9600 2300
 	0    1    1    0   
 $EndComp
@@ -406,7 +406,7 @@ F 0 "J4" H 9800 4650 60  0000 C CNN
 F 1 "RJ45" H 9450 4650 60  0000 C CNN
 F 2 "~" H 9600 4150 60  0000 C CNN
 F 3 "~" H 9600 4150 60  0000 C CNN
-F 4 "592-RJ45-8N-S" H 9600 4150 60  0001 C CNN "Mouser Part Number"
+F 4 "710-615008144221" H 9600 4150 60  0001 C CNN "Mouser Part Number"
 	1    9600 4150
 	0    1    1    0   
 $EndComp
