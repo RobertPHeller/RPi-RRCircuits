@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Wed 05 Jul 2017 14:56:30 EDT
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Wed 21 Feb 2018 14:00:54 EST
 
 BeginCmp
 TimeStamp = /58F8C71E;
@@ -50,13 +50,6 @@ IdModule  = D3;
 EndCmp
 
 BeginCmp
-TimeStamp = /595D308E;
-Reference = D2;
-ValeurCmp = 1N5226BTR;
-IdModule  = D3;
-EndCmp
-
-BeginCmp
 TimeStamp = /5516AE26;
 Reference = J0;
 ValeurCmp = RPi_GPIO;
@@ -92,13 +85,6 @@ IdModule  = R1;
 EndCmp
 
 BeginCmp
-TimeStamp = /595D3071;
-Reference = R2;
-ValeurCmp = 220 Ohms;
-IdModule  = R1;
-EndCmp
-
-BeginCmp
 TimeStamp = /590378B2;
 Reference = T1;
 ValeurCmp = 12V supply;
@@ -122,7 +108,7 @@ EndCmp
 BeginCmp
 TimeStamp = /58F8C85A;
 Reference = X1;
-ValeurCmp = 8 MHz;
+ValeurCmp = 16 MHz;
 IdModule  = HC-49V;
 EndCmp
 

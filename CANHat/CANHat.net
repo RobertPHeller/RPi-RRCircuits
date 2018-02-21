@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/heller/RRCircuits/CANHat/CANHat.sch)
-    (date "Wed 21 Feb 2018 09:33:32 EST")
+    (date "Wed 21 Feb 2018 14:00:41 EST")
     (tool "eeschema (2013-june-11)-stable"))
   (components
     (comp (ref J0)
@@ -94,10 +94,10 @@
       (sheetpath (names /) (tstamps /))
       (tstamp 58F8C777))
     (comp (ref X1)
-      (value "8 MHz")
+      (value "16 MHz")
       (footprint HC-49V)
       (fields
-        (field (name "Mouser part number") "449-LFXTAL031818BULK "))
+        (field (name "Mouser part number") 449-LFXTAL027945BULK))
       (libsource (lib device) (part CRYSTAL))
       (sheetpath (names /) (tstamps /))
       (tstamp 58F8C85A))

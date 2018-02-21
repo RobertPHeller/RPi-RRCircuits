@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by PcbNew date = Sun 15 Oct 2017 13:53:18 EDT
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Wed 21 Feb 2018 14:04:50 EST
 
 BeginCmp
 TimeStamp = /59DCC6EA;
@@ -157,7 +157,7 @@ EndCmp
 BeginCmp
 TimeStamp = /59DCC6A8;
 Reference = X1;
-ValeurCmp = 8 MHz;
+ValeurCmp = 16 MHz;
 IdModule  = HC-49V;
 EndCmp
 
