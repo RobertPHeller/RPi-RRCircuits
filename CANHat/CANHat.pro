@@ -1,7 +1,10 @@
-update=Wed 05 Jul 2017 14:51:45 EDT
-last_client=cvpcb
-[general]
+update=Thu 01 Mar 2018 13:58:07 EST
+last_client=kicad
+[cvpcb]
 version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
 [pcbnew]
 version=1
 LastNetListRead=CANHat.net
@@ -22,27 +25,24 @@ DrawSegmentWidth="    0.200000"
 BoardOutlineThickness="    0.100000"
 ModuleOutlineThickness="    0.150000"
 [pcbnew/libraries]
-LibName1=sockets
-LibName2=connect
-LibName3=discret
-LibName4=pin_array
-LibName5=divers
-LibName6=smd_capacitors
-LibName7=smd_resistors
-LibName8=smd_crystal&oscillator
-LibName9=smd_dil
-LibName10=smd_transistors
-LibName11=libcms
-LibName12=display
-LibName13=led
-LibName14=dip_sockets
-LibName15=pga_sockets
-LibName16=valves
-LibName17=RJ45-8N-S
-LibName18=DWSLogoBCU
 LibDir=../../RRCircuits
-[cvpcb]
+LibName1=RJ45-8N-S
+LibName2=sockets
+LibName3=connect
+LibName4=discret
+LibName5=pin_array
+LibName6=divers
+LibName7=smd_capacitors
+LibName8=smd_resistors
+LibName9=smd_crystal&oscillator
+LibName10=smd_dil
+LibName11=smd_transistors
+LibName12=libcms
+LibName13=display
+LibName14=led
+LibName15=dip_sockets
+LibName16=pga_sockets
+LibName17=valves
+LibName18=DWSLogoBCU
+[general]
 version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms

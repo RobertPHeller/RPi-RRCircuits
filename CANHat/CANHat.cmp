@@ -1,112 +1,175 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Wed 21 Feb 2018 14:00:54 EST
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 01 Mar 2018 12:55:39 EST
 
 BeginCmp
-TimeStamp = /58F8C71E;
+TimeStamp = /5A984172;
 Reference = C1;
 ValeurCmp = 10 uf;
 IdModule  = C1V5;
 EndCmp
 
 BeginCmp
-TimeStamp = /58F8C8BA;
+TimeStamp = /5A984177;
 Reference = C2;
 ValeurCmp = 22 pf;
 IdModule  = C2;
 EndCmp
 
 BeginCmp
-TimeStamp = /58F8C6B8;
+TimeStamp = /5A984170;
 Reference = C3;
 ValeurCmp = .1 uf;
 IdModule  = C1;
 EndCmp
 
 BeginCmp
-TimeStamp = /58F8C8D3;
+TimeStamp = /5A984178;
 Reference = C4;
 ValeurCmp = 22 pf;
 IdModule  = C2;
 EndCmp
 
 BeginCmp
-TimeStamp = /58F8C768;
+TimeStamp = /5A983F70;
 Reference = C5;
-ValeurCmp = 15 uf;
+ValeurCmp = 0.33 uf;
 IdModule  = C1V7;
 EndCmp
 
 BeginCmp
-TimeStamp = /58F8C777;
+TimeStamp = /5A984173;
 Reference = C6;
+ValeurCmp = 15 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A983F71;
+Reference = C7;
 ValeurCmp = .1 uf;
 IdModule  = C1;
 EndCmp
 
 BeginCmp
-TimeStamp = /590378E2;
+TimeStamp = /5A984174;
+Reference = C8;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A983F7E;
+Reference = C9;
+ValeurCmp = 47 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A983F6A;
 Reference = D1;
-ValeurCmp = 1N4001;
+ValeurCmp = DIODESCH;
 IdModule  = D3;
 EndCmp
 
 BeginCmp
-TimeStamp = /5516AE26;
+TimeStamp = /5A983F6B;
+Reference = D2;
+ValeurCmp = DIODESCH;
+IdModule  = D3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A984162;
 Reference = J0;
 ValeurCmp = RPi_GPIO;
 IdModule  = RPi_Hat:Pin_Header_Straight_2x20;
 EndCmp
 
 BeginCmp
-TimeStamp = /58F8C62A;
+TimeStamp = /5A98416F;
 Reference = J1;
 ValeurCmp = SPI Select;
 IdModule  = PIN_ARRAY_3X1;
 EndCmp
 
 BeginCmp
-TimeStamp = /58F8C44A;
-Reference = J2;
-ValeurCmp = RJ45;
-IdModule  = RJ45_8;
-EndCmp
-
-BeginCmp
-TimeStamp = /58F8C45E;
+TimeStamp = /5A983F79;
 Reference = J3;
-ValeurCmp = RJ45;
-IdModule  = RJ45_8;
+ValeurCmp = PWR Select;
+IdModule  = PIN_ARRAY_3X1;
 EndCmp
 
 BeginCmp
-TimeStamp = /58F8C5D7;
+TimeStamp = /5A983F7B;
+Reference = J4;
+ValeurCmp = Termination;
+IdModule  = PIN_ARRAY_2X2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A984165;
+Reference = J5;
+ValeurCmp = RJ45;
+IdModule  = RJ45_8N-S;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A984166;
+Reference = J6;
+ValeurCmp = RJ45;
+IdModule  = RJ45_8N-S;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A98416E;
 Reference = R1;
 ValeurCmp = 10K Ohms;
 IdModule  = R1;
 EndCmp
 
 BeginCmp
-TimeStamp = /590378B2;
+TimeStamp = /5A983F7D;
+Reference = R2;
+ValeurCmp = 60 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A983F7C;
+Reference = R3;
+ValeurCmp = 60 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A983F73;
 Reference = T1;
-ValeurCmp = 12V supply;
+ValeurCmp = 12 Volts;
 IdModule  = bornier2;
 EndCmp
 
 BeginCmp
-TimeStamp = /58F8C405;
+TimeStamp = /5A984163;
 Reference = U1;
 ValeurCmp = MCP2515;
 IdModule  = DIP-18__300;
 EndCmp
 
 BeginCmp
-TimeStamp = /58F8C41A;
+TimeStamp = /5A984164;
 Reference = U2;
 ValeurCmp = MCP2551;
 IdModule  = DIP-8__300;
 EndCmp
 
 BeginCmp
-TimeStamp = /58F8C85A;
+TimeStamp = /5A983F6C;
+Reference = U3;
+ValeurCmp = LM78L05ACZ;
+IdModule  = TO92;
+EndCmp
+
+BeginCmp
+TimeStamp = /5A984176;
 Reference = X1;
 ValeurCmp = 16 MHz;
 IdModule  = HC-49V;
