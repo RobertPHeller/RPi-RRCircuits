@@ -1,0 +1,105 @@
+PCBNEW-LibModule-V1  Wed 07 Mar 2018 10:01:37 EST
+# encoding utf-8
+Units mm
+$INDEX
+stack_header_10
+$EndINDEX
+$MODULE stack_header_10
+Po 0 0 0 15 4B90DB5D 00000000 ~~
+Li stack_header_10
+Cd Pin socket 10pin
+Kw CONN DEV
+Sc 0
+AR pin_socket_10
+Op 0 0 0
+T0 0 -2.159 1.016 1.016 0 0.2032 N V 21 N "STACK_HEAD_10"
+T1 0.254 -3.556 1.016 0.889 0 0.2032 N I 21 N "Val**"
+DS -10.16 -1.27 -10.16 1.27 0.3048 21
+DS -12.7 -1.27 12.7 -1.27 0.3048 21
+DS 12.7 -1.27 12.7 1.27 0.3048 21
+DS 12.7 1.27 -12.7 1.27 0.3048 21
+DS -12.7 1.27 -12.7 -1.27 0.3048 21
+$PAD
+Sh "1" R 1.524 2.19964 0 0 0
+Dr 1.00076 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -11.43 0
+$EndPAD
+$PAD
+Sh "2" O 1.524 2.19964 0 0 0
+Dr 1.00076 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -8.89 0
+$EndPAD
+$PAD
+Sh "3" O 1.524 2.19964 0 0 0
+Dr 1.00076 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -6.35 0
+$EndPAD
+$PAD
+Sh "4" O 1.524 2.19964 0 0 0
+Dr 1.00076 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -3.81 0
+$EndPAD
+$PAD
+Sh "5" O 1.524 2.19964 0 0 0
+Dr 1.00076 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -1.27 0
+$EndPAD
+$PAD
+Sh "6" O 1.524 2.19964 0 0 0
+Dr 1.00076 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 1.27 0
+$EndPAD
+$PAD
+Sh "7" O 1.524 2.19964 0 0 0
+Dr 1.00076 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 3.81 0
+$EndPAD
+$PAD
+Sh "8" O 1.524 2.19964 0 0 0
+Dr 1.00076 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 6.35 0
+$EndPAD
+$PAD
+Sh "9" O 1.524 2.19964 0 0 0
+Dr 1.00076 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 8.89 0
+$EndPAD
+$PAD
+Sh "10" O 1.524 2.19964 0 0 0
+Dr 1.00076 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 11.43 0
+$EndPAD
+$SHAPE3D
+Na "walter/pin_strip/pin_socket_10.wrl"
+Sc 1 1 1
+Of 0 0 -0.0625
+Ro 0 180 0
+$EndSHAPE3D
+$SHAPE3D
+Na "walter/pin_strip/pin_strip_10.wrl"
+Sc 1 1 1
+Of 0 0 -0.1875
+Ro 0 0 0
+$EndSHAPE3D
+$EndMODULE stack_header_10
+$EndLIBRARY
