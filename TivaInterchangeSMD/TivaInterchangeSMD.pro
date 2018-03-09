@@ -1,5 +1,5 @@
-update=Thu 08 Mar 2018 18:46:56 EST
-last_client=kicad
+update=Fri 09 Mar 2018 08:51:36 EST
+last_client=pcbnew
 [eeschema]
 version=1
 LibDir=
@@ -45,14 +45,16 @@ version=1
 NetIExt=net
 [cvpcb/libraries]
 EquName1=devcms
+[general]
+version=1
 [pcbnew]
 version=1
-LastNetListRead=TivaInterchange.net
+LastNetListRead=
 UseCmpFile=1
-PadDrill="    1.249680"
-PadDrillOvalY="    1.249680"
-PadSizeH="    2.999740"
-PadSizeV="    2.999740"
+PadDrill="    0.000000"
+PadDrillOvalY="    0.000000"
+PadSizeH="    0.599440"
+PadSizeV="    1.998980"
 PcbTextSizeV="    1.000000"
 PcbTextSizeH="    1.000000"
 PcbTextThickness="    0.300000"
@@ -92,5 +94,3 @@ LibName23=MFSOP6
 LibName24=SOIC16AC
 LibName25=TivaInterchangeSMD
 LibName26=w_smd_dil
-[general]
-version=1
