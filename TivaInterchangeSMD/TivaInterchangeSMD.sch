@@ -35,7 +35,7 @@ EELAYER 27 0
 EELAYER END
 $Descr USLetter 11000 8500
 encoding utf-8
-Sheet 1 3
+Sheet 1 4
 Title "Tiva Interchange"
 Date "10 mar 2018"
 Rev "1.0"
@@ -269,4 +269,10 @@ Wire Wire Line
 	8250 6000 8500 6000
 Wire Wire Line
 	8500 6000 8500 6050
+$Sheet
+S 2550 3750 1550 1650
+U 5AA46B1E
+F0 "CANTranceiver" 100
+F1 "CANTranceiver.sch" 100
+$EndSheet
 $EndSCHEMATC
