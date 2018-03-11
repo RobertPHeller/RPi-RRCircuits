@@ -1,0 +1,96 @@
+PCBNEW-LibModule-V1  Tue 10 Oct 2017 11:11:01 EDT
+# encoding utf-8
+Units mm
+$INDEX
+DUB_R-PDSO-G8
+$EndINDEX
+$MODULE DUB_R-PDSO-G8
+Po 0 0 0 15 59DCE1E7 00000000 ~~
+Li DUB_R-PDSO-G8
+Cd 8-lead DUB package, row spacing 9.6 mm (378 mils), SMD
+Kw DUB 2.54mm 9.6mm 378mil SMD
+Sc 0
+AR 
+Op 0 0 0
+At SMD
+T0 0 -6.2 1 1 0 0.15 N V 21 N "REF**"
+T1 0 6.2 1 1 0 0.15 N V 21 N "DUB (R-PDSO-G8)"
+DA 0 -5.2 -1 -5.2 -1800 0.12 21
+DS -2.175 -5.08 3.175 -5.08 0.1 21
+DS 3.175 -5.08 3.175 5.08 0.1 21
+DS 3.175 5.08 -3.175 5.08 0.1 21
+DS -3.175 5.08 -3.175 -4.08 0.1 21
+DS -3.175 -4.08 -2.175 -5.08 0.1 21
+DS -1 -5.2 -3.295 -5.2 0.12 21
+DS -3.295 -5.2 -3.295 5.2 0.12 21
+DS -3.295 5.2 3.295 5.2 0.12 21
+DS 3.295 5.2 3.295 -5.2 0.12 21
+DS 3.295 -5.2 1 -5.2 0.12 21
+DS -6.7 -5.4 -6.7 5.4 0.05 21
+DS -6.7 5.4 6.7 5.4 0.05 21
+DS 6.7 5.4 6.7 -5.4 0.05 21
+DS 6.7 -5.4 -6.7 -5.4 0.05 21
+$PAD
+Sh "1" R 3 0.8 0 0 0
+Dr 0 0 0
+At SMD N 00808000
+Ne 0 ""
+Po -4.8 -3.81
+$EndPAD
+$PAD
+Sh "5" R 3 0.8 0 0 0
+Dr 0 0 0
+At SMD N 00808000
+Ne 0 ""
+Po 4.8 3.81
+$EndPAD
+$PAD
+Sh "2" R 3 0.8 0 0 0
+Dr 0 0 0
+At SMD N 00808000
+Ne 0 ""
+Po -4.8 -1.27
+$EndPAD
+$PAD
+Sh "6" R 3 0.8 0 0 0
+Dr 0 0 0
+At SMD N 00808000
+Ne 0 ""
+Po 4.8 1.27
+$EndPAD
+$PAD
+Sh "3" R 3 0.8 0 0 0
+Dr 0 0 0
+At SMD N 00808000
+Ne 0 ""
+Po -4.8 1.27
+$EndPAD
+$PAD
+Sh "7" R 3 0.8 0 0 0
+Dr 0 0 0
+At SMD N 00808000
+Ne 0 ""
+Po 4.8 -1.27
+$EndPAD
+$PAD
+Sh "4" R 3 0.8 0 0 0
+Dr 0 0 0
+At SMD N 00808000
+Ne 0 ""
+Po -4.8 3.81
+$EndPAD
+$PAD
+Sh "8" R 3 0.8 0 0 0
+Dr 0 0 0
+At SMD N 00808000
+Ne 0 ""
+Po 4.8 -3.81
+$EndPAD
+$SHAPE3D
+Na "Housings_DIP.3dshapes/DIP-8_W9.53mm_SMD.wrl"
+Sc 1 1 1
+Of 0 0 0
+Ro 0 0 0
+$EndSHAPE3D
+$EndMODULE DUB_R-PDSO-G8
+$EndLIBRARY

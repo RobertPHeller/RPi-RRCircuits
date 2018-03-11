@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 08 Mar 2018 18:04:19 EST
+Cmp-Mod V01 Created by PcbNew date = Sun 11 Mar 2018 18:29:16 EDT
 
 BeginCmp
 TimeStamp = /5A9FF518/5A9FF8CA;
@@ -36,6 +36,27 @@ IdModule  = c_elec_6.3x5.7;
 EndCmp
 
 BeginCmp
+TimeStamp = /5AA46B1E/5AA53EE8;
+Reference = C6;
+ValeurCmp = 0.33 uf;
+IdModule  = c_0402;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA46B1E/5AA53EE9;
+Reference = C7;
+ValeurCmp = .1 uf;
+IdModule  = c_0402;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA46B1E/5AA53EF6;
+Reference = C8;
+ValeurCmp = 47 nf;
+IdModule  = c_0402;
+EndCmp
+
+BeginCmp
 TimeStamp = /5A9FF518/5A9FF8AA;
 Reference = D1;
 ValeurCmp = 1N4002;
@@ -50,6 +71,13 @@ IdModule  = DO-214AC(SMA);
 EndCmp
 
 BeginCmp
+TimeStamp = /5AA46B1E/5AA587E4;
+Reference = D3;
+ValeurCmp = BAS40-04;
+IdModule  = sot23-3;
+EndCmp
+
+BeginCmp
 TimeStamp = /5A9FF518/5A9FF88E;
 Reference = IC1;
 ValeurCmp = MCT6S;
@@ -60,28 +88,49 @@ BeginCmp
 TimeStamp = /5080DB5C;
 Reference = J1;
 ValeurCmp = TI_BOOSTER_40_J1;
-IdModule  = ;
+IdModule  = pin_strip_10;
 EndCmp
 
 BeginCmp
 TimeStamp = /5080DBF4;
 Reference = J2;
 ValeurCmp = TI_BOOSTER_40_J2;
-IdModule  = ;
+IdModule  = pin_strip_10;
 EndCmp
 
 BeginCmp
 TimeStamp = /5080DC03;
 Reference = J3;
 ValeurCmp = TI_BOOSTER_40_J3;
-IdModule  = ;
+IdModule  = pin_strip_10;
 EndCmp
 
 BeginCmp
 TimeStamp = /5080DC12;
 Reference = J4;
 ValeurCmp = TI_BOOSTER_40_J4;
-IdModule  = ;
+IdModule  = pin_strip_10;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA46B1E/5AA53EF3;
+Reference = J5;
+ValeurCmp = Termination;
+IdModule  = PIN_ARRAY_2X2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA46B1E/5AA53EE6;
+Reference = J6;
+ValeurCmp = RJ45;
+IdModule  = RJ45_8;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA46B1E/5AA53EE7;
+Reference = J7;
+ValeurCmp = RJ45;
+IdModule  = RJ45_8;
 EndCmp
 
 BeginCmp
@@ -113,28 +162,28 @@ IdModule  = soic-16AC;
 EndCmp
 
 BeginCmp
-TimeStamp = /5AA03023/5AA1BAAF;
+TimeStamp = /5AA03023/5AA1BB0B;
 Reference = Q2;
 ValeurCmp = MMPQ2222A;
 IdModule  = soic-16AC;
 EndCmp
 
 BeginCmp
-TimeStamp = /5AA03023/5AA1BC72;
+TimeStamp = /5AA03023/5AA1BAAF;
 Reference = Q3;
 ValeurCmp = MMPQ2222A;
 IdModule  = soic-16AC;
 EndCmp
 
 BeginCmp
-TimeStamp = /5AA03023/5AA1BD77;
+TimeStamp = /5AA03023/5AA1BD86;
 Reference = Q4;
 ValeurCmp = MMPQ2222A;
 IdModule  = soic-16AC;
 EndCmp
 
 BeginCmp
-TimeStamp = /5AA03023/5AA1BE8C;
+TimeStamp = /5AA03023/5AA1BD77;
 Reference = Q5;
 ValeurCmp = MMPQ2222A;
 IdModule  = soic-16AC;
@@ -505,6 +554,20 @@ IdModule  = R_0805;
 EndCmp
 
 BeginCmp
+TimeStamp = /5AA46B1E/5AA53EF5;
+Reference = R53;
+ValeurCmp = 60 Ohms;
+IdModule  = R_0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA46B1E/5AA53EF4;
+Reference = R54;
+ValeurCmp = 60 Ohms;
+IdModule  = R_0805;
+EndCmp
+
+BeginCmp
 TimeStamp = /5A9FF518/5A9FF8AF;
 Reference = T1;
 ValeurCmp = Motor 1;
@@ -522,6 +585,20 @@ BeginCmp
 TimeStamp = /5A9FF518/5A9FF8C7;
 Reference = T3;
 ValeurCmp = 12 to 16 Volts;
+IdModule  = ScrewTerm2.54-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA46B1E/5AA53EEB;
+Reference = T4;
+ValeurCmp = 12 Volts CAN Power In;
+IdModule  = mors_2p;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA46B1E/5AA53F73;
+Reference = T5;
+ValeurCmp = CAN Power out;
 IdModule  = ScrewTerm2.54-2;
 EndCmp
 
@@ -544,6 +621,20 @@ TimeStamp = /5AA03023/5AA035BE;
 Reference = U3;
 ValeurCmp = MCP23017;
 IdModule  = SOJ28_WIDE;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA46B1E/5AA53EE5;
+Reference = U4;
+ValeurCmp = ISO1050DUB;
+IdModule  = DUB_R-PDSO-G8;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA46B1E/5AA53EE4;
+Reference = U5;
+ValeurCmp = LM78L05ACZ;
+IdModule  = sot89-3;
 EndCmp
 
 BeginCmp

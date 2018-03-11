@@ -1,5 +1,5 @@
-update=Sat 10 Mar 2018 18:50:34 EST
-last_client=kicad
+update=Sun 11 Mar 2018 10:19:52 EDT
+last_client=pcbnew
 [eeschema]
 version=1
 LibDir=
@@ -45,6 +45,8 @@ version=1
 NetIExt=net
 [cvpcb/libraries]
 EquName1=devcms
+[general]
+version=1
 [pcbnew]
 version=1
 LastNetListRead=
@@ -92,5 +94,4 @@ LibName23=MFSOP6
 LibName24=SOIC16AC
 LibName25=TivaInterchangeSMD
 LibName26=w_smd_dil
-[general]
-version=1
+LibName27=DUB

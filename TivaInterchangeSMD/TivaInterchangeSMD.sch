@@ -37,7 +37,7 @@ $Descr USLetter 11000 8500
 encoding utf-8
 Sheet 1 4
 Title "Tiva Interchange"
-Date "10 mar 2018"
+Date "11 mar 2018"
 Rev "1.0"
 Comp "Deepwoods Software"
 Comment1 "Master Sheet"
@@ -155,12 +155,12 @@ F4 "Point Sense 1" O R 7850 4400 60
 F5 "Point Sense 2" O R 7850 4500 60 
 $EndSheet
 $Sheet
-S 5750 800  1600 1850
+S 6350 2400 1600 1300
 U 5AA03023
 F0 "QuadSignalHead" 100
 F1 "QuadSignalHead.sch" 100
-F2 "SCL" I R 7350 1100 60 
-F3 "SDA" B R 7350 1450 60 
+F2 "SCL" I R 7950 2700 60 
+F3 "SDA" B R 7950 3050 60 
 $EndSheet
 $Comp
 L CONN_10 P3
@@ -173,18 +173,6 @@ F 3 "~" H 7600 6050 60  0000 C CNN
 	1    7600 6050
 	-1   0    0    -1  
 $EndComp
-Wire Wire Line
-	7350 1100 8650 1100
-Wire Wire Line
-	8650 1100 8650 1700
-Wire Wire Line
-	8650 1700 9150 1700
-Wire Wire Line
-	9150 1800 8150 1800
-Wire Wire Line
-	8150 1800 8150 1450
-Wire Wire Line
-	8150 1450 7350 1450
 Wire Wire Line
 	9150 4200 7850 4200
 Wire Wire Line
@@ -269,10 +257,118 @@ Wire Wire Line
 	8250 6000 8500 6000
 Wire Wire Line
 	8500 6000 8500 6050
+Wire Wire Line
+	7950 3050 8700 3050
+Wire Wire Line
+	8700 3050 8700 1800
+Wire Wire Line
+	8700 1800 9150 1800
+Wire Wire Line
+	7950 2700 8500 2700
+Wire Wire Line
+	8500 2700 8500 1700
+Wire Wire Line
+	8500 1700 9150 1700
+Text GLabel 8550 6500 0    60   Input ~ 0
+J4.10
+Text GLabel 8800 6400 0    60   Input ~ 0
+J4.9
+Text GLabel 8500 6300 0    60   Input ~ 0
+J4.8
+Text GLabel 8800 6200 0    60   Input ~ 0
+J4.7
+Text GLabel 8550 4900 0    60   Input ~ 0
+J3.10
+Text GLabel 8950 4800 0    60   Input ~ 0
+J3.9
+Text GLabel 8500 4700 0    60   Input ~ 0
+J3.8
+Text GLabel 8850 4600 0    60   Input ~ 0
+J3.7
+$Comp
+L VCC #PWR08
+U 1 1 5AA6180F
+P 2650 1000
+F 0 "#PWR08" H 2650 1100 30  0001 C CNN
+F 1 "VCC" H 2650 1100 30  0000 C CNN
+F 2 "" H 2650 1000 60  0001 C CNN
+F 3 "" H 2650 1000 60  0001 C CNN
+	1    2650 1000
+	0    -1   -1   0   
+$EndComp
+$Comp
+L TI_BOOSTER_40_J1 JB1
+U 1 1 5AA61815
+P 3250 1450
+F 0 "JB1" H 3200 2100 60  0000 C CNN
+F 1 "TI_BOOSTER_40_J1" H 3250 800 60  0000 C CNN
+F 2 "" H 3250 1450 60  0001 C CNN
+F 3 "" H 3250 1450 60  0001 C CNN
+	1    3250 1450
+	1    0    0    -1  
+$EndComp
+$Comp
+L TI_BOOSTER_40_J2 JB2
+U 1 1 5AA6181B
+P 3250 3000
+F 0 "JB2" H 3200 3650 60  0000 C CNN
+F 1 "TI_BOOSTER_40_J2" H 3250 2350 60  0000 C CNN
+F 2 "" H 3250 3000 60  0001 C CNN
+F 3 "" H 3250 3000 60  0001 C CNN
+	1    3250 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L TI_BOOSTER_40_J3 JB3
+U 1 1 5AA61821
+P 3250 4550
+F 0 "JB3" H 3200 5200 60  0000 C CNN
+F 1 "TI_BOOSTER_40_J3" H 3250 3900 60  0000 C CNN
+F 2 "" H 3250 4550 60  0001 C CNN
+F 3 "" H 3250 4550 60  0001 C CNN
+	1    3250 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L TI_BOOSTER_40_J4 JB4
+U 1 1 5AA61827
+P 3250 6100
+F 0 "JB4" H 3200 6750 60  0000 C CNN
+F 1 "TI_BOOSTER_40_J4" H 3250 5450 60  0000 C CNN
+F 2 "" H 3250 6100 60  0001 C CNN
+F 3 "" H 3250 6100 60  0001 C CNN
+	1    3250 6100
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR09
+U 1 1 5AA6182D
+P 2650 4200
+F 0 "#PWR09" H 2650 4200 30  0001 C CNN
+F 1 "GND" H 2650 4130 30  0001 C CNN
+F 2 "" H 2650 4200 60  0001 C CNN
+F 3 "" H 2650 4200 60  0001 C CNN
+	1    2650 4200
+	0    1    1    0   
+$EndComp
 $Sheet
-S 2550 3750 1550 1650
+S 650  900  1550 1650
 U 5AA46B1E
 F0 "CANTranceiver" 100
 F1 "CANTranceiver.sch" 100
+F2 "CAN Rx" I R 2200 1100 60 
+F3 "CAN Tx" I R 2200 1250 60 
 $EndSheet
+Wire Wire Line
+	2200 1250 2450 1250
+Wire Wire Line
+	2450 1250 2450 1500
+Wire Wire Line
+	2450 1500 2650 1500
+Wire Wire Line
+	2650 1400 2500 1400
+Wire Wire Line
+	2500 1400 2500 1100
+Wire Wire Line
+	2500 1100 2200 1100
 $EndSCHEMATC
