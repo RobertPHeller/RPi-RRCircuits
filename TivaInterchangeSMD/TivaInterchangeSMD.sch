@@ -37,7 +37,7 @@ $Descr USLetter 11000 8500
 encoding utf-8
 Sheet 1 4
 Title "Tiva Interchange"
-Date "11 mar 2018"
+Date "12 mar 2018"
 Rev "1.0"
 Comp "Deepwoods Software"
 Comment1 "Master Sheet"
@@ -371,4 +371,48 @@ Wire Wire Line
 	2500 1400 2500 1100
 Wire Wire Line
 	2500 1100 2200 1100
+$Comp
+L CONN_10 P5
+U 1 1 5AA67269
+P 6900 6050
+AR Path="/5AA67269" Ref="P5"  Part="1" 
+AR Path="/5AA03023/5AA67269" Ref="P?"  Part="1" 
+F 0 "P5" V 6850 6050 60  0000 C CNN
+F 1 "CONN_10" V 6950 6050 60  0000 C CNN
+F 2 "PIN_ARRAY_5x2" H 6900 6050 60  0001 C CNN
+F 3 "~" H 6900 6050 60  0000 C CNN
+	1    6900 6050
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_10 P4
+U 1 1 5AA67290
+P 5550 6050
+F 0 "P4" V 5500 6050 60  0000 C CNN
+F 1 "CONN_10" V 5600 6050 60  0000 C CNN
+F 2 "ScrewTerm_2.54-10" H 5550 6050 60  0001 C CNN
+F 3 "~" H 5550 6050 60  0000 C CNN
+	1    5550 6050
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	5900 6500 6550 6500
+Wire Wire Line
+	5900 6400 6550 6400
+Wire Wire Line
+	5900 6300 6550 6300
+Wire Wire Line
+	5900 6200 6550 6200
+Wire Wire Line
+	5900 6100 6550 6100
+Wire Wire Line
+	5900 6000 6550 6000
+Wire Wire Line
+	5900 5900 6550 5900
+Wire Wire Line
+	5900 5800 6550 5800
+Wire Wire Line
+	5900 5700 6550 5700
+Wire Wire Line
+	5900 5600 6550 5600
 $EndSCHEMATC

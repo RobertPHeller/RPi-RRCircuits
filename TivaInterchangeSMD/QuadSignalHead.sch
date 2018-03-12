@@ -37,7 +37,7 @@ $Descr USLetter 11000 8500
 encoding utf-8
 Sheet 3 4
 Title "Tiva Interchange"
-Date "11 mar 2018"
+Date "12 mar 2018"
 Rev "1.0"
 Comp "Deepwoods Software"
 Comment1 "Signal Driver (4 heads / 4 LEDS per head)"
@@ -1175,4 +1175,150 @@ Wire Wire Line
 	7000 4450 6900 4450
 Wire Wire Line
 	7000 3800 6900 3800
+$Comp
+L CONN_10 P7
+U 1 1 5AA6A255
+P 7950 6450
+F 0 "P7" V 7900 6450 60  0000 C CNN
+F 1 "CONN_10" V 8000 6450 60  0000 C CNN
+F 2 "PIN_ARRAY_5x2" H 7950 6450 60  0001 C CNN
+F 3 "~" H 7950 6450 60  0000 C CNN
+	1    7950 6450
+	-1   0    0    -1  
+$EndComp
+$Comp
+L CONN_5 P11
+U 1 1 5AA6A270
+P 9200 6700
+F 0 "P11" V 9150 6700 50  0000 C CNN
+F 1 "CONN_5" V 9250 6700 50  0000 C CNN
+F 2 "ScrewTerm_2.54-5" H 9200 6700 60  0001 C CNN
+F 3 "~" H 9200 6700 60  0000 C CNN
+	1    9200 6700
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_5 P10
+U 1 1 5AA6A27F
+P 9200 6200
+F 0 "P10" V 9150 6200 50  0000 C CNN
+F 1 "CONN_5" V 9250 6200 50  0000 C CNN
+F 2 "ScrewTerm_2.54-5" H 9200 6200 60  0001 C CNN
+F 3 "~" H 9200 6200 60  0000 C CNN
+	1    9200 6200
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	8300 6900 8800 6900
+Wire Wire Line
+	8300 6800 8800 6800
+Wire Wire Line
+	8300 6700 8800 6700
+Wire Wire Line
+	8300 6600 8800 6600
+Wire Wire Line
+	8300 6500 8800 6500
+Wire Wire Line
+	8300 6400 8800 6400
+Wire Wire Line
+	8300 6300 8800 6300
+Wire Wire Line
+	8300 6200 8800 6200
+Wire Wire Line
+	8300 6100 8800 6100
+Wire Wire Line
+	8300 6000 8800 6000
+$Comp
+L CONN_10 P6
+U 1 1 5AA6A517
+P 7950 5400
+F 0 "P6" V 7900 5400 60  0000 C CNN
+F 1 "CONN_10" V 8000 5400 60  0000 C CNN
+F 2 "PIN_ARRAY_5x2" H 7950 5400 60  0001 C CNN
+F 3 "~" H 7950 5400 60  0000 C CNN
+	1    7950 5400
+	-1   0    0    -1  
+$EndComp
+$Comp
+L CONN_5 P9
+U 1 1 5AA6A51D
+P 9200 5650
+F 0 "P9" V 9150 5650 50  0000 C CNN
+F 1 "CONN_5" V 9250 5650 50  0000 C CNN
+F 2 "ScrewTerm_2.54-5" H 9200 5650 60  0001 C CNN
+F 3 "~" H 9200 5650 60  0000 C CNN
+	1    9200 5650
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_5 P8
+U 1 1 5AA6A523
+P 9200 5150
+F 0 "P8" V 9150 5150 50  0000 C CNN
+F 1 "CONN_5" V 9250 5150 50  0000 C CNN
+F 2 "ScrewTerm_2.54-5" H 9200 5150 60  0001 C CNN
+F 3 "~" H 9200 5150 60  0000 C CNN
+	1    9200 5150
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	8300 5850 8800 5850
+Wire Wire Line
+	8300 5750 8800 5750
+Wire Wire Line
+	8300 5650 8800 5650
+Wire Wire Line
+	8300 5550 8800 5550
+Wire Wire Line
+	8300 5450 8800 5450
+Wire Wire Line
+	8300 5350 8800 5350
+Wire Wire Line
+	8300 5250 8800 5250
+Wire Wire Line
+	8300 5150 8800 5150
+Wire Wire Line
+	8300 5050 8800 5050
+Wire Wire Line
+	8300 4950 8800 4950
+Text Label 8600 4950 0    60   ~ 0
+L2
+Text Label 8500 5050 0    60   ~ 0
+G1
+Text Label 8600 5150 0    60   ~ 0
+R2
+Text Label 8500 5250 0    60   ~ 0
+Y1
+Text Label 8650 5350 0    60   ~ 0
+C2
+Text Label 8550 5450 0    60   ~ 0
+C1
+Text Label 8650 5550 0    60   ~ 0
+Y2
+Text Label 8550 5650 0    60   ~ 0
+R1
+Text Label 8650 5750 0    60   ~ 0
+G2
+Text Label 8550 5850 0    60   ~ 0
+L1
+Text Label 8700 6000 0    60   ~ 0
+L4
+Text Label 8600 6100 0    60   ~ 0
+G3
+Text Label 8700 6200 0    60   ~ 0
+R4
+Text Label 8600 6300 0    60   ~ 0
+Y3
+Text Label 8700 6400 0    60   ~ 0
+C3
+Text Label 8600 6500 0    60   ~ 0
+C4
+Text Label 8700 6600 0    60   ~ 0
+Y4
+Text Label 8600 6700 0    60   ~ 0
+R3
+Text Label 8700 6800 0    60   ~ 0
+G4
+Text Label 8600 6900 0    60   ~ 0
+L3
 $EndSCHEMATC

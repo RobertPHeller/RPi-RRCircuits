@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by PcbNew date = Sun 11 Mar 2018 18:29:16 EDT
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Mon 12 Mar 2018 08:17:47 EDT
 
 BeginCmp
 TimeStamp = /5A9FF518/5A9FF8CA;
@@ -134,6 +134,34 @@ IdModule  = RJ45_8;
 EndCmp
 
 BeginCmp
+TimeStamp = /5AA61815;
+Reference = JB1;
+ValeurCmp = TI_BOOSTER_40_J1;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA6181B;
+Reference = JB2;
+ValeurCmp = TI_BOOSTER_40_J2;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA61821;
+Reference = JB3;
+ValeurCmp = TI_BOOSTER_40_J3;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA61827;
+Reference = JB4;
+ValeurCmp = TI_BOOSTER_40_J4;
+IdModule  = ;
+EndCmp
+
+BeginCmp
 TimeStamp = /5AA03023/5AA036DB;
 Reference = P1;
 ValeurCmp = CONN_10;
@@ -152,6 +180,62 @@ TimeStamp = /5AA1384C;
 Reference = P3;
 ValeurCmp = CONN_10;
 IdModule  = PIN_ARRAY_5x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA67290;
+Reference = P4;
+ValeurCmp = CONN_10;
+IdModule  = ScrewTerm_2.54-10;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA67269;
+Reference = P5;
+ValeurCmp = CONN_10;
+IdModule  = PIN_ARRAY_5x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA03023/5AA6A517;
+Reference = P6;
+ValeurCmp = CONN_10;
+IdModule  = PIN_ARRAY_5x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA03023/5AA6A255;
+Reference = P7;
+ValeurCmp = CONN_10;
+IdModule  = PIN_ARRAY_5x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA03023/5AA6A523;
+Reference = P8;
+ValeurCmp = CONN_5;
+IdModule  = ScrewTerm_2.54-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA03023/5AA6A51D;
+Reference = P9;
+ValeurCmp = CONN_5;
+IdModule  = ScrewTerm_2.54-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA03023/5AA6A27F;
+Reference = P10;
+ValeurCmp = CONN_5;
+IdModule  = ScrewTerm_2.54-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA03023/5AA6A270;
+Reference = P11;
+ValeurCmp = CONN_5;
+IdModule  = ScrewTerm_2.54-5;
 EndCmp
 
 BeginCmp
