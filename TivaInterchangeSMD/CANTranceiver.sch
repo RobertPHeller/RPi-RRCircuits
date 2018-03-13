@@ -33,14 +33,14 @@ LIBS:valves
 LIBS:TivaInterchangeSMD-cache
 EELAYER 27 0
 EELAYER END
-$Descr A4 11693 8268
+$Descr USLetter 11000 8500
 encoding utf-8
 Sheet 4 4
-Title ""
+Title "Tiva Interchange"
 Date "12 mar 2018"
-Rev ""
-Comp ""
-Comment1 ""
+Rev "1.0"
+Comp "Deepwoods Software"
+Comment1 "CAN Tranceiver"
 Comment2 ""
 Comment3 ""
 Comment4 ""
