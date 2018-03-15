@@ -1,0 +1,108 @@
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Wed 14 Mar 2018 14:15:13 EDT
+
+BeginCmp
+TimeStamp = /5AA957AC;
+Reference = C1;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA95940;
+Reference = D1;
+ValeurCmp = Red LED;
+IdModule  = LED-0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA9594F;
+Reference = D2;
+ValeurCmp = Yellow LED;
+IdModule  = LED-0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA9595E;
+Reference = D3;
+ValeurCmp = Green LED;
+IdModule  = LED-0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA9587D;
+Reference = K1;
+ValeurCmp = +5 In GND;
+IdModule  = ScrewTerm_2.54-3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA9586E;
+Reference = K2;
+ValeurCmp = +5 Out GND;
+IdModule  = ScrewTerm_2.54-3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA9584D;
+Reference = P1;
+ValeurCmp = C Y G R;
+IdModule  = ScrewTerm_2.54-4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA9669C;
+Reference = P2;
+ValeurCmp = CONN_1;
+IdModule  = microterm;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA9666F;
+Reference = P3;
+ValeurCmp = CONN_1;
+IdModule  = microterm;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA9667E;
+Reference = P4;
+ValeurCmp = CONN_1;
+IdModule  = microterm;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA9668D;
+Reference = P5;
+ValeurCmp = CONN_1;
+IdModule  = microterm;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA958DC;
+Reference = R1;
+ValeurCmp = 33 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA9580D;
+Reference = R2;
+ValeurCmp = 100 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA958AA;
+Reference = R3;
+ValeurCmp = 33 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AA9578E;
+Reference = U1;
+ValeurCmp = WS2811;
+IdModule  = DIP-8__300;
+EndCmp
+
+EndListe
