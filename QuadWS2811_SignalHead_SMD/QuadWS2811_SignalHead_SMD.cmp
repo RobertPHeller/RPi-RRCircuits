@@ -1,0 +1,192 @@
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Fri 23 Mar 2018 16:46:37 EDT
+
+BeginCmp
+TimeStamp = /5AB561E7;
+Reference = C1;
+ValeurCmp = .1 uf;
+IdModule  = c_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561E8;
+Reference = C2;
+ValeurCmp = .1 uf;
+IdModule  = c_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561E9;
+Reference = C3;
+ValeurCmp = .1 uf;
+IdModule  = c_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561EA;
+Reference = C4;
+ValeurCmp = .1 uf;
+IdModule  = c_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561EB;
+Reference = HEAD1;
+ValeurCmp = SIGHEAD;
+IdModule  = SH3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561EC;
+Reference = HEAD2;
+ValeurCmp = SIGHEAD;
+IdModule  = SH3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561ED;
+Reference = HEAD3;
+ValeurCmp = SIGHEAD;
+IdModule  = SH3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561EE;
+Reference = HEAD4;
+ValeurCmp = SIGHEAD;
+IdModule  = SH3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561F3;
+Reference = K1;
+ValeurCmp = +5 In GND;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561F4;
+Reference = K2;
+ValeurCmp = +5 Out GND;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561EF;
+Reference = P1;
+ValeurCmp = C Y G R;
+IdModule  = ScrewTerm_2.54-4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561F0;
+Reference = P2;
+ValeurCmp = C Y G R;
+IdModule  = ScrewTerm_2.54-4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561F1;
+Reference = P3;
+ValeurCmp = C Y G R;
+IdModule  = ScrewTerm_2.54-4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561F2;
+Reference = P4;
+ValeurCmp = C Y G R;
+IdModule  = ScrewTerm_2.54-4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561E1;
+Reference = R1;
+ValeurCmp = 33 Ohms;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561E3;
+Reference = R2;
+ValeurCmp = 100 Ohms;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561DE;
+Reference = R3;
+ValeurCmp = 33 Ohms;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561E4;
+Reference = R4;
+ValeurCmp = 100 Ohms;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561DF;
+Reference = R5;
+ValeurCmp = 33 Ohms;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561E5;
+Reference = R6;
+ValeurCmp = 100 Ohms;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561E0;
+Reference = R7;
+ValeurCmp = 33 Ohms;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561E6;
+Reference = R8;
+ValeurCmp = 100 Ohms;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561E2;
+Reference = R9;
+ValeurCmp = 33 Ohms;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561DA;
+Reference = U1;
+ValeurCmp = WS2811;
+IdModule  = SOIC-8_N;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561DB;
+Reference = U2;
+ValeurCmp = WS2811;
+IdModule  = SOIC-8_N;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561DC;
+Reference = U3;
+ValeurCmp = WS2811;
+IdModule  = SOIC-8_N;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB561DD;
+Reference = U4;
+ValeurCmp = WS2811;
+IdModule  = SOIC-8_N;
+EndCmp
+
+EndListe
