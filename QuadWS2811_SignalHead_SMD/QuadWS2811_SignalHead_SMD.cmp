@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Fri 23 Mar 2018 16:46:37 EDT
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Sat 24 Mar 2018 11:28:39 EDT
 
 BeginCmp
 TimeStamp = /5AB561E7;
@@ -57,44 +57,79 @@ IdModule  = SH3;
 EndCmp
 
 BeginCmp
+TimeStamp = /5AB669DF;
+Reference = HEAD5;
+ValeurCmp = DUMMY;
+IdModule  = SH1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB669FD;
+Reference = HEAD6;
+ValeurCmp = DUMMY;
+IdModule  = SH1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB669EE;
+Reference = HEAD7;
+ValeurCmp = DUMMY;
+IdModule  = SH1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB66A0C;
+Reference = HEAD8;
+ValeurCmp = DUMMY;
+IdModule  = SH1;
+EndCmp
+
+BeginCmp
 TimeStamp = /5AB561F3;
 Reference = K1;
-ValeurCmp = +5 In GND;
+ValeurCmp = GND In +5;
 IdModule  = PIN_ARRAY_3X1;
 EndCmp
 
 BeginCmp
 TimeStamp = /5AB561F4;
 Reference = K2;
-ValeurCmp = +5 Out GND;
+ValeurCmp = GND Out +5;
 IdModule  = PIN_ARRAY_3X1;
 EndCmp
 
 BeginCmp
 TimeStamp = /5AB561EF;
 Reference = P1;
-ValeurCmp = C Y G R;
+ValeurCmp = C  Y  G  R;
 IdModule  = ScrewTerm_2.54-4;
 EndCmp
 
 BeginCmp
 TimeStamp = /5AB561F0;
 Reference = P2;
-ValeurCmp = C Y G R;
+ValeurCmp = C  Y  G  R;
 IdModule  = ScrewTerm_2.54-4;
 EndCmp
 
 BeginCmp
 TimeStamp = /5AB561F1;
 Reference = P3;
-ValeurCmp = C Y G R;
+ValeurCmp = C  Y  G  R;
 IdModule  = ScrewTerm_2.54-4;
 EndCmp
 
 BeginCmp
 TimeStamp = /5AB561F2;
 Reference = P4;
-ValeurCmp = C Y G R;
+ValeurCmp = C  Y  G  R;
+IdModule  = ScrewTerm_2.54-4;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB66772;
+Reference = P5;
+ValeurCmp = C  D  D  D;
 IdModule  = ScrewTerm_2.54-4;
 EndCmp
 
@@ -158,6 +193,27 @@ BeginCmp
 TimeStamp = /5AB561E2;
 Reference = R9;
 ValeurCmp = 33 Ohms;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB66807;
+Reference = R10;
+ValeurCmp = 150 Ohms;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB66816;
+Reference = R11;
+ValeurCmp = 150 Ohms;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AB66825;
+Reference = R12;
+ValeurCmp = 150 Ohms;
 IdModule  = SM0805;
 EndCmp
 
