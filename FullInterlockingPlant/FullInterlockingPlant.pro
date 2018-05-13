@@ -1,4 +1,4 @@
-update=Sun 13 May 2018 07:47:37 EDT
+update=Sun 13 May 2018 15:41:49 EDT
 version=1
 last_client=kicad
 [cvpcb]
@@ -48,7 +48,7 @@ LibName30=valves
 LibName31=FullInterlockingPlant-cache
 [pcbnew]
 version=1
-LastNetListRead=
+LastNetListRead=FullInterlockingPlant.net
 UseCmpFile=1
 PadDrill="    0.600000"
 PadDrillOvalY="    0.600000"
@@ -77,13 +77,17 @@ LibName7=divers
 LibName8=smd_capacitors
 LibName9=smd_resistors
 LibName10=smd_crystal&oscillator
-LibName11=smd_dil
-LibName12=smd_transistors
-LibName13=libcms
-LibName14=display
-LibName15=led
-LibName16=dip_sockets
-LibName17=pga_sockets
-LibName18=valves
+LibName11=smd_transistors
+LibName12=libcms
+LibName13=display
+LibName14=led
+LibName15=dip_sockets
+LibName16=pga_sockets
+LibName17=valves
+LibName18=/home/heller/RRCircuits/CP_Radial_D5_00mm_P2_00mm
+LibName19=/home/heller/RRCircuits/CP_Radial_D4.0mm_P1.50mm
+LibName20=/home/heller/RRCircuits/ScrewTerm254_2
+LibName21=/home/heller/RRCircuits/ScrewTerm254_5
+LibName22=MountingHole_RevA
 [general]
 version=1
