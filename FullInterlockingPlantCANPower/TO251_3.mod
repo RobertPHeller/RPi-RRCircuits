@@ -1,0 +1,53 @@
+PCBNEW-LibModule-V1  Mon 14 May 2018 15:01:10 EDT
+# encoding utf-8
+Units mm
+$INDEX
+TO-251-3
+$EndINDEX
+$MODULE TO-251-3
+Po 0 0 0 15 5AF9DCE4 00000000 ~~
+Li TO-251-3
+Sc 0
+AR 
+Op 0 0 0
+T0 0 -4.7 0.75 0.75 0 0.1 N V 21 N "TO-251-3"
+T1 0 -3.2 0.75 0.75 0 0.1 N V 21 N "VAL**"
+DS -3.4 -6.1 3.4 -6.1 0.15 21
+DS 2.3 -0.1 2.3 -2.2 0.15 21
+DS 0 0 0 -2.2 0.15 21
+DS -2.3 0 -2.3 -2.2 0.15 21
+DS -3.4 -10 3.4 -10 0.15 21
+DS 3.4 -10 3.4 -2.28 0.15 21
+DS 3.4 -2.28 -3.4 -2.28 0.15 21
+DS -3.4 -2.28 -3.4 -10 0.15 21
+DS -3.4 -10 -3.4 -9.9 0.15 21
+$PAD
+Sh "D" C 1.5 1.5 0 0 0
+Dr 0.9 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 0 0
+$EndPAD
+$PAD
+Sh "G" C 1.5 1.5 0 0 0
+Dr 0.9 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -2.29 0
+$EndPAD
+$PAD
+Sh "S" C 1.5 1.5 0 0 0
+Dr 0.9 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 2.29 0
+$EndPAD
+$PAD
+Sh "4" R 7 7 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 0 -8.2
+$EndPAD
+$EndMODULE TO-251-3
+$EndLIBRARY
