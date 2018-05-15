@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Mon 14 May 2018 15:12:54 EDT
+Cmp-Mod V01 Created by PcbNew date = Mon 14 May 2018 19:25:15 EDT
 
 BeginCmp
 TimeStamp = /5AF77157/5AF7750C;
@@ -123,7 +123,7 @@ BeginCmp
 TimeStamp = /5AF89FE7/5AF8A540;
 Reference = D3;
 ValeurCmp = DIODESCH;
-IdModule  = D3;
+IdModule  = DO-41;
 EndCmp
 
 BeginCmp
