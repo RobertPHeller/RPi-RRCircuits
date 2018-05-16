@@ -1,13 +1,11 @@
-update=Tue 15 May 2018 13:58:19 EDT
+update=Tue 15 May 2018 23:36:07 EDT
 version=1
-last_client=pcbnew
+last_client=kicad
 [cvpcb]
 version=1
 NetIExt=net
 [cvpcb/libraries]
 EquName1=devcms
-[general]
-version=1
 [eeschema]
 version=1
 LibDir=
@@ -95,3 +93,5 @@ LibName23=/home/heller/RRCircuits/ScrewTerm254_5
 LibName24=/home/heller/RRCircuits/CANHat/RJ45-8N-S
 LibName25=/home/heller/RRCircuits/FullInterlockingPlantCANPower/TO251_3
 LibName26=pin_socket-90
+[general]
+version=1
