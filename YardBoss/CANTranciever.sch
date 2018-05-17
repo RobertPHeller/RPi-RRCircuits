@@ -35,9 +35,9 @@ EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 5 4
+Sheet 3 4
 Title ""
-Date "15 may 2018"
+Date "17 may 2018"
 Rev ""
 Comp ""
 Comment1 ""
@@ -625,7 +625,7 @@ F 3 "" H 5800 1650 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5800 1650 5600 1650
+	5600 1650 5850 1650
 Wire Wire Line
 	5600 1650 5600 1700
 $Comp
@@ -703,4 +703,35 @@ F 3 "~" H 7000 2250 60  0000 C CNN
 	1    7000 2250
 	0    -1   -1   0   
 $EndComp
+$Comp
+L CONN_2 P8
+U 1 1 5AFCD3BA
+P 6350 1500
+F 0 "P8" V 6300 1500 40  0000 C CNN
+F 1 "12 Volts" V 6400 1500 40  0000 C CNN
+F 2 "~" H 6350 1500 60  0000 C CNN
+F 3 "~" H 6350 1500 60  0000 C CNN
+	1    6350 1500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6000 1400 6000 1500
+Wire Wire Line
+	6000 1500 5850 1500
+Wire Wire Line
+	5850 1500 5850 1650
+Connection ~ 5800 1650
+$Comp
+L GND #PWR061
+U 1 1 5AFCD42D
+P 5950 1600
+F 0 "#PWR061" H 5950 1600 30  0001 C CNN
+F 1 "GND" H 5950 1530 30  0001 C CNN
+F 2 "" H 5950 1600 60  0000 C CNN
+F 3 "" H 5950 1600 60  0000 C CNN
+	1    5950 1600
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6000 1600 5950 1600
 $EndSCHEMATC

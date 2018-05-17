@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Tue 15 May 2018 19:08:49 EDT
+Cmp-Mod V01 Created by PcbNew date = Wed 16 May 2018 22:01:08 EDT
 
 BeginCmp
 TimeStamp = /5AFB0929/5AFB0CC3;
@@ -25,7 +25,7 @@ BeginCmp
 TimeStamp = /5AFB097A/5AFB652E;
 Reference = C8;
 ValeurCmp = 22 pf;
-IdModule  = C2;
+IdModule  = C1;
 EndCmp
 
 BeginCmp
@@ -39,7 +39,7 @@ BeginCmp
 TimeStamp = /5AFB097A/5AFB652F;
 Reference = C10;
 ValeurCmp = 22 pf;
-IdModule  = C2;
+IdModule  = C1;
 EndCmp
 
 BeginCmp
@@ -222,6 +222,13 @@ TimeStamp = /5AFBC59A;
 Reference = P7;
 ValeurCmp = CONN_5;
 IdModule  = ScrewTerm_2.54-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFB097A/5AFCD3BA;
+Reference = P8;
+ValeurCmp = 12 Volts;
+IdModule  = ScrewTerm2.54-2;
 EndCmp
 
 BeginCmp

@@ -37,7 +37,7 @@ $Descr USLetter 11000 8500
 encoding utf-8
 Sheet 2 4
 Title "Swich Motor Control and sense"
-Date "15 may 2018"
+Date "17 may 2018"
 Rev "1.0"
 Comp "Deepwoods Software"
 Comment1 ""
