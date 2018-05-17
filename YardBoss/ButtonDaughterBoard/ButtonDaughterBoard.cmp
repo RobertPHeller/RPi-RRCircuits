@@ -1,0 +1,17 @@
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 17 May 2018 14:34:01 EDT
+
+BeginCmp
+TimeStamp = /5AFDC931;
+Reference = J1;
+ValeurCmp = I2CIN;
+IdModule  = pin_strip_5-90;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDC983;
+Reference = J2;
+ValeurCmp = I2COUT;
+IdModule  = pin_socket_5-90;
+EndCmp
+
+EndListe
