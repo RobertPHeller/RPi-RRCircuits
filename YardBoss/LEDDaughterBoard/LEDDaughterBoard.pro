@@ -1,6 +1,6 @@
-update=Thu 17 May 2018 15:20:30 EDT
+update=Fri 18 May 2018 08:45:47 EDT
 version=1
-last_client=kicad
+last_client=pcbnew
 [cvpcb]
 version=1
 NetIExt=net
@@ -46,6 +46,8 @@ LibName28=atmel
 LibName29=contrib
 LibName30=valves
 LibName31=LEDDaughterBoard-cache
+[general]
+version=1
 [pcbnew]
 version=1
 LastNetListRead=BlankDaughterBoard.net
@@ -86,5 +88,5 @@ LibName16=valves
 LibName17=/home/heller/RRCircuits/YardBoss/pin_socket-90
 LibName18=w_pin_strip
 LibName19=MountingHole_RevA
-[general]
-version=1
+LibName20=/home/heller/RRCircuits/ScrewTerm254_5
+LibName21=w_pth_resistors
