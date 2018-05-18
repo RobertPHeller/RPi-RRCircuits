@@ -1,4 +1,151 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 17 May 2018 14:34:01 EDT
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 17 May 2018 18:11:14 EDT
+
+BeginCmp
+TimeStamp = /5AFDED45;
+Reference = C1;
+ValeurCmp = CP1;
+IdModule  = C1V5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDED25;
+Reference = C2;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDED37;
+Reference = C3;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDED3D;
+Reference = C4;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEEF0;
+Reference = C5;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEC06;
+Reference = C6;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEC30;
+Reference = C7;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEC24;
+Reference = C8;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEC1E;
+Reference = C9;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEC00;
+Reference = C10;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEBE0;
+Reference = C11;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEBF4;
+Reference = C12;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEBFA;
+Reference = C13;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEC18;
+Reference = C14;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEC36;
+Reference = C15;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEC12;
+Reference = C16;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEC0C;
+Reference = C17;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEC3C;
+Reference = C18;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEC48;
+Reference = C19;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEC42;
+Reference = C20;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEC2A;
+Reference = C21;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
 
 BeginCmp
 TimeStamp = /5AFDC931;
@@ -12,6 +159,188 @@ TimeStamp = /5AFDC983;
 Reference = J2;
 ValeurCmp = I2COUT;
 IdModule  = pin_socket_5-90;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDE866;
+Reference = P1;
+ValeurCmp = CONN_3X2;
+IdModule  = pin_array_3x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDE82F;
+Reference = P2;
+ValeurCmp = CONN_5;
+IdModule  = ScrewTerm_2.54-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDE83E;
+Reference = P3;
+ValeurCmp = CONN_5;
+IdModule  = ScrewTerm_2.54-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDE84D;
+Reference = P4;
+ValeurCmp = CONN_5;
+IdModule  = ScrewTerm_2.54-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDE820;
+Reference = P5;
+ValeurCmp = CONN_5;
+IdModule  = ScrewTerm_2.54-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEBA2;
+Reference = R1;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEBA8;
+Reference = R2;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEB90;
+Reference = R3;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEB8A;
+Reference = R4;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEBC6;
+Reference = R5;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEBB4;
+Reference = R6;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEBC0;
+Reference = R7;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEBAE;
+Reference = R8;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEBBA;
+Reference = R9;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEB84;
+Reference = R10;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEB70;
+Reference = R11;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEBD2;
+Reference = R12;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEBD8;
+Reference = R13;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEB96;
+Reference = R14;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEB9C;
+Reference = R15;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEBCC;
+Reference = R16;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEA24;
+Reference = RR1;
+ValeurCmp = 10K Ohms;
+IdModule  = SIL-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDE811;
+Reference = U1;
+ValeurCmp = MCP23017;
+IdModule  = DIP-28__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEA6D;
+Reference = U2;
+ValeurCmp = 74HC14;
+IdModule  = DIP-14__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEB26;
+Reference = U3;
+ValeurCmp = 74HC14;
+IdModule  = DIP-14__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5AFDEB3E;
+Reference = U4;
+ValeurCmp = 74HC14;
+IdModule  = DIP-14__300;
 EndCmp
 
 EndListe
