@@ -1,0 +1,122 @@
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Sun 20 May 2018 21:48:05 EDT
+
+BeginCmp
+TimeStamp = /5B021A64;
+Reference = C1;
+ValeurCmp = 22 pf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B021A73;
+Reference = C2;
+ValeurCmp = 22 pf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B021B27;
+Reference = C3;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B022954;
+Reference = C4;
+ValeurCmp = 47 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B0223B3;
+Reference = D1;
+ValeurCmp = SB240-E3/54;
+IdModule  = D3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B0223A4;
+Reference = D2;
+ValeurCmp = SB240-E3/54;
+IdModule  = D3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B02213F;
+Reference = J1;
+ValeurCmp = RJ45;
+IdModule  = RJ45_8N-S;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B02214E;
+Reference = J2;
+ValeurCmp = RJ45;
+IdModule  = RJ45_8N-S;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B02283D;
+Reference = P1;
+ValeurCmp = Termination;
+IdModule  = PIN_ARRAY_2X2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B0223C2;
+Reference = P2;
+ValeurCmp = 12V (IN);
+IdModule  = mors_2p;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B0219AF;
+Reference = R1;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B02277B;
+Reference = R2;
+ValeurCmp = 60 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B02278A;
+Reference = R3;
+ValeurCmp = 60 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B021C9F;
+Reference = U1;
+ValeurCmp = METROMINI;
+IdModule  = MetroMini;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B0218A0;
+Reference = U2;
+ValeurCmp = MCP2515;
+IdModule  = DIP-18__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B021890;
+Reference = U3;
+ValeurCmp = MCP2551;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B021A38;
+Reference = X1;
+ValeurCmp = CRYSTAL;
+IdModule  = HC-49V;
+EndCmp
+
+EndListe
