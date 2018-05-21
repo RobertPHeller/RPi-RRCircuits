@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Sun 20 May 2018 21:48:05 EDT
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Mon 21 May 2018 10:59:53 EDT
 
 BeginCmp
 TimeStamp = /5B021A64;
@@ -43,6 +43,20 @@ IdModule  = D3;
 EndCmp
 
 BeginCmp
+TimeStamp = /5B02D40D;
+Reference = D3;
+ValeurCmp = KBL 4005-G;
+IdModule  = KBL;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B02D421;
+Reference = IC1;
+ValeurCmp = MCT6H;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
 TimeStamp = /5B02213F;
 Reference = J1;
 ValeurCmp = RJ45;
@@ -71,6 +85,20 @@ IdModule  = mors_2p;
 EndCmp
 
 BeginCmp
+TimeStamp = /5B02D43F;
+Reference = P3;
+ValeurCmp = Track Power;
+IdModule  = mors_2p;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B02DB4B;
+Reference = P4;
+ValeurCmp = Block Signal;
+IdModule  = ScrewTerm_2.54-5;
+EndCmp
+
+BeginCmp
 TimeStamp = /5B0219AF;
 Reference = R1;
 ValeurCmp = 10K Ohms;
@@ -88,6 +116,41 @@ BeginCmp
 TimeStamp = /5B02278A;
 Reference = R3;
 ValeurCmp = 60 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B02D44E;
+Reference = R4;
+ValeurCmp = 10 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B02D94A;
+Reference = R5;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B02DC72;
+Reference = R6;
+ValeurCmp = 150 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B02DC8B;
+Reference = R7;
+ValeurCmp = 150 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B02DC9A;
+Reference = R8;
+ValeurCmp = 150 Ohms;
 IdModule  = R1;
 EndCmp
 
