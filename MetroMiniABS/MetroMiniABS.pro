@@ -1,4 +1,4 @@
-update=Mon 21 May 2018 11:00:34 EDT
+update=Wed 23 May 2018 16:35:06 EDT
 version=1
 last_client=pcbnew
 [cvpcb]
@@ -95,3 +95,4 @@ LibName20=w_conn_screw
 LibName21=/home/heller/RRCircuits/ScrewTerm254_5
 LibName22=KBL
 LibName23=MountingHole_RevA
+LibName24=/home/heller/RRCircuits/ScrewTerm254_2

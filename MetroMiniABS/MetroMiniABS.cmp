@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Mon 21 May 2018 10:59:53 EDT
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Wed 23 May 2018 16:35:47 EDT
 
 BeginCmp
 TimeStamp = /5B021A64;
@@ -45,7 +45,7 @@ EndCmp
 BeginCmp
 TimeStamp = /5B02D40D;
 Reference = D3;
-ValeurCmp = KBL 4005-G;
+ValeurCmp = KBL 401-G;
 IdModule  = KBL;
 EndCmp
 
@@ -80,22 +80,29 @@ EndCmp
 BeginCmp
 TimeStamp = /5B0223C2;
 Reference = P2;
-ValeurCmp = 12V (IN);
+ValeurCmp = + 12V (IN) -;
 IdModule  = mors_2p;
 EndCmp
 
 BeginCmp
 TimeStamp = /5B02D43F;
 Reference = P3;
-ValeurCmp = Track Power;
+ValeurCmp = In Track Out;
 IdModule  = mors_2p;
 EndCmp
 
 BeginCmp
 TimeStamp = /5B02DB4B;
 Reference = P4;
-ValeurCmp = Block Signal;
+ValeurCmp = +5  G  Y  R  GND;
 IdModule  = ScrewTerm_2.54-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B05D1DD;
+Reference = P5;
+ValeurCmp = 12V (out);
+IdModule  = ScrewTerm2.54-2;
 EndCmp
 
 BeginCmp
@@ -178,7 +185,7 @@ EndCmp
 BeginCmp
 TimeStamp = /5B021A38;
 Reference = X1;
-ValeurCmp = CRYSTAL;
+ValeurCmp = 16 Mhz;
 IdModule  = HC-49V;
 EndCmp
 
