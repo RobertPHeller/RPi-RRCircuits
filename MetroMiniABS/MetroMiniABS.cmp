@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Wed 23 May 2018 16:35:47 EDT
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 24 May 2018 16:06:34 EDT
 
 BeginCmp
 TimeStamp = /5B021A64;
@@ -47,6 +47,20 @@ TimeStamp = /5B02D40D;
 Reference = D3;
 ValeurCmp = KBL 401-G;
 IdModule  = KBL;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B0718CA;
+Reference = D4;
+ValeurCmp = Blue;
+IdModule  = LED-3MM;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B0718DA;
+Reference = D5;
+ValeurCmp = Gold;
+IdModule  = LED-3MM;
 EndCmp
 
 BeginCmp
@@ -101,7 +115,7 @@ EndCmp
 BeginCmp
 TimeStamp = /5B05D1DD;
 Reference = P5;
-ValeurCmp = 12V (out);
+ValeurCmp = - 12V (out) +;
 IdModule  = ScrewTerm2.54-2;
 EndCmp
 
@@ -159,6 +173,48 @@ TimeStamp = /5B02DC9A;
 Reference = R8;
 ValeurCmp = 150 Ohms;
 IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B071901;
+Reference = R9;
+ValeurCmp = 1K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B071910;
+Reference = R10;
+ValeurCmp = 1K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B07191F;
+Reference = R11;
+ValeurCmp = 510 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B07192E;
+Reference = R12;
+ValeurCmp = 510 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B071951;
+Reference = SW1;
+ValeurCmp = Blue;
+IdModule  = SW_PUSH_SMALL;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B071960;
+Reference = SW2;
+ValeurCmp = Gold;
+IdModule  = SW_PUSH_SMALL;
 EndCmp
 
 BeginCmp
