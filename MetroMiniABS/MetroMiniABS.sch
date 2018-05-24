@@ -57,7 +57,8 @@ F 1 "MCP2551" H 6000 5250 60  0000 C CNN
 F 2 "DIL-8_300" H 6000 5050 60  0001 C CNN
 F 3 "~" H 6000 5150 60  0000 C CNN
 F 4 "579-MCP2551-I/P" H 6000 5150 60  0001 C CNN "Mouser Part Number"
-F 5 "1.31" H 6000 5150 60  0001 C CNN "Price"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 "1.31" H 6000 5150 60  0001 C CNN "Price"
 	1    6000 5150
 	1    0    0    -1  
 $EndComp
@@ -70,7 +71,8 @@ F 1 "MCP2515" H 3200 4900 60  0000 C CNN
 F 2 "DIL-18_300" H 3100 4700 60  0001 C CNN
 F 3 "~" H 3200 4800 60  0000 C CNN
 F 4 "579-MCP2515-I/P" H 3200 4800 60  0001 C CNN "Mouser Part Number"
-F 5 "2.19" H 3200 4800 60  0001 C CNN "Price"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 "2.19" H 3200 4800 60  0001 C CNN "Price"
 	1    3200 4800
 	1    0    0    -1  
 $EndComp
@@ -101,7 +103,8 @@ F 1 "10K Ohms" V 2257 4201 10  0000 C CNN
 F 2 "~" V 2180 4200 30  0000 C CNN
 F 3 "~" H 2250 4200 30  0000 C CNN
 F 4 "660-MF1/4LCT52R103J" H 2250 4200 60  0001 C CNN "Mouser Part Number"
-F 5 ".10" H 2250 4200 60  0001 C CNN "Price"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 ".10" H 2250 4200 60  0001 C CNN "Price"
 	1    2250 4200
 	1    0    0    -1  
 $EndComp
@@ -136,7 +139,8 @@ F 1 "16 Mhz" H 2000 5300 60  0000 C CNN
 F 2 "~" H 2000 5450 60  0000 C CNN
 F 3 "~" H 2000 5450 60  0000 C CNN
 F 4 "449-LFXTAL027945BULK " H 2000 5450 60  0001 C CNN "Mouser Part Number"
-F 5 ".21" H 2000 5450 60  0001 C CNN "Price"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 ".21" H 2000 5450 60  0001 C CNN "Price"
 	1    2000 5450
 	0    -1   -1   0   
 $EndComp
@@ -149,7 +153,8 @@ F 1 "22 pf" H 1706 5065 40  0000 L CNN
 F 2 "~" H 1738 5000 30  0000 C CNN
 F 3 "~" H 1700 5150 60  0000 C CNN
 F 4 "581-SR151A220KAR" H 1700 5150 60  0001 C CNN "Mouser Part Number"
-F 5 ".10" H 1700 5150 60  0001 C CNN "Price"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 ".10" H 1700 5150 60  0001 C CNN "Price"
 	1    1700 5150
 	0    -1   -1   0   
 $EndComp
@@ -162,7 +167,8 @@ F 1 "22 pf" H 1706 5665 40  0000 L CNN
 F 2 "~" H 1738 5600 30  0000 C CNN
 F 3 "~" H 1700 5750 60  0000 C CNN
 F 4 "581-SR151A220KAR" H 1700 5750 60  0001 C CNN "Mouser Part Number"
-F 5 ".10" H 1700 5750 60  0001 C CNN "Price"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 ".10" H 1700 5750 60  0001 C CNN "Price"
 	1    1700 5750
 	0    -1   -1   0   
 $EndComp
@@ -186,7 +192,8 @@ F 1 ".1 uf" H 1456 4315 40  0000 L CNN
 F 2 "~" H 1488 4250 30  0000 C CNN
 F 3 "~" H 1450 4400 60  0000 C CNN
 F 4 "21RZ310-RC" H 1450 4400 60  0001 C CNN "Mouser Part Number"
-F 5 ".08" H 1450 4400 60  0001 C CNN "Price"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 ".08" H 1450 4400 60  0001 C CNN "Price"
 	1    1450 4400
 	1    0    0    -1  
 $EndComp
@@ -242,8 +249,9 @@ F 0 "U1" H 5850 2050 60  0000 C CNN
 F 1 "METROMINI" H 5850 2250 60  0000 C CNN
 F 2 "~" H 5850 2150 60  0000 C CNN
 F 3 "~" H 5850 2150 60  0000 C CNN
-F 4 "2590" H 5850 2150 60  0001 C CNN "Adafruit Part Number"
-F 5 "12.50" H 5850 2150 60  0001 C CNN "Price"
+F 4 "~" H 5850 2150 60  0001 C CNN "Mouser Part Number"
+F 5 "2590" H 5850 2150 60  0001 C CNN "Adafruit Part Number"
+F 6 "12.50" H 5850 2150 60  0001 C CNN "Price"
 	1    5850 2150
 	0    -1   -1   0   
 $EndComp
@@ -278,7 +286,8 @@ F 1 "RJ45" H 8950 4750 60  0000 C CNN
 F 2 "~" H 9100 4250 60  0000 C CNN
 F 3 "~" H 9100 4250 60  0000 C CNN
 F 4 "710-615008144221" H 9100 4250 60  0001 C CNN "Mouser Part Number"
-F 5 "1.17" H 9100 4250 60  0001 C CNN "Price"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 "1.17" H 9100 4250 60  0001 C CNN "Price"
 	1    9100 4250
 	0    1    1    0   
 $EndComp
@@ -291,7 +300,8 @@ F 1 "RJ45" H 8950 3150 60  0000 C CNN
 F 2 "~" H 9100 2650 60  0000 C CNN
 F 3 "~" H 9100 2650 60  0000 C CNN
 F 4 "710-615008144221" H 9100 2650 60  0001 C CNN "Mouser Part Number"
-F 5 "1.17" H 9100 2650 60  0001 C CNN "Price"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 "1.17" H 9100 2650 60  0001 C CNN "Price"
 	1    9100 2650
 	0    1    1    0   
 $EndComp
@@ -304,7 +314,8 @@ F 1 "SB240-E3/54" H 8300 1550 40  0000 C CNN
 F 2 "~" H 8300 1650 60  0000 C CNN
 F 3 "~" H 8300 1650 60  0000 C CNN
 F 4 "625-SB240-E3" H 8300 1650 60  0001 C CNN "Mouser Part Number"
-F 5 ".46" H 8300 1650 60  0001 C CNN "Price"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 ".46" H 8300 1650 60  0001 C CNN "Price"
 	1    8300 1650
 	-1   0    0    1   
 $EndComp
@@ -317,7 +328,8 @@ F 1 "SB240-E3/54" H 7700 1550 40  0000 C CNN
 F 2 "~" H 7700 1650 60  0000 C CNN
 F 3 "~" H 7700 1650 60  0000 C CNN
 F 4 "625-SB240-E3 " H 7700 1650 60  0001 C CNN "Mouser Part Number"
-F 5 ".46" H 7700 1650 60  0001 C CNN "Price"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 ".46" H 7700 1650 60  0001 C CNN "Price"
 	1    7700 1650
 	-1   0    0    1   
 $EndComp
@@ -330,7 +342,8 @@ F 1 "+ 12V (IN) -" V 9050 1750 40  0000 C CNN
 F 2 "~" H 9000 1750 60  0000 C CNN
 F 3 "~" H 9000 1750 60  0000 C CNN
 F 4 "710-691249510002 " H 9000 1750 60  0001 C CNN "Mouser Part Number"
-F 5 "1.61" H 9000 1750 60  0001 C CNN "Price"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 "1.61" H 9000 1750 60  0001 C CNN "Price"
 	1    9000 1750
 	1    0    0    -1  
 $EndComp
@@ -517,7 +530,8 @@ F 1 "60 Ohms" V 7107 5701 40  0000 C CNN
 F 2 "~" V 7030 5700 30  0000 C CNN
 F 3 "~" H 7100 5700 30  0000 C CNN
 F 4 "71-RN60C60R0B/R " H 7100 5700 60  0001 C CNN "Mouser Part Number"
-F 5 ".54" H 7100 5700 60  0001 C CNN "Price"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 ".54" H 7100 5700 60  0001 C CNN "Price"
 	1    7100 5700
 	1    0    0    -1  
 $EndComp
@@ -530,7 +544,8 @@ F 1 "60 Ohms" V 7807 5701 40  0000 C CNN
 F 2 "~" V 7730 5700 30  0000 C CNN
 F 3 "~" H 7800 5700 30  0000 C CNN
 F 4 "71-RN60C60R0B/R " H 7800 5700 60  0001 C CNN "Mouser Part Number"
-F 5 ".54" H 7800 5700 60  0001 C CNN "Price"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 ".54" H 7800 5700 60  0001 C CNN "Price"
 	1    7800 5700
 	1    0    0    -1  
 $EndComp
@@ -549,7 +564,8 @@ F 1 "Termination" H 7460 6270 40  0000 C CNN
 F 2 "~" H 7450 6400 60  0000 C CNN
 F 3 "~" H 7450 6400 60  0000 C CNN
 F 4 "855-M20-9980246" H 7450 6400 60  0001 C CNN "Mouser Part Number"
-F 5 ".16" H 7450 6400 60  0001 C CNN "Price"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 ".16" H 7450 6400 60  0001 C CNN "Price"
 	1    7450 6400
 	1    0    0    -1  
 $EndComp
@@ -578,7 +594,8 @@ F 1 "47 nf" H 6856 6565 40  0000 L CNN
 F 2 "~" H 6888 6500 30  0000 C CNN
 F 3 "~" H 6850 6650 60  0000 C CNN
 F 4 "75-1C10Z5U473M050B" H 6850 6650 60  0001 C CNN "Mouser Part Number"
-F 5 ".10" H 6850 6650 60  0001 C CNN "Price"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 ".10" H 6850 6650 60  0001 C CNN "Price"
 	1    6850 6650
 	1    0    0    -1  
 $EndComp
@@ -606,7 +623,8 @@ F 1 "KBL 401-G" H 2350 1850 70  0000 C CNN
 F 2 "~" H 2350 1900 60  0000 C CNN
 F 3 "~" H 2350 1900 60  0000 C CNN
 F 4 "750-KBL401-G " H 2350 1900 60  0001 C CNN "Mouser Part Number"
-F 5 ".88" H 2350 1900 60  0001 C CNN "Price"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 ".88" H 2350 1900 60  0001 C CNN "Price"
 	1    2350 1900
 	0    -1   -1   0   
 $EndComp
@@ -619,7 +637,8 @@ F 1 "MCT6H" H 4260 1260 40  0000 C CNN
 F 2 "DIP-8__300" H 3990 1270 30  0001 C CIN
 F 3 "~" H 4150 1450 60  0000 C CNN
 F 4 "782-MCT6H" H 4150 1450 60  0001 C CNN "Mouser Part Number"
-F 5 "1.35" H 4150 1450 60  0001 C CNN "Price"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 "1.35" H 4150 1450 60  0001 C CNN "Price"
 	1    4150 1450
 	1    0    0    -1  
 $EndComp
@@ -631,6 +650,9 @@ F 0 "IC1" H 3940 2390 40  0000 C CNN
 F 1 "MCT6H" H 4260 2010 40  0000 C CNN
 F 2 "DIP-8__300" H 3990 2020 30  0001 C CIN
 F 3 "~" H 4150 2200 60  0000 C CNN
+F 4 "782-MCT6H" H 4150 1450 60  0001 C CNN "Mouser Part Number"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 "1.35" H 4150 1450 60  0001 C CNN "Price"
 	2    4150 2200
 	1    0    0    -1  
 $EndComp
@@ -643,7 +665,8 @@ F 1 "In Track Out" V 1250 800 40  0000 C CNN
 F 2 "~" H 1200 800 60  0000 C CNN
 F 3 "~" H 1200 800 60  0000 C CNN
 F 4 "710-691249510002" H 1200 800 60  0001 C CNN "Mouser Part Number"
-F 5 "1.61" H 1200 800 60  0001 C CNN "Price"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 "1.61" H 1200 800 60  0001 C CNN "Price"
 	1    1200 800 
 	0    -1   -1   0   
 $EndComp
@@ -656,7 +679,10 @@ F 1 "10 Ohms" V 2857 901 40  0000 C CNN
 F 2 "~" V 2780 900 30  0000 C CNN
 F 3 "~" H 2850 900 30  0000 C CNN
 F 4 "660-MF1/4LCT52R100J" H 2850 900 60  0001 C CNN "Mouser Part Number"
-F 5 ".10" H 2850 900 60  0001 C CNN "Price"
+F 4 "782-MCT6H" H 4150 1450 60  0001 C CNN "Mouser Part Number"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 "1.35" H 4150 1450 60  0001 C CNN "Price"
+F 6 ".10" H 2850 900 60  0001 C CNN "Price"
 	1    2850 900 
 	0    -1   -1   0   
 $EndComp
@@ -724,7 +750,10 @@ F 1 "10K Ohms" V 4707 951 40  0000 C CNN
 F 2 "~" V 4630 950 30  0000 C CNN
 F 3 "~" H 4700 950 30  0000 C CNN
 F 4 "660-MF1/4LCT52R103J" H 4700 950 60  0001 C CNN "Mouser Part Number"
-F 5 ".10" H 4700 950 60  0001 C CNN "Price"
+F 4 "782-MCT6H" H 4150 1450 60  0001 C CNN "Mouser Part Number"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 "1.35" H 4150 1450 60  0001 C CNN "Price"
+F 6 ".10" H 4700 950 60  0001 C CNN "Price"
 	1    4700 950 
 	1    0    0    -1  
 $EndComp
@@ -755,7 +784,10 @@ F 1 "+5  G  Y  R  GND" V 5250 600 50  0000 C CNN
 F 2 "~" H 5200 600 60  0000 C CNN
 F 3 "~" H 5200 600 60  0000 C CNN
 F 4 "571-282834-5 " H 5200 600 60  0001 C CNN "Mouser Part Number"
-F 5 "2.99" H 5200 600 60  0001 C CNN "Price"
+F 4 "782-MCT6H" H 4150 1450 60  0001 C CNN "Mouser Part Number"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 "1.35" H 4150 1450 60  0001 C CNN "Price"
+F 6 "2.99" H 5200 600 60  0001 C CNN "Price"
 	1    5200 600 
 	0    -1   -1   0   
 $EndComp
@@ -798,7 +830,10 @@ F 1 "150 Ohms" V 5107 1351 40  0000 C CNN
 F 2 "~" V 5030 1350 30  0000 C CNN
 F 3 "~" H 5100 1350 30  0000 C CNN
 F 4 "660-MF1/4LCT52R151J" H 5100 1350 60  0001 C CNN "Mouser Part Number"
-F 5 ".10" H 5100 1350 60  0001 C CNN "Price"
+F 4 "782-MCT6H" H 4150 1450 60  0001 C CNN "Mouser Part Number"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 "1.35" H 4150 1450 60  0001 C CNN "Price"
+F 6 ".10" H 5100 1350 60  0001 C CNN "Price"
 	1    5100 1350
 	1    0    0    -1  
 $EndComp
@@ -811,7 +846,10 @@ F 1 "150 Ohms" V 5207 1351 40  0000 C CNN
 F 2 "~" V 5130 1350 30  0000 C CNN
 F 3 "~" H 5200 1350 30  0000 C CNN
 F 4 "660-MF1/4LCT52R151J" H 5200 1350 60  0001 C CNN "Mouser Part Number"
-F 5 ".10" H 5200 1350 60  0001 C CNN "Price"
+F 4 "782-MCT6H" H 4150 1450 60  0001 C CNN "Mouser Part Number"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 "1.35" H 4150 1450 60  0001 C CNN "Price"
+F 6 ".10" H 5200 1350 60  0001 C CNN "Price"
 	1    5200 1350
 	1    0    0    -1  
 $EndComp
@@ -824,7 +862,10 @@ F 1 "150 Ohms" V 5307 1351 40  0000 C CNN
 F 2 "~" V 5230 1350 30  0000 C CNN
 F 3 "~" H 5300 1350 30  0000 C CNN
 F 4 "660-MF1/4LCT52R151J" H 5300 1350 60  0001 C CNN "Mouser Part Number"
-F 5 ".10" H 5300 1350 60  0001 C CNN "Price"
+F 4 "782-MCT6H" H 4150 1450 60  0001 C CNN "Mouser Part Number"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 "1.35" H 4150 1450 60  0001 C CNN "Price"
+F 6 ".10" H 5300 1350 60  0001 C CNN "Price"
 	1    5300 1350
 	1    0    0    -1  
 $EndComp
@@ -855,7 +896,10 @@ F 1 "- 12V (out) +" V 7650 1050 40  0000 C CNN
 F 2 "~" H 7600 1050 60  0000 C CNN
 F 3 "~" H 7600 1050 60  0000 C CNN
 F 4 "571-282834-2" H 7600 1050 60  0001 C CNN "Mouser Part Number"
-F 5 "0.52" H 7600 1050 60  0001 C CNN "Price"
+F 4 "782-MCT6H" H 4150 1450 60  0001 C CNN "Mouser Part Number"
+F 5 "~" H 1200 800 60  0001 C CNN "Adafruit Part Number"
+F 6 "1.35" H 4150 1450 60  0001 C CNN "Price"
+F 6 "0.52" H 7600 1050 60  0001 C CNN "Price"
 	1    7600 1050
 	-1   0    0    1   
 $EndComp
