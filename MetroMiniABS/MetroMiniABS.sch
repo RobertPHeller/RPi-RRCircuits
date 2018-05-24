@@ -40,7 +40,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "23 may 2018"
+Date "24 may 2018"
 Rev ""
 Comp ""
 Comment1 ""
@@ -854,6 +854,8 @@ F 0 "P5" V 7550 1050 40  0000 C CNN
 F 1 "- 12V (out) +" V 7650 1050 40  0000 C CNN
 F 2 "~" H 7600 1050 60  0000 C CNN
 F 3 "~" H 7600 1050 60  0000 C CNN
+F 4 "571-282834-2" H 7600 1050 60  0001 C CNN "Mouser Part Number"
+F 5 "0.52" H 7600 1050 60  0001 C CNN "Price"
 	1    7600 1050
 	-1   0    0    1   
 $EndComp
