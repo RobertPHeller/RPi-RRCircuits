@@ -1,15 +1,16 @@
 Drill report for /home/heller/RRCircuits/MetroMiniABS/MetroMiniABS.kicad_pcb
-Created on Thu 24 May 2018 16:45:27 EDT
+Created on Thu 24 May 2018 19:10:04 EDT
 Drill report for plated through holes :
 T1  0.64mm  0.025"  (30 holes)
 T2  0.76mm  0.030"  (2 holes)
-T3  0.81mm  0.032"  (82 holes)
+T3  0.81mm  0.032"  (74 holes)
 T4  0.90mm  0.035"  (16 holes)
-T5  1.02mm  0.040"  (39 holes)
-T6  1.25mm  0.049"  (4 holes)
-T7  1.52mm  0.060"  (4 holes)
-T8  1.93mm  0.076"  (4 holes)
-T9  2.50mm  0.098"  (4 holes)
+T5  0.99mm  0.039"  (8 holes)
+T6  1.02mm  0.040"  (39 holes)
+T7  1.25mm  0.049"  (4 holes)
+T8  1.52mm  0.060"  (4 holes)
+T9  1.93mm  0.076"  (4 holes)
+T10  2.50mm  0.098"  (4 holes)
 
 Total plated holes count 185
 
