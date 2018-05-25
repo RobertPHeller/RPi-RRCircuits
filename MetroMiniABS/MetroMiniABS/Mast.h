@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri May 25 10:51:24 2018
-//  Last Modified : <180525.1130>
+//  Last Modified : <180525.1324>
 //
 //  Description	
 //
@@ -46,7 +46,7 @@
 #include "ButtonLed.h"
 #include "ButtonLed_nobutton.h"
 #include "ButtonLed_nc.h"
-
+#include "SignalOptions.h"
 /**
  * Implements a signal mast logic tree.
  * 
@@ -59,33 +59,18 @@ private:
     ButtonLed_nobutton *stop;  // Stop aspect
     ButtonLed_nobutton *approach; // Approach aspect
     ButtonLed_nobutton *clear; // Clear aspect
-    bool common_anode;
-    bool bicolor;
-    uint8_t stop_brite;
-    uint8_t approach_brite;
-    uint8_t clear_brite;
-    uint8_t yellow_hue;
+    SignalOptions *signal_options;
 public:
-    Mast(ButtonLed *b, ButtonLed_nc *n, ButtonLed_nobutton *s, ButtonLed_nobutton *a, ButtonLed_nobutton *c) {
+    Mast(ButtonLed *b, ButtonLed_nc *n, ButtonLed_nobutton *s, 
+         ButtonLed_nobutton *a, ButtonLed_nobutton *c, SignalOptions *sigopt) {
         block = b;
         next  = n;
         stop  = s;
         approach = a;
         clear = c;
-        common_anode = true;
-        bicolor = false;
-        stop_brite = 255;
-        approach_brite = 255;
-        clear_brite = 255;
-        yellow_hue = 128;
+        signal_options = sigopt;
     }
     void eval();
-    void setCommonA(bool ca) {common_anode = ca;}
-    void setBiColor(bool bc) {bicolor = bc;}
-    void setStopBrite(uint8_t sb) {stop_brite = sb;} 
-    void setApproachBrite(uint8_t ab) {approach_brite = ab;} 
-    void setClearBrite(uint8_t cb) {clear_brite = cb;} 
-    void setYellowHue(uint8_t yh) {yellow_hue = yh;} 
 };
 
 

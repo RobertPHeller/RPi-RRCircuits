@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri May 25 11:03:28 2018
-//  Last Modified : <180525.1129>
+//  Last Modified : <180525.1352>
 //
 //  Description	
 //
@@ -60,20 +60,20 @@ void Mast::eval() {
     }
     // Set LED brightnesses...
     if (stop->state) {
-        if (common_anode) {
-            stop->setPWM(stop_brite);
+        if (signal_options->common_anode == 1) {
+            stop->setPWM(signal_options->stop_brite);
             approach->setPWM(0);
             clear->setPWM(0);
         } else {
-            stop->setPWM(255-stop_brite);
+            stop->setPWM(255-signal_options->stop_brite);
             approach->setPWM(255);
             clear->setPWM(255);
         }
     } else if (approach->state) { 
-        if (bicolor) {
-            uint8_t green = approach_brite*(yellow_hue/256.0);
-            uint8_t red   = approach_brite*((255-yellow_hue)/256.0);
-            if (common_anode) {
+        if (signal_options->bicolor_search == 1) {
+            uint8_t green = signal_options->approach_brite*(signal_options->yellow_hue/256.0);
+            uint8_t red   = signal_options->approach_brite*((255-signal_options->yellow_hue)/256.0);
+            if (signal_options->common_anode == 1) {
                 stop->setPWM(red);
                 clear->setPWM(green);
             } else {
@@ -81,25 +81,25 @@ void Mast::eval() {
                 clear->setPWM(255-green);
             }
         } else {
-            if (common_anode) {
+            if (signal_options->common_anode) {
                 stop->setPWM(0);
-                approach->setPWM(approach_brite);
+                approach->setPWM(signal_options->approach_brite);
                 clear->setPWM(0);
             } else {
                 stop->setPWM(255);
-                approach->setPWM(255-approach_brite);
+                approach->setPWM(255-signal_options->approach_brite);
                 clear->setPWM(255);
             }
         }
     } else if (clear->state) {
-        if (common_anode) {
+        if (signal_options->common_anode) {
             stop->setPWM(0);
             approach->setPWM(0);
-            clear->setPWM(clear_brite);
+            clear->setPWM(signal_options->clear_brite);
         } else {
             stop->setPWM(255);
             approach->setPWM(255);
-            clear->setPWM(255-clear_brite);
+            clear->setPWM(255-signal_options->clear_brite);
         }
     }   
 }
