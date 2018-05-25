@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE>OpenLCB C/C++ Library</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 3.2  (Unix)">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGEDBY" CONTENT="Bob Jacobsen">
+	<META NAME="CHANGED" CONTENT="20100710;11310200">
+	<META NAME="CHANGEDBY" CONTENT="Bob Jacobsen">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { margin: 2cm }
+		P { margin-bottom: 0.21cm }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<H1>OpenLCB C/C++ Library: OlcbCommonCAN</H1>
+<P>This page describes the contents of the OpenLCB OlcbCommonCAN C/C++ library.
+This library is part of the prototype, proof-of-concept
+software implementing the OpenLCB protocols on 
+several platforms, including standalone PCs and <A HREF="http://arduino.cc/">Arduinos</A>.</P>
+It is a CAN-specific complete implementation for simple leaf nodes.
+<H2>Introduction</H2>
+<P>This library provides the basic implementation classes.</P>
+<P>It is structured as &quot;Objects that handle one particular
+state machine or group of interactions&quot;.</P>
+<P>Basic implemented types include:</P>
+<UL>
+    <LI><P><A HREF="NodeID.h">NodeID</A> is a &quot;struct with methods&quot; to handle the bytes of
+            an NodeID. It's more of a data object than a state machine handler,
+            but has some convenient service methods.</P></LI>
+    <LI><P><A HREF="EventID.h">EventID</A> is a &quot;struct with methods&quot; to handle the bytes of
+            an EventID. It's more of a data object than a state machine handler,
+            but has some convenient service methods.</P></LI>
+    <LI><P><A HREF="Event.h">Event</A> - Used for local information about a specific event.
+                This is an EventID, plus some local state
+                information used by the PCE object to handle state transitions.</P></LI>
+</UL>
+<P>Key objects with links to more information (others in a <A HREF="#Classes/Files/Libraries|outline">section
+below</A>), in increasing height within the protocol stack:</P>
+<UL>
+	<LI><P><A HREF="LinkControl.h">LinkControl</A> handles the
+	state machine for starting up the link, assigning an alias, sending
+	the Initialization Complete, watching for an interfering node, etc. 
+        The program needs to feed frames to this (see <A HREF="#Runtime|outline">runtime</A>
+        section below), and should check for link initialized before doing
+        anything else on the OpenLCB network.
+	</P>
+	<LI><P><A HREF="PCE.h">PCE</A>
+	handles the Producer/Consumer registration, replying to requests for
+	Producer and Consumer identification, etc, and makes it easy to
+	produce and consume events. The using code provides arrays of Events
+	that are consumed or can be produced. Once the link is up, the using
+	code can then tell the PCE to produce an event, and gets a callback
+	when it can consume an event from the link.</P>
+	<LI><P><A HREF="Datagram.h">Datagram</A> handles receipt and sending of Datagrams.</P>
+	<LI><P><A HREF="OlcbStream.h">OlcbStream</A> handles the receipt and sending of Stream information.
+            (The name was changed from "Stream" to avoid a collision with Std C++ names.)</P>
+	<LI><P><A HREF="NodeMemory.h">NodeMemory</A> handles saving and restoring node state (NodeID,
+	EventIDs) to persistent memory.</P>
+	<LI><P><A HREF="Configuration.h">Configuration</A> handles the remote configuration protocol.</P>
+	<LI><P><A HREF="BG.h">BG</A> handles the Blue/Gold configuration management through
+	buttons and LEDs.</P>
+	<LI><P><A HREF="ButtonProtocol.h">ButtonProtocol</A> handles remote access to 
+	buttons and LEDs.</P>
+        <LI><P><A HREF="PIP.h">PIP</A> handles the Protocol Identification Protocol.</P>
+        <LI><P><A HREF="SNII.h">SNII</A> handles the Simple Node Identification Information protocol.</P>
+</UL>
+<H2>Structure</H2>
+<P>This section describes the basic structure of these
+proof-of-concept implementations.</P>
+<H3><A NAME="CAN Interface|outline"></A>CAN Interface</H3>
+<P>We want this code to be general, so people building any type of
+hardware can easily and rapidly adapt it to run on their hardware.</P>
+<P>On the other hand, we're developing on a specific hardware
+platform, using a specific interface (the MicroChip MP2515) and
+library (can.h from Fabian Greif, Roboterclub Aachen e.V., adapted
+and extended by Alex Shepherd)</P>
+<P>To this end, we provide an abstraction layer for the hardware that
+localizes all CAN access to a small number of C calls and data
+structures. This is implemented via the OpenLcbCanInterface.h and
+.cpp files. (It's in C++, but it's not implemented as a class now,
+just a bunch of methods; the data structures are provided as
+arguments to calls)</P>
+<H3>Threading</H3>
+<P>This code has to run using the Arduino CAN library, which is not threaded and
+has manually-managed buffers. 
+</P>
+<P>A transmit buffer may not be available when the code wants to send
+a message. It's possible to sit and spin-loop, waiting for a buffer
+to become available, as on a low-traffic link that will generally
+take less than (29+8*8+16+25)/125000, about a millisecond. But that
+won't work well if the line is very busy, e.g. during startup, or
+there are transmission problems, e.g. if the node is not properly
+connected.</P>
+<P>Therefore, the code is structured around a state machine. Incoming
+messages or other conditions that result in the need to send a
+message result in state transitions in the code, and can send a
+message immediately if a buffer is available. If not, the state is
+checked during routine processing later on, and results in sending
+the message then.</P>
+<H3>Dependency Design</H3>
+<P>There are a couple ways to structure code like this. Often, high
+level classes encapsulate and use references to lower level objects,
+resulting in a classic “stack” form. For OpenLCB, this would
+result in (insert diagram here) e.g. a PCE object that's passed a
+LinkControl object through its constructor, and does all I/O through
+that. In turn the LinkControl object is passed a OpenLcbCanInterface
+object via it's constructor, and uses that for all I/O. Finally, the
+OpenLcbInterface provides all the state and code to handle all the
+interactions, and is initialized via a constructor. Frames received
+via CAN are passed up throught eh stack as appropriate. Once a
+standard is in place, this is a very powerful structure which results
+in well-encapsulated software. However, during development, it
+produces a structure that requires work at many levels at once.</P>
+<P>During the development phase, we're using a different structure.
+The objects exist, but control of upward message flow and overall
+state is done outside the “stack”. The sketch's loop() routine
+has to check for an incoming frame, then pass it to objects depending
+on state.</P>
+<H4>Setup</H4>
+<P>The using code has to provide (a pair of?) buffers, and an
+initialized NodeID with the proper value....</P>
+<P>In the sketch setup() routine, the using code needs to:</P>
+<UL>
+	<LI><P>initialise the CAN interface</P>
+	<LI><P>initialize the LinkControl object</P>
+	<LI><P>initialize any PCE objects used</P>
+</UL>
+<P>in additional any initialization of its own.</P>
+<H4><A NAME="Runtime|outline"></A>Runtime</H4>
+<P>In the sketch loop() routine, the using code needs to:</P>
+<UL>
+	<LI><P>pass received frames to the LinkControl</P>
+	<LI><P>periodically invoke LinkControl</P>
+</UL>
+<P>Optionally …</P>
+<P>We'll restructure this into the more powerful form at a later step
+of development.</P>
+<H2><A NAME="Classes/Files/Libraries|outline"></A>Classes/Files/Libraries</H2>
+<P>This section is a brief description of each file, class or
+library.</P>
+
+<H3>OpenLCB</H3>
+<P>Basic definitions of constants.</P>
+<H3>OpenLcbCanBuffer</H3>
+<P>OpenLcbCanBuffer wraps a transmit or receive CAN buffer to add
+creation and identification methods. This approach uses a bit more
+code space than writing ands/ors for each decode, but makes much more
+readable application code.</P>
+<H3>OpenLcbCanInterface</H3>
+<P>OpenLcbCanInterface wraps the external hardware for the CAN
+interface. See the <A HREF="#CAN Interface|outline">interface section</A>
+above.</P>
+
+<HR>
+<P STYLE="margin-bottom: 0cm">This web sites contains trademarks and
+copyrighted information. Please see the <A HREF="/Licensing.html">Licensing</A>
+page.</P>
+<P STYLE="margin-bottom: 0cm">This is SVN $Revision$ of <SDFIELD TYPE=DATETIME SDVAL="40041.4309143519" SDNUM="1033;1033;MM/DD/YY">08/16/09</SDFIELD>.</P>
+</BODY>
+</HTML>

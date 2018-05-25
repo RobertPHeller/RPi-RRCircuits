@@ -1,0 +1,20 @@
+# Datatypes (KEYWORD1)
+
+Configuration   KEYWORD1
+Datagram        KEYWORD1
+Event           KEYWORD1
+EventID         KEYWORD1
+LinkControl     KEYWORD1
+NodeID          KEYWORD1
+NodeMemory      KEYWORD1
+OpenLcbCan      KEYWORD1
+OpenLcbCanBuffer KEYWORD1
+PCE             KEYWORD1
+Stream          KEYWORD1
+
+
+# Methods and Functions (KEYWORD2)
+
+
+# Constants (LITERAL1)
+

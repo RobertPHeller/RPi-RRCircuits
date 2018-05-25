@@ -24,6 +24,9 @@
 #include <EEPROM.h>
 #include <can.h>
 #include <ButtonLed.h>
+#include "ButtonLed_nobutton.h"
+#include "ButtonLed_nc.h"
+#include "Mast.h"
 
 #include "OlcbCommonVersion.h"
 #include "NodeID.h"
@@ -34,12 +37,23 @@
 NodeID nodeid(0x05,0x01,0x01,0x01,0x22,0x80);    // This node's default ID; must be valid 
 
 // Define pins
-#define OCCUPANCY 8 // Occupancy Detector
-#define GREEN 6     // Signal Green LED
-#define YELLOW 5    // Signal YELLOW LED
-#define RED 3       // Signal RED LED
+#define BLUE 4
+#define GOLD 7
 
-#define NUM_EVENT 7
+#define BLOCKOCC 8 // No led!
+#define SIGNALGREEN 6 // No button 
+#define SIGNALYELLOW 5 // No button
+#define SIGNALRED 3 // No button
+
+ButtonLed blockocc(BLOCKOCC,LOW);
+ButtonLed_nc nextblock(0); // No actual pin 
+ButtonLed_nobutton signalgreen(SIGNALGREEN);
+ButtonLed_nobutton signalyellow(SIGNALYELLOW);
+ButtonLed_nobutton signalred(SIGNALRED);
+
+Mast mast(&blockocc,&nextblock,&signalgreen,&signalyellow,&signalred);
+
+#define NUM_EVENT 10
 
 // next lines get "warning: only initialized variables can be placed into program memory area" due to GCC bug
 extern "C" {
@@ -54,12 +68,33 @@ extern "C" {
 #define SNII_var_data 94
 #define SNII_var_offset 20
 
-#define BLUE 4
-#define GOLD 7
 
-long patterns[] = {};
-ButtonLed* buttons[] = {};
 
+#define ShortBlinkOn   0x00010001L
+#define ShortBlinkOff  0xFFFEFFFEL
+
+// The patterns are not really used.  The only LEDs are powered by PWM and the
+// Other "ButtonLeds" are input only (no led) or not connected at all and are 
+// just a state.  But the BG class wants them...
+long patterns[] = {
+    ShortBlinkOff,ShortBlinkOn,
+    ShortBlinkOff,ShortBlinkOn,
+    ShortBlinkOff,ShortBlinkOn,
+    ShortBlinkOff,ShortBlinkOn,
+    ShortBlinkOff,ShortBlinkOn    
+};
+
+// Non of these are actual buttons with LEDs.  One input, one state, and three 
+// PWM outputs.
+ButtonLed* buttons[] = {
+    &blockocc,&blockocc,
+    &signalgreen,&signalgreen,
+    &signalyellow,&signalyellow,
+    &signalred,&signalred,
+    &nextblock,&nextblock
+};
+
+// These are actual buttons w/LEDs
 ButtonLed blue(BLUE, LOW);
 ButtonLed gold(GOLD, LOW);
 
@@ -136,17 +171,20 @@ uint8_t protocolIdentValue[6] = {0xD7,0x58,0x00,0,0,0};
 // Events this node can produce or consume, used by PCE and loaded from EEPROM by NM
 Event events[] = { // should be NUM_EVENT of these
     Event(), Event(), Event(), Event(), 
-    Event(), Event(), Event() 
+    Event(), Event(), Event(), Event(),
+    Event(), Event()
 };
 
 void pceCallback(int index){
-  // invoked when an event is consumed; drive pins as needed
-  // from index
-  //
-  // sample code uses inverse of low bit of pattern to drive pin all on or all off
-  // (pattern is mostly one way, blinking the other, hence inverse)
-  //
-  //buttons[index]->on(patterns[index]&0x1 ? 0x0L : ~0x0L );
+    // invoked when an event is consumed; drive pins as needed
+    // from index
+    //
+    // sample code uses inverse of low bit of pattern to drive pin all on or all off
+    // (pattern is mostly one way, blinking the other, hence inverse)
+    //
+    //buttons[index]->on(patterns[index]&0x1 ? 0x0L : ~0x0L );
+    buttons[index]->state = !(index & 0x01);
+    // Process mast...
 }
 
 } // extern "C"
@@ -157,17 +195,17 @@ void store() { nm.store(&nodeid, events, NUM_EVENT); }
 PCE pce(events, NUM_EVENT, &txBuffer, &nodeid, pceCallback, store, &link);
 
 // Set up Blue/Gold configuration
-BG bg(&pce, buttons, patterns, 0 /* NUM_EVENT */, &blue, &gold, &txBuffer);
+BG bg(&pce, buttons, patterns, NUM_EVENT, &blue, &gold, &txBuffer);
 
-// bool states[] = {false, false, false, false}; // current input states; report when changed
+bool states[] = {false, false, false, false}; // current input states; report when changed
 
 int scanIndex = 0;
 // On the assumption that the producers (inputs) and consumers (outputs) are consecutive, 
 // these are used later to label the individual channels as producer or consumer
-#define FIRST_CONSUMER_CHANNEL_INDEX    0
-#define LAST_CONSUMER_CHANNEL_INDEX     1
-#define FIRST_PRODUCER_CHANNEL_INDEX    2
-#define LAST_PRODUCER_CHANNEL_INDEX     6
+#define FIRST_PRODUCER_CHANNEL_INDEX    0
+#define LAST_PRODUCER_CHANNEL_INDEX     0
+#define FIRST_CONSUMER_CHANNEL_INDEX    1
+#define LAST_CONSUMER_CHANNEL_INDEX     4
 
 extern "C" {
 void produceFromInputs() {
@@ -177,22 +215,26 @@ void produceFromInputs() {
     // The first event of each pair is sent on button down,
     // and second on button up.
     // 
-    // To reduce latency, only MAX_INPUT_SCAN inputs are scanned on each loop
-    //    (Should not exceed the total number of inputs, nor about 4)
-#define MAX_INPUT_SCAN 4
-    //
   
-    //for (int i = 0; i<(MAX_INPUT_SCAN); i++) { // simply a counter of how many to scan
-    //    if (scanIndex < (LAST_PRODUCER_CHANNEL_INDEX)) scanIndex = (FIRST_PRODUCER_CHANNEL_INDEX);
-    //    if (states[scanIndex] != buttons[scanIndex*2]->state) {
-    //        states[scanIndex] = buttons[scanIndex*2]->state;
-    //        if (states[scanIndex]) {
-    //            pce.produce(scanIndex*2);
-    //        } else {
-    //            pce.produce(scanIndex*2+1);
-    //        }
-    //    }
-    //}
+  // To reduce latency, only MAX_INPUT_SCAN inputs are scanned on each loop
+  //    (Should not exceed the total number of inputs, nor about 4)
+#define MAX_INPUT_SCAN 4
+  //
+  
+  for (int i = 0; i<(MAX_INPUT_SCAN); i++, scanIndex++) { // simply a counter of how many to scan
+      if (scanIndex > (LAST_PRODUCER_CHANNEL_INDEX)) scanIndex = (FIRST_PRODUCER_CHANNEL_INDEX);
+      if (states[scanIndex] != buttons[scanIndex*2]->state) {
+          states[scanIndex] = buttons[scanIndex*2]->state;
+          if (states[scanIndex]) {
+              pce.produce(scanIndex*2);
+          } else {
+              pce.produce(scanIndex*2+1);
+          }
+          if (scanIndex == 0) {
+              // Process mast logic...
+          }
+      }
+  }
 }
 
 } // extern "C"
@@ -214,12 +256,12 @@ void setup()
   
   // set event types, now that IDs have been loaded from configuration
   // newEvent arguments are (event index, producer?, consumer?)
-  //for (int i=2*(FIRST_PRODUCER_CHANNEL_INDEX); i<2*(LAST_PRODUCER_CHANNEL_INDEX+1); i++) {
-  //    pce.newEvent(i,true,false); // producer
-  //}
-  //for (int i=2*(FIRST_CONSUMER_CHANNEL_INDEX); i<2*(LAST_CONSUMER_CHANNEL_INDEX+1); i++) {
-  //    pce.newEvent(i,false,true); // consumer
-  //}
+  for (int i=2*(FIRST_PRODUCER_CHANNEL_INDEX); i<2*(LAST_PRODUCER_CHANNEL_INDEX+1); i++) {
+      pce.newEvent(i,true,false); // producer
+  }
+  for (int i=2*(FIRST_CONSUMER_CHANNEL_INDEX); i<2*(LAST_CONSUMER_CHANNEL_INDEX+1); i++) {
+      pce.newEvent(i,false,true); // consumer
+  }
   
   Olcb_setup();
 }
