@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type='text/xsl' href='http://openlcb.org/trunk/prototypes/xml/xslt/cdi.xsl'?>
+<cdi xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='http://openlcb.org/trunk/prototypes/xml/schema/cdi.xsd'>
+
+<identification>
+    <manufacturer>Deepwoods Software</manufacturer>
+    <model>MetroMiniABS</model>
+    <hardwareVersion>1.0</hardwareVersion>
+    <softwareVersion>1.0</softwareVersion>
+</identification>
+
+<segment origin='0' space='253'>
+    <name>Node ID</name>
+    <description>User-provided description of the node</description>
+    <string size='20'>
+      <name>Node Name</name>
+    </string>
+    <string size='24'>
+      <name>Node Description</name>
+    </string>
+    <name>Events</name>
+    <description>Define events associated with input and output pins</description>
+    <group>
+      <name>Block Events</name>
+      <string size='32'>
+        <name>Block Description</name>
+      </string>
+      <eventid>
+        <name>Block Occupied</name>
+      </eventid>
+      <eventid>
+        <name>Block Clear</name>
+      </eventid>
+      <eventid>
+        <name>Next Block Occupied</name>
+      </eventid>
+      <eventid>
+        <name>Next Block Clear</name>
+      </eventid>
+    </group>
+    <group>
+      <name>Signal Aspect Events</name>
+      <eventid>
+        <name>Stop Aspect Triggered</name>
+      </eventid>
+      <eventid>
+        <name>Stop Aspect Released</name>
+      </eventid>
+      <eventid>
+        <name>Approach Aspect Triggered</name>
+      </eventid>
+      <eventid>
+        <name>Approach Aspect Released</name>
+      </eventid>
+      <eventid>
+        <name>Clear Aspect Triggered</name>
+      </eventid>
+      <eventid>
+        <name>Clear Aspect Released</name>
+      </eventid>
+    </group>
+    <group>
+      <name>Signal Implementation Options</name>
+      <int size='1'>
+        <name>Common Anode</name>
+        <map>
+          <relation><property>1</property><value>Yes</value></relation>
+          <relation><property>0</property><value>No</value></relation>
+        </map>
+      </int>
+      <int size='1'>
+        <name>BiPolar Searchlight</name>
+        <map>
+          <relation><property>1</property><value>Yes</value></relation>
+          <relation><property>0</property><value>No</value></relation>
+        </map>
+      </int>
+      <int size="1" min="0" max="255">
+        <name>Stop (red) Brightness</name>
+      </int>
+      <int size="1" min="0" max="255">
+        <name>Approach (yellow) Brightness</name>
+      </int>
+      <int size="1" min="0" max="255">
+        <name>Clear (green) Brightness</name>
+      </int>
+      <int size="1" min="0" max="255">
+        <name>Yellow Hue (ratio of red to green)</name>
+      </int>
+    </group>
+  </segment>
+</cdi>
