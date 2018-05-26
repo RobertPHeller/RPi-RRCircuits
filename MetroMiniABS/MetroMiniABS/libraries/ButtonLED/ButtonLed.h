@@ -28,18 +28,25 @@
 // Values of 500 and 1k work well for cheap LEDs. 
 // For high intensity LEDs, R1 should perhaps be 1k.  
 
+// Modified by Robert Heller <heller@deepsoft.com> Fri May 25 19:49:36 2018
+//   1) Made process() and init() "virtual", to allow sub-classing for I/O 
+//      pins not wired as above (pure inputs, PWM outputs, pure state 
+//      variables set from events).
+//   2) Changed private instance variables to protected, to allow access in
+//      subclassed process() implementations
+
 #include "OlcbUtil.h"
 
 class ButtonLed {
-  private:
+protected:                    // (Changed RPH.)
     long timeOfLastChange;    // time at whihc the button last changed
     int lastLEDPeriod;        // last period processed for LED 
     int lastButtonPeriod;     // last period processed for button
     bool lastState;           // state of button in last scan
     bool newState;            // state of button this scan
-    void init(uint8_t s);     // init
-	bool lastUState;
-  public:
+    virtual void init(uint8_t s); // init (Changed RPH.)
+    bool lastUState;
+public:
     uint16_t sense;            // active sense of button/LED 
     long pattern;             // current output drive pattern (rotates)
     long duration;            // how long the button has been in its current state in msec
@@ -55,7 +62,7 @@ class ButtonLed {
 	void setPinSense(uint8_t p, uint8_t s);
     void on(long pattern);                  // set the output repeating pattern
     void blink(uint8_t pattern);            // set the output one-time blink pattern
-    virtual void process();                         // call periodically
+    virtual void process();                 // call periodically (Changed: RPH)
 	bool unique();
 };
 

@@ -7,8 +7,8 @@
 //  Date          : $Date$
 //  Author        : $Author$
 //  Created By    : Robert Heller
-//  Created       : Fri May 25 10:38:01 2018
-//  Last Modified : <180525.1959>
+//  Created       : Fri May 25 19:57:20 2018
+//  Last Modified : <180525.2007>
 //
 //  Description	
 //
@@ -40,20 +40,20 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef __BUTTONLED_NC_H
-#define __BUTTONLED_NC_H
+#ifndef __BUTTONLED_NOLED_H
+#define __BUTTONLED_NOLED_H
+
 #include "OlcbUtil.h"
 #include "ButtonLed.h"
 
-class ButtonLed_nc : public ButtonLed {
+class ButtonLed_noled : public ButtonLed {
 public:
-    ButtonLed_nc(uint8_t pin) : ButtonLed(pin) {}
-    ButtonLed_nc() : ButtonLed(0) {}
-    virtual void process() {}
+    ButtonLed_noled(uint8_t pin, uint8_t s) : ButtonLed(pin,s) {}
+    ButtonLed_noled(uint8_t pin) : ButtonLed(pin) {}
+    virtual void process();
 protected:
-    virtual void init(uint8_t) {}
+    virtual void init(uint8_t);
 };
 
-
-#endif // __BUTTONLED_NC_H
+#endif // __BUTTONLED_NOLED_H
 

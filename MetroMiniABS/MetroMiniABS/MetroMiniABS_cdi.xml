@@ -56,20 +56,17 @@
     <description>Define events associated with input and output pins</description>
     <group>
       <name>Block Events</name>
-      <string size='32'>
-        <name>Block Description</name>
-      </string>
-      <eventid>
-        <name>Block Occupied</name>
-      </eventid>
-      <eventid>
-        <name>Block Clear</name>
-      </eventid>
       <eventid>
         <name>Next Block Occupied</name>
       </eventid>
       <eventid>
         <name>Next Block Clear</name>
+      </eventid>
+      <eventid>
+        <name>Block Occupied</name>
+      </eventid>
+      <eventid>
+        <name>Block Clear</name>
       </eventid>
     </group>
     <group>
