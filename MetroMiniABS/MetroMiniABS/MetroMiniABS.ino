@@ -1,7 +1,7 @@
 /**
  * MetroMiniABS.ino -- An OpenLCB node that implements a single Automatic Block
  * Signal.  This node presumes the hardware detailed at 
- *
+ * https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/MetroMiniABS
  * This board uses an Adafruit Metro Mini, which is a Arduino Uno R3 clone on 
  * a mini form factor: 1.7"x.7", with 28 pins as two rows of 14 .6" with a .1" 
  * pitch (same footprint as a wide DIL-28).

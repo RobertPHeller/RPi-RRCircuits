@@ -56,9 +56,13 @@
  * It is a good idea to use bits from the port that carries MOSI, MISO, SCK.
  */
 #define	MCP2515_CS				B,2   // B,2 for LEDuino; B,1 for Railroad Shield
-#define	MCP2515_INT				D,3
+// Changed: Robert Heller <heller@deepsoft.com>
+// INT on digital pin 9 (PB1)
+//#define	MCP2515_INT				D,3
+#define       MCP2515_INT                       B,1
 
 // Interupt is on PD3 (digital pin 3)
+// No, it is on PB1 (digital pin 9)
 // Chip select is on PB2 (digital pin 10) or PB1 (digital pin 9)
 
 
