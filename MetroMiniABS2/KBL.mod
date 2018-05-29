@@ -1,0 +1,53 @@
+PCBNEW-LibModule-V1  Mon 21 May 2018 10:55:55 EDT
+# encoding utf-8
+Units mm
+$INDEX
+KBL
+$EndINDEX
+$MODULE KBL
+Po 0 0 0 15 5B02DD83 00000000 ~~
+Li KBL
+Kw Bridge Rectifier
+Sc 0
+AR 
+Op 0 0 0
+T0 5.8 3.6 1 1 0 0.15 N V 21 N "KBL"
+T1 -4.9 3.5 1 1 0 0.15 N V 21 N "VAL**"
+T2 0.1 2.3 1 1 0 0.15 N V 21 N "AC"
+T2 7.7 2.4 1 1 0 0.15 N V 21 N "-"
+T2 -7.7 2.3 1 1 0 0.15 N V 21 N "+"
+DS -9.5 -2 9.5 -2 0.15 21
+DS 9.5 -2 9.5 4.25 0.15 21
+DS 9.5 4.25 -9.5 4.25 0.15 21
+DS -9.5 4.25 -9.5 -2 0.15 21
+DS -9.5 -2 -9.6 -2 0.15 21
+$PAD
+Sh "1" R 2.54 2.54 0 0 0
+Dr 1.524 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -7.65 0
+$EndPAD
+$PAD
+Sh "2" C 2.54 2.54 0 0 0
+Dr 1.524 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -2.55 0
+$EndPAD
+$PAD
+Sh "3" C 2.54 2.54 0 0 0
+Dr 1.524 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 2.55 0
+$EndPAD
+$PAD
+Sh "4" C 2.54 2.54 0 0 0
+Dr 1.524 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 7.65 0
+$EndPAD
+$EndMODULE KBL
+$EndLIBRARY

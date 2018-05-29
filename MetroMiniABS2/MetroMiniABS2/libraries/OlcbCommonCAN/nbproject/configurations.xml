@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="80">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>BG.h</itemPath>
+      <itemPath>ButtonProtocol.h</itemPath>
+      <itemPath>Configuration.h</itemPath>
+      <itemPath>Datagram.h</itemPath>
+      <itemPath>Event.h</itemPath>
+      <itemPath>EventID.h</itemPath>
+      <itemPath>LinkControl.h</itemPath>
+      <itemPath>NodeID.h</itemPath>
+      <itemPath>NodeMemory.h</itemPath>
+      <itemPath>OpenLcbCan.h</itemPath>
+      <itemPath>OpenLcbCanBuffer.h</itemPath>
+      <itemPath>PCE.h</itemPath>
+      <itemPath>PIP.h</itemPath>
+      <itemPath>SNII.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>BG.cpp</itemPath>
+      <itemPath>ButtonProtocol.cpp</itemPath>
+      <itemPath>Configuration.cpp</itemPath>
+      <itemPath>Datagram.cpp</itemPath>
+      <itemPath>Event.cpp</itemPath>
+      <itemPath>LinkControl.cpp</itemPath>
+      <itemPath>NodeMemory.cpp</itemPath>
+      <itemPath>OlcbStream.cpp</itemPath>
+      <itemPath>OpenLcbCanBuffer.cpp</itemPath>
+      <itemPath>PCE.cpp</itemPath>
+      <itemPath>PIP.cpp</itemPath>
+      <itemPath>SNII.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile.nb</itemPath>
+      <itemPath>index.html</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>../OlcbCommonCAN</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile.nb</projectmakefile>
+  <confs>
+    <conf name="Debug" type="3">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <incDir>
+            <pElem>../../OlcbDesktopCAN</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>../../OlcbDesktopCAN</pElem>
+          </incDir>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+    </conf>
+    <conf name="Release" type="3">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>../../OlcbDesktopCAN</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>../../OlcbDesktopCAN</pElem>
+          </incDir>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+    </conf>
+  </confs>
+</configurationDescriptor>

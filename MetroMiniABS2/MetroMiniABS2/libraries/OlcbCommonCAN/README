@@ -1,0 +1,14 @@
+This software is part of the OpenLCB project and is copyrighted by
+the authors.  Use is governed by a license.
+
+This is the common part of the OpenLCB implementation commonly
+called "OlcbLib".  
+
+It can be used in several ways:
+1) Via the Arduino IDE
+2) Using an internal Makefile
+3) As a NetBeans library project
+
+The OlcbArduinoCAN library provides specific
+implementations for use with the Arduino IDE
+and CAN libraries.
