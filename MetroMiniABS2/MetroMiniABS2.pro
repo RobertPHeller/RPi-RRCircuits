@@ -1,11 +1,6 @@
-update=Tue 29 May 2018 16:34:03 EDT
+update=Wed 30 May 2018 07:12:12 EDT
 version=1
-last_client=pcbnew
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
+last_client=cvpcb
 [general]
 version=1
 [eeschema]
@@ -55,10 +50,10 @@ LibName34=mct6h
 version=1
 LastNetListRead=MetroMiniABS.net
 UseCmpFile=1
-PadDrill="    1.000760"
-PadDrillOvalY="    2.999740"
-PadSizeH="    3.500120"
-PadSizeV="    3.500120"
+PadDrill="    0.000000"
+PadDrillOvalY="    0.000000"
+PadSizeH="    1.270000"
+PadSizeV="    1.270000"
 PcbTextSizeV="    1.500000"
 PcbTextSizeH="    1.500000"
 PcbTextThickness="    0.300000"
@@ -71,7 +66,6 @@ DrawSegmentWidth="    0.200000"
 BoardOutlineThickness="    0.100000"
 ModuleOutlineThickness="    0.150000"
 [pcbnew/libraries]
-LibDir=
 LibName1=sockets
 LibName2=connect
 LibName3=discret
@@ -97,3 +91,10 @@ LibName22=KBL
 LibName23=MountingHole_RevA
 LibName24=/home/heller/RRCircuits/ScrewTerm254_2
 LibName25=Barrel_Jack_nosw
+LibName26=jumper
+LibDir=
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms

@@ -40,7 +40,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "29 may 2018"
+Date "30 may 2018"
 Rev ""
 Comp ""
 Comment1 ""
@@ -888,8 +888,6 @@ Wire Wire Line
 Wire Wire Line
 	8650 3000 7850 3000
 Wire Wire Line
-	7850 2050 7850 4600
-Wire Wire Line
 	7850 4600 8650 4600
 Wire Wire Line
 	7850 2050 8000 2050
@@ -1105,4 +1103,19 @@ F 3 "~" H 9800 1750 60  0000 C CNN
 	1    9800 1750
 	-1   0    0    -1  
 $EndComp
+$Comp
+L JUMPER JP1
+U 1 1 5B0E8562
+P 7850 2500
+F 0 "JP1" H 7850 2650 60  0000 C CNN
+F 1 "JUMPER" H 7850 2420 40  0000 C CNN
+F 2 "~" H 7850 2500 60  0000 C CNN
+F 3 "~" H 7850 2500 60  0000 C CNN
+	1    7850 2500
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	7850 2050 7850 2200
+Wire Wire Line
+	7850 2800 7850 4600
 $EndSCHEMATC

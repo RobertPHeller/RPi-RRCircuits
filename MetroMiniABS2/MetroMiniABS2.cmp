@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Tue 29 May 2018 16:34:50 EDT
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Wed 30 May 2018 07:12:35 EDT
 
 BeginCmp
 TimeStamp = /5B021A64;
@@ -96,6 +96,13 @@ TimeStamp = /5B02214E;
 Reference = J2;
 ValeurCmp = RJ45;
 IdModule  = RJ45_8N-S;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B0E8562;
+Reference = JP1;
+ValeurCmp = JUMPER;
+IdModule  = ClosedJumper;
 EndCmp
 
 BeginCmp
