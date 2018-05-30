@@ -37,15 +37,24 @@
 #define	SUPPORT_MCP2515			0
 #define	SUPPORT_AT90CAN			1
 #define	SUPPORT_SJA1000			0
+#define SUPPORT_MCP2517                 0
 #elif defined (__USE_SJA1000__)
 #define	SUPPORT_MCP2515			0
 #define	SUPPORT_AT90CAN			0
 #define	SUPPORT_SJA1000			1
+#define SUPPORT_MCP2517                 0
+#elif defined (__USE_MCP2517__)
+#define SUPPORT_MCP2515                 0
+#define SUPPORT_AT90CAN                 0
+#define SUPPORT_SJA1000                 0
+#define SUPPORT_MCP2517                 1
 #else
 #define	SUPPORT_MCP2515			1
 #define	SUPPORT_AT90CAN			0
 #define	SUPPORT_SJA1000			0
+#define SUPPORT_MCP2517                 0
 #endif
+
 
 
 // -----------------------------------------------------------------------------
@@ -64,6 +73,20 @@
 // Interupt is on PD3 (digital pin 3)
 // No, it is on PB1 (digital pin 9)
 // Chip select is on PB2 (digital pin 10) or PB1 (digital pin 9)
+
+
+// -----------------------------------------------------------------------------
+/* Setting for MCP2517
+ *
+ * Declare which pins you are using for communication.
+ * Remember NOT to use them in your application!
+ * It is a good idea to use bits from the port that carries MOSI, MISO, SCK.
+ */
+#define	MCP2517_CS			B,2   
+#define MCP2517_INT                     B,1
+
+// Interupt is on PB1 (digital pin 9)
+// Chip select is on PB2 (digital pin 10)
 
 
 // -----------------------------------------------------------------------------

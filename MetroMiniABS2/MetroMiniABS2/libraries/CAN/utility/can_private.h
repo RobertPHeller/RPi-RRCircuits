@@ -57,7 +57,6 @@
 
 
 #if defined(SUPPORT_MCP2515) && (SUPPORT_MCP2515 == 1)
-
 	#define mcp2515_init(...)					can_init(__VA_ARGS__)
 	#define mcp2515_check_free_buffer(...)		can_check_free_buffer(__VA_ARGS__)
 	#define mcp2515_check_message(...)			can_check_message(__VA_ARGS__)
@@ -72,7 +71,6 @@
 	#define	mcp2515_buffers_status(...)			can_buffers_status(__VA_ARGS__)
 
 #elif defined(SUPPORT_AT90CAN) && (SUPPORT_AT90CAN == 1)
-
 	#define at90can_init(...)					can_init(__VA_ARGS__)
 	#define at90can_check_free_buffer(...)		can_check_free_buffer(__VA_ARGS__)
 	#define at90can_check_message(...)			can_check_message(__VA_ARGS__)
@@ -108,9 +106,23 @@
 	#define	sja1000_reset_bus_off(...)			can_reset_bus_off(__VA_ARGS__)
 	#define	sja1000_set_mode(...)				can_set_mode(__VA_ARGS__)
 
+#elif defined(SUPPORT_MCP2517) && (SUPPORT_MCP2517 == 1)
+	#define MCP2517_init(...)					can_init(__VA_ARGS__)
+	#define MCP2517_check_free_buffer(...)		can_check_free_buffer(__VA_ARGS__)
+	#define MCP2517_check_message(...)			can_check_message(__VA_ARGS__)
+	#define MCP2517_get_filter(...)				can_get_filter(__VA_ARGS__)
+    #define MCP2517_static_filter(...)			can_static_filter(__VA_ARGS__)
+	#define MCP2517_set_filter(...)				can_set_filter(__VA_ARGS__)
+	#define MCP2517_get_message(...)			can_get_message(__VA_ARGS__)
+	#define MCP2517_send_message(...)			can_send_message(__VA_ARGS__)
+	#define	MCP2517_read_error_register(...)	can_read_error_register(__VA_ARGS__)
+	#define	MCP2517_set_mode(...)				can_set_mode(__VA_ARGS__)
+	#define	MCP2517_regdump(...)				can_regdump(__VA_ARGS__)
+	#define	MCP2517_buffers_status(...)			can_buffers_status(__VA_ARGS__)
+
 #else
 
-	#error	No CAN-interface specified!
+        #error	"No CAN-interface specified!"
 
 #endif
 
