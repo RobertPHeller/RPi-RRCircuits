@@ -8,7 +8,7 @@
  *  Author        : $Author$
  *  Created By    : Robert Heller
  *  Created       : Sun Jun 3 10:11:20 2018
- *  Last Modified : <180603.1548>
+ *  Last Modified : <180603.1623>
  *
  *  Description	
  *
@@ -360,6 +360,7 @@ bool mcp2517_init(uint8_t bitrate)
     if (error) {
         return false;
     } else {
+        while (((mcp2517_read_register(C1CON) >> CiCON_OPMOD) & CiCON_OPMOD_M) != 0) ;
         return true;
     }
 }

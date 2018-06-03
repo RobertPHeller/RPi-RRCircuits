@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed May 30 13:52:31 2018
-//  Last Modified : <180603.1506>
+//  Last Modified : <180603.1646>
 //
 //  Description	
 //
@@ -388,6 +388,40 @@
 #define CiINT_TBCIF     2
 #define CiINT_RXIF      1
 #define CiINT_TXIF      0
+
+/** CiCON CAN Control Register */
+
+#define CiCON_TXBWS    28
+#define CiCON_TXBWS_M  0x0F
+#define CiCON_ABAT     27
+#define CiCON_REQOP    14
+#define CiCON_REQOP_M  0x07
+#define CiCON_OPMOD    21
+#define CiCON_OPMOD_M  0x07
+#define CiCON_TXQEN    20
+#define CiCON_STEF     19
+#define CiCON_SERR2LOM 18
+#define CiCON_ESIGM    17
+#define CiCON_RTXAT    16
+#define CiCON_BRSDIS   12
+#define CiCON_BUSY     11
+#define CiCON_WFT       9
+#define CiCON_WFT_M    0x03
+#define CiCON_WAKFIL    8
+#define CiCON_PXEDIS    6
+#define CiCON_ISOCRCEN  5
+#define CiCON_DNCNT     0
+#define CiCON_DNCNT_M   0x1F
+
+/** CiRXIF -- Receive Interrupt Status Register */
+#define CiRXIF_RFIF     1
+#define CiRXIF_RFIF_M   0x7FFFFFFF
+
+/** CiTEFSTA -- Transmit Event FIFO Status Register */
+#define CiTEFSTA_TEFOVIF 3
+#define CiTEFSTA_TEFFIF  2
+#define CiTEFSTA_TEFHIF  1
+#define CiTEFSTA_TEFNEIF 0
 
 /** @} */
 
