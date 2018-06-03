@@ -52,7 +52,7 @@
 
 // next line for stand-alone compile
 #include <Arduino.h>
-#define __USE_MCP2517__ 1
+
 #include <ctype.h>
 #include <stdarg.h>
 #include <stdio.h>

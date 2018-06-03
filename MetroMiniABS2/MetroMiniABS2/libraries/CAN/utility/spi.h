@@ -45,7 +45,7 @@
 /**
  * \brief	Initialize SPI interface
  */
-extern void mcp2515_spi_init(void);
+extern void mcp251x_spi_init(void);
 
 // ----------------------------------------------------------------------------
 /**

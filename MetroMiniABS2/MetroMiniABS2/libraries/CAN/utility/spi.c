@@ -29,7 +29,9 @@
 // ----------------------------------------------------------------------------
 
 #include "mcp2515_private.h"
-#ifdef	SUPPORT_FOR_MCP2515__
+#include "mcp2517_private.h"
+
+#if defined(SUPPORT_FOR_MCP2515__) || defined(SUPPORT_FOR_MCP2517__)
 
 #include "spi.h"
 
@@ -62,7 +64,7 @@
 
 
 // ----------------------------------------------------------------------------
-void mcp2515_spi_init(void)
+void mcp251x_spi_init(void)
 {
 	#ifndef USE_SOFTWARE_SPI
 		// Aktivieren des SPI Master Interfaces
@@ -118,4 +120,4 @@ uint8_t spi_putc(uint8_t data)
 	#endif
 }
 
-#endif	// SUPPORT_FOR_MCP2515__
+#endif	// defined(SUPPORT_FOR_MCP2515__) || defined(SUPPORT_FOR_MCP2517__)

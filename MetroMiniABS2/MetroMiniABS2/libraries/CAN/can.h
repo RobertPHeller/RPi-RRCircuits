@@ -59,7 +59,7 @@
 #include <stdint.h>
 #include <stdbool.h>
         
-//#define __USE_MCP2517__ 1
+#define __USE_MCP2517__ 1
 
 #include "utility/config.h"
 

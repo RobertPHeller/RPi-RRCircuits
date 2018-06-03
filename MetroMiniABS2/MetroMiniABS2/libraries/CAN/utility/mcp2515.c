@@ -187,7 +187,7 @@ bool mcp2515_init(uint8_t bitrate)
 	SET_INPUT(P_MISO);
 	
 	// SPI Einstellung setzen
-	mcp2515_spi_init();
+	mcp251x_spi_init();
 	
 	// MCP2515 per Software Reset zuruecksetzten,
 	// danach ist er automatisch im Konfigurations Modus
