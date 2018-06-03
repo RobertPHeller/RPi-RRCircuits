@@ -8,7 +8,7 @@
  *  Author        : $Author$
  *  Created By    : Robert Heller
  *  Created       : Sun Jun 3 16:13:03 2018
- *  Last Modified : <180603.1647>
+ *  Last Modified : <180603.1655>
  *
  *  Description	
  *
@@ -56,6 +56,7 @@ bool mcp2517_check_message(void)
     return ((!IS_SET(MCP2515_INT)) ? true : false);
 #else 
     return (((mcp2517_read_register(C1RXIF) >> CiRXIF_RFIF) && CiRXIF_RFIF_M) != 0);
+#endif
 }
 
 bool mcp2517_check_free_buffer(void)
@@ -63,3 +64,4 @@ bool mcp2517_check_free_buffer(void)
     return (((mcp2517_read_register(C1TEFSTA) >> CiTEFSTA_TEFFIF) & 0x01) == 0);
 }
 
+#endif
