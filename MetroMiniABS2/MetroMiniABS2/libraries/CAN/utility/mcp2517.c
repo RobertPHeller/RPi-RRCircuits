@@ -8,7 +8,7 @@
  *  Author        : $Author$
  *  Created By    : Robert Heller
  *  Created       : Sun Jun 3 10:11:20 2018
- *  Last Modified : <180603.1623>
+ *  Last Modified : <180605.1503>
  *
  *  Description	
  *
@@ -303,11 +303,38 @@ const uint8_t _mcp2515_cnf[8][3] PROGMEM = {
 };
 #endif
 
+const uint32_t _mcp2517_cnf[8] PROGMEM = {
+	// 10 kbps
+	// ((50-1)<<CiDBTCFG_BRP) | ((14-1)<<CiDBTCFG_TSEG1) | ((5-1)<<CiDBTCFG_TSEG2) | ((4-1)<<CiDBTCFG_SJW)
+	0x310d0403,
+	// 20 kbps
+	// ((25-1)<<CiDBTCFG_BRP) | ((14-1)<<CiDBTCFG_TSEG1) | ((5-1)<<CiDBTCFG_TSEG2) | ((4-1)<<CiDBTCFG_SJW)
+	0x180d0403,
+	// 50 kbps
+	// ((10-1)<<CiDBTCFG_BRP) | ((14-1)<<CiDBTCFG_TSEG1) | ((5-1)<<CiDBTCFG_TSEG2) | ((4-1)<<CiDBTCFG_SJW)
+	0x090d0403,
+	// 100 kbps
+	// ((5-1)<<CiDBTCFG_BRP) | ((14-1)<<CiDBTCFG_TSEG1) | ((5-1)<<CiDBTCFG_TSEG2) | ((4-1)<<CiDBTCFG_SJW)
+	0x040d0403,
+	// 125 kbps
+	// ((10-1)<<CiDBTCFG_BRP) | ((4-1)<<CiDBTCFG_TSEG1) | ((4-1)<<CiDBTCFG_TSEG2) | ((1-1)<<CiDBTCFG_SJW)
+	0x09030300,
+	// 250 kbps
+	// ((2-1)<<CiDBTCFG_BRP) |  ((8-1)<<CiDBTCFG_TSEG1) | ((4-1)<<CiDBTCFG_TSEG2) | ((3-1)<<CiDBTCFG_SJW)
+	0x01070302,
+	// 500 kbps
+	// ((1-1)<<CiDBTCFG_BRP) |  ((8-1)<<CiDBTCFG_TSEG1) | ((4-1)<<CiDBTCFG_TSEG2) | ((3-1)<<CiDBTCFG_SJW)
+	0x00070302,
+	// 1 Mbps1 Mbps
+	// ((1-1)<<CiDBTCFG_BRP) |  ((4-1)<<CiDBTCFG_TSEG1) | ((2-1)<<CiDBTCFG_TSEG2) | ((1-1)<<CiDBTCFG_SJW)
+	0x00030100
+};
+    
 bool mcp2517_init(uint8_t bitrate)
 {
     uint32_t dataword;
     
-    if (bitrate != 4) return false; // Only bitrate 4 (125kbps) supported
+    if (bitrate >= 8) return false; // 
     
     SET(MCP2517_CS);
     SET_OUTPUT(MCP2517_CS);
@@ -332,35 +359,124 @@ bool mcp2517_init(uint8_t bitrate)
     // Wait for MCP2517 to start up.
     _delay_ms(0.1);
     
-    // Osc prescaling and bit timing configuration
+    // OSC init.
+    dataword = 0;
+    mcp2517_write_register(OSC,dataword); // Wake up and enter config mode
+    dataword |= CLKOUT_PRESCALER_ << OSC_CLKODIV;
+    mcp2517_write_register(OSC,dataword);
     
-    dataword = (0x13 << CiNBTCFG_BRP) | 
-          (0x03 << CiNBTCFG_TSEG1) | 
-          (0x02 << CiNBTCFG_TSEG2) | 
-          (0x00 << CiNBTCFG_SJW);
+    // GPIO Pins
+    mcp2517_write_register(IOCON,(1<<IOCON_PM1)|(1<<IOCON_PM0));
+    
+    // C1CON register
+    dataword = 0;
+    dataword |= 1 << CiCON_ISOCRCEN; // Not sure about this..
+    dataword |= 0 << CiCON_STEF;     // Disable Store in Transmit Event FIFO
+    dataword |= 1 << CiCON_TXQEN;    // Enable Transmit Queue
+    dataword |= CiCON_OPMOD_CONFIG << CiCON_REQOP;
+    mcp2517_write_register(C1CON,dataword);
+          
+    // Bit timing configuration
+    dataword = _mcp2517_cnf[bitrate];
     mcp2517_write_register(C1NBTCFG,dataword);
     mcp2517_write_register(C1DBTCFG,dataword);
     
+    // TEF Not used.
+    // TEF Configuration - 12 messages, time stamping enabled
+    //dataword  = (12-1) << CiTEFCON_FSIZE;  // Guess
+    //dataword |= 1 << CiTEFCON_TEFTSEN; // ???
+    //mcp2517_write_register(C1TEFCON,dataword);
+    
+    // TXQ Configuration -- 8 messages, 32 byte payload, high priority
+    dataword  = 1 << CiTXQCON_TXPRI;
+    dataword |= (8-1) << CiTXQCON_FSIZE;
+    dataword |= CiTXQCON_PLSIZE_32;
+    mcp2517_write_register(C1TXQCON,dataword);
+    
+    // FIFO 1: Transmit FIFO: 5 messages, 64 byte maximum payload, low priority
+    dataword  = 1 << CiFIFOCONm_TXEN; // Transmit FIFO
+    dataword |= (5-1) << CiFIFOCONm_FSIZE;
+    dataword |= CiTXQCON_PLSIZE_64 << CiFIFOCONm_PLSIZE;
+    dataword |= 0 << CiFIFOCONm_TXPRI;
+    mcp2517_write_register(C1FIFOCON1,dataword);
+
+    // FIFO 2: Receive FIFO: 16 messages, 64 byte maximum payload, time stamping enabled, FIFO not empty Interrupt Enable.
+    dataword  = 0 << CiFIFOCONm_TXEN; // Receive FIFO
+    dataword |= (16-1) << CiFIFOCONm_FSIZE;
+    dataword |= CiTXQCON_PLSIZE_64 << CiFIFOCONm_PLSIZE;
+    dataword |= 1 << CiFIFOCONm_RXTSEN;
+    dataword |= 1 << CiFIFOCONm_TFNRFNIE;
+    mcp2517_write_register(C1FIFOCON2,dataword);
+    
+    // Enable ECC
+    dataword  = 1 << ECCCON_ECCEN;
+    mcp2517_write_register(ECCCON,dataword);
+    
+    // RAM Usage:     TEF           TXQ          TXFIFO       RXFIFO
+    uint16_t rsizeB = /*(12*12) +*/ (8*(8+32)) + (5*(8+64)) + (16*(12+64));
+    uint16_t rsizeL = (rsizeB+3)/4;
+    uint16_t iw, ramaddress;
+    
+    // Check for over allocation...
+    if (rsizeB > 2048) {
+        // Opps over allocated RAM in the mcp2517...
+    }
+    // Initialize RAM to all 1's.
+    ramaddress = RAMSTART;
+    dataword   = 0xffffffff;
+    for (iw = 0; iw < rsizeL; iw++) {
+        mcp2517_write_register(ramaddress,dataword);
+        ramaddress += 4;
+    }
+    
+    // Time Stamp Control
+    mcp2517_write_register(C1TSCON,0); // Stop and clear counter
+    dataword  = 0 << CiTSCON_TSRES; // TS at SOF for FD frames
+    dataword |= 0 << CiTSCON_TSEOF; // TS at SOF for clasical frames
+    dataword |= 1 << CiTSCON_TBCEN; // Enable TS
+    dataword |= ((80-1)<<CiTSCON_TBCPRE); // Counter at 4us (20Mhz / 80).
+    mcp2517_write_register(C1TSCON,dataword);
+    
+    // Disable all filters
+    mcp2517_write_register(C1FLTCON0,0);
+    mcp2517_write_register(C1FLTCON1,0);
+    mcp2517_write_register(C1FLTCON2,0);
+    mcp2517_write_register(C1FLTCON3,0);
+    mcp2517_write_register(C1FLTCON4,0);
+    mcp2517_write_register(C1FLTCON5,0);
+    mcp2517_write_register(C1FLTCON7,0);
+    // Now enable filter 0, with a "wild card" mask (should match all 
+    // messages).  Feed the messages (all of them) to FIFO 2.
+    mcp2517_write_register(C1MASK0,0);
+    mcp2517_write_register(C1FLTOBJ0,0);
+    dataword = (1<<CiFLTCONm_FLTEN0)|(CiFLTCONm_BP2<<CiFLTCONm_F0BP);
+    mcp2517_write_register(C1FLTCON0,dataword);
+    
+    // Enable interrupts.
     mcp2517_write_register(C1INT,MCP2517_INTERRUPTS);
     
 #if defined(MCP2517_INT)
     SET_INPUT(MCP2517_INT);
     SET(MCP2517_INT);
+    // Set up interrupt handler?
 #endif
     
-    mcp2517_write_register(IOCON,(1<<IOCON_PM1)|(1<<IOCON_PM0));
-    
     bool error = false;
+    // Check bit timing registers...
     if (mcp2517_read_register(C1NBTCFG) != dataword) error = true;
     if (mcp2517_read_register(C1DBTCFG) != dataword) error = true;
-    
-    dataword =  CLKOUT_PRESCALER_ << OSC_CLKODIV;
-    mcp2517_write_register(OSC,dataword);
     
     if (error) {
         return false;
     } else {
-        while (((mcp2517_read_register(C1CON) >> CiCON_OPMOD) & CiCON_OPMOD_M) != 0) ;
+        // Enter normal operating mode
+        dataword = mcp2517_read_register(C1CON);
+        dataword &= ~(CiCON_REQOP_M<<CiCON_REQOP);
+        dataword |= CiCON_OPMOD_NORMALCANFD<<CiCON_REQOP;
+        mcp2517_write_register(C1CON,dataword);
+        
+        // Wait for the mcp2517 to come up.
+        while (((mcp2517_read_register(C1CON) >> CiCON_OPMOD) & CiCON_OPMOD_M) != CiCON_OPMOD_NORMALCANFD) ;
         return true;
     }
 }

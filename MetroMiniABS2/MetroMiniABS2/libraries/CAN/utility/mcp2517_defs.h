@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed May 30 13:52:31 2018
-//  Last Modified : <180603.1646>
+//  Last Modified : <180605.1445>
 //
 //  Description	
 //
@@ -291,6 +291,9 @@
 #define C1FLTOBJ31  0x2E8
 #define C1MASK31    0x2EC
 
+#define RAMSTART 0x400
+#define RAMEND   0xDFF
+
 /**@}*/
 
 /** @name Bit definiations for the registers.
@@ -396,6 +399,14 @@
 #define CiCON_ABAT     27
 #define CiCON_REQOP    14
 #define CiCON_REQOP_M  0x07
+#define CiCON_OPMOD_NORMALCANFD 0
+#define CiCON_OPMOD_SLEEP       1
+#define CiCON_OPMOD_INTLOOPBACK 2
+#define CiCON_OPMOD_LISTEN      3
+#define CiCON_OPMOD_CONFIG      4
+#define CiCON_OPMOD_EXTLOOPBACK 5
+#define CiCON_OPMOD_NORMALCAN20 6
+#define CiCON_OPMOD_RESTRICTED  7
 #define CiCON_OPMOD    21
 #define CiCON_OPMOD_M  0x07
 #define CiCON_TXQEN    20
@@ -413,6 +424,64 @@
 #define CiCON_DNCNT     0
 #define CiCON_DNCNT_M   0x1F
 
+/** CiTEFCON -- Transmit Event FIFO Control Register */
+#define CiTEFCON_FSIZE    24
+#define CiTEFCON_FSIZE_M  0x1F
+#define CiTEFCON_FRESET   10
+#define CiTEFCON_UINC      8
+#define CiTEFCON_TEFTSEN   5
+#define CiTEFCON_TEFOCIE   3
+#define CiTEFCON_TEFFIE    2
+#define CiTEFCON_TEFHIE    1
+#define CiTEFCON_TEFNEIE   0
+
+/** CiTXQCON -- Transmit Queue Configuration */
+
+#define CiTXQCON_PLSIZE    29
+#define CiTXQCON_PLSIZE_M  0x07
+#define CiTXQCON_PLSIZE_8  0x0
+#define CiTXQCON_PLSIZE_12 0x1
+#define CiTXQCON_PLSIZE_16 0x2
+#define CiTXQCON_PLSIZE_20 0x3
+#define CiTXQCON_PLSIZE_24 0x4
+#define CiTXQCON_PLSIZE_32 0x5
+#define CiTXQCON_PLSIZE_48 0x6
+#define CiTXQCON_PLSIZE_64 0x7
+#define CiTXQCON_FSIZE     24
+#define CiTXQCON_FSIZE_M   0x1F
+#define CiTXQCON_TXAT      21
+#define CiTXQCON_TXAT_M    0x03
+#define CiTXQCON_TXPRI     16
+#define CiTXQCON_TXPRI_M   0x1F
+#define CiTXQCON_FRESET    10
+#define CiTXQCON_TXREQ      9
+#define CiTXQCON_UINC       8
+#define CiTXQCON_TXEN       7
+#define CiTXQCON_TXATIE     4
+#define CiTXQCON_TXQEIE     2
+#define CiTXQCON_TXQNIE     0
+
+/** CiFIFOCONm -- FIFO Control registers */
+#define CiFIFOCONm_PLSIZE   29
+#define CiFIFOCONm_PLSIZE_M 0x07
+#define CiFIFOCONm_FSIZE    24
+#define CiFIFOCONm_FSIZE_M  0x1f
+#define CiFIFOCONm_TXAT     21
+#define CiFIFOCONm_TXAT_M   0x03
+#define CiFIFOCONm_TXPRI    16
+#define CiFIFOCONm_TXPRI_M  0x03
+#define CiFIFOCONm_FRESET   10
+#define CiFIFOCONm_TXREQ     9
+#define CiFIFOCONm_UINC      8
+#define CiFIFOCONm_TXEN      7
+#define CiFIFOCONm_RTREN     6
+#define CiFIFOCONm_RXTSEN    5
+#define CiFIFOCONm_TXATIE    4
+#define CiFIFOCONm_RXOCIE    3
+#define CiFIFOCONm_TFERFFIE  2
+#define CiFIFOCONm_TFHRFHIE  1
+#define CiFIFOCONm_TFNRFNIE  0
+
 /** CiRXIF -- Receive Interrupt Status Register */
 #define CiRXIF_RFIF     1
 #define CiRXIF_RFIF_M   0x7FFFFFFF
@@ -422,6 +491,89 @@
 #define CiTEFSTA_TEFFIF  2
 #define CiTEFSTA_TEFHIF  1
 #define CiTEFSTA_TEFNEIF 0
+
+/** CiTREC -- Transmit/Receive Error Count Register */
+#define CiTREC_TXBO    21
+#define CiTREC_TXBP    20
+#define CiTREC_RXBP    19
+#define CiTREC_TXWARN  18
+#define CiTREC_RXWARN  17
+#define CiTREC_EWARN   16
+#define CiTREC_TEC      8
+#define CiTREC_TEC_M   0x0FF
+#define CiTREC_REC      0
+#define CiTREC_REC_M   0x0FF
+
+/** CiTSCON -- Timestamp Control Regisister */
+#define CiTSCON_TSRES    18
+#define CiTSCON_TSEOF    17
+#define CiTSCON_TBCEN    16
+#define CiTSCON_TBCPRE    0
+#define CiTSCON_TBCPRE_M 0x1FF
+
+/** CiFLTCONm -- Filter Control Registers */
+#define CiFLTCONm_FLTEN3    31
+#define CiFLTCONm_F3BP      24
+#define CiFLTCONm_F3BP_M    0x1F
+#define CiFLTCONm_FLTEN2    23
+#define CiFLTCONm_F2BP      16
+#define CiFLTCONm_F2BP_M    0x1F
+#define CiFLTCONm_FLTEN1    15
+#define CiFLTCONm_F1BP       8
+#define CiFLTCONm_F1BP_M    0x1F
+#define CiFLTCONm_FLTEN0     7
+#define CiFLTCONm_F0BP       0
+#define CiFLTCONm_F0BP_M    0x1F
+
+#define CiFLTCONm_BP0       0
+#define CiFLTCONm_BP1       1
+#define CiFLTCONm_BP2       2
+#define CiFLTCONm_BP3       3
+#define CiFLTCONm_BP4       4
+#define CiFLTCONm_BP5       5
+#define CiFLTCONm_BP6       6
+#define CiFLTCONm_BP7       7
+#define CiFLTCONm_BP8       8
+#define CiFLTCONm_BP9       9
+#define CiFLTCONm_BP10     10
+#define CiFLTCONm_BP11     11
+#define CiFLTCONm_BP12     12
+#define CiFLTCONm_BP13     13
+#define CiFLTCONm_BP14     14
+#define CiFLTCONm_BP15     15
+#define CiFLTCONm_BP16     16
+#define CiFLTCONm_BP17     17
+#define CiFLTCONm_BP18     18
+#define CiFLTCONm_BP19     19
+#define CiFLTCONm_BP20     20
+#define CiFLTCONm_BP21     21
+#define CiFLTCONm_BP22     22
+#define CiFLTCONm_BP23     23
+#define CiFLTCONm_BP24     24
+#define CiFLTCONm_BP25     25
+#define CiFLTCONm_BP26     26
+#define CiFLTCONm_BP27     27
+#define CiFLTCONm_BP28     28
+#define CiFLTCONm_BP29     29
+#define CiFLTCONm_BP30     30
+#define CiFLTCONm_BP31     31
+
+
+/** CiFLTOBJm -- Filter Object Registers */
+#define CiFLTOBJm_EXIDE      30
+#define CiFLTOBJm_SID11      29
+#define CiFLTOBJm_EID        11
+#define CiFLTOBJm_EID_M      0x3FFFF
+#define CiFLTOBJm_SID         0
+#define CiFLTOBJm_SID_M      0x0FFF
+
+/** CiMASKm -- Mask Registers */
+#define CiMASKm_MIDE         30
+#define CiMASKm_MSID11       29
+#define CiMASKm_MEID         11
+#define CiMASKm_MEID_M       0x3FFFF
+#define CiMASKm_MSID          0
+#define CiMASKm_MSID_M       0x0FFF
 
 /** @} */
 
