@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed May 30 13:52:31 2018
-//  Last Modified : <180606.1512>
+//  Last Modified : <180606.1547>
 //
 //  Description	
 //
@@ -627,6 +627,11 @@
 #define TBUFFT1_IDE           4
 #define TBUFFT1_DLC           0
 #define TBUFFT1_DLC_M        0x0F
+
+/** CiTXREQ -- Transmit Request Register */
+#define CiTXREQ_TXREQ         1
+#define CiTXREQ_TXREQ_M      0x7FFFFFFF
+#define CiTXREQ_TXREQ0        0
 
 /** @} */
 

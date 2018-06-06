@@ -8,7 +8,7 @@
  *  Author        : $Author$
  *  Created By    : Robert Heller
  *  Created       : Wed Jun 6 10:55:17 2018
- *  Last Modified : <180606.1529>
+ *  Last Modified : <180606.1549>
  *
  *  Description	
  *
@@ -46,8 +46,6 @@ static const char rcsid[] = "@(#) : $Id$";
 
 #include "mcp2517_private.h"
 #ifdef  SUPPORT_FOR_MCP2517__
-
-#include <util/delay.h>
 
 // ----------------------------------------------------------------------------
 uint8_t mcp2517_send_message(const tCAN *msg)
@@ -92,9 +90,7 @@ uint8_t mcp2517_send_message(const tCAN *msg)
     dataword = mcp2517_read_register(C1TXQCON);
     dataword |= (1 << CiTXQCON_UINC);
     mcp2517_write_register(C1TXQCON,dataword);
-    dataword = mcp2517_read_register(C1TXQCON);dataword = mcp2517_read_register(C1TXQCON);
-    dataword |= (1 << CiTXQCON_TXREQ);
-    mcp2517_write_register(C1TXQCON,dataword);
+    mcp2517_write_register(C1TXREQ,(1 << CiTXREQ_TXREQ0));
     return 1;   
 }
 
