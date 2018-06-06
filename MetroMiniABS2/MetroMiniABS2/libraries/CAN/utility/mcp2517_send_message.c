@@ -7,8 +7,8 @@
  *  Date          : $Date$
  *  Author        : $Author$
  *  Created By    : Robert Heller
- *  Created       : Mon Jun 4 09:29:08 2018
- *  Last Modified : <180606.1439>
+ *  Created       : Wed Jun 6 10:55:17 2018
+ *  Last Modified : <180606.1529>
  *
  *  Description	
  *
@@ -45,60 +45,58 @@ static const char rcsid[] = "@(#) : $Id$";
 
 
 #include "mcp2517_private.h"
-#ifdef	SUPPORT_FOR_MCP2517__
+#ifdef  SUPPORT_FOR_MCP2517__
 
-uint8_t mcp2517_get_message(tCAN *msg)
+#include <util/delay.h>
+
+// ----------------------------------------------------------------------------
+uint8_t mcp2517_send_message(const tCAN *msg)
 {
-    uint8_t addr;
-    uint16_t buffer_address;
-    
-    uint32_t dataword;
-    uint8_t  idflags, length, i, ibyte;
+    uint16_t address;
+    uint32_t T1,dataword;
+    uint8_t  length, i, ibyte;
     union {
         uint32_t R;
         uint8_t  D[4];
     } datablock;
     
-    dataword = mcp2517_read_register(C1FIFOSTA1);
-    if ((dataword & (1 << CiFIFOSTAm_TFNRFNIF)) == 0) return 0;
-    idflags = mcp2517_read_id(&msg->id);
+    
+    if ((mcp2517_read_register(C1TXQSTA) & (1 << CiTXQSTA_TXQNIF)) != 0) {
+        address = 0x400 + mcp2517_read_register(C1TXQUA);
+    } else {
+	return 0; // Queue is full
+    }
+    T1 = 0;
 #if SUPPORT_EXTENDED_CANID
-    // Set extended bit if extended message.
-    msg->flags.extended = idflags & 0x01; 
+    mcp2517_write_id(&msg->id, msg->flags.extended);
+    T1 |= (1 << TBUFFT1_IDE);
 #else
-    if (idflags & 0x01) {
-        // bump receive counter and drop extended message, since we don't support extended messages
-        dataword = mcp2517_read_register(C1FIFOCON1);
-        dataword |= (1 << CiFIFOCONm_UINC);
-        mcp2517_write_register(C1FIFOCON1,dataword);
-        return 0;
+    mcp2517_write_id(&msg->id);
+#endif
+    if (msg->flags.rtr) {
+        T1 |= (1 << TBUFFT1_RTR);
     }
-#endif
-    length = (idflags>>2)&RBUFFR1_DLC_M;
-    msg->length = length;
-    msg->flags.rtr = (idflags & 0x02) ? 1 : 0;
-    dataword = mcp2517_read_register(C1FIFOUA1);
-#if SUPPORT_TIMESTAMPS
-    buffer_address = 0x400 + dataword + 12;
-#else
-    buffer_address = 0x400 + dataword + 8;
-#endif
-    datablock.R = mcp2517_read_register(buffer_address);
+    length = msg->length & TBUFFT1_DLC_M;
+    T1 |= (length << TBUFFT1_DLC);
+    mcp2517_write_register(address+4,T1);
     for (i = 0, ibyte = 0; ibyte < 4 && i < length; i++, ibyte++) {
-        msg->data[i] = datablock.D[ibyte];
+        datablock.D[ibyte] = msg->data[i];
     }
+    mcp2517_write_register(address+8,datablock.R);
     if (i < length) {
-        datablock.R = mcp2517_read_register(buffer_address+4);
         for (ibyte = 0; ibyte < 4 && i < length; i++, ibyte++) {
-            msg->data[i] = datablock.D[ibyte];
+            datablock.D[ibyte] = msg->data[i];
         }
+        mcp2517_write_register(address+12,datablock.R);
     }
-    // bump receive counter 
-    dataword = mcp2517_read_register(C1FIFOCON1);
-    dataword |= (1 << CiFIFOCONm_UINC);
-    mcp2517_write_register(C1FIFOCON1,dataword);
-    return 1;
+    dataword = mcp2517_read_register(C1TXQCON);
+    dataword |= (1 << CiTXQCON_UINC);
+    mcp2517_write_register(C1TXQCON,dataword);
+    dataword = mcp2517_read_register(C1TXQCON);dataword = mcp2517_read_register(C1TXQCON);
+    dataword |= (1 << CiTXQCON_TXREQ);
+    mcp2517_write_register(C1TXQCON,dataword);
+    return 1;   
 }
 
-#endif // SUPPORT_FOR_MCP2517__
-    
+#endif	// SUPPORT_FOR_MCP2517__
+

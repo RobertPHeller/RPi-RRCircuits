@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed May 30 13:52:31 2018
-//  Last Modified : <180605.1445>
+//  Last Modified : <180606.1512>
 //
 //  Description	
 //
@@ -461,6 +461,16 @@
 #define CiTXQCON_TXQEIE     2
 #define CiTXQCON_TXQNIE     0
 
+/** CiTXQSTA -- Transmit Queue Status register */
+#define CiTXQSTA_TXQCI      8
+#define CiTXQSTA_TXQCI_M   0x1F
+#define CiTXQSTA_TXABT      7
+#define CiTXQSTA_TXLARB     6
+#define CiTXQSTA_TXERR      5
+#define CiTXQSTA_TXATIF     4
+#define CiTXQSTA_TXQEIF     2
+#define CiTXQSTA_TXQNIF     0
+
 /** CiFIFOCONm -- FIFO Control registers */
 #define CiFIFOCONm_PLSIZE   29
 #define CiFIFOCONm_PLSIZE_M 0x07
@@ -481,6 +491,18 @@
 #define CiFIFOCONm_TFERFFIE  2
 #define CiFIFOCONm_TFHRFHIE  1
 #define CiFIFOCONm_TFNRFNIE  0
+
+/** CiFIFOSTAm -- FIFO Status Register */
+#define CiFIFOSTAm_FIFOCI     8
+#define CiFIFOSTAm_FIFOCI_M  0x1F
+#define CiFIFOSTAm_TXABT      7
+#define CiFIFOSTAm_TXLARB     6
+#define CiFIFOSTAm_TXERR      5
+#define CiFIFOSTAm_TXATIF     4
+#define CiFIFOSTAm_RXOVIF     3
+#define CiFIFOSTAm_TFERFFIF   2
+#define CiFIFOSTAm_TFHRFHIF   1
+#define CiFIFOSTAm_TFNRFNIF   0
 
 /** CiRXIF -- Receive Interrupt Status Register */
 #define CiRXIF_RFIF     1
@@ -574,6 +596,37 @@
 #define CiMASKm_MEID_M       0x3FFFF
 #define CiMASKm_MSID          0
 #define CiMASKm_MSID_M       0x0FFF
+
+/** Receive Buffer R0 and R1 bits */
+#define RBUFFR0_SID11        29
+#define RBUFFR0_EID          11
+#define RBUFFR0_EID_M        0x3FF
+#define RBUFFR0_SID           0
+#define RBUFFR0_SID_M        0x7F
+#define RBUFFR1_FILHIT       11
+#define RBUFFR1_FILHIT_M     0x1F
+#define RBUFFR1_ESI           8
+#define RBUFFR1_FDF           7
+#define RBUFFR1_RTR           5
+#define RBUFFR1_IDE           4
+#define RBUFFR1_DLC           0
+#define RBUFFR1_DLC_M        0x0F
+
+/** Transmit Buffer T0 and T1 bits */
+#define TBUFFT0_SID11        29
+#define TBUFFT0_EID          11
+#define TBUFFT0_EID_M        0x3FF
+#define TBUFFT0_SID           0
+#define TBUFFT0_SID_M        0x7F
+#define TBUFFT1_SEQ           9
+#define TBUFFT1_SEQ_M        0x7F
+#define TBUFFT1_ESI           8
+#define TBUFFT1_FDF           7
+#define TBUFFT1_BRS           6
+#define TBUFFT1_RTR           5
+#define TBUFFT1_IDE           4
+#define TBUFFT1_DLC           0
+#define TBUFFT1_DLC_M        0x0F
 
 /** @} */
 

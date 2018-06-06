@@ -1,6 +1,7 @@
 
 /**
  * Specific implementation for CAN MP2515
+ * And CAN MP2517 (RPH)
  */
 #include <can.h>
 
@@ -37,7 +38,9 @@ bool OpenLcb_can_xmt_ready(OpenLcbCanBuffer* b) {
   if ((status & (ST_TX0REQ|ST_TX1REQ)) == (ST_TX0REQ|ST_TX1REQ))
     return false;  //  Both at full
   else
-    return true;   // at least one has space
+      return true;   // at least one has space
+#elif defined(SUPPORT_MCP2517) && (SUPPORT_MCP2517 == 1)
+    return can_check_free_buffer();
 #elif defined(SUPPORT_AT90CAN) && (SUPPORT_AT90CAN == 1)
     return can_check_free_buffer();  //  Both at full
 #endif
@@ -77,6 +80,8 @@ bool OpenLcb_can_xmt_idle() {
     return false;  // Any full
 #elif defined(SUPPORT_AT90CAN) && (SUPPORT_AT90CAN == 1)
     return can_check_free_buffer();  //  Both at full
+#elif defined(SUPPORT_MCP2517) && (SUPPORT_MCP2517 == 1)
+    return can_check_free_buffer();
 #endif
 }
 

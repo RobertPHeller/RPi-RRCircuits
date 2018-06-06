@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu May 31 07:37:17 2018
-//  Last Modified : <180603.1514>
+//  Last Modified : <180606.1504>
 //
 //  Description	
 //
@@ -188,7 +188,7 @@ extern uint8_t mcp2517_read_id( uint32_t *id );
 
 #else
 
-extern void mcp2517_write_id( const uint16_t *id );
+extern void mcp2517_write_id( const uint16_t *id);
 
 extern uint8_t mcp2517_read_id( uint16_t *id );
 

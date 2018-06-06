@@ -7,8 +7,8 @@
  *  Date          : $Date$
  *  Author        : $Author$
  *  Created By    : Robert Heller
- *  Created       : Sun Jun 3 16:13:03 2018
- *  Last Modified : <180606.1446>
+ *  Created       : Wed Jun 6 15:00:02 2018
+ *  Last Modified : <180606.1517>
  *
  *  Description	
  *
@@ -47,21 +47,35 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "mcp2517_private.h"
 #ifdef  SUPPORT_FOR_MCP2517__
 
-// ------------------------------------
-// Check if there are any new messages waiting
+#if SUPPORT_EXTENDED_CANID
 
-bool mcp2517_check_message(void)
+void mcp2517_write_id( const uint32_t *id, uint8_t extended )
 {
-#if defined(MCP2517_INT)
-    return ((!IS_SET(MCP2515_INT)) ? true : false);
-#else 
-    return ((mcp2517_read_register(C1FIFOSTA1) & (1 << CiFIFOSTAm_TFNRFNIF)) != 0);
-#endif
+    uint16_t address = 0x400 + mcp2517_read_register(C1TXQUA);
+    uint32_t T0;
+    if (extended) {
+        T0  = ((*id >> 18) & TBUFFT0_SID_M) << TBUFFT0_SID;
+        T0 |= (*id & TBUFFT0_EID_M);
+    } else {
+        T0 = (*id & TBUFFT0_SID_M);
+    }
+    mcp2517_write_register(address,T0);
 }
 
-bool mcp2517_check_free_buffer(void)
+#else
+
+void mcp2517_write_id( const uint16_t *id )
 {
-    return ((mcp2517_read_register(C1TXQSTA) & (1 << CiTXQSTA_TXQNIF)) != 0);
+    uint16_t address = 0x400 + mcp2517_read_register(C1TXQUA);
+    uint32_t T0;
+    T0 = (*id & TBUFFT0_SID_M);
+    mcp2517_write_register(address,T0);
 }
 
 #endif
+
+#endif
+
+
+
+

@@ -8,7 +8,7 @@
  *  Author        : $Author$
  *  Created By    : Robert Heller
  *  Created       : Sun Jun 3 10:11:20 2018
- *  Last Modified : <180605.1503>
+ *  Last Modified : <180606.1437>
  *
  *  Description	
  *
@@ -64,6 +64,8 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "mcp2517_private.h"
 
 #ifdef	SUPPORT_FOR_MCP2517__
+
+#include <assert.h>
 
 #ifndef	MCP2517_CLKOUT_PRESCALER
 #error	MCP2517_CLKOUT_PRESCALER not defined!  #error MCP2517_CLKOUT_PRESCALER not defined!
@@ -384,43 +386,46 @@ bool mcp2517_init(uint8_t bitrate)
     // TEF Not used.
     // TEF Configuration - 12 messages, time stamping enabled
     //dataword  = (12-1) << CiTEFCON_FSIZE;  // Guess
+#if SUPPORT_TIMESTAMPS
     //dataword |= 1 << CiTEFCON_TEFTSEN; // ???
+#endif
     //mcp2517_write_register(C1TEFCON,dataword);
     
-    // TXQ Configuration -- 8 messages, 32 byte payload, high priority
+    // TXQ Configuration -- 32 messages, 8 byte payload, high priority
     dataword  = 1 << CiTXQCON_TXPRI;
-    dataword |= (8-1) << CiTXQCON_FSIZE;
-    dataword |= CiTXQCON_PLSIZE_32;
+    dataword |= (32-1) << CiTXQCON_FSIZE;
+    dataword |= CiTXQCON_PLSIZE_8;
     mcp2517_write_register(C1TXQCON,dataword);
     
-    // FIFO 1: Transmit FIFO: 5 messages, 64 byte maximum payload, low priority
-    dataword  = 1 << CiFIFOCONm_TXEN; // Transmit FIFO
-    dataword |= (5-1) << CiFIFOCONm_FSIZE;
-    dataword |= CiTXQCON_PLSIZE_64 << CiFIFOCONm_PLSIZE;
-    dataword |= 0 << CiFIFOCONm_TXPRI;
-    mcp2517_write_register(C1FIFOCON1,dataword);
+    // FIFO 1: Transmit FIFO: 10 messages, 8 byte maximum payload, low priority
+    //dataword  = 1 << CiFIFOCONm_TXEN; // Transmit FIFO
+    //dataword |= (10-1) << CiFIFOCONm_FSIZE;
+    //dataword |= CiTXQCON_PLSIZE_8 << CiFIFOCONm_PLSIZE;
+    //dataword |= 0 << CiFIFOCONm_TXPRI;
+    //mcp2517_write_register(C1FIFOCON1,dataword);
 
-    // FIFO 2: Receive FIFO: 16 messages, 64 byte maximum payload, time stamping enabled, FIFO not empty Interrupt Enable.
+    // FIFO 1: Receive FIFO: 64 messages, 8 byte maximum payload, time stamping enabled, FIFO not empty Interrupt Enable.
     dataword  = 0 << CiFIFOCONm_TXEN; // Receive FIFO
-    dataword |= (16-1) << CiFIFOCONm_FSIZE;
-    dataword |= CiTXQCON_PLSIZE_64 << CiFIFOCONm_PLSIZE;
+    dataword |= (64-1) << CiFIFOCONm_FSIZE;
+    dataword |= CiTXQCON_PLSIZE_8 << CiFIFOCONm_PLSIZE;
+#if SUPPORT_TIMESTAMPS
     dataword |= 1 << CiFIFOCONm_RXTSEN;
+#endif
     dataword |= 1 << CiFIFOCONm_TFNRFNIE;
-    mcp2517_write_register(C1FIFOCON2,dataword);
+    mcp2517_write_register(C1FIFOCON1,dataword);
     
     // Enable ECC
     dataword  = 1 << ECCCON_ECCEN;
     mcp2517_write_register(ECCCON,dataword);
     
-    // RAM Usage:     TEF           TXQ          TXFIFO       RXFIFO
-    uint16_t rsizeB = /*(12*12) +*/ (8*(8+32)) + (5*(8+64)) + (16*(12+64));
+    // RAM Usage:     TEF           TXQ          TXFIFO           RXFIFO
+    uint16_t rsizeB = /*(12*12) +*/ (32*(8+8)) /*+ (10*(8+8))*/ + (64*(12+8));
     uint16_t rsizeL = (rsizeB+3)/4;
     uint16_t iw, ramaddress;
     
     // Check for over allocation...
-    if (rsizeB > 2048) {
-        // Opps over allocated RAM in the mcp2517...
-    }
+    assert(rsizeB > 2048);
+    
     // Initialize RAM to all 1's.
     ramaddress = RAMSTART;
     dataword   = 0xffffffff;
@@ -431,11 +436,13 @@ bool mcp2517_init(uint8_t bitrate)
     
     // Time Stamp Control
     mcp2517_write_register(C1TSCON,0); // Stop and clear counter
+#if SUPPORT_TIMESTAMPS
     dataword  = 0 << CiTSCON_TSRES; // TS at SOF for FD frames
     dataword |= 0 << CiTSCON_TSEOF; // TS at SOF for clasical frames
     dataword |= 1 << CiTSCON_TBCEN; // Enable TS
     dataword |= ((80-1)<<CiTSCON_TBCPRE); // Counter at 4us (20Mhz / 80).
     mcp2517_write_register(C1TSCON,dataword);
+#endif
     
     // Disable all filters
     mcp2517_write_register(C1FLTCON0,0);
