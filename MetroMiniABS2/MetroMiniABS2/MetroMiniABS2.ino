@@ -259,6 +259,7 @@ void pceCallback(int index){
     //buttons[index]->on(patterns[index]&0x1 ? 0x0L : ~0x0L );
     buttons[index]->state = !(index & 0x01);
     // Process mast...
+    mast.eval();
 }
 
 } // extern "C"
@@ -271,15 +272,16 @@ PCE pce(events, NUM_EVENT, &txBuffer, &nodeid, pceCallback, store, &link);
 // Set up Blue/Gold configuration
 BG bg(&pce, buttons, patterns, NUM_EVENT, &blue, &gold, &txBuffer);
 
-bool states[] = {false, false, false, false}; // current input states; report when changed
+bool states[] = {false, false, false, false, false}; // current input states; report when changed
 
-int scanIndex = 0;
 // On the assumption that the producers (inputs) and consumers (outputs) are consecutive, 
 // these are used later to label the individual channels as producer or consumer
-#define FIRST_PRODUCER_CHANNEL_INDEX    0
+#define FIRST_PRODUCER_CHANNEL_INDEX    1
 #define LAST_PRODUCER_CHANNEL_INDEX     4
-#define FIRST_CONSUMER_CHANNEL_INDEX    5
-#define LAST_CONSUMER_CHANNEL_INDEX     5
+#define FIRST_CONSUMER_CHANNEL_INDEX    0
+#define LAST_CONSUMER_CHANNEL_INDEX     0
+
+int scanIndex = FIRST_PRODUCER_CHANNEL_INDEX;
 
 extern "C" {
 void produceFromInputs() {
@@ -304,8 +306,9 @@ void produceFromInputs() {
           } else {
               pce.produce(scanIndex*2+1);
           }
-          if (scanIndex == 0) {
+          if (scanIndex == FIRST_PRODUCER_CHANNEL_INDEX) {
               // Process mast logic...
+              mast.eval();
           }
       }
   }
