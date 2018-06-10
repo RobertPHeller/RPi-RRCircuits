@@ -40,7 +40,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "9 jun 2018"
+Date "10 jun 2018"
 Rev ""
 Comp ""
 Comment1 ""
@@ -1028,7 +1028,7 @@ L R R15
 U 1 1 5B1C1530
 P 4250 3000
 F 0 "R15" V 4330 3000 40  0000 C CNN
-F 1 "10K" V 4257 3001 40  0000 C CNN
+F 1 "10K Ohms" V 4257 3001 40  0000 C CNN
 F 2 "~" V 4180 3000 30  0000 C CNN
 F 3 "~" H 4250 3000 30  0000 C CNN
 	1    4250 3000
@@ -1127,7 +1127,7 @@ L CONN_8 P4
 U 1 1 5B1C15F3
 P 1250 3300
 F 0 "P4" V 1200 3300 60  0000 C CNN
-F 1 "CONN_8" V 1300 3300 60  0000 C CNN
+F 1 "+5 WR WY WG ER EY EG +5" V 1300 3300 60  0000 C CNN
 F 2 "~" H 1250 3300 60  0000 C CNN
 F 3 "~" H 1250 3300 60  0000 C CNN
 	1    1250 3300
@@ -1240,4 +1240,16 @@ Wire Wire Line
 Connection ~ 3600 3800
 Connection ~ 4000 3550
 Connection ~ 4000 3500
+Text Label 1800 2900 0    39   ~ 0
+East Green
+Text Label 1900 3050 0    39   ~ 0
+East Yellow
+Text Label 1850 3250 0    39   ~ 0
+East Red
+Text Label 1850 3350 0    39   ~ 0
+West Green
+Text Label 1850 3500 0    39   ~ 0
+West Yellow
+Text Label 1850 3650 0    39   ~ 0
+West Red
 $EndSCHEMATC
