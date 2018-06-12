@@ -1,0 +1,185 @@
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Tue 12 Jun 2018 13:35:31 EDT
+
+BeginCmp
+TimeStamp = /5B1FF5CF;
+Reference = C1;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B1FF5ED;
+Reference = C2;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B1FF5DE;
+Reference = C3;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B1FF5FC;
+Reference = C4;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B1FF61F;
+Reference = C5;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B1FE7FE;
+Reference = CON1;
+ValeurCmp = 7-12 V Power Bus;
+IdModule  = BARREL_JACK_nosw;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B1FE8A7;
+Reference = D1;
+ValeurCmp = BRIDGE;
+IdModule  = KBL;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B1FEFD7;
+Reference = D2;
+ValeurCmp = DIODESCH;
+IdModule  = DO-35;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B1FE8F2;
+Reference = IC1;
+ValeurCmp = MCT6H;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B1FE8B6;
+Reference = P1;
+ValeurCmp = In Track Out;
+IdModule  = mors_2p;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B1FE834;
+Reference = P2;
+ValeurCmp = GND WR WY WG ER EY EG +5;
+IdModule  = ScrewTerm254-8;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B1FFC26;
+Reference = P3;
+ValeurCmp = Next East;
+IdModule  = PIN_ARRAY_4x1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B20046B;
+Reference = P4;
+ValeurCmp = ABS Slave Bus;
+IdModule  = PIN_ARRAY_5x1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B1FFC35;
+Reference = P5;
+ValeurCmp = Next West;
+IdModule  = PIN_ARRAY_4x1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B200B7B;
+Reference = P6;
+ValeurCmp = ABS Slave Bus;
+IdModule  = PIN_ARRAY_5x1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B1FE8C5;
+Reference = R1;
+ValeurCmp = 10 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B1FE910;
+Reference = R2;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B1FE843;
+Reference = R3;
+ValeurCmp = 150 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B1FE852;
+Reference = R4;
+ValeurCmp = 150 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B1FE861;
+Reference = R5;
+ValeurCmp = 150 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B1FE870;
+Reference = R6;
+ValeurCmp = 150 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B1FE889;
+Reference = R7;
+ValeurCmp = 150 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B1FE898;
+Reference = R8;
+ValeurCmp = 150 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B1FE818;
+Reference = U1;
+ValeurCmp = METROMINI;
+IdModule  = MetroMini;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B20023C;
+Reference = U2;
+ValeurCmp = SN75LBC179;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B1FF5C0;
+Reference = U3;
+ValeurCmp = TRS202E;
+IdModule  = DIP-16__300;
+EndCmp
+
+EndListe
