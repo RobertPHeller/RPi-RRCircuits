@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Tue 12 Jun 2018 13:35:31 EDT
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Wed 13 Jun 2018 08:07:05 EDT
 
 BeginCmp
 TimeStamp = /5B1FF5CF;
@@ -73,7 +73,7 @@ EndCmp
 BeginCmp
 TimeStamp = /5B1FE834;
 Reference = P2;
-ValeurCmp = GND WR WY WG ER EY EG +5;
+ValeurCmp = GND EG EY ER WG WY WR +5;
 IdModule  = ScrewTerm254-8;
 EndCmp
 
@@ -159,6 +159,13 @@ TimeStamp = /5B1FE898;
 Reference = R8;
 ValeurCmp = 150 Ohms;
 IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B2109C9;
+Reference = SW1;
+ValeurCmp = DIP_SWITCH_(8_POS);
+IdModule  = DIP-16__300;
 EndCmp
 
 BeginCmp

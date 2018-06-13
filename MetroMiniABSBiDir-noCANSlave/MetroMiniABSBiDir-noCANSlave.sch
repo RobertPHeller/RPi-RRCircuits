@@ -35,13 +35,15 @@ LIBS:metromini
 LIBS:barrel_jack_noswitch
 LIBS:trs202e
 LIBS:sn75lbc179
+LIBS:dip_switch_8_pos
+LIBS:MetroMiniABSBiDir-noCANSlave-cache
 EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "12 jun 2018"
+Date "13 jun 2018"
 Rev ""
 Comp ""
 Comment1 ""
@@ -781,4 +783,67 @@ Wire Wire Line
 Wire Wire Line
 	7350 6300 6950 6300
 Connection ~ 6950 6300
+$Comp
+L DIP_SWITCH_(8_POS) SW1
+U 1 1 5B2109C9
+P 3500 3500
+F 0 "SW1" H 3500 3900 60  0000 C CNN
+F 1 "BP CA  0  1  2  3  4  5" H 3550 4050 60  0000 C CNN
+F 2 "" H 3500 3400 60  0000 C CNN
+F 3 "" H 3500 3400 60  0000 C CNN
+	1    3500 3500
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR013
+U 1 1 5B2109D8
+P 3000 4150
+F 0 "#PWR013" H 3000 4150 30  0001 C CNN
+F 1 "GND" H 3000 4080 30  0001 C CNN
+F 2 "" H 3000 4150 60  0000 C CNN
+F 3 "" H 3000 4150 60  0000 C CNN
+	1    3000 4150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3000 3200 3000 4150
+Connection ~ 3000 3300
+Connection ~ 3000 3400
+Connection ~ 3000 3500
+Connection ~ 3000 3700
+Connection ~ 3000 3600
+Connection ~ 3000 3800
+Connection ~ 3000 3900
+Wire Wire Line
+	4150 3900 5400 3900
+Wire Wire Line
+	4150 3800 5400 3800
+Wire Wire Line
+	4150 3700 5400 3700
+Wire Wire Line
+	4150 3600 5400 3600
+Wire Wire Line
+	4150 3500 5400 3500
+Wire Wire Line
+	4150 3400 5400 3400
+Wire Wire Line
+	6300 3700 6500 3700
+Wire Wire Line
+	6500 3700 6500 4300
+Wire Wire Line
+	6500 4300 4250 4300
+Wire Wire Line
+	4250 4300 4250 3300
+Wire Wire Line
+	4250 3300 4150 3300
+Wire Wire Line
+	6300 2700 6400 2700
+Wire Wire Line
+	6400 2700 6400 2300
+Wire Wire Line
+	6400 2300 4250 2300
+Wire Wire Line
+	4250 2300 4250 3200
+Wire Wire Line
+	4250 3200 4150 3200
 $EndSCHEMATC
