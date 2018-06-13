@@ -8,7 +8,7 @@
  *  Author        : $Author$
  *  Created By    : Robert Heller
  *  Created       : Sun Jun 3 10:11:20 2018
- *  Last Modified : <180606.1437>
+ *  Last Modified : <180612.0847>
  *
  *  Description	
  *
@@ -116,6 +116,23 @@ uint32_t mcp2517_read_register(uint16_t adress)
     
     data = buffer[0] | (buffer[1] << 8) | (buffer[2] << 16) | (buffer[3] << 24);
     return data;
+}
+
+int  mcp2517_read_data(uint16_t adress,uint8_t *buffer,uint8_t len)
+{
+    uint8_t i, byte;
+    if ((len & 0x3) != 0) {return -2;}
+    
+    RESET(MCP2517_CS);
+    byte = SPI_READ| ((adress >> 8) & 0x0F);
+    spi_putc(byte);
+    byte = adress & 0x0ff;
+    spi_putc(byte);
+    for (i = 0; i < len; i++) {
+        buffer[i] = spi_putc(0xff);
+    }
+    SET(MCP2517_CS);
+    return len;
 }
 
 /** CRC table for the CRC-16. The poly is 0x8005 (x^16 + x^15 + x^2 + 1) */

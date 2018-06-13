@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu May 31 07:37:17 2018
-//  Last Modified : <180606.1504>
+//  Last Modified : <180612.0845>
 //
 //  Description	
 //
@@ -132,6 +132,14 @@ extern uint32_t mcp2517_read_register(uint16_t adress);
 
 //extern uint8_t mcp2517_read_status(uint8_t type);
 
+
+/** \brief     Read a buffer of data
+ * 
+ * len must be a multiple of 4!
+ * 
+ */
+
+extern int  mcp2517_read_data(uint16_t adress,uint8_t *buffer,uint8_t len);
 
 /** \brief     Read a buffer of data with CRC
  * 
