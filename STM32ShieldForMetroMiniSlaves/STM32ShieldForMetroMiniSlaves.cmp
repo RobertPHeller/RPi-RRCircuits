@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by PcbNew date = Wed 13 Jun 2018 15:50:32 EDT
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 14 Jun 2018 09:58:15 EDT
 
 BeginCmp
 TimeStamp = /5B21667A;
@@ -200,6 +200,62 @@ BeginCmp
 TimeStamp = /5B203F74;
 Reference = R4;
 ValeurCmp = 60 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B22734A;
+Reference = R5;
+ValeurCmp = 4.7K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B227368;
+Reference = R6;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B227529;
+Reference = R7;
+ValeurCmp = 4.7K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B227538;
+Reference = R8;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B227709;
+Reference = R9;
+ValeurCmp = 4.7K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B227722;
+Reference = R10;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B227A06;
+Reference = R11;
+ValeurCmp = 4.7K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B227A15;
+Reference = R12;
+ValeurCmp = 10K Ohms;
 IdModule  = R1;
 EndCmp
 
