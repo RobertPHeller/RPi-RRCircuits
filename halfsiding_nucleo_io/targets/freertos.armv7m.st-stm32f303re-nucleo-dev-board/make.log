@@ -1,0 +1,86 @@
+/opt/armgcc/default/bin/arm-none-eabi-g++  -DSTM32F303xE -c -Os -fno-strict-aliasing -fno-strength-reduce -fomit-frame-pointer -fdata-sections -ffunction-sections -g -MD -MP -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -Wall -Werror -Wno-unknown-pragmas -fdata-sections -ffunction-sections -fno-builtin -fno-stack-protector -mfix-cortex-m3-ldrd -D__FreeRTOS__ -DGCC_ARMCM3 -D_REENT_SMALL -std=gnu++1y -D_ISOC99_SOURCE -D__STDC_FORMAT_MACROS -fno-exceptions -fno-rtti    -I/home/heller/Deepwoods/openmrn/src/freertos_drivers/st -I/opt/st/STM32Cube_FW_F3/default/Drivers/STM32F3xx_HAL_Driver/Inc -I/opt/st/STM32Cube_FW_F3/default/Drivers/CMSIS/Device/ST/STM32F3xx/Include -I/opt/st/STM32Cube_FW_F3/default/Drivers/CMSIS/Include -I/opt/FreeRTOS/default/Source/include -I/opt/FreeRTOS/default/Source/portable/GCC/ARM_CM3 -I/home/heller/Deepwoods/openmrn/include/freertos -idirafter /home/heller/Deepwoods/openmrn/include/freertos_select -I/home/heller/Deepwoods/openmrn/src/freertos_drivers/common -I. -I/home/heller/Deepwoods/openmrn/src/ -I/home/heller/Deepwoods/openmrn/include -I/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io -MD -MF main.d /home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/main.cxx -o main.o
+In file included from /home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/config.hxx:8:0,
+                 from /home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/main.cxx:51:
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/Mast.hxx:91:21: error: expected ')' before '*' token
+     MastPoints(Node *node, const MastPointsConfiguration &cfg,
+                     ^
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/Mast.hxx:135:19: error: expected ')' before '*' token
+     MastFrog(Node *node, const MastFrogConfiguration &cfg,
+                   ^
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/main.cxx:457:77: error: no matching function for call to 'MastPoints::MastPoints(openlcb::Node*, MastPointsConfiguration, const Gpio*, const Gpio*, const Gpio*, const Gpio*, const Gpio*, const Gpio*, const Gpio*, const Gpio*)'
+                         (const Gpio*)&PORTD_LINE4, (const Gpio*)&PORTD_LINE5);
+                                                                             ^
+In file included from /home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/config.hxx:8:0,
+                 from /home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/main.cxx:51:
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/Mast.hxx:89:7: note: candidate: MastPoints::MastPoints()
+ class MastPoints : public ConfigUpdateListener, Polling {
+       ^~~~~~~~~~
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/Mast.hxx:89:7: note:   candidate expects 0 arguments, 10 provided
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/Mast.hxx:89:7: note: candidate: constexpr MastPoints::MastPoints(const MastPoints&)
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/Mast.hxx:89:7: note:   candidate expects 1 argument, 10 provided
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/Mast.hxx:89:7: note: candidate: constexpr MastPoints::MastPoints(MastPoints&&)
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/Mast.hxx:89:7: note:   candidate expects 1 argument, 10 provided
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/main.cxx:453:12: error: cannot declare variable 'pointsSignal' to be of abstract type 'MastPoints'
+ MastPoints pointsSignal(stack.node(), cfg.seg().masts().points(),
+            ^~~~~~~~~~~~
+In file included from /home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/config.hxx:8:0,
+                 from /home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/main.cxx:51:
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/Mast.hxx:89:7: note:   because the following virtual functions are pure within 'MastPoints':
+ class MastPoints : public ConfigUpdateListener, Polling {
+       ^~~~~~~~~~
+In file included from /home/heller/Deepwoods/openmrn/src/openlcb/ConfigUpdateFlow.hxx:40:0,
+                 from /home/heller/Deepwoods/openmrn/src/openlcb/SimpleStack.hxx:43,
+                 from /home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/main.cxx:43:
+/home/heller/Deepwoods/openmrn/src/utils/ConfigUpdateListener.hxx:92:26: note: 	virtual ConfigUpdateListener::UpdateAction ConfigUpdateListener::apply_configuration(int, bool, BarrierNotifiable*)
+     virtual UpdateAction apply_configuration(int fd, bool initial_load,
+                          ^~~~~~~~~~~~~~~~~~~
+/home/heller/Deepwoods/openmrn/src/utils/ConfigUpdateListener.hxx:100:18: note: 	virtual void ConfigUpdateListener::factory_reset(int)
+     virtual void factory_reset(int fd) = 0;
+                  ^~~~~~~~~~~~~
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/main.cxx:462:77: error: no matching function for call to 'MastFrog::MastFrog(openlcb::Node*, MastFrogConfiguration, const Gpio*, const Gpio*, const Gpio*, const Gpio*, const Gpio*, const Gpio*)'
+                         (const Gpio*)&PORTD_LINE7, (const Gpio*)&PORTD_LINE8);
+                                                                             ^
+In file included from /home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/config.hxx:8:0,
+                 from /home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/main.cxx:51:
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/Mast.hxx:133:7: note: candidate: MastFrog::MastFrog()
+ class MastFrog : public ConfigUpdateListener, Polling {
+       ^~~~~~~~
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/Mast.hxx:133:7: note:   candidate expects 0 arguments, 8 provided
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/Mast.hxx:133:7: note: candidate: constexpr MastFrog::MastFrog(const MastFrog&)
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/Mast.hxx:133:7: note:   candidate expects 1 argument, 8 provided
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/Mast.hxx:133:7: note: candidate: constexpr MastFrog::MastFrog(MastFrog&&)
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/Mast.hxx:133:7: note:   candidate expects 1 argument, 8 provided
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/main.cxx:459:10: error: cannot declare variable 'frogMainSignal' to be of abstract type 'MastFrog'
+ MastFrog frogMainSignal(stack.node(), cfg.seg().masts().frog_main(),
+          ^~~~~~~~~~~~~~
+In file included from /home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/config.hxx:8:0,
+                 from /home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/main.cxx:51:
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/Mast.hxx:133:7: note:   because the following virtual functions are pure within 'MastFrog':
+ class MastFrog : public ConfigUpdateListener, Polling {
+       ^~~~~~~~
+In file included from /home/heller/Deepwoods/openmrn/src/openlcb/ConfigUpdateFlow.hxx:40:0,
+                 from /home/heller/Deepwoods/openmrn/src/openlcb/SimpleStack.hxx:43,
+                 from /home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/main.cxx:43:
+/home/heller/Deepwoods/openmrn/src/utils/ConfigUpdateListener.hxx:92:26: note: 	virtual ConfigUpdateListener::UpdateAction ConfigUpdateListener::apply_configuration(int, bool, BarrierNotifiable*)
+     virtual UpdateAction apply_configuration(int fd, bool initial_load,
+                          ^~~~~~~~~~~~~~~~~~~
+/home/heller/Deepwoods/openmrn/src/utils/ConfigUpdateListener.hxx:100:18: note: 	virtual void ConfigUpdateListener::factory_reset(int)
+     virtual void factory_reset(int fd) = 0;
+                  ^~~~~~~~~~~~~
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/main.cxx:467:77: error: no matching function for call to 'MastFrog::MastFrog(openlcb::Node*, MastFrogConfiguration, const Gpio*, const Gpio*, const Gpio*, const Gpio*, const Gpio*, const Gpio*)'
+                        (const Gpio*)&PORTE_LINE2, (const Gpio *)&PORTE_LINE3);
+                                                                             ^
+In file included from /home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/config.hxx:8:0,
+                 from /home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/main.cxx:51:
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/Mast.hxx:133:7: note: candidate: MastFrog::MastFrog()
+ class MastFrog : public ConfigUpdateListener, Polling {
+       ^~~~~~~~
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/Mast.hxx:133:7: note:   candidate expects 0 arguments, 8 provided
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/Mast.hxx:133:7: note: candidate: constexpr MastFrog::MastFrog(const MastFrog&)
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/Mast.hxx:133:7: note:   candidate expects 1 argument, 8 provided
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/Mast.hxx:133:7: note: candidate: constexpr MastFrog::MastFrog(MastFrog&&)
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/Mast.hxx:133:7: note:   candidate expects 1 argument, 8 provided
+/home/heller/Deepwoods/openmrn/applications/halfsiding_nucleo_io/targets/freertos.armv7m.st-stm32f303re-nucleo-dev-board/main.cxx:464:10: error: cannot declare variable 'frogDivSignal' to be of abstract type 'MastFrog'
+ MastFrog frogDivSignal(stack.node(), cfg.seg().masts().frog_div(),
+          ^~~~~~~~~~~~~
+make: *** [main.o] Error 1
