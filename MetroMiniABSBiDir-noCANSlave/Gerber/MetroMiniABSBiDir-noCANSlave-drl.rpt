@@ -1,0 +1,23 @@
+Drill report for /home/heller/RRCircuits/MetroMiniABSBiDir-noCANSlave/MetroMiniABSBiDir-noCANSlave.kicad_pcb
+Created on Sat 16 Jun 2018 15:02:23 EDT
+Drill report for plated through holes :
+T1  0.61mm  0.024"  (2 holes)
+T2  0.64mm  0.025"  (23 holes)
+T3  0.81mm  0.032"  (74 holes)
+T4  0.89mm  0.035"  (2 holes)
+T5  1.00mm  0.039"  (1 hole)  (with 1 slot)
+T6  1.00mm  0.039"  (1 hole)  (with 1 slot)
+T7  1.02mm  0.040"  (54 holes)
+T8  1.25mm  0.049"  (2 holes)
+T9  1.52mm  0.060"  (4 holes)
+T10  2.50mm  0.098"  (4 holes)
+
+Total plated holes count 167
+
+
+Drill report for unplated through holes :
+T1  2.20mm  0.087"  (4 holes)
+
+Total unplated holes count 4
+
+
