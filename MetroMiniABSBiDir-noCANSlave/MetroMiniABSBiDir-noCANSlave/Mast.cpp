@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Tue Jun 12 23:30:39 2018
-//  Last Modified : <180612.2335>
+//  Last Modified : <180616.1436>
 //
 //  Description	
 //
@@ -70,7 +70,7 @@ void Mast::eval() {
             clear->setPWM(255);
         }
     } else if (approach->state) { 
-        if (biPolarSearch) {
+        if (biColorSearch) {
             uint8_t green = approachBrite*(yellowHue/256.0);
             uint8_t red   = approachBrite*((255-yellowHue)/256.0);
             if (commonAnode) {

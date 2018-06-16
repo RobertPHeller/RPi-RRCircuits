@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Tue Jun 12 22:08:01 2018
-//  Last Modified : <180613.0815>
+//  Last Modified : <180616.1446>
 //
 //  Description	
 //
@@ -54,6 +54,7 @@ static const char rcsid[] = "@(#) : $Id$";
  *
  * D0 (Rx)
  * D1 (Tx) ABS Slave Bus
+ * D2 Common (low=Cathode, high=Anode) [DIP switch]
  * D3 (PWM) East Green
  * D4 Next West (Active Low)
  * D5 (PWM) East Yellow
@@ -63,6 +64,9 @@ static const char rcsid[] = "@(#) : $Id$";
  * D9 (PWM) West Green
  * D10 (PWM) West Yellow
  * D11 (PWM) West Red
+ * D12 BiColor Red/Green searchlight (low=descrete LEDS, high=BiColoer) [DIP switch]
+ *
+ * A0-A5 -- Dip Switch address bits [DIP switch]
  *
  * User onfiguration Options:
  * 
@@ -77,7 +81,7 @@ static const char rcsid[] = "@(#) : $Id$";
  * 
  * Blockid        -- Block Id (0-63)
  * Common_Anode   -- Common Anode
- * Bipolar_Search -- use BiPolar Searchlight (Red/Green)
+ * BiColor_Search -- use BiColor Searchlight (Red/Green)
  * 
  */
 
@@ -102,14 +106,14 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "ABSSlaveBus.h"
 
 // init for serial communications if used
-#define         BAUD_RATE       57600
+#define         BAUD_RATE       115200
 
 // Define pins
 
 // Dip Switch:
 
 #define LEDCOMMONMODE  2
-#define BIPOLARSEARCH 12
+#define BICOLORSEARCH 12
 #define BLOCKID0      A0
 #define BLOCKID1      A1
 #define BLOCKID2      A2
@@ -119,7 +123,7 @@ static const char rcsid[] = "@(#) : $Id$";
 
 uint8_t Blockid = 0;
 uint8_t Common_Anode = 1;
-uint8_t Bipolar_Search = 0;
+uint8_t Bicolor_Search = 0;
 
 // PWM Signal Leds
 #define ESIGNALGREEN   3
@@ -149,6 +153,7 @@ GPIOStatePWMOut westGreen(WSIGNALGREEN);
 GPIOStatePWMOut westYellow(WSIGNALYELLOW);
 GPIOStatePWMOut westRed(WSIGNALRED);
 
+// Signal Masts 
 Mast mastE(&blockOcc,&nextEast,&eastGreen,&eastYellow,&eastRed,
            STOP_BRITE,APPROACH_BRITE,CLEAR_BRITE,
            YELLOW_HUE);
@@ -156,6 +161,7 @@ Mast mastW(&blockOcc,&nextWest,&westGreen,&westYellow,&westRed,
            STOP_BRITE,APPROACH_BRITE,CLEAR_BRITE,
            YELLOW_HUE);
 
+// ABS Slave Bus
 ABSSlaveBus slaveBus(&blockOcc,
                      &eastGreen,&eastYellow,&eastRed,
                      &westGreen,&westYellow,&westRed);
@@ -165,10 +171,11 @@ ABSSlaveBus slaveBus(&blockOcc,
  */
 void setup()
 {
+    // Set up the serial port
     Serial.begin(BAUD_RATE);
     // Read the DIP Switches
     pinMode(LEDCOMMONMODE,INPUT_PULLUP);
-    pinMode(BIPOLARSEARCH,INPUT_PULLUP);
+    pinMode(BICOLORSEARCH,INPUT_PULLUP);
     pinMode(BLOCKID0,INPUT_PULLUP);
     pinMode(BLOCKID1,INPUT_PULLUP);
     pinMode(BLOCKID2,INPUT_PULLUP);
@@ -176,18 +183,20 @@ void setup()
     pinMode(BLOCKID4,INPUT_PULLUP);
     pinMode(BLOCKID5,INPUT_PULLUP);
     Common_Anode = digitalRead(LEDCOMMONMODE);
-    Bipolar_Search = digitalRead(BIPOLARSEARCH);
+    Bicolor_Search = digitalRead(BICOLORSEARCH);
     Blockid = digitalRead(BLOCKID0) + 
           (digitalRead(BLOCKID1) << 1) +
           (digitalRead(BLOCKID2) << 2) +
           (digitalRead(BLOCKID3) << 3) +
           (digitalRead(BLOCKID4) << 4) +
           (digitalRead(BLOCKID5) << 5);
-    mastE.init(Common_Anode,Bipolar_Search);
-    mastW.init(Common_Anode,Bipolar_Search);
+    // Initialize the masts
+    mastE.init(Common_Anode,Bicolor_Search);
+    mastW.init(Common_Anode,Bicolor_Search);
+    // Initialize the slave bus
     slaveBus.init(Blockid);
           
-    
+    // Set initial state.
     blockOcc.process();
     nextEast.process();
     nextWest.process();

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Tue Jun 12 22:46:04 2018
-//  Last Modified : <180613.0731>
+//  Last Modified : <180616.1436>
 //
 //  Description	
 //
@@ -57,7 +57,7 @@ private:
     GPIOStatePWMOut *stop;  // Stop aspect
     GPIOStatePWMOut *approach; // Approach aspect
     GPIOStatePWMOut *clear; // Clear aspect
-    bool commonAnode,biPolarSearch;
+    bool commonAnode,biColorSearch;
     uint8_t stopBrite, approachBrite, clearBrite, yellowHue;
 public:
     Mast(GPIOStateIn *b, GPIOStateIn *n, 
@@ -73,11 +73,11 @@ public:
         clearBrite = cB;
         yellowHue = yH;
         commonAnode = 1;
-        biPolarSearch = 0;
+        biColorSearch = 0;
     }
-    void init(uint8_t cA, uint8_t bPS) {
+    void init(uint8_t cA, uint8_t bCS) {
         commonAnode = cA;
-        biPolarSearch = bPS;
+        biColorSearch = bCS;
     }
     void eval();
 };

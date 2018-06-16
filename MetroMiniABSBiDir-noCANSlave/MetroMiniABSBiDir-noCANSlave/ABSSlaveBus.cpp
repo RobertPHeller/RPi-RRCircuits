@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Tue Jun 12 23:52:07 2018
-//  Last Modified : <180613.0733>
+//  Last Modified : <180616.1458>
 //
 //  Description	
 //
@@ -46,6 +46,11 @@ static const char rcsid[] = "@(#) : $Id$";
 
 void ABSSlaveBus::process() {
     if (Serial.available() > 0) {
+        // Message from the master format:
+        // :Gnn; + CRLF
+        // Where nn is an id (1 or 2 digit decimal)
+        // 7 bytes at 115200 BAUD, assuming 10 bits (start, 8 data, 2 stop) 
+        // takes .6ms
         char byte = Serial.read();
         if (byte != ':') return;
         if (Serial.available() > 0) {
@@ -58,6 +63,14 @@ void ABSSlaveBus::process() {
         int id = Serial.parseInt();
         while (Serial.available() > 0 && Serial.read() != '\n') ;
         if (id != myid) return;
+        // At 115200 BAUD, assuming 10 bits (start, 8 data, 2 stop)
+        // a 12 byte message takes 1.04ms
+        // Response message format:
+        //  :RnnoEaWa; + CRLF
+        // Where: nn == My id (1 or 2 digit decimal)
+        //        o  == O (block occupied) or C (block clear)
+        //        a  == S (stop aspect), A (approach aspect), or C (clear aspect).
+        //
         Serial.print(':');
         Serial.print('R');
         Serial.print(myid,DEC);
