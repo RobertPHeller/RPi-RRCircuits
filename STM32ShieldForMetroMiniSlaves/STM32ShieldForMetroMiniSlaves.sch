@@ -40,7 +40,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "14 jun 2018"
+Date "16 jun 2018"
 Rev ""
 Comp ""
 Comment1 ""
@@ -360,33 +360,13 @@ Wire Notes Line
 Wire Notes Line
 	10700 1000 10700 500 
 Wire Wire Line
-	5050 4450 5450 4450
-Wire Wire Line
-	5450 4450 5450 4650
-Wire Wire Line
-	5450 4650 5650 4650
+	5050 4450 5500 4450
 Wire Wire Line
 	5050 4550 5300 4550
 Wire Wire Line
-	5300 4550 5300 4750
+	5050 4850 5450 4850
 Wire Wire Line
-	5300 4750 5650 4750
-Wire Wire Line
-	5050 4850 5200 4850
-Wire Wire Line
-	5200 4850 5200 4700
-Wire Wire Line
-	5200 4700 5550 4700
-Wire Wire Line
-	5550 4700 5550 4550
-Wire Wire Line
-	5550 4550 5650 4550
-Wire Wire Line
-	5650 4450 5500 4450
-Wire Wire Line
-	5500 4450 5500 5150
-Wire Wire Line
-	5500 4950 5050 4950
+	5050 4950 5600 4950
 $Comp
 L GND #PWR05
 U 1 1 5B203D9B
@@ -455,7 +435,6 @@ Wire Wire Line
 Wire Wire Line
 	5100 5050 5100 4850
 Connection ~ 5100 4850
-Connection ~ 5500 4950
 Wire Wire Line
 	5050 4300 5050 4350
 Wire Wire Line
@@ -1171,4 +1150,23 @@ Wire Wire Line
 	3500 5450 3500 5550
 NoConn ~ 10200 1200
 NoConn ~ 10200 1300
+Wire Wire Line
+	5500 4450 5500 4750
+Wire Wire Line
+	5500 4750 5650 4750
+Wire Wire Line
+	5300 4550 5300 4650
+Wire Wire Line
+	5300 4650 5650 4650
+Wire Wire Line
+	5450 4850 5450 4550
+Wire Wire Line
+	5450 4550 5650 4550
+Wire Wire Line
+	5600 4950 5600 4450
+Wire Wire Line
+	5600 4450 5650 4450
+Wire Wire Line
+	5500 5150 5500 4950
+Connection ~ 5500 4950
 $EndSCHEMATC
