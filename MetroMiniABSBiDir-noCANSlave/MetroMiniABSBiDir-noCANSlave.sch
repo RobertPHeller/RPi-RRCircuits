@@ -43,7 +43,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "13 jun 2018"
+Date "16 jun 2018"
 Rev ""
 Comp ""
 Comment1 ""
@@ -788,7 +788,7 @@ L DIP_SWITCH_(8_POS) SW1
 U 1 1 5B2109C9
 P 3500 3500
 F 0 "SW1" H 3500 3900 60  0000 C CNN
-F 1 "BP CA  0  1  2  3  4  5" H 3550 4050 60  0000 C CNN
+F 1 "BC CA  0  1  2  3  4  5" H 3550 4050 60  0000 C CNN
 F 2 "" H 3500 3400 60  0000 C CNN
 F 3 "" H 3500 3400 60  0000 C CNN
 	1    3500 3500

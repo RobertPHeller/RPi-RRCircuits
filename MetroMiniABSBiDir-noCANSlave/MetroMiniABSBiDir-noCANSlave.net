@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/heller/RRCircuits/MetroMiniABSBiDir-noCANSlave/MetroMiniABSBiDir-noCANSlave.sch)
-    (date "Wed 13 Jun 2018 08:35:38 EDT")
+    (date "Sat 16 Jun 2018 14:37:07 EDT")
     (tool "eeschema (2013-june-11)-stable"))
   (components
     (comp (ref CON1)
@@ -136,7 +136,7 @@
       (sheetpath (names /) (tstamps /))
       (tstamp 5B200B7B))
     (comp (ref SW1)
-      (value "BP CA  0  1  2  3  4  5")
+      (value "BC CA  0  1  2  3  4  5")
       (libsource (lib dip_switch_8_pos) (part "DIP_SWITCH_(8_POS)"))
       (sheetpath (names /) (tstamps /))
       (tstamp 5B2109C9)))
@@ -307,23 +307,6 @@
       (pins
         (pin (num 1) (name ~) (type passive))
         (pin (num 2) (name ~) (type passive))))
-    (libpart (lib sn75lbc179) (part SN75LBC179)
-      (footprints
-        (fp DIP-8__300))
-      (fields
-        (field (name Reference) U)
-        (field (name Value) SN75LBC179)
-        (field (name Footprint) ~)
-        (field (name Datasheet) ~))
-      (pins
-        (pin (num 1) (name Vcc) (type power_in))
-        (pin (num 2) (name R) (type output))
-        (pin (num 3) (name D) (type input))
-        (pin (num 4) (name GND) (type power_in))
-        (pin (num 5) (name Y) (type output))
-        (pin (num 6) (name Z) (type output))
-        (pin (num 7) (name B) (type input))
-        (pin (num 8) (name A) (type input))))
     (libpart (lib trs202e) (part TRS202E)
       (footprints
         (fp DIP-16__300))
@@ -349,13 +332,31 @@
         (pin (num 14) (name DOUT1) (type output))
         (pin (num 15) (name GND) (type power_in))
         (pin (num 16) (name Vcc) (type power_in))))
+    (libpart (lib sn75lbc179) (part SN75LBC179)
+      (footprints
+        (fp DIP-8__300))
+      (fields
+        (field (name Reference) U)
+        (field (name Value) SN75LBC179)
+        (field (name Footprint) ~)
+        (field (name Datasheet) ~))
+      (pins
+        (pin (num 1) (name Vcc) (type power_in))
+        (pin (num 2) (name R) (type output))
+        (pin (num 3) (name D) (type input))
+        (pin (num 4) (name GND) (type power_in))
+        (pin (num 5) (name Y) (type output))
+        (pin (num 6) (name Z) (type output))
+        (pin (num 7) (name B) (type input))
+        (pin (num 8) (name A) (type input))))
     (libpart (lib dip_switch_8_pos) (part "DIP_SWITCH_(8_POS)")
-      (description "8 Position DIP Switch")
       (footprints
         (fp DIP-16__300))
       (fields
         (field (name Reference) SW)
-        (field (name Value) "DIP_SWITCH_(8_POS)"))
+        (field (name Value) "DIP_SWITCH_(8_POS)")
+        (field (name Footprint) ~)
+        (field (name Datasheet) ~))
       (pins
         (pin (num 1) (name ~) (type input))
         (pin (num 2) (name ~) (type input))
@@ -374,22 +375,22 @@
         (pin (num 15) (name ~) (type input))
         (pin (num 16) (name ~) (type input)))))
   (libraries
-    (library (logical mct6h)
-      (uri mct6h.lib))
     (library (logical device)
       (uri /usr/share/kicad/library/device.lib))
     (library (logical bridge)
       (uri bridge.lib))
+    (library (logical mct6h)
+      (uri mct6h.lib))
     (library (logical conn)
       (uri /usr/share/kicad/library/conn.lib))
     (library (logical trs202e)
       (uri trs202e.lib))
     (library (logical sn75lbc179)
       (uri sn75lbc179.lib))
-    (library (logical barrel_jack_noswitch)
-      (uri barrel_jack_noswitch.lib))
     (library (logical metromini)
       (uri metromini.lib))
+    (library (logical barrel_jack_noswitch)
+      (uri barrel_jack_noswitch.lib))
     (library (logical dip_switch_8_pos)
       (uri dip_switch_8_pos.lib)))
   (nets
