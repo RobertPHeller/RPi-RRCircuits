@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 14 Jun 2018 09:58:15 EDT
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Sat 16 Jun 2018 18:21:46 EDT
 
 BeginCmp
 TimeStamp = /5B21667A;
@@ -176,6 +176,13 @@ IdModule  = PIN_ARRAY_4x1;
 EndCmp
 
 BeginCmp
+TimeStamp = /5B258CE5;
+Reference = P14;
+ValeurCmp = TO JP6 (I2C);
+IdModule  = PIN_ARRAY_4x1;
+EndCmp
+
+BeginCmp
 TimeStamp = /5B216BD5;
 Reference = R1;
 ValeurCmp = 10 Ohms;
@@ -241,20 +248,6 @@ EndCmp
 BeginCmp
 TimeStamp = /5B227722;
 Reference = R10;
-ValeurCmp = 10K Ohms;
-IdModule  = R1;
-EndCmp
-
-BeginCmp
-TimeStamp = /5B227A06;
-Reference = R11;
-ValeurCmp = 4.7K Ohms;
-IdModule  = R1;
-EndCmp
-
-BeginCmp
-TimeStamp = /5B227A15;
-Reference = R12;
 ValeurCmp = 10K Ohms;
 IdModule  = R1;
 EndCmp
