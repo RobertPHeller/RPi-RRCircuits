@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 14 21:40:10 2018
-//  Last Modified : <180616.2311>
+//  Last Modified : <180617.1517>
 //
 //  Description	
 //
@@ -110,9 +110,8 @@ public:
     uint8_t NodeID() const {return nodeid;}
     bool Enabled() const {return enabled;}
     void UpdateState(openlcb::Node *node,
-                     //openlcb::WriteHelper *writer,
-                     //Notifiable *done,
-                     const char *message);
+                     const char *message, Notifiable *done);
+    bool Process(int fd,openlcb::Node *node, Notifiable *done);
 private:
     uint8_t nodeid;
     uint8_t occ;
@@ -122,13 +121,14 @@ private:
           east_stop_event, east_approach_event, east_clear_event;
     const ABSSlaveNodeConfiguration *config;
     bool enabled;
+    OSMutex mutex_;
 };
 
-class ABSSlaveBus : public OSThread {
+class ABSSlaveBus : public OSThread, public Notifiable {
 public:
     ABSSlaveBus(openlcb::Node *n,const ABSSlaveList &_slaves);
-    //openlcb::Polling *polling() { return this; }
-    //virtual void poll_33hz(openlcb::WriteHelper *writer, Notifiable *done);
+    virtual void notify() {}
+    virtual void notify_from_isr() {}
 protected:
     virtual void *entry();
 private:

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jun 15 10:44:08 2018
-//  Last Modified : <180616.2310>
+//  Last Modified : <180617.1517>
 //
 //  Description	
 //
@@ -42,8 +42,10 @@
 
 static const char rcsid[] = "@(#) : $Id$";
 
+#include "os/OS.hxx"
 #include <stdio.h>
 #include "ABSSlaveBus.hxx"
+#include "openlcb/EventHandler.hxx"
 #include <unistd.h>
 #include <sys/select.h>
 #include <sys/time.h>
@@ -54,6 +56,7 @@ ConfigUpdateListener::UpdateAction ABSSlaveNode::apply_configuration(int fd,
                                                bool initial_load,
                                                BarrierNotifiable *done)
 {
+    OSMutexLock ConfigureUpdateLock(&mutex_);
     AutoNotify n(done);
     enabled = config->enabled().read(fd);
     nodeid = config->nodeid().read(fd);
@@ -89,54 +92,60 @@ ConfigUpdateListener::UpdateAction ABSSlaveNode::apply_configuration(int fd,
 }
 
 void ABSSlaveNode::UpdateState(openlcb::Node *node,
-                               //openlcb::WriteHelper *writer,
-                               //Notifiable *done,
-                               const char *message)
+                               const char *message, 
+                               Notifiable *done)
 {
     int id;
     char o,e,w;
+    AutoNotify n(done);
+    
     if (sscanf(message,":R%d%cE%cW%c;",&id,&o,&e,&w) != 4) return;
     if (id != nodeid) return;
     if (o != occ) {
         occ = o;
         if (occ == 'O' ) {
-            //writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
-            //                   openlcb::WriteHelper::global(),
-            //                   openlcb::eventid_to_buffer(occupied_event),
-            //                   done);
+            openlcb::event_write_helper1.WriteAsync(node,
+                                           openlcb::Defs::MTI_EVENT_REPORT,
+                                           openlcb::WriteHelper::global(),
+                                           openlcb::eventid_to_buffer(occupied_event),
+                                           done);
         } else if (occ == 'C') {
-            //writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
-            //                   openlcb::WriteHelper::global(),
-            //                   openlcb::eventid_to_buffer(unoccupied_event),
-            //                   done);
+            openlcb::event_write_helper1.WriteAsync(node,
+                                           openlcb::Defs::MTI_EVENT_REPORT,
+                                           openlcb::WriteHelper::global(),
+                                           openlcb::eventid_to_buffer(unoccupied_event),
+                                           done);
         }
     }
     switch (e) {
     case 'S': 
         if (east_aspect != stop) {
             east_aspect = stop;
-            //writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
-            //                   openlcb::WriteHelper::global(),
-            //                   openlcb::eventid_to_buffer(east_stop_event),
-            //                   done);
+            openlcb::event_write_helper2.WriteAsync(node,
+                                           openlcb::Defs::MTI_EVENT_REPORT,
+                                           openlcb::WriteHelper::global(),
+                                           openlcb::eventid_to_buffer(east_stop_event),
+                                           done);
         }
         break;
     case 'A':
         if (east_aspect != approach) {
             east_aspect = approach;
-            //writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
-            //                   openlcb::WriteHelper::global(),
-            //                   openlcb::eventid_to_buffer(east_approach_event),
-            //                   done);
+            openlcb::event_write_helper2.WriteAsync(node,
+                                           openlcb::Defs::MTI_EVENT_REPORT,
+                                           openlcb::WriteHelper::global(),
+                                           openlcb::eventid_to_buffer(east_approach_event),
+                                           done);
         }
         break;
     case 'C':
         if (east_aspect != clear) {
             east_aspect = clear;
-            //writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
-            //                   openlcb::WriteHelper::global(),
-            //                   openlcb::eventid_to_buffer(east_clear_event),
-            //                   done);
+            openlcb::event_write_helper2.WriteAsync(node,
+                                           openlcb::Defs::MTI_EVENT_REPORT,
+                                           openlcb::WriteHelper::global(),
+                                           openlcb::eventid_to_buffer(east_clear_event),
+                                           done);
         }
         break;
     }
@@ -144,28 +153,31 @@ void ABSSlaveNode::UpdateState(openlcb::Node *node,
     case 'S': 
         if (west_aspect != stop) {
             west_aspect = stop;
-            //writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
-            //                   openlcb::WriteHelper::global(),
-            //                   openlcb::eventid_to_buffer(west_stop_event),
-            //                   done);
+            openlcb::event_write_helper3.WriteAsync(node,
+                                           openlcb::Defs::MTI_EVENT_REPORT,
+                                           openlcb::WriteHelper::global(),
+                                           openlcb::eventid_to_buffer(west_stop_event),
+                                           done);
         }
         break;
     case 'A':
         if (west_aspect != approach) {
             west_aspect = approach;
-            //writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
-            //                   openlcb::WriteHelper::global(),
-            //                   openlcb::eventid_to_buffer(west_approach_event),
-            //                   done);
+            openlcb::event_write_helper3.WriteAsync(node,
+                                           openlcb::Defs::MTI_EVENT_REPORT,
+                                           openlcb::WriteHelper::global(),
+                                           openlcb::eventid_to_buffer(west_approach_event),
+                                           done);
         }
         break;
     case 'C':
         if (west_aspect != clear) {
             west_aspect = clear;
-            //writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
-            //                   openlcb::WriteHelper::global(),
-            //                   openlcb::eventid_to_buffer(west_clear_event),
-            //                   done);
+            openlcb::event_write_helper3.WriteAsync(node,
+                                           openlcb::Defs::MTI_EVENT_REPORT,
+                                           openlcb::WriteHelper::global(),
+                                           openlcb::eventid_to_buffer(west_clear_event),
+                                           done);
         }
         break;
     }
@@ -244,64 +256,50 @@ ABSSlaveBus::ABSSlaveBus(openlcb::Node *n,const ABSSlaveList &_slaves) : slaveco
     slaveIndex = MAXSLAVES;
 }
 
-#if 0
-void ABSSlaveBus::poll_33hz(openlcb::WriteHelper *writer, Notifiable *done)
+bool ABSSlaveNode::Process(int fd, openlcb::Node *node, Notifiable *done)
 {
-    int islave;
-    for (islave = 0; islave < MAXSLAVES; islave++) {
-        if (slaveIndex >= MAXSLAVES) {
-            slaveIndex = 0;
-        }
-        if (slaves[slaveIndex].Enabled()) {
-            char buffer[64];
-            int bytes = snprintf(buffer,64,":G%d;\r\n",slaves[slaveIndex].NodeID());
-            ::write(fd,buffer,bytes);
+    fd_set readfds, writefds, exceptfds;
+    struct timeval timeout;
+    
+    OSMutexLock PollingLock(&mutex_);           
+    if (enabled) {
+        char buffer[64];
+        int bytes = snprintf(buffer,64,":G%d;\r\n",nodeid);
+        ::write(fd,buffer,bytes);
+        usleep(1000); // 1ms
+        FD_ZERO(&writefds);
+        FD_ZERO(&exceptfds);
+        FD_ZERO(&readfds);
+        FD_SET(fd,&readfds);
+        timeout.tv_sec = 0;
+        timeout.tv_usec = 10000; // 10ms timeout
+        int status = select(fd+1,&readfds,&writefds,&exceptfds,
+                            &timeout);
+        if (status > 0) {
             bytes = ::read(fd,buffer,64);
             buffer[bytes] = '\0';
-            slaves[slaveIndex].UpdateState(node,writer,done,buffer);
-            slaveIndex++;
-            return;
+            UpdateState(node,buffer,done);
+            return true;
+        } else if (status == 0) {
+            return false; // Timeout -- skip this node.
         } else {
-            slaveIndex++;
+            // error?
+            return false;
         }
     }
+    return false;
 }
-#endif
 
 void *ABSSlaveBus::entry()
 {
     while (true) {
-        fd_set readfds, writefds, exceptfds;
-        struct timeval timeout;
         int islave;
         for (islave = 0; islave < MAXSLAVES; islave++) {
             if (slaveIndex >= MAXSLAVES) {
                 slaveIndex = 0;
             }
-            if (slaves[slaveIndex].Enabled()) {
-                char buffer[64];
-                int bytes = snprintf(buffer,64,":G%d;\r\n",slaves[slaveIndex].NodeID());
-                ::write(fd,buffer,bytes);
-                usleep(1000); // 1ms
-                FD_ZERO(&writefds);
-                FD_ZERO(&exceptfds);
-                FD_ZERO(&readfds);
-                FD_SET(fd,&readfds);
-                timeout.tv_sec = 0;
-                timeout.tv_usec = 10000; // 10ms timeout
-                int status = select(fd+1,&readfds,&writefds,&exceptfds,
-                                    &timeout);
-                if (status > 0) {
-                    bytes = ::read(fd,buffer,64);
-                    buffer[bytes] = '\0';
-                    slaves[slaveIndex].UpdateState(node,buffer);
-                    slaveIndex++;
-                    break;
-                } else if (status == 0) {
-                    slaveIndex++; // Timeout -- skip this node.
-                } else {
-                    // error?
-                }
+            if (slaves[slaveIndex++].Process(fd,node,this)) {
+                break;
             }
         }
         usleep(30000); // 30ms
