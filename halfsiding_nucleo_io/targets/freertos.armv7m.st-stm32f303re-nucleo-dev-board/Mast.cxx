@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 11 17:32:41 2018
-//  Last Modified : <180617.1549>
+//  Last Modified : <180617.1627>
 //
 //  Description	
 //
@@ -133,23 +133,38 @@ void MastPoints::handle_identify_global(const EventRegistryEntry &registry_entry
 
 void MastPoints::SendProducerIdentified(BarrierNotifiable *done)
 {
-//    openlcb::Defs::MTI mti_n, mti_r;
-//    if (point_state == normal) {
-//        mti_n = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-//        mti_r = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
-//    } else if (point_state == reversed) {
-//        mti_n = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
-//        mti_r = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-//    } else {
-//        mti_r = mti_n = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_UNKNOWN;
-//    }
-//    openlcb::event_write_helper1.WriteAsync(node, mti_n, openlcb::WriteHelper::global(),
-//                                   openlcb::eventid_to_buffer(points_normal_event),
-//                                   done->new_child());
-//    openlcb::event_write_helper2.WriteAsync(node, mti_r, openlcb::WriteHelper::global(),
-//                                   openlcb::eventid_to_buffer(points_reversed_event),
-//                                   done->new_child());
-//    
+    openlcb::Defs::MTI mti_s = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID, 
+          mti_al = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID, 
+          mti_a = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID, 
+          mti_c = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
+    switch (aspect) {
+    case stop:
+        mti_s = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
+        break;
+    case approach_limited:
+        mti_al = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
+        break;
+    case approach:
+        mti_a = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
+        break;
+    case clear:
+        mti_s = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
+        break;
+    }
+    
+    openlcb::event_write_helper1.WriteAsync(node, mti_s, openlcb::WriteHelper::global(),
+                                   openlcb::eventid_to_buffer(event_stop),
+                                   done->new_child());
+    openlcb::event_write_helper2.WriteAsync(node, mti_al, openlcb::WriteHelper::global(),
+                                   openlcb::eventid_to_buffer(event_approach_limited),
+                                   done->new_child());
+    openlcb::event_write_helper3.WriteAsync(node, mti_a, openlcb::WriteHelper::global(),
+                                   openlcb::eventid_to_buffer(event_approach),
+                                   done->new_child());
+    openlcb::event_write_helper4.WriteAsync(node, mti_c, openlcb::WriteHelper::global(),
+                                   openlcb::eventid_to_buffer(event_clear),
+                                   done->new_child());
+    
 }
 
 bool MastFrog::eval()
@@ -221,22 +236,29 @@ void MastFrog::handle_identify_global(const EventRegistryEntry &registry_entry,
 
 void MastFrog::SendProducerIdentified(BarrierNotifiable *done)
 {
-//    openlcb::Defs::MTI mti_n, mti_r;
-//    if (point_state == normal) {
-//        mti_n = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-//        mti_r = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
-//    } else if (point_state == reversed) {
-//        mti_n = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
-//        mti_r = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-//    } else {
-//        mti_r = mti_n = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_UNKNOWN;
-//    }
-//    openlcb::event_write_helper1.WriteAsync(node, mti_n, openlcb::WriteHelper::global(),
-//                                   openlcb::eventid_to_buffer(points_normal_event),
-//                                   done->new_child());
-//    openlcb::event_write_helper2.WriteAsync(node, mti_r, openlcb::WriteHelper::global(),
-//                                   openlcb::eventid_to_buffer(points_reversed_event),
-//                                   done->new_child());
-//    
+    openlcb::Defs::MTI mti_s = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID, 
+          mti_a = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID, 
+          mti_c = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
+    switch (aspect) {
+    case stop:
+        mti_s = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
+        break;
+    case approach:
+        mti_a = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
+        break;
+    case clear:
+        mti_s = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
+        break;
+    }
+    
+    openlcb::event_write_helper1.WriteAsync(node, mti_s, openlcb::WriteHelper::global(),
+                                   openlcb::eventid_to_buffer(event_stop),
+                                   done->new_child());
+    openlcb::event_write_helper2.WriteAsync(node, mti_a, openlcb::WriteHelper::global(),
+                                   openlcb::eventid_to_buffer(event_approach),
+                                   done->new_child());
+    openlcb::event_write_helper3.WriteAsync(node, mti_c, openlcb::WriteHelper::global(),
+                                   openlcb::eventid_to_buffer(event_clear),
+                                   done->new_child());
 }
 
