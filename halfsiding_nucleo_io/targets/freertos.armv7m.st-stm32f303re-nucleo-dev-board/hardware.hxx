@@ -52,5 +52,4 @@ typedef BLINKER_Pin LED_GREEN_Pin;
 
 extern PWM* servo_channels[];
 
-// ??? Serial Port Pin setup... PA2 (USART2_TX) and PA3 (USART2_RX)
 

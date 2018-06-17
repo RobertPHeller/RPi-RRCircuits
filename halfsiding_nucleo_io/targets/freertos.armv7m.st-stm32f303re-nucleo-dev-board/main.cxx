@@ -139,6 +139,12 @@ openlcb::MultiConfiguredConsumer direct_consumers(stack.node(), kDirectGpio,
     ARRAYSIZE(kDirectGpio), cfg.seg().direct_consumers());
 #endif
 
+#define MOTOR0A TDRV1_Pin::instance()
+#define MOTOR0B TDRV2_Pin::instance()
+#define MOTOR1A TDRV3_Pin::instance()
+#define MOTOR1B TDRV4_Pin::instance()
+
+
 #ifdef USINGSERVOS
 const unsigned servo_min = configCPU_CLOCK_HZ * 1 / 1000;
 const unsigned servo_max = configCPU_CLOCK_HZ * 2 / 1000;
@@ -343,6 +349,18 @@ openlcb::MultiConfiguredConsumer portde_consumers(stack.node(), kPortDEGpio,
     ARRAYSIZE(kPortDEGpio), cfg.seg().portde_consumers());
 #endif
 
+#define POINTSHIGHGREEN  PORTD_LINE1
+#define POINTSHIGHYELLOW PORTD_LINE2
+#define POINTSHIGHRED    PORTD_LINE3
+#define POINTSLOWYELLOW  PORTD_LINE4
+#define POINTSLOWRED     PORTD_LINE5
+#define FROGMAINGREEN    PORTD_LINE6
+#define FROGMAINYELLOW   PORTD_LINE7
+#define FROGMAINRED      PORTD_LINE8
+#define FROGDIVGREEN     PORTE_LINE1
+#define FROGDIVYELLOW    PORTE_LINE2
+#define FROGDIVRED       PORTE_LINE3
+
 #ifdef SNAPSWITCHES
 openlcb::ConfiguredPulseConsumer turnout_pulse_consumer_1(
     stack.node(), cfg.seg().snap_switches().entry<0>(), (const Gpio*)&PORTD_LINE1);
@@ -396,6 +414,18 @@ constexpr const MmapGpio PORTA_LINE5(input_register, 4, false);
 constexpr const MmapGpio PORTA_LINE6(input_register, 5, false);
 constexpr const MmapGpio PORTA_LINE7(input_register, 6, false);
 constexpr const MmapGpio PORTA_LINE8(input_register, 7, false);
+
+#define POINTSENSE0A PORTA_LINE1
+#define POINTSENSE0B PORTA_LINE2
+#define POINTSENSE1A PORTA_LINE3
+#define POINTSENSE1B PORTA_LINE4
+
+
+#define BLOCK_OCC      PORTA_LINE5
+#define NextEastPoints PORTA_LINE6
+#define NextWestMain   PORTA_LINE7
+#define NextWestDiv    PORTA_LINE8
+
 #endif
 
 #ifdef UNUSEDPORTABCONFIG
@@ -456,11 +486,6 @@ openlcb::RefreshLoop loopab(stack.node(),
   });
 #endif
 
-#define BLOCK_OCC      PORTA_LINE5
-#define NextEastPoints PORTA_LINE6
-#define NextWestMain   PORTA_LINE7
-#define NextWestDiv    PORTA_LINE8
-
 openlcb::ConfiguredProducer producer_block_occ(
     stack.node(), cfg.seg().shield().occdetector(), (const Gpio*)&BLOCK_OCC);
 openlcb::RefreshLoop loopocc(stack.node(),
@@ -469,13 +494,13 @@ openlcb::RefreshLoop loopocc(stack.node(),
     });                        
 
 StallMotorWithSense turnout0(stack.node(), cfg.seg().turnouts().entry<0>(),
-                             TDRV1_Pin::instance(), TDRV2_Pin::instance(),
-                             (const Gpio *)&PORTA_LINE1,
-                             (const Gpio *)&PORTA_LINE2);
+                             MOTOR0A, MOTOR0B,
+                             (const Gpio *)&POINTSENSE0A,
+                             (const Gpio *)&POINTSENSE0B);
 StallMotorWithSense turnout1(stack.node(), cfg.seg().turnouts().entry<1>(),
-                             TDRV3_Pin::instance(), TDRV4_Pin::instance(),
-                             (const Gpio *)&PORTA_LINE3,
-                             (const Gpio *)&PORTA_LINE4);
+                             MOTOR1A, MOTOR1B,
+                             (const Gpio *)&POINTSENSE1A,
+                             (const Gpio *)&POINTSENSE1B);
 
 openlcb::RefreshLoop loopturnouts(stack.node(),
     {
@@ -484,20 +509,20 @@ openlcb::RefreshLoop loopturnouts(stack.node(),
 
 
 MastPoints pointsSignal(stack.node(), cfg.seg().masts().points(),
-                        (const Gpio*)&BLOCK_OCC, (const Gpio*)&PORTA_LINE2,
-                        (const Gpio*)&NextEastPoints, (const Gpio*)&PORTD_LINE1,
-                        (const Gpio*)&PORTD_LINE2, (const Gpio*)&PORTD_LINE3,
-                        (const Gpio*)&PORTD_LINE4, (const Gpio*)&PORTD_LINE5);
+                        (const Gpio*)&BLOCK_OCC, (const Gpio*)&POINTSENSE0B,
+                        (const Gpio*)&NextEastPoints, (const Gpio*)&POINTSHIGHGREEN,
+                        (const Gpio*)&POINTSHIGHYELLOW, (const Gpio*)&POINTSHIGHRED,
+                        (const Gpio*)&POINTSLOWYELLOW, (const Gpio*)&POINTSLOWRED);
 
 MastFrog frogMainSignal(stack.node(), cfg.seg().masts().frog_main(),
-                        (const Gpio*)&BLOCK_OCC, (const Gpio*)&PORTA_LINE2,
-                        (const Gpio*)&NextWestMain, (const Gpio*)&PORTD_LINE6,
-                        (const Gpio*)&PORTD_LINE7, (const Gpio*)&PORTD_LINE8);
+                        (const Gpio*)&BLOCK_OCC, (const Gpio*)&POINTSENSE0B,
+                        (const Gpio*)&NextWestMain, (const Gpio*)&FROGMAINGREEN,
+                        (const Gpio*)&FROGMAINYELLOW, (const Gpio*)&FROGMAINRED);
 
 MastFrog frogDivSignal(stack.node(), cfg.seg().masts().frog_div(),
-                       (const Gpio*)&BLOCK_OCC, (const Gpio*)&PORTA_LINE1,
-                       (const Gpio*)&NextWestDiv, (const Gpio*)&PORTE_LINE1,
-                       (const Gpio*)&PORTE_LINE2, (const Gpio *)&PORTE_LINE3);
+                       (const Gpio*)&BLOCK_OCC, (const Gpio*)&POINTSENSE0A,
+                       (const Gpio*)&NextWestDiv, (const Gpio*)&FROGDIVGREEN,
+                       (const Gpio*)&FROGDIVYELLOW, (const Gpio *)&FROGDIVRED);
 
 openlcb::RefreshLoop loopmasts(stack.node(),
     {
