@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 11 17:23:44 2018
-//  Last Modified : <180616.0913>
+//  Last Modified : <180617.1903>
 //
 //  Description	
 //
@@ -133,10 +133,12 @@ public:
             cfg_event_approach_limited != event_approach_limited ||
             cfg_event_approach != event_approach ||
             cfg_event_clear != event_clear) {
+            unregister_handler();
             event_stop = cfg_event_stop;
             event_approach_limited = cfg_event_approach_limited;
             event_approach = cfg_event_approach;
             event_clear = cfg_event_clear;
+            register_handler();
             return REINIT_NEEDED; // Causes events identify.
         }
         return UPDATED;
@@ -149,8 +151,14 @@ public:
     }
     bool eval();
     void handle_identify_global(const EventRegistryEntry &registry_entry, 
-                                EventReport *event, BarrierNotifiable *done)
-          OVERRIDE;
+                                EventReport *event, 
+                                BarrierNotifiable *done) OVERRIDE;
+    void handle_producer_identified(const EventRegistryEntry &registry_entry,
+                                    EventReport *event, 
+                                    BarrierNotifiable *done) override;
+    void handle_identify_producer(const EventRegistryEntry &registry_entry,
+                                  EventReport *event, 
+                                  BarrierNotifiable *done) override;
 private:
     openlcb::Node *node;
     const Gpio *occ;
@@ -166,6 +174,8 @@ private:
     openlcb::EventId event_stop, event_approach_limited, event_approach, event_clear;
     void SendEventReport(openlcb::WriteHelper *writer, Notifiable *done);
     void SendProducerIdentified(BarrierNotifiable *done);
+    void register_handler();
+    void unregister_handler();
 };
 
 class MastFrog : public openlcb::Polling , public ConfigUpdateListener,
@@ -211,9 +221,11 @@ public:
         if (cfg_event_stop != event_stop ||
             cfg_event_approach != event_approach ||
             cfg_event_clear != event_clear) {
+            unregister_handler();
             event_stop = cfg_event_stop;
             event_approach = cfg_event_approach;
             event_clear = cfg_event_clear;
+            register_handler();
             return REINIT_NEEDED; // Causes events identify.
         }
         return UPDATED;
@@ -224,8 +236,14 @@ public:
         event_clear = 0;
     }
     void handle_identify_global(const EventRegistryEntry &registry_entry, 
-                                EventReport *event, BarrierNotifiable *done)
-          OVERRIDE;
+                                EventReport *event, 
+                                BarrierNotifiable *done) OVERRIDE;
+    void handle_producer_identified(const EventRegistryEntry &registry_entry,
+                                    EventReport *event, 
+                                    BarrierNotifiable *done) override;
+    void handle_identify_producer(const EventRegistryEntry &registry_entry,
+                                  EventReport *event, 
+                                  BarrierNotifiable *done) override;
 private:
     openlcb::Node *node;
     const Gpio *occ;
@@ -239,6 +257,8 @@ private:
     const MastFrogConfiguration config;
     void SendEventReport(openlcb::WriteHelper *writer, Notifiable *done);
     void SendProducerIdentified(BarrierNotifiable *done);
+    void register_handler();
+    void unregister_handler();
 };
 
 #endif // __MAST_HXX

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 11 17:32:41 2018
-//  Last Modified : <180617.1627>
+//  Last Modified : <180617.1911>
 //
 //  Description	
 //
@@ -120,8 +120,32 @@ void MastPoints::SendEventReport(openlcb::WriteHelper *writer, Notifiable *done)
     }
 }
 
-void MastPoints::handle_identify_global(const EventRegistryEntry &registry_entry, 
+void MastPoints::handle_identify_global(const openlcb::EventRegistryEntry &registry_entry, 
                                                  EventReport *event, BarrierNotifiable *done)
+{
+    if (event->dst_node && event->dst_node != node)
+    {
+        done->notify();
+    }
+    SendProducerIdentified(done);
+    done->maybe_done();
+}
+
+void MastPoints::handle_producer_identified(const openlcb::EventRegistryEntry &registry_entry,   
+                                            EventReport *event,
+                                            BarrierNotifiable *done)
+{
+    if (event->dst_node && event->dst_node != node)
+    {
+        done->notify();
+    }
+    SendProducerIdentified(done);
+    done->maybe_done();
+}
+
+void MastPoints::handle_identify_producer(const openlcb::EventRegistryEntry &registry_entry,     
+                                          EventReport *event,
+                                          BarrierNotifiable *done)
 {
     if (event->dst_node && event->dst_node != node)
     {
@@ -165,6 +189,23 @@ void MastPoints::SendProducerIdentified(BarrierNotifiable *done)
                                    openlcb::eventid_to_buffer(event_clear),
                                    done->new_child());
     
+}
+
+void MastPoints::register_handler()
+{
+    openlcb::EventRegistry::instance()->register_handler(
+        openlcb::EventRegistryEntry(this, event_stop, 0), 0);
+    openlcb::EventRegistry::instance()->register_handler(
+        openlcb::EventRegistryEntry(this, event_approach, 0), 0);
+    openlcb::EventRegistry::instance()->register_handler(
+        openlcb::EventRegistryEntry(this, event_approach_limited, 0), 0);
+    openlcb::EventRegistry::instance()->register_handler(
+        openlcb::EventRegistryEntry(this, event_clear, 0), 0);
+}
+
+void MastPoints::unregister_handler()
+{
+    openlcb::EventRegistry::instance()->unregister_handler(this);
 }
 
 bool MastFrog::eval()
@@ -223,8 +264,32 @@ void MastFrog::SendEventReport(openlcb::WriteHelper *writer, Notifiable *done)
 }
 
 
-void MastFrog::handle_identify_global(const EventRegistryEntry &registry_entry, 
-                                                 EventReport *event, BarrierNotifiable *done)
+void MastFrog::handle_identify_global(const openlcb::EventRegistryEntry &registry_entry, 
+                                      EventReport *event, BarrierNotifiable *done)
+{
+    if (event->dst_node && event->dst_node != node)
+    {
+        done->notify();
+    }
+    SendProducerIdentified(done);
+    done->maybe_done();
+}
+
+void MastFrog::handle_producer_identified(const openlcb::EventRegistryEntry &registry_entry,   
+                                          EventReport *event,
+                                          BarrierNotifiable *done)
+{
+    if (event->dst_node && event->dst_node != node)
+    {
+        done->notify();
+    }
+    SendProducerIdentified(done);
+    done->maybe_done();
+}
+
+void MastFrog::handle_identify_producer(const openlcb::EventRegistryEntry &registry_entry,     
+                                          EventReport *event,
+                                          BarrierNotifiable *done)
 {
     if (event->dst_node && event->dst_node != node)
     {
@@ -260,5 +325,20 @@ void MastFrog::SendProducerIdentified(BarrierNotifiable *done)
     openlcb::event_write_helper3.WriteAsync(node, mti_c, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(event_clear),
                                    done->new_child());
+}
+
+void MastFrog::register_handler()
+{
+    openlcb::EventRegistry::instance()->register_handler(
+        openlcb::EventRegistryEntry(this, event_stop, 0), 0);
+    openlcb::EventRegistry::instance()->register_handler(
+        openlcb::EventRegistryEntry(this, event_approach, 0), 0);
+    openlcb::EventRegistry::instance()->register_handler(
+        openlcb::EventRegistryEntry(this, event_clear, 0), 0);
+}
+
+void MastFrog::unregister_handler()
+{
+    openlcb::EventRegistry::instance()->unregister_handler(this);
 }
 
