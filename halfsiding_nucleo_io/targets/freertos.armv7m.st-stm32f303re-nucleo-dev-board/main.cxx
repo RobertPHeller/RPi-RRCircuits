@@ -496,15 +496,15 @@ StallMotorWithSense turnout0(stack.node(), cfg.seg().turnouts().entry<0>(),
                              TDRV1_Pin::instance(), TDRV2_Pin::instance(),
                              (const Gpio *)&PORTA_LINE1,
                              (const Gpio *)&PORTA_LINE2);
-StallMotorWithSense turnout1(stack.node(), cfg.seg().turnouts().entry<0>(),
+StallMotorWithSense turnout1(stack.node(), cfg.seg().turnouts().entry<1>(),
                              TDRV3_Pin::instance(), TDRV4_Pin::instance(),
                              (const Gpio *)&PORTA_LINE3,
                              (const Gpio *)&PORTA_LINE4);
 
-openlcb::RefreshLoop loopslaves(stack.node(),
+openlcb::RefreshLoop loopturnouts(stack.node(),
     {
-         absSlaveBus.polling()
-     });
+         turnout0.polling(), turnout1.polling()
+    });
 
 /** Entry point to application.
  * @param argc number of command line arguments
@@ -516,6 +516,7 @@ int appl_main(int argc, char *argv[])
     stack.check_version_and_factory_reset(
         cfg.seg().internal_config(), openlcb::CANONICAL_VERSION, false);
     
+    absSlaveBus.start("ABSSlaveBus",0,2048);
 #ifdef USINGSERVOS
     srv1_gpo.clr();
     srv2_gpo.clr();

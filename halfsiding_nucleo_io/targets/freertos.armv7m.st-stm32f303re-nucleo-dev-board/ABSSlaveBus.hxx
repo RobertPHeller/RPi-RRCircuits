@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 14 21:40:10 2018
-//  Last Modified : <180615.1226>
+//  Last Modified : <180616.2311>
 //
 //  Description	
 //
@@ -43,6 +43,7 @@
 #ifndef __ABSSLAVEBUS_HXX
 #define __ABSSLAVEBUS_HXX
 
+#include "os/OS.hxx"
 #include "openlcb/MemoryConfig.hxx"
 #include "openlcb/RefreshLoop.hxx"
 #include "openlcb/EventHandlerTemplates.hxx"
@@ -108,8 +109,10 @@ public:
     }
     uint8_t NodeID() const {return nodeid;}
     bool Enabled() const {return enabled;}
-    void UpdateState(openlcb::Node *node,openlcb::WriteHelper *writer,
-                     Notifiable *done,const char *message);
+    void UpdateState(openlcb::Node *node,
+                     //openlcb::WriteHelper *writer,
+                     //Notifiable *done,
+                     const char *message);
 private:
     uint8_t nodeid;
     uint8_t occ;
@@ -121,11 +124,13 @@ private:
     bool enabled;
 };
 
-class ABSSlaveBus : public openlcb::Polling {
+class ABSSlaveBus : public OSThread {
 public:
     ABSSlaveBus(openlcb::Node *n,const ABSSlaveList &_slaves);
-    openlcb::Polling *polling() { return this; }
-    virtual void poll_33hz(openlcb::WriteHelper *writer, Notifiable *done);
+    //openlcb::Polling *polling() { return this; }
+    //virtual void poll_33hz(openlcb::WriteHelper *writer, Notifiable *done);
+protected:
+    virtual void *entry();
 private:
     int fd;
     openlcb::Node *node;

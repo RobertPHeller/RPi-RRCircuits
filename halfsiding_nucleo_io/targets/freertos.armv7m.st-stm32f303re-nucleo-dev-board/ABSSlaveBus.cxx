@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jun 15 10:44:08 2018
-//  Last Modified : <180615.1236>
+//  Last Modified : <180616.2310>
 //
 //  Description	
 //
@@ -44,6 +44,11 @@ static const char rcsid[] = "@(#) : $Id$";
 
 #include <stdio.h>
 #include "ABSSlaveBus.hxx"
+#include <unistd.h>
+#include <sys/select.h>
+#include <sys/time.h>
+#include <sys/types.h>
+
 
 ConfigUpdateListener::UpdateAction ABSSlaveNode::apply_configuration(int fd, 
                                                bool initial_load,
@@ -84,8 +89,9 @@ ConfigUpdateListener::UpdateAction ABSSlaveNode::apply_configuration(int fd,
 }
 
 void ABSSlaveNode::UpdateState(openlcb::Node *node,
-                               openlcb::WriteHelper *writer,
-                               Notifiable *done,const char *message)
+                               //openlcb::WriteHelper *writer,
+                               //Notifiable *done,
+                               const char *message)
 {
     int id;
     char o,e,w;
@@ -94,43 +100,43 @@ void ABSSlaveNode::UpdateState(openlcb::Node *node,
     if (o != occ) {
         occ = o;
         if (occ == 'O' ) {
-            writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
-                               openlcb::WriteHelper::global(),
-                               openlcb::eventid_to_buffer(occupied_event),
-                               done);
+            //writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
+            //                   openlcb::WriteHelper::global(),
+            //                   openlcb::eventid_to_buffer(occupied_event),
+            //                   done);
         } else if (occ == 'C') {
-            writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
-                               openlcb::WriteHelper::global(),
-                               openlcb::eventid_to_buffer(unoccupied_event),
-                               done);
+            //writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
+            //                   openlcb::WriteHelper::global(),
+            //                   openlcb::eventid_to_buffer(unoccupied_event),
+            //                   done);
         }
     }
     switch (e) {
     case 'S': 
         if (east_aspect != stop) {
             east_aspect = stop;
-            writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
-                               openlcb::WriteHelper::global(),
-                               openlcb::eventid_to_buffer(east_stop_event),
-                               done);
+            //writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
+            //                   openlcb::WriteHelper::global(),
+            //                   openlcb::eventid_to_buffer(east_stop_event),
+            //                   done);
         }
         break;
     case 'A':
         if (east_aspect != approach) {
             east_aspect = approach;
-            writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
-                               openlcb::WriteHelper::global(),
-                               openlcb::eventid_to_buffer(east_approach_event),
-                               done);
+            //writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
+            //                   openlcb::WriteHelper::global(),
+            //                   openlcb::eventid_to_buffer(east_approach_event),
+            //                   done);
         }
         break;
     case 'C':
         if (east_aspect != clear) {
             east_aspect = clear;
-            writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
-                               openlcb::WriteHelper::global(),
-                               openlcb::eventid_to_buffer(east_clear_event),
-                               done);
+            //writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
+            //                   openlcb::WriteHelper::global(),
+            //                   openlcb::eventid_to_buffer(east_clear_event),
+            //                   done);
         }
         break;
     }
@@ -138,28 +144,28 @@ void ABSSlaveNode::UpdateState(openlcb::Node *node,
     case 'S': 
         if (west_aspect != stop) {
             west_aspect = stop;
-            writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
-                               openlcb::WriteHelper::global(),
-                               openlcb::eventid_to_buffer(west_stop_event),
-                               done);
+            //writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
+            //                   openlcb::WriteHelper::global(),
+            //                   openlcb::eventid_to_buffer(west_stop_event),
+            //                   done);
         }
         break;
     case 'A':
         if (west_aspect != approach) {
             west_aspect = approach;
-            writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
-                               openlcb::WriteHelper::global(),
-                               openlcb::eventid_to_buffer(west_approach_event),
-                               done);
+            //writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
+            //                   openlcb::WriteHelper::global(),
+            //                   openlcb::eventid_to_buffer(west_approach_event),
+            //                   done);
         }
         break;
     case 'C':
         if (west_aspect != clear) {
             west_aspect = clear;
-            writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
-                               openlcb::WriteHelper::global(),
-                               openlcb::eventid_to_buffer(west_clear_event),
-                               done);
+            //writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
+            //                   openlcb::WriteHelper::global(),
+            //                   openlcb::eventid_to_buffer(west_clear_event),
+            //                   done);
         }
         break;
     }
@@ -233,11 +239,12 @@ ABSSlaveBus::ABSSlaveBus(openlcb::Node *n,const ABSSlaveList &_slaves) : slaveco
     slaves[61].begin(slaveconfiglist.entry<61>());
     slaves[62].begin(slaveconfiglist.entry<62>());
     slaves[63].begin(slaveconfiglist.entry<63>());
-    fd = ::open("/dev/ser0", O_RDWR);
+    fd = ::open("/dev/ser1", O_RDWR);
     node = n;
     slaveIndex = MAXSLAVES;
 }
 
+#if 0
 void ABSSlaveBus::poll_33hz(openlcb::WriteHelper *writer, Notifiable *done)
 {
     int islave;
@@ -258,4 +265,46 @@ void ABSSlaveBus::poll_33hz(openlcb::WriteHelper *writer, Notifiable *done)
             slaveIndex++;
         }
     }
+}
+#endif
+
+void *ABSSlaveBus::entry()
+{
+    while (true) {
+        fd_set readfds, writefds, exceptfds;
+        struct timeval timeout;
+        int islave;
+        for (islave = 0; islave < MAXSLAVES; islave++) {
+            if (slaveIndex >= MAXSLAVES) {
+                slaveIndex = 0;
+            }
+            if (slaves[slaveIndex].Enabled()) {
+                char buffer[64];
+                int bytes = snprintf(buffer,64,":G%d;\r\n",slaves[slaveIndex].NodeID());
+                ::write(fd,buffer,bytes);
+                usleep(1000); // 1ms
+                FD_ZERO(&writefds);
+                FD_ZERO(&exceptfds);
+                FD_ZERO(&readfds);
+                FD_SET(fd,&readfds);
+                timeout.tv_sec = 0;
+                timeout.tv_usec = 10000; // 10ms timeout
+                int status = select(fd+1,&readfds,&writefds,&exceptfds,
+                                    &timeout);
+                if (status > 0) {
+                    bytes = ::read(fd,buffer,64);
+                    buffer[bytes] = '\0';
+                    slaves[slaveIndex].UpdateState(node,buffer);
+                    slaveIndex++;
+                    break;
+                } else if (status == 0) {
+                    slaveIndex++; // Timeout -- skip this node.
+                } else {
+                    // error?
+                }
+            }
+        }
+        usleep(30000); // 30ms
+    }
+    return NULL;
 }
