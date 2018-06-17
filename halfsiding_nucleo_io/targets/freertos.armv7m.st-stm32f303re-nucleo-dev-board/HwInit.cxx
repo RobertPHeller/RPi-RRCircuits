@@ -256,15 +256,15 @@ void hw_preinit(void)
     gpio_init.Pin = GPIO_PIN_3;
     HAL_GPIO_Init(GPIOA, &gpio_init);
 
-    /* USART1 pinmux on PB6 and PB7 */
+    /* USART1 pinmux on PA9 and PA10 */
     gpio_init.Mode = GPIO_MODE_AF_PP;
     gpio_init.Pull = GPIO_PULLUP;
     gpio_init.Speed = GPIO_SPEED_FREQ_HIGH;
     gpio_init.Alternate = GPIO_AF7_USART1;
-    gpio_init.Pin = GPIO_PIN_6;
-    HAL_GPIO_Init(GPIOB, &gpio_init);
-    gpio_init.Pin = GPIO_PIN_7;
-    HAL_GPIO_Init(GPIOB, &gpio_init);
+    gpio_init.Pin = GPIO_PIN_9;
+    HAL_GPIO_Init(GPIOA, &gpio_init);
+    gpio_init.Pin = GPIO_PIN_10;
+    HAL_GPIO_Init(GPIOA, &gpio_init);
 
     /* CAN pinmux on PB8 and PB9 */
     gpio_init.Mode = GPIO_MODE_AF_PP;

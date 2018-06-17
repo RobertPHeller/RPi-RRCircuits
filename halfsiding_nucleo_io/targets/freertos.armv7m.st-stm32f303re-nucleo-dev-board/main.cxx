@@ -456,41 +456,17 @@ openlcb::RefreshLoop loopab(stack.node(),
   });
 #endif
 
-constexpr const BLOCKOCC_Pin  block_occ;
+#define BLOCK_OCC      PORTA_LINE5
+#define NextEastPoints PORTA_LINE6
+#define NextWestMain   PORTA_LINE7
+#define NextWestDiv    PORTA_LINE8
+
 openlcb::ConfiguredProducer producer_block_occ(
-    stack.node(), cfg.seg().shield().occdetector(), BLOCKOCC_Pin());
+    stack.node(), cfg.seg().shield().occdetector(), (const Gpio*)&BLOCK_OCC);
 openlcb::RefreshLoop loopocc(stack.node(),
     {
         producer_block_occ.polling()
     });                        
-
-constexpr const NEXT_WEST_MAIN_Pin  next_west_main;
-constexpr const NEXT_WEST_DIV_Pin  next_west_div;
-constexpr const NEXT_EAST_Pin next_east;
-
-MastPoints pointsSignal(stack.node(), cfg.seg().masts().points(),
-                        (const Gpio*)&block_occ, (const Gpio*)&PORTA_LINE2,
-                        (const Gpio*)&next_west_main, (const Gpio*)&PORTD_LINE1,
-                        (const Gpio*)&PORTD_LINE2, (const Gpio*)&PORTD_LINE3,
-                        (const Gpio*)&PORTD_LINE4, (const Gpio*)&PORTD_LINE5);
-
-MastFrog frogMainSignal(stack.node(), cfg.seg().masts().frog_main(),
-                        (const Gpio*)&block_occ, (const Gpio*)&PORTA_LINE2,
-                        (const Gpio*)&next_east, (const Gpio*)&PORTD_LINE6,
-                        (const Gpio*)&PORTD_LINE7, (const Gpio*)&PORTD_LINE8);
-
-MastFrog frogDivSignal(stack.node(), cfg.seg().masts().frog_div(),
-                       (const Gpio*)&block_occ, (const Gpio*)&PORTA_LINE1,
-                       (const Gpio*)&next_east, (const Gpio*)&PORTE_LINE1,
-                       (const Gpio*)&PORTE_LINE2, (const Gpio *)&PORTE_LINE3);
-
-openlcb::RefreshLoop loopmasts(stack.node(),
-    {
-         pointsSignal.polling(), frogMainSignal.polling(), 
-         frogDivSignal.polling()
-    });
-
-ABSSlaveBus absSlaveBus(stack.node(), cfg.seg().abs_slave_list());
 
 StallMotorWithSense turnout0(stack.node(), cfg.seg().turnouts().entry<0>(),
                              TDRV1_Pin::instance(), TDRV2_Pin::instance(),
@@ -505,6 +481,31 @@ openlcb::RefreshLoop loopturnouts(stack.node(),
     {
          turnout0.polling(), turnout1.polling()
     });
+
+
+MastPoints pointsSignal(stack.node(), cfg.seg().masts().points(),
+                        (const Gpio*)&BLOCK_OCC, (const Gpio*)&PORTA_LINE2,
+                        (const Gpio*)&NextEastPoints, (const Gpio*)&PORTD_LINE1,
+                        (const Gpio*)&PORTD_LINE2, (const Gpio*)&PORTD_LINE3,
+                        (const Gpio*)&PORTD_LINE4, (const Gpio*)&PORTD_LINE5);
+
+MastFrog frogMainSignal(stack.node(), cfg.seg().masts().frog_main(),
+                        (const Gpio*)&BLOCK_OCC, (const Gpio*)&PORTA_LINE2,
+                        (const Gpio*)&NextWestMain, (const Gpio*)&PORTD_LINE6,
+                        (const Gpio*)&PORTD_LINE7, (const Gpio*)&PORTD_LINE8);
+
+MastFrog frogDivSignal(stack.node(), cfg.seg().masts().frog_div(),
+                       (const Gpio*)&BLOCK_OCC, (const Gpio*)&PORTA_LINE1,
+                       (const Gpio*)&NextWestDiv, (const Gpio*)&PORTE_LINE1,
+                       (const Gpio*)&PORTE_LINE2, (const Gpio *)&PORTE_LINE3);
+
+openlcb::RefreshLoop loopmasts(stack.node(),
+    {
+         pointsSignal.polling(), frogMainSignal.polling(), 
+         frogDivSignal.polling()
+    });
+
+ABSSlaveBus absSlaveBus(stack.node(), cfg.seg().abs_slave_list());
 
 /** Entry point to application.
  * @param argc number of command line arguments

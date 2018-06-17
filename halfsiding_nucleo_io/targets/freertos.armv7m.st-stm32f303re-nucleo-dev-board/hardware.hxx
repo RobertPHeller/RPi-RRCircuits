@@ -36,10 +36,6 @@ GPIO_PIN(OUT_LAT, GpioOutputSafeLow, A, 8);
 // Latch line on the onboard inputs
 GPIO_PIN(INP_LAT, GpioOutputSafeLow, A, 6);
 
-GPIO_PIN(NEXT_WEST_DIV,  GpioInputPU, A,  5);
-GPIO_PIN(NEXT_WEST_MAIN, GpioInputPU, A,  9);
-GPIO_PIN(NEXT_EAST,      GpioInputPU, A,  7);
-GPIO_PIN(BLOCKOCC,       GpioInputPU, A, 10);
 
 
 typedef GpioInitializer<LED_GREEN_RAW_Pin, SW_USER_Pin, //
@@ -48,8 +44,6 @@ typedef GpioInitializer<LED_GREEN_RAW_Pin, SW_USER_Pin, //
     TDRV1_Pin, TDRV2_Pin, TDRV3_Pin, TDRV4_Pin,         //
     TDRV5_Pin, TDRV6_Pin, TDRV7_Pin, TDRV8_Pin,         //
     EXT_CS_Pin, EXT_LAT_Pin, OUT_LAT_Pin, INP_LAT_Pin,  //
-    NEXT_WEST_DIV_Pin, NEXT_WEST_MAIN_Pin, NEXT_EAST_Pin,//
-    BLOCKOCC_Pin,
     DummyPin>
     GpioInit;
 
