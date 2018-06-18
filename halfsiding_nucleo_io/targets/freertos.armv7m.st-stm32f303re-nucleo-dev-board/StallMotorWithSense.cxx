@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jun 15 22:23:28 2018
-//  Last Modified : <180616.0934>
+//  Last Modified : <180617.2002>
 //
 //  Description	
 //
@@ -108,9 +108,9 @@ StallMotorWithSense::apply_configuration(int fd,
         unregister_handler();
         motor_normal_event = cfg_motor_normal_event;
         motor_reversed_event = cfg_motor_reversed_event;
-        register_handler();
         points_normal_event = cfg_points_normal_event;
         points_reversed_event = cfg_points_reversed_event;
+        register_handler();
         return REINIT_NEEDED; // Causes events identify.
     }
     return UPDATED;
@@ -197,6 +197,10 @@ void StallMotorWithSense::register_handler()
         openlcb::EventRegistryEntry(this, motor_normal_event, 0), 0);
     openlcb::EventRegistry::instance()->register_handler(
         openlcb::EventRegistryEntry(this, motor_reversed_event, 0), 0);
+    openlcb::EventRegistry::instance()->register_handler(
+        openlcb::EventRegistryEntry(this, points_normal_event, 0), 0);
+    openlcb::EventRegistry::instance()->register_handler(
+        openlcb::EventRegistryEntry(this, points_reversed_event, 0), 0);
 }
 
 void StallMotorWithSense::unregister_handler()
