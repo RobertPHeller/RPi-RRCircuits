@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 14 21:40:10 2018
-//  Last Modified : <180617.1517>
+//  Last Modified : <180617.2133>
 //
 //  Description	
 //
@@ -88,9 +88,11 @@ CDI_GROUP_END();
 
 using ABSSlaveList = openlcb::RepeatedGroup<ABSSlaveNodeConfiguration, MAXSLAVES>;
 
-class ABSSlaveNode : public ConfigUpdateListener {
+class ABSSlaveNode : public ConfigUpdateListener, 
+                     public openlcb::SimpleEventHandler {
 public:
     ABSSlaveNode() {
+        node = NULL;
         enabled = false;
         nodeid = 255;
         occ    = 255;
@@ -103,15 +105,17 @@ public:
     virtual void factory_reset(int fd) {
         enabled = false;
     }
-    void begin(const ABSSlaveNodeConfiguration &_config) {
+    void begin(openlcb::Node *_node,const ABSSlaveNodeConfiguration &_config) {
         config = &_config;
+        node = _node;
         ConfigUpdateService::instance()->register_update_listener(this);
     }
     uint8_t NodeID() const {return nodeid;}
     bool Enabled() const {return enabled;}
-    void UpdateState(openlcb::Node *node,
-                     const char *message, Notifiable *done);
-    bool Process(int fd,openlcb::Node *node, Notifiable *done);
+    void UpdateState(const char *message, Notifiable *done);
+    bool Process(int fd, Notifiable *done);
+    void handle_identify_global(const openlcb::EventRegistryEntry &registry_entry, 
+                                EventReport *event, BarrierNotifiable *done) override;
 private:
     uint8_t nodeid;
     uint8_t occ;
@@ -122,6 +126,10 @@ private:
     const ABSSlaveNodeConfiguration *config;
     bool enabled;
     OSMutex mutex_;
+    void SendProducerIdentified(BarrierNotifiable *done);
+    openlcb::Node *node;
+    void unregister_handler();
+    void register_handler();
 };
 
 class ABSSlaveBus : public OSThread, public Notifiable {
