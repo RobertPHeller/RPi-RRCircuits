@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jun 15 10:44:08 2018
-//  Last Modified : <180619.0811>
+//  Last Modified : <180619.1417>
 //
 //  Description	
 //
@@ -50,6 +50,13 @@ static const char rcsid[] = "@(#) : $Id$";
 #include <sys/select.h>
 #include <sys/time.h>
 #include <sys/types.h>
+
+
+static openlcb::WriteHelper event_write_helper5;
+static openlcb::WriteHelper event_write_helper6;
+static openlcb::WriteHelper event_write_helper7;
+static openlcb::WriteHelper event_write_helper8;
+
 
 
 ConfigUpdateListener::UpdateAction ABSSlaveNode::apply_configuration(int fd, 
@@ -298,11 +305,11 @@ void ABSSlaveNode::handle_identify_global(const openlcb::EventRegistryEntry &reg
     {
         done->notify();
     }
-    SendProducerIdentified(done);
+    SendAllProducersIdentified(done);
     done->maybe_done();
 }
 
-void ABSSlaveNode::SendProducerIdentified(BarrierNotifiable *done)
+void ABSSlaveNode::SendAllProducersIdentified(BarrierNotifiable *done)
 {
     openlcb::Defs::MTI mti_o = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID,
           mti_c = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID,
@@ -350,32 +357,150 @@ void ABSSlaveNode::SendProducerIdentified(BarrierNotifiable *done)
                                             openlcb::eventid_to_buffer(unoccupied_event),
                                             done->new_child());
     openlcb::event_write_helper3.WriteAsync(node, mti_ws, openlcb::WriteHelper::global(),
-                                   openlcb::eventid_to_buffer(west_stop_event),
-                                   done->new_child());
+                                            openlcb::eventid_to_buffer(west_stop_event),
+                                            done->new_child());
     openlcb::event_write_helper4.WriteAsync(node, mti_wa, openlcb::WriteHelper::global(),
-                                   openlcb::eventid_to_buffer(west_approach_event),
-                                   done->new_child());
-    /// Hmmm do I need to wait?  Or do something else?
-    openlcb::event_write_helper1.WriteAsync(node, mti_wc, openlcb::WriteHelper::global(),
+                                            openlcb::eventid_to_buffer(west_approach_event),
+                                            done->new_child());
+    event_write_helper5.WriteAsync(node, mti_wc, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(west_clear_event),
                                    done->new_child());
-    openlcb::event_write_helper2.WriteAsync(node, mti_es, openlcb::WriteHelper::global(),
+    event_write_helper6.WriteAsync(node, mti_es, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(east_stop_event),
                                    done->new_child());
-    openlcb::event_write_helper3.WriteAsync(node, mti_ea, openlcb::WriteHelper::global(),
+    event_write_helper7.WriteAsync(node, mti_ea, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(east_approach_event),
                                    done->new_child());
-    openlcb::event_write_helper4.WriteAsync(node, mti_ec, openlcb::WriteHelper::global(),
+    event_write_helper8.WriteAsync(node, mti_ec, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(east_clear_event),
                                    done->new_child());
 }
 
+void ABSSlaveNode::handle_identify_producer(const EventRegistryEntry &registry_entry,
+                                            EventReport *event, 
+                                            BarrierNotifiable *done)
+{
+    SendProducerIdentified(event,done);
+    done->maybe_done();
+}
+
+void ABSSlaveNode::SendProducerIdentified(EventReport *event,BarrierNotifiable *done)
+{
+    openlcb::Defs::MTI mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_UNKNOWN;
+    if (event->event == occupied_event) {
+        if (occ == 'O') {
+            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
+        } else if (occ == 'C') {
+            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
+        }
+    } else if (event->event == unoccupied_event) {
+        if (occ == 'O') {
+            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
+        } else if (occ == 'C') {
+            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
+        }
+    } else if (event->event == west_stop_event) {
+        switch (west_aspect) {
+        case stop:
+            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
+            break;
+        case approach:
+        case clear:
+            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
+            break;
+        case INVALID:
+            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_UNKNOWN;
+        }
+    } else if (event->event == west_approach_event) {
+        switch (west_aspect) {
+        case approach:
+            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
+            break;
+        case stop:
+        case clear:
+            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
+            break;
+        case INVALID:
+            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_UNKNOWN;
+        }
+    } else if (event->event == west_clear_event) {
+        switch (west_aspect) {
+        case clear:
+            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
+            break;
+        case approach:
+        case stop:
+            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
+            break;
+        case INVALID:
+            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_UNKNOWN;
+        }
+    } else if (event->event == east_stop_event) {
+        switch (east_aspect) {
+        case stop:
+            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
+            break;
+        case approach:
+        case clear:
+            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
+            break;
+        case INVALID:
+            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_UNKNOWN;
+        }
+    } else if (event->event == east_approach_event) {
+        switch (east_aspect) {
+        case approach:
+            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
+            break;
+        case stop:
+        case clear:
+            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
+            break;
+        case INVALID:
+            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_UNKNOWN;
+        }
+    } else if (event->event == east_clear_event) {
+        switch (east_aspect) {
+        case clear:
+            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
+            break;
+        case stop:
+        case approach:
+            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
+            break;
+        case INVALID:
+            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_UNKNOWN;
+        }
+    } else {
+    }
+    openlcb::event_write_helper1.WriteAsync(node, mti,  openlcb::WriteHelper::global(),
+                                            openlcb::eventid_to_buffer(event->event),
+                                            done->new_child());
+}
+
 void ABSSlaveNode::unregister_handler()
 {
+    openlcb::EventRegistry::instance()->unregister_handler(this);
 }
 
 void ABSSlaveNode::register_handler()
 {
+    openlcb::EventRegistry::instance()->register_handler(
+        openlcb::EventRegistryEntry(this, occupied_event, 0), 0);
+    openlcb::EventRegistry::instance()->register_handler(
+        openlcb::EventRegistryEntry(this, unoccupied_event, 0), 0);
+    openlcb::EventRegistry::instance()->register_handler(
+        openlcb::EventRegistryEntry(this, west_stop_event, 0), 0);
+    openlcb::EventRegistry::instance()->register_handler(
+        openlcb::EventRegistryEntry(this, west_approach_event, 0), 0);
+    openlcb::EventRegistry::instance()->register_handler(
+        openlcb::EventRegistryEntry(this, west_clear_event, 0), 0);
+    openlcb::EventRegistry::instance()->register_handler(
+        openlcb::EventRegistryEntry(this, east_stop_event, 0), 0);
+    openlcb::EventRegistry::instance()->register_handler(
+        openlcb::EventRegistryEntry(this, east_approach_event, 0), 0);
+    openlcb::EventRegistry::instance()->register_handler(
+        openlcb::EventRegistryEntry(this, east_clear_event, 0), 0);
 }
 
 

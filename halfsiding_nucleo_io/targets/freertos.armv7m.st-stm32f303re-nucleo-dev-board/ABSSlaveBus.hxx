@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 14 21:40:10 2018
-//  Last Modified : <180617.2133>
+//  Last Modified : <180619.1405>
 //
 //  Description	
 //
@@ -116,6 +116,9 @@ public:
     bool Process(int fd, Notifiable *done);
     void handle_identify_global(const openlcb::EventRegistryEntry &registry_entry, 
                                 EventReport *event, BarrierNotifiable *done) override;
+    void handle_identify_producer(const EventRegistryEntry &registry_entry,
+                                  EventReport *event, 
+                                  BarrierNotifiable *done) override;
 private:
     uint8_t nodeid;
     uint8_t occ;
@@ -126,7 +129,8 @@ private:
     const ABSSlaveNodeConfiguration *config;
     bool enabled;
     OSMutex mutex_;
-    void SendProducerIdentified(BarrierNotifiable *done);
+    void SendAllProducersIdentified(BarrierNotifiable *done);
+    void SendProducerIdentified(EventReport *event,BarrierNotifiable *done);
     openlcb::Node *node;
     void unregister_handler();
     void register_handler();
