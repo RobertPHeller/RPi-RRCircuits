@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 11 17:32:41 2018
-//  Last Modified : <180619.0806>
+//  Last Modified : <180619.1317>
 //
 //  Description	
 //
@@ -127,7 +127,7 @@ void MastPoints::handle_identify_global(const openlcb::EventRegistryEntry &regis
     {
         done->notify();
     }
-    SendProducerIdentified(done);
+    SendAllProducersIdentified(done);
     done->maybe_done();
 }
 
@@ -135,11 +135,11 @@ void MastPoints::handle_identify_producer(const openlcb::EventRegistryEntry &reg
                                           EventReport *event,
                                           BarrierNotifiable *done)
 {
-    SendProducerIdentified(done);
+    SendProducerIdentified(event,done);
     done->maybe_done();
 }
 
-void MastPoints::SendProducerIdentified(BarrierNotifiable *done)
+void MastPoints::SendAllProducersIdentified(BarrierNotifiable *done)
 {
     openlcb::Defs::MTI mti_s = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID, 
           mti_al = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID, 
@@ -173,6 +173,23 @@ void MastPoints::SendProducerIdentified(BarrierNotifiable *done)
                                    openlcb::eventid_to_buffer(event_clear),
                                    done->new_child());
     
+}
+
+void MastPoints::SendProducerIdentified(EventReport *event,BarrierNotifiable *done)
+{
+    openlcb::Defs::MTI mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
+    if (event->event == event_stop && aspect == stop) {
+        mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
+    } else if (event->event == event_approach && aspect == approach) {
+        mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
+    } else if (event->event == event_approach_limited && aspect == approach_limited) {
+        mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
+    } else if (event->event == event_clear && aspect == clear) {
+        mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
+    }
+    openlcb::event_write_helper1.WriteAsync(node, mti, openlcb::WriteHelper::global(),
+                                   openlcb::eventid_to_buffer(event->event),
+                                   done->new_child());
 }
 
 void MastPoints::register_handler()
@@ -255,7 +272,7 @@ void MastFrog::handle_identify_global(const openlcb::EventRegistryEntry &registr
     {
         done->notify();
     }
-    SendProducerIdentified(done);
+    SendAllProducersIdentified(done);
     done->maybe_done();
 }
 
@@ -263,11 +280,11 @@ void MastFrog::handle_identify_producer(const openlcb::EventRegistryEntry &regis
                                           EventReport *event,
                                           BarrierNotifiable *done)
 {
-    SendProducerIdentified(done);
+    SendProducerIdentified(event,done);
     done->maybe_done();
 }
 
-void MastFrog::SendProducerIdentified(BarrierNotifiable *done)
+void MastFrog::SendAllProducersIdentified(BarrierNotifiable *done)
 {
     openlcb::Defs::MTI mti_s = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID, 
           mti_a = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID, 
@@ -292,6 +309,21 @@ void MastFrog::SendProducerIdentified(BarrierNotifiable *done)
                                    done->new_child());
     openlcb::event_write_helper3.WriteAsync(node, mti_c, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(event_clear),
+                                   done->new_child());
+}
+
+void MastFrog::SendProducerIdentified(EventReport *event,BarrierNotifiable *done)
+{
+    openlcb::Defs::MTI mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
+    if (event->event == event_stop && aspect == stop) {
+        mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
+    } else if (event->event == event_approach && aspect == approach) {
+        mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
+    } else if (event->event == event_clear && aspect == clear) {
+        mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
+    }
+    openlcb::event_write_helper1.WriteAsync(node, mti, openlcb::WriteHelper::global(),
+                                   openlcb::eventid_to_buffer(event->event),
                                    done->new_child());
 }
 
