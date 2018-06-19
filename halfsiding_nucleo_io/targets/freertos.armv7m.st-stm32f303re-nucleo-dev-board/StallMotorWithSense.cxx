@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jun 15 22:23:28 2018
-//  Last Modified : <180617.2002>
+//  Last Modified : <180619.1355>
 //
 //  Description	
 //
@@ -143,13 +143,21 @@ void StallMotorWithSense::handle_identify_global(const EventRegistryEntry &regis
     {
         done->notify();
     }
-    SendProducerIdentified(done);
-    SendConsumerIdentified(done);
+    SendAllProducersIdentified(done);
+    SendAllConsumersIdentified(done);
     done->maybe_done();
 }
 
+void StallMotorWithSense::handle_identify_producer(const EventRegistryEntry &registry_entry,
+                                                   EventReport *event,
+                                                   BarrierNotifiable *done)
+{
+    SendProducerIdentified(event,done);
+    done->maybe_done();
+}
+          
     
-void StallMotorWithSense::SendProducerIdentified(BarrierNotifiable *done)
+void StallMotorWithSense::SendAllProducersIdentified(BarrierNotifiable *done)
 {
     openlcb::Defs::MTI mti_n, mti_r;
     if (point_state == normal) {
@@ -170,7 +178,31 @@ void StallMotorWithSense::SendProducerIdentified(BarrierNotifiable *done)
     
 }
 
-void StallMotorWithSense::SendConsumerIdentified(BarrierNotifiable *done)
+void StallMotorWithSense::SendProducerIdentified(EventReport *event,
+                                                 BarrierNotifiable *done)
+{
+    openlcb::Defs::MTI mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
+    if (event->event == points_normal_event &&
+        point_state == normal) {
+        mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
+    } else if (event->event == points_reversed_event &&
+               point_state == reversed) {
+        mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
+    }
+    openlcb::event_write_helper1.WriteAsync(node, mti, openlcb::WriteHelper::global(),
+                                   openlcb::eventid_to_buffer(event->event),
+                                   done->new_child());
+}
+
+void StallMotorWithSense::handle_identify_consumer(const EventRegistryEntry &registry_entry,
+                                                   EventReport *event,
+                                                   BarrierNotifiable *done)
+{
+    SendConsumerIdentified(event,done);
+    done->maybe_done();
+}
+          
+void StallMotorWithSense::SendAllConsumersIdentified(BarrierNotifiable *done)
 {
     openlcb::Defs::MTI mti_n, mti_r;
     if (motor_state == normal) {
@@ -190,6 +222,25 @@ void StallMotorWithSense::SendConsumerIdentified(BarrierNotifiable *done)
                                    done->new_child());
     
 }
+
+void StallMotorWithSense::SendConsumerIdentified(EventReport *event,
+                                                 BarrierNotifiable *done)
+{
+    openlcb::Defs::MTI mti = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_INVALID;
+    if (event->event == motor_normal_event &&
+        motor_state == normal) {
+        mti = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_VALID;
+    } else if (event->event == motor_reversed_event &&
+               motor_state == reversed) {
+        mti = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_VALID;
+    } else {
+        mti = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_UNKNOWN;
+    }
+    openlcb::event_write_helper3.WriteAsync(node, mti, openlcb::WriteHelper::global(),
+                                   openlcb::eventid_to_buffer(event->event),
+                                   done->new_child());
+}
+
 
 void StallMotorWithSense::register_handler()
 {

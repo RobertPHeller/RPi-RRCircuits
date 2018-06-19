@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jun 15 19:02:56 2018
-//  Last Modified : <180615.2341>
+//  Last Modified : <180619.1347>
 //
 //  Description	
 //
@@ -112,6 +112,12 @@ public:
     void handle_identify_global(const EventRegistryEntry &registry_entry, 
                                 EventReport *event, BarrierNotifiable *done)
           OVERRIDE;
+    void handle_identify_producer(const EventRegistryEntry &registry_entry,
+                                  EventReport *event,
+                                  BarrierNotifiable *done) override;
+    void handle_identify_consumer(const EventRegistryEntry &registry_entry,
+                                  EventReport *event,
+                                  BarrierNotifiable *done) override;
 private:
     openlcb::Node *node;
     const Gpio *occ;
@@ -126,9 +132,11 @@ private:
     typedef enum {normal, reversed, unknown} PointStates;
     PointStates point_state, motor_state;
     const StallMotorWithSenseConfiguration config;
-    void SendProducerIdentified(BarrierNotifiable *done);
-    void SendConsumerIdentified(BarrierNotifiable *done);
+    void SendAllProducersIdentified(BarrierNotifiable *done);
+    void SendProducerIdentified(EventReport *event,BarrierNotifiable *done);
+    void SendAllConsumersIdentified(BarrierNotifiable *done);
     void SendEventReport(openlcb::WriteHelper *writer, Notifiable *done);
+    void SendConsumerIdentified(EventReport *event,BarrierNotifiable *done);
     uint8_t debounceCount; 
     void register_handler();
     void unregister_handler();
