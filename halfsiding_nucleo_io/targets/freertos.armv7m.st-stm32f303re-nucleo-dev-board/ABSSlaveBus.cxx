@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jun 15 10:44:08 2018
-//  Last Modified : <180617.2148>
+//  Last Modified : <180619.0811>
 //
 //  Description	
 //
@@ -308,7 +308,7 @@ void ABSSlaveNode::SendProducerIdentified(BarrierNotifiable *done)
           mti_c = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID,
           mti_ws = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID, 
           mti_wa = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID, 
-          mti_wc = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
+          mti_wc = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID,
           mti_es = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID, 
           mti_ea = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID, 
           mti_ec = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
@@ -327,6 +327,8 @@ void ABSSlaveNode::SendProducerIdentified(BarrierNotifiable *done)
     case clear:
         mti_ws = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
         break;
+    default:
+        break;
     }
     switch (east_aspect) {
     case stop:
@@ -338,6 +340,8 @@ void ABSSlaveNode::SendProducerIdentified(BarrierNotifiable *done)
     case clear:
         mti_es = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
         break;
+    default:
+        break;
     }
     openlcb::event_write_helper1.WriteAsync(node, mti_o,  openlcb::WriteHelper::global(),
                                             openlcb::eventid_to_buffer(occupied_event),
@@ -346,23 +350,23 @@ void ABSSlaveNode::SendProducerIdentified(BarrierNotifiable *done)
                                             openlcb::eventid_to_buffer(unoccupied_event),
                                             done->new_child());
     openlcb::event_write_helper3.WriteAsync(node, mti_ws, openlcb::WriteHelper::global(),
-                                   openlcb::eventid_to_buffer(west_event_stop),
+                                   openlcb::eventid_to_buffer(west_stop_event),
                                    done->new_child());
     openlcb::event_write_helper4.WriteAsync(node, mti_wa, openlcb::WriteHelper::global(),
-                                   openlcb::eventid_to_buffer(west_event_approach),
+                                   openlcb::eventid_to_buffer(west_approach_event),
                                    done->new_child());
     /// Hmmm do I need to wait?  Or do something else?
     openlcb::event_write_helper1.WriteAsync(node, mti_wc, openlcb::WriteHelper::global(),
-                                   openlcb::eventid_to_buffer(west_event_clear),
+                                   openlcb::eventid_to_buffer(west_clear_event),
                                    done->new_child());
     openlcb::event_write_helper2.WriteAsync(node, mti_es, openlcb::WriteHelper::global(),
-                                   openlcb::eventid_to_buffer(east_event_stop),
+                                   openlcb::eventid_to_buffer(east_stop_event),
                                    done->new_child());
     openlcb::event_write_helper3.WriteAsync(node, mti_ea, openlcb::WriteHelper::global(),
-                                   openlcb::eventid_to_buffer(east_event_approach),
+                                   openlcb::eventid_to_buffer(east_approach_event),
                                    done->new_child());
     openlcb::event_write_helper4.WriteAsync(node, mti_ec, openlcb::WriteHelper::global(),
-                                   openlcb::eventid_to_buffer(east_event_clear),
+                                   openlcb::eventid_to_buffer(east_clear_event),
                                    done->new_child());
 }
 
