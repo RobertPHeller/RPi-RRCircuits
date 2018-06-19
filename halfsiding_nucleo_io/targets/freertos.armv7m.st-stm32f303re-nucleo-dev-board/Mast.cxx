@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 11 17:32:41 2018
-//  Last Modified : <180617.1911>
+//  Last Modified : <180619.0806>
 //
 //  Description	
 //
@@ -131,26 +131,10 @@ void MastPoints::handle_identify_global(const openlcb::EventRegistryEntry &regis
     done->maybe_done();
 }
 
-void MastPoints::handle_producer_identified(const openlcb::EventRegistryEntry &registry_entry,   
-                                            EventReport *event,
-                                            BarrierNotifiable *done)
-{
-    if (event->dst_node && event->dst_node != node)
-    {
-        done->notify();
-    }
-    SendProducerIdentified(done);
-    done->maybe_done();
-}
-
 void MastPoints::handle_identify_producer(const openlcb::EventRegistryEntry &registry_entry,     
                                           EventReport *event,
                                           BarrierNotifiable *done)
 {
-    if (event->dst_node && event->dst_node != node)
-    {
-        done->notify();
-    }
     SendProducerIdentified(done);
     done->maybe_done();
 }
@@ -275,26 +259,10 @@ void MastFrog::handle_identify_global(const openlcb::EventRegistryEntry &registr
     done->maybe_done();
 }
 
-void MastFrog::handle_producer_identified(const openlcb::EventRegistryEntry &registry_entry,   
-                                          EventReport *event,
-                                          BarrierNotifiable *done)
-{
-    if (event->dst_node && event->dst_node != node)
-    {
-        done->notify();
-    }
-    SendProducerIdentified(done);
-    done->maybe_done();
-}
-
 void MastFrog::handle_identify_producer(const openlcb::EventRegistryEntry &registry_entry,     
                                           EventReport *event,
                                           BarrierNotifiable *done)
 {
-    if (event->dst_node && event->dst_node != node)
-    {
-        done->notify();
-    }
     SendProducerIdentified(done);
     done->maybe_done();
 }

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 11 17:23:44 2018
-//  Last Modified : <180617.1903>
+//  Last Modified : <180619.0806>
 //
 //  Description	
 //
@@ -153,9 +153,6 @@ public:
     void handle_identify_global(const EventRegistryEntry &registry_entry, 
                                 EventReport *event, 
                                 BarrierNotifiable *done) OVERRIDE;
-    void handle_producer_identified(const EventRegistryEntry &registry_entry,
-                                    EventReport *event, 
-                                    BarrierNotifiable *done) override;
     void handle_identify_producer(const EventRegistryEntry &registry_entry,
                                   EventReport *event, 
                                   BarrierNotifiable *done) override;
@@ -238,9 +235,6 @@ public:
     void handle_identify_global(const EventRegistryEntry &registry_entry, 
                                 EventReport *event, 
                                 BarrierNotifiable *done) OVERRIDE;
-    void handle_producer_identified(const EventRegistryEntry &registry_entry,
-                                    EventReport *event, 
-                                    BarrierNotifiable *done) override;
     void handle_identify_producer(const EventRegistryEntry &registry_entry,
                                   EventReport *event, 
                                   BarrierNotifiable *done) override;
