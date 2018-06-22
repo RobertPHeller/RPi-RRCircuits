@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/heller/RRCircuits/STM32ShieldForMetroMiniSlaves/STM32ShieldForMetroMiniSlaves.sch)
-    (date "Fri 22 Jun 2018 10:01:40 EDT")
+    (date "Fri 22 Jun 2018 15:42:39 EDT")
     (tool "eeschema (2013-june-11)-stable"))
   (components
     (comp (ref P1)
@@ -63,7 +63,7 @@
       (sheetpath (names /) (tstamps /))
       (tstamp 5B203B6B))
     (comp (ref P12)
-      (value CONN_5)
+      (value "ABS Slave Bus")
       (libsource (lib conn) (part CONN_5))
       (sheetpath (names /) (tstamps /))
       (tstamp 5B203C05))
@@ -108,7 +108,7 @@
       (sheetpath (names /) (tstamps /))
       (tstamp 5B216B56))
     (comp (ref P9)
-      (value CONN_2)
+      (value "In Track Out")
       (libsource (lib conn) (part CONN_2))
       (sheetpath (names /) (tstamps /))
       (tstamp 5B216BC6))
