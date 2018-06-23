@@ -258,7 +258,7 @@ void hw_preinit(void)
 
     /* USART1 pinmux on PA9 and PA10 */
     gpio_init.Mode = GPIO_MODE_AF_PP;
-    gpio_init.Pull = GPIO_PULLUP;
+    gpio_init.Pull = GPIO_NOPULL;
     gpio_init.Speed = GPIO_SPEED_FREQ_HIGH;
     gpio_init.Alternate = GPIO_AF7_USART1;
     gpio_init.Pin = GPIO_PIN_9;
