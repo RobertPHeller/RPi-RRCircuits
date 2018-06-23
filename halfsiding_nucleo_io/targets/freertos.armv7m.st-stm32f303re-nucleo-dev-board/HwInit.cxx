@@ -268,7 +268,7 @@ void hw_preinit(void)
 
     /* CAN pinmux on PB8 and PB9 */
     gpio_init.Mode = GPIO_MODE_AF_PP;
-    gpio_init.Pull = GPIO_PULLUP;
+    gpio_init.Pull = GPIO_NOPULL;
     gpio_init.Speed = GPIO_SPEED_FREQ_HIGH;
     gpio_init.Alternate = GPIO_AF9_CAN;
     gpio_init.Pin = GPIO_PIN_8;
