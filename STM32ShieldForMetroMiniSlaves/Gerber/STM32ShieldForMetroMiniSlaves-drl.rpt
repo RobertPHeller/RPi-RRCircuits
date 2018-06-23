@@ -1,14 +1,14 @@
 Drill report for /home/heller/RRCircuits/STM32ShieldForMetroMiniSlaves/STM32ShieldForMetroMiniSlaves.kicad_pcb
-Created on Sat 23 Jun 2018 09:17:26 EDT
+Created on Sat 23 Jun 2018 10:27:57 EDT
 Drill report for plated through holes :
 T1  0.40mm  0.016"  (23 holes)
-T2  0.81mm  0.032"  (76 holes)
+T2  0.81mm  0.032"  (78 holes)
 T3  1.02mm  0.040"  (53 holes)
 T4  1.25mm  0.049"  (2 holes)
 T5  1.52mm  0.060"  (4 holes)
 T6  3.05mm  0.120"  (4 holes)
 
-Total plated holes count 162
+Total plated holes count 164
 
 
 Drill report for unplated through holes :
