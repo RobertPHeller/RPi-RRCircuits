@@ -40,7 +40,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "22 jun 2018"
+Date "23 jun 2018"
 Rev ""
 Comp ""
 Comment1 ""
@@ -626,40 +626,7 @@ F 3 "" H 4650 650 60  0000 C CNN
 $EndComp
 NoConn ~ 10200 1200
 NoConn ~ 10200 1300
-$Comp
-L R R12
-U 1 1 5B266C10
-P 3600 4800
-F 0 "R12" V 3680 4800 40  0000 C CNN
-F 1 "10K Ohms" V 3607 4801 40  0000 C CNN
-F 2 "~" V 3530 4800 30  0000 C CNN
-F 3 "~" H 3600 4800 30  0000 C CNN
-	1    3600 4800
-	1    0    0    -1  
-$EndComp
-$Comp
-L R R11
-U 1 1 5B266C1F
-P 3600 4300
-F 0 "R11" V 3680 4300 40  0000 C CNN
-F 1 "4.7K Ohms" V 3607 4301 40  0000 C CNN
-F 2 "~" V 3530 4300 30  0000 C CNN
-F 3 "~" H 3600 4300 30  0000 C CNN
-	1    3600 4300
-	1    0    0    -1  
-$EndComp
-$Comp
-L GND #PWR015
-U 1 1 5B266C2E
-P 3600 5200
-F 0 "#PWR015" H 3600 5200 30  0001 C CNN
-F 1 "GND" H 3600 5130 30  0001 C CNN
-F 2 "" H 3600 5200 60  0000 C CNN
-F 3 "" H 3600 5200 60  0000 C CNN
-	1    3600 5200
-	1    0    0    -1  
-$EndComp
-Text Label 3600 4550 0    60   ~ 0
+Text Label 3600 4050 0    60   ~ 0
 2
 Text Label 4050 4850 0    60   ~ 0
 8
@@ -1055,8 +1022,6 @@ Wire Wire Line
 Wire Wire Line
 	5500 5150 5500 4950
 Connection ~ 5500 4950
-Wire Wire Line
-	3600 5050 3600 5200
 Wire Wire Line
 	4050 4450 3800 4450
 Wire Wire Line
