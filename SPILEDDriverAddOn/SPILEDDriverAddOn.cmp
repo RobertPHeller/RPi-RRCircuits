@@ -1,0 +1,122 @@
+Cmp-Mod V01 Created by PcbNew date = Wed 20 Jun 2018 20:12:21 EDT
+
+BeginCmp
+TimeStamp = /5B2ADE19/5B2AE7E7;
+Reference = C1;
+ValeurCmp = .47uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B2AF5D2/5B2AE7E7;
+Reference = C2;
+ValeurCmp = .47uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B2B0868/5B2AE7E7;
+Reference = C3;
+ValeurCmp = .47uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B2B086E/5B2AE7E7;
+Reference = C4;
+ValeurCmp = .47uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B2B1C05;
+Reference = P1;
+ValeurCmp = CONN_8;
+IdModule  = pin_strip_8-90;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B2ADE19/5B2AE5D0;
+Reference = P2;
+ValeurCmp = CONN_9;
+IdModule  = ScrewTerm_2.54-9;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B2AF5D2/5B2AE5D0;
+Reference = P3;
+ValeurCmp = CONN_9;
+IdModule  = ScrewTerm_2.54-9;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B2B0868/5B2AE5D0;
+Reference = P4;
+ValeurCmp = CONN_9;
+IdModule  = ScrewTerm_2.54-9;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B2B086E/5B2AE5D0;
+Reference = P5;
+ValeurCmp = CONN_9;
+IdModule  = ScrewTerm_2.54-9;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B2ADE19/5B2ADE67;
+Reference = U1;
+ValeurCmp = 74HCT595N;
+IdModule  = DIP-16__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B2ADE19/5B2AE331;
+Reference = U2;
+ValeurCmp = ULN2803A;
+IdModule  = DIP-18__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B2AF5D2/5B2ADE67;
+Reference = U3;
+ValeurCmp = 74HCT595N;
+IdModule  = DIP-16__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B2AF5D2/5B2AE331;
+Reference = U4;
+ValeurCmp = ULN2803A;
+IdModule  = DIP-18__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B2B0868/5B2ADE67;
+Reference = U5;
+ValeurCmp = 74HCT595N;
+IdModule  = DIP-16__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B2B0868/5B2AE331;
+Reference = U6;
+ValeurCmp = ULN2803A;
+IdModule  = DIP-18__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B2B086E/5B2ADE67;
+Reference = U7;
+ValeurCmp = 74HCT595N;
+IdModule  = DIP-16__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B2B086E/5B2AE331;
+Reference = U8;
+ValeurCmp = ULN2803A;
+IdModule  = DIP-18__300;
+EndCmp
+
+EndListe
