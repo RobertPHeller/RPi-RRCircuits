@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Tue Jun 12 23:07:31 2018
-//  Last Modified : <180612.2329>
+//  Last Modified : <180722.1648>
 //
 //  Description	
 //
@@ -66,7 +66,7 @@ void GPIOState::setPinSense(uint8_t p, uint8_t s) {
 void GPIOState::init(uint8_t s)
 {
     sense = s;
-    pinMode(pin,INPUT);
+    pinMode(pin,INPUT_PULLUP);
     lastState=false;
     duration=lastDuration=0;
     state=false;
@@ -88,6 +88,8 @@ void GPIOStateIn::process()
     } else {                                    // ..else its position is stable and so debounced
       if(state != newState) {                   // ....But is it a new state?..
         state = newState;                       // .....yes, so update
+          Serial.print("*** GPIOStateIn::process(): state = ");
+          Serial.println(state);
         lastDuration = duration + 32;           //       and remember the duration of the last state
         timeOfLastChange = now;                 //       so we can calc duration
         duration = 0;                           //       start timing new state

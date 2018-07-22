@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Tue Jun 12 22:08:01 2018
-//  Last Modified : <180616.1446>
+//  Last Modified : <180722.1657>
 //
 //  Description	
 //
@@ -154,10 +154,10 @@ GPIOStatePWMOut westYellow(WSIGNALYELLOW);
 GPIOStatePWMOut westRed(WSIGNALRED);
 
 // Signal Masts 
-Mast mastE(&blockOcc,&nextEast,&eastGreen,&eastYellow,&eastRed,
+Mast mastE(&blockOcc,&nextEast,&eastRed,&eastYellow,&eastGreen,
            STOP_BRITE,APPROACH_BRITE,CLEAR_BRITE,
            YELLOW_HUE);
-Mast mastW(&blockOcc,&nextWest,&westGreen,&westYellow,&westRed,
+Mast mastW(&blockOcc,&nextWest,&westRed,&westYellow,&westGreen,
            STOP_BRITE,APPROACH_BRITE,CLEAR_BRITE,
            YELLOW_HUE);
 
@@ -193,6 +193,9 @@ void setup()
     // Initialize the masts
     mastE.init(Common_Anode,Bicolor_Search);
     mastW.init(Common_Anode,Bicolor_Search);
+    Serial.print("MetroMiniABSBiDir-noCANSlave #");
+    Serial.print(Blockid);
+    Serial.println(" Starting");
     // Initialize the slave bus
     slaveBus.init(Blockid);
           
@@ -215,5 +218,6 @@ void loop()
     mastE.eval();
     mastW.eval();
     slaveBus.process();
+    delay(10); // give up time for the serial I/O code to get cycles
 }
 

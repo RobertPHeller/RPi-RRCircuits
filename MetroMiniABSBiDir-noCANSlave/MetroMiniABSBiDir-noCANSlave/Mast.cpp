@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Tue Jun 12 23:30:39 2018
-//  Last Modified : <180616.1436>
+//  Last Modified : <180722.1652>
 //
 //  Description	
 //
@@ -45,6 +45,7 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "Mast.h"
 
 void Mast::eval() {
+    //Serial.print("*** Mast::eval(): block->state is "); Serial.println(block->state);
     if (block->state) {
         stop->state = true;
         approach->state = false;
@@ -58,6 +59,9 @@ void Mast::eval() {
         approach->state = false;
         clear->state = true;
     }
+    //Serial.print("*** Mast::eval(): stop->state is "); Serial.println(stop->state);
+    //Serial.print("*** Mast::eval(): approach->state is "); Serial.println(approach->state);
+    //Serial.print("*** Mast::eval(): clear->state is "); Serial.println(clear->state);
     // Set LED brightnesses...
     if (stop->state) {
         if (commonAnode) {
