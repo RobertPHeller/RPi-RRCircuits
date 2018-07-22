@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Wed 13 Jun 2018 08:07:05 EDT
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Mon 09 Jul 2018 18:05:52 EDT
 
 BeginCmp
 TimeStamp = /5B1FF5CF;
@@ -164,8 +164,15 @@ EndCmp
 BeginCmp
 TimeStamp = /5B2109C9;
 Reference = SW1;
-ValeurCmp = DIP_SWITCH_(8_POS);
+ValeurCmp = BC CA  0  1  2  3  4  5;
 IdModule  = DIP-16__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B43DD24;
+Reference = T1;
+ValeurCmp = CONN_2;
+IdModule  = mors_2p;
 EndCmp
 
 BeginCmp
