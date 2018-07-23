@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Tue Jun 12 23:30:39 2018
-//  Last Modified : <180722.1652>
+//  Last Modified : <180723.1334>
 //
 //  Description	
 //
@@ -65,45 +65,45 @@ void Mast::eval() {
     // Set LED brightnesses...
     if (stop->state) {
         if (commonAnode) {
-            stop->setPWM(stopBrite);
-            approach->setPWM(0);
-            clear->setPWM(0);
-        } else {
             stop->setPWM(255-stopBrite);
             approach->setPWM(255);
             clear->setPWM(255);
+        } else {
+            stop->setPWM(stopBrite);
+            approach->setPWM(0);
+            clear->setPWM(0);
         }
     } else if (approach->state) { 
         if (biColorSearch) {
             uint8_t green = approachBrite*(yellowHue/256.0);
             uint8_t red   = approachBrite*((255-yellowHue)/256.0);
             if (commonAnode) {
-                stop->setPWM(red);
-                clear->setPWM(green);
-            } else {
                 stop->setPWM(255-red);
                 clear->setPWM(255-green);
+            } else {
+                stop->setPWM(red);
+                clear->setPWM(green);
             }
         } else {
             if (commonAnode) {
-                stop->setPWM(0);
-                approach->setPWM(approachBrite);
-                clear->setPWM(0);
-            } else {
                 stop->setPWM(255);
                 approach->setPWM(255-approachBrite);
                 clear->setPWM(255);
+            } else {
+                stop->setPWM(0);
+                approach->setPWM(approachBrite);
+                clear->setPWM(0);
             }
         }
     } else if (clear->state) {
         if (commonAnode) {
-            stop->setPWM(0);
-            approach->setPWM(0);
-            clear->setPWM(clearBrite);
-        } else {
             stop->setPWM(255);
             approach->setPWM(255);
             clear->setPWM(255-clearBrite);
+        } else {
+            stop->setPWM(0);
+            approach->setPWM(0);
+            clear->setPWM(clearBrite);
         }
     }   
 }

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Tue Jun 12 22:08:01 2018
-//  Last Modified : <180722.1657>
+//  Last Modified : <180723.1341>
 //
 //  Description	
 //
@@ -184,6 +184,8 @@ void setup()
     pinMode(BLOCKID5,INPUT_PULLUP);
     Common_Anode = digitalRead(LEDCOMMONMODE);
     Bicolor_Search = digitalRead(BICOLORSEARCH);
+    //Serial.print("*** setup(): Common_Anode = "); Serial.println((int)Common_Anode);
+    //Serial.print("*** setup(): Bicolor_Search = "); Serial.println((int)Bicolor_Search);
     Blockid = digitalRead(BLOCKID0) + 
           (digitalRead(BLOCKID1) << 1) +
           (digitalRead(BLOCKID2) << 2) +
@@ -212,11 +214,18 @@ void setup()
  */
 void loop()
 {
+    eastGreen.process();
+    eastYellow.process();
+    eastRed.process();
+    westGreen.process();
+    westYellow.process();
+    westRed.process();
     blockOcc.process();
     nextEast.process();
     nextWest.process();
     mastE.eval();
     mastW.eval();
+    
     slaveBus.process();
     delay(10); // give up time for the serial I/O code to get cycles
 }

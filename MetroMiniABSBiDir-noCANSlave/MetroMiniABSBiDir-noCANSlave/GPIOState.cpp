@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Tue Jun 12 23:07:31 2018
-//  Last Modified : <180722.1648>
+//  Last Modified : <180723.1340>
 //
 //  Description	
 //
@@ -83,13 +83,15 @@ void GPIOStateIn::process()
   if(period != lastButtonPeriod) {              // If we are in a new period
     lastButtonPeriod = period;                  // .. remember it
     newState = (sense == digitalRead(pin));     // .. and read it, is the button up or down
+      //Serial.print("*** GPIOStateIn::process(): newState = ");
+      //Serial.println(newState);
     if(newState != lastState) {                 // ..if button changed then..
       lastState = newState;                     // ....remember the button state
     } else {                                    // ..else its position is stable and so debounced
       if(state != newState) {                   // ....But is it a new state?..
         state = newState;                       // .....yes, so update
-          Serial.print("*** GPIOStateIn::process(): state = ");
-          Serial.println(state);
+          //Serial.print("*** GPIOStateIn::process(): state = ");
+          //Serial.println(state);
         lastDuration = duration + 32;           //       and remember the duration of the last state
         timeOfLastChange = now;                 //       so we can calc duration
         duration = 0;                           //       start timing new state
@@ -102,6 +104,10 @@ void GPIOStateIn::process()
 }
 
 void GPIOStatePWMOut::process() {
+    //Serial.print("*** GPIOStatePWMOut::process(): pin = ");
+    //Serial.println(pin);
+    //Serial.print("*** GPIOStatePWMOut::process(): brightness = ");
+    //Serial.println(brightness);
     analogWrite(pin, brightness);
     return;
 }
