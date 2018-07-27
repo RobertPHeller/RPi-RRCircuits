@@ -43,7 +43,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "9 jul 2018"
+Date "26 jul 2018"
 Rev ""
 Comp ""
 Comment1 ""
@@ -868,7 +868,7 @@ L CONN_2 T1
 U 1 1 5B43DD24
 P 2650 5150
 F 0 "T1" V 2600 5150 40  0000 C CNN
-F 1 "CONN_2" V 2700 5150 40  0000 C CNN
+F 1 "- 7-12V +" V 2700 5150 40  0000 C CNN
 F 2 "~" H 2650 5150 60  0000 C CNN
 F 3 "~" H 2650 5150 60  0000 C CNN
 	1    2650 5150
