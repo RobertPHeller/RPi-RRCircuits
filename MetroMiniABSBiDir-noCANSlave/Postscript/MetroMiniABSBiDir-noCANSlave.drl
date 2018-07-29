@@ -1,5 +1,5 @@
 M48
-;DRILL file {Pcbnew (2013-june-11)-stable} date Sat 16 Jun 2018 15:02:50 EDT
+;DRILL file {Pcbnew (2013-june-11)-stable} date Thu 26 Jul 2018 16:46:34 EDT
 ;FORMAT={-:-/ absolute / metric / decimal}
 FMAT,2
 METRIC,TZ
@@ -180,6 +180,8 @@ X171.45Y-158.75
 T8
 X88.9Y-134.62
 X88.9Y-139.7
+X92.075Y-187.325
+X97.155Y-187.325
 T9
 X100.33Y-129.51
 X100.33Y-134.61
