@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jun 15 22:23:28 2018
-//  Last Modified : <180728.1426>
+//  Last Modified : <180729.1618>
 //
 //  Description	
 //
@@ -74,13 +74,15 @@ void StallMotorWithSense::SendEventReport(openlcb::WriteHelper *writer,
 {
     switch (point_state) {
     case normal:
-        writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
+        if (points_normal_event != 0LL)
+            writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
                            openlcb::WriteHelper::global(),
                            openlcb::eventid_to_buffer(points_normal_event),
                            done);
         break;
     case reversed:
-        writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
+        if (points_reversed_event != 0LL)
+            writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
                            openlcb::WriteHelper::global(),
                            openlcb::eventid_to_buffer(points_reversed_event),
                            done);
@@ -119,6 +121,8 @@ StallMotorWithSense::apply_configuration(int fd,
 
 void StallMotorWithSense::factory_reset(int fd)
 {
+    LOG(INFO,"StallMotorWithSense::factory_reset(%d)",fd);
+    config.description().write(fd,"");
 }
 
 void StallMotorWithSense::handle_event_report(const EventRegistryEntry &entry, 

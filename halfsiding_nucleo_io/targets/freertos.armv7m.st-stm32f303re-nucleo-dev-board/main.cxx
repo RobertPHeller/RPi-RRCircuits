@@ -44,6 +44,11 @@
 #include "openlcb/MultiConfiguredConsumer.hxx"
 #include "openlcb/ConfiguredProducer.hxx"
 
+#ifdef LOGLEVEL
+#undef LOGLEVEL
+#define LOGLEVEL VERBOSE
+#endif
+
 #include "freertos_drivers/st/Stm32Gpio.hxx"
 #include "freertos_drivers/common/BlinkerGPIO.hxx"
 #include "freertos_drivers/common/DummyGPIO.hxx"
@@ -174,6 +179,7 @@ public:
 
     void factory_reset(int fd) override
     {
+        LOG(INFO,"FactoryResetHelper::factory_reset(%d)",fd);
         cfg.userinfo().name().write(fd, "Halfsiding Nucleo IO board");
         cfg.userinfo().description().write(
             fd, "OpenLCB DevKit + F303RC dev board + Halfsiding Shield.");
@@ -541,11 +547,14 @@ ABSSlaveBus absSlaveBus(stack.node(), cfg.seg().abs_slave_list());
  */
 int appl_main(int argc, char *argv[])
 {
+    new SerialLoggingServer(stack.service(), "/dev/ser0");
+    LOG(INFO,"Half-siding starting... openlcb::CONFIG_FILE_SIZE is %04x / %d\n",openlcb::CONFIG_FILE_SIZE,openlcb::CONFIG_FILE_SIZE);
+    absSlaveBus.begin("/dev/ser1");
     stack.check_version_and_factory_reset(
         cfg.seg().internal_config(), openlcb::CANONICAL_VERSION, false);
     
-    absSlaveBus.begin("/dev/ser1");
     absSlaveBus.start("ABSSlaveBus",0,2048);
+    LOG(INFO,"Forked ABSSlaveBus thread\n");
 #ifdef USINGSERVOS                                                              
     srv1_gpo.clr();
     srv2_gpo.clr();

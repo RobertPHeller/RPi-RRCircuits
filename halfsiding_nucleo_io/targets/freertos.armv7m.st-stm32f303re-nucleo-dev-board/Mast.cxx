@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 11 17:32:41 2018
-//  Last Modified : <180728.1814>
+//  Last Modified : <180729.1549>
 //
 //  Description	
 //
@@ -47,15 +47,15 @@ static const char rcsid[] = "@(#) : $Id$";
 
 #ifdef LOGLEVEL
 #undef LOGLEVEL
-#define LOGLEVEL INFO
+#define LOGLEVEL VERBOSE
 #endif
 
 bool MastPoints::eval()
 {
     bool result = false;
-    LOG(INFO,"MastPoints::eval(): occ->read() is %d",occ->read());
-    LOG(INFO,"MastPoints::eval(): pointstate->read() is %d",pointstate->read());
-    LOG(INFO,"MastPoints::eval(): next->read() is %d",next->read());
+    //LOG(INFO,"MastPoints::eval(): occ->read() is %d\n",occ->read());
+    //LOG(INFO,"MastPoints::eval(): pointstate->read() is %d\n",pointstate->read());
+    //LOG(INFO,"MastPoints::eval(): next->read() is %d\n",next->read());
     if (occ->read() == Gpio::Value::CLR) {
         if (aspect != stop) result = true;
         aspect = stop;
@@ -69,8 +69,8 @@ bool MastPoints::eval()
         if (aspect != clear) result = true;
         aspect = clear;
     }
-    LOG(INFO,"MastPoints::eval(): aspect is %d",aspect);
-    LOG(INFO,"MastPoints::eval(): result is %d",result);
+    //LOG(INFO,"MastPoints::eval(): aspect is %d\n",aspect);
+    //LOG(INFO,"MastPoints::eval(): result is %d\n",result);
     switch (aspect) {
     case stop:
         maingreen->clr();
@@ -108,22 +108,26 @@ void MastPoints::SendEventReport(openlcb::WriteHelper *writer, Notifiable *done)
 {
     switch (aspect) {
     case stop: 
-        writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
+        if (event_stop != 0LL)
+            writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
                            openlcb::WriteHelper::global(),
                            openlcb::eventid_to_buffer(event_stop),done);
         break;
     case approach_limited:
-        writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
+        if (event_approach_limited != 0LL)
+            writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
                            openlcb::WriteHelper::global(),
                            openlcb::eventid_to_buffer(event_approach_limited),done);
         break;
     case approach:
-        writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
+        if (event_approach != 0LL)
+            writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
                            openlcb::WriteHelper::global(),
                            openlcb::eventid_to_buffer(event_approach),done);
         break;
     case clear:
-        writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
+        if (event_clear != 0LL)
+            writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
                            openlcb::WriteHelper::global(),
                            openlcb::eventid_to_buffer(event_clear),done);
         break;
@@ -170,16 +174,20 @@ void MastPoints::SendAllProducersIdentified(BarrierNotifiable *done)
         break;
     }
     
-    openlcb::event_write_helper1.WriteAsync(node, mti_s, openlcb::WriteHelper::global(),
+    if (event_stop != 0LL)
+        openlcb::event_write_helper1.WriteAsync(node, mti_s, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(event_stop),
                                    done->new_child());
-    openlcb::event_write_helper2.WriteAsync(node, mti_al, openlcb::WriteHelper::global(),
+    if (event_approach_limited != 0LL)
+        openlcb::event_write_helper2.WriteAsync(node, mti_al, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(event_approach_limited),
                                    done->new_child());
-    openlcb::event_write_helper3.WriteAsync(node, mti_a, openlcb::WriteHelper::global(),
+    if (event_approach != 0LL)
+        openlcb::event_write_helper3.WriteAsync(node, mti_a, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(event_approach),
                                    done->new_child());
-    openlcb::event_write_helper4.WriteAsync(node, mti_c, openlcb::WriteHelper::global(),
+    if (event_clear != 0LL)
+        openlcb::event_write_helper4.WriteAsync(node, mti_c, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(event_clear),
                                    done->new_child());
     
@@ -272,17 +280,20 @@ void MastFrog::SendEventReport(openlcb::WriteHelper *writer, Notifiable *done)
 {
     switch (aspect) {
     case stop: 
-        writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
+        if (event_stop != 0LL)
+            writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
                            openlcb::WriteHelper::global(),
                            openlcb::eventid_to_buffer(event_stop),done);
         break;
     case approach:
-        writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
+        if (event_approach != 0LL)
+            writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
                            openlcb::WriteHelper::global(),
                            openlcb::eventid_to_buffer(event_approach),done);
         break;
     case clear:
-        writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
+        if (event_clear != 0LL)
+            writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
                            openlcb::WriteHelper::global(),
                            openlcb::eventid_to_buffer(event_clear),done);
         break;
@@ -326,13 +337,16 @@ void MastFrog::SendAllProducersIdentified(BarrierNotifiable *done)
         break;
     }
     
-    openlcb::event_write_helper1.WriteAsync(node, mti_s, openlcb::WriteHelper::global(),
+    if (event_stop != 0LL)
+        openlcb::event_write_helper1.WriteAsync(node, mti_s, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(event_stop),
                                    done->new_child());
-    openlcb::event_write_helper2.WriteAsync(node, mti_a, openlcb::WriteHelper::global(),
+    if (event_approach != 0LL)
+        openlcb::event_write_helper2.WriteAsync(node, mti_a, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(event_approach),
                                    done->new_child());
-    openlcb::event_write_helper3.WriteAsync(node, mti_c, openlcb::WriteHelper::global(),
+    if (event_clear != 0LL)
+        openlcb::event_write_helper3.WriteAsync(node, mti_c, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(event_clear),
                                    done->new_child());
 }

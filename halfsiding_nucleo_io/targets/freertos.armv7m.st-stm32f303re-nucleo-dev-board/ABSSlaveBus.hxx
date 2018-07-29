@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 14 21:40:10 2018
-//  Last Modified : <180729.1054>
+//  Last Modified : <180729.1635>
 //
 //  Description	
 //
@@ -53,11 +53,14 @@
 
 CDI_GROUP(ABSSlaveNodeConfiguration);
 CDI_GROUP_ENTRY(enabled, openlcb::Uint8ConfigEntry, //
-                Name("Node Enabled"), MapValues("<relation><property>1</property><value>Yes</value></relation><relation><property>0</property><value>No</value></relation>"));
+                Name("Node Enabled"), 
+                MapValues("<relation><property>1</property><value>Yes</value></relation><relation><property>0</property><value>No</value></relation>"),
+                Default(0));
 CDI_GROUP_ENTRY(description, openlcb::StringConfigEntry<15>, //
                 Name("Description"), Description("User name of this node"));
 CDI_GROUP_ENTRY(nodeid, openlcb::Uint8ConfigEntry, //
-                Name("Node ID"), Min(0), Max(63));
+                Name("Node ID"), Min(0), Max(63),
+                Default(255));
 CDI_GROUP_ENTRY(occupied_event, openlcb::EventConfigEntry, //
                 Name("Occupied Event"),
                 Description("This event will be produced when the block the node covers becomes occupied."));
@@ -104,7 +107,10 @@ public:
                                              bool initial_load,
                                              BarrierNotifiable *done) override;
     virtual void factory_reset(int fd) {
-        enabled = false;
+        LOG(INFO,"ABSSlaveNode::factory_reset(%d)",fd);
+        config->enabled().write(fd,0);
+        config->description().write(fd,"");
+        config->nodeid().write(fd,255);
     }
     void begin(openlcb::Node *_node,const ABSSlaveNodeConfiguration &_config) {
         config = &_config;

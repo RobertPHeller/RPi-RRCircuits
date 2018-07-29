@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jun 15 10:44:08 2018
-//  Last Modified : <180729.1126>
+//  Last Modified : <180729.1636>
 //
 //  Description	
 //
@@ -51,6 +51,10 @@ static const char rcsid[] = "@(#) : $Id$";
 #include <sys/time.h>
 #include <sys/types.h>
 
+#ifdef LOGLEVEL
+#undef LOGLEVEL
+#define LOGLEVEL VERBOSE
+#endif
 
 static openlcb::WriteHelper event_write_helper5;
 static openlcb::WriteHelper event_write_helper6;
@@ -65,15 +69,19 @@ ConfigUpdateListener::UpdateAction ABSSlaveNode::apply_configuration(int fd,
 {
     OSMutexLock ConfigureUpdateLock(&mutex_);
     AutoNotify n(done);
-    enabled = config->enabled().read(fd);
+    //LOG(INFO,"ABSSlaveNode::apply_configuration(%d,%d,%p) called\n",fd,initial_load,done);
     nodeid = config->nodeid().read(fd);
+    enabled = config->enabled().read(fd);
+    if (nodeid < 0 || nodeid > 63) enabled = false;
+    //LOG(INFO,"%d, %d ",nodeid,enabled);
+    if (enabled) {
+        LOG(INFO,"ABSSlaveNode::apply_configuration(): enabled: nodeid = %d\n",nodeid);
+    }
     openlcb::EventId cfg_occupied_event = config->occupied_event().read(fd);
     openlcb::EventId cfg_unoccupied_event = config->unoccupied_event().read(fd);
-
     openlcb::EventId cfg_east_stop_event = config->east_stop_event().read(fd);
     openlcb::EventId cfg_east_approach_event = config->east_approach_event().read(fd);
     openlcb::EventId cfg_east_clear_event = config->east_clear_event().read(fd);
-
     openlcb::EventId cfg_west_stop_event = config->west_stop_event().read(fd);
     openlcb::EventId cfg_west_approach_event = config->west_approach_event().read(fd);
     openlcb::EventId cfg_west_clear_event = config->west_clear_event().read(fd);
@@ -94,7 +102,10 @@ ConfigUpdateListener::UpdateAction ABSSlaveNode::apply_configuration(int fd,
         west_stop_event = cfg_west_stop_event;
         west_approach_event = cfg_west_approach_event;
         west_clear_event = cfg_west_clear_event;
-        if (enabled) register_handler();
+        if (enabled) {
+            LOG(INFO,"ABSSlaveNode::apply_configuration(): registering event handler\n");
+            register_handler();
+        }
         return REINIT_NEEDED; // Causes events identify.
     }
     return UPDATED;
@@ -112,24 +123,29 @@ void ABSSlaveNode::UpdateState(const char *message,
     if (o != occ) {
         occ = o;
         if (occ == 'O' ) {
-            openlcb::event_write_helper1.WriteAsync(node,
-                                           openlcb::Defs::MTI_EVENT_REPORT,
-                                           openlcb::WriteHelper::global(),
-                                           openlcb::eventid_to_buffer(occupied_event),
-                                           done);
+            if (occupied_event != 0LL) 
+                openlcb::event_write_helper1.WriteAsync(
+                     node,
+                     openlcb::Defs::MTI_EVENT_REPORT,
+                     openlcb::WriteHelper::global(),
+                     openlcb::eventid_to_buffer(occupied_event),
+                     done);
         } else if (occ == 'C') {
-            openlcb::event_write_helper1.WriteAsync(node,
-                                           openlcb::Defs::MTI_EVENT_REPORT,
-                                           openlcb::WriteHelper::global(),
-                                           openlcb::eventid_to_buffer(unoccupied_event),
-                                           done);
+            if (unoccupied_event != 0LL)
+                openlcb::event_write_helper1.WriteAsync(
+                     node,
+                     openlcb::Defs::MTI_EVENT_REPORT,
+                     openlcb::WriteHelper::global(),
+                     openlcb::eventid_to_buffer(unoccupied_event),
+                     done);
         }
     }
     switch (e) {
     case 'S': 
         if (east_aspect != stop) {
             east_aspect = stop;
-            openlcb::event_write_helper2.WriteAsync(node,
+            if (east_stop_event != 0LL)
+                openlcb::event_write_helper2.WriteAsync(node,
                                            openlcb::Defs::MTI_EVENT_REPORT,
                                            openlcb::WriteHelper::global(),
                                            openlcb::eventid_to_buffer(east_stop_event),
@@ -139,7 +155,8 @@ void ABSSlaveNode::UpdateState(const char *message,
     case 'A':
         if (east_aspect != approach) {
             east_aspect = approach;
-            openlcb::event_write_helper2.WriteAsync(node,
+            if (east_approach_event != 0LL)
+                openlcb::event_write_helper2.WriteAsync(node,
                                            openlcb::Defs::MTI_EVENT_REPORT,
                                            openlcb::WriteHelper::global(),
                                            openlcb::eventid_to_buffer(east_approach_event),
@@ -149,7 +166,8 @@ void ABSSlaveNode::UpdateState(const char *message,
     case 'C':
         if (east_aspect != clear) {
             east_aspect = clear;
-            openlcb::event_write_helper2.WriteAsync(node,
+            if (east_clear_event != 0LL)
+                openlcb::event_write_helper2.WriteAsync(node,
                                            openlcb::Defs::MTI_EVENT_REPORT,
                                            openlcb::WriteHelper::global(),
                                            openlcb::eventid_to_buffer(east_clear_event),
@@ -161,7 +179,8 @@ void ABSSlaveNode::UpdateState(const char *message,
     case 'S': 
         if (west_aspect != stop) {
             west_aspect = stop;
-            openlcb::event_write_helper3.WriteAsync(node,
+            if (west_stop_event != 0LL)
+                openlcb::event_write_helper3.WriteAsync(node,
                                            openlcb::Defs::MTI_EVENT_REPORT,
                                            openlcb::WriteHelper::global(),
                                            openlcb::eventid_to_buffer(west_stop_event),
@@ -171,7 +190,8 @@ void ABSSlaveNode::UpdateState(const char *message,
     case 'A':
         if (west_aspect != approach) {
             west_aspect = approach;
-            openlcb::event_write_helper3.WriteAsync(node,
+            if (west_approach_event != 0LL)
+                openlcb::event_write_helper3.WriteAsync(node,
                                            openlcb::Defs::MTI_EVENT_REPORT,
                                            openlcb::WriteHelper::global(),
                                            openlcb::eventid_to_buffer(west_approach_event),
@@ -181,7 +201,8 @@ void ABSSlaveNode::UpdateState(const char *message,
     case 'C':
         if (west_aspect != clear) {
             west_aspect = clear;
-            openlcb::event_write_helper3.WriteAsync(node,
+            if (west_clear_event != 0LL)
+                openlcb::event_write_helper3.WriteAsync(node,
                                            openlcb::Defs::MTI_EVENT_REPORT,
                                            openlcb::WriteHelper::global(),
                                            openlcb::eventid_to_buffer(west_clear_event),
@@ -200,73 +221,137 @@ ABSSlaveBus::ABSSlaveBus(openlcb::Node *n,const ABSSlaveList &_slaves) : slaveco
 }
 
 void ABSSlaveBus::begin(const char *serialport) {
+    //LOG(INFO,"ABSSlaveBus::begin(\"%s\") entered\n",serialport);
     slaves[0].begin(node,slaveconfiglist.entry<0>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 0 begun\n");
     slaves[1].begin(node,slaveconfiglist.entry<1>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 1 begun\n");
     slaves[2].begin(node,slaveconfiglist.entry<2>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 2 begun\n");
     slaves[3].begin(node,slaveconfiglist.entry<3>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 3 begun\n");
     slaves[4].begin(node,slaveconfiglist.entry<4>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 4 begun\n");
     slaves[5].begin(node,slaveconfiglist.entry<5>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 5 begun\n");
     slaves[6].begin(node,slaveconfiglist.entry<6>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 6 begun\n");
     slaves[7].begin(node,slaveconfiglist.entry<7>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 7 begun\n");
     slaves[8].begin(node,slaveconfiglist.entry<8>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 8 begun\n");
     slaves[9].begin(node,slaveconfiglist.entry<9>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 9 begun\n");
     slaves[10].begin(node,slaveconfiglist.entry<10>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 10 begun\n");
     slaves[11].begin(node,slaveconfiglist.entry<11>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 11 begun\n");
     slaves[12].begin(node,slaveconfiglist.entry<12>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 12 begun\n");
     slaves[13].begin(node,slaveconfiglist.entry<13>());
-#if 0
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 13 begun\n");
     slaves[14].begin(node,slaveconfiglist.entry<14>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 14 begun\n");
     slaves[15].begin(node,slaveconfiglist.entry<15>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 15 begun\n");
     slaves[16].begin(node,slaveconfiglist.entry<16>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 16 begun\n");
     slaves[17].begin(node,slaveconfiglist.entry<17>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 17 begun\n");
     slaves[18].begin(node,slaveconfiglist.entry<18>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 18 begun\n");
     slaves[19].begin(node,slaveconfiglist.entry<19>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 19 begun\n");
     slaves[20].begin(node,slaveconfiglist.entry<20>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 20 begun\n");
     slaves[21].begin(node,slaveconfiglist.entry<21>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 21 begun\n");
     slaves[22].begin(node,slaveconfiglist.entry<22>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 22 begun\n");
     slaves[23].begin(node,slaveconfiglist.entry<23>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 23 begun\n");
     slaves[24].begin(node,slaveconfiglist.entry<24>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 24 begun\n");
     slaves[25].begin(node,slaveconfiglist.entry<25>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 25 begun\n");
     slaves[26].begin(node,slaveconfiglist.entry<26>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 26 begun\n");
     slaves[27].begin(node,slaveconfiglist.entry<27>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 27 begun\n");
     slaves[28].begin(node,slaveconfiglist.entry<28>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 28 begun\n");
     slaves[29].begin(node,slaveconfiglist.entry<29>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 29 begun\n");
     slaves[30].begin(node,slaveconfiglist.entry<30>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 30 begun\n");
     slaves[31].begin(node,slaveconfiglist.entry<31>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 31 begun\n");
     slaves[32].begin(node,slaveconfiglist.entry<32>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 32 begun\n");
     slaves[33].begin(node,slaveconfiglist.entry<33>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 33 begun\n");
     slaves[34].begin(node,slaveconfiglist.entry<34>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 34 begun\n");
     slaves[35].begin(node,slaveconfiglist.entry<35>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 35 begun\n");
     slaves[36].begin(node,slaveconfiglist.entry<36>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 36 begun\n");
     slaves[37].begin(node,slaveconfiglist.entry<37>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 37 begun\n");
     slaves[38].begin(node,slaveconfiglist.entry<38>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 38 begun\n");
     slaves[39].begin(node,slaveconfiglist.entry<39>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 39 begun\n");
     slaves[40].begin(node,slaveconfiglist.entry<40>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 40 begun\n");
     slaves[41].begin(node,slaveconfiglist.entry<41>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 41 begun\n");
     slaves[42].begin(node,slaveconfiglist.entry<42>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 42 begun\n");
     slaves[43].begin(node,slaveconfiglist.entry<43>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 43 begun\n");
     slaves[44].begin(node,slaveconfiglist.entry<44>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 44 begun\n");
     slaves[45].begin(node,slaveconfiglist.entry<45>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 45 begun\n");
     slaves[46].begin(node,slaveconfiglist.entry<46>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 46 begun\n");
     slaves[47].begin(node,slaveconfiglist.entry<47>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 47 begun\n");
     slaves[48].begin(node,slaveconfiglist.entry<48>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 48 begun\n");
     slaves[49].begin(node,slaveconfiglist.entry<49>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 49 begun\n");
     slaves[50].begin(node,slaveconfiglist.entry<50>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 50 begun\n");
     slaves[51].begin(node,slaveconfiglist.entry<51>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 51 begun\n");
     slaves[52].begin(node,slaveconfiglist.entry<52>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 52 begun\n");
     slaves[53].begin(node,slaveconfiglist.entry<53>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 53 begun\n");
     slaves[54].begin(node,slaveconfiglist.entry<54>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 54 begun\n");
     slaves[55].begin(node,slaveconfiglist.entry<55>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 55 begun\n");
     slaves[56].begin(node,slaveconfiglist.entry<56>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 56 begun\n");
     slaves[57].begin(node,slaveconfiglist.entry<57>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 57 begun\n");
     slaves[58].begin(node,slaveconfiglist.entry<58>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 58 begun\n");
     slaves[59].begin(node,slaveconfiglist.entry<59>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 59 begun\n");
     slaves[60].begin(node,slaveconfiglist.entry<60>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 60 begun\n");
     slaves[61].begin(node,slaveconfiglist.entry<61>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 61 begun\n");
     slaves[62].begin(node,slaveconfiglist.entry<62>());
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 62 begun\n");
     slaves[63].begin(node,slaveconfiglist.entry<63>());
-#endif
+    //LOG(INFO,"ABSSlaveBus::begin(): slave 63 begun\n");
     fd = ::open(serialport, O_RDWR);
+    //LOG(INFO,"ABSSlaveBus::begin(): port opened, fd = %d\n",fd);
 }
 
 bool ABSSlaveNode::Process(int fd, Notifiable *done)
@@ -355,28 +440,36 @@ void ABSSlaveNode::SendAllProducersIdentified(BarrierNotifiable *done)
     default:
         break;
     }
-    openlcb::event_write_helper1.WriteAsync(node, mti_o,  openlcb::WriteHelper::global(),
+    if (occupied_event != 0LL)
+        openlcb::event_write_helper1.WriteAsync(node, mti_o,  openlcb::WriteHelper::global(),
                                             openlcb::eventid_to_buffer(occupied_event),
                                             done->new_child());
-    openlcb::event_write_helper2.WriteAsync(node, mti_c,  openlcb::WriteHelper::global(),
+    if (unoccupied_event != 0LL)
+        openlcb::event_write_helper2.WriteAsync(node, mti_c,  openlcb::WriteHelper::global(),
                                             openlcb::eventid_to_buffer(unoccupied_event),
                                             done->new_child());
-    openlcb::event_write_helper3.WriteAsync(node, mti_ws, openlcb::WriteHelper::global(),
+    if (west_stop_event != 0LL)
+        openlcb::event_write_helper3.WriteAsync(node, mti_ws, openlcb::WriteHelper::global(),
                                             openlcb::eventid_to_buffer(west_stop_event),
                                             done->new_child());
-    openlcb::event_write_helper4.WriteAsync(node, mti_wa, openlcb::WriteHelper::global(),
+    if (west_approach_event != 0LL)
+        openlcb::event_write_helper4.WriteAsync(node, mti_wa, openlcb::WriteHelper::global(),
                                             openlcb::eventid_to_buffer(west_approach_event),
                                             done->new_child());
-    event_write_helper5.WriteAsync(node, mti_wc, openlcb::WriteHelper::global(),
+    if (west_clear_event != 0LL)
+        event_write_helper5.WriteAsync(node, mti_wc, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(west_clear_event),
                                    done->new_child());
-    event_write_helper6.WriteAsync(node, mti_es, openlcb::WriteHelper::global(),
+    if (east_stop_event != 0LL)
+        event_write_helper6.WriteAsync(node, mti_es, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(east_stop_event),
                                    done->new_child());
-    event_write_helper7.WriteAsync(node, mti_ea, openlcb::WriteHelper::global(),
+    if (east_approach_event != 0LL)
+        event_write_helper7.WriteAsync(node, mti_ea, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(east_approach_event),
                                    done->new_child());
-    event_write_helper8.WriteAsync(node, mti_ec, openlcb::WriteHelper::global(),
+    if (east_clear_event != 0LL)
+        event_write_helper8.WriteAsync(node, mti_ec, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(east_clear_event),
                                    done->new_child());
 }
@@ -485,6 +578,7 @@ void ABSSlaveNode::SendProducerIdentified(EventReport *event,BarrierNotifiable *
 
 void ABSSlaveNode::unregister_handler()
 {
+    //LOG(INFO,"ABSSlaveNode::unregister_handler(): registeredCount = %d\n",registeredCount);
     if (registeredCount > 0) {
         openlcb::EventRegistry::instance()->unregister_handler(this);
     }
@@ -492,6 +586,7 @@ void ABSSlaveNode::unregister_handler()
 
 void ABSSlaveNode::register_handler()
 {
+    LOG(INFO,"ABSSlaveNode::register_handler(): [enter] registeredCount = %d\n",registeredCount);
     if (occupied_event != 0LL) {
         openlcb::EventRegistry::instance()->register_handler(
             openlcb::EventRegistryEntry(this, occupied_event), 0);
@@ -532,6 +627,7 @@ void ABSSlaveNode::register_handler()
             openlcb::EventRegistryEntry(this, east_clear_event), 0);
         registeredCount++;
     }
+    LOG(INFO,"ABSSlaveNode::register_handler(): [exit] registeredCount = %d\n",registeredCount);
 }
 
 
@@ -539,17 +635,16 @@ void ABSSlaveNode::register_handler()
 void *ABSSlaveBus::entry()
 {
     while (true) {
-#if 0
         int islave;
         for (islave = 0; islave < MAXSLAVES; islave++) {
             if (slaveIndex >= MAXSLAVES) {
                 slaveIndex = 0;
             }
             if (slaves[slaveIndex++].Process(fd,this)) {
+                LOG(INFO,"ABSSlaveBus::entry(): slaveIndex = %d processed\n",slaveIndex);
                 break;
             }
         }
-#endif
         usleep(30000); // 30ms
     }
     return NULL;
