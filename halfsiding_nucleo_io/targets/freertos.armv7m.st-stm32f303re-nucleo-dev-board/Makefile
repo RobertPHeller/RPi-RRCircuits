@@ -39,3 +39,7 @@ flash gdb:
 	echo OPENOCD not found ; exit 1
 
 endif
+
+xflash:
+	$(OPENOCDPATH)/openocd --search $(OPENOCDSCRIPTSPATH) $(OPENOCDARGS) -c "program $(EXECUTABLE)$(EXTENTION) verify reset exit"
+	

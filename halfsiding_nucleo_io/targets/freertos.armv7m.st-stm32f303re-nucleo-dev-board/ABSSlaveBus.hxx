@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 14 21:40:10 2018
-//  Last Modified : <180619.1405>
+//  Last Modified : <180729.1054>
 //
 //  Description	
 //
@@ -98,6 +98,7 @@ public:
         occ    = 255;
         west_aspect = INVALID;
         east_aspect = INVALID;
+        registeredCount = 0;
     }
     virtual UpdateAction apply_configuration(int fd, 
                                              bool initial_load,
@@ -108,6 +109,7 @@ public:
     void begin(openlcb::Node *_node,const ABSSlaveNodeConfiguration &_config) {
         config = &_config;
         node = _node;
+        registeredCount = 0;
         ConfigUpdateService::instance()->register_update_listener(this);
     }
     uint8_t NodeID() const {return nodeid;}
@@ -132,6 +134,7 @@ private:
     void SendAllProducersIdentified(BarrierNotifiable *done);
     void SendProducerIdentified(EventReport *event,BarrierNotifiable *done);
     openlcb::Node *node;
+    int registeredCount;
     void unregister_handler();
     void register_handler();
 };
@@ -141,6 +144,7 @@ public:
     ABSSlaveBus(openlcb::Node *n,const ABSSlaveList &_slaves);
     virtual void notify() {}
     virtual void notify_from_isr() {}
+    void begin(const char *serialport);
 protected:
     virtual void *entry();
 private:

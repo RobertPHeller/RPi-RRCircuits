@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jun 15 10:44:08 2018
-//  Last Modified : <180619.1417>
+//  Last Modified : <180729.1126>
 //
 //  Description	
 //
@@ -94,7 +94,7 @@ ConfigUpdateListener::UpdateAction ABSSlaveNode::apply_configuration(int fd,
         west_stop_event = cfg_west_stop_event;
         west_approach_event = cfg_west_approach_event;
         west_clear_event = cfg_west_clear_event;
-        register_handler();
+        if (enabled) register_handler();
         return REINIT_NEEDED; // Causes events identify.
     }
     return UPDATED;
@@ -195,73 +195,78 @@ void ABSSlaveNode::UpdateState(const char *message,
 
 ABSSlaveBus::ABSSlaveBus(openlcb::Node *n,const ABSSlaveList &_slaves) : slaveconfiglist(_slaves) 
 {
-    slaves[0].begin(n,slaveconfiglist.entry<0>());
-    slaves[1].begin(n,slaveconfiglist.entry<1>());
-    slaves[2].begin(n,slaveconfiglist.entry<2>());
-    slaves[3].begin(n,slaveconfiglist.entry<3>());
-    slaves[4].begin(n,slaveconfiglist.entry<4>());
-    slaves[5].begin(n,slaveconfiglist.entry<5>());
-    slaves[6].begin(n,slaveconfiglist.entry<6>());
-    slaves[7].begin(n,slaveconfiglist.entry<7>());
-    slaves[8].begin(n,slaveconfiglist.entry<8>());
-    slaves[9].begin(n,slaveconfiglist.entry<9>());
-    slaves[10].begin(n,slaveconfiglist.entry<10>());
-    slaves[11].begin(n,slaveconfiglist.entry<11>());
-    slaves[12].begin(n,slaveconfiglist.entry<12>());
-    slaves[13].begin(n,slaveconfiglist.entry<13>());
-    slaves[14].begin(n,slaveconfiglist.entry<14>());
-    slaves[15].begin(n,slaveconfiglist.entry<15>());
-    slaves[16].begin(n,slaveconfiglist.entry<16>());
-    slaves[17].begin(n,slaveconfiglist.entry<17>());
-    slaves[18].begin(n,slaveconfiglist.entry<18>());
-    slaves[19].begin(n,slaveconfiglist.entry<19>());
-    slaves[20].begin(n,slaveconfiglist.entry<20>());
-    slaves[21].begin(n,slaveconfiglist.entry<21>());
-    slaves[22].begin(n,slaveconfiglist.entry<22>());
-    slaves[23].begin(n,slaveconfiglist.entry<23>());
-    slaves[24].begin(n,slaveconfiglist.entry<24>());
-    slaves[25].begin(n,slaveconfiglist.entry<25>());
-    slaves[26].begin(n,slaveconfiglist.entry<26>());
-    slaves[27].begin(n,slaveconfiglist.entry<27>());
-    slaves[28].begin(n,slaveconfiglist.entry<28>());
-    slaves[29].begin(n,slaveconfiglist.entry<29>());
-    slaves[30].begin(n,slaveconfiglist.entry<30>());
-    slaves[31].begin(n,slaveconfiglist.entry<31>());
-    slaves[32].begin(n,slaveconfiglist.entry<32>());
-    slaves[33].begin(n,slaveconfiglist.entry<33>());
-    slaves[34].begin(n,slaveconfiglist.entry<34>());
-    slaves[35].begin(n,slaveconfiglist.entry<35>());
-    slaves[36].begin(n,slaveconfiglist.entry<36>());
-    slaves[37].begin(n,slaveconfiglist.entry<37>());
-    slaves[38].begin(n,slaveconfiglist.entry<38>());
-    slaves[39].begin(n,slaveconfiglist.entry<39>());
-    slaves[40].begin(n,slaveconfiglist.entry<40>());
-    slaves[41].begin(n,slaveconfiglist.entry<41>());
-    slaves[42].begin(n,slaveconfiglist.entry<42>());
-    slaves[43].begin(n,slaveconfiglist.entry<43>());
-    slaves[44].begin(n,slaveconfiglist.entry<44>());
-    slaves[45].begin(n,slaveconfiglist.entry<45>());
-    slaves[46].begin(n,slaveconfiglist.entry<46>());
-    slaves[47].begin(n,slaveconfiglist.entry<47>());
-    slaves[48].begin(n,slaveconfiglist.entry<48>());
-    slaves[49].begin(n,slaveconfiglist.entry<49>());
-    slaves[50].begin(n,slaveconfiglist.entry<50>());
-    slaves[51].begin(n,slaveconfiglist.entry<51>());
-    slaves[52].begin(n,slaveconfiglist.entry<52>());
-    slaves[53].begin(n,slaveconfiglist.entry<53>());
-    slaves[54].begin(n,slaveconfiglist.entry<54>());
-    slaves[55].begin(n,slaveconfiglist.entry<55>());
-    slaves[56].begin(n,slaveconfiglist.entry<56>());
-    slaves[57].begin(n,slaveconfiglist.entry<57>());
-    slaves[58].begin(n,slaveconfiglist.entry<58>());
-    slaves[59].begin(n,slaveconfiglist.entry<59>());
-    slaves[60].begin(n,slaveconfiglist.entry<60>());
-    slaves[61].begin(n,slaveconfiglist.entry<61>());
-    slaves[62].begin(n,slaveconfiglist.entry<62>());
-    slaves[63].begin(n,slaveconfiglist.entry<63>());
-    fd = ::open("/dev/ser1", O_RDWR);
     node = n;
     slaveIndex = MAXSLAVES;
+}
+
+void ABSSlaveBus::begin(const char *serialport) {
+    slaves[0].begin(node,slaveconfiglist.entry<0>());
+    slaves[1].begin(node,slaveconfiglist.entry<1>());
+    slaves[2].begin(node,slaveconfiglist.entry<2>());
+    slaves[3].begin(node,slaveconfiglist.entry<3>());
+    slaves[4].begin(node,slaveconfiglist.entry<4>());
+    slaves[5].begin(node,slaveconfiglist.entry<5>());
+    slaves[6].begin(node,slaveconfiglist.entry<6>());
+    slaves[7].begin(node,slaveconfiglist.entry<7>());
+    slaves[8].begin(node,slaveconfiglist.entry<8>());
+    slaves[9].begin(node,slaveconfiglist.entry<9>());
+    slaves[10].begin(node,slaveconfiglist.entry<10>());
+    slaves[11].begin(node,slaveconfiglist.entry<11>());
+    slaves[12].begin(node,slaveconfiglist.entry<12>());
+    slaves[13].begin(node,slaveconfiglist.entry<13>());
+#if 0
+    slaves[14].begin(node,slaveconfiglist.entry<14>());
+    slaves[15].begin(node,slaveconfiglist.entry<15>());
+    slaves[16].begin(node,slaveconfiglist.entry<16>());
+    slaves[17].begin(node,slaveconfiglist.entry<17>());
+    slaves[18].begin(node,slaveconfiglist.entry<18>());
+    slaves[19].begin(node,slaveconfiglist.entry<19>());
+    slaves[20].begin(node,slaveconfiglist.entry<20>());
+    slaves[21].begin(node,slaveconfiglist.entry<21>());
+    slaves[22].begin(node,slaveconfiglist.entry<22>());
+    slaves[23].begin(node,slaveconfiglist.entry<23>());
+    slaves[24].begin(node,slaveconfiglist.entry<24>());
+    slaves[25].begin(node,slaveconfiglist.entry<25>());
+    slaves[26].begin(node,slaveconfiglist.entry<26>());
+    slaves[27].begin(node,slaveconfiglist.entry<27>());
+    slaves[28].begin(node,slaveconfiglist.entry<28>());
+    slaves[29].begin(node,slaveconfiglist.entry<29>());
+    slaves[30].begin(node,slaveconfiglist.entry<30>());
+    slaves[31].begin(node,slaveconfiglist.entry<31>());
+    slaves[32].begin(node,slaveconfiglist.entry<32>());
+    slaves[33].begin(node,slaveconfiglist.entry<33>());
+    slaves[34].begin(node,slaveconfiglist.entry<34>());
+    slaves[35].begin(node,slaveconfiglist.entry<35>());
+    slaves[36].begin(node,slaveconfiglist.entry<36>());
+    slaves[37].begin(node,slaveconfiglist.entry<37>());
+    slaves[38].begin(node,slaveconfiglist.entry<38>());
+    slaves[39].begin(node,slaveconfiglist.entry<39>());
+    slaves[40].begin(node,slaveconfiglist.entry<40>());
+    slaves[41].begin(node,slaveconfiglist.entry<41>());
+    slaves[42].begin(node,slaveconfiglist.entry<42>());
+    slaves[43].begin(node,slaveconfiglist.entry<43>());
+    slaves[44].begin(node,slaveconfiglist.entry<44>());
+    slaves[45].begin(node,slaveconfiglist.entry<45>());
+    slaves[46].begin(node,slaveconfiglist.entry<46>());
+    slaves[47].begin(node,slaveconfiglist.entry<47>());
+    slaves[48].begin(node,slaveconfiglist.entry<48>());
+    slaves[49].begin(node,slaveconfiglist.entry<49>());
+    slaves[50].begin(node,slaveconfiglist.entry<50>());
+    slaves[51].begin(node,slaveconfiglist.entry<51>());
+    slaves[52].begin(node,slaveconfiglist.entry<52>());
+    slaves[53].begin(node,slaveconfiglist.entry<53>());
+    slaves[54].begin(node,slaveconfiglist.entry<54>());
+    slaves[55].begin(node,slaveconfiglist.entry<55>());
+    slaves[56].begin(node,slaveconfiglist.entry<56>());
+    slaves[57].begin(node,slaveconfiglist.entry<57>());
+    slaves[58].begin(node,slaveconfiglist.entry<58>());
+    slaves[59].begin(node,slaveconfiglist.entry<59>());
+    slaves[60].begin(node,slaveconfiglist.entry<60>());
+    slaves[61].begin(node,slaveconfiglist.entry<61>());
+    slaves[62].begin(node,slaveconfiglist.entry<62>());
+    slaves[63].begin(node,slaveconfiglist.entry<63>());
+#endif
+    fd = ::open(serialport, O_RDWR);
 }
 
 bool ABSSlaveNode::Process(int fd, Notifiable *done)
@@ -480,27 +485,53 @@ void ABSSlaveNode::SendProducerIdentified(EventReport *event,BarrierNotifiable *
 
 void ABSSlaveNode::unregister_handler()
 {
-    openlcb::EventRegistry::instance()->unregister_handler(this);
+    if (registeredCount > 0) {
+        openlcb::EventRegistry::instance()->unregister_handler(this);
+    }
 }
 
 void ABSSlaveNode::register_handler()
 {
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this, occupied_event, 0), 0);
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this, unoccupied_event, 0), 0);
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this, west_stop_event, 0), 0);
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this, west_approach_event, 0), 0);
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this, west_clear_event, 0), 0);
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this, east_stop_event, 0), 0);
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this, east_approach_event, 0), 0);
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this, east_clear_event, 0), 0);
+    if (occupied_event != 0LL) {
+        openlcb::EventRegistry::instance()->register_handler(
+            openlcb::EventRegistryEntry(this, occupied_event), 0);
+        registeredCount++;
+    }
+    if (unoccupied_event != 0LL) {
+        openlcb::EventRegistry::instance()->register_handler(
+            openlcb::EventRegistryEntry(this, unoccupied_event), 0);
+        registeredCount++;
+    }
+    if (west_stop_event != 0LL) {
+        openlcb::EventRegistry::instance()->register_handler(
+            openlcb::EventRegistryEntry(this, west_stop_event), 0);
+        registeredCount++;
+    }
+    if (west_approach_event != 0LL) {
+        openlcb::EventRegistry::instance()->register_handler(
+            openlcb::EventRegistryEntry(this, west_approach_event), 0);
+        registeredCount++;
+    }
+    if (west_clear_event != 0LL) {
+        openlcb::EventRegistry::instance()->register_handler(
+            openlcb::EventRegistryEntry(this, west_clear_event), 0);
+        registeredCount++;
+    }
+    if (east_stop_event != 0LL) {
+        openlcb::EventRegistry::instance()->register_handler(
+            openlcb::EventRegistryEntry(this, east_stop_event), 0);
+        registeredCount++;
+    }
+    if (east_approach_event != 0LL) {
+        openlcb::EventRegistry::instance()->register_handler(
+            openlcb::EventRegistryEntry(this, east_approach_event), 0);
+        registeredCount++;
+    }
+    if (east_clear_event != 0LL) {
+        openlcb::EventRegistry::instance()->register_handler(
+            openlcb::EventRegistryEntry(this, east_clear_event), 0);
+        registeredCount++;
+    }
 }
 
 
@@ -508,6 +539,7 @@ void ABSSlaveNode::register_handler()
 void *ABSSlaveBus::entry()
 {
     while (true) {
+#if 0
         int islave;
         for (islave = 0; islave < MAXSLAVES; islave++) {
             if (slaveIndex >= MAXSLAVES) {
@@ -517,6 +549,7 @@ void *ABSSlaveBus::entry()
                 break;
             }
         }
+#endif
         usleep(30000); // 30ms
     }
     return NULL;

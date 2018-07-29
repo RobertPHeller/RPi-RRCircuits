@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jun 15 22:23:28 2018
-//  Last Modified : <180619.1355>
+//  Last Modified : <180728.1426>
 //
 //  Description	
 //
@@ -89,6 +89,7 @@ void StallMotorWithSense::SendEventReport(openlcb::WriteHelper *writer,
         done->notify();
         return;
     }
+    done->notify();
 }
 
 ConfigUpdateListener::UpdateAction 
@@ -175,7 +176,6 @@ void StallMotorWithSense::SendAllProducersIdentified(BarrierNotifiable *done)
     openlcb::event_write_helper2.WriteAsync(node, mti_r, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(points_reversed_event),
                                    done->new_child());
-    
 }
 
 void StallMotorWithSense::SendProducerIdentified(EventReport *event,
@@ -220,7 +220,6 @@ void StallMotorWithSense::SendAllConsumersIdentified(BarrierNotifiable *done)
     openlcb::event_write_helper4.WriteAsync(node, mti_r, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(motor_reversed_event),
                                    done->new_child());
-    
 }
 
 void StallMotorWithSense::SendConsumerIdentified(EventReport *event,
@@ -238,24 +237,39 @@ void StallMotorWithSense::SendConsumerIdentified(EventReport *event,
     }
     openlcb::event_write_helper3.WriteAsync(node, mti, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(event->event),
-                                   done->new_child());
+                                            done->new_child());
 }
 
 
 void StallMotorWithSense::register_handler()
 {
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this, motor_normal_event, 0), 0);
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this, motor_reversed_event, 0), 0);
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this, points_normal_event, 0), 0);
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this, points_reversed_event, 0), 0);
+    if (motor_normal_event != 0LL) {
+        openlcb::EventRegistry::instance()->register_handler(
+            openlcb::EventRegistryEntry(this, motor_normal_event), 0);
+        registeredCount++;
+    }
+    if (motor_reversed_event != 0LL) {
+        openlcb::EventRegistry::instance()->register_handler(
+            openlcb::EventRegistryEntry(this, motor_reversed_event), 0);
+        registeredCount++;
+    }
+    if (points_normal_event != 0LL) {
+        openlcb::EventRegistry::instance()->register_handler(
+            openlcb::EventRegistryEntry(this, points_normal_event), 0);
+        registeredCount++;
+    }
+    if (points_reversed_event != 0LL) {
+        openlcb::EventRegistry::instance()->register_handler(
+            openlcb::EventRegistryEntry(this, points_reversed_event), 0);
+        registeredCount++;
+    }
 }
 
 void StallMotorWithSense::unregister_handler()
 {
-    openlcb::EventRegistry::instance()->unregister_handler(this);
+    if (registeredCount > 0) {
+        openlcb::EventRegistry::instance()->unregister_handler(this);
+    }
+    registeredCount = 0;
 }
 

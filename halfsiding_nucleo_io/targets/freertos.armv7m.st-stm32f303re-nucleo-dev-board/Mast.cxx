@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 11 17:32:41 2018
-//  Last Modified : <180619.1317>
+//  Last Modified : <180728.1814>
 //
 //  Description	
 //
@@ -45,9 +45,17 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "Mast.hxx"
 #include "openlcb/EventService.hxx"
 
+#ifdef LOGLEVEL
+#undef LOGLEVEL
+#define LOGLEVEL INFO
+#endif
+
 bool MastPoints::eval()
 {
     bool result = false;
+    LOG(INFO,"MastPoints::eval(): occ->read() is %d",occ->read());
+    LOG(INFO,"MastPoints::eval(): pointstate->read() is %d",pointstate->read());
+    LOG(INFO,"MastPoints::eval(): next->read() is %d",next->read());
     if (occ->read() == Gpio::Value::CLR) {
         if (aspect != stop) result = true;
         aspect = stop;
@@ -61,6 +69,8 @@ bool MastPoints::eval()
         if (aspect != clear) result = true;
         aspect = clear;
     }
+    LOG(INFO,"MastPoints::eval(): aspect is %d",aspect);
+    LOG(INFO,"MastPoints::eval(): result is %d",result);
     switch (aspect) {
     case stop:
         maingreen->clr();
@@ -194,19 +204,34 @@ void MastPoints::SendProducerIdentified(EventReport *event,BarrierNotifiable *do
 
 void MastPoints::register_handler()
 {
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this, event_stop, 0), 0);
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this, event_approach, 0), 0);
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this, event_approach_limited, 0), 0);
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this, event_clear, 0), 0);
+    if (event_stop != 0LL) {
+        openlcb::EventRegistry::instance()->register_handler(
+            openlcb::EventRegistryEntry(this, event_stop), 0);
+        registeredCount++;
+    }
+    if (event_approach != 0LL) {
+        openlcb::EventRegistry::instance()->register_handler(
+            openlcb::EventRegistryEntry(this, event_approach), 0);
+        registeredCount++;
+    }
+    if (event_approach_limited != 0LL) {
+        openlcb::EventRegistry::instance()->register_handler(
+            openlcb::EventRegistryEntry(this, event_approach_limited), 0);
+        registeredCount++;
+    }
+    if (event_clear != 0LL) {
+        openlcb::EventRegistry::instance()->register_handler(
+            openlcb::EventRegistryEntry(this, event_clear), 0);
+        registeredCount++;
+    }
 }
 
 void MastPoints::unregister_handler()
 {
-    openlcb::EventRegistry::instance()->unregister_handler(this);
+    if (registeredCount > 0) {
+        openlcb::EventRegistry::instance()->unregister_handler(this);
+    }
+    registeredCount = 0;
 }
 
 bool MastFrog::eval()
@@ -329,16 +354,28 @@ void MastFrog::SendProducerIdentified(EventReport *event,BarrierNotifiable *done
 
 void MastFrog::register_handler()
 {
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this, event_stop, 0), 0);
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this, event_approach, 0), 0);
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this, event_clear, 0), 0);
+    if (event_stop != 0LL) {
+        openlcb::EventRegistry::instance()->register_handler(
+            openlcb::EventRegistryEntry(this, event_stop, 0), 0);
+        registeredCount++;
+    }
+    if (event_approach != 0LL) {
+        openlcb::EventRegistry::instance()->register_handler(
+            openlcb::EventRegistryEntry(this, event_approach, 0), 0);
+        registeredCount++;
+    }
+    if (event_clear != 0LL) {
+        openlcb::EventRegistry::instance()->register_handler(
+            openlcb::EventRegistryEntry(this, event_clear, 0), 0);
+        registeredCount++;
+    }
 }
 
 void MastFrog::unregister_handler()
 {
-    openlcb::EventRegistry::instance()->unregister_handler(this);
+    if (registeredCount > 0) {
+        openlcb::EventRegistry::instance()->unregister_handler(this);
+    }
+    registeredCount = 0;
 }
 

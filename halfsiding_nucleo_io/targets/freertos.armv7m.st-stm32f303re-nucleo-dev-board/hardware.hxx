@@ -13,9 +13,9 @@ GPIO_PIN(SRV1, GpioOutputSafeHigh, C, 9);
 GPIO_PIN(SRV2, GpioOutputSafeHigh, C, 7);
 GPIO_PIN(SRV3, GpioOutputSafeHigh, C, 8);
 GPIO_PIN(SRV4, GpioOutputSafeHigh, C, 6);
-GPIO_PIN(SRV5, GpioOutputSafeHigh, C, 12);
+GPIO_PIN(SRV5, GpioOutputSafeHigh, F, 1);
 GPIO_PIN(SRV6, GpioOutputSafeHigh, A, 15);
-GPIO_PIN(SRV7, GpioOutputSafeHigh, F, 1);
+GPIO_PIN(SRV7, GpioOutputSafeHigh, C, 12);
 GPIO_PIN(SRV8, GpioOutputSafeHigh, D, 2);
 
 GPIO_PIN(TDRV1, GpioOutputSafeLow, B, 12);
@@ -36,8 +36,6 @@ GPIO_PIN(OUT_LAT, GpioOutputSafeLow, A, 8);
 // Latch line on the onboard inputs
 GPIO_PIN(INP_LAT, GpioOutputSafeLow, A, 6);
 
-
-
 typedef GpioInitializer<LED_GREEN_RAW_Pin, SW_USER_Pin, //
     SRV1_Pin, SRV2_Pin, SRV3_Pin, SRV4_Pin,             //
     SRV5_Pin, SRV6_Pin, SRV7_Pin, SRV8_Pin,             //
@@ -51,5 +49,3 @@ typedef LED_GREEN_RAW_Pin BLINKER_RAW_Pin;
 typedef BLINKER_Pin LED_GREEN_Pin;
 
 extern PWM* servo_channels[];
-
-

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jun 15 19:02:56 2018
-//  Last Modified : <180619.1347>
+//  Last Modified : <180728.1425>
 //
 //  Description	
 //
@@ -77,7 +77,7 @@ public:
     StallMotorWithSense(openlcb::Node *_node, const StallMotorWithSenseConfiguration &cfg,
                         const Gpio *_motorA, const Gpio *_motorB,
                         const Gpio *_pointsenseA, const Gpio *_pointsenseB) 
-                : config(cfg)
+          : config(cfg)
           
     {
         node = _node;
@@ -92,6 +92,7 @@ public:
         point_state = unknown;
         motor_state = unknown;
         debounceCount = 0;
+        registeredCount = 0;
         ConfigUpdateService::instance()->register_update_listener(this);
     }
     ~StallMotorWithSense() {
@@ -132,6 +133,7 @@ private:
     typedef enum {normal, reversed, unknown} PointStates;
     PointStates point_state, motor_state;
     const StallMotorWithSenseConfiguration config;
+    int registeredCount;
     void SendAllProducersIdentified(BarrierNotifiable *done);
     void SendProducerIdentified(EventReport *event,BarrierNotifiable *done);
     void SendAllConsumersIdentified(BarrierNotifiable *done);

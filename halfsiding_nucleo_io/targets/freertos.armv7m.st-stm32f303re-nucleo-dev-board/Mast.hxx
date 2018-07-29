@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 11 17:23:44 2018
-//  Last Modified : <180619.1317>
+//  Last Modified : <180728.1810>
 //
 //  Description	
 //
@@ -107,6 +107,7 @@ public:
         event_approach_limited = 0;
         event_approach = 0;
         event_clear = 0;
+        registeredCount = 0;
         ConfigUpdateService::instance()->register_update_listener(this);
     }
     openlcb::Polling *polling()
@@ -169,6 +170,7 @@ private:
     enum {stop, approach_limited, approach, clear} aspect;
     const MastPointsConfiguration config;
     openlcb::EventId event_stop, event_approach_limited, event_approach, event_clear;
+    int registeredCount;    
     void SendEventReport(openlcb::WriteHelper *writer, Notifiable *done);
     void SendAllProducersIdentified(BarrierNotifiable *done);
     void SendProducerIdentified(EventReport *event,BarrierNotifiable *done);
@@ -195,6 +197,7 @@ public:
         event_stop = 0;
         event_approach = 0;
         event_clear = 0;
+        registeredCount = 0;
         ConfigUpdateService::instance()->register_update_listener(this);
     }
     bool eval();
@@ -250,6 +253,7 @@ private:
     enum {stop, approach, clear} aspect;
     openlcb::EventId event_stop, event_approach, event_clear;
     const MastFrogConfiguration config;
+    int registeredCount;
     void SendEventReport(openlcb::WriteHelper *writer, Notifiable *done);
     void SendAllProducersIdentified(BarrierNotifiable *done);
     void SendProducerIdentified(EventReport *event,BarrierNotifiable *done);

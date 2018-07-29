@@ -48,6 +48,7 @@
 #include "freertos_drivers/common/BlinkerGPIO.hxx"
 #include "freertos_drivers/common/DummyGPIO.hxx"
 #include "os/MmapGpio.hxx"
+#include "utils/TcpLogging.hxx"   // this file has also the tty code not just TCP
 #include "config.hxx"
 #include "hardware.hxx"
 #include "PWM.hxx"
@@ -91,7 +92,7 @@ extern const char *const openlcb::CONFIG_FILENAME = "/dev/eeprom";
 // The size of the memory space to export over the above device.
 extern const size_t openlcb::CONFIG_FILE_SIZE =
     cfg.seg().size() + cfg.seg().offset();
-static_assert(openlcb::CONFIG_FILE_SIZE <= 6144, "Need to adjust eeprom size");
+static_assert(openlcb::CONFIG_FILE_SIZE <= 7600, "Need to adjust eeprom size");
 // The SNIP user-changeable information in also stored in the above eeprom
 // device. In general this could come from different eeprom segments, but it is
 // simpler to keep them together.
@@ -130,7 +131,7 @@ openlcb::RefreshLoop loop(
 // would be placed into RAM instead of ROM.
 constexpr const Gpio *const kDirectGpio[] = {
     TDRV1_Pin::instance(), TDRV2_Pin::instance(), //
-    TDRV3_Pin::instance(), TDRV4_Pin::instance()//, //
+    TDRV3_Pin::instance(), TDRV4_Pin::instance(), //
     TDRV5_Pin::instance(), TDRV6_Pin::instance(), //
     TDRV7_Pin::instance(), TDRV8_Pin::instance()  //
 };
@@ -143,7 +144,6 @@ openlcb::MultiConfiguredConsumer direct_consumers(stack.node(), kDirectGpio,
 #define MOTOR0B TDRV2_Pin::instance()
 #define MOTOR1A TDRV3_Pin::instance()
 #define MOTOR1B TDRV4_Pin::instance()
-
 
 #ifdef USINGSERVOS
 const unsigned servo_min = configCPU_CLOCK_HZ * 1 / 1000;
@@ -163,7 +163,7 @@ constexpr const Gpio *const kServoGpio[] = {
 openlcb::MultiConfiguredConsumer servo_consumers(stack.node(), kServoGpio,
     ARRAYSIZE(kServoGpio), cfg.seg().servo_consumers());
 
-#endif
+#endif                                                                          
 class FactoryResetHelper : public DefaultConfigUpdateListener {
 public:
     UpdateAction apply_configuration(int fd, bool initial_load,
@@ -174,9 +174,9 @@ public:
 
     void factory_reset(int fd) override
     {
-        cfg.userinfo().name().write(fd, "Nucleo IO board");
+        cfg.userinfo().name().write(fd, "Halfsiding Nucleo IO board");
         cfg.userinfo().description().write(
-            fd, "OpenLCB DevKit + F091RC dev board.");
+            fd, "OpenLCB DevKit + F303RC dev board + Halfsiding Shield.");
     }
 } factory_reset_helper;
 
@@ -337,17 +337,17 @@ constexpr const MmapGpio PORTE_LINE6(output_register, 10, true);
 constexpr const MmapGpio PORTE_LINE7(output_register, 9, true);
 constexpr const MmapGpio PORTE_LINE8(output_register, 8, true);
 
-#ifdef PORTDECONSUMERS
+#ifdef PORTDECONSUMERS                                                          
 constexpr const Gpio *const kPortDEGpio[] = {
     &PORTD_LINE1, &PORTD_LINE2, &PORTD_LINE3, &PORTD_LINE4, //
     &PORTD_LINE5, &PORTD_LINE6, &PORTD_LINE7, &PORTD_LINE8, //
-    &PORTE_LINE1, &PORTE_LINE2//, &PORTE_LINE3, &PORTE_LINE4, //
-    //&PORTE_LINE5, &PORTE_LINE6, &PORTE_LINE7, &PORTE_LINE8  //
+    &PORTE_LINE1, &PORTE_LINE2, &PORTE_LINE3, &PORTE_LINE4, //
+    &PORTE_LINE5, &PORTE_LINE6, &PORTE_LINE7, &PORTE_LINE8  //
 };
 
 openlcb::MultiConfiguredConsumer portde_consumers(stack.node(), kPortDEGpio,
     ARRAYSIZE(kPortDEGpio), cfg.seg().portde_consumers());
-#endif
+#endif                                                                          
 
 #define POINTSHIGHGREEN  PORTD_LINE1
 #define POINTSHIGHYELLOW PORTD_LINE2
@@ -378,14 +378,15 @@ openlcb::ConfiguredPulseConsumer turnout_pulse_consumer_7(
     stack.node(), cfg.seg().snap_switches().entry<6>(), TDRV7_Pin::instance());
 openlcb::ConfiguredPulseConsumer turnout_pulse_consumer_8(
     stack.node(), cfg.seg().snap_switches().entry<7>(), TDRV8_Pin::instance());
-#endif
-uint32_t input_register[2] = {0};
+#endif                                                                          
 
+uint32_t input_register[2] = {0};
 #ifdef UNUSEDPORTAB
 SpiIOShiftRegister internal_inputs(&io_service, "/dev/spi2", nullptr, INP_LAT_Pin::instance(), nullptr, 0, input_register, 3);
 #else
 SpiIOShiftRegister internal_inputs(&io_service, "/dev/spi2", nullptr, INP_LAT_Pin::instance(), nullptr, 0, input_register, 1);
 #endif
+
 
 #ifdef UNUSEDPORTAB
 constexpr const MmapGpio PORTB_LINE1(input_register, 0, false);
@@ -466,8 +467,8 @@ openlcb::ConfiguredProducer producer_b8(
     stack.node(), cfg.seg().portab_producers().entry<15>(), (const Gpio*)&PORTB_LINE8);
 
 openlcb::RefreshLoop loopab(stack.node(),
-{
-        producer_a1.polling(), producer_a2.polling()//, //
+    {
+        producer_a1.polling(), producer_a2.polling(), //
         producer_a3.polling(), producer_a4.polling(), //
         producer_a5.polling(), producer_a6.polling(), //
         producer_a7.polling(), producer_a8.polling(), //
@@ -483,8 +484,9 @@ openlcb::RefreshLoop loopab(stack.node(),
         &turnout_pulse_consumer_6,                    //
         &turnout_pulse_consumer_7,                    //
         &turnout_pulse_consumer_8                    //
-  });
-#endif
+    });
+#endif                                                                          
+
 
 openlcb::ConfiguredProducer producer_block_occ(
     stack.node(), cfg.seg().shield().occdetector(), (const Gpio*)&BLOCK_OCC);
@@ -492,6 +494,7 @@ openlcb::RefreshLoop loopocc(stack.node(),
     {
         producer_block_occ.polling()
     });                        
+
 
 StallMotorWithSense turnout0(stack.node(), cfg.seg().turnouts().entry<0>(),
                              MOTOR0A, MOTOR0B,
@@ -506,7 +509,6 @@ openlcb::RefreshLoop loopturnouts(stack.node(),
     {
          turnout0.polling(), turnout1.polling()
     });
-
 
 MastPoints pointsSignal(stack.node(), cfg.seg().masts().points(),
                         (const Gpio*)&BLOCK_OCC, (const Gpio*)&POINTSENSE0B,
@@ -542,13 +544,14 @@ int appl_main(int argc, char *argv[])
     stack.check_version_and_factory_reset(
         cfg.seg().internal_config(), openlcb::CANONICAL_VERSION, false);
     
+    absSlaveBus.begin("/dev/ser1");
     absSlaveBus.start("ABSSlaveBus",0,2048);
-#ifdef USINGSERVOS
+#ifdef USINGSERVOS                                                              
     srv1_gpo.clr();
     srv2_gpo.clr();
     srv3_gpo.clr();
     srv4_gpo.clr();
-#endif
+#endif                                                                          
     
     // The necessary physical ports must be added to the stack.
     //
