@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 14 21:40:10 2018
-//  Last Modified : <180729.1635>
+//  Last Modified : <180730.1533>
 //
 //  Description	
 //
@@ -107,10 +107,10 @@ public:
                                              bool initial_load,
                                              BarrierNotifiable *done) override;
     virtual void factory_reset(int fd) {
-        LOG(INFO,"ABSSlaveNode::factory_reset(%d)",fd);
-        config->enabled().write(fd,0);
-        config->description().write(fd,"");
-        config->nodeid().write(fd,255);
+        //LOG(INFO,"ABSSlaveNode::factory_reset(%d)",fd);
+        //CDI_FACTORY_RESET(config->enabled);
+        //config->description().write(fd,"");
+        //CDI_FACTORY_RESET(config->nodeid);
     }
     void begin(openlcb::Node *_node,const ABSSlaveNodeConfiguration &_config) {
         config = &_config;

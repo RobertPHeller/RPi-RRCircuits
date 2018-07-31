@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jun 15 22:23:28 2018
-//  Last Modified : <180729.1618>
+//  Last Modified : <180730.1548>
 //
 //  Description	
 //
@@ -121,8 +121,8 @@ StallMotorWithSense::apply_configuration(int fd,
 
 void StallMotorWithSense::factory_reset(int fd)
 {
-    LOG(INFO,"StallMotorWithSense::factory_reset(%d)",fd);
-    config.description().write(fd,"");
+    //LOG(INFO,"StallMotorWithSense::factory_reset(%d)",fd);
+    //config.description().write(fd,"");
 }
 
 void StallMotorWithSense::handle_event_report(const EventRegistryEntry &entry, 

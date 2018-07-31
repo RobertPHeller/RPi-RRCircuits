@@ -47,7 +47,7 @@ using AllProducers = RepeatedGroup<ProducerConfig, NUM_INPUTS>;
 
 /// Modify this value every time the EEPROM needs to be cleared on the node
 /// after an update.
-static constexpr uint16_t CANONICAL_VERSION = 0x1502;
+static constexpr uint16_t CANONICAL_VERSION = 0x1505;
 
 using TurnoutGroup = RepeatedGroup<StallMotorWithSenseConfiguration, 2>;
 

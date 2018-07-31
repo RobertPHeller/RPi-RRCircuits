@@ -179,10 +179,10 @@ public:
 
     void factory_reset(int fd) override
     {
-        LOG(INFO,"FactoryResetHelper::factory_reset(%d)",fd);
-        cfg.userinfo().name().write(fd, "Halfsiding Nucleo IO board");
-        cfg.userinfo().description().write(
-            fd, "OpenLCB DevKit + F303RC dev board + Halfsiding Shield.");
+        //LOG(INFO,"FactoryResetHelper::factory_reset(%d)",fd);
+        //cfg.userinfo().name().write(fd, "Halfsiding Nucleo IO board");
+        //cfg.userinfo().description().write(
+        //    fd, "OpenLCB DevKit + F303RC dev board + Halfsiding Shield.");
     }
 } factory_reset_helper;
 
@@ -494,14 +494,20 @@ openlcb::RefreshLoop loopab(stack.node(),
 #endif                                                                          
 
 
+#define STALLMOTORS
+#define MASTS
+#define ABSSLAVES
+#define SHIELD
+#ifdef SHIELD
 openlcb::ConfiguredProducer producer_block_occ(
     stack.node(), cfg.seg().shield().occdetector(), (const Gpio*)&BLOCK_OCC);
 openlcb::RefreshLoop loopocc(stack.node(),
     {
         producer_block_occ.polling()
     });                        
+#endif
 
-
+#ifdef STALLMOTORS
 StallMotorWithSense turnout0(stack.node(), cfg.seg().turnouts().entry<0>(),
                              MOTOR0A, MOTOR0B,
                              (const Gpio *)&POINTSENSE0A,
@@ -515,7 +521,9 @@ openlcb::RefreshLoop loopturnouts(stack.node(),
     {
          turnout0.polling(), turnout1.polling()
     });
+#endif
 
+#ifdef MASTS
 MastPoints pointsSignal(stack.node(), cfg.seg().masts().points(),
                         (const Gpio*)&BLOCK_OCC, (const Gpio*)&POINTSENSE0B,
                         (const Gpio*)&NextEastPoints, (const Gpio*)&POINTSHIGHGREEN,
@@ -537,8 +545,10 @@ openlcb::RefreshLoop loopmasts(stack.node(),
          pointsSignal.polling(), frogMainSignal.polling(), 
          frogDivSignal.polling()
     });
-
+#endif
+#ifdef ABSSLAVES
 ABSSlaveBus absSlaveBus(stack.node(), cfg.seg().abs_slave_list());
+#endif
 
 /** Entry point to application.
  * @param argc number of command line arguments
@@ -549,12 +559,21 @@ int appl_main(int argc, char *argv[])
 {
     new SerialLoggingServer(stack.service(), "/dev/ser0");
     LOG(INFO,"Half-siding starting... openlcb::CONFIG_FILE_SIZE is %04x / %d\n",openlcb::CONFIG_FILE_SIZE,openlcb::CONFIG_FILE_SIZE);
+#ifdef ABSSLAVES
     absSlaveBus.begin("/dev/ser1");
+#endif
+    int fd = ::open(openlcb::CONFIG_FILENAME, O_RDONLY);
+    LOG(INFO,"Stored EEProm version is 0x%04x, check version is 0x%04x",
+        cfg.seg().internal_config().version().read(fd),
+        openlcb::CANONICAL_VERSION);
+    ::close(fd);
     stack.check_version_and_factory_reset(
         cfg.seg().internal_config(), openlcb::CANONICAL_VERSION, false);
-    
+    LOG(INFO,"stack.check_version_and_factory_reset() completed?");
+#ifdef ABSSLAVES
     absSlaveBus.start("ABSSlaveBus",0,2048);
     LOG(INFO,"Forked ABSSlaveBus thread\n");
+#endif
 #ifdef USINGSERVOS                                                              
     srv1_gpo.clr();
     srv2_gpo.clr();

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jun 15 10:44:08 2018
-//  Last Modified : <180729.1636>
+//  Last Modified : <180730.1018>
 //
 //  Description	
 //
@@ -117,7 +117,7 @@ void ABSSlaveNode::UpdateState(const char *message,
     int id;
     char o,e,w;
     AutoNotify n(done);
-    
+    //LOG(INFO,"ABSSlaveNode::UpdateState(%s,%p)",message,done);
     if (sscanf(message,":R%d%cE%cW%c;",&id,&o,&e,&w) != 4) return;
     if (id != nodeid) return;
     if (o != occ) {
