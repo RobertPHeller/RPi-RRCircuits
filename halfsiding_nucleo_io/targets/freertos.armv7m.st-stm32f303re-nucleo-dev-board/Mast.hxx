@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 11 17:23:44 2018
-//  Last Modified : <180730.1544>
+//  Last Modified : <180731.0906>
 //
 //  Description	
 //
@@ -145,8 +145,8 @@ public:
         return UPDATED;
     }
     virtual void factory_reset(int fd) {
-        //LOG(INFO,"MastPoints::factory_reset(%d)",fd);
-        //config.description().write(fd, "");
+        LOG(INFO,"MastPoints::factory_reset(%d)",fd);
+        config.description().write(fd, "");
     }
     bool eval();
     void handle_identify_global(const EventRegistryEntry &registry_entry, 
@@ -230,8 +230,8 @@ public:
         return UPDATED;
     }
     virtual void factory_reset(int fd) {
-         //LOG(INFO,"MastFrog::factory_reset(%d)",fd);
-         //config.description().write(fd,"");
+         LOG(INFO,"MastFrog::factory_reset(%d)",fd);
+         config.description().write(fd,"");
     }
     void handle_identify_global(const EventRegistryEntry &registry_entry, 
                                 EventReport *event, 

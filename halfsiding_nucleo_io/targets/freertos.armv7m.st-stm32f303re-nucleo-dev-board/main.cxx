@@ -40,19 +40,21 @@
 #include "os/os.h"
 #include "nmranet_config.h"
 
-#include "openlcb/SimpleStack.hxx"
-#include "openlcb/MultiConfiguredConsumer.hxx"
-#include "openlcb/ConfiguredProducer.hxx"
-
 #ifdef LOGLEVEL
 #undef LOGLEVEL
 #define LOGLEVEL VERBOSE
 #endif
 
+
+#include "openlcb/SimpleStack.hxx"
+#include "openlcb/MultiConfiguredConsumer.hxx"
+#include "openlcb/ConfiguredProducer.hxx"
+
 #include "freertos_drivers/st/Stm32Gpio.hxx"
 #include "freertos_drivers/common/BlinkerGPIO.hxx"
 #include "freertos_drivers/common/DummyGPIO.hxx"
 #include "os/MmapGpio.hxx"
+//#include "utils/stdio_logging.h"
 #include "utils/TcpLogging.hxx"   // this file has also the tty code not just TCP
 #include "config.hxx"
 #include "hardware.hxx"
@@ -179,10 +181,10 @@ public:
 
     void factory_reset(int fd) override
     {
-        //LOG(INFO,"FactoryResetHelper::factory_reset(%d)",fd);
-        //cfg.userinfo().name().write(fd, "Halfsiding Nucleo IO board");
-        //cfg.userinfo().description().write(
-        //    fd, "OpenLCB DevKit + F303RC dev board + Halfsiding Shield.");
+        LOG(INFO,"FactoryResetHelper::factory_reset(%d)",fd);
+        cfg.userinfo().name().write(fd, "Halfsiding Nucleo IO board");
+        cfg.userinfo().description().write(
+            fd, "OpenLCB DevKit + F303RC dev board + Halfsiding Shield.");
     }
 } factory_reset_helper;
 

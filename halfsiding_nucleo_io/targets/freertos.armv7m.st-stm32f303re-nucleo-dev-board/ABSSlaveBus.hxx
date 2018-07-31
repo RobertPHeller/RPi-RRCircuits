@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 14 21:40:10 2018
-//  Last Modified : <180730.1533>
+//  Last Modified : <180731.0954>
 //
 //  Description	
 //
@@ -107,13 +107,13 @@ public:
                                              bool initial_load,
                                              BarrierNotifiable *done) override;
     virtual void factory_reset(int fd) {
-        //LOG(INFO,"ABSSlaveNode::factory_reset(%d)",fd);
-        //CDI_FACTORY_RESET(config->enabled);
-        //config->description().write(fd,"");
-        //CDI_FACTORY_RESET(config->nodeid);
+        LOG(INFO,"ABSSlaveNode::factory_reset(%d)",fd);
+        CDI_FACTORY_RESET(config.enabled);
+        config.description().write(fd,"");
+        CDI_FACTORY_RESET(config.nodeid);
     }
     void begin(openlcb::Node *_node,const ABSSlaveNodeConfiguration &_config) {
-        config = &_config;
+        config = _config;
         node = _node;
         registeredCount = 0;
         ConfigUpdateService::instance()->register_update_listener(this);
@@ -134,7 +134,7 @@ private:
     openlcb::EventId occupied_event, unoccupied_event, 
           west_stop_event, west_approach_event, west_clear_event,
           east_stop_event, east_approach_event, east_clear_event;
-    const ABSSlaveNodeConfiguration *config;
+    ABSSlaveNodeConfiguration config{0x0FFFFFFF};
     bool enabled;
     OSMutex mutex_;
     void SendAllProducersIdentified(BarrierNotifiable *done);

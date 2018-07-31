@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jun 15 10:44:08 2018
-//  Last Modified : <180730.1018>
+//  Last Modified : <180731.0952>
 //
 //  Description	
 //
@@ -70,21 +70,21 @@ ConfigUpdateListener::UpdateAction ABSSlaveNode::apply_configuration(int fd,
     OSMutexLock ConfigureUpdateLock(&mutex_);
     AutoNotify n(done);
     //LOG(INFO,"ABSSlaveNode::apply_configuration(%d,%d,%p) called\n",fd,initial_load,done);
-    nodeid = config->nodeid().read(fd);
-    enabled = config->enabled().read(fd);
+    nodeid = config.nodeid().read(fd);
+    enabled = config.enabled().read(fd);
     if (nodeid < 0 || nodeid > 63) enabled = false;
     //LOG(INFO,"%d, %d ",nodeid,enabled);
     if (enabled) {
         LOG(INFO,"ABSSlaveNode::apply_configuration(): enabled: nodeid = %d\n",nodeid);
     }
-    openlcb::EventId cfg_occupied_event = config->occupied_event().read(fd);
-    openlcb::EventId cfg_unoccupied_event = config->unoccupied_event().read(fd);
-    openlcb::EventId cfg_east_stop_event = config->east_stop_event().read(fd);
-    openlcb::EventId cfg_east_approach_event = config->east_approach_event().read(fd);
-    openlcb::EventId cfg_east_clear_event = config->east_clear_event().read(fd);
-    openlcb::EventId cfg_west_stop_event = config->west_stop_event().read(fd);
-    openlcb::EventId cfg_west_approach_event = config->west_approach_event().read(fd);
-    openlcb::EventId cfg_west_clear_event = config->west_clear_event().read(fd);
+    openlcb::EventId cfg_occupied_event = config.occupied_event().read(fd);
+    openlcb::EventId cfg_unoccupied_event = config.unoccupied_event().read(fd);
+    openlcb::EventId cfg_east_stop_event = config.east_stop_event().read(fd);
+    openlcb::EventId cfg_east_approach_event = config.east_approach_event().read(fd);
+    openlcb::EventId cfg_east_clear_event = config.east_clear_event().read(fd);
+    openlcb::EventId cfg_west_stop_event = config.west_stop_event().read(fd);
+    openlcb::EventId cfg_west_approach_event = config.west_approach_event().read(fd);
+    openlcb::EventId cfg_west_clear_event = config.west_clear_event().read(fd);
     if (cfg_occupied_event != occupied_event ||
         cfg_unoccupied_event != unoccupied_event ||
         cfg_east_stop_event != east_stop_event ||
