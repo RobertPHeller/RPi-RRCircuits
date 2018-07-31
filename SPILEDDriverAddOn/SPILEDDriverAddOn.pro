@@ -1,4 +1,4 @@
-update=Wed 20 Jun 2018 20:07:09 EDT
+update=Sun 29 Jul 2018 22:53:59 EDT
 version=1
 last_client=pcbnew
 [cvpcb]
@@ -50,7 +50,7 @@ LibName30=valves
 LibName31=uln2803a
 [pcbnew]
 version=1
-LastNetListRead=
+LastNetListRead=SPILEDDriverAddOn.net
 UseCmpFile=1
 PadDrill="    0.600000"
 PadDrillOvalY="    0.600000"
@@ -88,3 +88,5 @@ LibName16=valves
 LibName17=/home/heller/RRCircuits/ScrewTerm254_9
 LibName18=w_conn_strip
 LibName19=w_pin_strip
+LibName20=/home/heller/RRCircuits/ScrewTerm254_10
+LibName21=MountingHole_RevA

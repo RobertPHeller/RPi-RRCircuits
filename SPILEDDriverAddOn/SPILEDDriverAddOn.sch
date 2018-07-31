@@ -37,7 +37,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 5
 Title ""
-Date "21 jun 2018"
+Date "30 jul 2018"
 Rev ""
 Comp ""
 Comment1 ""
@@ -90,7 +90,7 @@ L CONN_8 P1
 U 1 1 5B2B1C05
 P 9350 3850
 F 0 "P1" V 9300 3850 60  0000 C CNN
-F 1 "CONN_8" V 9400 3850 60  0000 C CNN
+F 1 "SPI Expansion" V 9400 3850 60  0000 C CNN
 F 2 "~" H 9350 3850 60  0000 C CNN
 F 3 "~" H 9350 3850 60  0000 C CNN
 	1    9350 3850
