@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 14 21:40:10 2018
-//  Last Modified : <180801.1313>
+//  Last Modified : <180801.1512>
 //
 //  Description	
 //
@@ -94,14 +94,6 @@ using ABSSlaveList = openlcb::RepeatedGroup<ABSSlaveNodeConfiguration, MAXSLAVES
 class ABSSlaveNode : public ConfigUpdateListener, 
                      public openlcb::SimpleEventHandler {
 public:
-    ABSSlaveNode() {
-        node = NULL;
-        enabled = false;
-        nodeid = 255;
-        occ    = 255;
-        west_aspect = INVALID;
-        east_aspect = INVALID;
-    }
     ABSSlaveNode(openlcb::Node *_node,const ABSSlaveNodeConfiguration &_config) {
         node = NULL;
         enabled = false;
@@ -155,7 +147,7 @@ private:
     int fd;
     openlcb::Node *node;
     const ABSSlaveList slaveconfiglist;
-    ABSSlaveNode slaves[MAXSLAVES];
+    ABSSlaveNode* slaves[MAXSLAVES];
     uint8_t slaveIndex;
 };
     
