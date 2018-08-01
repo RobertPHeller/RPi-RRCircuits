@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jun 15 10:44:08 2018
-//  Last Modified : <180801.1730>
+//  Last Modified : <180801.1748>
 //
 //  Description	
 //
@@ -72,7 +72,7 @@ ConfigUpdateListener::UpdateAction ABSSlaveNode::apply_configuration(int fd,
     LOG(INFO,"ABSSlaveNode::apply_configuration(%d,%d,%p) called",fd,initial_load,done);
     nodeid = config.nodeid().read(fd);
     enabled = config.enabled().read(fd);
-    enabled = false;
+    //enabled = false;
     if (nodeid < 0 || nodeid > 63) enabled = false;
     LOG(INFO,"%d, %d ",nodeid,enabled);
     if (enabled) {
@@ -213,13 +213,26 @@ void ABSSlaveNode::UpdateState(const char *message,
     }
 }
 
-
+ABSSlaveNode::ABSSlaveNode(openlcb::Node *_node,const ABSSlaveNodeConfiguration &_config) {
+    LOG(INFO,"ABSSlaveNode::ABSSlaveNode(...) entered");
+    node = NULL;
+    enabled = false;
+    nodeid = 255;
+    occ    = 255;
+    west_aspect = INVALID;
+    east_aspect = INVALID;
+    config = _config;
+    node = _node;
+    ConfigUpdateService::instance()->register_update_listener(this);
+}
 
 ABSSlaveBus::ABSSlaveBus(openlcb::Node *n,const ABSSlaveList &_slaves) 
       : slaveconfiglist(_slaves) 
 {
     node = n;
+    LOG(INFO,"ABSSlaveBus::ABSSlaveBus(...) entered");
     for (unsigned i = 0; i < slaveconfiglist.num_repeats(); ++i) {
+        LOG(INFO,"Allocating and constructing slave %d",i);
         slaves[i] = new ABSSlaveNode(n, slaveconfiglist.entry(i));
     }
     slaveIndex = MAXSLAVES;

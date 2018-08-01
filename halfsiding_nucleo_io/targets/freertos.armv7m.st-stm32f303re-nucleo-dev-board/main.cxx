@@ -54,8 +54,8 @@
 #include "freertos_drivers/common/BlinkerGPIO.hxx"
 #include "freertos_drivers/common/DummyGPIO.hxx"
 #include "os/MmapGpio.hxx"
-#include "utils/stdio_logging.h"
-//#include "utils/TcpLogging.hxx"   // this file has also the tty code not just TCP
+//#include "utils/stdio_logging.h"
+#include "utils/TcpLogging.hxx"   // this file has also the tty code not just TCP
 #include "config.hxx"
 #include "hardware.hxx"
 #include "PWM.hxx"
@@ -498,7 +498,7 @@ openlcb::RefreshLoop loopab(stack.node(),
 
 #define STALLMOTORS
 #define MASTS
-//#define ABSSLAVES
+#define ABSSLAVES
 #define SHIELD
 #ifdef SHIELD
 openlcb::ConfiguredProducer producer_block_occ(
@@ -559,7 +559,7 @@ ABSSlaveBus absSlaveBus(stack.node(), cfg.seg().abs_slave_list());
  */
 int appl_main(int argc, char *argv[])
 {
-    //new SerialLoggingServer(stack.service(), "/dev/ser0");
+    new SerialLoggingServer(stack.service(), "/dev/ser0");
     LOG(INFO,"\nHalf-siding starting... openlcb::CONFIG_FILE_SIZE is %04x / %d",openlcb::CONFIG_FILE_SIZE,openlcb::CONFIG_FILE_SIZE);
 #ifdef ABSSLAVES
     absSlaveBus.begin("/dev/ser1");
@@ -570,7 +570,7 @@ int appl_main(int argc, char *argv[])
         openlcb::CANONICAL_VERSION);
     ::close(fd);
     stack.check_version_and_factory_reset(
-        cfg.seg().internal_config(), openlcb::CANONICAL_VERSION, true);
+        cfg.seg().internal_config(), openlcb::CANONICAL_VERSION, false);
     LOG(INFO,"stack.check_version_and_factory_reset() completed?");
 #ifdef ABSSLAVES
     absSlaveBus.start("ABSSlaveBus",0,2048);
