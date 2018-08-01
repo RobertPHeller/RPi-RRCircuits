@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 14 21:40:10 2018
-//  Last Modified : <180801.1512>
+//  Last Modified : <180801.1731>
 //
 //  Description	
 //
@@ -146,7 +146,7 @@ protected:
 private:
     int fd;
     openlcb::Node *node;
-    const ABSSlaveList slaveconfiglist;
+    /*const */ABSSlaveList slaveconfiglist;
     ABSSlaveNode* slaves[MAXSLAVES];
     uint8_t slaveIndex;
 };

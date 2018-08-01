@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jun 15 10:44:08 2018
-//  Last Modified : <180801.1517>
+//  Last Modified : <180801.1730>
 //
 //  Description	
 //
@@ -219,8 +219,8 @@ ABSSlaveBus::ABSSlaveBus(openlcb::Node *n,const ABSSlaveList &_slaves)
       : slaveconfiglist(_slaves) 
 {
     node = n;
-    for (int i = 0; i < _slaves.num_repeats(); ++i) {
-        slaves[i] = new ABSSlaveNode(n, _slaves.entry(i));
+    for (unsigned i = 0; i < slaveconfiglist.num_repeats(); ++i) {
+        slaves[i] = new ABSSlaveNode(n, slaveconfiglist.entry(i));
     }
     slaveIndex = MAXSLAVES;
 }
