@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 11 17:23:44 2018
-//  Last Modified : <180731.0906>
+//  Last Modified : <180801.1257>
 //
 //  Description	
 //
@@ -107,7 +107,6 @@ public:
         event_approach_limited = 0;
         event_approach = 0;
         event_clear = 0;
-        registeredCount = 0;
         ConfigUpdateService::instance()->register_update_listener(this);
     }
     openlcb::Polling *polling()
@@ -134,7 +133,7 @@ public:
             cfg_event_approach_limited != event_approach_limited ||
             cfg_event_approach != event_approach ||
             cfg_event_clear != event_clear) {
-            unregister_handler();
+            if (!initial_load) unregister_handler();
             event_stop = cfg_event_stop;
             event_approach_limited = cfg_event_approach_limited;
             event_approach = cfg_event_approach;
@@ -144,10 +143,7 @@ public:
         }
         return UPDATED;
     }
-    virtual void factory_reset(int fd) {
-        LOG(INFO,"MastPoints::factory_reset(%d)",fd);
-        config.description().write(fd, "");
-    }
+    virtual void factory_reset(int fd);
     bool eval();
     void handle_identify_global(const EventRegistryEntry &registry_entry, 
                                 EventReport *event, 
@@ -168,7 +164,6 @@ private:
     enum {stop, approach_limited, approach, clear} aspect;
     const MastPointsConfiguration config;
     openlcb::EventId event_stop, event_approach_limited, event_approach, event_clear;
-    int registeredCount;    
     void SendEventReport(openlcb::WriteHelper *writer, Notifiable *done);
     void SendAllProducersIdentified(BarrierNotifiable *done);
     void SendProducerIdentified(EventReport *event,BarrierNotifiable *done);
@@ -195,7 +190,6 @@ public:
         event_stop = 0;
         event_approach = 0;
         event_clear = 0;
-        registeredCount = 0;
         ConfigUpdateService::instance()->register_update_listener(this);
     }
     bool eval();
@@ -220,7 +214,7 @@ public:
         if (cfg_event_stop != event_stop ||
             cfg_event_approach != event_approach ||
             cfg_event_clear != event_clear) {
-            unregister_handler();
+            if (!initial_load) unregister_handler();
             event_stop = cfg_event_stop;
             event_approach = cfg_event_approach;
             event_clear = cfg_event_clear;
@@ -229,10 +223,7 @@ public:
         }
         return UPDATED;
     }
-    virtual void factory_reset(int fd) {
-         LOG(INFO,"MastFrog::factory_reset(%d)",fd);
-         config.description().write(fd,"");
-    }
+    virtual void factory_reset(int fd);
     void handle_identify_global(const EventRegistryEntry &registry_entry, 
                                 EventReport *event, 
                                 BarrierNotifiable *done) OVERRIDE;
@@ -250,7 +241,6 @@ private:
     enum {stop, approach, clear} aspect;
     openlcb::EventId event_stop, event_approach, event_clear;
     const MastFrogConfiguration config;
-    int registeredCount;
     void SendEventReport(openlcb::WriteHelper *writer, Notifiable *done);
     void SendAllProducersIdentified(BarrierNotifiable *done);
     void SendProducerIdentified(EventReport *event,BarrierNotifiable *done);

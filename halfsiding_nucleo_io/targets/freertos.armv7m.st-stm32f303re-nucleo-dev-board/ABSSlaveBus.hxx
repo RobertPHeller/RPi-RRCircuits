@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 14 21:40:10 2018
-//  Last Modified : <180731.0954>
+//  Last Modified : <180801.1313>
 //
 //  Description	
 //
@@ -101,23 +101,22 @@ public:
         occ    = 255;
         west_aspect = INVALID;
         east_aspect = INVALID;
-        registeredCount = 0;
+    }
+    ABSSlaveNode(openlcb::Node *_node,const ABSSlaveNodeConfiguration &_config) {
+        node = NULL;
+        enabled = false;
+        nodeid = 255;
+        occ    = 255;
+        west_aspect = INVALID;
+        east_aspect = INVALID;
+        config = _config;
+        node = _node;
+        ConfigUpdateService::instance()->register_update_listener(this);
     }
     virtual UpdateAction apply_configuration(int fd, 
                                              bool initial_load,
                                              BarrierNotifiable *done) override;
-    virtual void factory_reset(int fd) {
-        LOG(INFO,"ABSSlaveNode::factory_reset(%d)",fd);
-        CDI_FACTORY_RESET(config.enabled);
-        config.description().write(fd,"");
-        CDI_FACTORY_RESET(config.nodeid);
-    }
-    void begin(openlcb::Node *_node,const ABSSlaveNodeConfiguration &_config) {
-        config = _config;
-        node = _node;
-        registeredCount = 0;
-        ConfigUpdateService::instance()->register_update_listener(this);
-    }
+    virtual void factory_reset(int fd);
     uint8_t NodeID() const {return nodeid;}
     bool Enabled() const {return enabled;}
     void UpdateState(const char *message, Notifiable *done);
@@ -140,7 +139,6 @@ private:
     void SendAllProducersIdentified(BarrierNotifiable *done);
     void SendProducerIdentified(EventReport *event,BarrierNotifiable *done);
     openlcb::Node *node;
-    int registeredCount;
     void unregister_handler();
     void register_handler();
 };

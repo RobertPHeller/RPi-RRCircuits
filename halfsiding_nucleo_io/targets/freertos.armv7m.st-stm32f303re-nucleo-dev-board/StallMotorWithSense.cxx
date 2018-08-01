@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jun 15 22:23:28 2018
-//  Last Modified : <180731.0906>
+//  Last Modified : <180801.1254>
 //
 //  Description	
 //
@@ -44,6 +44,11 @@ static const char rcsid[] = "@(#) : $Id$";
 
 #include "StallMotorWithSense.hxx"
 #include "openlcb/EventService.hxx"
+
+#ifdef LOGLEVEL
+#undef LOGLEVEL
+#define LOGLEVEL VERBOSE
+#endif
 
 void StallMotorWithSense::poll_33hz(openlcb::WriteHelper *helper, 
                                     Notifiable *done)
@@ -108,7 +113,7 @@ StallMotorWithSense::apply_configuration(int fd,
         cfg_motor_reversed_event != motor_reversed_event ||
         cfg_points_normal_event != points_normal_event ||
         cfg_points_reversed_event != points_reversed_event) {
-        unregister_handler();
+        if (!initial_load) unregister_handler();
         motor_normal_event = cfg_motor_normal_event;
         motor_reversed_event = cfg_motor_reversed_event;
         points_normal_event = cfg_points_normal_event;
@@ -250,30 +255,23 @@ void StallMotorWithSense::register_handler()
     if (motor_normal_event != 0LL) {
         openlcb::EventRegistry::instance()->register_handler(
             openlcb::EventRegistryEntry(this, motor_normal_event), 0);
-        registeredCount++;
     }
     if (motor_reversed_event != 0LL) {
         openlcb::EventRegistry::instance()->register_handler(
             openlcb::EventRegistryEntry(this, motor_reversed_event), 0);
-        registeredCount++;
     }
     if (points_normal_event != 0LL) {
         openlcb::EventRegistry::instance()->register_handler(
             openlcb::EventRegistryEntry(this, points_normal_event), 0);
-        registeredCount++;
     }
     if (points_reversed_event != 0LL) {
         openlcb::EventRegistry::instance()->register_handler(
             openlcb::EventRegistryEntry(this, points_reversed_event), 0);
-        registeredCount++;
     }
 }
 
 void StallMotorWithSense::unregister_handler()
 {
-    if (registeredCount > 0) {
-        openlcb::EventRegistry::instance()->unregister_handler(this);
-    }
-    registeredCount = 0;
+    openlcb::EventRegistry::instance()->unregister_handler(this);
 }
 

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 11 17:32:41 2018
-//  Last Modified : <180730.1504>
+//  Last Modified : <180801.1258>
 //
 //  Description	
 //
@@ -215,31 +215,30 @@ void MastPoints::register_handler()
     if (event_stop != 0LL) {
         openlcb::EventRegistry::instance()->register_handler(
             openlcb::EventRegistryEntry(this, event_stop), 0);
-        registeredCount++;
     }
     if (event_approach != 0LL) {
         openlcb::EventRegistry::instance()->register_handler(
             openlcb::EventRegistryEntry(this, event_approach), 0);
-        registeredCount++;
     }
     if (event_approach_limited != 0LL) {
         openlcb::EventRegistry::instance()->register_handler(
             openlcb::EventRegistryEntry(this, event_approach_limited), 0);
-        registeredCount++;
     }
     if (event_clear != 0LL) {
         openlcb::EventRegistry::instance()->register_handler(
             openlcb::EventRegistryEntry(this, event_clear), 0);
-        registeredCount++;
     }
 }
 
 void MastPoints::unregister_handler()
 {
-    if (registeredCount > 0) {
-        openlcb::EventRegistry::instance()->unregister_handler(this);
-    }
-    registeredCount = 0;
+    openlcb::EventRegistry::instance()->unregister_handler(this);
+}
+
+
+void MastPoints::factory_reset(int fd)  {
+    LOG(INFO,"MastPoints::factory_reset(%d)",fd);
+    config.description().write(fd, "");
 }
 
 bool MastFrog::eval()
@@ -371,25 +370,24 @@ void MastFrog::register_handler()
     if (event_stop != 0LL) {
         openlcb::EventRegistry::instance()->register_handler(
             openlcb::EventRegistryEntry(this, event_stop, 0), 0);
-        registeredCount++;
     }
     if (event_approach != 0LL) {
         openlcb::EventRegistry::instance()->register_handler(
             openlcb::EventRegistryEntry(this, event_approach, 0), 0);
-        registeredCount++;
     }
     if (event_clear != 0LL) {
         openlcb::EventRegistry::instance()->register_handler(
             openlcb::EventRegistryEntry(this, event_clear, 0), 0);
-        registeredCount++;
     }
 }
 
 void MastFrog::unregister_handler()
 {
-    if (registeredCount > 0) {
-        openlcb::EventRegistry::instance()->unregister_handler(this);
-    }
-    registeredCount = 0;
+    openlcb::EventRegistry::instance()->unregister_handler(this);
 }
 
+
+void MastFrog::factory_reset(int fd) {
+    LOG(INFO,"MastFrog::factory_reset(%d)",fd);
+    config.description().write(fd,"");
+}
