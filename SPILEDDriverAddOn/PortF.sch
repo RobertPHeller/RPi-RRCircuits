@@ -37,7 +37,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 2 5
 Title ""
-Date "21 jun 2018"
+Date "30 jul 2018"
 Rev ""
 Comp ""
 Comment1 ""
@@ -226,17 +226,6 @@ F 3 "" H 3150 2050 60  0000 C CNN
 $EndComp
 Wire Wire Line
 	3150 2050 3150 2250
-$Comp
-L CONN_9 P2
-U 1 1 5B2AE5D0
-P 8600 2600
-F 0 "P2" V 8550 2600 60  0000 C CNN
-F 1 "CONN_9" V 8650 2600 60  0000 C CNN
-F 2 "~" H 8600 2600 60  0000 C CNN
-F 3 "~" H 8600 2600 60  0000 C CNN
-	1    8600 2600
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	6650 1500 8150 1500
 Wire Wire Line
@@ -367,4 +356,26 @@ Wire Wire Line
 	2750 2650 2100 2650
 Wire Wire Line
 	2100 2650 2100 2500
+$Comp
+L CONN_10 P2
+U 1 1 5B5E7854
+P 8600 2650
+F 0 "P2" V 8550 2650 60  0000 C CNN
+F 1 "0   1  2  3  4  5  6  7  D  +" V 8650 2650 60  0000 C CNN
+F 2 "~" H 8600 2650 60  0000 C CNN
+F 3 "~" H 8600 2650 60  0000 C CNN
+	1    8600 2650
+	1    0    0    -1  
+$EndComp
+$Comp
+L +5V #PWR011
+U 1 1 5B5E7872
+P 8250 3100
+F 0 "#PWR011" H 8250 3190 20  0001 C CNN
+F 1 "+5V" H 8250 3190 30  0000 C CNN
+F 2 "" H 8250 3100 60  0000 C CNN
+F 3 "" H 8250 3100 60  0000 C CNN
+	1    8250 3100
+	0    -1   -1   0   
+$EndComp
 $EndSCHEMATC
