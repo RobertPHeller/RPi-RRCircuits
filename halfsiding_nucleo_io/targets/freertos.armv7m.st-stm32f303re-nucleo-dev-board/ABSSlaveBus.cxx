@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jun 15 10:44:08 2018
-//  Last Modified : <180801.1748>
+//  Last Modified : <180802.0915>
 //
 //  Description	
 //
@@ -71,6 +71,7 @@ ConfigUpdateListener::UpdateAction ABSSlaveNode::apply_configuration(int fd,
     AutoNotify n(done);
     LOG(INFO,"ABSSlaveNode::apply_configuration(%d,%d,%p) called",fd,initial_load,done);
     nodeid = config.nodeid().read(fd);
+    bool was_enabled = enabled;
     enabled = config.enabled().read(fd);
     //enabled = false;
     if (nodeid < 0 || nodeid > 63) enabled = false;
@@ -94,7 +95,7 @@ ConfigUpdateListener::UpdateAction ABSSlaveNode::apply_configuration(int fd,
         cfg_west_stop_event != west_stop_event ||
         cfg_west_approach_event != west_approach_event ||
         cfg_west_clear_event != west_clear_event) {
-        if (!initial_load) unregister_handler();
+        if (!initial_load || was_enabled) unregister_handler();
         occupied_event = cfg_occupied_event;
         unoccupied_event = cfg_unoccupied_event;
         east_stop_event = cfg_east_stop_event;
@@ -103,10 +104,10 @@ ConfigUpdateListener::UpdateAction ABSSlaveNode::apply_configuration(int fd,
         west_stop_event = cfg_west_stop_event;
         west_approach_event = cfg_west_approach_event;
         west_clear_event = cfg_west_clear_event;
-        //if (enabled) {
+        if (enabled) {
             LOG(INFO,"ABSSlaveNode::apply_configuration(): registering event handler");
             register_handler();
-        //}
+        }
         return REINIT_NEEDED; // Causes events identify.
     }
     return UPDATED;

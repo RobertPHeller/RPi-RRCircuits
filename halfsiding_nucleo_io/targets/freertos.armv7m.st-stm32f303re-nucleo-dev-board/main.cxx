@@ -62,6 +62,7 @@
 #include "Mast.hxx"
 #include "ABSSlaveBus.hxx"
 #include "StallMotorWithSense.hxx"
+#include "OccDetector.hxx"
 
 // These preprocessor symbols are used to select which physical connections
 // will be enabled in the main(). See @ref appl_main below.
@@ -501,7 +502,7 @@ openlcb::RefreshLoop loopab(stack.node(),
 #define ABSSLAVES
 #define SHIELD
 #ifdef SHIELD
-openlcb::ConfiguredProducer producer_block_occ(
+OccupancyDetector producer_block_occ(
     stack.node(), cfg.seg().shield().occdetector(), (const Gpio*)&BLOCK_OCC);
 openlcb::RefreshLoop loopocc(stack.node(),
     {
