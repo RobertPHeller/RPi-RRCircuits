@@ -77,10 +77,12 @@ OVERRIDE_CONST(gc_generate_newlines, 1);
 // thread. Useful tuning parameter in case the application runs out of memory.
 OVERRIDE_CONST(main_thread_stack_size, 1300);
 
+
 // Specifies the 48-bit OpenLCB node identifier. This must be unique for every
 // hardware manufactured, so in production this should be replaced by some
 // easily incrementable method.
-extern const openlcb::NodeID NODE_ID = 0x050101012280ULL; // 05 01 01 01 22 80
+//extern const openlcb::NodeID NODE_ID = 0x050101012280ULL; // 05 01 01 01 22 80
+#include "NODEID.hxx"
 
 // Sets up a comprehensive OpenLCB stack for a single virtual node. This stack
 // contains everything needed for a usual peripheral node -- all

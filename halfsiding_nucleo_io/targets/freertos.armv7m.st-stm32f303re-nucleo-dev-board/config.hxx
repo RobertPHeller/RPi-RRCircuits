@@ -13,6 +13,7 @@
 namespace openlcb
 {
 
+
 /// Defines the identification information for the node. The arguments are:
 ///
 /// - 4 (version info, always 4 by the standard
