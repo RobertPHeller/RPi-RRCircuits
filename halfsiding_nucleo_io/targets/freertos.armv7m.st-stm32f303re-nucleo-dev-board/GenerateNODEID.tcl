@@ -9,7 +9,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Fri Aug 3 10:35:43 2018
-#  Last Modified : <180803.1048>
+#  Last Modified : <180803.1104>
 #
 #  Description	
 #
@@ -89,6 +89,6 @@ if {[catch {open NODEID.hxx w} nfp]} {
 }
 
 
-puts $nfp [format {extern const openlcb::NodeID NODE_ID = 0x%02X%02X%02X%02X%02X%02X0ULL; // %02X %02X %02X %02X %02X %02X} \
+puts $nfp [format {extern const openlcb::NodeID NODE_ID = 0x%02X%02X%02X%02X%02X%02XULL; // %02X %02X %02X %02X %02X %02X} \
       $n1 $n2 $n3 $n4 $n5 $n6 $n1 $n2 $n3 $n4 $n5 $n6]
 close $nfp
