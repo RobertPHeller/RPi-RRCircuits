@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jun 15 10:44:08 2018
-//  Last Modified : <180802.0915>
+//  Last Modified : <180803.1236>
 //
 //  Description	
 //
@@ -94,7 +94,8 @@ ConfigUpdateListener::UpdateAction ABSSlaveNode::apply_configuration(int fd,
         cfg_east_clear_event != east_clear_event ||
         cfg_west_stop_event != west_stop_event ||
         cfg_west_approach_event != west_approach_event ||
-        cfg_west_clear_event != west_clear_event) {
+        cfg_west_clear_event != west_clear_event ||
+        was_enabled != enabled) {
         if (!initial_load || was_enabled) unregister_handler();
         occupied_event = cfg_occupied_event;
         unoccupied_event = cfg_unoccupied_event;

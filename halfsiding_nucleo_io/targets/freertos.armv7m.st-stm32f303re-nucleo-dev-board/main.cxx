@@ -150,10 +150,10 @@ openlcb::MultiConfiguredConsumer direct_consumers(stack.node(), kDirectGpio,
     ARRAYSIZE(kDirectGpio), cfg.seg().direct_consumers());
 #endif
 
-#define MOTOR0A TDRV1_Pin::instance()
-#define MOTOR0B TDRV2_Pin::instance()
-#define MOTOR1A TDRV3_Pin::instance()
-#define MOTOR1B TDRV4_Pin::instance()
+#define MOTOR0A TDRV8_Pin::instance()
+#define MOTOR0B TDRV7_Pin::instance()
+#define MOTOR1A TDRV6_Pin::instance()
+#define MOTOR1B TDRV5_Pin::instance()
 
 #ifdef USINGSERVOS
 const unsigned servo_min = configCPU_CLOCK_HZ * 1 / 1000;
