@@ -1,0 +1,1 @@
+/home/heller/openmrn/boards/st-stm32f303re-nucleo-dev-board/target.ld
