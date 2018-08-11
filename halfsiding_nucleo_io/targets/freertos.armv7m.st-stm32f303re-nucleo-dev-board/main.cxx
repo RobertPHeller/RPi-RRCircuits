@@ -62,6 +62,7 @@
 #include "Mast.hxx"
 #include "ABSSlaveBus.hxx"
 #include "StallMotorWithSense.hxx"
+#include "OccDetector.hxx"
 
 // These preprocessor symbols are used to select which physical connections
 // will be enabled in the main(). See @ref appl_main below.
@@ -76,10 +77,12 @@ OVERRIDE_CONST(gc_generate_newlines, 1);
 // thread. Useful tuning parameter in case the application runs out of memory.
 OVERRIDE_CONST(main_thread_stack_size, 1300);
 
+
 // Specifies the 48-bit OpenLCB node identifier. This must be unique for every
 // hardware manufactured, so in production this should be replaced by some
 // easily incrementable method.
-extern const openlcb::NodeID NODE_ID = 0x050101012280ULL; // 05 01 01 01 22 80
+//extern const openlcb::NodeID NODE_ID = 0x050101012280ULL; // 05 01 01 01 22 80
+#include "NODEID.hxx"
 
 // Sets up a comprehensive OpenLCB stack for a single virtual node. This stack
 // contains everything needed for a usual peripheral node -- all
@@ -147,10 +150,10 @@ openlcb::MultiConfiguredConsumer direct_consumers(stack.node(), kDirectGpio,
     ARRAYSIZE(kDirectGpio), cfg.seg().direct_consumers());
 #endif
 
-#define MOTOR0A TDRV1_Pin::instance()
-#define MOTOR0B TDRV2_Pin::instance()
-#define MOTOR1A TDRV3_Pin::instance()
-#define MOTOR1B TDRV4_Pin::instance()
+#define MOTOR0A TDRV8_Pin::instance()
+#define MOTOR0B TDRV7_Pin::instance()
+#define MOTOR1A TDRV6_Pin::instance()
+#define MOTOR1B TDRV5_Pin::instance()
 
 #ifdef USINGSERVOS
 const unsigned servo_min = configCPU_CLOCK_HZ * 1 / 1000;
@@ -501,7 +504,7 @@ openlcb::RefreshLoop loopab(stack.node(),
 #define ABSSLAVES
 #define SHIELD
 #ifdef SHIELD
-openlcb::ConfiguredProducer producer_block_occ(
+OccupancyDetector producer_block_occ(
     stack.node(), cfg.seg().shield().occdetector(), (const Gpio*)&BLOCK_OCC);
 openlcb::RefreshLoop loopocc(stack.node(),
     {
