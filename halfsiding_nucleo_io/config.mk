@@ -1,1 +1,1 @@
-/home/heller/Deepwoods/openmrn/applications/default_config.mk
+/home/heller/openmrn/applications/default_config.mk
