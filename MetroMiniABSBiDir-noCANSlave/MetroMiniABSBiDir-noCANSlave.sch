@@ -43,7 +43,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "26 jul 2018"
+Date "20 aug 2018"
 Rev ""
 Comp ""
 Comment1 ""
@@ -79,7 +79,7 @@ L CONN_8 P2
 U 1 1 5B1FE834
 P 7000 700
 F 0 "P2" V 6950 700 60  0000 C CNN
-F 1 "GND EG EY ER WG WY WR +5" V 7050 700 60  0000 C CNN
+F 1 "+5V EG EY ER WG WY WR GND" V 7050 700 60  0000 C CNN
 F 2 "~" H 7000 700 60  0000 C CNN
 F 3 "~" H 7000 700 60  0000 C CNN
 F 4 "651-1725711" H 7000 700 60  0001 C CNN "Mouser Part Number"
