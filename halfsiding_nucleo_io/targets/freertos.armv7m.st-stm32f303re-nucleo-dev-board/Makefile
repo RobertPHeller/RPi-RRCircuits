@@ -23,6 +23,15 @@ OPENOCDARGS = -f board/st_nucleo_f3.cfg
 TARGET := freertos.armv7m
 include $(OPENMRNPATH)/etc/prog.mk
 
+NODEID.hxx : NODEID.txt
+	./GenerateNODEID.tcl
+
+main.o: NODEID.hxx
+
+NodeIDBin: $(EXECUTABLE).bin NODEID.txt
+	mv $(EXECUTABLE).bin $(EXECUTABLE)_`cat NODEID.txt|tr ' ' '_'`.bin
+	rm -f NODEID.hxx $(EXECUTABLE)$(EXTENTION) $(EXECUTABLE).lst $(EXECUTABLE).map
+
 ifeq ($(call find_missing_deps,OPENOCDPATH OPENOCDSCRIPTSPATH),)
 
 flash: $(EXECUTABLE)$(EXTENTION) $(EXECUTABLE).lst
