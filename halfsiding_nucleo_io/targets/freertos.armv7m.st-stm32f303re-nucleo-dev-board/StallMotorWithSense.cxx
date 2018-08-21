@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jun 15 22:23:28 2018
-//  Last Modified : <180801.1254>
+//  Last Modified : <180809.1619>
 //
 //  Description	
 //
@@ -54,6 +54,8 @@ void StallMotorWithSense::poll_33hz(openlcb::WriteHelper *helper,
                                     Notifiable *done)
 {
     PointStates newstate;
+    LOG(INFO,"*** StallMotorWithSense::poll_33hz(): pointsenseA->read() is %d, pointsenseB->read() is %d",
+        pointsenseA->read(),pointsenseB->read());
     if (pointsenseA->is_clr() && pointsenseB->is_set()) {
         newstate = normal;
     } else if (pointsenseB->is_clr() && pointsenseA->is_set()) {

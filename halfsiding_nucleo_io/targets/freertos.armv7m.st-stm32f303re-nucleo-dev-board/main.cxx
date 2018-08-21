@@ -300,6 +300,7 @@ private:
         if (asyncMutex_) {
             asyncMutex_->Unlock();
         }
+        //if (inputStorage_) LOG(INFO,"*** SpiIOShiftRegister::locked(): *inputStorage_ is 0x%08lX",*inputStorage_);
         return call_immediately(STATE(wait_delay));
     }
 
