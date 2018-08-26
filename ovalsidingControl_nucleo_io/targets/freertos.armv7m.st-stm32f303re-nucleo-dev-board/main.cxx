@@ -51,6 +51,8 @@
 #include "config.hxx"
 #include "hardware.hxx"
 #include "PWM.hxx"
+#include "PointSenseRepeat.hxx"
+#include "OccupencyRepeat.hxx"
 
 // These preprocessor symbols are used to select which physical connections
 // will be enabled in the main(). See @ref appl_main below.
@@ -68,7 +70,8 @@ OVERRIDE_CONST(main_thread_stack_size, 1300);
 // Specifies the 48-bit OpenLCB node identifier. This must be unique for every
 // hardware manufactured, so in production this should be replaced by some
 // easily incrementable method.
-extern const openlcb::NodeID NODE_ID = 0x050101011816ULL;
+//extern const openlcb::NodeID NODE_ID = 0x050101011816ULL;
+#include "NODEID.hxx"
 
 // Sets up a comprehensive OpenLCB stack for a single virtual node. This stack
 // contains everything needed for a usual peripheral node -- all
@@ -104,6 +107,7 @@ extern const char *const openlcb::SNIP_DYNAMIC_FILENAME =
 // segment 'seg', in which there is a repeated group 'consumers', and we assign
 // the individual entries to the individual consumers. Each consumer gets its
 // own GPIO pin.
+#ifdef ONBOARD
 openlcb::ConfiguredConsumer consumer_green(
     stack.node(), cfg.seg().nucleo_onboard().green_led(), LED_GREEN_Pin());
 
@@ -117,6 +121,7 @@ openlcb::ConfiguredProducer producer_sw1(
 // producers to it.
 openlcb::RefreshLoop loop(
     stack.node(), {producer_sw1.polling()});
+#endif
 
 // List of GPIO objects that will be used for the output pins. You should keep
 // the constexpr declaration, because it will produce a compile error in case
@@ -129,8 +134,10 @@ constexpr const Gpio *const kDirectGpio[] = {
     TDRV7_Pin::instance(), TDRV8_Pin::instance()  //
 };
 
+#ifdef DIRECTCONSUMERS
 openlcb::MultiConfiguredConsumer direct_consumers(stack.node(), kDirectGpio,
     ARRAYSIZE(kDirectGpio), cfg.seg().direct_consumers());
+#endif
 
 const unsigned servo_min = configCPU_CLOCK_HZ * 1 / 1000;
 const unsigned servo_max = configCPU_CLOCK_HZ * 2 / 1000;
@@ -140,6 +147,7 @@ PWMGPO srv2_gpo(servo_channels[1], servo_min, servo_max);
 PWMGPO srv3_gpo(servo_channels[2], servo_min, servo_max);
 PWMGPO srv4_gpo(servo_channels[3], servo_min, servo_max);
 
+#ifdef SERVOCONSUMERS
 constexpr const Gpio *const kServoGpio[] = {
     &srv1_gpo, &srv2_gpo, &srv3_gpo, &srv4_gpo, //
     SRV5_Pin::instance(), SRV6_Pin::instance(), //
@@ -148,6 +156,7 @@ constexpr const Gpio *const kServoGpio[] = {
 
 openlcb::MultiConfiguredConsumer servo_consumers(stack.node(), kServoGpio,
     ARRAYSIZE(kServoGpio), cfg.seg().servo_consumers());
+#endif
 
 class FactoryResetHelper : public DefaultConfigUpdateListener {
 public:
@@ -159,9 +168,9 @@ public:
 
     void factory_reset(int fd) override
     {
-        cfg.userinfo().name().write(fd, "Nucleo IO board");
+        cfg.userinfo().name().write(fd, "Oval Siding Control Nucleo IO board");
         cfg.userinfo().description().write(
-            fd, "OpenLCB DevKit + F091RC dev board.");
+            fd, "OpenLCB DevKit + F303RC dev board + SPI Output Expander.");
     }
 } factory_reset_helper;
 
@@ -322,6 +331,7 @@ constexpr const MmapGpio PORTE_LINE6(output_register, 10, true);
 constexpr const MmapGpio PORTE_LINE7(output_register, 9, true);
 constexpr const MmapGpio PORTE_LINE8(output_register, 8, true);
 
+#ifdef PORTDECONSUMERS
 constexpr const Gpio *const kPortDEGpio[] = {
     &PORTD_LINE1, &PORTD_LINE2, &PORTD_LINE3, &PORTD_LINE4, //
     &PORTD_LINE5, &PORTD_LINE6, &PORTD_LINE7, &PORTD_LINE8, //
@@ -331,7 +341,62 @@ constexpr const Gpio *const kPortDEGpio[] = {
 
 openlcb::MultiConfiguredConsumer portde_consumers(stack.node(), kPortDEGpio,
     ARRAYSIZE(kPortDEGpio), cfg.seg().portde_consumers());
+#endif
 
+uint32_t externoutput_register[1] = {0x00000000};
+
+SpiIOShiftRegister external_outputs(&io_service, "/dev/spi1.ext", nullptr, EXT_LAT_Pin::instance(), externoutput_register, 4);
+
+constexpr const MmapGpio PORTF_LINE1(externoutput_register, 7, true);
+constexpr const MmapGpio PORTF_LINE2(externoutput_register, 6, true);
+constexpr const MmapGpio PORTF_LINE3(externoutput_register, 5, true);
+constexpr const MmapGpio PORTF_LINE4(externoutput_register, 4, true);
+constexpr const MmapGpio PORTF_LINE5(externoutput_register, 3, true);
+constexpr const MmapGpio PORTF_LINE6(externoutput_register, 2, true);
+constexpr const MmapGpio PORTF_LINE7(externoutput_register, 1, true);
+constexpr const MmapGpio PORTF_LINE8(externoutput_register, 0, true);
+
+constexpr const MmapGpio PORTG_LINE1(externoutput_register, 15, true);
+constexpr const MmapGpio PORTG_LINE2(externoutput_register, 14, true);
+constexpr const MmapGpio PORTG_LINE3(externoutput_register, 13, true);
+constexpr const MmapGpio PORTG_LINE4(externoutput_register, 12, true);
+constexpr const MmapGpio PORTG_LINE5(externoutput_register, 11, true);
+constexpr const MmapGpio PORTG_LINE6(externoutput_register, 10, true);
+constexpr const MmapGpio PORTG_LINE7(externoutput_register, 9, true);
+constexpr const MmapGpio PORTG_LINE8(externoutput_register, 8, true);
+
+constexpr const MmapGpio PORTH_LINE1(externoutput_register, 23, true);
+constexpr const MmapGpio PORTH_LINE2(externoutput_register, 22, true);
+constexpr const MmapGpio PORTH_LINE3(externoutput_register, 21, true);
+constexpr const MmapGpio PORTH_LINE4(externoutput_register, 20, true);
+constexpr const MmapGpio PORTH_LINE5(externoutput_register, 19, true);
+constexpr const MmapGpio PORTH_LINE6(externoutput_register, 18, true);
+constexpr const MmapGpio PORTH_LINE7(externoutput_register, 17, true);
+constexpr const MmapGpio PORTH_LINE8(externoutput_register, 16, true);
+
+constexpr const MmapGpio PORTI_LINE1(externoutput_register, 31, true);
+constexpr const MmapGpio PORTI_LINE2(externoutput_register, 30, true);
+constexpr const MmapGpio PORTI_LINE3(externoutput_register, 29, true);
+constexpr const MmapGpio PORTI_LINE4(externoutput_register, 28, true);
+constexpr const MmapGpio PORTI_LINE5(externoutput_register, 27, true);
+constexpr const MmapGpio PORTI_LINE6(externoutput_register, 26, true);
+constexpr const MmapGpio PORTI_LINE7(externoutput_register, 25, true);
+constexpr const MmapGpio PORTI_LINE8(externoutput_register, 24, true);
+
+PointSenseRepeat ind1(stack.node(), cfg.seg().PointSenseRepeats().entry<0>(), (const Gpio*)&PORTD_LINE1, (const Gpio*)&PORTD_LINE2);
+PointSenseRepeat ind2(stack.node(), cfg.seg().PointSenseRepeats().entry<1>(), (const Gpio*)&PORTD_LINE3, (const Gpio*)&PORTD_LINE4);
+
+OccupencyRepeat  blk1(stack.node(), cfg.seg().OccupencyRepeats().entry<0>(), (const Gpio*)&PORTD_LINE3 );
+OccupencyRepeat  blk2(stack.node(), cfg.seg().OccupencyRepeats().entry<1>(), (const Gpio*)&PORTD_LINE4 );
+OccupencyRepeat  blk3(stack.node(), cfg.seg().OccupencyRepeats().entry<2>(), (const Gpio*)&PORTD_LINE5 );
+OccupencyRepeat  blk4(stack.node(), cfg.seg().OccupencyRepeats().entry<3>(), (const Gpio*)&PORTD_LINE6 );
+OccupencyRepeat  blk5(stack.node(), cfg.seg().OccupencyRepeats().entry<4>(), (const Gpio*)&PORTD_LINE7 );
+OccupencyRepeat  blk6(stack.node(), cfg.seg().OccupencyRepeats().entry<5>(), (const Gpio*)&PORTD_LINE8 );
+OccupencyRepeat  blk7(stack.node(), cfg.seg().OccupencyRepeats().entry<6>(), (const Gpio*)&PORTE_LINE1 );
+
+
+
+#ifdef SNAPCONSUMERS
 openlcb::ConfiguredPulseConsumer turnout_pulse_consumer_1(
     stack.node(), cfg.seg().snap_switches().entry<0>(), (const Gpio*)&PORTD_LINE1);
 openlcb::ConfiguredPulseConsumer turnout_pulse_consumer_2(
@@ -348,6 +413,7 @@ openlcb::ConfiguredPulseConsumer turnout_pulse_consumer_7(
     stack.node(), cfg.seg().snap_switches().entry<6>(), TDRV7_Pin::instance());
 openlcb::ConfiguredPulseConsumer turnout_pulse_consumer_8(
     stack.node(), cfg.seg().snap_switches().entry<7>(), TDRV8_Pin::instance());
+#endif
 
 uint32_t input_register[2] = {0};
 
@@ -371,6 +437,7 @@ constexpr const MmapGpio PORTA_LINE6(input_register, 13, false);
 constexpr const MmapGpio PORTA_LINE7(input_register, 14, false);
 constexpr const MmapGpio PORTA_LINE8(input_register, 15, false);
 
+#ifdef PORTAB_PRODUCERS
 // Similar syntax for the producers.
 openlcb::ConfiguredProducer producer_a1(
     stack.node(), cfg.seg().portab_producers().entry<0>(), (const Gpio*)&PORTA_LINE1);
@@ -426,6 +493,7 @@ openlcb::RefreshLoop loopab(stack.node(),
         &turnout_pulse_consumer_7,                    //
         &turnout_pulse_consumer_8                    //
     });
+#endif
 
 /** Entry point to application.
  * @param argc number of command line arguments
