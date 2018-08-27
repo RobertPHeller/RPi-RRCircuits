@@ -394,7 +394,17 @@ OccupencyRepeat  blk5(stack.node(), cfg.seg().OccupencyRepeats().entry<4>(), (co
 OccupencyRepeat  blk6(stack.node(), cfg.seg().OccupencyRepeats().entry<5>(), (const Gpio*)&PORTD_LINE8 );
 OccupencyRepeat  blk7(stack.node(), cfg.seg().OccupencyRepeats().entry<6>(), (const Gpio*)&PORTE_LINE1 );
 
+Signal3 sig1(stack.node(), cfg.seg().Signal3Repeats().entry<0>(), (const Gpio*)&PORTE_LINE2, (const Gpio*)&PORTE_LINE3, (const Gpio*)&PORTE_LINE4 );
+Signal3 sig2(stack.node(), cfg.seg().Signal3Repeats().entry<1>(), (const Gpio*)&PORTE_LINE5, (const Gpio*)&PORTE_LINE6, (const Gpio*)&PORTE_LINE7 );
+Signal3 sig3(stack.node(), cfg.seg().Signal3Repeats().entry<2>(), (const Gpio*)&PORTF_LINE1, (const Gpio*)&PORTF_LINE2, (const Gpio*)&PORTF_LINE3 );
+Signal3 sig4(stack.node(), cfg.seg().Signal3Repeats().entry<3>(), (const Gpio*)&PORTF_LINE4, (const Gpio*)&PORTF_LINE5, (const Gpio*)&PORTF_LINE6 );
+Signal3 sig5(stack.node(), cfg.seg().Signal3Repeats().entry<4>(), (const Gpio*)&PORTF_LINE7, (const Gpio*)&PORTF_LINE8, (const Gpio*)&PORTG_LINE1 );
+Signal3 sig6(stack.node(), cfg.seg().Signal3Repeats().entry<5>(), (const Gpio*)&PORTG_LINE2, (const Gpio*)&PORTG_LINE3, (const Gpio*)&PORTG_LINE4 );
+Signal3 sig7(stack.node(), cfg.seg().Signal3Repeats().entry<6>(), (const Gpio*)&PORTG_LINE5, (const Gpio*)&PORTG_LINE6, (const Gpio*)&PORTG_LINE7 );
+Signal3 sig8(stack.node(), cfg.seg().Signal3Repeats().entry<7>(), (const Gpio*)&PORTG_LINE8, (const Gpio*)&PORTH_LINE1, (const Gpio*)&PORTH_LINE2 );
 
+Signal3over2 sig9(stack.node(), cfg.seg().Signal3over2Repeats().entry<0>(), (const Gpio*)&PORTH_LINE3, (const Gpio*)&PORTH_LINE4, (const Gpio*)&PORTH_LINE5, (const Gpio*)&PORTG_LINE6, (const Gpio*)&PORTH_LINE7 );
+Signal3over2 sig10(stack.node(), cfg.seg().Signal3over2Repeats().entry<1>(), (const Gpio*)&PORTH_LINE8, (const Gpio*)&PORTI_LINE1, (const Gpio*)&PORTI_LINE2, (const Gpio*)&PORTI_LINE3, (const Gpio*)&PORTI_LINE4 );
 
 #ifdef SNAPCONSUMERS
 openlcb::ConfiguredPulseConsumer turnout_pulse_consumer_1(
@@ -436,6 +446,8 @@ constexpr const MmapGpio PORTA_LINE5(input_register, 12, false);
 constexpr const MmapGpio PORTA_LINE6(input_register, 13, false);
 constexpr const MmapGpio PORTA_LINE7(input_register, 14, false);
 constexpr const MmapGpio PORTA_LINE8(input_register, 15, false);
+
+
 
 #ifdef PORTAB_PRODUCERS
 // Similar syntax for the producers.
