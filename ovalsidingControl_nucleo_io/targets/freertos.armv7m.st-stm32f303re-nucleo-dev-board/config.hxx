@@ -8,6 +8,7 @@
 #include "PointSenseRepeat.hxx"
 #include "OccupencyRepeat.hxx"
 #include "SignalRepeat.hxx"
+#include "ControlPoint.hxx"
 
 namespace openlcb
 {
@@ -58,6 +59,7 @@ using PointSenseRepeatConsumers = RepeatedGroup<PointSenseRepeatConfig, 2>;
 using OccupencyRepeatConsumers = RepeatedGroup<OccupencyRepeatConfig, 7>;
 using Signal3Consumers = RepeatedGroup<Signal3Config, 8>;
 using Signal3over2Consumers = RepeatedGroup<Signal3over2Config, 2>;
+using ControlPointProducers = RepeatedGroup<ControlPointConfig, 2>;
 
 /// Defines the main segment in the configuration CDI. This is laid out at
 /// origin 128 to give space for the ACDI user data at the beginning.
@@ -69,6 +71,7 @@ CDI_GROUP_ENTRY(PointSenseRepeats, PointSenseRepeatConsumers, Name("Consumers fo
 CDI_GROUP_ENTRY(OccupencyRepeats, OccupencyRepeatConsumers, Name("Consumers for occupency repeaters"), Description("These are the block occupancy indicators"), RepName("OccupencyRepeat"));
 CDI_GROUP_ENTRY(Signal3Repeats, Signal3Consumers, Name("Consumers for three color, three aspect signal repeaters"), Description("These are the three aspect, three lamp signal repeaters"), RepName("Signal3"));
 CDI_GROUP_ENTRY(Signal3over2Repeats, Signal3over2Consumers, Name("Consumers for 3 over 2 four aspect signal repeaters"), Description("These are the four aspect, five lamp (3 over 2) signal repeaters"), RepName("Signal3over2"));
+CDI_GROUP_ENTRY(ControlPoints, ControlPointProducers, Name("Control Point Switch Levers with Code Buttons"), Description("These are the switch levers for the control points"), RepName("ControlPoint"));
 //CDI_GROUP_ENTRY(nucleo_onboard, NucleoGroup);
 //CDI_GROUP_ENTRY(snap_switches, PulseConsumers, Name("Consumers for snap switches"), Description("These are on port D"), RepName("Line"));
 //CDI_GROUP_ENTRY(direct_consumers, DirectConsumers, Name("Tortoise/Hi-Power outputs"), RepName("Line"));

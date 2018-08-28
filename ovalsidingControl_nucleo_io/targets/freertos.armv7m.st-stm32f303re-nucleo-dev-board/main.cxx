@@ -53,6 +53,8 @@
 #include "PWM.hxx"
 #include "PointSenseRepeat.hxx"
 #include "OccupencyRepeat.hxx"
+#include "SignalRepeat.hxx"
+#include "ControlPoint.hxx"
 
 // These preprocessor symbols are used to select which physical connections
 // will be enabled in the main(). See @ref appl_main below.
@@ -447,7 +449,10 @@ constexpr const MmapGpio PORTA_LINE6(input_register, 13, false);
 constexpr const MmapGpio PORTA_LINE7(input_register, 14, false);
 constexpr const MmapGpio PORTA_LINE8(input_register, 15, false);
 
+ControlPoint cp1(stack.node(), cfg.seg().ControlPoints().entry<0>(), (const Gpio*)&PORTA_LINE1, (const Gpio*)&PORTA_LINE2, (const Gpio*)&PORTA_LINE3);
+ControlPoint cp2(stack.node(), cfg.seg().ControlPoints().entry<1>(), (const Gpio*)&PORTA_LINE4, (const Gpio*)&PORTA_LINE5, (const Gpio*)&PORTA_LINE6);
 
+openlcb::RefreshLoop loopcontrolpoint(stack.node(),{&cp1, &cp2});
 
 #ifdef PORTAB_PRODUCERS
 // Similar syntax for the producers.
