@@ -61,8 +61,9 @@
 #include "PWM.hxx"
 #include "Mast.hxx"
 #include "ABSSlaveBus.hxx"
-#include "StallMotorWithSense.hxx"
 #include "OccDetector.hxx"
+#include "ConfiguredPointSense.hxx"
+#include "StallMotor.hxx"
 
 // These preprocessor symbols are used to select which physical connections
 // will be enabled in the main(). See @ref appl_main below.
@@ -514,35 +515,34 @@ openlcb::RefreshLoop loopocc(stack.node(),
 #endif
 
 #ifdef STALLMOTORS
-StallMotorWithSense turnout0(stack.node(), cfg.seg().turnouts().entry<0>(),
-                             MOTOR0A, MOTOR0B,
-                             (const Gpio *)&POINTSENSE0A,
-                             (const Gpio *)&POINTSENSE0B);
-StallMotorWithSense turnout1(stack.node(), cfg.seg().turnouts().entry<1>(),
-                             MOTOR1A, MOTOR1B,
-                             (const Gpio *)&POINTSENSE1A,
-                             (const Gpio *)&POINTSENSE1B);
+PointSense points1(stack.node(), cfg.seg().points().entry<0>(), (const Gpio *)&POINTSENSE0A,(const Gpio *)&POINTSENSE0B);
+PointSense points2(stack.node(), cfg.seg().points().entry<1>(), (const Gpio *)&POINTSENSE1A,(const Gpio *)&POINTSENSE1B);
+openlcb::RefreshLoop looppoints(stack.node(),
+                         {
+                             points1.polling(), points2.polling()
+                         });
 
-openlcb::RefreshLoop loopturnouts(stack.node(),
-    {
-         turnout0.polling(), turnout1.polling()
-    });
+StallMotor turnout1(stack.node(), cfg.seg().turnouts().entry<0>(), MOTOR0A, MOTOR0B);
+StallMotor turnout2(stack.node(), cfg.seg().turnouts().entry<1>(), MOTOR1A, MOTOR1B);
 #endif
 
 #ifdef MASTS
 MastPoints pointsSignal(stack.node(), cfg.seg().masts().points(),
-                        (const Gpio*)&BLOCK_OCC, (const Gpio*)&POINTSENSE0B,
+                        (const Gpio*)&BLOCK_OCC, &points1, 
+                        openlcb::EventState::INVALID,
                         (const Gpio*)&NextEastPoints, (const Gpio*)&POINTSHIGHGREEN,
                         (const Gpio*)&POINTSHIGHYELLOW, (const Gpio*)&POINTSHIGHRED,
                         (const Gpio*)&POINTSLOWYELLOW, (const Gpio*)&POINTSLOWRED);
 
 MastFrog frogMainSignal(stack.node(), cfg.seg().masts().frog_main(),
-                        (const Gpio*)&BLOCK_OCC, (const Gpio*)&POINTSENSE0B,
+                        (const Gpio*)&BLOCK_OCC, &points1,
+                        openlcb::EventState::INVALID,
                         (const Gpio*)&NextWestMain, (const Gpio*)&FROGMAINGREEN,
                         (const Gpio*)&FROGMAINYELLOW, (const Gpio*)&FROGMAINRED);
 
 MastFrog frogDivSignal(stack.node(), cfg.seg().masts().frog_div(),
-                       (const Gpio*)&BLOCK_OCC, (const Gpio*)&POINTSENSE0A,
+                       (const Gpio*)&BLOCK_OCC, &points1,
+                       openlcb::EventState::VALID,
                        (const Gpio*)&NextWestDiv, (const Gpio*)&FROGDIVGREEN,
                        (const Gpio*)&FROGDIVYELLOW, (const Gpio *)&FROGDIVRED);
 

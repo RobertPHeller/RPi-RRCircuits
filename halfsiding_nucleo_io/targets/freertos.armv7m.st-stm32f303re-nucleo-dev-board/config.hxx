@@ -7,8 +7,9 @@
 #include "openlcb/MemoryConfig.hxx"
 #include "Mast.hxx"
 #include "ABSSlaveBus.hxx"
-#include "StallMotorWithSense.hxx"
 #include "OccDetector.hxx"
+#include "ConfiguredPointSense.hxx"
+#include "StallMotor.hxx"
 
 namespace openlcb
 {
@@ -49,9 +50,11 @@ using AllProducers = RepeatedGroup<ProducerConfig, NUM_INPUTS>;
 
 /// Modify this value every time the EEPROM needs to be cleared on the node
 /// after an update.
-static constexpr uint16_t CANONICAL_VERSION = 0x1600;
+static constexpr uint16_t CANONICAL_VERSION = 0x1602;
 
-using TurnoutGroup = RepeatedGroup<StallMotorWithSenseConfiguration, 2>;
+//using TurnoutGroup = RepeatedGroup<StallMotorWithSenseConfiguration, 2>;
+using PointsGroup = RepeatedGroup<PointSenseConfig, 2>;
+using StallMotorGroup = RepeatedGroup<StallMotorConfig, 2>;
 
 CDI_GROUP(ShieldGroup, Name("Shield Extras"), Description("These are the shield extras"));
 CDI_GROUP_ENTRY(occdetector, OccupancyDetectorConfig, Name("Occupancy Detector"), Description("Occupancy Detector for the OS Section"));
@@ -81,7 +84,8 @@ CDI_GROUP_ENTRY(internal_config, InternalConfigData);
 //CDI_GROUP_ENTRY(servo_consumers, DirectConsumers, Name("Servo Pin outputs"), Description("Temporary solution to test servo output pins."), RepName("Line"));
 //CDI_GROUP_ENTRY(portde_consumers, PortDEConsumers, Name("Port D/E outputs"), Description("Line 1-8 is port D, Line 9-16 is port E"), RepName("Line"));
 //CDI_GROUP_ENTRY(portab_producers, PortABProducers, Name("Port A/B inputs"), Description("Line 1-8 is port A, Line 9-16 is port B"), RepName("Line"));
-CDI_GROUP_ENTRY(turnouts,TurnoutGroup,Name("Turnouts"),RepName("Turnout"));     
+CDI_GROUP_ENTRY(turnouts, StallMotorGroup, Name("Turnouts"), RepName("Turnout"));     
+CDI_GROUP_ENTRY(points, PointsGroup, Name("Points"), RepName("Points"));
 CDI_GROUP_ENTRY(shield, ShieldGroup);                                           
 CDI_GROUP_ENTRY(masts,MastGroup);
 CDI_GROUP_ENTRY(abs_slave_list,ABSSlaveList,Name("ABS Slave Nodes"),RepName("Slave"));

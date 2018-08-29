@@ -7,8 +7,8 @@
 //  Date          : $Date$
 //  Author        : $Author$
 //  Created By    : Robert Heller
-//  Created       : Mon Aug 27 21:28:14 2018
-//  Last Modified : <180828.2158>
+//  Created       : Wed Aug 29 13:18:38 2018
+//  Last Modified : <180829.1812>
 //
 //  Description	
 //
@@ -40,8 +40,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef __CONTROLPOINT_HXX
-#define __CONTROLPOINT_HXX
+#ifndef __CONFIGUREDPOINTSENSE_HXX
+#define __CONFIGUREDPOINTSENSE_HXX
 
 #include "openlcb/EventHandlerTemplates.hxx"
 #include "openlcb/ConfigRepresentation.hxx"
@@ -51,13 +51,14 @@
 #include "os/Gpio.hxx"
 #include "utils/ConfigUpdateListener.hxx"
 #include "utils/ConfigUpdateService.hxx"
-#include "utils/Debouncer.hxx"
+//#include "utils/Debouncer.hxx"
 #include "openlcb/RefreshLoop.hxx"
+#include "ThreeStateDebouncer.hxx"
 
-CDI_GROUP(ControlPointConfig);
+CDI_GROUP(PointSenseConfig);
 CDI_GROUP_ENTRY(description, openlcb::StringConfigEntry<15>, //
-                Name("Description"), 
-                Description("User name of this control point."));
+                Name("Description"),
+                Description("User name of this set of points."));
 CDI_GROUP_ENTRY(
     debounce, openlcb::Uint8ConfigEntry, Name("Debounce parameter"),
     Default(3),
@@ -74,49 +75,76 @@ CDI_GROUP_ENTRY(
 CDI_GROUP_ENTRY(
     normal_event, openlcb::EventConfigEntry, //
     Name("Normal Event"),
-    Description("This event will be produced when the lever is at normal, when the code button is pressed."));
+    Description("This event will be produced when the points are aligned at normal."));
 CDI_GROUP_ENTRY(
     reverse_event, openlcb::EventConfigEntry, //
     Name("Reverse Event"),
-    Description("This event will be produced when the lever is at reverse, when the code button is pressed."));
+    Description("This event will be produced when the points are aligned at reverse."));
 CDI_GROUP_END();
 
-
-class SwitchLeverBits : public openlcb::SimpleEventHandler
+class PolledPointSense : public openlcb::SimpleEventHandler, public openlcb::Polling
 {
 public:
-    SwitchLeverBits(openlcb::Node *node, openlcb::EventId normal_event, openlcb::EventId reverse_event, const Gpio *normal, const Gpio *reverse)
+    PolledPointSense(openlcb::Node *node,
+                     const ThreeStateDebouncer::Options &debounce_args,
+                     openlcb::EventId normal_event, 
+                     openlcb::EventId reverse_event, 
+                     const Gpio *normal, 
+                     const Gpio *reverse,
+                     signed char initstate = -1)
                 : node_(node)
           , normal_(normal)
           , reverse_(reverse)
           , normal_event_(normal_event)
           , reverse_event_(reverse_event)
+          , debouncer_(debounce_args)
     {
         register_handler();
+        debouncer_.initialize(initstate);
     }
     
     template <class NORMAL, class REVERSE>
-          SwitchLeverBits(openlcb::Node *node, openlcb::EventId normal_event, openlcb::EventId reverse_event, 
-                          const NORMAL&, const REVERSE&,
-                          const Gpio *normal = NORMAL::instance(), 
-                          const Gpio *reverse = REVERSE::instance())
-                : SwitchLeverBits(node, normal_event, reverse_event, normal, reverse)
+          PolledPointSense(openlcb::Node *node, 
+                           const ThreeStateDebouncer::Options &debounce_args,
+                           openlcb::EventId normal_event, openlcb::EventId reverse_event, 
+                           const NORMAL&, const REVERSE&,
+                           signed char initstate = -1,
+                           const Gpio *normal = NORMAL::instance(), 
+                           const Gpio *reverse = REVERSE::instance())
+                : PolledPointSense(node, debounce_args, normal_event, reverse_event, initstate, normal, reverse)
     {
     }
     
-    ~SwitchLeverBits()
+    ~PolledPointSense()
     {
         unregister_handler();
     }
     
     openlcb::EventState get_current_state()
     {
-        if (normal_->is_clr()) {
-            return openlcb::EventState::VALID;
-        } else if (reverse_->is_clr()) {
-            return openlcb::EventState::INVALID;
+        switch (debouncer_.current_state())
+        {
+        case 0: return openlcb::EventState::VALID;
+        case 1: return openlcb::EventState::INVALID;
+        default: return openlcb::EventState::UNKNOWN;
+        }
+    }
+    void set_state(signed char new_value)
+    {
+        debouncer_.override(new_value);
+    }
+    void poll_33hz(openlcb::WriteHelper *helper, Notifiable *done) OVERRIDE
+    {
+        signed char new_state = -1;
+        if (normal_->is_clr() && reverse_->is_set()) {
+            new_state = 0;
+        } else if (reverse_->is_clr() && normal_->is_set()) {
+            new_state = 1;
+        }
+        if (debouncer_.update_state(new_state)) {
+            SendEventReport(helper, done);
         } else {
-            return openlcb::EventState::UNKNOWN;
+            done->notify();
         }
     }
     openlcb::Node *node()
@@ -159,29 +187,28 @@ public:
     {
         return reverse_;
     }
-    
 private:
     openlcb::Node *node_;
     const Gpio *normal_;
     const Gpio *reverse_;
     uint64_t normal_event_;
     uint64_t reverse_event_;
-    
+    ThreeStateDebouncer debouncer_;
+    void SendProducerIdentified(EventReport *event, BarrierNotifiable *done);
+    void SendAllProducersIdentified(BarrierNotifiable *done);
 };
 
-class ControlPoint : public ConfigUpdateListener, public openlcb::Polling
+class PointSense : public ConfigUpdateListener
 {
 public:
-    ControlPoint(openlcb::Node *node, const ControlPointConfig &cfg, const Gpio *codeButton, const Gpio *normal, const Gpio *reverse)
-                : producer_(node, 0, 0, normal, reverse)
-          , debouncer_(QuiesceDebouncer::Options(3))
-          , codeButton_(codeButton)
+    PointSense(openlcb::Node *node, const PointSenseConfig &cfg, 
+               const Gpio *normal, const Gpio *reverse)
+                : producer_(node, ThreeStateDebouncer::Options(3), 
+                            0, 0, normal, reverse)
           , cfg_(cfg)
     {
         ConfigUpdateService::instance()->register_update_listener(this);
-        debouncer_.initialize(codeButton_->is_set());
     }
-    void poll_33hz(openlcb::WriteHelper *helper, Notifiable *done);
     UpdateAction apply_configuration(int fd, bool initial_load,
                                      BarrierNotifiable *done) OVERRIDE;
     void factory_reset(int fd) OVERRIDE
@@ -189,12 +216,16 @@ public:
         cfg_.description().write(fd, "");
         CDI_FACTORY_RESET(cfg_.debounce);
     }
+    openlcb::Polling * polling() {return &producer_;}
+    openlcb::EventState get_current_state()
+    {
+        return producer_.get_current_state();
+    }
 private:
-    SwitchLeverBits producer_;
-    QuiesceDebouncer debouncer_;
-    const Gpio *codeButton_;
-    const ControlPointConfig cfg_;
+    PolledPointSense producer_;
+    const PointSenseConfig cfg_;
 };
 
-#endif // __CONTROLPOINT_HXX
+
+#endif // __CONFIGUREDPOINTSENSE_HXX
 

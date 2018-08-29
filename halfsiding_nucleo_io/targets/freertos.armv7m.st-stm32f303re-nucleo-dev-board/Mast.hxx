@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 11 17:23:44 2018
-//  Last Modified : <180801.1257>
+//  Last Modified : <180829.1602>
 //
 //  Description	
 //
@@ -51,6 +51,8 @@
 #include "utils/ConfigUpdateListener.hxx"
 #include "utils/ConfigUpdateService.hxx"
 
+#include "ConfiguredPointSense.hxx"
+
 CDI_GROUP(MastPointsConfiguration);
 CDI_GROUP_ENTRY(description, openlcb::StringConfigEntry<15>, //
                 Name("Description"), Description("User name of this mast"));
@@ -84,29 +86,27 @@ CDI_GROUP_END();
 
 
 
-class MastPoints : public openlcb::Polling , public ConfigUpdateListener,
-                   public openlcb::SimpleEventHandler {
+class MastPoints : public openlcb::Polling , public ConfigUpdateListener, public openlcb::SimpleEventHandler {
 public:
     MastPoints(openlcb::Node *_node, const MastPointsConfiguration &cfg,
-               const Gpio *_occ, const Gpio *_pointstate,
+               const Gpio *_occ, PointSense *_points, 
+               openlcb::EventState _pointseventstate,
                const Gpio *_next,
                const Gpio *_maingreen, const Gpio *_mainyellow, 
                const Gpio *_mainred,
-               const Gpio *_divyellow, const Gpio *_divred) : config(cfg)
+               const Gpio *_divyellow, const Gpio *_divred) 
+                : node(_node)
+          , occ(_occ)
+          , points(_points)
+          , pointseventstate(_pointseventstate)
+          , next(_next)
+          , maingreen(_maingreen)
+          , mainyellow(_mainyellow)
+          , mainred(_mainred)
+          , divyellow(_divyellow)
+          , divred(_divred)
+          , config(cfg)
     {
-        node = _node;
-        occ = _occ;
-        pointstate = _pointstate;
-        next = _next;
-        maingreen = _maingreen;
-        mainyellow = _mainyellow;
-        mainred = _mainred;
-        divyellow = _divyellow;
-        divred = _divred;
-        event_stop = 0;
-        event_approach_limited = 0;
-        event_approach = 0;
-        event_clear = 0;
         ConfigUpdateService::instance()->register_update_listener(this);
     }
     openlcb::Polling *polling()
@@ -154,7 +154,8 @@ public:
 private:
     openlcb::Node *node;
     const Gpio *occ;
-    const Gpio *pointstate;
+    PointSense *points;
+    openlcb::EventState pointseventstate;
     const Gpio *next;
     const Gpio *maingreen;
     const Gpio *mainyellow;
@@ -171,25 +172,24 @@ private:
     void unregister_handler();
 };
 
-class MastFrog : public openlcb::Polling , public ConfigUpdateListener,
-                 public openlcb::SimpleEventHandler {
+class MastFrog : public openlcb::Polling , public ConfigUpdateListener, public openlcb::SimpleEventHandler {
 public:
     MastFrog(openlcb::Node *_node, const MastFrogConfiguration &cfg, 
-             const Gpio *_occ, const Gpio *_pointstate,
+             const Gpio *_occ,  PointSense *_points, 
+             openlcb::EventState _pointseventstate,
              const Gpio *_next,
              const Gpio *_green, const Gpio *_yellow, 
-             const Gpio *_red) : config(cfg)
+             const Gpio *_red) 
+                : node(_node)
+          , occ(_occ)
+          , points(_points)
+          , pointseventstate(_pointseventstate)
+          , next(_next)
+          , green(_green)
+          , yellow(_yellow)
+          , red(_red)
+          , config(cfg)
     {
-        node = _node;
-        occ = _occ;
-        pointstate = _pointstate;
-        next = _next;
-        green = _green;
-        yellow = _yellow;
-        red = _red;
-        event_stop = 0;
-        event_approach = 0;
-        event_clear = 0;
         ConfigUpdateService::instance()->register_update_listener(this);
     }
     bool eval();
@@ -233,7 +233,8 @@ public:
 private:
     openlcb::Node *node;
     const Gpio *occ;
-    const Gpio *pointstate;
+    PointSense *points;
+    openlcb::EventState pointseventstate;
     const Gpio *next;
     const Gpio *green;
     const Gpio *yellow;
