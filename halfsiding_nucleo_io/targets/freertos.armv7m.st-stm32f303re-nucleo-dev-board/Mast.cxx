@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 11 17:32:41 2018
-//  Last Modified : <180829.1559>
+//  Last Modified : <180829.1922>
 //
 //  Description	
 //
@@ -56,7 +56,7 @@ bool MastPoints::eval()
     //LOG(INFO,"MastPoints::eval(): occ->read() is %d\n",occ->read());
     //LOG(INFO,"MastPoints::eval(): points->get_current_state() is %d\n",pointstate->read());
     //LOG(INFO,"MastPoints::eval(): next->read() is %d\n",next->read());
-    if (occ->read() == Gpio::Value::CLR) {
+    if (occ->OccupiedP()) {
         if (aspect != stop) result = true;
         aspect = stop;
     } else if (points->get_current_state() == pointseventstate) {
@@ -244,7 +244,7 @@ void MastPoints::factory_reset(int fd)  {
 bool MastFrog::eval()
 {
     bool result = false;
-    if (occ->read() == Gpio::Value::CLR || 
+    if (occ->OccupiedP() || 
         points->get_current_state() == pointseventstate) {
         if (aspect != stop) result = true;
         aspect = stop;

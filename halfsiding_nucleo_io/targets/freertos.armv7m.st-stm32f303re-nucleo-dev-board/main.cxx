@@ -528,20 +528,20 @@ StallMotor turnout2(stack.node(), cfg.seg().turnouts().entry<1>(), MOTOR1A, MOTO
 
 #ifdef MASTS
 MastPoints pointsSignal(stack.node(), cfg.seg().masts().points(),
-                        (const Gpio*)&BLOCK_OCC, &points1, 
+                        &producer_block_occ, &points1, 
                         openlcb::EventState::INVALID,
                         (const Gpio*)&NextEastPoints, (const Gpio*)&POINTSHIGHGREEN,
                         (const Gpio*)&POINTSHIGHYELLOW, (const Gpio*)&POINTSHIGHRED,
                         (const Gpio*)&POINTSLOWYELLOW, (const Gpio*)&POINTSLOWRED);
 
 MastFrog frogMainSignal(stack.node(), cfg.seg().masts().frog_main(),
-                        (const Gpio*)&BLOCK_OCC, &points1,
+                        &producer_block_occ, &points1,
                         openlcb::EventState::INVALID,
                         (const Gpio*)&NextWestMain, (const Gpio*)&FROGMAINGREEN,
                         (const Gpio*)&FROGMAINYELLOW, (const Gpio*)&FROGMAINRED);
 
 MastFrog frogDivSignal(stack.node(), cfg.seg().masts().frog_div(),
-                       (const Gpio*)&BLOCK_OCC, &points1,
+                       &producer_block_occ, &points1,
                        openlcb::EventState::VALID,
                        (const Gpio*)&NextWestDiv, (const Gpio*)&FROGDIVGREEN,
                        (const Gpio*)&FROGDIVYELLOW, (const Gpio *)&FROGDIVRED);

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Aug 2 09:15:54 2018
-//  Last Modified : <180802.0945>
+//  Last Modified : <180829.1920>
 //
 //  Description	
 //
@@ -151,7 +151,10 @@ public:
     {
         return &producer_;
     }
-
+    
+    bool OccupiedP() {
+        return (producer_.get_current_state() == openlcb::EventState::INVALID);
+    }
 private:
     ProducerClass producer_;
     const OccupancyDetectorConfig cfg_;
