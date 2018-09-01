@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 11 17:23:44 2018
-//  Last Modified : <180829.1924>
+//  Last Modified : <180901.1256>
 //
 //  Description	
 //
@@ -53,6 +53,7 @@
 
 #include "ConfiguredPointSense.hxx"
 #include "OccDetector.hxx"
+#include "NoProducerOccDetector.hxx"
 
 CDI_GROUP(MastPointsConfiguration);
 CDI_GROUP_ENTRY(description, openlcb::StringConfigEntry<15>, //
@@ -92,7 +93,7 @@ public:
     MastPoints(openlcb::Node *_node, const MastPointsConfiguration &cfg,
                OccupancyDetector *_occ, PointSense *_points, 
                openlcb::EventState _pointseventstate,
-               const Gpio *_next,
+               NoProducerOccDetector *_next,
                const Gpio *_maingreen, const Gpio *_mainyellow, 
                const Gpio *_mainred,
                const Gpio *_divyellow, const Gpio *_divred) 
@@ -157,7 +158,7 @@ private:
     OccupancyDetector *occ;
     PointSense *points;
     openlcb::EventState pointseventstate;
-    const Gpio *next;
+    NoProducerOccDetector *next;
     const Gpio *maingreen;
     const Gpio *mainyellow;
     const Gpio *mainred;
@@ -178,7 +179,7 @@ public:
     MastFrog(openlcb::Node *_node, const MastFrogConfiguration &cfg, 
              OccupancyDetector *_occ,  PointSense *_points, 
              openlcb::EventState _pointseventstate,
-             const Gpio *_next,
+             NoProducerOccDetector *_next,
              const Gpio *_green, const Gpio *_yellow, 
              const Gpio *_red) 
                 : node(_node)
@@ -236,7 +237,7 @@ private:
     OccupancyDetector *occ;
     PointSense *points;
     openlcb::EventState pointseventstate;
-    const Gpio *next;
+    NoProducerOccDetector *next;
     const Gpio *green;
     const Gpio *yellow;
     const Gpio *red;
