@@ -1,0 +1,91 @@
+PCBNEW-LibModule-V1  Mon 08 Oct 2018 14:19:27 EDT
+# encoding utf-8
+Units mm
+$INDEX
+ScrewTerm_2.54-9
+$EndINDEX
+$MODULE ScrewTerm_2.54-9
+Po 0 0 0 15 5BBB9E83 00000000 ~~
+Li ScrewTerm_2.54-9
+Cd Screw Terminals on 2.54mm centers, 9 position
+Kw CONN
+Sc 0
+AR /581675AC
+Op 0 0 0
+T0 0 -2.54 1.016 1.016 0 0.2032 N V 21 N "T?"
+T1 0 2.54 1.016 1.016 0 0.2032 N V 21 N "VAL**"
+DS -11.45 -1.27 -11.45 1.27 0.3048 21
+DS 11.41 1.27 11.41 -1.27 0.3048 21
+DS -11.45 -1.27 11.41 -1.27 0.3048 21
+DS 11.41 1.27 -11.45 1.27 0.3048 21
+$PAD
+Sh "1" R 1.524 1.524 0 0 0
+Dr 1.016 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -10.18 0
+$EndPAD
+$PAD
+Sh "2" C 1.524 1.524 0 0 0
+Dr 1.016 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -7.64 0
+$EndPAD
+$PAD
+Sh "3" C 1.524 1.524 0 0 0
+Dr 1.016 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -5.1 0
+$EndPAD
+$PAD
+Sh "4" C 1.524 1.524 0 0 0
+Dr 1.016 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -2.56 0
+$EndPAD
+$PAD
+Sh "5" C 1.524 1.524 0 0 0
+Dr 1.016 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -0.02 0
+$EndPAD
+$PAD
+Sh "6" C 1.524 1.524 0 0 0
+Dr 1.016 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 2.52 0
+$EndPAD
+$PAD
+Sh "7" C 1.524 1.524 0 0 0
+Dr 1.016 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 5.06 0
+$EndPAD
+$PAD
+Sh "8" C 1.524 1.524 0 0 0
+Dr 1.016 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 7.6 0
+$EndPAD
+$PAD
+Sh "9" C 1.524 1.524 0 0 0
+Dr 1.016 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 10.14 0
+$EndPAD
+$SHAPE3D
+Na "walter/conn_screw/mors_9p.wrl"
+Sc 0.5 0.5 0.5
+Of 0 0 0
+Ro 0 0 180
+$EndSHAPE3D
+$EndMODULE ScrewTerm_2.54-9
+$EndLIBRARY
