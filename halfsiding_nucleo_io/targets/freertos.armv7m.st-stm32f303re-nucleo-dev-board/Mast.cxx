@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 11 17:32:41 2018
-//  Last Modified : <180829.1922>
+//  Last Modified : <180901.1257>
 //
 //  Description	
 //
@@ -62,7 +62,7 @@ bool MastPoints::eval()
     } else if (points->get_current_state() == pointseventstate) {
         if (aspect != approach_limited) result = true;
         aspect = approach_limited;
-    } else if (next->read() == Gpio::Value::CLR) {
+    } else if (next->OccupiedP()) {
         if (aspect != approach) result = true;
         aspect = approach;
     } else {
@@ -248,7 +248,7 @@ bool MastFrog::eval()
         points->get_current_state() == pointseventstate) {
         if (aspect != stop) result = true;
         aspect = stop;
-    } else if (next->read() == Gpio::Value::CLR) {
+    } else if (next->OccupiedP()) {
         if (aspect != approach) result = true;
         aspect = approach;
     } else {

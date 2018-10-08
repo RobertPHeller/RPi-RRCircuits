@@ -64,6 +64,7 @@
 #include "OccDetector.hxx"
 #include "ConfiguredPointSense.hxx"
 #include "StallMotor.hxx"
+#include "NoProducerOccDetector.hxx"
 
 // These preprocessor symbols are used to select which physical connections
 // will be enabled in the main(). See @ref appl_main below.
@@ -508,10 +509,22 @@ openlcb::RefreshLoop loopab(stack.node(),
 #ifdef SHIELD
 OccupancyDetector producer_block_occ(
     stack.node(), cfg.seg().shield().occdetector(), (const Gpio*)&BLOCK_OCC);
+
+NoProducerOccDetector nextEastPoints(
+    cfg.seg().shield().nextEastPoints(), (const Gpio*)&NextEastPoints);
+NoProducerOccDetector nextWestMain(
+    cfg.seg().shield().nextWestMain(), (const Gpio*)&NextWestMain);
+NoProducerOccDetector nextWestDiv(
+    cfg.seg().shield().nextWestDiv(), (const Gpio*)&NextWestDiv);
+
 openlcb::RefreshLoop loopocc(stack.node(),
     {
-        producer_block_occ.polling()
+                             producer_block_occ.polling(),
+                             nextEastPoints.polling(),
+                             nextWestMain.polling(),
+                             nextWestDiv.polling()
     });                        
+
 #endif
 
 #ifdef STALLMOTORS
@@ -530,20 +543,20 @@ StallMotor turnout2(stack.node(), cfg.seg().turnouts().entry<1>(), MOTOR1A, MOTO
 MastPoints pointsSignal(stack.node(), cfg.seg().masts().points(),
                         &producer_block_occ, &points1, 
                         openlcb::EventState::INVALID,
-                        (const Gpio*)&NextEastPoints, (const Gpio*)&POINTSHIGHGREEN,
+                        &nextEastPoints, (const Gpio*)&POINTSHIGHGREEN,
                         (const Gpio*)&POINTSHIGHYELLOW, (const Gpio*)&POINTSHIGHRED,
                         (const Gpio*)&POINTSLOWYELLOW, (const Gpio*)&POINTSLOWRED);
 
 MastFrog frogMainSignal(stack.node(), cfg.seg().masts().frog_main(),
                         &producer_block_occ, &points1,
                         openlcb::EventState::INVALID,
-                        (const Gpio*)&NextWestMain, (const Gpio*)&FROGMAINGREEN,
+                        &nextWestMain, (const Gpio*)&FROGMAINGREEN,
                         (const Gpio*)&FROGMAINYELLOW, (const Gpio*)&FROGMAINRED);
 
 MastFrog frogDivSignal(stack.node(), cfg.seg().masts().frog_div(),
                        &producer_block_occ, &points1,
                        openlcb::EventState::VALID,
-                       (const Gpio*)&NextWestDiv, (const Gpio*)&FROGDIVGREEN,
+                       &nextWestDiv, (const Gpio*)&FROGDIVGREEN,
                        (const Gpio*)&FROGDIVYELLOW, (const Gpio *)&FROGDIVRED);
 
 openlcb::RefreshLoop loopmasts(stack.node(),

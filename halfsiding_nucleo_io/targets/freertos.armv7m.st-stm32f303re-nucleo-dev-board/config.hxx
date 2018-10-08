@@ -10,6 +10,7 @@
 #include "OccDetector.hxx"
 #include "ConfiguredPointSense.hxx"
 #include "StallMotor.hxx"
+#include "NoProducerOccDetector.hxx"
 
 namespace openlcb
 {
@@ -50,7 +51,7 @@ using AllProducers = RepeatedGroup<ProducerConfig, NUM_INPUTS>;
 
 /// Modify this value every time the EEPROM needs to be cleared on the node
 /// after an update.
-static constexpr uint16_t CANONICAL_VERSION = 0x1602;
+static constexpr uint16_t CANONICAL_VERSION = 0x1604;
 
 //using TurnoutGroup = RepeatedGroup<StallMotorWithSenseConfiguration, 2>;
 using PointsGroup = RepeatedGroup<PointSenseConfig, 2>;
@@ -58,6 +59,9 @@ using StallMotorGroup = RepeatedGroup<StallMotorConfig, 2>;
 
 CDI_GROUP(ShieldGroup, Name("Shield Extras"), Description("These are the shield extras"));
 CDI_GROUP_ENTRY(occdetector, OccupancyDetectorConfig, Name("Occupancy Detector"), Description("Occupancy Detector for the OS Section"));
+CDI_GROUP_ENTRY(nextEastPoints, NoProducerOccDetectorConfig, Name("Next eastward (points) block detector"), Description("Look ahead block detector input"));
+CDI_GROUP_ENTRY(nextWestMain, NoProducerOccDetectorConfig, Name("Next westward (frog, main) block detector"), Description("Look ahead block detector input"));
+CDI_GROUP_ENTRY(nextWestDiv, NoProducerOccDetectorConfig, Name("Next westward (frog, diversion) block detector"), Description("Look ahead block detector input"));
 CDI_GROUP_END();
 
 CDI_GROUP(MastGroup, Name("Masts"), Description("These are the mast aspect reports"));
