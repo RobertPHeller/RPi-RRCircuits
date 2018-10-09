@@ -7,8 +7,8 @@
 #  Date          : $Date$
 #  Author        : $Author$
 #  Created By    : Robert Heller
-#  Created       : Mon Oct 8 20:20:19 2018
-#  Last Modified : <181009.1401>
+#  Created       : Mon Oct 8 23:02:20 2018
+#  Last Modified : <181008.2321>
 #
 #  Description	
 #
@@ -40,21 +40,52 @@
 #
 #*****************************************************************************
 
+package require snit
 
-set argv0 [file join  [file dirname [info nameofexecutable]] OpenLCB_PiGPIO]
+namespace eval debouncer {
+    snit::integer Options -min 0 -max 255
+    snit::type QuiesceDebouncer {
+        option -waitcount -default 3 -type Options
+        variable count_ 0
+        variable currentState_ 0
+        constructor {args} {
+            $self configurelist $args
+        }
+        method initialize {state} {
+            if {$state} {
+                set currentState_ 1
+            } else {
+                set currentState_ 0
+            }
+            set count_ 0
+        }
+        method override {new_state} {
+            $self initialize $new_state
+        }
+        method current_state {} {
+            return $currentState_
+        }
+        method update_state {state} {
+            if {$state} {
+                set new_state 1
+            } else {
+                set new_state 0
+            }
+            if {$new_state == $currentState_} {
+                set count_ 0
+                return false
+            }
+            incr count_
+            if {$count_ == $waitCount_} {
+                set currentState_ $new_state
+                set count_ 0
+                return true
+            }
+            return false
+        }
+            
+    }
+}
 
-package require snit;#     require the SNIT OO framework
-package require LCC;#      require the OpenLCB code
-package require OpenLCB_Common;# Common code
-package require ParseXML;# require the XML parsing code (for the conf file)
-package require gettext;#  require the localized message handler
-package require log;#      require the logging package.
-
-package require HWInit
-#package require Mast
-#package require ABSSlaveBus
-#package require OccDetector
-#package require ConfiguredPointSense
-#package require StallMotor
-#package require NoProducerOccDetector
+package provide Debouncer 1.0
 

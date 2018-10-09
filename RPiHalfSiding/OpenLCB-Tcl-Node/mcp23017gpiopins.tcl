@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Mon Oct 8 20:50:23 2018
-#  Last Modified : <181008.2114>
+#  Last Modified : <181009.1000>
 #
 #  Description	
 #
@@ -42,36 +42,15 @@
 
 namespace eval mcp23017gpiopins {
     snit::enum PinModes -values {in out high low}
+    snit::enum PullModes  -values {up down tri}
 
-    snit::type GPIOPinNo {
-        pragma  -hastypeinfo false -hastypedestroy false -hasinstances false
-        typemethod validate {pinno} {
-            if {$pinno < 0 || $pinno > 15} {
-                error [_ "Not a GPIO pin number: %s" $pinno]
-            } else {
-                return $pinno
-            }
-        }
-        typemethod AllPins {} {
-            return [list 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15]
-        }
-        typemethod gpioPinNo {pinno} {
-            $type validate $pinno
-            return [expr {64 + $pinno}]
-        }
-        typemethod mcp23017PinNo {gpiopinno} {
-            set pin [expr {$gpiopinno - 64}]
-            $type validate $pin
-            return $pin
-        }
-    
-    }
-    
+    snit::integer GPIOPinNo -min 64
     snit::integer MCP23017Addr -min 0 -max 7
     snit::type MCP23017GPIOPin {
         # Instance options:
         # @arg -pinnumber The pin number
         # @arg -pinmode   The pin's mode
+        # @arg -pinpullmode The pin's pullup mode
         # @arg -description Description of the pin.
         # @par
         #
@@ -79,12 +58,15 @@ namespace eval mcp23017gpiopins {
         typevariable baseI2Caddress 0x20;# Base I2C address.
         typevariable I2CAddr 7;#  I2C address offset
         typemethod Init {{base 64} {I2CAddr 7}} {
+            GPIOPinNo validate $base
+            MCP23017Addr validate $I2CAddr
             mcp23017Setup $base [expr {$baseI2Caddress | $I2CAddr}]
         }
         #*** Pin instances
         variable oldPin 0;# The saved value of the pin (input mode only)
-        option -pinnumber -readonly yes -type GPIOPinNo -default 0
+        option -pinnumber -readonly yes -type GPIOPinNo -default 64
         option -pinmode -readonly yes -type PinModes -default disabled
+        option -pinpullmode -readonly yes -type PullModes -default up   
         option -description -readonly yes -default {}
         constructor {args} {
             # Construct an instance for a GPIO pin
@@ -92,14 +74,26 @@ namespace eval mcp23017gpiopins {
             # @param ... Options:
             # @arg -pinnumber The pin number
             # @arg -pinmode   The pin's mode
+            # @arg -pinpullmode The pin's pullup mode
             # @arg -description Description of the pin.
             # @par
         
             $self configurelist $args
-            set gpiopinno [GPIOPinNo gpioPinNo [$self cget -pinnumber]]
+            set gpiopinno [$self cget -pinnumber]
             switch [$self cget -pinmode] {
                 in {
                     pinMode $gpiopinno $::INPUT
+                    switch [$self cget -pinpullmode] {
+                        up {
+                            pullUpDnControl $gpiopinno $::PUD_UP
+                        }
+                        down {
+                            pullUpDnControl $gpiopinno $::PUD_DOWN
+                        }
+                        tri {
+                            pullUpDnControl $gpiopinno $::PUD_OFF
+                        }
+                    }
                     pullUpDnControl $gpiopinno $::PUD_UP
                 }
                 out {
@@ -116,11 +110,11 @@ namespace eval mcp23017gpiopins {
             }
         }
         method read {} {
-            return [digitalRead [GPIOPinNo gpioPinNo [$self cget -pinnumber]]]
+            return [digitalRead [$self cget -pinnumber]]
         }
         method write {value} {
             
-            digitalWrite [GPIOPinNo gpioPinNo [$self cget -pinnumber]] $value
+            digitalWrite [$self cget -pinnumber] $value
         }
     }
         

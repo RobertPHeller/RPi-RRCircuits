@@ -7,8 +7,8 @@
 #  Date          : $Date$
 #  Author        : $Author$
 #  Created By    : Robert Heller
-#  Created       : Mon Oct 8 20:20:19 2018
-#  Last Modified : <181009.1401>
+#  Created       : Mon Oct 8 23:21:13 2018
+#  Last Modified : <181009.0014>
 #
 #  Description	
 #
@@ -41,20 +41,13 @@
 #*****************************************************************************
 
 
-set argv0 [file join  [file dirname [info nameofexecutable]] OpenLCB_PiGPIO]
+package require snit
 
-package require snit;#     require the SNIT OO framework
-package require LCC;#      require the OpenLCB code
-package require OpenLCB_Common;# Common code
-package require ParseXML;# require the XML parsing code (for the conf file)
-package require gettext;#  require the localized message handler
-package require log;#      require the logging package.
+snit::macro poller::Poller {{pollmethod poll_33hz}} {
+    method _poll30 {} "\$self $pollmethod;after 30 \[mymethod _poll30\]"
+    method start_polling {} {
+        after 30 [mymethod _poll30]
+    }
+}
 
-package require HWInit
-#package require Mast
-#package require ABSSlaveBus
-#package require OccDetector
-#package require ConfiguredPointSense
-#package require StallMotor
-#package require NoProducerOccDetector
-
+package provide Poller 1.0

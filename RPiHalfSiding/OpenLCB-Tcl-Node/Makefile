@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Mon Oct 8 19:47:57 2018
-#  Last Modified : <181008.2119>
+#  Last Modified : <181009.1453>
 #
 #  Description	
 #
@@ -92,7 +92,8 @@ COMMONLibFiles = $(COMMONLib)/gettext.tcl \
 		 $(COMMONLib)/unknown.xpm
 
 OpenLCB_HalfsidingScripts = $(LCCLibFiles) $(COMMONLibFiles) \
-	gpiopins.tcl mcp23017gpiopins.tcl
+	gpiopins.tcl mcp23017gpiopins.tcl Debouncer.tcl \
+	Poller.tcl GpioPin.tcl HWInit.tcl
 
 
 all: OpenLCB_Halfsiding
