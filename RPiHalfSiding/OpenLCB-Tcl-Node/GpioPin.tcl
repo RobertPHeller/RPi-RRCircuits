@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Mon Oct 8 23:36:30 2018
-#  Last Modified : <181009.1502>
+#  Last Modified : <181009.1655>
 #
 #  Description	
 #
@@ -46,13 +46,17 @@ package require gpiopins
 package require mcp23017gpiopins
 package require Debouncer
 package require Poller
+package require Producer
 
 namespace eval gpiopin {
     snit::type InputPin {
         option -pinconstructor -default {} -readonly yes
+        option -createproducer -readonly yes -type snit::boolean \
+              -default false
         component pin -inherit yes
         component debouncer -inherit yes
         poller::Poller
+        component producer -inherit yes
         constructor {args} {
             set options(-pinconstructor) [from args -pinconstructor {}]
             if {[$self cget -pinconstructor] eq {}} {
@@ -64,6 +68,11 @@ namespace eval gpiopin {
                   -pinpullmode [from args -pinpullmode up] \
                   -description [from args -description {}]
             install debouncer using debouncer::QuiesceDebouncer %AUTO%
+            set options(-createproducer) [from args -createproducer]
+            if {[$self cget -createproducer]} {
+                install producer using producer::Producer %AUTO% \
+                      -parent $self
+            }
             $self configurelist $args
             $self start_polling
         }
@@ -73,8 +82,10 @@ namespace eval gpiopin {
         method get_state {} {return [$debouncer current_state]}
         method poll_33hz {} {
             if {[$debouncer update_state [expr {[$pin read] == 1}]]} {
-                #...
-            }
+                if {[$self cget -createproducer]} {
+                    $producer send_event [$self get_state]
+                }
+            } 
         }
     }
     snit::type MotorPin {
