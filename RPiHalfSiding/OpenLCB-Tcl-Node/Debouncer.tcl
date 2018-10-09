@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Mon Oct 8 23:02:20 2018
-#  Last Modified : <181008.2321>
+#  Last Modified : <181009.1426>
 #
 #  Description	
 #
@@ -45,7 +45,7 @@ package require snit
 namespace eval debouncer {
     snit::integer Options -min 0 -max 255
     snit::type QuiesceDebouncer {
-        option -waitcount -default 3 -type Options
+        option -waitcount -default 3 -type ::debouncer::Options
         variable count_ 0
         variable currentState_ 0
         constructor {args} {

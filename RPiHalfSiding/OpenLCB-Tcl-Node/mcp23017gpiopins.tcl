@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Mon Oct 8 20:50:23 2018
-#  Last Modified : <181009.1000>
+#  Last Modified : <181009.1429>
 #
 #  Description	
 #
@@ -54,19 +54,16 @@ namespace eval mcp23017gpiopins {
         # @arg -description Description of the pin.
         # @par
         #
-        typevariable baseoffset 
         typevariable baseI2Caddress 0x20;# Base I2C address.
-        typevariable I2CAddr 7;#  I2C address offset
         typemethod Init {{base 64} {I2CAddr 7}} {
-            GPIOPinNo validate $base
-            MCP23017Addr validate $I2CAddr
-            mcp23017Setup $base [expr {$baseI2Caddress | $I2CAddr}]
+            ::mcp23017gpiopins::GPIOPinNo validate $base
+            ::mcp23017gpiopins::MCP23017Addr validate $I2CAddr
+            ::mcp23017Setup $base [expr {$baseI2Caddress | $I2CAddr}]
         }
         #*** Pin instances
-        variable oldPin 0;# The saved value of the pin (input mode only)
-        option -pinnumber -readonly yes -type GPIOPinNo -default 64
-        option -pinmode -readonly yes -type PinModes -default disabled
-        option -pinpullmode -readonly yes -type PullModes -default up   
+        option -pinnumber -readonly yes -type ::mcp23017gpiopins::GPIOPinNo -default 64
+        option -pinmode -readonly yes -type ::mcp23017gpiopins::PinModes -default disabled
+        option -pinpullmode -readonly yes -type ::mcp23017gpiopins::PullModes -default up   
         option -description -readonly yes -default {}
         constructor {args} {
             # Construct an instance for a GPIO pin

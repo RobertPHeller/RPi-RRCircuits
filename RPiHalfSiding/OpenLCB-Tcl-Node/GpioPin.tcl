@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Mon Oct 8 23:36:30 2018
-#  Last Modified : <181009.0017>
+#  Last Modified : <181009.1502>
 #
 #  Description	
 #
@@ -47,8 +47,8 @@ package require mcp23017gpiopins
 package require Debouncer
 package require Poller
 
-namespace eval basepin {
-    snit::type BasePin {
+namespace eval gpiopin {
+    snit::type InputPin {
         option -pinconstructor -default {} -readonly yes
         component pin -inherit yes
         component debouncer -inherit yes
@@ -60,7 +60,7 @@ namespace eval basepin {
             }
             install pin using [$self cget -pinconstructor] %AUTO% \
                   -pinnumber [from args -pinnumber 0] \
-                  -pinmode   [from args -pinmode  in] \
+                  -pinmode   in \
                   -pinpullmode [from args -pinpullmode up] \
                   -description [from args -description {}]
             install debouncer using debouncer::QuiesceDebouncer %AUTO%
@@ -70,15 +70,69 @@ namespace eval basepin {
         method set_state {new_value} {
             $debouncer override $new_value
         }
+        method get_state {} {return [$debouncer current_state]}
         method poll_33hz {} {
             if {[$debouncer update_state [expr {[$pin read] == 1}]]} {
                 #...
             }
         }
     }
+    snit::type MotorPin {
+        option -pinconstructor -default {} -readonly yes
+        component pin -inherit yes
+        variable state unknown
+        constructor {args} {
+            set options(-pinconstructor) [from args -pinconstructor {}]
+            if {[$self cget -pinconstructor] eq {}} {
+                error [format "Missing required -pinconstructor option"]
+            }
+            install pin using [$self cget -pinconstructor] %AUTO% \
+                  -pinnumber [from args -pinnumber 0] \
+                  -pinmode   out \
+                  -pinpullmode [from args -pinpullmode up] \
+                  -description [from args -description {}]
+            $self configurelist $args
+        }
+        method set_state {value} {
+            if {$value} {
+                $pin write 1
+            } else {
+                $pin write 0
+            }
+            set state $value
+        }
+        method get_state {} { return $state }
+    }
+    snit::type LEDPin {
+        option -pinconstructor -default {} -readonly yes
+        component pin -inherit yes
+        variable state 0
+        constructor {args} {
+            set options(-pinconstructor) [from args -pinconstructor {}]
+            if {[$self cget -pinconstructor] eq {}} {
+                error [format "Missing required -pinconstructor option"]
+            }
+            install pin using [$self cget -pinconstructor] %AUTO% \
+                  -pinnumber [from args -pinnumber 0] \
+                  -pinmode   low \
+                  -description [from args -description {}]
+            install debouncer using debouncer::QuiesceDebouncer %AUTO%
+            $self configurelist $args
+            set state 0
+        }
+        method set_state {value} {
+            if {$value} {
+                $pin write 1
+            } else {
+                $pin write 0
+            }
+            set state $value
+        }
+        method get_state {} { return $state }
+    }
 }
 
             
         
-package provide BasePin 1.0
+package provide GpioPin 1.0
 

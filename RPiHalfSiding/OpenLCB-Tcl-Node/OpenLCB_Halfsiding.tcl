@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Mon Oct 8 20:20:19 2018
-#  Last Modified : <181009.1401>
+#  Last Modified : <181009.1446>
 #
 #  Description	
 #
@@ -51,6 +51,7 @@ package require gettext;#  require the localized message handler
 package require log;#      require the logging package.
 
 package require HWInit
+#package require Config
 #package require Mast
 #package require ABSSlaveBus
 #package require OccDetector

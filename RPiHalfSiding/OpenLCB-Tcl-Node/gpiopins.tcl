@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Mon Oct 8 20:50:02 2018
-#  Last Modified : <181009.1359>
+#  Last Modified : <181009.1425>
 #
 #  Description	
 #
@@ -52,9 +52,9 @@ namespace eval gpiopins {
             wiringPiSetupGpio
         }
         #*** Pin instances
-        option -pinnumber -readonly yes -type GPIOPinNo -default 0
-        option -pinmode -readonly yes -type PinModes -default disabled
-        option -pinpullmode -readonly yes -type PullModes -default up
+        option -pinnumber -readonly yes -type ::gpiopins::GPIOPinNo -default 0
+        option -pinmode -readonly yes -type ::gpiopins::PinModes -default disabled
+        option -pinpullmode -readonly yes -type ::gpiopins::PullModes -default up
         option -description -readonly yes -default {}
         constructor {args} {
             # Construct an instance for a GPIO pin
