@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Mon Oct 8 23:36:30 2018
-#  Last Modified : <181009.1655>
+#  Last Modified : <181011.2134>
 #
 #  Description	
 #
@@ -42,19 +42,38 @@
 
 
 package require snit
+package require log
 package require gpiopins
 package require mcp23017gpiopins
 package require Debouncer
 package require Poller
 package require Producer
 
+namespace eval gpiopin {}
+
+snit::macro gpiopin::StandardValidator {} {
+    typemethod validate {o} {
+        if {[catch {$o info type} thetype]} {
+            error "$o is not a $type"
+        } elseif {$type ne $thetype} {
+            error "$o is not a $type"
+        } else {
+            return $o
+        }
+    }
+}
+
 namespace eval gpiopin {
+    
+                
     snit::type InputPin {
+        gpiopin::StandardValidator
         option -pinconstructor -default {} -readonly yes
         option -createproducer -readonly yes -type snit::boolean \
               -default false
         component pin -inherit yes
-        component debouncer -inherit yes
+        component debouncer
+        delegate option -waitcount to debouncer
         poller::Poller
         component producer -inherit yes
         constructor {args} {
@@ -89,6 +108,7 @@ namespace eval gpiopin {
         }
     }
     snit::type MotorPin {
+        gpiopin::StandardValidator
         option -pinconstructor -default {} -readonly yes
         component pin -inherit yes
         variable state unknown
@@ -115,6 +135,7 @@ namespace eval gpiopin {
         method get_state {} { return $state }
     }
     snit::type LEDPin {
+        gpiopin::StandardValidator
         option -pinconstructor -default {} -readonly yes
         component pin -inherit yes
         variable state 0

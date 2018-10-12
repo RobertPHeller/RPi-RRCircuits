@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Thu Oct 11 10:18:57 2018
-#  Last Modified : <181011.1408>
+#  Last Modified : <181011.2230>
 #
 #  Description	
 #
@@ -79,14 +79,14 @@ namespace eval configuration {
   </group>
   <group tagname="points" repname="Points" mincount="2" maxcount="2">
     <string tagname="description">Description</string>
-    <eventid tagname="normal">Points Normal</eventid>
-    <eventid tagname="reversed">Points Reversed</eventid>
+    <eventid tagname="eventon">Points Normal</eventid>
+    <eventid tagname="eventoff">Points Reversed</eventid>
     <int tagname="debounce" default="3" min="1" max="8">Debounce parameter</int>
   </group>
   <group tagname="occupancy" repname="OS Occupancy" mincount="1" maxcount="1">
     <string tagname="description">Description</string>
-    <eventid tagname="clear">Block Clear</eventid>
-    <eventid tagname="occupied">Block Occupied</eventid>
+    <eventid tagname="eventoff">Block Clear</eventid>
+    <eventid tagname="eventon">Block Occupied</eventid>
     <int tagname="debounce" default="3" min="1" max="8">Debounce parameter</int>
   </group>
   <group tagname="eastocc" repname="Next eastward (Points) Occupancy" mincount="1" maxcount="1">
@@ -318,7 +318,72 @@ namespace eval configuration {
             pack [$xmlconfig createGUINoNoteBook $frame $cdi] \
                   -expand yes -fill both
         }
+        typevariable warnings
+        typemethod _saveexit {} {
+            #** Save and Exit.  Bound to the Save and Exit file menu item
+            # Saves the contents of the GUI as an XML file and then exits.
+            
+            if {[$type _save]} {
+                $type _exit
+            }
+        }
+        typemethod _save {} {
+            #** Save.  Bound to the Save file menu item.
+            # Saves the contents of the GUI as an XML file.
+            
+            set warnings 0
+            set cdis [$configuration getElementsByTagName OpenLCB_Halfsiding -depth 1]
+            set cdi [lindex $cdis 0]
+            set lastevid [$cdi attribute lastevid]
+            if {$lastevid eq {}} {
+                set attrs [$cdi cget -attributes]
+                lappend attrs lastevid [$generateEventID currentid]
+                $cdi configure -attributes $attrs
+            } else {
+                set attrs [$cdi cget -attributes]
+                set findx [lsearch -exact $attrs lastevid]
+                incr findx
+                set attrs [lreplace $attrs $findx $findx [$generateEventID currentid]]
+                $cdi configure -attributes $attrs
+            }
+            CopyTransFromGUI $cdi
+            CopyIdentFromGUI $cdi
+            $xmlconfig copyFromGUI [$editframe getframe] $cdi warnings
+        
+            if {$warnings > 0} {
+                tk_messageBox -type ok -icon info \
+                      -message [_ "There were %d warnings.  Please correct and try again." $warnings]
+                return no
+            }
+            if {![catch {open $conffilename w} conffp]} {
+                puts $conffp {<?xml version='1.0'?>}
+                $configuration displayTree $conffp
+                close $conffp
+            }
+            return yes
+        }
+        typemethod _exit {} {
+            #** Exit function.  Bound to the Exit file menu item.
+            # Does not save the configuration data!
+            
+            ::exit
+        }
+        typemethod GetConfigurationElement {tag {index 0}} {
+            ::log::log debug "*** $type GetConfigurationElement $tag $index"
+            if {$index eq "*"} {
+                return [$configuration getElementsByTagName $tag]
+            } else {
+                return [lindex [$configuration getElementsByTagName $tag] \
+                        $index]
+            }
+        }
     }
+}
+
+snit::macro configuration::ConfigOptions {configureMethod} {
+    option -configuration -default {} -readonly yes \
+          -type SimpleDOMElement \
+          -configuremethod $configureMethod
 }
 
 

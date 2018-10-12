@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Mon Oct 8 20:20:19 2018
-#  Last Modified : <181011.1332>
+#  Last Modified : <181011.2231>
 #
 #  Description	
 #
@@ -54,10 +54,9 @@ package require HWInit
 package require Config
 #package require Mast
 #package require ABSSlaveBus
-#package require OccDetector
-#package require ConfiguredPointSense
-#package require StallMotor
-#package require NoProducerOccDetector
+package require ConfiguredProducer
+package require ConfiguredNoProducer
+package require StallMotor
 
 
 
@@ -70,6 +69,11 @@ snit::type OpenLCB_Halfsiding {
     typecomponent configuration;#     Parsed configuration
     typecomponent configurationTool;# Configuration tools
     typecomponent xmlconfig;#         Psuedo-CDI
+    typevariable  consumers {};#      Object that consume events (outputs)
+    typevariable  eventsconsumed {};# Events consumed.
+    typevariable  producers {};#      Objects that produce events (inputs)
+    typevariable  eventsproduced {};# Events produced.
+    
 
     delegate typemethod * to configurationTool
     
@@ -147,16 +151,16 @@ snit::type OpenLCB_Halfsiding {
         close $conffp
         set configuration [$type ParseConfiguration $confXML]
         
-        $configuration GetTransport transportConstructor transportOpts
+        $type GetTransport transportConstructor transportOpts
         
         set nodename ""
         set nodedescriptor ""
-        $configuration GetIdentification nodename nodedescriptor
+        $type GetIdentification nodename nodedescriptor
         if {[catch {eval [list lcc::OpenLCBNode %AUTO% \
                           -transport $transportConstructor \
                           -eventhandler [mytypemethod _eventHandler] \
                           -generalmessagehandler [mytypemethod _messageHandler] \
-                          -softwaremodel "OpenLCB PiMCP23017 Signal" \
+                          -softwaremodel "OpenLCB Halfsiding" \
                           -softwareversion "1.0" \
                           -nodename $nodename \
                           -nodedescription $nodedescriptor \
@@ -167,9 +171,91 @@ snit::type OpenLCB_Halfsiding {
             exit 95
         }
         $transport SendVerifyNodeID
+        lappend consumers [stallmotor::StallMotor create %AUTO% \
+                           -configuration [$type GetConfigurationElement turnout 0] \
+                           -pin ::M0_Control]
+        lappend consumers [stallmotor::StallMotor create %AUTO% \
+                           -configuration [$type GetConfigurationElement turnout 1] \
+                           -pin ::M1_Control]
         
+        lappend producers [configuredproducer::ConfiguredProducer \
+                           create %AUTO% \
+                           -configuration [$type GetConfigurationElement points 0] \
+                           -pin ::M0_Sense \
+                           -eventsendcallback [mytypemethod EventSendCallback]]
+        lappend producers [configuredproducer::ConfiguredProducer \
+                           create %AUTO% \
+                           -configuration [$type GetConfigurationElement points 1] \
+                           -pin ::M1_Sense \
+                           -eventsendcallback [mytypemethod EventSendCallback]]
 
-        #set xmlconfig [$type GetXMLConfig]
+        lappend producers [configuredproducer::ConfiguredProducer \
+                           create %AUTO% \
+                           -configuration [$type GetConfigurationElement occupancy] \
+                           -pin ::Occupancy \
+                           -eventsendcallback [mytypemethod EventSendCallback]]
+
+        configurednoproducer::ConfiguredNoProducer \
+             create %AUTO% \
+             -configuration [$type GetConfigurationElement eastocc] \
+             -pin ::EastOcc
+        configurednoproducer::ConfiguredNoProducer \
+             create %AUTO% \
+             -configuration [$type GetConfigurationElement westmainocc] \
+             -pin ::WestMain
+        configurednoproducer::ConfiguredNoProducer \
+             create %AUTO% \
+             -configuration [$type GetConfigurationElement westdivocc] \
+             -pin ::WestDiverg
+        
+        set mastsconfig [$type GetConfigurationElement masts]
+        
+        #lappend producers [masts::MastPoints \
+        #                   create %AUTO% \
+        #                   -configuration [lindex [$mastsconfig getElementsByTagName points] 0] \
+        #                   -eventsendcallback [mytypemethod EventSendCallback] \
+        #                   -os ::Occupancy \
+        #                   -points ::M0_Sense \
+        #                   -point_state false \
+        #                   -nextocc ::EastOcc \
+        #                   -highgreen ::PointsHighGreen \
+        #                   -highyellow ::PointsHighYellow \
+        #                   -highred ::PointsHighRed \
+        #                   -lowyellow ::PointsLowYellow \
+        #                   -lowred ::PointsLowRed]
+        
+        #lappend producers [masts::MastFrog \
+        #                   create %AUTO% \
+        #                   -configuration [lindex [$mastsconfig getElementsByTagName frogmain] 0] \
+        #                   -eventsendcallback [mytypemethod EventSendCallback] \
+        #                   -os ::Occupancy \
+        #                   -points ::M0_Sense \
+        #                   -point_state false \
+        #                   -nextocc ::WestMain \
+        #                   -green ::FrogMainGreen \
+        #                   -yellow ::FrogMainYellow
+        #                   -red ::FrogMainRed]
+    
+        #lappend producers [masts::MastFrog \
+        #                   create %AUTO% \
+        #                   -configuration [lindex [$mastsconfig getElementsByTagName frogdiv] 0] \
+        #                   -eventsendcallback [mytypemethod EventSendCallback] \
+        #                   -os ::Occupancy \
+        #                   -points ::M0_Sense \
+        #                   -point_state true \
+        #                   -nextocc ::WestDiverg \
+        #                   -green ::FrogDivGreen \
+        #                   -yellow ::FrogDivYellow
+        #                   -red ::FrogDivRed]
+        
+        #lappend producers [absslaves::ABSSlaveMaster create %AUTO% \
+        #                   -configuration [$type GetConfigurationElement absslave *] \
+        #                   -eventsendcallback [mytypemethod EventSendCallback] \
+        #                   -serialpath "/dev/ttyAMA0"]
+        
+    }
+    typemethod EventSendCallback {function event args} {
+        ::log::log debug "*** $type EventSendCallback $function $event $args"
     }
     typemethod LogPuts {level message} {
         #** Log output function.
@@ -182,3 +268,4 @@ snit::type OpenLCB_Halfsiding {
     
 }
 
+#vwait forever
