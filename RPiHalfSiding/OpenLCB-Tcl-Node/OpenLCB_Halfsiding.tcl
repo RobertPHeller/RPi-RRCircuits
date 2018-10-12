@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Mon Oct 8 20:20:19 2018
-#  Last Modified : <181011.2231>
+#  Last Modified : <181012.0915>
 #
 #  Description	
 #
@@ -52,7 +52,7 @@ package require log;#      require the logging package.
 
 package require HWInit
 package require Config
-#package require Mast
+package require Masts
 #package require ABSSlaveBus
 package require ConfiguredProducer
 package require ConfiguredNoProducer
@@ -210,43 +210,43 @@ snit::type OpenLCB_Halfsiding {
         
         set mastsconfig [$type GetConfigurationElement masts]
         
-        #lappend producers [masts::MastPoints \
-        #                   create %AUTO% \
-        #                   -configuration [lindex [$mastsconfig getElementsByTagName points] 0] \
-        #                   -eventsendcallback [mytypemethod EventSendCallback] \
-        #                   -os ::Occupancy \
-        #                   -points ::M0_Sense \
-        #                   -point_state false \
-        #                   -nextocc ::EastOcc \
-        #                   -highgreen ::PointsHighGreen \
-        #                   -highyellow ::PointsHighYellow \
-        #                   -highred ::PointsHighRed \
-        #                   -lowyellow ::PointsLowYellow \
-        #                   -lowred ::PointsLowRed]
+        lappend producers [masts::MastPoints \
+                           create %AUTO% \
+                           -configuration [lindex [$mastsconfig getElementsByTagName points] 0] \
+                           -eventsendcallback [mytypemethod EventSendCallback] \
+                           -os ::Occupancy \
+                           -points ::M0_Sense \
+                           -point_state false \
+                           -nextocc ::EastOcc \
+                           -highgreen ::PointsHighGreen \
+                           -highyellow ::PointsHighYellow \
+                           -highred ::PointsHighRed \
+                           -lowyellow ::PointsLowYellow \
+                           -lowred ::PointsLowRed]
         
-        #lappend producers [masts::MastFrog \
-        #                   create %AUTO% \
-        #                   -configuration [lindex [$mastsconfig getElementsByTagName frogmain] 0] \
-        #                   -eventsendcallback [mytypemethod EventSendCallback] \
-        #                   -os ::Occupancy \
-        #                   -points ::M0_Sense \
-        #                   -point_state false \
-        #                   -nextocc ::WestMain \
-        #                   -green ::FrogMainGreen \
-        #                   -yellow ::FrogMainYellow
-        #                   -red ::FrogMainRed]
+        lappend producers [masts::MastFrog \
+                           create %AUTO% \
+                           -configuration [lindex [$mastsconfig getElementsByTagName frogmain] 0] \
+                           -eventsendcallback [mytypemethod EventSendCallback] \
+                           -os ::Occupancy \
+                           -points ::M0_Sense \
+                           -point_state false \
+                           -nextocc ::WestMain \
+                           -green ::FrogMainGreen \
+                           -yellow ::FrogMainYellow \
+                           -red ::FrogMainRed]
     
-        #lappend producers [masts::MastFrog \
-        #                   create %AUTO% \
-        #                   -configuration [lindex [$mastsconfig getElementsByTagName frogdiv] 0] \
-        #                   -eventsendcallback [mytypemethod EventSendCallback] \
-        #                   -os ::Occupancy \
-        #                   -points ::M0_Sense \
-        #                   -point_state true \
-        #                   -nextocc ::WestDiverg \
-        #                   -green ::FrogDivGreen \
-        #                   -yellow ::FrogDivYellow
-        #                   -red ::FrogDivRed]
+        lappend producers [masts::MastFrog \
+                           create %AUTO% \
+                           -configuration [lindex [$mastsconfig getElementsByTagName frogdiv] 0] \
+                           -eventsendcallback [mytypemethod EventSendCallback] \
+                           -os ::Occupancy \
+                           -points ::M0_Sense \
+                           -point_state true \
+                           -nextocc ::WestDiverg \
+                           -green ::FrogDivGreen \
+                           -yellow ::FrogDivYellow \
+                           -red ::FrogDivRed]
         
         #lappend producers [absslaves::ABSSlaveMaster create %AUTO% \
         #                   -configuration [$type GetConfigurationElement absslave *] \
