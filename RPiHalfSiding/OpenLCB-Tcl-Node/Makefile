@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Mon Oct 8 19:47:57 2018
-#  Last Modified : <181012.0750>
+#  Last Modified : <181012.1132>
 #
 #  Description	
 #
@@ -95,7 +95,7 @@ OpenLCB_HalfsidingScripts = $(LCCLibFiles) $(COMMONLibFiles) \
 	gpiopins.tcl mcp23017gpiopins.tcl Debouncer.tcl \
 	Poller.tcl GpioPin.tcl Producer.tcl HWInit.tcl \
 	Config.tcl StallMotor.tcl ConfiguredProducer.tcl \
-	ConfiguredNoProducer.tcl Masts.tcl
+	ConfiguredNoProducer.tcl Masts.tcl ABSSlaveBus.tcl
 
 
 all: OpenLCB_Halfsiding

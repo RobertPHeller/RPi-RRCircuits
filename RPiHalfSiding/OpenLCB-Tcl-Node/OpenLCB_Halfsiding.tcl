@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Mon Oct 8 20:20:19 2018
-#  Last Modified : <181012.0915>
+#  Last Modified : <181012.1000>
 #
 #  Description	
 #
@@ -53,7 +53,7 @@ package require log;#      require the logging package.
 package require HWInit
 package require Config
 package require Masts
-#package require ABSSlaveBus
+package require ABSSlaveBus
 package require ConfiguredProducer
 package require ConfiguredNoProducer
 package require StallMotor
@@ -248,10 +248,10 @@ snit::type OpenLCB_Halfsiding {
                            -yellow ::FrogDivYellow \
                            -red ::FrogDivRed]
         
-        #lappend producers [absslaves::ABSSlaveMaster create %AUTO% \
-        #                   -configuration [$type GetConfigurationElement absslave *] \
-        #                   -eventsendcallback [mytypemethod EventSendCallback] \
-        #                   -serialpath "/dev/ttyAMA0"]
+        lappend producers [absslaves::ABSSlave Initialize \
+                           -configuration [$type GetConfigurationElement absslave *] \
+                           -eventsendcallback [mytypemethod EventSendCallback] \
+                           -serialpath "/dev/ttyAMA0"]
         
     }
     typemethod EventSendCallback {function event args} {

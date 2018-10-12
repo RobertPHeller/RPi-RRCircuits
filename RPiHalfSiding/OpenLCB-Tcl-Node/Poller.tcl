@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Mon Oct 8 23:21:13 2018
-#  Last Modified : <181009.0014>
+#  Last Modified : <181012.1003>
 #
 #  Description	
 #
@@ -47,6 +47,13 @@ snit::macro poller::Poller {{pollmethod poll_33hz}} {
     method _poll30 {} "\$self $pollmethod;after 30 \[mymethod _poll30\]"
     method start_polling {} {
         after 30 [mymethod _poll30]
+    }
+}
+
+snit::macro poller::TypePoller {{pollmethod poll_33hz}} {
+    typemethod _poll30 {} "\$type $pollmethod;after 30 \[mytypemethod _poll30\]"
+    typemethod start_polling {} {
+        after 30 [mytypemethod _poll30]
     }
 }
 
