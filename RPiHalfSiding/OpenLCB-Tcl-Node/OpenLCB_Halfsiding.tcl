@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Mon Oct 8 20:20:19 2018
-#  Last Modified : <181012.1000>
+#  Last Modified : <181012.2048>
 #
 #  Description	
 #
@@ -252,11 +252,110 @@ snit::type OpenLCB_Halfsiding {
                            -configuration [$type GetConfigurationElement absslave *] \
                            -eventsendcallback [mytypemethod EventSendCallback] \
                            -serialpath "/dev/ttyAMA0"]
-        
+        foreach c $consumers {
+            catch {uplevel #0 $c identify-consumer}
+        }
+        foreach p $producers {
+            catch {uplevel #0 $p identify-producer}
+        }
     }
     typemethod EventSendCallback {function event args} {
         ::log::log debug "*** $type EventSendCallback $function $event $args"
+        switch $function {
+            producer-invalid {
+                $transport ProducerIdentified $event invalid
+            }
+            producer-valid {
+                $transport ProducerIdentified $event valid
+            }
+            consumer-invalid {
+                $transport ConsumerIdentified $event invalid
+            }
+            consumer-valid {
+                $transport ConsumerIdentified $event valid
+            }
+            send-event-report {
+                $transport ProduceEvent $event
+            }
+        }
     }
+    typemethod _eventHandler {command eventid {validity {}}} {
+        #* Event Exchange handler.  Handle Event Exchange messages.
+        #
+        # @param command The type of event operation.
+        # @param eventid The eventid.
+        # @param validity The validity of the event.
+        
+        switch $command {
+            consumerrangeidentified {
+            }
+            consumeridentified {
+            }
+            producerrangeidentified {
+            }
+            produceridentified {
+                if {$validity eq "valid"} {
+                    foreach c $consumers {
+                        ::log::log debug "*** $type _eventHandler: pin is [$c cget -pinnumber]"
+                        ::log::log debug "*** $type _eventHandler: event is [$eventid cget -eventidstring]"
+                        $c consumeEvent $eventid
+                    }
+                }
+            }
+            learnevents {
+            }
+            identifyconsumer {
+                foreach c $consumers {
+                    $c handle_identify_consumer $eventid
+                }
+            }
+            identifyproducer {
+                foreach p $producers {
+                    $p handle_identify_producer $eventid
+                }
+            }
+            identifyevents {
+                foreach c $consumers {
+                    $c handle_identify_global
+                }
+                foreach p $producers {
+                    $p handle_identify_global
+                }
+            }
+            report {
+                foreach c $consumers {
+                    ::log::log debug "*** $type _eventHandler: pin is [$c cget -pinnumber]"
+                    ::log::log debug "*** $type _eventHandler: event is [$eventid cget -eventidstring]"
+                    $c consumeEvent $eventid
+                    
+                }
+            }
+        }
+    }
+    typemethod _messageHandler {message} {
+        #** General message handler.
+        #
+        # @param message The OpenLCB message
+        
+        switch [format {0x%04X} [$message cget -mti]] {
+            0x0490 -
+            0x0488 {
+                #* Verify Node ID
+                $transport SendMyNodeVerifcation
+            }
+            0x0828 {
+                #* Protocol Support Inquiry
+                $transport SendMySupportedProtocols [$message cget -sourcenid]
+            }
+            0x0DE8 {
+                #* Simple Node Information Request
+                $transport SendMySimpleNodeInfo [$message cget -sourcenid]
+            }
+            default {
+            }
+        }
+    }
+    
     typemethod LogPuts {level message} {
         #** Log output function.
         #
@@ -268,4 +367,4 @@ snit::type OpenLCB_Halfsiding {
     
 }
 
-#vwait forever
+vwait forever

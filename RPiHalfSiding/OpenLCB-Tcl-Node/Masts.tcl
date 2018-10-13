@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Fri Oct 12 07:49:15 2018
-#  Last Modified : <181012.0923>
+#  Last Modified : <181012.2050>
 #
 #  Description	
 #
@@ -200,7 +200,7 @@ namespace eval masts {
     }
     snit::type MastFrog {
         poller::Poller
-        variable currentaspect unknown
+        variable aspect unknown
         configuration::ConfigOptions _config
         method _config {option value} {
             set options($option) $value

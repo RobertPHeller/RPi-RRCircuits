@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Tue Oct 9 16:30:48 2018
-#  Last Modified : <181009.1651>
+#  Last Modified : <181012.2024>
 #
 #  Description	
 #
@@ -67,6 +67,30 @@ namespace eval producer {
             if {$event eq {}} {return}
             uplevel #0 $callback send-event-report $event
         }
+        method handle_identify_global {} {
+            set callback [$self cget -eventsendcallback]
+            if {$callback eq {}} {return}
+            set v [[$self cget -parent] get_state]
+            if {$v == 1} {
+                set myvalidevent [$self cget -eventon]
+                if {$myvalidevent ne {}} {
+                    uplevel #0 $callback producer-valid $myvalidevent
+                }
+                set myinvalidevent [$self cget -eventoff]
+                if {$myinvalidevent ne {}} {
+                    uplevel #0 $callback producer-invalid $myinvalidevent
+                }
+            } else {
+                set myvalidevent [$self cget -eventoff]
+                if {$myvalidevent ne {}} {
+                    uplevel #0 $callback producer-valid $myvalidevent
+                }
+                set myinvalidevent [$self cget -eventon]
+                if {$myinvalidevent ne {}} {
+                    uplevel #0 $callback producer-invalid $myinvalidevent
+                }
+            }
+        }
         method handle_identify_producer {event} {
             set callback [$self cget -eventsendcallback]
             if {$callback eq {}} {return}
@@ -81,15 +105,11 @@ namespace eval producer {
             if {$myvalidevent ne {}} {
                 if {$event eq "*" || [$event match $myvalidevent]} {
                     uplevel #0 $callback producer-valid $myvalidevent
-                } else {
-                    uplevel #0 $callback producer-invalid $myvalidevent
                 }
             }
             if {$myinvalidevent ne {}} {
                 if {$event eq "*" || [$event match $myinvalidevent]} {
                     uplevel #0 $callback producer-invalid $myinvalidevent
-                } else {
-                    uplevel #0 $callback producer-valid $myinvalidevent
                 }
             }
         }

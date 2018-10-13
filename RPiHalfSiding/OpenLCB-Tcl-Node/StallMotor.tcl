@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Thu Oct 11 18:58:57 2018
-#  Last Modified : <181011.2125>
+#  Last Modified : <181012.2016>
 #
 #  Description	
 #
@@ -81,12 +81,16 @@ namespace eval stallmotor {
             ::log::log debug "$type create $self: normalEvent = $normalEvent"
             ::log::log debug "$type create $self: reversedEvent = $reversedEvent"
         }
-        method handle_event {event} {
+        method consumeEvent {event} {
             if {[$event match $normalEvent]} {
                 [$self cget -pin] set_state on
             } elseif {[$event match $reversedEvent]} {
                 [$self cget -pin] set_state off
             }
+        }
+        method handle_identify_consumer {eventid} {
+        }
+        method handle_identify_global {eventid} {
         }
     }
 }

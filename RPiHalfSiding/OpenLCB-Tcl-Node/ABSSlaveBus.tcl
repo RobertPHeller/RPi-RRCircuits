@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Fri Oct 12 09:59:44 2018
-#  Last Modified : <181012.1136>
+#  Last Modified : <181012.2053>
 #
 #  Description	
 #
@@ -62,8 +62,8 @@ namespace eval absslaves {
         poller::TypePoller
         typevariable slaveIndex 64
         typemethod poll_33hz {} {
-            for {set islave 0} {
-                if {$slaveIndex >= [length $slaves]} {
+            for {set islave 0} {$islave < [llength $slaves]} {incr islave} {
+                if {$slaveIndex >= [llength $slaves]} {
                     set slaveIndex 0
                 }
                 set currentslave [lindex $slaves $slaveIndex]
@@ -93,6 +93,16 @@ namespace eval absslaves {
              }
              $type start_polling
              return $type
+         }
+         typemethod handle_identify_global {} {
+             foreach s $slaves {
+                 $s handle_identify_global
+             }
+         }
+         typemethod handle_identify_producer {event} {
+             foreach s $slaves {
+                 $s handle_identify_producer $event
+             }
          }
          configuration::ConfigOptions _config
          method _config {option value} {
@@ -244,6 +254,214 @@ namespace eval absslaves {
                 uplevel #0 $callback send-event-report $event
             }
             return true
+        }
+        method handle_identify_global {} {
+            if {![$self cget -enabled]} {return}
+            set callback [$self cget -eventsendcallback]
+            if {$callback eq {}} {return}
+            set occevent [$self cget -occupied]
+            set clrevent [$self cget -clear]
+            switch [format %c $occ] {
+                O {
+                    if {$occevent ne {}} {
+                        uplevel #0 $callback producer-valid $occevent
+                    }
+                    if {$clrevent ne {}} {
+                        uplevel #0 $callback producer-invalid $clrevent
+                    }
+                }
+                C {
+                    if {$occevent ne {}} {
+                        uplevel #0 $callback producer-invalid $occevent
+                    }
+                    if {$clrevent ne {}} {
+                        uplevel #0 $callback producer-valid $clrevent
+                    }
+                }
+                default {
+                    if {$occevent ne {}} {
+                        uplevel #0 $callback producer-invalid $occevent
+                    }
+                    if {$clrevent ne {}} {
+                        uplevel #0 $callback producer-invalid $clrevent
+                    }
+                }
+            }
+            set seevent [$self cget -stopeast]
+            set aeevent [$self cget -approacheast]
+            set ceevent [$self cget -cleareast]
+            switch $east_aspect {
+                stop {
+                    if {$seevent ne {}} {
+                        uplevel #0 $callback producer-valid $seevent
+                    }
+                    if {$aeevent ne {}} {
+                        uplevel #0 $callback producer-invalid $aeevent
+                    }
+                    if {$ceevent ne {}} {
+                        uplevel #0 $callback producer-invalid $ceevent
+                    }
+                }
+                approach {
+                    if {$seevent ne {}} {
+                        uplevel #0 $callback producer-invalid $seevent
+                    }
+                    if {$aeevent ne {}} {
+                        uplevel #0 $callback producer-valid $aeevent
+                    }
+                    if {$ceevent ne {}} {
+                        uplevel #0 $callback producer-invalid $ceevent
+                    }
+                }
+                clear {
+                    if {$seevent ne {}} {
+                        uplevel #0 $callback producer-invalid $seevent
+                    }
+                    if {$aeevent ne {}} {
+                        uplevel #0 $callback producer-invalid $aeevent
+                    }
+                    if {$ceevent ne {}} {
+                        uplevel #0 $callback producer-valid $ceevent
+                    }
+                }
+                default {
+                    if {$seevent ne {}} {
+                        uplevel #0 $callback producer-invalid $seevent
+                    }
+                    if {$aeevent ne {}} {
+                        uplevel #0 $callback producer-invalid $aeevent
+                    }
+                    if {$ceevent ne {}} {
+                        uplevel #0 $callback producer-invalid $ceevent
+                    }
+                }
+            }
+            set swevent [$self cget -stopwest]
+            set awevent [$self cget -approachwest]
+            set cwevent [$self cget -clearwest]
+            switch $west_aspect {
+                stop {
+                    if {$swevent ne {}} {
+                        uplevel #0 $callback producer-valid $swevent
+                    }
+                    if {$awevent ne {}} {
+                        uplevel #0 $callback producer-invalid $awevent
+                    }
+                    if {$cwevent ne {}} {
+                        uplevel #0 $callback producer-invalid $cwevent
+                    }
+                }
+                approach {
+                    if {$swevent ne {}} {
+                        uplevel #0 $callback producer-invalid $swevent
+                    }
+                    if {$awevent ne {}} {
+                        uplevel #0 $callback producer-valid $awevent
+                    }
+                    if {$cwevent ne {}} {
+                        uplevel #0 $callback producer-invalid $cwevent
+                    }
+                }
+                clear {
+                    if {$swevent ne {}} {
+                        uplevel #0 $callback producer-invalid $swevent
+                    }
+                    if {$awevent ne {}} {
+                        uplevel #0 $callback producer-invalid $awevent
+                    }
+                    if {$cwevent ne {}} {
+                        uplevel #0 $callback producer-valid $cwevent
+                    }
+                }
+                default {
+                    if {$swevent ne {}} {
+                        uplevel #0 $callback producer-invalid $swevent
+                    }
+                    if {$awevent ne {}} {
+                        uplevel #0 $callback producer-invalid $awevent
+                    }
+                    if {$cwevent ne {}} {
+                        uplevel #0 $callback producer-invalid $cwevent
+                    }
+                }
+            }
+        }
+        method handle_identify_producer {event} {
+            if {![$self cget -enabled]} {return}
+            set callback [$self cget -eventsendcallback]
+            if {$callback eq {}} {return}
+            set occevent [$self cget -occupied]
+            if {$occevent ne {} && 
+                ($event eq * || [$event match $occevent])} {
+                if {[format %c $occ] eq "O"} {
+                    uplevel #0 $callback producer-valid $occevent
+                } else {
+                    uplevel #0 $callback producer-invalid $occevent
+                }
+            }
+            set clrevent [$self cget -clear]
+            if {$clrevent ne {} && 
+                ($event eq * || [$event match $clrevent])} {
+                if {[format %c $occ] eq "C"} {
+                    uplevel #0 $callback producer-valid $clrevent
+                } else {
+                    uplevel #0 $callback producer-invalid $clrevent
+                }
+            }
+            set seevent [$self cget -stopeast]
+            if {$seevent ne {} &&
+                ($event eq * || [$event match $seevent])} {
+                if {$east_aspect eq "stop"} {
+                    uplevel #0 $callback producer-valid $seevent
+                } else {
+                    uplevel #0 $callback producer-invalid $seevent
+                }
+            }
+            set aeevent [$self cget -approacheast]
+            if {$aeevent ne {} &&
+                ($event eq * || [$event match $aeevent])} {
+                if {$east_aspect eq "approach"} {
+                    uplevel #0 $callback producer-valid $aeevent
+                } else {
+                    uplevel #0 $callback producer-invalid $aeevent
+                }
+            }
+            set ceevent [$self cget -cleareast]
+            if {$ceevent ne {} &&
+                ($event eq * || [$event match $ceevent])} {
+                if {$east_aspect eq "clear"} {
+                    uplevel #0 $callback producer-valid $ceevent
+                } else {
+                    uplevel #0 $callback producer-invalid $ceevent
+                }
+            }
+            set swevent [$self cget -stopwest]
+            if {$swevent ne {} &&
+                ($event eq * || [$event match $swevent])} {
+                if {$west_aspect eq "stop"} {
+                    uplevel #0 $callback producer-valid $swevent
+                } else {
+                    uplevel #0 $callback producer-invalid $swevent
+                }
+            }
+            set awevent [$self cget -approachwest]
+            if {$awevent ne {} &&
+                ($event eq * || [$event match $awevent])} {
+                if {$west_aspect eq "approach"} {
+                    uplevel #0 $callback producer-valid $awevent
+                } else {
+                    uplevel #0 $callback producer-invalid $awevent
+                }
+            }
+            set cwevent [$self cget -clearwest]
+            if {$cwevent ne {} &&
+                ($event eq * || [$event match $cwevent])} {
+                if {$west_aspect eq "clear"} {
+                    uplevel #0 $callback producer-valid $cwevent
+                } else {
+                    uplevel #0 $callback producer-invalid $cwevent
+                }
+            }
         }
     }
 }
