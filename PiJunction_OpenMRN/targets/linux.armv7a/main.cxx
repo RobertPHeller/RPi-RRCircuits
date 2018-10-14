@@ -40,8 +40,11 @@
 #include "openlcb/ConfiguredProducer.hxx"
 
 #include "config.hxx"
-#include "freertos_drivers/common/DummyGPIO.hxx"
-#include "freertos_drivers/common/LoggingGPIO.hxx"
+#include "Hardware.hxx"
+#include "Turnout.hxx"
+#include "Points.hxx"
+#include "OccDetector.hxx"
+#include "Mast.hxx"
 
 // Changes the default behavior by adding a newline after each gridconnect
 // packet. Makes it easier for debugging the raw device.
@@ -53,7 +56,7 @@ OVERRIDE_CONST(main_thread_stack_size, 2500);
 // Specifies the 48-bit OpenLCB node identifier. This must be unique for every
 // hardware manufactured, so in production this should be replaced by some
 // easily incrementable method.
-extern const openlcb::NodeID NODE_ID = 0x050101011409ULL;
+extern const openlcb::NodeID NODE_ID = 0x050101012240ULL; // 05 01 01 01 22 40
 
 // Sets up a comprehensive OpenLCB stack for a single virtual node. This stack
 // contains everything needed for a usual peripheral node -- all
@@ -79,17 +82,6 @@ extern const size_t openlcb::CONFIG_FILE_SIZE =
 extern const char *const openlcb::SNIP_DYNAMIC_FILENAME =
     openlcb::CONFIG_FILENAME;
 
-// None of these pins exist in Linux.
-typedef DummyPinWithRead LED_RED_Pin;
-typedef DummyPinWithRead LED_GREEN_Pin;
-typedef DummyPinWithRead LED_BLUE_Pin;
-typedef DummyPinWithRead SW1_Pin;
-typedef DummyPinWithRead SW2_Pin;
-
-constexpr char PULSE1[] = "pulse1";
-constexpr char PULSE2[] = "pulse2";
-typedef LoggingPinWithRead<PULSE1> PULSE1_Pin;
-typedef LoggingPinWithRead<PULSE2> PULSE2_Pin;
 
 // Instantiates the actual producer and consumer objects for the given GPIO
 // pins from above. The ConfiguredConsumer class takes care of most of the
@@ -100,29 +92,84 @@ typedef LoggingPinWithRead<PULSE2> PULSE2_Pin;
 // segment 'seg', in which there is a repeated group 'consumers', and we assign
 // the individual entries to the individual consumers. Each consumer gets its
 // own GPIO pin.
-openlcb::ConfiguredConsumer consumer_red(
-    stack.node(), cfg.seg().consumers().entry<0>(), LED_RED_Pin());
-openlcb::ConfiguredConsumer consumer_green(
-    stack.node(), cfg.seg().consumers().entry<1>(), LED_GREEN_Pin());
-openlcb::ConfiguredConsumer consumer_blue(
-    stack.node(), cfg.seg().consumers().entry<2>(), LED_BLUE_Pin());
 
-openlcb::ConfiguredPulseConsumer consumer_pulse1(
-    stack.node(), cfg.seg().pulseconsumers().entry<0>(), PULSE1_Pin());
-openlcb::ConfiguredPulseConsumer consumer_pulse2(
-    stack.node(), cfg.seg().pulseconsumers().entry<1>(), PULSE2_Pin());
+Turnout Turnout1(
+      stack.node(), cfg.seg().turnouts().entry<0>(), Motor1_Pin());
+Turnout Turnout2(
+      stack.node(), cfg.seg().turnouts().entry<1>(), Motor2_Pin());
+openlcb::ConfiguredConsumer MadHatter(
+      stack.node(), cfg.seg().quadsssquadin().madhatterlights(), MadHatterLights_Pin());
 
 // Similar syntax for the producers.
-openlcb::ConfiguredProducer producer_sw1(
-    stack.node(), cfg.seg().producers().entry<0>(), SW1_Pin());
-openlcb::ConfiguredProducer producer_sw2(
-    stack.node(), cfg.seg().producers().entry<1>(), SW2_Pin());
+Points Points1(
+      stack.node(), cfg.seg().points().entry<0>(), Points1_Pin());
+Points Points2(
+      stack.node(), cfg.seg().points().entry<1>(), Points2_Pin());
+
+OccupancyDetector MainEastOcc(
+      stack.node(), cfg.seg().quadsssquadin().maineast(), MainEast_Pin());
+OccupancyDetector MainWestOcc(
+      stack.node(), cfg.seg().quadsssquadin().mainwest(), MainWest_Pin());
+OccupancyDetector SidingOcc(
+      stack.node(), cfg.seg().quadsssquadin().siding(), Siding_Pin());
+OccupancyDetector S314159Occ(
+      stack.node(), cfg.seg().quadsssquadin().s314159(), S314159_Pin());
+
+MastFrog CP314W(
+     stack.node(), cfg.seg().masts().cp314west(),&S314159Occ,
+     &Points1,openlcb::EventState::INVALID,&MainWestOcc,
+     CP314WUpperGreen_Pin::instance(), 
+     CP314WUpperYellow_Pin::instance(),
+     CP314WUpperRed_Pin::instance());
+
+MastBlock MainWest(
+     stack.node(), cfg.seg().masts().mainwest(),&MainWestOcc,
+     &S314159Occ,              
+     MainWestGreen_Pin::instance(), 
+     MainWestYellow_Pin::instance(), 
+     MainWestRed_Pin::instance());
+
+MastBlock Siding(
+     stack.node(), cfg.seg().masts().siding(),&SidingOcc,
+     &S314159Occ,
+     SidingGreen_Pin::instance(), 
+     SidingYellow_Pin::instance(), 
+     SidingRed_Pin::instance());
+
+MastFrog CP314S(
+     stack.node(), cfg.seg().masts().cp314siding(),&S314159Occ,
+     &Points1, openlcb::EventState::VALID, &MainEastOcc,
+     CP314SLowerGreen_Pin::instance(), 
+     CP314SLowerYellow_Pin::instance(), 
+     CP314SLowerRed_Pin::instance());
+
+MastBlock MainEast(
+     stack.node(), cfg.seg().masts().maineast(),&MainEastOcc,
+     &S314159Occ, MainEastGreen_Pin::instance(), 
+     MainEastYellow_Pin::instance(), 
+     MainEastRed_Pin::instance());
+
+MastPoints CP314E(
+     stack.node(), cfg.seg().masts().cp314east(),&S314159Occ,
+     &Points1, openlcb::EventState::INVALID,&MainWestOcc,
+     CP314EUpperGreen_Pin::instance(), 
+     CP314EUpperYellow_Pin::instance(),
+     CP314EUpperRed_Pin::instance(), 
+     CP314ELowerYellow_Pin::instance(), 
+     CP314ELowerRed_Pin::instance());
+
 
 // The producers need to be polled repeatedly for changes and to execute the
 // debouncing algorithm. This class instantiates a refreshloop and adds the two
 // producers to it.
 openlcb::RefreshLoop loop(
-    stack.node(), {&consumer_pulse1, &consumer_pulse2});
+      stack.node(), {Points1.polling(), Points2.polling(),
+                     MainEastOcc.polling(),MainWestOcc.polling(),
+                     SidingOcc.polling(),S314159Occ.polling(),
+                     CP314W.polling(),MainWest.polling(),
+                     Siding.polling(),CP314S.polling(),
+                     MainEast.polling(),CP314E.polling() });
+
 
 /** Entry point to application.
  * @param argc number of command line arguments
@@ -131,12 +178,16 @@ openlcb::RefreshLoop loop(
  */
 int appl_main(int argc, char *argv[])
 {
+    GpioInit::hw_init();
+    // Light the "dummy" heads.
+    CP314WLowRed_Pin::set(true);
+    CP314SUpperRed_Pin::set(true);
     stack.create_config_file_if_needed(cfg.seg().internal_config(), openlcb::CANONICAL_VERSION, openlcb::CONFIG_FILE_SIZE);
     // Connects to a TCP hub on the internet.
     //stack.connect_tcp_gridconnect_hub("28k.ch", 50007);
     stack.connect_tcp_gridconnect_hub("localhost", 12021);
     // Causes all packets to be dumped to stdout.
-    stack.print_all_packets();
+    //stack.print_all_packets();
     // This command donates the main thread to the operation of the
     // stack. Alternatively the stack could be started in a separate stack and
     // then application-specific business logic could be executed ion a busy
