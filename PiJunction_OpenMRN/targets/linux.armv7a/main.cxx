@@ -93,19 +93,30 @@ extern const char *const openlcb::SNIP_DYNAMIC_FILENAME =
 // the individual entries to the individual consumers. Each consumer gets its
 // own GPIO pin.
 
+// Turnout motors.  Basically exactly the same as a 
+// openlcb::ConfiguredConsumer, but with different field names.
 Turnout Turnout1(
       stack.node(), cfg.seg().turnouts().entry<0>(), Motor1_Pin());
 Turnout Turnout2(
-      stack.node(), cfg.seg().turnouts().entry<1>(), Motor2_Pin());
+                 stack.node(), cfg.seg().turnouts().entry<1>(), Motor2_Pin());
+// The Mad Hatter Lights control is just a ConfiguredConsumer.
 openlcb::ConfiguredConsumer MadHatter(
       stack.node(), cfg.seg().quadsssquadin().madhatterlights(), MadHatterLights_Pin());
 
 // Similar syntax for the producers.
+// Points is much line a ConfiguredProducer, except there is no 
+// debouncer, since these inputs are hardware debounced using a RS 
+// FlipFlop formed from a cross-wired 2-input NAND gates (74HCT00).
+// There is also an extra accessor function for the benefit of the 
+// Mast classes.
 Points Points1(
       stack.node(), cfg.seg().points().entry<0>(), Points1_Pin());
 Points Points2(
       stack.node(), cfg.seg().points().entry<1>(), Points2_Pin());
 
+// OccupancyDetector is also just like a ConfiguredProducer, except 
+// for the field names and the fact that it is active low and has an
+// extra accessor function for the benefit of the Mast classes.
 OccupancyDetector MainEastOcc(
       stack.node(), cfg.seg().quadsssquadin().maineast(), MainEast_Pin());
 OccupancyDetector MainWestOcc(
@@ -114,6 +125,9 @@ OccupancyDetector SidingOcc(
       stack.node(), cfg.seg().quadsssquadin().siding(), Siding_Pin());
 OccupancyDetector S314159Occ(
       stack.node(), cfg.seg().quadsssquadin().s314159(), S314159_Pin());
+
+// Masts test the occupancy bits, possibly along with point state and
+// control the signal LEDs.  Produces events for aspects.
 
 MastFrog CP314W(
      stack.node(), cfg.seg().masts().cp314west(),&S314159Occ,
@@ -178,6 +192,7 @@ openlcb::RefreshLoop loop(
  */
 int appl_main(int argc, char *argv[])
 {
+    // Initialize the GPIO pins.
     GpioInit::hw_init();
     // Light the "dummy" heads.
     CP314WLowRed_Pin::set(true);
