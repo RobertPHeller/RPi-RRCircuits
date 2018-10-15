@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 14 13:41:42 2018
-//  Last Modified : <181014.1449>
+//  Last Modified : <181014.2037>
 //
 //  Description	
 //
@@ -84,7 +84,7 @@ GPIO_PIN(Points2, SensePin, 22);
 #define LEDPin GpioOutputSafeLow
 
 
-GPIO_PIN(MadHatterLights, SSRPin, QuadSSSQuadInBase+1);
+GPIO_PIN(MadHatterLights, SSRPin, QuadSSSQuadInBase+0);
 GPIO_PIN(MainEast, ODPin, QuadSSSQuadInBase+4);
 GPIO_PIN(MainWest, ODPin, QuadSSSQuadInBase+5);
 GPIO_PIN(Siding,   ODPin, QuadSSSQuadInBase+6);
@@ -150,9 +150,9 @@ GPIO_PIN(SidingYellow,      LEDPin,MCP23017Hat2Base+1);
 GPIO_PIN(SidingGreen,       LEDPin,MCP23017Hat2Base+2);
 
 GPIO_PIN(CP314SLowerRed,    LEDPin,MCP23017Hat2Base+3);
-GPIO_PIN(CP314SLowerYellow, LEDPin,MCP23017Hat2Base+3);
-GPIO_PIN(CP314SLowerGreen,  LEDPin,MCP23017Hat2Base+3);
-GPIO_PIN(CP314SUpperRed,    LEDPin,MCP23017Hat2Base+3);
+GPIO_PIN(CP314SLowerYellow, LEDPin,MCP23017Hat2Base+4);
+GPIO_PIN(CP314SLowerGreen,  LEDPin,MCP23017Hat2Base+5);
+GPIO_PIN(CP314SUpperRed,    LEDPin,MCP23017Hat2Base+6);
 
 GPIO_PIN(MainEastRed,       LEDPin,MCP23017Hat2Base+8);
 GPIO_PIN(MainEastYellow,    LEDPin,MCP23017Hat2Base+9);
