@@ -9,6 +9,7 @@
 #include "Points.hxx"
 #include "OccDetector.hxx"
 #include "Mast.hxx"
+#include "MadHatter.hxx"
 
 namespace openlcb
 {
@@ -34,13 +35,13 @@ extern const SimpleNodeStaticValues SNIP_STATIC_DATA = {
 /// Used for detecting when the config file stems from a different config.hxx
 /// version and needs to be factory reset before using. Change every time that
 /// the config eeprom file's layout changes.
-static constexpr uint16_t CANONICAL_VERSION = 0x9000;
+static constexpr uint16_t CANONICAL_VERSION = 0x9002;
 
 using TurnoutGroup = RepeatedGroup<TurnoutConfig, 2>;
 using PointsGroup = RepeatedGroup<PointsConfig, 2>;
 
 CDI_GROUP(QuadSSSQuadInGroup, Name("QuadSSSQuadIn"), Description("These are the I/O pins on the QuadSSSQuadIn hat."));
-CDI_GROUP_ENTRY(madhatterlights, ConsumerConfig, Name("Mad Hatter Lights"), Description("Controls  the lights in the Mad Hatter drive in"));
+CDI_GROUP_ENTRY(madhatterlights, MadHatterConfiguration, Name("Mad Hatter Lights"), Description("Controls  the lights in the Mad Hatter drive in"));
 CDI_GROUP_ENTRY(maineast, OccupancyDetectorConfig, Name("Main East"),  Description("Occupancy Detector for Main East"));
 CDI_GROUP_ENTRY(mainwest, OccupancyDetectorConfig, Name("Main West"),  Description("Occupancy Detector for Main West"));
 CDI_GROUP_ENTRY(siding, OccupancyDetectorConfig, Name("Siding"),  Description("Occupancy Detector for Siding"));

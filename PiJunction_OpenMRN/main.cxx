@@ -45,6 +45,7 @@
 #include "Points.hxx"
 #include "OccDetector.hxx"
 #include "Mast.hxx"
+#include "MadHatter.hxx"
 
 // Changes the default behavior by adding a newline after each gridconnect
 // packet. Makes it easier for debugging the raw device.
@@ -99,9 +100,6 @@ Turnout Turnout1(
       stack.node(), cfg.seg().turnouts().entry<0>(), Motor1_Pin());
 Turnout Turnout2(
                  stack.node(), cfg.seg().turnouts().entry<1>(), Motor2_Pin());
-// The Mad Hatter Lights control is just a ConfiguredConsumer.
-openlcb::ConfiguredConsumer MadHatter(
-      stack.node(), cfg.seg().quadsssquadin().madhatterlights(), MadHatterLights_Pin());
 
 // Similar syntax for the producers.
 // Points is much line a ConfiguredProducer, except there is no 
@@ -125,6 +123,11 @@ OccupancyDetector SidingOcc(
       stack.node(), cfg.seg().quadsssquadin().siding(), Siding_Pin());
 OccupancyDetector S314159Occ(
       stack.node(), cfg.seg().quadsssquadin().s314159(), S314159_Pin());
+
+// The Mad Hatter Lights control is its own logic thing
+MadHatter madHatter(
+      stack.node(), cfg.seg().quadsssquadin().madhatterlights(), 
+      &SidingOcc, &S314159Occ, MadHatterLights_Pin::instance());
 
 // Masts test the occupancy bits, possibly along with point state and
 // control the signal LEDs.  Produces events for aspects.
