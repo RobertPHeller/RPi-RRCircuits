@@ -32,6 +32,12 @@
  * @date 5 Jun 2015
  */
 
+#include <fcntl.h>
+#include <getopt.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+
 #include "os/os.h"
 #include "nmranet_config.h"
 
@@ -73,7 +79,9 @@ openlcb::ConfigDef cfg(0);
 // Defines weak constants used by the stack to tell it which device contains
 // the volatile configuration information. This device name appears in
 // HwInit.cxx that creates the device drivers.
-extern const char *const openlcb::CONFIG_FILENAME = "/tmp/config_eeprom";
+char pathnamebuffer[256];
+
+extern const char *const openlcb::CONFIG_FILENAME = pathnamebuffer;
 // The size of the memory space to export over the above device.
 extern const size_t openlcb::CONFIG_FILE_SIZE =
     cfg.seg().size() + cfg.seg().offset();
@@ -188,6 +196,35 @@ openlcb::RefreshLoop loop(
                      MainEast.polling(),CP314E.polling() });
 
 
+void usage(const char *e)
+{
+    fprintf(stderr, "Usage: %s [-e EEPROM_file_path]\n\n", e);
+    fprintf(stderr, "PiJunction_OpenMRN.\nManages the Raspberry Pi Junction.\n");
+    fprintf(stderr, "\nOptions:\n");
+    fprintf(stderr, "\t-e EEPROM_file_path is the path to use to the EEProm device.\n");
+    exit(1);
+}
+
+void parse_args(int argc, char *argv[])
+{
+    int opt;
+    while ((opt = getopt(argc, argv, "e:")) >= 0)
+    {
+        switch (opt)
+        {
+        case 'e':
+            strncpy(pathnamebuffer,optarg,sizeof(pathnamebuffer));
+            break;
+        default:
+            fprintf(stderr, "Unknown option %c\n", opt);
+            usage(argv[0]);
+        }
+    }
+}
+
+
+
+
 /** Entry point to application.
  * @param argc number of command line arguments
  * @param argv array of command line arguments
@@ -195,6 +232,11 @@ openlcb::RefreshLoop loop(
  */
 int appl_main(int argc, char *argv[])
 {
+    snprintf(pathnamebuffer,sizeof(pathnamebuffer),
+             "/tmp/config_eeprom_%012llX",NODE_ID);
+    parse_args(argc, argv);
+    
+    
     // Initialize the GPIO pins.
     GpioInit::hw_init();
     // Light the "dummy" heads.
