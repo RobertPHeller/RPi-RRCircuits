@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Tue Oct 9 14:03:55 2018
-#  Last Modified : <181011.2056>
+#  Last Modified : <181017.1341>
 #
 #  Description	
 #
@@ -49,9 +49,11 @@ gpiopin::MotorPin create M1_Control -pinconstructor gpiopins::GPIOPin \
       -pinnumber 18 -description "Motor 1 Control"
 gpiopin::InputPin create M0_Sense -pinconstructor gpiopins::GPIOPin \
       -pinnumber 27 -pinpullmode tri \
+      -debouncerclass "debouncer::NullDebouncer" \
       -description "Motor 0 Point Sense" -createproducer yes
 gpiopin::InputPin create M1_Sense -pinconstructor gpiopins::GPIOPin \
       -pinnumber 22 -pinpullmode tri \
+      -debouncerclass "debouncer::NullDebouncer" \
       -description "Motor 1 Point Sense" -createproducer yes
 
 gpiopin::InputPin create Occupancy -pinconstructor gpiopins::GPIOPin \

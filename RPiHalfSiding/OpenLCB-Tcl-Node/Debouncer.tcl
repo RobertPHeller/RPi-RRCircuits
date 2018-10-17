@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Mon Oct 8 23:02:20 2018
-#  Last Modified : <181009.1507>
+#  Last Modified : <181017.1342>
 #
 #  Description	
 #
@@ -79,6 +79,42 @@ namespace eval debouncer {
             if {$count_ == $waitCount_} {
                 set currentState_ $new_state
                 set count_ 0
+                return true
+            }
+            return false
+        }
+            
+    }
+    snit::type NullDebouncer {
+        variable currentState_ 0
+        constructor {args} {
+            #$self configurelist $args
+        }
+        method initialize {state} {
+            if {$state} {
+                set currentState_ 1
+            } else {
+                set currentState_ 0
+            }
+            set count_ 0
+        }
+        method override {new_state} {
+            $self initialize $new_state
+        }
+        method current_state {} {
+            return $currentState_
+        }
+        method update_state {state} {
+            if {$state} {
+                set new_state 1
+            } else {
+                set new_state 0
+            }
+            if {$new_state == $currentState_} {
+                set count_ 0
+                return false
+            } else {
+                set currentState_ $new_state
                 return true
             }
             return false

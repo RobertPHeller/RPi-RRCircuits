@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Thu Oct 11 21:42:26 2018
-#  Last Modified : <181011.2155>
+#  Last Modified : <181017.1332>
 #
 #  Description	
 #
@@ -68,6 +68,34 @@ namespace eval configuredproducer {
                                                  getElementsByTagName \
                                                  eventoff] 0] data]] \
                   -waitcount [[lindex [$value getElementsByTagName debounce] 0] data]
+        }
+        component pin -inherit yes
+        option -pin -readonly yes -default {}\
+              -cgetmethod _getPin
+        method _getPin {option} {return $pin}
+        constructor {args} {
+            ::log::log debug "$type create $self $args"
+            set pin [from args -pin]
+            gpiopin::InputPin validate $pin
+            $self configurelist $args
+            ::log::log debug "$type create $self: opts are: [$self configure]"
+        }
+    }
+    snit::type ConfiguredProducerNoDebouncer {
+        configuration::ConfigOptions _config
+        method _config {option value} {
+            set options($option) $value
+            $self configure \
+                  -eventon [lcc::EventID create %AUTO% \
+                             -eventidstring [[lindex \
+                                              [$value \
+                                               getElementsByTagName \
+                                               eventon] 0] data]] \
+                  -eventoff [lcc::EventID create %AUTO% \
+                               -eventidstring [[lindex \
+                                                [$value \
+                                                 getElementsByTagName \
+                                                 eventoff] 0] data]]
         }
         component pin -inherit yes
         option -pin -readonly yes -default {}\

@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Thu Oct 11 10:18:57 2018
-#  Last Modified : <181012.1012>
+#  Last Modified : <181017.1328>
 #
 #  Description	
 #
@@ -81,7 +81,6 @@ namespace eval configuration {
     <string tagname="description">Description</string>
     <eventid tagname="eventon">Points Normal</eventid>
     <eventid tagname="eventoff">Points Reversed</eventid>
-    <int tagname="debounce" default="3" min="1" max="8">Debounce parameter</int>
   </group>
   <group tagname="occupancy" repname="OS Occupancy" mincount="1" maxcount="1">
     <string tagname="description">Description</string>

@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Mon Oct 8 20:20:19 2018
-#  Last Modified : <181012.2048>
+#  Last Modified : <181017.1331>
 #
 #  Description	
 #
@@ -178,12 +178,12 @@ snit::type OpenLCB_Halfsiding {
                            -configuration [$type GetConfigurationElement turnout 1] \
                            -pin ::M1_Control]
         
-        lappend producers [configuredproducer::ConfiguredProducer \
+        lappend producers [configuredproducer::ConfiguredProducerNoDebouncer \
                            create %AUTO% \
                            -configuration [$type GetConfigurationElement points 0] \
                            -pin ::M0_Sense \
                            -eventsendcallback [mytypemethod EventSendCallback]]
-        lappend producers [configuredproducer::ConfiguredProducer \
+        lappend producers [configuredproducer::ConfiguredProducerNoDebouncer \
                            create %AUTO% \
                            -configuration [$type GetConfigurationElement points 1] \
                            -pin ::M1_Sense \

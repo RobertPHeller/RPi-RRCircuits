@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Mon Oct 8 23:36:30 2018
-#  Last Modified : <181011.2134>
+#  Last Modified : <181017.1337>
 #
 #  Description	
 #
@@ -71,6 +71,7 @@ namespace eval gpiopin {
         option -pinconstructor -default {} -readonly yes
         option -createproducer -readonly yes -type snit::boolean \
               -default false
+        option -debouncerclass -default debouncer::QuiesceDebouncer
         component pin -inherit yes
         component debouncer
         delegate option -waitcount to debouncer
@@ -86,7 +87,8 @@ namespace eval gpiopin {
                   -pinmode   in \
                   -pinpullmode [from args -pinpullmode up] \
                   -description [from args -description {}]
-            install debouncer using debouncer::QuiesceDebouncer %AUTO%
+            set options(-debouncerclass) [from args -debouncerclass]
+            install debouncer using [$self cget -debouncerclass] %AUTO%
             set options(-createproducer) [from args -createproducer]
             if {[$self cget -createproducer]} {
                 install producer using producer::Producer %AUTO% \
