@@ -6,6 +6,13 @@
 #include "openlcb/ConfigRepresentation.hxx"
 #include "openlcb/MemoryConfig.hxx"
 
+#include "Turnout.hxx"
+#include "Points.hxx"
+#include "OccDetector.hxx"
+#include "NoProducerOccDetector.hxx"
+#include "Mast.hxx"
+#include "ABSSlaveBus.hxx"
+
 namespace openlcb
 {
 
@@ -23,34 +30,38 @@ namespace openlcb
 /// - the Simple Node Ident Info Protocol will return this data
 /// - the ACDI memory space will contain this data.
 extern const SimpleNodeStaticValues SNIP_STATIC_DATA = {
-    4,               "OpenMRN", "Test IO Board - Fake (linux)",
-    "linux.x86", "1.01"};
+    4,               "Deepwoods Software", "RPiHalfSiding",
+    "linux.armv7a", "1.00"};
 
-#define NUM_OUTPUTS 4
-#define NUM_INPUTS 2
 
 /// Used for detecting when the config file stems from a different config.hxx
 /// version and needs to be factory reset before using. Change every time that
 /// the config eeprom file's layout changes.
-static constexpr uint16_t CANONICAL_VERSION = 0x82ae;
+static constexpr uint16_t CANONICAL_VERSION = 0x9000;
 
-/// Declares a repeated group of a given base group and number of repeats. The
-/// ProducerConfig and ConsumerConfig groups represent the configuration layout
-/// needed by the ConfiguredProducer and ConfiguredConsumer classes, and come
-/// from their respective hxx file.
-using AllConsumers = RepeatedGroup<ConsumerConfig, NUM_OUTPUTS>;
-using PulseConsumers = RepeatedGroup<PulseConsumerConfig, 3>;
-using AllProducers = RepeatedGroup<ProducerConfig, NUM_INPUTS>;
+using TurnoutGroup = RepeatedGroup<TurnoutConfig, 2>;
+using PointsGroup = RepeatedGroup<PointsConfig, 2>;
+
+CDI_GROUP(MastGroup, Name("Masts"), Description("These are the signal masts"));
+CDI_GROUP_ENTRY(points,MastPointsConfiguration,Name("Points Mast (3 over 2)"));
+CDI_GROUP_ENTRY(frog_main,MastFrogConfiguration,Name("Frog Main Mast (3 over 1)"));
+CDI_GROUP_ENTRY(frog_div,MastFrogConfiguration,Name("Frog Divergence Mast (1 over 3)"));
+CDI_GROUP_END();
 
 /// Defines the main segment in the configuration CDI. This is laid out at
 /// origin 128 to give space for the ACDI user data at the beginning.
-CDI_GROUP(IoBoardSegment, Segment(MemoryConfigDefs::SPACE_CONFIG), Offset(128));
+CDI_GROUP(IoBoardSegment, Name("RPiHalfSiding HAT"), Segment(MemoryConfigDefs::SPACE_CONFIG), Offset(128));
 /// Each entry declares the name of the current entry, then the type and then
 /// optional arguments list.
 CDI_GROUP_ENTRY(internal_config, InternalConfigData);
-CDI_GROUP_ENTRY(consumers, AllConsumers, Name("Output LEDs"));
-CDI_GROUP_ENTRY(pulseconsumers, PulseConsumers, Name("Pulsed outputs"));
-CDI_GROUP_ENTRY(producers, AllProducers, Name("Input buttons"));
+CDI_GROUP_ENTRY(turnouts, TurnoutGroup, Name("Turnouts"), RepName("Turnout"));
+CDI_GROUP_ENTRY(points, PointsGroup, Name("Points"), RepName("Points"));
+CDI_GROUP_ENTRY(occupancy, OccupancyDetectorConfig, Name("OS Section"),  Description("Occupancy Detector for the OS Section"));
+CDI_GROUP_ENTRY(eastpoints, NoProducerOccDetectorConfig, Name("East (Points)"), Description("Occupancy Detector for the block before the points."));
+CDI_GROUP_ENTRY(westmain, NoProducerOccDetectorConfig, Name("West Main (Frog Normal)"), Description("Occupancy Detector for the block after the frog with points normal"));
+CDI_GROUP_ENTRY(westdiverg, NoProducerOccDetectorConfig, Name("West Diverg (Frog Reversed)"), Description("Occupancy Detector for the block after the frog with the points reversed"));
+CDI_GROUP_ENTRY(masts,MastGroup);
+CDI_GROUP_ENTRY(abs_slave_list,ABSSlaveList,Name("ABS Slave Nodes"),RepName("Slave"));
 CDI_GROUP_END();
 
 /// This segment is only needed temporarily until there is program code to set
@@ -70,7 +81,7 @@ CDI_GROUP_ENTRY(ident, Identification);
 CDI_GROUP_ENTRY(acdi, Acdi);
 /// Adds a segment for changing the values in the ACDI user-defined
 /// space. UserInfoSegment is defined in the system header.
-CDI_GROUP_ENTRY(userinfo, UserInfoSegment);
+CDI_GROUP_ENTRY(userinfo, UserInfoSegment, Name("User Info"));
 /// Adds the main configuration segment.
 CDI_GROUP_ENTRY(seg, IoBoardSegment);
 /// Adds the versioning segment.
