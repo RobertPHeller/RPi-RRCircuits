@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 14 21:40:10 2018
-//  Last Modified : <180801.1744>
+//  Last Modified : <181018.1036>
 //
 //  Description	
 //
@@ -50,6 +50,8 @@
 #include "openlcb/ConfigRepresentation.hxx"
 #include "utils/ConfigUpdateListener.hxx"
 #include "utils/ConfigUpdateService.hxx"
+
+#include "termios.h"
 
 CDI_GROUP(ABSSlaveNodeConfiguration);
 CDI_GROUP_ENTRY(enabled, openlcb::Uint8ConfigEntry, //
@@ -95,7 +97,6 @@ class ABSSlaveNode : public ConfigUpdateListener,
                      public openlcb::SimpleEventHandler {
 public:
     ABSSlaveNode(openlcb::Node *_node,const ABSSlaveNodeConfiguration &_config);
-
     virtual UpdateAction apply_configuration(int fd, 
                                              bool initial_load,
                                              BarrierNotifiable *done) override;
@@ -129,6 +130,7 @@ private:
 class ABSSlaveBus : public OSThread, public Notifiable {
 public:
     ABSSlaveBus(openlcb::Node *n,const ABSSlaveList &_slaves);
+    ~ABSSlaveBus();
     virtual void notify() {}
     virtual void notify_from_isr() {}
     void begin(const char *serialport);
@@ -136,6 +138,7 @@ protected:
     virtual void *entry();
 private:
     int fd;
+    struct termios saved_term, current_term;
     openlcb::Node *node;
     /*const */ABSSlaveList slaveconfiglist;
     ABSSlaveNode* slaves[MAXSLAVES];

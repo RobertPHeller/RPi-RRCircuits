@@ -156,6 +156,8 @@ openlcb::RefreshLoop loop(stack.node(),{points1.polling()
           , frogDivSignal.polling()
 });
 
+ABSSlaveBus absSlaveBus(stack.node(), cfg.seg().abs_slave_list());
+
 
 void usage(const char *e)
 {
@@ -194,9 +196,11 @@ int appl_main(int argc, char *argv[])
     snprintf(pathnamebuffer,sizeof(pathnamebuffer),
              "/tmp/config_eeprom_%012llX",NODE_ID);
     parse_args(argc, argv);
-    
     GpioInit::hw_init();
     stack.create_config_file_if_needed(cfg.seg().internal_config(), openlcb::CANONICAL_VERSION, openlcb::CONFIG_FILE_SIZE);
+    
+    absSlaveBus.begin(ABSSlaveBus_Serial);
+    
     // Connects to a TCP hub on the internet.
     //stack.connect_tcp_gridconnect_hub("28k.ch", 50007);
     stack.connect_tcp_gridconnect_hub("localhost", 12021);

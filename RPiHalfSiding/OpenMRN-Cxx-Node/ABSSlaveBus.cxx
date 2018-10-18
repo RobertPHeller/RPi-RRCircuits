@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jun 15 10:44:08 2018
-//  Last Modified : <180803.1236>
+//  Last Modified : <181018.1037>
 //
 //  Description	
 //
@@ -46,6 +46,7 @@ static const char rcsid[] = "@(#) : $Id$";
 #include <stdio.h>
 #include "ABSSlaveBus.hxx"
 #include "openlcb/EventHandler.hxx"
+#include <termios.h>
 #include <unistd.h>
 #include <sys/select.h>
 #include <sys/time.h>
@@ -238,13 +239,32 @@ ABSSlaveBus::ABSSlaveBus(openlcb::Node *n,const ABSSlaveList &_slaves)
         slaves[i] = new ABSSlaveNode(n, slaveconfiglist.entry(i));
     }
     slaveIndex = MAXSLAVES;
+    fd = -1;
 }
 
 void ABSSlaveBus::begin(const char *serialport) {
     LOG(INFO,"ABSSlaveBus::begin(\"%s\") entered",serialport);
     fd = ::open(serialport, O_RDWR);
     LOG(INFO,"ABSSlaveBus::begin(): port opened, fd = %d",fd);
+    // Set baud, etc.
+    tcgetattr(fd,&saved_term);
+    tcgetattr(fd,&current_term);
+    cfsetspeed(&current_term,B115200);
+    current_term.c_cflag |= CSTOPB;
+    current_term.c_cflag &= ~CSIZE;
+    current_term.c_cflag |= CS8;
+    tcsetattr(fd,TCSANOW,&current_term);
 }
+
+ABSSlaveBus::~ABSSlaveBus() 
+{
+    if (fd != -1) {
+        tcsetattr(fd,TCSANOW,&saved_term);
+        close(fd);
+        fd = -1;
+    }
+}
+    
 
 bool ABSSlaveNode::Process(int fd, Notifiable *done)
 {
