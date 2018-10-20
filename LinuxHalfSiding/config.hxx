@@ -12,6 +12,7 @@
 #include "NoProducerOccDetector.hxx"
 #include "Mast.hxx"
 #include "ABSSlaveBus.hxx"
+#include "Hardware.hxx"
 
 namespace openlcb
 {
@@ -30,7 +31,7 @@ namespace openlcb
 /// - the Simple Node Ident Info Protocol will return this data
 /// - the ACDI memory space will contain this data.
 extern const SimpleNodeStaticValues SNIP_STATIC_DATA = {
-    4,               "Deepwoods Software", "RPiHalfSiding",
+    4,               "Deepwoods Software", HARDWARE_IMPL,
     "linux.armv7a", "1.00"};
 
 
@@ -50,7 +51,7 @@ CDI_GROUP_END();
 
 /// Defines the main segment in the configuration CDI. This is laid out at
 /// origin 128 to give space for the ACDI user data at the beginning.
-CDI_GROUP(IoBoardSegment, Name("RPiHalfSiding HAT"), Segment(MemoryConfigDefs::SPACE_CONFIG), Offset(128));
+CDI_GROUP(IoBoardSegment, Name(HARDWARE_IMPL), Segment(MemoryConfigDefs::SPACE_CONFIG), Offset(128));
 /// Each entry declares the name of the current entry, then the type and then
 /// optional arguments list.
 CDI_GROUP_ENTRY(internal_config, InternalConfigData);

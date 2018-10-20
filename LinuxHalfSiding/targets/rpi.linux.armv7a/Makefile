@@ -1,3 +1,4 @@
+export TARGET:=linux.armv7a
 OPENMRNPATH ?= $(shell \
 sh -c "if [ \"X`printenv OPENMRNPATH`\" != \"X\" ]; then printenv OPENMRNPATH; \
      elif [ -d /opt/openmrn/src ]; then echo /opt/openmrn; \
