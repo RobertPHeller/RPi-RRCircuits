@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 18 Oct 2018 22:57:25 EDT
+Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Sat 20 Oct 2018 11:51:24 AM EDT
 
 BeginCmp
 TimeStamp = /5BC8ACFC/5BBB7575;
@@ -120,6 +120,20 @@ IdModule  = C1;
 EndCmp
 
 BeginCmp
+TimeStamp = /5BBB671A/5BCB53DC;
+Reference = C18;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5BC8BA81/5BCB5272;
+Reference = C19;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
 TimeStamp = /5BBB671A/5BBBB126;
 Reference = D1;
 ValeurCmp = BRIDGEX;
@@ -143,7 +157,7 @@ EndCmp
 BeginCmp
 TimeStamp = /5BC8ACFC/5BBB75ED;
 Reference = J1;
-ValeurCmp = Address;
+ValeurCmp = 2  1  0;
 IdModule  = pin_array_3x2;
 EndCmp
 
@@ -234,7 +248,7 @@ EndCmp
 BeginCmp
 TimeStamp = /5BC9F5F2;
 Reference = P11;
-ValeurCmp = addr / we;
+ValeurCmp = WP 1 0;
 IdModule  = pin_array_3x2;
 EndCmp
 
@@ -360,14 +374,14 @@ EndCmp
 BeginCmp
 TimeStamp = /5BC8ACFC/5BBB7602;
 Reference = T1;
-ValeurCmp = Signals A, B;
+ValeurCmp = FMR FMY FMG PLR PLY PHR PHY PHG +5;
 IdModule  = ScrewTerm_2.54-9;
 EndCmp
 
 BeginCmp
 TimeStamp = /5BC8ACFC/5BBB7611;
 Reference = T2;
-ValeurCmp = Signals C, D;
+ValeurCmp = SP7 SP6 SP5 SP4 SP3 FDR FDY FDG +5;
 IdModule  = ScrewTerm_2.54-9;
 EndCmp
 
