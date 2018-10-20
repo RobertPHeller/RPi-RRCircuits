@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/heller/RRCircuits/BBBHalfSiding/BBBHalfSiding.sch)
-    (date "Sat 20 Oct 2018 11:47:33 AM EDT")
+    (date "Sat 20 Oct 2018 12:01:55 PM EDT")
     (tool "eeschema (22-Jun-2014 BZR 4027)-stable"))
   (components
     (comp (ref U4)
@@ -346,7 +346,7 @@
       (sheetpath (names /CANBUSDriver/) (tstamps /5BC8BA81/))
       (tstamp 5BC8D83B))
     (comp (ref P10)
-      (value "- 12 out +")
+      (value "+ 12 out -")
       (libsource (lib conn) (part CONN_2))
       (sheetpath (names /CANBUSDriver/) (tstamps /5BC8BA81/))
       (tstamp 5BC8D84A))

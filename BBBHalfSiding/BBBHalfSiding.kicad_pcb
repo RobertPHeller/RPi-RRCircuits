@@ -995,7 +995,7 @@
     )
   )
 
-  (module ScrewTerm2.54-2 (layer F.Cu) (tedit 5BCB4A0A) (tstamp 5BC8DA9F)
+  (module ScrewTerm2.54-2 (layer F.Cu) (tedit 5BCB513E) (tstamp 5BC8DA9F)
     (at 92.71 179.07)
     (descr "Connecteurs 2 pins")
     (tags "CONN DEV")
@@ -1003,8 +1003,8 @@
     (fp_text reference P10 (at -2.7 -1.9) (layer F.SilkS) hide
       (effects (font (size 0.762 0.762) (thickness 0.1524)))
     )
-    (fp_text value "- 12 out +" (at 0 1.905) (layer F.SilkS)
-      (effects (font (size 0.762 0.762) (thickness 0.1524)))
+    (fp_text value "+ 12 out -" (at 0 1.905) (layer F.SilkS)
+      (effects (font (size 0.5 0.5) (thickness 0.1016)))
     )
     (fp_line (start -2.54 1.27) (end -2.54 -1.27) (layer F.SilkS) (width 0.1524))
     (fp_line (start -2.54 -1.27) (end 2.54 -1.27) (layer F.SilkS) (width 0.1524))
@@ -1579,7 +1579,7 @@
     )
   )
 
-  (module PIN_ARRAY_2X2 (layer F.Cu) (tedit 5BCB49D4) (tstamp 5BC8DB56)
+  (module PIN_ARRAY_2X2 (layer F.Cu) (tedit 5BCB510F) (tstamp 5BC8DB56)
     (at 85.09 166.37 180)
     (descr "Double rangee de contacts 2 x 2 pins")
     (tags CONN)
@@ -1587,8 +1587,8 @@
     (fp_text reference P6 (at -0.381 -3.429 180) (layer F.SilkS) hide
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
-    (fp_text value Termination (at 3.81 1.778 270) (layer F.SilkS)
-      (effects (font (size 1.016 1.016) (thickness 0.2032)))
+    (fp_text value Termination (at 3.556 -0.127 270) (layer F.SilkS)
+      (effects (font (size 0.5 0.5) (thickness 0.1016)))
     )
     (fp_line (start -2.54 -2.54) (end 2.54 -2.54) (layer F.SilkS) (width 0.3048))
     (fp_line (start 2.54 -2.54) (end 2.54 2.54) (layer F.SilkS) (width 0.3048))
