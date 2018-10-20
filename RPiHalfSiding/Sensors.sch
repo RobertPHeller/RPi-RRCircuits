@@ -42,7 +42,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 3 3
 Title ""
-Date "8 oct 2018"
+Date "20 oct 2018"
 Rev ""
 Comp ""
 Comment1 ""
@@ -961,4 +961,41 @@ F 3 "~" H 1950 2200 60  0000 C CNN
 	1    1950 2200
 	0    1    1    0   
 $EndComp
+$Comp
+L C C14
+U 1 1 5BCB6DD9
+P 5100 5850
+F 0 "C14" H 5100 5950 40  0000 L CNN
+F 1 ".1 uf" H 5106 5765 40  0000 L CNN
+F 2 "~" H 5138 5700 30  0000 C CNN
+F 3 "~" H 5100 5850 60  0000 C CNN
+	1    5100 5850
+	1    0    0    -1  
+$EndComp
+$Comp
+L +5V #PWR045
+U 1 1 5BCB6DFB
+P 5100 5550
+F 0 "#PWR045" H 5100 5640 20  0001 C CNN
+F 1 "+5V" H 5100 5640 30  0000 C CNN
+F 2 "" H 5100 5550 60  0000 C CNN
+F 3 "" H 5100 5550 60  0000 C CNN
+	1    5100 5550
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR046
+U 1 1 5BCB6E0A
+P 5100 6150
+F 0 "#PWR046" H 5100 6150 30  0001 C CNN
+F 1 "GND" H 5100 6080 30  0001 C CNN
+F 2 "" H 5100 6150 60  0000 C CNN
+F 3 "" H 5100 6150 60  0000 C CNN
+	1    5100 6150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5100 5550 5100 5650
+Wire Wire Line
+	5100 6050 5100 6150
 $EndSCHEMATC

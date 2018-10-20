@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Mon 08 Oct 2018 14:57:59 EDT
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Sat 20 Oct 2018 13:50:03 EDT
 
 BeginCmp
 TimeStamp = /5BBB66EB/5BBB7575;
@@ -92,9 +92,16 @@ IdModule  = C1;
 EndCmp
 
 BeginCmp
-TimeStamp = /5BBB671A/5BBBFBFD;
+TimeStamp = /5BBB671A/5BCB6DD9;
+Reference = C14;
+ValeurCmp = .1uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5BBB671A/5BBBB126;
 Reference = D1;
-ValeurCmp = BRIDGE;
+ValeurCmp = BRIDGEX;
 IdModule  = KBL;
 EndCmp
 
