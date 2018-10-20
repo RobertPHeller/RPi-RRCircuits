@@ -38,7 +38,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 4
 Title ""
-Date "19 oct 2018"
+Date "20 oct 2018"
 Rev ""
 Comp ""
 Comment1 ""
@@ -568,7 +568,7 @@ L CONN_3X2 P11
 U 1 1 5BC9F5F2
 P 1100 7400
 F 0 "P11" H 1100 7650 50  0000 C CNN
-F 1 "addr / we" V 1100 7450 40  0000 C CNN
+F 1 "WP 1 0" V 1100 7450 40  0000 C CNN
 F 2 "~" H 1100 7400 60  0000 C CNN
 F 3 "~" H 1100 7400 60  0000 C CNN
 	1    1100 7400

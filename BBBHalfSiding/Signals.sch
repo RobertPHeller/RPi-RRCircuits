@@ -38,7 +38,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 3 4
 Title ""
-Date "19 oct 2018"
+Date "20 oct 2018"
 Rev ""
 Comp ""
 Comment1 ""
@@ -337,7 +337,7 @@ L CONN_3X2 J1
 U 1 1 5BBB75ED
 P 1900 2500
 F 0 "J1" H 1900 2750 50  0000 C CNN
-F 1 "Address" V 1900 2550 40  0000 C CNN
+F 1 "2  1  0" V 1900 2550 40  0000 C CNN
 F 2 "~" H 1900 2500 60  0000 C CNN
 F 3 "~" H 1900 2500 60  0000 C CNN
 	1    1900 2500
