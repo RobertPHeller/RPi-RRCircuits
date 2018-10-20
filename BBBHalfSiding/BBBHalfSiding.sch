@@ -486,7 +486,7 @@ NoConn ~ 2200 2950
 NoConn ~ 2200 2850
 Text Label 1900 2450 2    60   ~ 0
 West Diverg (Frog Reversed) Occ
-Text Label 1900 3150 2    60   ~ 0
+Text Label 3000 3150 0    60   ~ 0
 M0_Control
 NoConn ~ 2700 1750
 NoConn ~ 2700 1850
@@ -498,13 +498,10 @@ NoConn ~ 2700 2750
 NoConn ~ 2700 2850
 NoConn ~ 2700 2950
 NoConn ~ 2700 3050
-NoConn ~ 2700 3150
-Text Label 3050 2550 0    60   ~ 0
+Text Label 4650 1250 2    60   ~ 0
 M1_Control
 Text Label 3000 1650 0    60   ~ 0
 M0_Sense
-NoConn ~ 4900 1250
-NoConn ~ 4900 1350
 NoConn ~ 4900 1550
 NoConn ~ 4900 1650
 NoConn ~ 4900 1750
@@ -531,9 +528,6 @@ NoConn ~ 5400 1850
 NoConn ~ 5400 1750
 NoConn ~ 5400 1650
 NoConn ~ 5400 1550
-NoConn ~ 5400 1450
-NoConn ~ 5400 1350
-NoConn ~ 5400 1250
 NoConn ~ 5400 3350
 NoConn ~ 5400 3250
 NoConn ~ 5400 3150
@@ -546,7 +540,7 @@ NoConn ~ 4900 3050
 NoConn ~ 4900 3150
 NoConn ~ 4900 3250
 NoConn ~ 4900 3350
-Text Label 4650 1450 2    60   ~ 0
+Text Label 5600 1250 0    60   ~ 0
 M1_Sense
 $Comp
 L CAT24C256W U13
@@ -702,9 +696,9 @@ Wire Wire Line
 Wire Wire Line
 	7550 4700 7750 4700
 Wire Wire Line
-	7750 5600 7450 5600
+	7450 5600 7750 5600
 Wire Wire Line
-	7450 5600 7450 3550
+	7450 3550 7450 5600
 Wire Wire Line
 	7350 3550 7350 6450
 Wire Wire Line
@@ -802,9 +796,9 @@ Wire Wire Line
 	2450 3650 2450 3550
 Connection ~ 2450 3550
 Wire Wire Line
-	2700 1250 2850 1250
+	2850 1250 2700 1250
 Wire Wire Line
-	2850 1250 2850 950 
+	2850 950  2850 1250
 Wire Wire Line
 	2700 1350 3050 1350
 Wire Wire Line
@@ -814,9 +808,9 @@ Wire Wire Line
 Wire Wire Line
 	3300 1450 2700 1450
 Wire Wire Line
-	2200 1250 2050 1250
+	2050 1250 2200 1250
 Wire Wire Line
-	2050 1250 2050 950 
+	2050 950  2050 1250
 Wire Wire Line
 	2200 1350 1850 1350
 Wire Wire Line
@@ -873,13 +867,7 @@ Wire Wire Line
 Wire Wire Line
 	1900 2450 2200 2450
 Wire Wire Line
-	1900 3150 2200 3150
-Wire Wire Line
 	3000 1650 2700 1650
-Wire Wire Line
-	3050 2550 2700 2550
-Wire Wire Line
-	4650 1450 4900 1450
 Wire Wire Line
 	1000 6900 1950 6900
 Wire Wire Line
@@ -1025,4 +1013,16 @@ F 3 "" H 1400 1150 60  0000 C CNN
 	1    1400 1150
 	0    1    1    0   
 $EndComp
+Wire Wire Line
+	3000 3150 2700 3150
+NoConn ~ 2200 3150
+NoConn ~ 2700 2550
+Wire Wire Line
+	4650 1250 4900 1250
+Wire Wire Line
+	5600 1250 5400 1250
+NoConn ~ 4900 1350
+NoConn ~ 4900 1450
+NoConn ~ 5400 1350
+NoConn ~ 5400 1450
 $EndSCHEMATC
