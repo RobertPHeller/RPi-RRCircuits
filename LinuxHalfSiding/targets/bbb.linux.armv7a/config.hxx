@@ -1,1 +1,1 @@
-../rpi.linux.armv7a/config.hxx
+../../config.hxx

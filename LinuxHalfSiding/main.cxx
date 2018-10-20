@@ -47,6 +47,7 @@
 
 #include "Hardware.hxx"
 
+
 #include "Turnout.hxx"
 #include "Points.hxx"
 #include "OccDetector.hxx"
@@ -203,10 +204,17 @@ int appl_main(int argc, char *argv[])
     
     // Connects to a TCP hub on the internet.
     //stack.connect_tcp_gridconnect_hub("28k.ch", 50007);
-    stack.connect_tcp_gridconnect_hub("localhost", 12021);
+#ifdef HAVE_TCP_GRIDCONNECT_HOST
+    stack.connect_tcp_gridconnect_hub(TCP_GRIDCONNECT_HOST, TCP_GRIDCONNECT_PORT);
+#endif
+#ifdef PRINT_ALL_PACKETS
     // Causes all packets to be dumped to stdout.
-    //stack.print_all_packets();
-    // This command donates the main thread to the operation of the
+    stack.print_all_packets();
+#endif
+#if defined(HAVE_SOCKET_CAN_PORT)
+    stack.add_socketcan_port_select(SOCKET_CAN_PORT);
+#endif
+// This command donates the main thread to the operation of the
     // stack. Alternatively the stack could be started in a separate stack and
     // then application-specific business logic could be executed ion a busy
     // loop in the main thread.

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Oct 17 13:05:06 2018
-//  Last Modified : <181018.1013>
+//  Last Modified : <181020.1840>
 //
 //  Description	
 //
@@ -46,6 +46,10 @@
 #include <os/LinuxGpio.hxx>
 #include "utils/GpioInitializer.hxx"
 
+#define HARDWARE_IMPL "BBB Halfsiding Cape"
+
+
+
 // On chip GPIO:
 
 #define MotorPin GpioOutputSafeLow
@@ -53,16 +57,18 @@
 #define ODPin  GpioInputActiveLow
 #define LEDPin GpioOutputSafeLow
 
-GPIO_PIN(Motor1, MotorPin, 17);
-GPIO_PIN(Motor2, MotorPin, 18);
-GPIO_PIN(Points1, SensePin, 27);
-GPIO_PIN(Points2, SensePin, 22);
 
 
-GPIO_PIN(Occupancy, ODPin, 23);
-GPIO_PIN(EastPoints, ODPin, 24);
-GPIO_PIN(WestMain, ODPin, 25);
-GPIO_PIN(WestDiverg, ODPin, 4);
+GPIO_PIN(Motor1, MotorPin, (32*0)+7); // GPIO0_7: P9-42
+GPIO_PIN(Motor2, MotorPin, (32*1)+6);// GPIO1_6: P8-3
+GPIO_PIN(Points1, SensePin, (32*1)+28); // GPIO1_28: P9-12
+GPIO_PIN(Points2, SensePin, (32*1)+2); // GPIO1_2: P8-5
+
+
+GPIO_PIN(Occupancy, ODPin, (32*1)+16); // GPIO1_16: P9-15
+GPIO_PIN(EastPoints, ODPin, (32*1)+17); // GPIO1_17: P9-23
+GPIO_PIN(WestMain, ODPin, (32*3)+21); // GPIO3_21: P9-25
+GPIO_PIN(WestDiverg, ODPin, (32*3)+19); // GPIO3_19: P9-27
 
 // Assumes Kernel config CONFIG_ARCH_NR_GPIO is 512!
 #define GPIO_BASE 512
@@ -114,7 +120,19 @@ typedef GpioInitializer<Motor1_Pin, Motor2_Pin, Points1_Pin,
                         FrogDivGreen_Pin, FrogDivYellow_Pin,
                         FrogDivRed_Pin> GpioInit;
 
+// Needs to be updated...
 #define ABSSlaveBus_Serial "/dev/ttyAMA0"
+
+//#define HAVE_TCP_GRIDCONNECT_HOST
+//#define TCP_GRIDCONNECT_HOST "localhost"
+//#define TCP_GRIDCONNECT_PORT 12021
+
+//#define PRINT_ALL_PACKETS
+
+#define HAVE_SOCKET_CAN_PORT
+#define SOCKET_CAN_PORT "can0"
+
+
 
 #endif // __HARDWARE_HXX
 

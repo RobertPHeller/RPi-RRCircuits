@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Oct 17 13:05:06 2018
-//  Last Modified : <181018.1013>
+//  Last Modified : <181020.1840>
 //
 //  Description	
 //
@@ -45,6 +45,8 @@
 
 #include <os/LinuxGpio.hxx>
 #include "utils/GpioInitializer.hxx"
+
+#define HARDWARE_IMPL "RPi Halfsiding HAT"
 
 // On chip GPIO:
 
@@ -115,6 +117,15 @@ typedef GpioInitializer<Motor1_Pin, Motor2_Pin, Points1_Pin,
                         FrogDivRed_Pin> GpioInit;
 
 #define ABSSlaveBus_Serial "/dev/ttyAMA0"
+
+#define HAVE_TCP_GRIDCONNECT_HOST
+#define TCP_GRIDCONNECT_HOST "localhost"
+#define TCP_GRIDCONNECT_PORT 12021
+
+//#define PRINT_ALL_PACKETS
+//#define HAVE_SOCKET_CAN_PORT
+//#define SOCKET_CAN_PORT "vcan0"
+
 
 #endif // __HARDWARE_HXX
 
