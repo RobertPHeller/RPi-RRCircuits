@@ -1,5 +1,5 @@
 export TARGET:=linux.armv7a
-export EXECUTABLE:=$(notdir $(realpath $(CURDIR)/../..))_RPI
+export EXECUTABLE:=$(notdir $(realpath $(CURDIR)/../..))_BBB
 OPENMRNPATH ?= $(shell \
 sh -c "if [ \"X`printenv OPENMRNPATH`\" != \"X\" ]; then printenv OPENMRNPATH; \
      elif [ -d /opt/openmrn/src ]; then echo /opt/openmrn; \
