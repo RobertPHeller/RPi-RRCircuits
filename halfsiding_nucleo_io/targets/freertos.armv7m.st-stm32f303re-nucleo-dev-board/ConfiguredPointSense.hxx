@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Aug 29 13:18:38 2018
-//  Last Modified : <180829.1812>
+//  Last Modified : <181124.1345>
 //
 //  Description	
 //
@@ -195,7 +195,7 @@ private:
     uint64_t reverse_event_;
     ThreeStateDebouncer debouncer_;
     void SendProducerIdentified(EventReport *event, BarrierNotifiable *done);
-    void SendAllProducersIdentified(BarrierNotifiable *done);
+    void SendAllProducersIdentified(EventReport *event,BarrierNotifiable *done);
 };
 
 class PointSense : public ConfigUpdateListener

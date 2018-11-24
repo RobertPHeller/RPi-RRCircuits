@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 14 21:40:10 2018
-//  Last Modified : <180801.1744>
+//  Last Modified : <181124.1331>
 //
 //  Description	
 //
@@ -124,6 +124,7 @@ private:
     openlcb::Node *node;
     void unregister_handler();
     void register_handler();
+    openlcb::WriteHelper write_helpers[8];                             
 };
 
 class ABSSlaveBus : public OSThread, public Notifiable {

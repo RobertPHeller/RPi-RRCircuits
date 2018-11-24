@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Aug 29 18:37:03 2018
-//  Last Modified : <180829.1903>
+//  Last Modified : <181124.1343>
 //
 //  Description	
 //
@@ -98,7 +98,7 @@ void StallMotor::handle_identify_global(const EventRegistryEntry &registry_entry
     {
         done->notify();
     }
-    SendAllConsumersIdentified(done);
+    SendAllConsumersIdentified(event,done);
     done->maybe_done();
 }
 
@@ -110,7 +110,7 @@ void StallMotor::handle_identify_consumer(const EventRegistryEntry &registry_ent
     done->maybe_done();
 }
 
-void StallMotor::SendAllConsumersIdentified(BarrierNotifiable *done)
+void StallMotor::SendAllConsumersIdentified(EventReport *event,BarrierNotifiable *done)
 {
     openlcb::Defs::MTI mti_n, mti_r;
     if (motor_state == normal) {
@@ -122,10 +122,10 @@ void StallMotor::SendAllConsumersIdentified(BarrierNotifiable *done)
     } else {
         mti_r = mti_n = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_UNKNOWN;
     }
-    openlcb::event_write_helper3.WriteAsync(node, mti_n, openlcb::WriteHelper::global(),
+    event->event_write_helper<3>()->WriteAsync(node, mti_n, openlcb::WriteHelper::global(),
                                             openlcb::eventid_to_buffer(normal_event),
                                             done->new_child());
-    openlcb::event_write_helper4.WriteAsync(node, mti_r, openlcb::WriteHelper::global(),
+    event->event_write_helper<4>()->WriteAsync(node, mti_r, openlcb::WriteHelper::global(),
                                             openlcb::eventid_to_buffer(reverse_event),
                                             done->new_child());
 }
@@ -142,7 +142,7 @@ void StallMotor::SendConsumerIdentified(EventReport *event,BarrierNotifiable *do
     } else {
         mti = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_UNKNOWN;
     }
-    openlcb::event_write_helper3.WriteAsync(node, mti, openlcb::WriteHelper::global(),
+    event->event_write_helper<3>()->WriteAsync(node, mti, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(event->event),
                                             done->new_child());
 }

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 11 17:23:44 2018
-//  Last Modified : <180901.1256>
+//  Last Modified : <181124.1337>
 //
 //  Description	
 //
@@ -168,7 +168,7 @@ private:
     const MastPointsConfiguration config;
     openlcb::EventId event_stop, event_approach_limited, event_approach, event_clear;
     void SendEventReport(openlcb::WriteHelper *writer, Notifiable *done);
-    void SendAllProducersIdentified(BarrierNotifiable *done);
+    void SendAllProducersIdentified(EventReport *event,BarrierNotifiable *done);
     void SendProducerIdentified(EventReport *event,BarrierNotifiable *done);
     void register_handler();
     void unregister_handler();
@@ -245,7 +245,7 @@ private:
     openlcb::EventId event_stop, event_approach, event_clear;
     const MastFrogConfiguration config;
     void SendEventReport(openlcb::WriteHelper *writer, Notifiable *done);
-    void SendAllProducersIdentified(BarrierNotifiable *done);
+    void SendAllProducersIdentified(EventReport *event,BarrierNotifiable *done);
     void SendProducerIdentified(EventReport *event,BarrierNotifiable *done);
     void register_handler();
     void unregister_handler();

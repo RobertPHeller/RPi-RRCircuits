@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Aug 29 15:01:16 2018
-//  Last Modified : <180829.1854>
+//  Last Modified : <181124.1341>
 //
 //  Description	
 //
@@ -102,7 +102,7 @@ private:
     openlcb::EventId normal_event;
     openlcb::EventId reverse_event;
     const StallMotorConfig config;
-    void SendAllConsumersIdentified(BarrierNotifiable *done);
+    void SendAllConsumersIdentified(EventReport *event,BarrierNotifiable *done);
     void SendConsumerIdentified(EventReport *event,BarrierNotifiable *done);
 };
 
