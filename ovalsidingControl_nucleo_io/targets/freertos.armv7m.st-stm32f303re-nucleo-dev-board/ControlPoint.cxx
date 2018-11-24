@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Tue Aug 28 09:34:15 2018
-//  Last Modified : <180828.1212>
+//  Last Modified : <181124.1409>
 //
 //  Description	
 //
@@ -66,7 +66,7 @@ void SwitchLeverBits::handle_identify_producer(const openlcb::EventRegistryEntry
     }
     if (event->event == normal_event_ ||
         event->event == reverse_event_) {
-        openlcb::event_write_helper1.WriteAsync(node_,
+        event->event_write_helper<1>()->WriteAsync(node_,
                                                 openlcb::Defs::MTI_PRODUCER_IDENTIFIED_UNKNOWN,
                                                 openlcb::WriteHelper::global(),
                                                 openlcb::eventid_to_buffer(event->event), 
@@ -87,11 +87,11 @@ void SwitchLeverBits::handle_identify_global(const openlcb::EventRegistryEntry &
         done->notify();
         return;
     }
-    openlcb::event_write_helper1.WriteAsync(node_,mti,
+    event->event_write_helper<1>()->WriteAsync(node_,mti,
                                             openlcb::WriteHelper::global(),
                                             openlcb::eventid_to_buffer(normal_event_),
                                             done->new_child());
-    openlcb::event_write_helper2.WriteAsync(node_,mti,
+    event->event_write_helper<2>()->WriteAsync(node_,mti,
                                             openlcb::WriteHelper::global(),
                                             openlcb::eventid_to_buffer(reverse_event_),
                                             done->new_child());
