@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jun 15 10:44:08 2018
-//  Last Modified : <181018.1037>
+//  Last Modified : <181124.1236>
 //
 //  Description	
 //
@@ -57,6 +57,10 @@ static const char rcsid[] = "@(#) : $Id$";
 #define LOGLEVEL VERBOSE
 #endif
 
+static openlcb::WriteHelper event_write_helper1;
+static openlcb::WriteHelper event_write_helper2;
+static openlcb::WriteHelper event_write_helper3;
+static openlcb::WriteHelper event_write_helper4;
 static openlcb::WriteHelper event_write_helper5;
 static openlcb::WriteHelper event_write_helper6;
 static openlcb::WriteHelper event_write_helper7;
@@ -128,7 +132,7 @@ void ABSSlaveNode::UpdateState(const char *message,
         occ = o;
         if (occ == 'O' ) {
             if (occupied_event != 0LL) 
-                openlcb::event_write_helper1.WriteAsync(
+                event_write_helper1.WriteAsync(
                      node,
                      openlcb::Defs::MTI_EVENT_REPORT,
                      openlcb::WriteHelper::global(),
@@ -136,7 +140,7 @@ void ABSSlaveNode::UpdateState(const char *message,
                      done);
         } else if (occ == 'C') {
             if (unoccupied_event != 0LL)
-                openlcb::event_write_helper1.WriteAsync(
+                event_write_helper1.WriteAsync(
                      node,
                      openlcb::Defs::MTI_EVENT_REPORT,
                      openlcb::WriteHelper::global(),
@@ -149,7 +153,7 @@ void ABSSlaveNode::UpdateState(const char *message,
         if (east_aspect != stop) {
             east_aspect = stop;
             if (east_stop_event != 0LL)
-                openlcb::event_write_helper2.WriteAsync(node,
+                event_write_helper2.WriteAsync(node,
                                            openlcb::Defs::MTI_EVENT_REPORT,
                                            openlcb::WriteHelper::global(),
                                            openlcb::eventid_to_buffer(east_stop_event),
@@ -160,7 +164,7 @@ void ABSSlaveNode::UpdateState(const char *message,
         if (east_aspect != approach) {
             east_aspect = approach;
             if (east_approach_event != 0LL)
-                openlcb::event_write_helper2.WriteAsync(node,
+                event_write_helper2.WriteAsync(node,
                                            openlcb::Defs::MTI_EVENT_REPORT,
                                            openlcb::WriteHelper::global(),
                                            openlcb::eventid_to_buffer(east_approach_event),
@@ -171,7 +175,7 @@ void ABSSlaveNode::UpdateState(const char *message,
         if (east_aspect != clear) {
             east_aspect = clear;
             if (east_clear_event != 0LL)
-                openlcb::event_write_helper2.WriteAsync(node,
+                event_write_helper2.WriteAsync(node,
                                            openlcb::Defs::MTI_EVENT_REPORT,
                                            openlcb::WriteHelper::global(),
                                            openlcb::eventid_to_buffer(east_clear_event),
@@ -184,7 +188,7 @@ void ABSSlaveNode::UpdateState(const char *message,
         if (west_aspect != stop) {
             west_aspect = stop;
             if (west_stop_event != 0LL)
-                openlcb::event_write_helper3.WriteAsync(node,
+                event_write_helper3.WriteAsync(node,
                                            openlcb::Defs::MTI_EVENT_REPORT,
                                            openlcb::WriteHelper::global(),
                                            openlcb::eventid_to_buffer(west_stop_event),
@@ -195,7 +199,7 @@ void ABSSlaveNode::UpdateState(const char *message,
         if (west_aspect != approach) {
             west_aspect = approach;
             if (west_approach_event != 0LL)
-                openlcb::event_write_helper3.WriteAsync(node,
+                event_write_helper3.WriteAsync(node,
                                            openlcb::Defs::MTI_EVENT_REPORT,
                                            openlcb::WriteHelper::global(),
                                            openlcb::eventid_to_buffer(west_approach_event),
@@ -206,7 +210,7 @@ void ABSSlaveNode::UpdateState(const char *message,
         if (west_aspect != clear) {
             west_aspect = clear;
             if (west_clear_event != 0LL)
-                openlcb::event_write_helper3.WriteAsync(node,
+                event_write_helper3.WriteAsync(node,
                                            openlcb::Defs::MTI_EVENT_REPORT,
                                            openlcb::WriteHelper::global(),
                                            openlcb::eventid_to_buffer(west_clear_event),
@@ -353,19 +357,19 @@ void ABSSlaveNode::SendAllProducersIdentified(BarrierNotifiable *done)
         break;
     }
     if (occupied_event != 0LL)
-        openlcb::event_write_helper1.WriteAsync(node, mti_o,  openlcb::WriteHelper::global(),
+        event_write_helper1.WriteAsync(node, mti_o,  openlcb::WriteHelper::global(),
                                             openlcb::eventid_to_buffer(occupied_event),
                                             done->new_child());
     if (unoccupied_event != 0LL)
-        openlcb::event_write_helper2.WriteAsync(node, mti_c,  openlcb::WriteHelper::global(),
+        event_write_helper2.WriteAsync(node, mti_c,  openlcb::WriteHelper::global(),
                                             openlcb::eventid_to_buffer(unoccupied_event),
                                             done->new_child());
     if (west_stop_event != 0LL)
-        openlcb::event_write_helper3.WriteAsync(node, mti_ws, openlcb::WriteHelper::global(),
+        event_write_helper3.WriteAsync(node, mti_ws, openlcb::WriteHelper::global(),
                                             openlcb::eventid_to_buffer(west_stop_event),
                                             done->new_child());
     if (west_approach_event != 0LL)
-        openlcb::event_write_helper4.WriteAsync(node, mti_wa, openlcb::WriteHelper::global(),
+        event_write_helper4.WriteAsync(node, mti_wa, openlcb::WriteHelper::global(),
                                             openlcb::eventid_to_buffer(west_approach_event),
                                             done->new_child());
     if (west_clear_event != 0LL)
@@ -483,7 +487,7 @@ void ABSSlaveNode::SendProducerIdentified(EventReport *event,BarrierNotifiable *
         }
     } else {
     }
-    openlcb::event_write_helper1.WriteAsync(node, mti,  openlcb::WriteHelper::global(),
+    event->event_write_helper<1>()->WriteAsync(node, mti,  openlcb::WriteHelper::global(),
                                             openlcb::eventid_to_buffer(event->event),
                                             done->new_child());
 }

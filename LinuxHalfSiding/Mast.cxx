@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 11 17:32:41 2018
-//  Last Modified : <180901.1257>
+//  Last Modified : <181124.1238>
 //
 //  Description	
 //
@@ -49,6 +49,11 @@ static const char rcsid[] = "@(#) : $Id$";
 #undef LOGLEVEL
 #define LOGLEVEL VERBOSE
 #endif
+
+static openlcb::WriteHelper event_write_helper1;
+static openlcb::WriteHelper event_write_helper2;
+static openlcb::WriteHelper event_write_helper3;
+static openlcb::WriteHelper event_write_helper4;
 
 bool MastPoints::eval()
 {
@@ -175,19 +180,19 @@ void MastPoints::SendAllProducersIdentified(BarrierNotifiable *done)
     }
     
     if (event_stop != 0LL)
-        openlcb::event_write_helper1.WriteAsync(node, mti_s, openlcb::WriteHelper::global(),
+        event_write_helper1.WriteAsync(node, mti_s, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(event_stop),
                                    done->new_child());
     if (event_approach_limited != 0LL)
-        openlcb::event_write_helper2.WriteAsync(node, mti_al, openlcb::WriteHelper::global(),
+        event_write_helper2.WriteAsync(node, mti_al, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(event_approach_limited),
                                    done->new_child());
     if (event_approach != 0LL)
-        openlcb::event_write_helper3.WriteAsync(node, mti_a, openlcb::WriteHelper::global(),
+        event_write_helper3.WriteAsync(node, mti_a, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(event_approach),
                                    done->new_child());
     if (event_clear != 0LL)
-        openlcb::event_write_helper4.WriteAsync(node, mti_c, openlcb::WriteHelper::global(),
+        event_write_helper4.WriteAsync(node, mti_c, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(event_clear),
                                    done->new_child());
     
@@ -205,7 +210,7 @@ void MastPoints::SendProducerIdentified(EventReport *event,BarrierNotifiable *do
     } else if (event->event == event_clear && aspect == clear) {
         mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
     }
-    openlcb::event_write_helper1.WriteAsync(node, mti, openlcb::WriteHelper::global(),
+    event->event_write_helper<1>()->WriteAsync(node, mti, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(event->event),
                                    done->new_child());
 }
@@ -337,15 +342,15 @@ void MastFrog::SendAllProducersIdentified(BarrierNotifiable *done)
     }
     
     if (event_stop != 0LL)
-        openlcb::event_write_helper1.WriteAsync(node, mti_s, openlcb::WriteHelper::global(),
+        event_write_helper1.WriteAsync(node, mti_s, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(event_stop),
                                    done->new_child());
     if (event_approach != 0LL)
-        openlcb::event_write_helper2.WriteAsync(node, mti_a, openlcb::WriteHelper::global(),
+        event_write_helper2.WriteAsync(node, mti_a, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(event_approach),
                                    done->new_child());
     if (event_clear != 0LL)
-        openlcb::event_write_helper3.WriteAsync(node, mti_c, openlcb::WriteHelper::global(),
+        event_write_helper3.WriteAsync(node, mti_c, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(event_clear),
                                    done->new_child());
 }
@@ -360,7 +365,7 @@ void MastFrog::SendProducerIdentified(EventReport *event,BarrierNotifiable *done
     } else if (event->event == event_clear && aspect == clear) {
         mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
     }
-    openlcb::event_write_helper1.WriteAsync(node, mti, openlcb::WriteHelper::global(),
+    event->event_write_helper<1>()->WriteAsync(node, mti, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(event->event),
                                    done->new_child());
 }
