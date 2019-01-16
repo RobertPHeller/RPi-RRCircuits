@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Aug 26 20:36:02 2018
-//  Last Modified : <180826.2122>
+//  Last Modified : <181124.1406>
 //
 //  Description	
 //
@@ -104,7 +104,7 @@ void Signal3::handle_identify_global(const EventRegistryEntry &registry_entry,
     {
         done->notify();
     }
-    SendAllConsumersIdentified(done);
+    SendAllConsumersIdentified(event,done);
     done->maybe_done();
 }
 
@@ -116,17 +116,17 @@ void Signal3::handle_identify_consumer(const EventRegistryEntry &registry_entry,
     done->maybe_done();
 }
 
-void Signal3::SendAllConsumersIdentified(BarrierNotifiable *done)
+void Signal3::SendAllConsumersIdentified(EventReport *event,BarrierNotifiable *done)
 {
     openlcb::Defs::MTI mti_s, mti_a, mti_c;
     mti_s = mti_a = mti_c = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_UNKNOWN;
-    openlcb::event_write_helper1.WriteAsync(node_, mti_s, openlcb::WriteHelper::global(),
+    event->event_write_helper<1>()->WriteAsync(node_, mti_s, openlcb::WriteHelper::global(),
                                             openlcb::eventid_to_buffer(stop_),
                                             done->new_child());
-    openlcb::event_write_helper2.WriteAsync(node_, mti_a, openlcb::WriteHelper::global(),
+    event->event_write_helper<2>()->WriteAsync(node_, mti_a, openlcb::WriteHelper::global(),
                                             openlcb::eventid_to_buffer(approach_),
                                             done->new_child());
-    openlcb::event_write_helper3.WriteAsync(node_, mti_c, openlcb::WriteHelper::global(),
+    event->event_write_helper<3>()->WriteAsync(node_, mti_c, openlcb::WriteHelper::global(),
                                             openlcb::eventid_to_buffer(clear_),
                                             done->new_child());
 }
@@ -137,7 +137,7 @@ void Signal3::SendConsumerIdentified(EventReport *event,BarrierNotifiable *done)
     if (event->event == stop_ ||
         event->event == approach_ ||
         event->event == clear_)
-        openlcb::event_write_helper1.WriteAsync(node_, mti, openlcb::WriteHelper::global(),
+        event->event_write_helper<1>()->WriteAsync(node_, mti, openlcb::WriteHelper::global(),
                                                 openlcb::eventid_to_buffer(event->event),
                                                 done->new_child());
 }
@@ -215,7 +215,7 @@ void Signal3over2::handle_identify_global(const EventRegistryEntry &registry_ent
     {
         done->notify();
     }
-    SendAllConsumersIdentified(done);
+    SendAllConsumersIdentified(event,done);
     done->maybe_done();
 }
 
@@ -227,20 +227,20 @@ void Signal3over2::handle_identify_consumer(const EventRegistryEntry &registry_e
     done->maybe_done();
 }
 
-void Signal3over2::SendAllConsumersIdentified(BarrierNotifiable *done)
+void Signal3over2::SendAllConsumersIdentified(EventReport *event,BarrierNotifiable *done)
 {
     openlcb::Defs::MTI mti_s, mti_a, mti_aL, mti_c;
     mti_s = mti_a = mti_aL = mti_c = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_UNKNOWN;
-    openlcb::event_write_helper1.WriteAsync(node_, mti_s, openlcb::WriteHelper::global(),
+    event->event_write_helper<1>()->WriteAsync(node_, mti_s, openlcb::WriteHelper::global(),
                                             openlcb::eventid_to_buffer(stop_),
                                             done->new_child());
-    openlcb::event_write_helper2.WriteAsync(node_, mti_a, openlcb::WriteHelper::global(),
+    event->event_write_helper<2>()->WriteAsync(node_, mti_a, openlcb::WriteHelper::global(),
                                             openlcb::eventid_to_buffer(approach_),
                                             done->new_child());
-    openlcb::event_write_helper3.WriteAsync(node_, mti_aL, openlcb::WriteHelper::global(),
+    event->event_write_helper<3>()->WriteAsync(node_, mti_aL, openlcb::WriteHelper::global(),
                                             openlcb::eventid_to_buffer(approachLimited_),
                                             done->new_child());
-    openlcb::event_write_helper4.WriteAsync(node_, mti_c, openlcb::WriteHelper::global(),
+    event->event_write_helper<4>()->WriteAsync(node_, mti_c, openlcb::WriteHelper::global(),
                                             openlcb::eventid_to_buffer(clear_),
                                             done->new_child());
 }
@@ -252,7 +252,7 @@ void Signal3over2::SendConsumerIdentified(EventReport *event,BarrierNotifiable *
         event->event == approach_ ||
         event->event == approachLimited_ ||
         event->event == clear_)
-        openlcb::event_write_helper1.WriteAsync(node_, mti, openlcb::WriteHelper::global(),
+        event->event_write_helper<1>()->WriteAsync(node_, mti, openlcb::WriteHelper::global(),
                                                 openlcb::eventid_to_buffer(event->event),
                                                 done->new_child());
 }

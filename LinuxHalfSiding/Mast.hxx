@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 11 17:23:44 2018
-//  Last Modified : <181124.1337>
+//  Last Modified : <181124.1323>
 //
 //  Description	
 //
@@ -51,7 +51,7 @@
 #include "utils/ConfigUpdateListener.hxx"
 #include "utils/ConfigUpdateService.hxx"
 
-#include "ConfiguredPointSense.hxx"
+#include "Points.hxx"
 #include "OccDetector.hxx"
 #include "NoProducerOccDetector.hxx"
 
@@ -91,7 +91,7 @@ CDI_GROUP_END();
 class MastPoints : public openlcb::Polling , public ConfigUpdateListener, public openlcb::SimpleEventHandler {
 public:
     MastPoints(openlcb::Node *_node, const MastPointsConfiguration &cfg,
-               OccupancyDetector *_occ, PointSense *_points, 
+               OccupancyDetector *_occ, Points *_points, 
                openlcb::EventState _pointseventstate,
                NoProducerOccDetector *_next,
                const Gpio *_maingreen, const Gpio *_mainyellow, 
@@ -156,7 +156,7 @@ public:
 private:
     openlcb::Node *node;
     OccupancyDetector *occ;
-    PointSense *points;
+    Points *points;
     openlcb::EventState pointseventstate;
     NoProducerOccDetector *next;
     const Gpio *maingreen;
@@ -177,7 +177,7 @@ private:
 class MastFrog : public openlcb::Polling , public ConfigUpdateListener, public openlcb::SimpleEventHandler {
 public:
     MastFrog(openlcb::Node *_node, const MastFrogConfiguration &cfg, 
-             OccupancyDetector *_occ,  PointSense *_points, 
+             OccupancyDetector *_occ,  Points *_points, 
              openlcb::EventState _pointseventstate,
              NoProducerOccDetector *_next,
              const Gpio *_green, const Gpio *_yellow, 
@@ -235,7 +235,7 @@ public:
 private:
     openlcb::Node *node;
     OccupancyDetector *occ;
-    PointSense *points;
+    Points *points;
     openlcb::EventState pointseventstate;
     NoProducerOccDetector *next;
     const Gpio *green;

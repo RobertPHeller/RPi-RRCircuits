@@ -1,7 +1,7 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Sat 20 Oct 2018 13:50:03 EDT
+Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Sat 20 Oct 2018 11:51:24 AM EDT
 
 BeginCmp
-TimeStamp = /5BBB66EB/5BBB7575;
+TimeStamp = /5BC8ACFC/5BBB7575;
 Reference = C1;
 ValeurCmp = .1 uf;
 IdModule  = C1;
@@ -92,9 +92,44 @@ IdModule  = C1;
 EndCmp
 
 BeginCmp
-TimeStamp = /5BBB671A/5BCB6DD9;
+TimeStamp = /5BC8BA81/5BC8CA18;
 Reference = C14;
-ValeurCmp = .1uf;
+ValeurCmp = 15 uf;
+IdModule  = CP_Radial_D5.0mm_P2.00mm;
+EndCmp
+
+BeginCmp
+TimeStamp = /5BC8BA81/5BC8CA09;
+Reference = C15;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5BC8BA81/5BC8CAEC;
+Reference = C16;
+ValeurCmp = 47 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5BCA2815;
+Reference = C17;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5BBB671A/5BCB53DC;
+Reference = C18;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5BC8BA81/5BCB5272;
+Reference = C19;
+ValeurCmp = .1 uf;
 IdModule  = C1;
 EndCmp
 
@@ -106,6 +141,13 @@ IdModule  = KBL;
 EndCmp
 
 BeginCmp
+TimeStamp = /5BC8BA81/5BC8D859;
+Reference = D2;
+ValeurCmp = SB240E;
+IdModule  = DO-15;
+EndCmp
+
+BeginCmp
 TimeStamp = /5BBB671A/5BBBFC00;
 Reference = IC1;
 ValeurCmp = MCT6H;
@@ -113,17 +155,24 @@ IdModule  = DIP-8__300;
 EndCmp
 
 BeginCmp
-TimeStamp = /5516AE26;
-Reference = J0;
-ValeurCmp = RPi_GPIO;
-IdModule  = RPi_Hat:Pin_Header_Straight_2x20;
+TimeStamp = /5BC8ACFC/5BBB75ED;
+Reference = J1;
+ValeurCmp = 2  1  0;
+IdModule  = pin_array_3x2;
 EndCmp
 
 BeginCmp
-TimeStamp = /5BBB66EB/5BBB75ED;
-Reference = J1;
-ValeurCmp = Address;
-IdModule  = pin_array_3x2;
+TimeStamp = /5BC8BA81/5BC8CBDE;
+Reference = J2;
+ValeurCmp = RJ45;
+IdModule  = RJ45_8N-S;
+EndCmp
+
+BeginCmp
+TimeStamp = /5BC8BA81/5BC8CBED;
+Reference = J3;
+ValeurCmp = RJ45;
+IdModule  = RJ45_8N-S;
 EndCmp
 
 BeginCmp
@@ -162,7 +211,49 @@ IdModule  = PIN_ARRAY_4x1;
 EndCmp
 
 BeginCmp
-TimeStamp = /5BBB66EB/5BBB7560;
+TimeStamp = /5BC8BA81/5BC8CAC7;
+Reference = P6;
+ValeurCmp = Termination;
+IdModule  = PIN_ARRAY_2X2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5BC8BA81/5BC8D83B;
+Reference = P7;
+ValeurCmp = - 12 in +;
+IdModule  = bornier2;
+EndCmp
+
+BeginCmp
+TimeStamp = /55DF7DE1;
+Reference = P8;
+ValeurCmp = BeagleBone_Black_Header;
+IdModule  = Socket_BeagleBone_Black:Socket_BeagleBone_Black;
+EndCmp
+
+BeginCmp
+TimeStamp = /55DF7DBA;
+Reference = P9;
+ValeurCmp = BeagleBone_Black_Header;
+IdModule  = Socket_BeagleBone_Black:Socket_BeagleBone_Black;
+EndCmp
+
+BeginCmp
+TimeStamp = /5BC8BA81/5BC8D84A;
+Reference = P10;
+ValeurCmp = - 12 out +;
+IdModule  = ScrewTerm2.54-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5BC9F5F2;
+Reference = P11;
+ValeurCmp = WP 1 0;
+IdModule  = pin_array_3x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5BC8ACFC/5BBB7560;
 Reference = R1;
 ValeurCmp = 10K Ohms;
 IdModule  = SIL-5;
@@ -211,38 +302,87 @@ IdModule  = R1;
 EndCmp
 
 BeginCmp
-TimeStamp = /5BBB66EB/5BBB749C;
+TimeStamp = /5BC8BA81/5BC8CB71;
+Reference = R8;
+ValeurCmp = 60 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5BC8BA81/5BC8CB80;
+Reference = R9;
+ValeurCmp = 60 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5BC9F8D8;
+Reference = R10;
+ValeurCmp = 5.6K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5BC9F905;
+Reference = R11;
+ValeurCmp = 5.6K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5BC9FBA8;
+Reference = R12;
+ValeurCmp = 4.75K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5BC9FB7B;
+Reference = R13;
+ValeurCmp = 4.75K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5BC9F932;
+Reference = R14;
+ValeurCmp = 4.75K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5BCA25C8;
+Reference = R15;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5BC8ACFC/5BBB749C;
 Reference = RP1;
 ValeurCmp = 150 Ohms;
 IdModule  = DIP-16__300;
 EndCmp
 
 BeginCmp
-TimeStamp = /5BBB66EB/5BBB74AB;
+TimeStamp = /5BC8ACFC/5BBB74AB;
 Reference = RP2;
 ValeurCmp = 150 Ohms;
 IdModule  = DIP-16__300;
 EndCmp
 
 BeginCmp
-TimeStamp = /5BBB66EB/5BBB7602;
+TimeStamp = /5BC8ACFC/5BBB7602;
 Reference = T1;
-ValeurCmp = Signals A, B;
+ValeurCmp = FMR FMY FMG PLR PLY PHR PHY PHG +5;
 IdModule  = ScrewTerm_2.54-9;
 EndCmp
 
 BeginCmp
-TimeStamp = /5BBB66EB/5BBB7611;
+TimeStamp = /5BC8ACFC/5BBB7611;
 Reference = T2;
-ValeurCmp = Signals C, D;
+ValeurCmp = SP7 SP6 SP5 SP4 SP3 FDR FDY FDG +5;
 IdModule  = ScrewTerm_2.54-9;
-EndCmp
-
-BeginCmp
-TimeStamp = /5BBBC297;
-Reference = T3;
-ValeurCmp = 12 to 15V;
-IdModule  = ScrewTerm2.54-2;
 EndCmp
 
 BeginCmp
@@ -260,21 +400,21 @@ IdModule  = ScrewTerm_2.54-5;
 EndCmp
 
 BeginCmp
-TimeStamp = /5BBB66EB/5BBB71AA;
+TimeStamp = /5BC8ACFC/5BBB71AA;
 Reference = U1;
 ValeurCmp = MCP23017;
 IdModule  = DIP-28__300;
 EndCmp
 
 BeginCmp
-TimeStamp = /5BBB66EB/5BBB71BB;
+TimeStamp = /5BC8ACFC/5BBB71BB;
 Reference = U2;
 ValeurCmp = ULN2803A;
 IdModule  = DIP-18__300;
 EndCmp
 
 BeginCmp
-TimeStamp = /5BBB66EB/5BBB71F9;
+TimeStamp = /5BC8ACFC/5BBB71F9;
 Reference = U3;
 ValeurCmp = ULN2803A;
 IdModule  = DIP-18__300;
@@ -327,6 +467,27 @@ TimeStamp = /5BBB671A/5BBC0003;
 Reference = U10;
 ValeurCmp = 74LV125AN;
 IdModule  = DIP-14__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5BC8BA81/5BC8C33E;
+Reference = U11;
+ValeurCmp = 74LV125AN;
+IdModule  = DIP-14__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5BC8BA81/5BC8C015;
+Reference = U12;
+ValeurCmp = MCP2551;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5BC9CB18;
+Reference = U13;
+ValeurCmp = CAT24C256W;
+IdModule  = DIP-8__300;
 EndCmp
 
 EndListe

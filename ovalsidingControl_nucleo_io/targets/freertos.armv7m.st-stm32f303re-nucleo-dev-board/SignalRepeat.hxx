@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Aug 26 19:27:39 2018
-//  Last Modified : <180826.2107>
+//  Last Modified : <181124.1406>
 //
 //  Description	
 //
@@ -135,7 +135,7 @@ private:
     const Gpio* green_;
     const Signal3Config cfg_;
     uint64_t stop_, approach_, clear_;
-    void SendAllConsumersIdentified(BarrierNotifiable *done);
+    void SendAllConsumersIdentified(EventReport *event,BarrierNotifiable *done);
     void SendConsumerIdentified(EventReport *event,BarrierNotifiable *done);
 };
                 
@@ -206,7 +206,7 @@ private:
     const Gpio* yellowL_;
     const Signal3over2Config cfg_;
     uint64_t stop_, approach_, approachLimited_, clear_;
-    void SendAllConsumersIdentified(BarrierNotifiable *done);
+    void SendAllConsumersIdentified(EventReport *event,BarrierNotifiable *done);
     void SendConsumerIdentified(EventReport *event,BarrierNotifiable *done);
 };
                 

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Aug 29 16:04:36 2018
-//  Last Modified : <180829.1836>
+//  Last Modified : <181124.1348>
 //
 //  Description	
 //
@@ -72,7 +72,7 @@ void PolledPointSense::handle_identify_global(const openlcb::EventRegistryEntry 
     {
         done->notify();
     }
-    SendAllProducersIdentified(done);
+    SendAllProducersIdentified(event,done);
     done->maybe_done();
 }
 
@@ -129,13 +129,13 @@ void PolledPointSense::SendProducerIdentified(EventReport *event, BarrierNotifia
     default:
         break;
     }
-    openlcb::event_write_helper1.WriteAsync(node_, mti, openlcb::WriteHelper::global(),
+    event->event_write_helper<1>()->WriteAsync(node_, mti, openlcb::WriteHelper::global(),
                                             openlcb::eventid_to_buffer(event->event),
                                             done->new_child());
 
 }
 
-void PolledPointSense::SendAllProducersIdentified(BarrierNotifiable *done)
+void PolledPointSense::SendAllProducersIdentified(EventReport *event,BarrierNotifiable *done)
 {
     openlcb::Defs::MTI mti_n, mti_r;
     switch (get_current_state()) {
@@ -151,10 +151,10 @@ void PolledPointSense::SendAllProducersIdentified(BarrierNotifiable *done)
         mti_r = mti_n = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_UNKNOWN;
         break;
     }
-    openlcb::event_write_helper1.WriteAsync(node_, mti_n, openlcb::WriteHelper::global(),
+    event->event_write_helper<1>()->WriteAsync(node_, mti_n, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(normal_event_),
                                    done->new_child());
-    openlcb::event_write_helper2.WriteAsync(node_, mti_r, openlcb::WriteHelper::global(),
+    event->event_write_helper<2>()->WriteAsync(node_, mti_r, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(reverse_event_),
                                    done->new_child());
 }

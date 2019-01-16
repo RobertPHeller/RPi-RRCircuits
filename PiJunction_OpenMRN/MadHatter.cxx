@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 15 21:27:11 2018
-//  Last Modified : <181015.2205>
+//  Last Modified : <181124.1416>
 //
 //  Description	
 //
@@ -95,7 +95,7 @@ void MadHatter::handle_identify_global(const EventRegistryEntry &registry_entry,
     {
         done->notify();
     }
-    SendAllProducersIdentified(done);
+    SendAllProducersIdentified(event,done);
     done->maybe_done();
 }
 
@@ -120,7 +120,7 @@ void MadHatter::SendEventReport(openlcb::WriteHelper *writer, Notifiable *done)
     }
 }
 
-void MadHatter::SendAllProducersIdentified(BarrierNotifiable *done)
+void MadHatter::SendAllProducersIdentified(EventReport *event,BarrierNotifiable *done)
 {
     openlcb::Defs::MTI mti_on = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID, 
           mti_off = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
@@ -132,11 +132,11 @@ void MadHatter::SendAllProducersIdentified(BarrierNotifiable *done)
         mti_off = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
     }
     if (event_on != 0LL)
-        openlcb::event_write_helper1.WriteAsync(node, mti_on, openlcb::WriteHelper::global(),
+        event->event_write_helper<1>()->WriteAsync(node, mti_on, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(event_on),
                                    done->new_child());
     if (event_off != 0LL)
-        openlcb::event_write_helper2.WriteAsync(node, mti_off, openlcb::WriteHelper::global(),
+        event->event_write_helper<2>()->WriteAsync(node, mti_off, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(event_off),
                                    done->new_child());
 }
@@ -149,7 +149,7 @@ void MadHatter::SendProducerIdentified(EventReport *event,BarrierNotifiable *don
     } else if (event->event == event_off && then_off) {
         mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
     }
-    openlcb::event_write_helper1.WriteAsync(node, mti, openlcb::WriteHelper::global(),
+    event->event_write_helper<1>()->WriteAsync(node, mti, openlcb::WriteHelper::global(),
                                    openlcb::eventid_to_buffer(event->event),
                                    done->new_child());
 }

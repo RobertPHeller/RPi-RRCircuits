@@ -47,6 +47,7 @@
 
 #include "Hardware.hxx"
 
+
 #include "Turnout.hxx"
 #include "Points.hxx"
 #include "OccDetector.hxx"
@@ -64,7 +65,7 @@ OVERRIDE_CONST(main_thread_stack_size, 2500);
 // Specifies the 48-bit OpenLCB node identifier. This must be unique for every
 // hardware manufactured, so in production this should be replaced by some
 // easily incrementable method.
-extern const openlcb::NodeID NODE_ID = 0x050101012250ULL; // 05 01 01 01 22 50
+extern const openlcb::NodeID NODE_ID = MyAddress;
 
 // Sets up a comprehensive OpenLCB stack for a single virtual node. This stack
 // contains everything needed for a usual peripheral node -- all
@@ -156,6 +157,8 @@ openlcb::RefreshLoop loop(stack.node(),{points1.polling()
           , frogDivSignal.polling()
 });
 
+ABSSlaveBus absSlaveBus(stack.node(), cfg.seg().abs_slave_list());
+
 
 void usage(const char *e)
 {
@@ -194,15 +197,24 @@ int appl_main(int argc, char *argv[])
     snprintf(pathnamebuffer,sizeof(pathnamebuffer),
              "/tmp/config_eeprom_%012llX",NODE_ID);
     parse_args(argc, argv);
-    
     GpioInit::hw_init();
     stack.create_config_file_if_needed(cfg.seg().internal_config(), openlcb::CANONICAL_VERSION, openlcb::CONFIG_FILE_SIZE);
+    
+    absSlaveBus.begin(ABSSlaveBus_Serial);
+    
     // Connects to a TCP hub on the internet.
     //stack.connect_tcp_gridconnect_hub("28k.ch", 50007);
-    stack.connect_tcp_gridconnect_hub("localhost", 12021);
+#ifdef HAVE_TCP_GRIDCONNECT_HOST
+    stack.connect_tcp_gridconnect_hub(TCP_GRIDCONNECT_HOST, TCP_GRIDCONNECT_PORT);
+#endif
+#ifdef PRINT_ALL_PACKETS
     // Causes all packets to be dumped to stdout.
-    //stack.print_all_packets();
-    // This command donates the main thread to the operation of the
+    stack.print_all_packets();
+#endif
+#if defined(HAVE_SOCKET_CAN_PORT)
+    stack.add_socketcan_port_select(SOCKET_CAN_PORT);
+#endif
+// This command donates the main thread to the operation of the
     // stack. Alternatively the stack could be started in a separate stack and
     // then application-specific business logic could be executed ion a busy
     // loop in the main thread.

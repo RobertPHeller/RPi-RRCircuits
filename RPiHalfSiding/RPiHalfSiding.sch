@@ -42,7 +42,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 3
 Title ""
-Date "8 oct 2018"
+Date "20 oct 2018"
 Rev ""
 Comp ""
 Comment1 ""
@@ -294,7 +294,7 @@ L CONN_2 T3
 U 1 1 5BBBC297
 P 5800 3600
 F 0 "T3" V 5750 3600 40  0000 C CNN
-F 1 "12 to 15V" V 5850 3600 40  0000 C CNN
+F 1 "- 12V +" V 5850 3600 40  0000 C CNN
 F 2 "~" H 5800 3600 60  0000 C CNN
 F 3 "~" H 5800 3600 60  0000 C CNN
 	1    5800 3600

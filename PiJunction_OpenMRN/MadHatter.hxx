@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 15 20:58:22 2018
-//  Last Modified : <181015.2132>
+//  Last Modified : <181124.1417>
 //
 //  Description	
 //
@@ -128,7 +128,7 @@ private:
     const MadHatterConfiguration config;
     openlcb::EventId event_on, event_off;
     void SendEventReport(openlcb::WriteHelper *writer, Notifiable *done);
-    void SendAllProducersIdentified(BarrierNotifiable *done);
+    void SendAllProducersIdentified(EventReport *event,BarrierNotifiable *done);
     void SendProducerIdentified(EventReport *event,BarrierNotifiable *done);
     void register_handler();
     void unregister_handler();
