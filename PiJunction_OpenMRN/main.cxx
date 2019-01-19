@@ -142,7 +142,7 @@ MadHatter madHatter(
 
 MastFrog CP314W(
      stack.node(), cfg.seg().masts().cp314west(),&S314159Occ,
-     &Points1,openlcb::EventState::INVALID,&MainWestOcc,
+     &Points1,openlcb::EventState::VALID,&MainWestOcc,
      CP314WUpperGreen_Pin::instance(), 
      CP314WUpperYellow_Pin::instance(),
      CP314WUpperRed_Pin::instance());
@@ -163,7 +163,7 @@ MastBlock Siding(
 
 MastFrog CP314S(
      stack.node(), cfg.seg().masts().cp314siding(),&S314159Occ,
-     &Points1, openlcb::EventState::VALID, &MainEastOcc,
+     &Points1, openlcb::EventState::INVALID, &MainEastOcc,
      CP314SLowerGreen_Pin::instance(), 
      CP314SLowerYellow_Pin::instance(), 
      CP314SLowerRed_Pin::instance());
@@ -176,7 +176,7 @@ MastBlock MainEast(
 
 MastPoints CP314E(
      stack.node(), cfg.seg().masts().cp314east(),&S314159Occ,
-     &Points1, openlcb::EventState::INVALID,&MainWestOcc,
+     &Points1, openlcb::EventState::VALID,&MainWestOcc,
      CP314EUpperGreen_Pin::instance(), 
      CP314EUpperYellow_Pin::instance(),
      CP314EUpperRed_Pin::instance(), 
