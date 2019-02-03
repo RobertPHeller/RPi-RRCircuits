@@ -1,0 +1,94 @@
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Sat 02 Feb 2019 16:27:36 EST
+
+BeginCmp
+TimeStamp = /5516AE26;
+Reference = J0;
+ValeurCmp = RPi_GPIO;
+IdModule  = RPi_Hat:Pin_Header_Straight_2x20;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C560645;
+Reference = RR1;
+ValeurCmp = 10K Ohms;
+IdModule  = SIL-9;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C560A1F;
+Reference = T1;
+ValeurCmp = Motor 1;
+IdModule  = ScrewTerm_2.54-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C560A2E;
+Reference = T2;
+ValeurCmp = Motor 2;
+IdModule  = ScrewTerm_2.54-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C560A3D;
+Reference = T3;
+ValeurCmp = Motor 3;
+IdModule  = ScrewTerm_2.54-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C560A4C;
+Reference = T4;
+ValeurCmp = Motor 4;
+IdModule  = ScrewTerm_2.54-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C560C0A;
+Reference = T5;
+ValeurCmp = 12V;
+IdModule  = ScrewTerm2.54-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C560185;
+Reference = U1;
+ValeurCmp = TC4428;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C5601A3;
+Reference = U2;
+ValeurCmp = TC4428;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C5601C1;
+Reference = U3;
+ValeurCmp = TC4428;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C5601DF;
+Reference = U4;
+ValeurCmp = TC4428;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C560538;
+Reference = U5;
+ValeurCmp = 74HCT00;
+IdModule  = DIP-14__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C560574;
+Reference = U6;
+ValeurCmp = 74HCT00;
+IdModule  = DIP-14__300;
+EndCmp
+
+EndListe
