@@ -1,4 +1,25 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Sat 02 Feb 2019 16:27:36 EST
+Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Sun 03 Feb 2019 10:29:41 AM EST
+
+BeginCmp
+TimeStamp = /5C57081B;
+Reference = C1;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C57082A;
+Reference = C2;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C570839;
+Reference = C3;
+ValeurCmp = 10 uf 35V;
+IdModule  = C1V5;
+EndCmp
 
 BeginCmp
 TimeStamp = /5516AE26;
