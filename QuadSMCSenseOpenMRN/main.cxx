@@ -121,6 +121,24 @@ openlcb::RefreshLoop loop(stack.node(),{points1.polling()
           , points4.polling()
 });
 
+class FactoryResetHelper : public DefaultConfigUpdateListener {
+public:
+    UpdateAction apply_configuration(int fd, bool initial_load,
+                                     BarrierNotifiable *done) OVERRIDE 
+    {
+        AutoNotify n(done);
+        return UPDATED;
+    }
+    void factory_reset(int fd) override
+    {
+        cfg.userinfo().name().write(fd, HARDWARE_IMPL);
+        cfg.userinfo().description().write(
+            fd, HARDWARE_IMPL);
+    }
+} factory_reset_helper;
+                                           
+                                           
+                                           
 
 void usage(const char *e)
 {
