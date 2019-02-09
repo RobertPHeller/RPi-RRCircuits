@@ -154,23 +154,26 @@ MastBlock MainWest(
      MainWestYellow_Pin::instance(), 
      MainWestRed_Pin::instance());
 
-MastBlock Siding(
+MastBlockFrog Siding(
      stack.node(), cfg.seg().masts().siding(),&SidingOcc,
      &S314159Occ,
+     &Points1, openlcb::EventState::INVALID,                
      SidingGreen_Pin::instance(), 
      SidingYellow_Pin::instance(), 
      SidingRed_Pin::instance());
 
 MastFrog CP314S(
      stack.node(), cfg.seg().masts().cp314siding(),&S314159Occ,
-     &Points1, openlcb::EventState::INVALID, &MainEastOcc,
+     &Points1, openlcb::EventState::VALID, &MainEastOcc,
      CP314SLowerGreen_Pin::instance(), 
      CP314SLowerYellow_Pin::instance(), 
      CP314SLowerRed_Pin::instance());
 
-MastBlock MainEast(
+MastBlockFrog MainEast(
      stack.node(), cfg.seg().masts().maineast(),&MainEastOcc,
-     &S314159Occ, MainEastGreen_Pin::instance(), 
+     &S314159Occ, 
+     &Points1, openlcb::EventState::INVALID,
+     MainEastGreen_Pin::instance(), 
      MainEastYellow_Pin::instance(), 
      MainEastRed_Pin::instance());
 

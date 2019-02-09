@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 11 17:23:44 2018
-//  Last Modified : <181124.1414>
+//  Last Modified : <190209.1231>
 //
 //  Description	
 //
@@ -320,6 +320,82 @@ public:
 private:
     openlcb::Node *node;
     OccupancyDetector *occ, *next;
+    const Gpio *green;
+    const Gpio *yellow;
+    const Gpio *red;
+    enum {stop, approach, clear} aspect;
+    openlcb::EventId event_stop, event_approach, event_clear;
+    const MastBlockConfiguration config;
+    void SendEventReport(openlcb::WriteHelper *writer, Notifiable *done);
+    void SendAllProducersIdentified(EventReport *event,BarrierNotifiable *done);
+    void SendProducerIdentified(EventReport *event,BarrierNotifiable *done);
+    void register_handler();
+    void unregister_handler();
+};
+
+class MastBlockFrog : public openlcb::Polling , public ConfigUpdateListener, public openlcb::SimpleEventHandler {
+public:
+    MastBlockFrog(openlcb::Node *_node, const MastBlockConfiguration &cfg, 
+             OccupancyDetector *_occ,  
+             OccupancyDetector *_next,
+             Points *_points, openlcb::EventState _pointseventstate,
+             const Gpio *_green, const Gpio *_yellow, 
+             const Gpio *_red) 
+                : node(_node)
+          , occ(_occ)
+          , next(_next)
+          , points(_points)
+          , pointseventstate(_pointseventstate)
+          , green(_green)
+          , yellow(_yellow)
+          , red(_red)
+          , config(cfg)
+    {
+        ConfigUpdateService::instance()->register_update_listener(this);
+    }
+    bool eval();
+    openlcb::Polling *polling()
+    {
+        return this;
+    }
+    virtual void poll_33hz(openlcb::WriteHelper *helper, Notifiable *done) {
+        if (eval()) {
+            SendEventReport(helper, done);
+        } else {
+            done->notify();
+        }
+    }
+    virtual UpdateAction apply_configuration(int fd, bool initial_load,
+                                             BarrierNotifiable *done) override
+    {
+        AutoNotify n(done);
+        openlcb::EventId cfg_event_stop = config.stop_event().read(fd);
+        openlcb::EventId cfg_event_approach = config.approach_event().read(fd);
+        openlcb::EventId cfg_event_clear = config.clear_event().read(fd);
+        if (cfg_event_stop != event_stop ||
+            cfg_event_approach != event_approach ||
+            cfg_event_clear != event_clear) {
+            if (!initial_load) unregister_handler();
+            event_stop = cfg_event_stop;
+            event_approach = cfg_event_approach;
+            event_clear = cfg_event_clear;
+            register_handler();
+            return REINIT_NEEDED; // Causes events identify.
+        }
+        return UPDATED;
+    }
+    virtual void factory_reset(int fd);
+    void handle_identify_global(const EventRegistryEntry &registry_entry, 
+                                EventReport *event, 
+                                BarrierNotifiable *done) OVERRIDE;
+    void handle_identify_producer(const EventRegistryEntry &registry_entry,
+                                  EventReport *event, 
+                                  BarrierNotifiable *done) override;
+private:
+    openlcb::Node *node;
+    OccupancyDetector *occ, *next;
+    Points *points;
+    openlcb::EventState pointseventstate;
     const Gpio *green;
     const Gpio *yellow;
     const Gpio *red;
