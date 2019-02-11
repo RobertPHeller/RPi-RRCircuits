@@ -142,49 +142,49 @@ MadHatter madHatter(
 
 MastFrog CP314W(
      stack.node(), cfg.seg().masts().cp314west(),&S314159Occ,
-     &Points1,openlcb::EventState::VALID,&MainWestOcc,
+     &Points1,openlcb::EventState::VALID,NULL,
      CP314WUpperGreen_Pin::instance(), 
      CP314WUpperYellow_Pin::instance(),
      CP314WUpperRed_Pin::instance());
 
 MastBlock MainWest(
      stack.node(), cfg.seg().masts().mainwest(),&MainWestOcc,
-     &S314159Occ,              
+     &CP314W,              
      MainWestGreen_Pin::instance(), 
      MainWestYellow_Pin::instance(), 
      MainWestRed_Pin::instance());
 
-MastBlockFrog Siding(
-     stack.node(), cfg.seg().masts().siding(),&SidingOcc,
-     &S314159Occ,
-     &Points1, openlcb::EventState::INVALID,                
-     SidingGreen_Pin::instance(), 
-     SidingYellow_Pin::instance(), 
-     SidingRed_Pin::instance());
-
 MastFrog CP314S(
      stack.node(), cfg.seg().masts().cp314siding(),&S314159Occ,
-     &Points1, openlcb::EventState::VALID, &MainEastOcc,
+     &Points1, openlcb::EventState::VALID, NULL,
      CP314SLowerGreen_Pin::instance(), 
      CP314SLowerYellow_Pin::instance(), 
      CP314SLowerRed_Pin::instance());
 
-MastBlockFrog MainEast(
-     stack.node(), cfg.seg().masts().maineast(),&MainEastOcc,
-     &S314159Occ, 
-     &Points1, openlcb::EventState::INVALID,
-     MainEastGreen_Pin::instance(), 
-     MainEastYellow_Pin::instance(), 
-     MainEastRed_Pin::instance());
+MastBlock Siding(
+     stack.node(), cfg.seg().masts().siding(),&SidingOcc,
+     &CP314S,
+     SidingGreen_Pin::instance(), 
+     SidingYellow_Pin::instance(), 
+     SidingRed_Pin::instance());
 
 MastPoints CP314E(
      stack.node(), cfg.seg().masts().cp314east(),&S314159Occ,
-     &Points1, openlcb::EventState::VALID,&MainWestOcc,
+     &Points1, openlcb::EventState::VALID,&MainWest,
      CP314EUpperGreen_Pin::instance(), 
      CP314EUpperYellow_Pin::instance(),
      CP314EUpperRed_Pin::instance(), 
      CP314ELowerYellow_Pin::instance(), 
      CP314ELowerRed_Pin::instance());
+
+MastBlock MainEast(
+     stack.node(), cfg.seg().masts().maineast(),&MainEastOcc,
+     &CP314E, 
+     MainEastGreen_Pin::instance(), 
+     MainEastYellow_Pin::instance(), 
+     MainEastRed_Pin::instance());
+
+
 
 
 // The producers need to be polled repeatedly for changes and to execute the
@@ -242,6 +242,9 @@ int appl_main(int argc, char *argv[])
     
     // Initialize the GPIO pins.
     GpioInit::hw_init();
+    // Handle Mast forward Decls
+    CP314W.SetNext(&MainWest);
+    CP314S.SetNext(&MainEast);
     // Light the "dummy" heads.
     CP314WLowRed_Pin::set(true);
     CP314SUpperRed_Pin::set(true);

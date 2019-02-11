@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 11 17:32:41 2018
-//  Last Modified : <190209.1237>
+//  Last Modified : <190211.1411>
 //
 //  Description	
 //
@@ -55,45 +55,41 @@ bool MastPoints::eval()
     bool result = false;
     //LOG(INFO,"MastPoints::eval(): occ->read() is %d\n",occ->read());
     //LOG(INFO,"MastPoints::eval(): points->get_current_state() is %d\n",pointstate->read());
-    //LOG(INFO,"MastPoints::eval(): next->read() is %d\n",next->read());
+    //LOG(INFO,"MastPoints::eval(): next->Aspect() is %d\n",next->Aspect());
     if (occ->OccupiedP()) {
-        if (aspect != stop) result = true;
-        aspect = stop;
+        result = SetAspect(Stop);
     } else if (points->get_current_state() == pointseventstate) {
-        if (aspect != approach_limited) result = true;
-        aspect = approach_limited;
-    } else if (next->OccupiedP()) {
-        if (aspect != approach) result = true;
-        aspect = approach;
+        result = SetAspect(ApproachLimited);
+    } else if (next->Aspect() == Stop) {
+        result = SetAspect(Approach);
     } else {
-        if (aspect != clear) result = true;
-        aspect = clear;
+        result = SetAspect(Clear);
     }
     //LOG(INFO,"MastPoints::eval(): aspect is %d\n",aspect);
     //LOG(INFO,"MastPoints::eval(): result is %d\n",result);
-    switch (aspect) {
-    case stop:
+    switch (Aspect()) {
+    case Stop:
         maingreen->clr();
         mainyellow->clr();
         mainred->set();
         divyellow->clr();
         divred->set();
         break;
-    case approach_limited:
+    case ApproachLimited:
         maingreen->clr();
         mainyellow->clr();
         mainred->set();
         divyellow->set();
         divred->clr();
         break;
-    case approach:
+    case Approach:
         maingreen->clr();
         mainyellow->set();
         mainred->clr();
         divyellow->clr();
         divred->set();
         break;
-    case clear:
+    case Clear:
         maingreen->set();
         mainyellow->clr();
         mainred->clr();
@@ -106,26 +102,26 @@ bool MastPoints::eval()
 
 void MastPoints::SendEventReport(openlcb::WriteHelper *writer, Notifiable *done)
 {
-    switch (aspect) {
-    case stop: 
+    switch (Aspect()) {
+    case Stop: 
         if (event_stop != 0LL)
             writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
                            openlcb::WriteHelper::global(),
                            openlcb::eventid_to_buffer(event_stop),done);
         break;
-    case approach_limited:
+    case ApproachLimited:
         if (event_approach_limited != 0LL)
             writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
                            openlcb::WriteHelper::global(),
                            openlcb::eventid_to_buffer(event_approach_limited),done);
         break;
-    case approach:
+    case Approach:
         if (event_approach != 0LL)
             writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
                            openlcb::WriteHelper::global(),
                            openlcb::eventid_to_buffer(event_approach),done);
         break;
-    case clear:
+    case Clear:
         if (event_clear != 0LL)
             writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
                            openlcb::WriteHelper::global(),
@@ -159,17 +155,17 @@ void MastPoints::SendAllProducersIdentified(EventReport *event,BarrierNotifiable
           mti_al = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID, 
           mti_a = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID, 
           mti_c = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
-    switch (aspect) {
-    case stop:
+    switch (Aspect()) {
+    case Stop:
         mti_s = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
         break;
-    case approach_limited:
+    case ApproachLimited:
         mti_al = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
         break;
-    case approach:
+    case Approach:
         mti_a = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
         break;
-    case clear:
+    case Clear:
         mti_s = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
         break;
     }
@@ -196,13 +192,13 @@ void MastPoints::SendAllProducersIdentified(EventReport *event,BarrierNotifiable
 void MastPoints::SendProducerIdentified(EventReport *event,BarrierNotifiable *done)
 {
     openlcb::Defs::MTI mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
-    if (event->event == event_stop && aspect == stop) {
+    if (event->event == event_stop && Aspect() == Stop) {
         mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-    } else if (event->event == event_approach && aspect == approach) {
+    } else if (event->event == event_approach && Aspect() == Approach) {
         mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-    } else if (event->event == event_approach_limited && aspect == approach_limited) {
+    } else if (event->event == event_approach_limited && Aspect() == ApproachLimited) {
         mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-    } else if (event->event == event_clear && aspect == clear) {
+    } else if (event->event == event_clear && Aspect() == Clear) {
         mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
     }
     event->event_write_helper<1>()->WriteAsync(node, mti, openlcb::WriteHelper::global(),
@@ -246,56 +242,55 @@ bool MastFrog::eval()
     bool result = false;
     if (occ->OccupiedP() || 
         points->get_current_state() == pointseventstate) {
-        if (aspect != stop) result = true;
-        aspect = stop;
-    } else if (next->OccupiedP()) {
-        if (aspect != approach) result = true;
-        aspect = approach;
+        result = SetAspect(Stop);
+    } else if (next->Aspect() == Stop) {
+        result = SetAspect(Approach);
     } else {
-        if (aspect != clear) result = true;
-        aspect = clear;
+        result = SetAspect(Clear);
     }
-    switch (aspect) {
-    case stop:
+    switch (Aspect()) {
+    case Stop:
         green->clr();
         yellow->clr();
         red->set();
         break;
-    case approach:
+    case Approach:
         green->clr();
         yellow->set();
         red->clr();
         break;
-    case clear:
+    case Clear:
         green->set();
         yellow->clr();
         red->clr();
         break;
+    default: break; // Not actually used, but needed (-Werror=switch)
     }
     return result;
 }
 
 void MastFrog::SendEventReport(openlcb::WriteHelper *writer, Notifiable *done)
 {
-    switch (aspect) {
-    case stop: 
+    switch (Aspect()) {
+    case Stop: 
         if (event_stop != 0LL)
             writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
                            openlcb::WriteHelper::global(),
                            openlcb::eventid_to_buffer(event_stop),done);
         break;
-    case approach:
+    case Approach:
         if (event_approach != 0LL)
             writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
                            openlcb::WriteHelper::global(),
                            openlcb::eventid_to_buffer(event_approach),done);
         break;
-    case clear:
+    case Clear:
         if (event_clear != 0LL)
             writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
                            openlcb::WriteHelper::global(),
                            openlcb::eventid_to_buffer(event_clear),done);
         break;
+    default: break; // Not actually used, but needed (-Werror=switch)
     }
 }
 
@@ -324,16 +319,17 @@ void MastFrog::SendAllProducersIdentified(EventReport *event,BarrierNotifiable *
     openlcb::Defs::MTI mti_s = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID, 
           mti_a = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID, 
           mti_c = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
-    switch (aspect) {
-    case stop:
+    switch (Aspect()) {
+    case Stop:
         mti_s = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
         break;
-    case approach:
+    case Approach:
         mti_a = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
         break;
-    case clear:
+    case Clear:
         mti_s = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
         break;
+    default: break; // Not actually used, but needed (-Werror=switch)
     }
     
     if (event_stop != 0LL)
@@ -353,11 +349,11 @@ void MastFrog::SendAllProducersIdentified(EventReport *event,BarrierNotifiable *
 void MastFrog::SendProducerIdentified(EventReport *event,BarrierNotifiable *done)
 {
     openlcb::Defs::MTI mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
-    if (event->event == event_stop && aspect == stop) {
+    if (event->event == event_stop && Aspect() == Stop) {
         mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-    } else if (event->event == event_approach && aspect == approach) {
+    } else if (event->event == event_approach && Aspect() == Approach) {
         mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-    } else if (event->event == event_clear && aspect == clear) {
+    } else if (event->event == event_clear && Aspect() == Clear) {
         mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
     }
     event->event_write_helper<1>()->WriteAsync(node, mti, openlcb::WriteHelper::global(),
@@ -396,56 +392,55 @@ bool MastBlock::eval()
 {
     bool result = false;
     if (occ->OccupiedP()) {
-        if (aspect != stop) result = true;
-        aspect = stop;
-    } else if (next->OccupiedP()) {
-        if (aspect != approach) result = true;
-        aspect = approach;
+        result = SetAspect(Stop);
+    } else if (next->Aspect() == Stop) {
+        result = SetAspect(Approach);
     } else {
-        if (aspect != clear) result = true;
-        aspect = clear;
+        result = SetAspect(Clear);
     }
-    switch (aspect) {
-    case stop:
+    switch (Aspect()) {
+    case Stop:
         green->clr();
         yellow->clr();
         red->set();
         break;
-    case approach:
+    case Approach:
         green->clr();
         yellow->set();
         red->clr();
         break;
-    case clear:
+    case Clear:
         green->set();
         yellow->clr();
         red->clr();
         break;
+    default: break; // Not actually used, but needed (-Werror=switch)
     }
     return result;
 }
 
 void MastBlock::SendEventReport(openlcb::WriteHelper *writer, Notifiable *done)
 {
-    switch (aspect) {
-    case stop: 
+    switch (Aspect()) {
+    case Stop: 
         if (event_stop != 0LL)
             writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
                            openlcb::WriteHelper::global(),
                            openlcb::eventid_to_buffer(event_stop),done);
         break;
-    case approach:
+    case Approach:
         if (event_approach != 0LL)
             writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
                            openlcb::WriteHelper::global(),
                            openlcb::eventid_to_buffer(event_approach),done);
         break;
-    case clear:
+    case Clear:
         if (event_clear != 0LL)
             writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
                            openlcb::WriteHelper::global(),
                            openlcb::eventid_to_buffer(event_clear),done);
         break;
+    default: break; // Not actually used, but needed (-Werror=switch)
     }
 }
 
@@ -474,16 +469,17 @@ void MastBlock::SendAllProducersIdentified(EventReport *event,BarrierNotifiable 
     openlcb::Defs::MTI mti_s = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID, 
           mti_a = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID, 
           mti_c = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
-    switch (aspect) {
-    case stop:
+    switch (Aspect()) {
+    case Stop:
         mti_s = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
         break;
-    case approach:
+    case Approach:
         mti_a = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
         break;
-    case clear:
+    case Clear:
         mti_s = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
         break;
+    default: break; // Not actually used, but needed (-Werror=switch)
     }
     
     if (event_stop != 0LL)
@@ -503,11 +499,11 @@ void MastBlock::SendAllProducersIdentified(EventReport *event,BarrierNotifiable 
 void MastBlock::SendProducerIdentified(EventReport *event,BarrierNotifiable *done)
 {
     openlcb::Defs::MTI mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
-    if (event->event == event_stop && aspect == stop) {
+    if (event->event == event_stop && Aspect() == Stop) {
         mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-    } else if (event->event == event_approach && aspect == approach) {
+    } else if (event->event == event_approach && Aspect() == Approach) {
         mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-    } else if (event->event == event_clear && aspect == clear) {
+    } else if (event->event == event_clear && Aspect() == Clear) {
         mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
     }
     event->event_write_helper<1>()->WriteAsync(node, mti, openlcb::WriteHelper::global(),
@@ -539,157 +535,6 @@ void MastBlock::unregister_handler()
 
 void MastBlock::factory_reset(int fd) {
     LOG(INFO,"MastBlock::factory_reset(%d)",fd);
-    config.description().write(fd,"");
-}
-
-bool MastBlockFrog::eval()
-{
-    bool result = false;
-    if (occ->OccupiedP()) {
-        if (aspect != stop) result = true;
-        aspect = stop;
-    } else if (next->OccupiedP() ||
-               points->get_current_state() == pointseventstate) {
-        if (aspect != approach) result = true;
-        aspect = approach;
-    } else {
-        if (aspect != clear) result = true;
-        aspect = clear;
-    }
-    switch (aspect) {
-    case stop:
-        green->clr();
-        yellow->clr();
-        red->set();
-        break;
-    case approach:
-        green->clr();
-        yellow->set();
-        red->clr();
-        break;
-    case clear:
-        green->set();
-        yellow->clr();
-        red->clr();
-        break;
-    }
-    return result;
-}
-
-void MastBlockFrog::SendEventReport(openlcb::WriteHelper *writer, Notifiable *done)
-{
-    switch (aspect) {
-    case stop: 
-        if (event_stop != 0LL)
-            writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
-                           openlcb::WriteHelper::global(),
-                           openlcb::eventid_to_buffer(event_stop),done);
-        break;
-    case approach:
-        if (event_approach != 0LL)
-            writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
-                           openlcb::WriteHelper::global(),
-                           openlcb::eventid_to_buffer(event_approach),done);
-        break;
-    case clear:
-        if (event_clear != 0LL)
-            writer->WriteAsync(node,openlcb::Defs::MTI_EVENT_REPORT,
-                           openlcb::WriteHelper::global(),
-                           openlcb::eventid_to_buffer(event_clear),done);
-        break;
-    }
-}
-
-
-void MastBlockFrog::handle_identify_global(const openlcb::EventRegistryEntry &registry_entry, 
-                                      EventReport *event, BarrierNotifiable *done)
-{
-    if (event->dst_node && event->dst_node != node)
-    {
-        done->notify();
-    }
-    SendAllProducersIdentified(event,done);
-    done->maybe_done();
-}
-
-void MastBlockFrog::handle_identify_producer(const openlcb::EventRegistryEntry &registry_entry,     
-                                          EventReport *event,
-                                          BarrierNotifiable *done)
-{
-    SendProducerIdentified(event,done);
-    done->maybe_done();
-}
-
-void MastBlockFrog::SendAllProducersIdentified(EventReport *event,BarrierNotifiable *done)
-{
-    openlcb::Defs::MTI mti_s = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID, 
-          mti_a = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID, 
-          mti_c = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
-    switch (aspect) {
-    case stop:
-        mti_s = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-        break;
-    case approach:
-        mti_a = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-        break;
-    case clear:
-        mti_s = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-        break;
-    }
-    
-    if (event_stop != 0LL)
-        event->event_write_helper<1>()->WriteAsync(node, mti_s, openlcb::WriteHelper::global(),
-                                   openlcb::eventid_to_buffer(event_stop),
-                                   done->new_child());
-    if (event_approach != 0LL)
-        event->event_write_helper<2>()->WriteAsync(node, mti_a, openlcb::WriteHelper::global(),
-                                   openlcb::eventid_to_buffer(event_approach),
-                                   done->new_child());
-    if (event_clear != 0LL)
-        event->event_write_helper<3>()->WriteAsync(node, mti_c, openlcb::WriteHelper::global(),
-                                   openlcb::eventid_to_buffer(event_clear),
-                                   done->new_child());
-}
-
-void MastBlockFrog::SendProducerIdentified(EventReport *event,BarrierNotifiable *done)
-{
-    openlcb::Defs::MTI mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
-    if (event->event == event_stop && aspect == stop) {
-        mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-    } else if (event->event == event_approach && aspect == approach) {
-        mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-    } else if (event->event == event_clear && aspect == clear) {
-        mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-    }
-    event->event_write_helper<1>()->WriteAsync(node, mti, openlcb::WriteHelper::global(),
-                                   openlcb::eventid_to_buffer(event->event),
-                                   done->new_child());
-}
-
-void MastBlockFrog::register_handler()
-{
-    if (event_stop != 0LL) {
-        openlcb::EventRegistry::instance()->register_handler(
-            openlcb::EventRegistryEntry(this, event_stop, 0), 0);
-    }
-    if (event_approach != 0LL) {
-        openlcb::EventRegistry::instance()->register_handler(
-            openlcb::EventRegistryEntry(this, event_approach, 0), 0);
-    }
-    if (event_clear != 0LL) {
-        openlcb::EventRegistry::instance()->register_handler(
-            openlcb::EventRegistryEntry(this, event_clear, 0), 0);
-    }
-}
-
-void MastBlockFrog::unregister_handler()
-{
-    openlcb::EventRegistry::instance()->unregister_handler(this);
-}
-
-
-void MastBlockFrog::factory_reset(int fd) {
-    LOG(INFO,"MastBlockFrog::factory_reset(%d)",fd);
     config.description().write(fd,"");
 }
 
