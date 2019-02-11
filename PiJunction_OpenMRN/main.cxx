@@ -156,7 +156,7 @@ MastBlock MainWest(
 
 MastFrog CP314S(
      stack.node(), cfg.seg().masts().cp314siding(),&S314159Occ,
-     &Points1, openlcb::EventState::VALID, NULL,
+     &Points1, openlcb::EventState::INVALID, NULL,
      CP314SLowerGreen_Pin::instance(), 
      CP314SLowerYellow_Pin::instance(), 
      CP314SLowerRed_Pin::instance());
