@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Feb 14 13:03:37 2019
-//  Last Modified : <190217.1334>
+//  Last Modified : <190219.1423>
 //
 //  Description	
 //
@@ -49,10 +49,10 @@
 
 #define HARDWARE_IMPL "Linux PWM Test"
 
-PWM_PIN(PWM1, 0, 0);
-PWM_PIN(PWM2, 0, 1);
+LinuxPWM PWM1_Pin(0,0);
+LinuxPWM PWM2_Pin(0,1);
 
-typedef GpioInitializer<PWM1_Pin, PWM2_Pin> GpioInit;
+typedef GpioInitializer<> GpioInit;
 
 #define HAVE_TCP_GRIDCONNECT_HOST
 #define TCP_GRIDCONNECT_HOST "localhost"

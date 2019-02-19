@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Feb 17 13:33:29 2019
-//  Last Modified : <190217.1903>
+//  Last Modified : <190219.1429>
 //
 //  Description	
 //
@@ -140,7 +140,7 @@ class ConfiguredPWMConsumer : public ConfigUpdateListener,
 {
 public:
     ConfiguredPWMConsumer(openlcb::Node *node, const PWMConsumerConfig &cfg, 
-                          const PWM *pwm)
+                          PWM *pwm)
                 : node_(node)
           , pwm_(pwm)
           , config(cfg)
@@ -166,7 +166,7 @@ public:
     void unregister_handler();
 private:
     openlcb::Node *node_;
-    const PWM *pwm_;
+    PWM *pwm_;
     const PWMConsumerConfig config;
     openlcb::EventId pwm_zero_event, pwm_one_event, pwm_two_event, 
           pwm_three_event, pwm_four_event, pwm_five_event, 

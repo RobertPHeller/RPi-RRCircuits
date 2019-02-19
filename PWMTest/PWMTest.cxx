@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Feb 17 15:35:50 2019
-//  Last Modified : <190217.1933>
+//  Last Modified : <190219.1354>
 //
 //  Description	
 //
@@ -64,7 +64,7 @@ ConfigUpdateListener::UpdateAction ConfiguredPWMConsumer::apply_configuration(in
     openlcb::EventId cfg_pwm_nine_event = config.event_pwm_nine().read(fd);
     openlcb::EventId cfg_pwm_ten_event = config.event_pwm_ten().read(fd);
     period = config.pwm_period().read(fd);
-    //pwm_->set_period(period);
+    pwm_->set_period(period);
     zero_duty = config.pwm_zero().read(fd);
     one_duty = config.pwm_one().read(fd);
     two_duty = config.pwm_two().read(fd);
@@ -127,27 +127,27 @@ void ConfiguredPWMConsumer::handle_event_report(const EventRegistryEntry &entry,
                                                 BarrierNotifiable *done)
 {
     if (event->event == pwm_zero_event) {
-        //pwm_->set_duty(zero_duty);
+        pwm_->set_duty(zero_duty);
     } else if (event->event == pwm_one_event) {
-        //pwm_->set_duty(one_duty);
+        pwm_->set_duty(one_duty);
     } else if (event->event == pwm_two_event) {
-        //pwm_->set_duty(two_duty);
+        pwm_->set_duty(two_duty);
     } else if (event->event == pwm_three_event) {
-        //pwm_->set_duty(three_duty);
+        pwm_->set_duty(three_duty);
     } else if (event->event == pwm_four_event) {
-        //pwm_->set_duty(four_duty);
+        pwm_->set_duty(four_duty);
     } else if (event->event == pwm_five_event) {
-        //pwm_->set_duty(five_duty);
+        pwm_->set_duty(five_duty);
     } else if (event->event == pwm_six_event) {
-        //pwm_->set_duty(six_duty);
+        pwm_->set_duty(six_duty);
     } else if (event->event == pwm_seven_event) {
-        //pwm_->set_duty(seven_duty);
+        pwm_->set_duty(seven_duty);
     } else if (event->event == pwm_eight_event) {
-        //pwm_->set_duty(eight_duty);
+        pwm_->set_duty(eight_duty);
     } else if (event->event == pwm_nine_event) {
-        //pwm_->set_duty(nine_duty);
+        pwm_->set_duty(nine_duty);
     } else if (event->event == pwm_ten_event) {
-        //pwm_->set_duty(ten_duty);
+        pwm_->set_duty(ten_duty);
     }
     done->notify();
 }

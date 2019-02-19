@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Feb 14 12:59:07 2019
-//  Last Modified : <190217.1535>
+//  Last Modified : <190219.1453>
 //
 //  Description	
 //
@@ -95,8 +95,8 @@ extern const size_t openlcb::CONFIG_FILE_SIZE =
 extern const char *const openlcb::SNIP_DYNAMIC_FILENAME =
     openlcb::CONFIG_FILENAME;
 
-ConfiguredPWMConsumer pwm1(stack.node(), cfg.seg().pwms().entry<0>(),PWM1_Pin::instance());
-ConfiguredPWMConsumer pwm2(stack.node(), cfg.seg().pwms().entry<1>(),PWM2_Pin::instance());
+ConfiguredPWMConsumer pwm1(stack.node(), cfg.seg().pwms().entry<0>(),&PWM1_Pin);
+ConfiguredPWMConsumer pwm2(stack.node(), cfg.seg().pwms().entry<1>(),&PWM2_Pin);
 
 class FactoryResetHelper : public DefaultConfigUpdateListener {
 public:
@@ -156,6 +156,8 @@ int appl_main(int argc, char *argv[])
              "/tmp/config_eeprom_%012llX",NODE_ID);
     parse_args(argc, argv);
     GpioInit::hw_init();
+    PWM1_Pin.exportPin();
+    PWM2_Pin.exportPin();
     stack.create_config_file_if_needed(cfg.seg().internal_config(), openlcb::CANONICAL_VERSION, openlcb::CONFIG_FILE_SIZE);
     
     // Connects to a TCP hub on the internet.
