@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Feb 14 12:59:07 2019
-//  Last Modified : <190219.1453>
+//  Last Modified : <190219.1928>
 //
 //  Description	
 //
@@ -55,6 +55,9 @@ static const char rcsid[] = "@(#) : $Id$";
 
 #include "Hardware.hxx"
 #include "PWMTest.hxx"
+
+LinuxPWM PWM1_Pin(PWMCHIP,PWMCHIP_CH1);
+LinuxPWM PWM2_Pin(PWMCHIP,PWMCHIP_CH2);
 
 // Changes the default behavior by adding a newline after each gridconnect
 // packet. Makes it easier for debugging the raw device.
