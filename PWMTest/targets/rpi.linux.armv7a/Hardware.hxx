@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Feb 14 13:03:37 2019
-//  Last Modified : <190219.1928>
+//  Last Modified : <190219.1932>
 //
 //  Description	
 //
@@ -49,9 +49,9 @@
 
 #define HARDWARE_IMPL "Linux PWM Test"
 
-constexpr uint32_t PWMCHIP = 0;
-constexpr uint32_t PWMCHIP_CH1 = 0;
-constexpr uint32_t PWMCHIP_CH2 = 1;
+static constexpr uint32_t PWMCHIP = 0;
+static constexpr uint32_t PWMCHIP_CH1 = 0;
+static constexpr uint32_t PWMCHIP_CH2 = 1;
 
 typedef GpioInitializer<> GpioInit;
 
