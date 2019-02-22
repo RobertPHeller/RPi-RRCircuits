@@ -1,5 +1,5 @@
 /** \copyright
- * Copyright (c) 2013, Balazs Racz
+ * Copyright (c) 2019, Robert Heller
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,10 +26,10 @@
  *
  * \file main.cxx
  *
- * Main file for the io board application on the Tiva Launchpad board.
+ * Main file for the 
  *
- * @author Balazs Racz
- * @date 5 Jun 2015
+ * @author Robert Heller
+ * @date 3 Feb 2019
  */
 
 #include "os/os.h"
@@ -61,7 +61,8 @@ OVERRIDE_CONST(main_thread_stack_size, 2500);
 // Specifies the 48-bit OpenLCB node identifier. This must be unique for every
 // hardware manufactured, so in production this should be replaced by some
 // easily incrementable method.
-extern const openlcb::NodeID NODE_ID = MyAddress;
+#include "NODEID.hxx"
+//extern const openlcb::NodeID NODE_ID = MyAddress;
 
 // Sets up a comprehensive OpenLCB stack for a single virtual node. This stack
 // contains everything needed for a usual peripheral node -- all
