@@ -1,0 +1,115 @@
+Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Sat 23 Feb 2019 01:10:27 PM EST
+
+BeginCmp
+TimeStamp = /5C71783C;
+Reference = C1;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C717828;
+Reference = C2;
+ValeurCmp = 15 uf 35V;
+IdModule  = C1V5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C718DA5;
+Reference = C3;
+ValeurCmp = 47 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C718393;
+Reference = D1;
+ValeurCmp = 1N5226B;
+IdModule  = DO-35;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C717249;
+Reference = D2;
+ValeurCmp = SB240E;
+IdModule  = DO-41;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C717196;
+Reference = J1;
+ValeurCmp = RJ45;
+IdModule  = RJ45_8N-S;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7171BE;
+Reference = J2;
+ValeurCmp = RJ45;
+IdModule  = RJ45_8N-S;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C718C67;
+Reference = JMP1;
+ValeurCmp = Termination;
+IdModule  = PIN_ARRAY_2X2;
+EndCmp
+
+BeginCmp
+TimeStamp = /55DF7DE1;
+Reference = P8;
+ValeurCmp = BeagleBone_Black_Header;
+IdModule  = Socket_BeagleBone_Black:Socket_BeagleBone_Black;
+EndCmp
+
+BeginCmp
+TimeStamp = /55DF7DBA;
+Reference = P9;
+ValeurCmp = BeagleBone_Black_Header;
+IdModule  = Socket_BeagleBone_Black:Socket_BeagleBone_Black;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7183A2;
+Reference = R1;
+ValeurCmp = 220 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C718B7D;
+Reference = R2;
+ValeurCmp = 60 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C718B8C;
+Reference = R3;
+ValeurCmp = 60 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7171DE;
+Reference = T1;
+ValeurCmp = + 15 in -;
+IdModule  = ScrewTerm2.54-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7171ED;
+Reference = T2;
+ValeurCmp = + 15 out -;
+IdModule  = ScrewTerm2.54-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C717688;
+Reference = U1;
+ValeurCmp = MCP2551;
+IdModule  = DIP-8__300;
+EndCmp
+
+EndListe
