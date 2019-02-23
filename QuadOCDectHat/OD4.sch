@@ -1,0 +1,199 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:special
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:mct6h
+LIBS:bridge
+LIBS:QuadOCDectHat-cache
+EELAYER 27 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 3 5
+Title ""
+Date "23 feb 2019"
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L CONN_2 T4
+U 1 1 5C70A943
+P 1350 1300
+AR Path="/5C70A8FB/5C70A943" Ref="T4"  Part="1" 
+AR Path="/5C70AEE5/5C70A943" Ref="T4"  Part="1" 
+F 0 "T4" V 1300 1300 40  0000 C CNN
+F 1 "In Track Out" V 1400 1300 40  0000 C CNN
+F 2 "~" H 1350 1300 60  0000 C CNN
+F 3 "~" H 1350 1300 60  0000 C CNN
+	1    1350 1300
+	0    -1   -1   0   
+$EndComp
+$Comp
+L R R7
+U 1 1 5C70A952
+P 2500 1500
+AR Path="/5C70A8FB/5C70A952" Ref="R7"  Part="1" 
+AR Path="/5C70AEE5/5C70A952" Ref="R7"  Part="1" 
+F 0 "R7" V 2580 1500 40  0000 C CNN
+F 1 "10 Ohms" V 2507 1501 40  0000 C CNN
+F 2 "~" V 2430 1500 30  0000 C CNN
+F 3 "~" H 2500 1500 30  0000 C CNN
+	1    2500 1500
+	0    -1   -1   0   
+$EndComp
+$Comp
+L MCT6H IC4
+U 1 1 5C70A96E
+P 3700 1600
+AR Path="/5C70A8FB/5C70A96E" Ref="IC4"  Part="1" 
+AR Path="/5C70AEE5/5C70A96E" Ref="IC4"  Part="1" 
+F 0 "IC4" H 3490 1790 40  0000 C CNN
+F 1 "MCT6H" H 3810 1410 40  0000 C CNN
+F 2 "DIP-8__300" H 3540 1420 30  0001 C CIN
+F 3 "~" H 3700 1600 60  0000 C CNN
+	1    3700 1600
+	1    0    0    -1  
+$EndComp
+$Comp
+L MCT6H IC4
+U 2 1 5C70A97D
+P 3700 2150
+AR Path="/5C70A8FB/5C70A97D" Ref="IC4"  Part="2" 
+AR Path="/5C70AEE5/5C70A97D" Ref="IC4"  Part="2" 
+F 0 "IC4" H 3490 2340 40  0000 C CNN
+F 1 "MCT6H" H 3810 1960 40  0000 C CNN
+F 2 "DIP-8__300" H 3540 1970 30  0001 C CIN
+F 3 "~" H 3700 2150 60  0000 C CNN
+	2    3700 2150
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R8
+U 1 1 5C70A98C
+P 4300 1100
+AR Path="/5C70A8FB/5C70A98C" Ref="R8"  Part="1" 
+AR Path="/5C70AEE5/5C70A98C" Ref="R8"  Part="1" 
+F 0 "R8" V 4380 1100 40  0000 C CNN
+F 1 "10K Ohms" V 4307 1101 40  0000 C CNN
+F 2 "~" V 4230 1100 30  0000 C CNN
+F 3 "~" H 4300 1100 30  0000 C CNN
+	1    4300 1100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2250 1900 2250 1500
+Wire Wire Line
+	1200 1900 2250 1900
+Wire Wire Line
+	1250 1900 1250 1650
+$Comp
+L BRIDGEX D4
+U 1 1 5C70AB0F
+P 2050 2950
+AR Path="/5C70A8FB/5C70AB0F" Ref="D4"  Part="1" 
+AR Path="/5C70AEE5/5C70AB0F" Ref="D4"  Part="1" 
+F 0 "D4" H 2050 3000 70  0000 C CNN
+F 1 "BRIDGEX" H 2050 2900 70  0000 C CNN
+F 2 "~" H 2050 2950 60  0000 C CNN
+F 3 "~" H 2050 2950 60  0000 C CNN
+	1    2050 2950
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2050 2100 2050 3800
+Wire Wire Line
+	1200 1900 1200 2950
+Connection ~ 1250 1900
+Wire Wire Line
+	1450 1650 2900 1650
+Wire Wire Line
+	2900 1650 2900 2950
+Wire Wire Line
+	3350 1700 3350 2050
+Wire Wire Line
+	2750 1500 3350 1500
+Wire Wire Line
+	3200 1500 3200 2250
+Wire Wire Line
+	3200 2250 3350 2250
+Wire Wire Line
+	4300 2050 4050 2050
+Wire Wire Line
+	4300 1350 4300 2050
+Wire Wire Line
+	4050 1500 4450 1500
+Wire Wire Line
+	4050 1700 4200 1700
+Wire Wire Line
+	4200 1700 4200 2450
+Wire Wire Line
+	4200 2250 4050 2250
+Connection ~ 3200 1500
+Wire Wire Line
+	3350 1850 2900 1850
+Connection ~ 2900 1850
+Connection ~ 3350 1850
+Connection ~ 4300 1500
+$Comp
+L +3.3V #PWR09
+U 1 1 5C70AC29
+P 4300 750
+AR Path="/5C70A8FB/5C70AC29" Ref="#PWR09"  Part="1" 
+AR Path="/5C70AEE5/5C70AC29" Ref="#PWR?"  Part="1" 
+F 0 "#PWR09" H 4300 710 30  0001 C CNN
+F 1 "+3.3V" H 4300 860 30  0000 C CNN
+F 2 "" H 4300 750 60  0000 C CNN
+F 3 "" H 4300 750 60  0000 C CNN
+	1    4300 750 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4300 750  4300 850 
+$Comp
+L GND #PWR010
+U 1 1 5C70AC50
+P 4200 2450
+AR Path="/5C70A8FB/5C70AC50" Ref="#PWR010"  Part="1" 
+AR Path="/5C70AEE5/5C70AC50" Ref="#PWR?"  Part="1" 
+F 0 "#PWR010" H 4200 2450 30  0001 C CNN
+F 1 "GND" H 4200 2380 30  0001 C CNN
+F 2 "" H 4200 2450 60  0000 C CNN
+F 3 "" H 4200 2450 60  0000 C CNN
+	1    4200 2450
+	1    0    0    -1  
+$EndComp
+Connection ~ 4200 2250
+Text HLabel 4450 1500 2    60   Input ~ 0
+OD4
+$EndSCHEMATC

@@ -1,0 +1,150 @@
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Fri 22 Feb 2019 21:48:15 EST
+
+BeginCmp
+TimeStamp = /5C70A8FB/5C70AB0F;
+Reference = D1;
+ValeurCmp = BRIDGEX;
+IdModule  = KBL;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C70A8FB/5C70AB0F;
+Reference = D2;
+ValeurCmp = BRIDGEX;
+IdModule  = KBL;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C70A8FB/5C70AB0F;
+Reference = D3;
+ValeurCmp = BRIDGEX;
+IdModule  = KBL;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C70A8FB/5C70AB0F;
+Reference = D4;
+ValeurCmp = BRIDGEX;
+IdModule  = KBL;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C70A8FB/5C70A96E;
+Reference = IC1;
+ValeurCmp = MCT6H;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C70A8FB/5C70A96E;
+Reference = IC2;
+ValeurCmp = MCT6H;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C70A8FB/5C70A96E;
+Reference = IC3;
+ValeurCmp = MCT6H;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C70A8FB/5C70A96E;
+Reference = IC4;
+ValeurCmp = MCT6H;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5516AE26;
+Reference = J0;
+ValeurCmp = RPi_GPIO;
+IdModule  = RPi_Hat:Pin_Header_Straight_2x20;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C70A8FB/5C70A952;
+Reference = R1;
+ValeurCmp = 10 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C70A8FB/5C70A98C;
+Reference = R2;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C70A8FB/5C70A952;
+Reference = R3;
+ValeurCmp = 10 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C70A8FB/5C70A98C;
+Reference = R4;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C70A8FB/5C70A952;
+Reference = R5;
+ValeurCmp = 10 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C70A8FB/5C70A98C;
+Reference = R6;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C70A8FB/5C70A952;
+Reference = R7;
+ValeurCmp = 10 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C70A8FB/5C70A98C;
+Reference = R8;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C70A8FB/5C70A943;
+Reference = T1;
+ValeurCmp = In Track Out;
+IdModule  = bornier2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C70A8FB/5C70A943;
+Reference = T2;
+ValeurCmp = In Track Out;
+IdModule  = bornier2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C70A8FB/5C70A943;
+Reference = T3;
+ValeurCmp = In Track Out;
+IdModule  = bornier2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C70A8FB/5C70A943;
+Reference = T4;
+ValeurCmp = In Track Out;
+IdModule  = bornier2;
+EndCmp
+
+EndListe
