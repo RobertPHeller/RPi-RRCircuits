@@ -1,1 +1,1 @@
-../config.hxx
+../../config.hxx

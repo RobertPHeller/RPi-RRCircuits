@@ -8,4 +8,5 @@ sh -c "if [ \"X`printenv OPENMRNPATH`\" != \"X\" ]; then printenv OPENMRNPATH; \
 
 SUBDIRS = targets
 -include config.mk
+
 include $(OPENMRNPATH)/etc/recurse.mk

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Oct 17 13:05:06 2018
-//  Last Modified : <190204.0916>
+//  Last Modified : <190222.1201>
 //
 //  Description	
 //
@@ -83,8 +83,6 @@ typedef GpioInitializer<Motor1_Pin, Motor2_Pin, Points1_Pin,
 
 #define HAVE_SOCKET_CAN_PORT
 #define SOCKET_CAN_PORT "can1"
-
-#define MyAddress 0x050101012251ULL; // 05 01 01 01 22 51
 
 
 #endif // __HARDWARE_HXX

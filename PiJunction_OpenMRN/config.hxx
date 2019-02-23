@@ -10,6 +10,7 @@
 #include "OccDetector.hxx"
 #include "Mast.hxx"
 #include "MadHatter.hxx"
+#include "Revision.hxxout"
 
 namespace openlcb
 {
@@ -75,6 +76,7 @@ CDI_GROUP(VersionSeg, Segment(MemoryConfigDefs::SPACE_CONFIG),
     Name("Version information"));
 CDI_GROUP_ENTRY(acdi_user_version, Uint8ConfigEntry,
     Name("ACDI User Data version"), Description("Set to 2 and do not change."));
+CDI_GROUP_ENTRY(buildrevisions,BuildRevisions);
 CDI_GROUP_END();
 
 /// The main structure of the CDI. ConfigDef is the symbol we use in main.cxx
