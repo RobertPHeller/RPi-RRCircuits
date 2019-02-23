@@ -37,9 +37,9 @@ EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 3
+Sheet 1 2
 Title ""
-Date "3 feb 2019"
+Date "23 feb 2019"
 Rev ""
 Comp ""
 Comment1 ""
@@ -63,9 +63,9 @@ Wire Wire Line
 Wire Wire Line
 	2850 3250 2850 4050
 Wire Wire Line
-	2850 3550 2050 3550
+	2050 3550 2850 3550
 Wire Wire Line
-	2050 3550 2050 3250
+	2050 3250 2050 3550
 Wire Wire Line
 	2050 3250 2200 3250
 Wire Wire Line
@@ -526,7 +526,7 @@ F 3 "" H 9550 1800 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	10350 1700 9550 1700
+	9550 1700 10350 1700
 Wire Wire Line
 	9550 1700 9550 1800
 Wire Wire Line
@@ -891,14 +891,6 @@ Text Label 6150 6550 2    60   ~ 0
 Points4A
 Text Label 6150 6650 2    60   ~ 0
 Points4B
-$Sheet
-S 3450 1900 550  650 
-U 5C572C55
-F0 "CAN Bus Driver" 50
-F1 "CANBUSDriver.sch" 50
-F2 "CANTX" I L 3450 2150 60 
-F3 "CANRX" O L 3450 2000 60 
-$EndSheet
 Wire Wire Line
 	10400 5950 10400 5750
 Wire Wire Line
@@ -911,18 +903,6 @@ Text Label 2700 1650 0    60   ~ 0
 PSense1
 Text Label 5400 1250 0    60   ~ 0
 PSense2
-Wire Wire Line
-	3450 2000 2900 2000
-Wire Wire Line
-	2900 2000 2900 2250
-Wire Wire Line
-	2900 2250 2700 2250
-Wire Wire Line
-	3450 2150 3000 2150
-Wire Wire Line
-	3000 2150 3000 2350
-Wire Wire Line
-	3000 2350 2700 2350
 $Sheet
 S 800  2100 700  750 
 U 5C573FEC
@@ -1040,4 +1020,33 @@ F 3 "" H 3050 4500 60  0000 C CNN
 	1    3050 4500
 	1    0    0    -1  
 $EndComp
+NoConn ~ 2700 2250
+NoConn ~ 2700 2350
+$Comp
+L CONN_2 T5
+U 1 1 5C7149FE
+P 8600 750
+F 0 "T5" V 8550 750 40  0000 C CNN
+F 1 "+ 12V -" V 8650 750 40  0000 C CNN
+F 2 "" H 8600 750 60  0000 C CNN
+F 3 "" H 8600 750 60  0000 C CNN
+	1    8600 750 
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	8250 850  8250 1050
+Connection ~ 8250 1050
+$Comp
+L GND #PWR025
+U 1 1 5C714AB7
+P 8250 700
+F 0 "#PWR025" H 8250 700 30  0001 C CNN
+F 1 "GND" H 8250 630 30  0001 C CNN
+F 2 "" H 8250 700 60  0000 C CNN
+F 3 "" H 8250 700 60  0000 C CNN
+	1    8250 700 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8250 650  8250 700 
 $EndSCHEMATC

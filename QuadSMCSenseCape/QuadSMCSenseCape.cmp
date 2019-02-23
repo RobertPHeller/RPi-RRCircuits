@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Sun 03 Feb 2019 02:02:49 PM EST
+Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Sat 23 Feb 2019 08:00:13 AM EST
 
 BeginCmp
 TimeStamp = /5C571855;
@@ -22,34 +22,6 @@ IdModule  = C1;
 EndCmp
 
 BeginCmp
-TimeStamp = /5C572C55/5BCB5272;
-Reference = C4;
-ValeurCmp = .1 uf;
-IdModule  = C1;
-EndCmp
-
-BeginCmp
-TimeStamp = /5C572C55/5BC8CA18;
-Reference = C5;
-ValeurCmp = 15 uf;
-IdModule  = C1V5;
-EndCmp
-
-BeginCmp
-TimeStamp = /5C572C55/5BC8CA09;
-Reference = C6;
-ValeurCmp = .1 uf;
-IdModule  = C1;
-EndCmp
-
-BeginCmp
-TimeStamp = /5C572C55/5BC8CAEC;
-Reference = C7;
-ValeurCmp = 47 nf;
-IdModule  = C1;
-EndCmp
-
-BeginCmp
 TimeStamp = /5C573FEC/5C57407C;
 Reference = C8;
 ValeurCmp = .1 uf;
@@ -57,37 +29,9 @@ IdModule  = C1;
 EndCmp
 
 BeginCmp
-TimeStamp = /5C572C55/5BC8D859;
-Reference = D1;
-ValeurCmp = SB240E;
-IdModule  = DO-15;
-EndCmp
-
-BeginCmp
-TimeStamp = /5C572C55/5BC8CBDE;
-Reference = J2;
-ValeurCmp = RJ45;
-IdModule  = RJ45_8N-S;
-EndCmp
-
-BeginCmp
-TimeStamp = /5C572C55/5BC8CBED;
-Reference = J3;
-ValeurCmp = RJ45;
-IdModule  = RJ45_8N-S;
-EndCmp
-
-BeginCmp
-TimeStamp = /5C572C55/5BC8CAC7;
-Reference = P1;
-ValeurCmp = Termination;
-IdModule  = PIN_ARRAY_2X2;
-EndCmp
-
-BeginCmp
 TimeStamp = /5C573FEC/5C574054;
 Reference = P2;
-ValeurCmp = WP 1 0;
+ValeurCmp = 0 1 WP;
 IdModule  = pin_array_3x2;
 EndCmp
 
@@ -103,20 +47,6 @@ TimeStamp = /55DF7DBA;
 Reference = P9;
 ValeurCmp = BeagleBone_Black_Header;
 IdModule  = Socket_BeagleBone_Black:Socket_BeagleBone_Black;
-EndCmp
-
-BeginCmp
-TimeStamp = /5C572C55/5BC8CB71;
-Reference = R1;
-ValeurCmp = 60 Ohms;
-IdModule  = R1;
-EndCmp
-
-BeginCmp
-TimeStamp = /5C572C55/5BC8CB80;
-Reference = R2;
-ValeurCmp = 60 Ohms;
-IdModule  = R1;
 EndCmp
 
 BeginCmp
@@ -197,16 +127,9 @@ IdModule  = ScrewTerm_2.54-5;
 EndCmp
 
 BeginCmp
-TimeStamp = /5C572C55/5BC8D83B;
+TimeStamp = /5C7149FE;
 Reference = T5;
-ValeurCmp = - 12 in +;
-IdModule  = ScrewTerm2.54-2;
-EndCmp
-
-BeginCmp
-TimeStamp = /5C572C55/5BC8D84A;
-Reference = T6;
-ValeurCmp = + 12 out -;
+ValeurCmp = + 12V -;
 IdModule  = ScrewTerm2.54-2;
 EndCmp
 
@@ -250,20 +173,6 @@ TimeStamp = /5C571937;
 Reference = U6;
 ValeurCmp = 74HCT00;
 IdModule  = DIP-14__300;
-EndCmp
-
-BeginCmp
-TimeStamp = /5C572C55/5BC8C33E;
-Reference = U7;
-ValeurCmp = 74LV125AN;
-IdModule  = DIP-14__300;
-EndCmp
-
-BeginCmp
-TimeStamp = /5C572C55/5BC8C015;
-Reference = U8;
-ValeurCmp = MCP2551;
-IdModule  = DIP-8__300;
 EndCmp
 
 BeginCmp
