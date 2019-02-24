@@ -4,7 +4,7 @@
 #include <os/LinuxGpio.hxx>
 #include "utils/GpioInitializer.hxx"
 
-#define HARDWARE_IMPL "RPi "
+#define HARDWARE_IMPL "RPi QuadOCDect HAT"
 
 // On chip GPIO:
 

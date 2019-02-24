@@ -4,7 +4,7 @@
 #include <os/LinuxGpio.hxx>
 #include "utils/GpioInitializer.hxx"
 
-#define HARDWARE_IMPL "BBB "
+#define HARDWARE_IMPL "BBB QuadOCDectCape"
 
 
 

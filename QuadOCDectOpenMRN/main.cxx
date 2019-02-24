@@ -46,6 +46,7 @@
 #include "utils/GpioInitializer.hxx"                                   
 
 #include "Hardware.hxx"
+#include "OccupancyDetector.hxx"
 
 // Changes the default behavior by adding a newline after each gridconnect
 // packet. Makes it easier for debugging the raw device.
@@ -87,6 +88,19 @@ extern const size_t openlcb::CONFIG_FILE_SIZE =
 extern const char *const openlcb::SNIP_DYNAMIC_FILENAME =
     openlcb::CONFIG_FILENAME;
 
+OccupancyDetector oc1(stack.node(), cfg.seg().ocs().entry<0>(),OD1_Pin());
+OccupancyDetector oc2(stack.node(), cfg.seg().ocs().entry<1>(),OD2_Pin());
+OccupancyDetector oc3(stack.node(), cfg.seg().ocs().entry<2>(),OD3_Pin());
+OccupancyDetector oc4(stack.node(), cfg.seg().ocs().entry<3>(),OD4_Pin());
+
+// The producers need to be polled repeatedly for changes and to execute the
+// debouncing algorithm. This class instantiates a refreshloop and adds the two
+// producers to it.
+openlcb::RefreshLoop loop(stack.node(),{oc1.polling()
+          , oc2.polling()
+          , oc3.polling()
+          , oc4.polling()
+});
 
 // Instantiates the actual producer and consumer objects for the given GPIO
 // pins from above. The ConfiguredConsumer class takes care of most of the
