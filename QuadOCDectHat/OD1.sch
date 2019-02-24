@@ -36,9 +36,9 @@ EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 5
+Sheet 2 5
 Title ""
-Date "23 feb 2019"
+Date "24 feb 2019"
 Rev ""
 Comp ""
 Comment1 ""
@@ -53,7 +53,7 @@ P 1350 1300
 AR Path="/5C70A8FB/5C70A943" Ref="T1"  Part="1" 
 AR Path="/5C70AEE5/5C70A943" Ref="T1"  Part="1" 
 F 0 "T1" V 1300 1300 40  0000 C CNN
-F 1 "In Track Out" V 1400 1300 40  0000 C CNN
+F 1 "In Track1 Out" V 1400 1300 40  0000 C CNN
 F 2 "~" H 1350 1300 60  0000 C CNN
 F 3 "~" H 1350 1300 60  0000 C CNN
 	1    1350 1300
