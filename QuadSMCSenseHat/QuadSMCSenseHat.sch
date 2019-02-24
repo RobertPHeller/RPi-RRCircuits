@@ -37,7 +37,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "3 feb 2019"
+Date "24 feb 2019"
 Rev ""
 Comp ""
 Comment1 ""
@@ -703,7 +703,7 @@ L CONN_2 T5
 U 1 1 5C560C0A
 P 10750 5550
 F 0 "T5" V 10700 5550 40  0000 C CNN
-F 1 "12V" V 10800 5550 40  0000 C CNN
+F 1 "+ 12V -" V 10800 5550 40  0000 C CNN
 F 2 "~" H 10750 5550 60  0000 C CNN
 F 3 "~" H 10750 5550 60  0000 C CNN
 	1    10750 5550
