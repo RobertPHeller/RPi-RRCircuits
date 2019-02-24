@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Sat 23 Feb 2019 01:10:27 PM EST
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Sat 23 Feb 2019 14:14:05 EST
 
 BeginCmp
 TimeStamp = /5C71783C;
@@ -18,6 +18,13 @@ BeginCmp
 TimeStamp = /5C718DA5;
 Reference = C3;
 ValeurCmp = 47 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C719AD8/5C57407C;
+Reference = C4;
+ValeurCmp = .1 uf;
 IdModule  = C1;
 EndCmp
 
@@ -57,6 +64,13 @@ IdModule  = PIN_ARRAY_2X2;
 EndCmp
 
 BeginCmp
+TimeStamp = /5C719AD8/5C574054;
+Reference = JMP2;
+ValeurCmp = WP 1 0;
+IdModule  = pin_array_3x2;
+EndCmp
+
+BeginCmp
 TimeStamp = /55DF7DE1;
 Reference = P8;
 ValeurCmp = BeagleBone_Black_Header;
@@ -92,6 +106,48 @@ IdModule  = R1;
 EndCmp
 
 BeginCmp
+TimeStamp = /5C719AD8/5C574045;
+Reference = R4;
+ValeurCmp = 5.6K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C719AD8/5C574036;
+Reference = R5;
+ValeurCmp = 5.6K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C719AD8/5C574027;
+Reference = R6;
+ValeurCmp = 4.75K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C719AD8/5C574018;
+Reference = R7;
+ValeurCmp = 4.75K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C719AD8/5C574009;
+Reference = R8;
+ValeurCmp = 4.75K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C719AD8/5C574063;
+Reference = R9;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
 TimeStamp = /5C7171DE;
 Reference = T1;
 ValeurCmp = + 15 in -;
@@ -109,6 +165,13 @@ BeginCmp
 TimeStamp = /5C717688;
 Reference = U1;
 ValeurCmp = MCP2551;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C719AD8/5C573FFA;
+Reference = U2;
+ValeurCmp = CAT24C256W;
 IdModule  = DIP-8__300;
 EndCmp
 

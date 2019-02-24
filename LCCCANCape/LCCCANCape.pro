@@ -1,4 +1,4 @@
-update=Sat 23 Feb 2019 11:11:36 AM EST
+update=Sat 23 Feb 2019 14:11:24 EST
 version=1
 last_client=eeschema
 [cvpcb]
@@ -85,3 +85,4 @@ LibName28=atmel
 LibName29=contrib
 LibName30=/home/heller/RRCircuits/74lv125AN
 LibName31=/home/heller/RRCircuits/mcp25xxx
+LibName32=/home/heller/RRCircuits/BBBHalfSiding/cat24c256w
