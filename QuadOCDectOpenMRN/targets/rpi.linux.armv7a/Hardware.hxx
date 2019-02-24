@@ -8,7 +8,18 @@
 
 // On chip GPIO:
 
-typedef GpioInitializer<> GpioInit;
+#define MotorPin GpioOutputSafeLow
+#define SensePin GpioInputActiveHigh
+#define ODPin  GpioInputActiveLow
+#define LEDPin GpioOutputSafeLow
+
+
+GPIO_PIN(OD1, ODPin, 5);
+GPIO_PIN(OD2, ODPin, 6);
+GPIO_PIN(OD3, ODPin, 13);
+GPIO_PIN(OD4, ODPin, 19);
+
+typedef GpioInitializer<OD1_Pin, OD2_Pin, OD3_Pin, OD4_Pin> GpioInit;
 
 
 

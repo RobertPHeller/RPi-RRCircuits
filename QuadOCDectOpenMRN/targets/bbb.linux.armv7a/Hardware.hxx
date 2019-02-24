@@ -10,7 +10,18 @@
 
 // On chip GPIO:
 
-typedef GpioInitializer<> GpioInit;
+#define MotorPin GpioOutputSafeLow
+#define SensePin GpioInputActiveHigh
+#define ODPin  GpioInputActiveLow
+#define LEDPin GpioOutputSafeLow
+
+
+GPIO_PIN(OD1, ODPin, (32*1)+7); // GPIO1_7: P8-4
+GPIO_PIN(OD2, ODPin, (32*1)+2); // GPIO1_2: P8-5
+GPIO_PIN(OD3, ODPin, (32*1)+3); // GPIO1_3: P8-6
+GPIO_PIN(OD4, ODPin, (32*1)+13); // GPIO1_13: P8-11
+
+typedef GpioInitializer<OD1_Pin, OD2_Pin, OD3_Pin, OD4_Pin> GpioInit;
 
 
 //#define HAVE_TCP_GRIDCONNECT_HOST
