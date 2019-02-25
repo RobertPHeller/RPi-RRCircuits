@@ -1,0 +1,108 @@
+Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Sun 24 Feb 2019 08:13:21 PM EST
+
+BeginCmp
+TimeStamp = /5C734D83;
+Reference = C1;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5516AE26;
+Reference = J0;
+ValeurCmp = RPi_GPIO;
+IdModule  = RPi_Hat:Pin_Header_Straight_2x20;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C731FC4;
+Reference = JP1;
+ValeurCmp = CA A CK;
+IdModule  = 3PosJumper;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C731FD3;
+Reference = JP2;
+ValeurCmp = CA A CK;
+IdModule  = 3PosJumper;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C732055;
+Reference = JP3;
+ValeurCmp = CA B CK;
+IdModule  = 3PosJumper;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C732064;
+Reference = JP4;
+ValeurCmp = CA B CK;
+IdModule  = 3PosJumper;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C73212B;
+Reference = P1;
+ValeurCmp = Bank A;
+IdModule  = ScrewTerm_2.54-9;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C73213A;
+Reference = P2;
+ValeurCmp = Bank B;
+IdModule  = ScrewTerm_2.54-9;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C733FAC;
+Reference = P3;
+ValeurCmp = 0 1 2;
+IdModule  = pin_array_3x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7320F9;
+Reference = RP1;
+ValeurCmp = 220 Ohms;
+IdModule  = DIP-16__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C732112;
+Reference = RP2;
+ValeurCmp = 220 Ohms;
+IdModule  = DIP-16__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C734570;
+Reference = RR1;
+ValeurCmp = 10K Ohms;
+IdModule  = SIL-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C731CF1;
+Reference = U1;
+ValeurCmp = MCP23017;
+IdModule  = DIP-28__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C731D00;
+Reference = U2;
+ValeurCmp = TBD62X83A;
+IdModule  = DIP-18__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C731D40;
+Reference = U3;
+ValeurCmp = TBD62X83A;
+IdModule  = DIP-18__300;
+EndCmp
+
+EndListe
