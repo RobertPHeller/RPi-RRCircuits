@@ -46,6 +46,7 @@
 #include "utils/GpioInitializer.hxx"                                   
 
 #include "Hardware.hxx"
+#include "Lamp.hxx"
 
 // Changes the default behavior by adding a newline after each gridconnect
 // packet. Makes it easier for debugging the raw device.
@@ -87,6 +88,10 @@ extern const size_t openlcb::CONFIG_FILE_SIZE =
 extern const char *const openlcb::SNIP_DYNAMIC_FILENAME =
     openlcb::CONFIG_FILENAME;
 
+Lamp l1(cfg.seg().lampgroup().entry<0>());
+Lamp l2(cfg.seg().lampgroup().entry<1>());
+Lamp l3(cfg.seg().lampgroup().entry<2>());
+Lamp l4(cfg.seg().lampgroup().entry<3>());
 
 // Instantiates the actual producer and consumer objects for the given GPIO
 // pins from above. The ConfiguredConsumer class takes care of most of the
