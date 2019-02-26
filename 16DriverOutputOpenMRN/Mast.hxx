@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 15:59:18 2019
-//  Last Modified : <190226.1133>
+//  Last Modified : <190226.1500>
 //
 //  Description	
 //
@@ -94,10 +94,12 @@ public:
     enum LampFade {None, Incandescent};
     Mast(openlcb::Node *n,const MastConfig &cfg) : node_(n), cfg_(cfg)
     {
+//        fprintf(stderr,"*** Mast::Mast(): cfg.offset() is %d, cfg_.offset() is %d\n",cfg.offset(),cfg_.offset());
+//        fprintf(stderr,"*** Mast::Mast(): &cfg_ is %p\n", &cfg_);
         processing_ = Unused;
         fade_ = None;
         for (int i = 0; i < RULESCOUNT; i++) {
-//            rules_[i] = new Rule(node_,cfg_.rules().entry(i));
+            rules_[i] = new Rule(node_,cfg_.rules().entry(i));
         }
         ConfigUpdateService::instance()->register_update_listener(this);
     }
@@ -119,7 +121,7 @@ public:
 
 private:
     openlcb::Node *node_;
-    const MastConfig &cfg_;
+    const MastConfig cfg_;
     MastProcessing processing_;
     LampFade fade_;
     openlcb::EventId linkevent_;

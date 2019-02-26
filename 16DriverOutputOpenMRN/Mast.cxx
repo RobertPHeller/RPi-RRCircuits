@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 20:26:38 2019
-//  Last Modified : <190226.1135>
+//  Last Modified : <190226.1500>
 //
 //  Description	
 //
@@ -73,6 +73,10 @@ ConfigUpdateListener::UpdateAction Mast::apply_configuration(int fd,
 
 void Mast::factory_reset(int fd)
 {
+//    fprintf(stderr,"*** Mast::factory_reset(), &cfg_ is %p\n", &cfg_);
+//    fprintf(stderr,"*** Mast::factory_reset(), cfg_.offset() = %d\n",cfg_.offset());
+//    fprintf(stderr,"*** Mast::factory_reset(), cfg_.size() = %d\n",cfg_.size());
+//    fprintf(stderr,"*** Mast::factory_reset(), cfg_.end_offset() = %d\n",cfg_.end_offset());
     cfg_.mastid().write(fd,"");
     CDI_FACTORY_RESET(cfg_.processing);
     CDI_FACTORY_RESET(cfg_.fade);

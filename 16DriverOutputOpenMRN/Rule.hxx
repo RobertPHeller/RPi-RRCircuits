@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 17:12:10 2019
-//  Last Modified : <190225.2015>
+//  Last Modified : <190226.1455>
 //
 //  Description	
 //
@@ -175,7 +175,7 @@ public:
                                   BarrierNotifiable *done) override;
 private:
     openlcb::Node *node_;
-    const RuleConfig &cfg_;
+    const RuleConfig cfg_;
     RuleName name_;
     TrackSpeed speed_;
     Effects effects_;

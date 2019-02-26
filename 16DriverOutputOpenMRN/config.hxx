@@ -45,7 +45,7 @@ CDI_GROUP(IoBoardSegment, Name(HARDWARE_IMPL), Segment(MemoryConfigDefs::SPACE_C
 /// Each entry declares the name of the current entry, then the type and then
 /// optional arguments list.
 CDI_GROUP_ENTRY(internal_config, InternalConfigData);
-CDI_GROUP_ENTRY(mastgroup, MastGroup, Name("Rule to aspect"),RepName("Mast"));
+CDI_GROUP_ENTRY(masts, MastGroup, Name("Rule to aspect"),RepName("Mast"));
 CDI_GROUP_END();
 
 /// This segment is only needed temporarily until there is program code to set
