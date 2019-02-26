@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Sat 23 Feb 2019 14:14:05 EST
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Mon 25 Feb 2019 21:07:04 EST
 
 BeginCmp
 TimeStamp = /5C71783C;
@@ -38,6 +38,13 @@ EndCmp
 BeginCmp
 TimeStamp = /5C717249;
 Reference = D2;
+ValeurCmp = SB240E;
+IdModule  = DO-41;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C74A8A4;
+Reference = D3;
 ValeurCmp = SB240E;
 IdModule  = DO-41;
 EndCmp

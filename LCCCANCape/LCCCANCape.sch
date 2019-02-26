@@ -38,7 +38,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 2
 Title ""
-Date "23 feb 2019"
+Date "26 feb 2019"
 Rev ""
 Comp ""
 Comment1 ""
@@ -345,8 +345,6 @@ Wire Wire Line
 Wire Wire Line
 	2200 1550 2100 1550
 Wire Wire Line
-	7600 1550 7150 1550
-Wire Wire Line
 	7150 1500 7150 2550
 Wire Wire Line
 	7350 1750 7600 1750
@@ -406,7 +404,6 @@ Wire Wire Line
 Wire Wire Line
 	8400 3900 9200 3900
 Connection ~ 8400 2550
-Connection ~ 7150 1550
 Connection ~ 8500 2450
 Connection ~ 7350 1750
 Connection ~ 8600 2350
@@ -730,4 +727,18 @@ Text Label 2350 5050 2    60   ~ 0
 SCL
 Text Label 2350 5300 2    60   ~ 0
 SDA
+$Comp
+L DIODESCH D3
+U 1 1 5C74A8A4
+P 7400 1550
+F 0 "D3" H 7400 1650 40  0000 C CNN
+F 1 "SB240E" H 7400 1450 40  0000 C CNN
+F 2 "~" H 7400 1550 60  0000 C CNN
+F 3 "~" H 7400 1550 60  0000 C CNN
+	1    7400 1550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7200 1550 7150 1550
+Connection ~ 7150 1550
 $EndSCHEMATC
