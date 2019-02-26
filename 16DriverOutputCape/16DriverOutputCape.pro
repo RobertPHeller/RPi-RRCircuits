@@ -56,8 +56,8 @@ LibName26=siliconi
 LibName27=opto
 LibName28=atmel
 LibName29=contrib
-LibName30=/home/heller/RRCircuits/MCP23xxx
-LibName31=/home/heller/RRCircuits/tbd62x83a
+LibName30=../MCP23xxx
+LibName31=../tbd62x83a
 [general]
 version=1
 [pcbnew/libraries]
@@ -80,5 +80,5 @@ LibName15=pga_sockets
 LibName16=valves
 LibName17=WireConnections-Bridges_RevA
 LibName18=WirePads_RevA_15Jun2010
-LibName19=/home/heller/RRCircuits/ScrewTerm254_9
-LibName20=/home/heller/RRCircuits/16DriverOutputHAT/3PosJumper
+LibName19=../ScrewTerm254_9
+LibName20=../16DriverOutputHAT/3PosJumper

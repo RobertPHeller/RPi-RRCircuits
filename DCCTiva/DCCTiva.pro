@@ -39,4 +39,4 @@ LibName13=led
 LibName14=dip_sockets
 LibName15=pga_sockets
 LibName16=valves
-LibName17=/home/heller/RRCircuits/TO220_11Pin
+LibName17=../TO220_11Pin

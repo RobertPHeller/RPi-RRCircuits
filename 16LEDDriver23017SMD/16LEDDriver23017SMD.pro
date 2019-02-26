@@ -39,4 +39,4 @@ LibName13=led
 LibName14=dip_sockets
 LibName15=pga_sockets
 LibName16=valves
-LibName17=/home/heller/RRCircuits/DWSLogoBCU
+LibName17=../DWSLogoBCU

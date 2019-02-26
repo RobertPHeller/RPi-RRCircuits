@@ -84,10 +84,10 @@ LibName14=led
 LibName15=dip_sockets
 LibName16=pga_sockets
 LibName17=valves
-LibName18=/home/heller/RRCircuits/CP_Radial_D5_00mm_P2_00mm
-LibName19=/home/heller/RRCircuits/CP_Radial_D4.0mm_P1.50mm
-LibName20=/home/heller/RRCircuits/ScrewTerm254_2
-LibName21=/home/heller/RRCircuits/ScrewTerm254_5
+LibName18=../CP_Radial_D5_00mm_P2_00mm
+LibName19=../CP_Radial_D4.0mm_P1.50mm
+LibName20=../ScrewTerm254_2
+LibName21=../ScrewTerm254_5
 LibName22=MountingHole_RevA
 [general]
 version=1

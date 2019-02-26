@@ -41,8 +41,8 @@ LibName27=opto
 LibName28=atmel
 LibName29=contrib
 LibName30=valves
-LibName31=/home/heller/RRCircuits/MetroMiniABSBiDir-noCANSlave/mct6h
-LibName32=/home/heller/RRCircuits/MetroMiniABSBiDir-noCANSlave/bridge
+LibName31=../MetroMiniABSBiDir-noCANSlave/mct6h
+LibName32=../MetroMiniABSBiDir-noCANSlave/bridge
 [pcbnew]
 version=1
 LastNetListRead=
@@ -81,4 +81,4 @@ LibName14=dip_sockets
 LibName15=pga_sockets
 LibName16=valves
 LibName17=w_conn_screw
-LibName18=/home/heller/RRCircuits/MetroMiniABSBiDir-noCANSlave/KBL
+LibName18=../MetroMiniABSBiDir-noCANSlave/KBL

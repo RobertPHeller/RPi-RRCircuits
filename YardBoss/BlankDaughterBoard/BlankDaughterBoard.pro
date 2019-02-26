@@ -83,7 +83,7 @@ LibName13=led
 LibName14=dip_sockets
 LibName15=pga_sockets
 LibName16=valves
-LibName17=/home/heller/RRCircuits/YardBoss/pin_socket-90
+LibName17=../RRCircuits/YardBoss/pin_socket-90
 LibName18=w_pin_strip
 LibName19=MountingHole_RevA
 [general]

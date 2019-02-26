@@ -66,7 +66,7 @@ DrawSegmentWidth="    0.200000"
 BoardOutlineThickness="    0.100000"
 ModuleOutlineThickness="    0.150000"
 [pcbnew/libraries]
-LibDir=/home/heller/RRCircuits
+LibDir=..
 LibName1=sockets
 LibName2=connect
 LibName3=discret
@@ -83,7 +83,7 @@ LibName13=led
 LibName14=dip_sockets
 LibName15=pga_sockets
 LibName16=valves
-LibName17=/home/heller/RRCircuits/Screw2.54-8
-LibName18=/home/heller/RRCircuits/Screw2.54-10
+LibName17=../Screw2.54-8
+LibName18=../Screw2.54-10
 [general]
 version=1

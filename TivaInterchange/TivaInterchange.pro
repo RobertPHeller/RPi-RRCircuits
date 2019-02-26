@@ -26,8 +26,8 @@ BoardOutlineThickness="    0.149860"
 ModuleOutlineThickness="    0.149860"
 [pcbnew/libraries]
 LibDir=../../RRCircuits
-LibName1=/home/heller/RRCircuits/ScrewTerm254_5
-LibName2=/home/heller/RRCircuits/ScrewTerm254_2
+LibName1=../ScrewTerm254_5
+LibName2=../ScrewTerm254_2
 LibName3=StackHeaders
 LibName4=w_pin_strip
 LibName5=w_conn_screw

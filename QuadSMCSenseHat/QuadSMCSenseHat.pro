@@ -41,7 +41,7 @@ LibName27=opto
 LibName28=atmel
 LibName29=contrib
 LibName30=valves
-LibName31=/home/heller/RRCircuits/tc442x
+LibName31=../tc442x
 [pcbnew]
 version=1
 LastNetListRead=
@@ -78,8 +78,8 @@ LibName13=led
 LibName14=dip_sockets
 LibName15=pga_sockets
 LibName16=valves
-LibName17=/home/heller/RRCircuits/ScrewTerm254_2
-LibName18=/home/heller/RRCircuits/ScrewTerm254_5
+LibName17=../ScrewTerm254_2
+LibName18=../ScrewTerm254_5
 LibDir=
 [cvpcb]
 version=1

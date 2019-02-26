@@ -23,7 +23,7 @@ BoardOutlineThickness="    0.100000"
 ModuleOutlineThickness="    0.150000"
 [pcbnew/libraries]
 LibDir=
-LibName1=/home/heller/RRCircuits/ScrewTerm254_5
+LibName1=../ScrewTerm254_5
 LibName2=sockets
 LibName3=connect
 LibName4=discret
@@ -40,5 +40,5 @@ LibName14=led
 LibName15=dip_sockets
 LibName16=pga_sockets
 LibName17=valves
-LibName18=/home/heller/RRCircuits/DWSLogoBCU
-LibName19=/home/heller/RRCircuits/CP_Radial_D5.00mm_P2.00mm
+LibName18=../DWSLogoBCU
+LibName19=../CP_Radial_D5.00mm_P2.00mm

@@ -2,7 +2,7 @@ update=Mon 24 Apr 2017 02:29:47 PM EDT
 last_client=kicad
 [eeschema]
 version=1
-LibDir=/home/heller/RRCircuits/MCP23008Hat
+LibDir=../MCP23008Hat
 NetFmtName=
 RptD_X=0
 RptD_Y=100
@@ -60,7 +60,7 @@ DrawSegmentWidth="    0.200000"
 BoardOutlineThickness="    0.100000"
 ModuleOutlineThickness="    0.150000"
 [pcbnew/libraries]
-LibDir=/home/heller/RRCircuits/QuadSSSQuadIn
+LibDir=../QuadSSSQuadIn
 LibName1=sockets
 LibName2=connect
 LibName3=discret
@@ -77,6 +77,6 @@ LibName13=led
 LibName14=dip_sockets
 LibName15=pga_sockets
 LibName16=valves
-LibName17=/home/heller/RRCircuits/DWSLogoBCU
+LibName17=../DWSLogoBCU
 [general]
 version=1

@@ -69,8 +69,8 @@ ModuleOutlineThickness="    0.149860"
 [pcbnew/libraries]
 LibDir=../../RRCircuits;../TivaInterchangeSMD
 LibName1=ScrewTerm254_10
-LibName2=/home/heller/RRCircuits/ScrewTerm254_5
-LibName3=/home/heller/RRCircuits/ScrewTerm254_2
+LibName2=../ScrewTerm254_5
+LibName3=../ScrewTerm254_2
 LibName4=StackHeaders
 LibName5=w_pin_strip
 LibName6=w_conn_screw

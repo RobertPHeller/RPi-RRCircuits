@@ -56,9 +56,9 @@ LibName26=siliconi
 LibName27=opto
 LibName28=atmel
 LibName29=contrib
-LibName30=/home/heller/RRCircuits/BBBHalfSiding/cat24c256w
-LibName31=/home/heller/RRCircuits/MetroMiniABSBiDir-noCANSlave/mct6h
-LibName32=/home/heller/RRCircuits/MetroMiniABSBiDir-noCANSlave/bridge
+LibName30=../BBBHalfSiding/cat24c256w
+LibName31=../MetroMiniABSBiDir-noCANSlave/mct6h
+LibName32=../MetroMiniABSBiDir-noCANSlave/bridge
 [general]
 version=1
 [pcbnew/libraries]
@@ -80,4 +80,4 @@ LibName14=dip_sockets
 LibName15=pga_sockets
 LibName16=valves
 LibName17=w_conn_screw
-LibName18=/home/heller/RRCircuits/MetroMiniABSBiDir-noCANSlave/KBL
+LibName18=../MetroMiniABSBiDir-noCANSlave/KBL

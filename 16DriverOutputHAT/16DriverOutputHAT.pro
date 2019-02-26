@@ -41,8 +41,8 @@ LibName27=opto
 LibName28=atmel
 LibName29=contrib
 LibName30=valves
-LibName31=/home/heller/RRCircuits/MCP23xxx
-LibName32=/home/heller/RRCircuits/tbd62x83a
+LibName31=../MCP23xxx
+LibName32=../tbd62x83a
 [cvpcb]
 version=1
 NetIExt=net
@@ -87,5 +87,5 @@ LibName15=pga_sockets
 LibName16=valves
 LibName17=WireConnections-Bridges_RevA
 LibName18=WirePads_RevA_15Jun2010
-LibName19=/home/heller/RRCircuits/ScrewTerm254_9
+LibName19=../ScrewTerm254_9
 LibName20=3PosJumper

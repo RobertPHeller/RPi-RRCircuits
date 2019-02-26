@@ -87,11 +87,11 @@ LibName17=w_pin_strip
 LibName18=MountingHole_RevA
 LibName19=w_conn_strip
 LibName20=w_conn_screw
-LibName21=/home/heller/RRCircuits/CP_Radial_D5.00mm_P2.00mm
-LibName22=/home/heller/RRCircuits/ScrewTerm254_2
-LibName23=/home/heller/RRCircuits/ScrewTerm254_5
-LibName24=/home/heller/RRCircuits/CANHat/RJ45-8N-S
-LibName25=/home/heller/RRCircuits/FullInterlockingPlantCANPower/TO251_3
+LibName21=../CP_Radial_D5.00mm_P2.00mm
+LibName22=../ScrewTerm254_2
+LibName23=../ScrewTerm254_5
+LibName24=../CANHat/RJ45-8N-S
+LibName25=../FullInterlockingPlantCANPower/TO251_3
 LibName26=pin_socket-90
 [general]
 version=1

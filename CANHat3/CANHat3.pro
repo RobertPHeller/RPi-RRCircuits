@@ -41,7 +41,7 @@ LibName27=opto
 LibName28=atmel
 LibName29=contrib
 LibName30=valves
-LibName31=/home/heller/RRCircuits/MicroChip
+LibName31=../MicroChip
 LibName32=CANHat3-cache
 [pcbnew]
 version=1
@@ -64,8 +64,8 @@ BoardOutlineThickness="    0.100000"
 ModuleOutlineThickness="    0.150000"
 [pcbnew/libraries]
 LibDir=
-LibName1=/home/heller/RRCircuits/ScrewTerm254_2
-LibName2=/home/heller/RRCircuits/CANHat/RJ45-8N-S
+LibName1=../ScrewTerm254_2
+LibName2=../CANHat/RJ45-8N-S
 LibName3=sockets
 LibName4=connect
 LibName5=discret
@@ -82,5 +82,5 @@ LibName15=led
 LibName16=dip_sockets
 LibName17=pga_sockets
 LibName18=valves
-LibName19=/home/heller/RRCircuits/FullInterlockingPlantCANPower/TO251_3
+LibName19=../FullInterlockingPlantCANPower/TO251_3
 LibName20=w_conn_screw

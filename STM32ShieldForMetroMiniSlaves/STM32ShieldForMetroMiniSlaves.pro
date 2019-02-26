@@ -9,7 +9,7 @@ RptD_Y=100
 RptLab=1
 LabSize=60
 [eeschema/libraries]
-LibName1=/home/heller/RRCircuits/MetroMiniABSBiDir-noCANSlave/bridge
+LibName1=../MetroMiniABSBiDir-noCANSlave/bridge
 LibName2=power
 LibName3=device
 LibName4=transistors
@@ -40,9 +40,9 @@ LibName28=opto
 LibName29=atmel
 LibName30=contrib
 LibName31=valves
-LibName32=/home/heller/RRCircuits/MetroMiniABSBiDir-noCANSlave/sn75lbc179
-LibName33=/home/heller/RRCircuits/MetroMiniABSBiDir-noCANSlave/trs202e
-LibName34=/home/heller/RRCircuits/MetroMiniABSBiDir-noCANSlave/mct6h
+LibName32=../MetroMiniABSBiDir-noCANSlave/sn75lbc179
+LibName33=../MetroMiniABSBiDir-noCANSlave/trs202e
+LibName34=../MetroMiniABSBiDir-noCANSlave/mct6h
 [pcbnew]
 version=1
 LastNetListRead=
@@ -65,7 +65,7 @@ ModuleOutlineThickness="    0.150000"
 [pcbnew/libraries]
 LibDir=
 LibName1=w_conn_screw
-LibName2=/home/heller/RRCircuits/MetroMiniABSBiDir-noCANSlave/KBL
+LibName2=../MetroMiniABSBiDir-noCANSlave/KBL
 LibName3=sockets
 LibName4=connect
 LibName5=discret

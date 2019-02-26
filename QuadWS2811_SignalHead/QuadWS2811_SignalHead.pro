@@ -45,7 +45,7 @@ LibName27=opto
 LibName28=atmel
 LibName29=contrib
 LibName30=valves
-LibName31=/home/heller/RRCircuits/WS2811_SignalHead/ws2811
+LibName31=../WS2811_SignalHead/ws2811
 LibName32=signalheads
 [pcbnew]
 version=1
@@ -84,8 +84,8 @@ LibName13=led
 LibName14=dip_sockets
 LibName15=pga_sockets
 LibName16=valves
-LibName17=/home/heller/RRCircuits/signalheads
-LibName18=/home/heller/RRCircuits/ScrewTerm254_4
+LibName17=../signalheads
+LibName18=../ScrewTerm254_4
 LibName19=MountingHole_RevA
 [general]
 version=1

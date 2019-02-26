@@ -2,7 +2,7 @@ update=Fri 16 Jun 2017 03:43:57 PM EDT
 last_client=pcbnew
 [eeschema]
 version=1
-LibDir=/home/heller/RRCircuits
+LibDir=..
 NetFmtName=
 RptD_X=0
 RptD_Y=100
@@ -66,7 +66,7 @@ BoardOutlineThickness="    0.100000"
 ModuleOutlineThickness="    0.150000"
 [pcbnew/libraries]
 LibDir=
-LibName1=/home/heller/RRCircuits/CP_Radial_D4.0mm_P1.50mm
+LibName1=../CP_Radial_D4.0mm_P1.50mm
 LibName2=sockets
 LibName3=connect
 LibName4=discret
@@ -83,4 +83,4 @@ LibName14=led
 LibName15=dip_sockets
 LibName16=pga_sockets
 LibName17=valves
-LibName18=/home/heller/RRCircuits/PIN_ARRAY_10X2
+LibName18=../PIN_ARRAY_10X2

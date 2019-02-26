@@ -40,7 +40,7 @@ LibName14=led
 LibName15=dip_sockets
 LibName16=pga_sockets
 LibName17=valves
-LibName18=/home/heller/RRCircuits/DWSLogoBCU
+LibName18=../DWSLogoBCU
 [eeschema]
 version=1
 LibDir=

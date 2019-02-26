@@ -22,7 +22,7 @@ DrawSegmentWidth="    0.200000"
 BoardOutlineThickness="    0.100000"
 ModuleOutlineThickness="    0.150000"
 [pcbnew/libraries]
-LibDir=/home/heller/RRCircuits
+LibDir=..
 LibName1=sockets
 LibName2=connect
 LibName3=discret

@@ -2,7 +2,7 @@ update=Sun 04 Dec 2016 18:18:52 EST
 last_client=kicad
 [eeschema]
 version=1
-LibDir=/home/heller/RRCircuits
+LibDir=..
 NetFmtName=
 RptD_X=0
 RptD_Y=100
@@ -60,7 +60,7 @@ DrawSegmentWidth="    0.200000"
 BoardOutlineThickness="    0.100000"
 ModuleOutlineThickness="    0.150000"
 [pcbnew/libraries]
-LibDir=/home/heller/RRCircuits
+LibDir=..
 LibName1=sockets
 LibName2=connect
 LibName3=discret
