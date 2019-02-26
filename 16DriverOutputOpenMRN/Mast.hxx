@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 15:59:18 2019
-//  Last Modified : <190225.1850>
+//  Last Modified : <190226.1133>
 //
 //  Description	
 //
@@ -51,7 +51,6 @@
 #include <os/Gpio.hxx>
 #include <stdio.h>
 
-//#include "Rule.hxx"
 #include "Lamp.hxx"
 #include "Rule.hxx"
 
@@ -77,7 +76,7 @@ CDI_GROUP_ENTRY(processing,openlcb::Uint8ConfigEntry,
                 Name("Function"),Default(0),
                 Description("Mast Processing"),
                 MapValues(MastProcessingMap));
-CDI_GROUP_ENTRY(mastid, openlcb::StringConfigEntry<16>,
+CDI_GROUP_ENTRY(mastid, openlcb::StringConfigEntry<8>,
                 Name("Mast ID"));
 CDI_GROUP_ENTRY(linkevent,EventConfigEntryRO,
                 Name("(P) Track Circuit Link Address. Copy and Paste into linked Track Circuit. (Read Only)"));
@@ -98,7 +97,7 @@ public:
         processing_ = Unused;
         fade_ = None;
         for (int i = 0; i < RULESCOUNT; i++) {
-            rules_[i] = new Rule(node_,cfg_.rules().entry(i));
+//            rules_[i] = new Rule(node_,cfg_.rules().entry(i));
         }
         ConfigUpdateService::instance()->register_update_listener(this);
     }

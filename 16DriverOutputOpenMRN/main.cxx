@@ -88,6 +88,7 @@ extern const size_t openlcb::CONFIG_FILE_SIZE =
 extern const char *const openlcb::SNIP_DYNAMIC_FILENAME =
     openlcb::CONFIG_FILENAME;
 
+//#if 0
 Mast m1(stack.node(),cfg.seg().mastgroup().entry<0>());
 Mast m2(stack.node(),cfg.seg().mastgroup().entry<1>());
 Mast m3(stack.node(),cfg.seg().mastgroup().entry<2>());
@@ -96,6 +97,7 @@ Mast m5(stack.node(),cfg.seg().mastgroup().entry<4>());
 Mast m6(stack.node(),cfg.seg().mastgroup().entry<5>());
 Mast m7(stack.node(),cfg.seg().mastgroup().entry<6>());
 Mast m8(stack.node(),cfg.seg().mastgroup().entry<7>());
+//#endif
 
 // Instantiates the actual producer and consumer objects for the given GPIO
 // pins from above. The ConfiguredConsumer class takes care of most of the

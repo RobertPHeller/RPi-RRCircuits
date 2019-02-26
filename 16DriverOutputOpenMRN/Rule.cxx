@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 20:06:13 2019
-//  Last Modified : <190225.2024>
+//  Last Modified : <190226.1050>
 //
 //  Description	
 //
@@ -106,6 +106,22 @@ void Rule::handle_event_report(const EventRegistryEntry &entry,
 void Rule::handle_identify_consumer(const EventRegistryEntry &registry_entry,
                                     EventReport *event,
                                     BarrierNotifiable *done)
+{
+}
+
+void Rule::register_handler()
+{
+}
+
+void Rule::unregister_handler()
+{
+}
+
+void Rule::SendAllConsumersIdentified(EventReport *event,BarrierNotifiable *done)
+{
+}
+
+void Rule::SendConsumerIdentified(EventReport *event,BarrierNotifiable *done)
 {
 }
 
