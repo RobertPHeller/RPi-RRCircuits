@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 20:06:13 2019
-//  Last Modified : <190226.1050>
+//  Last Modified : <190226.2046>
 //
 //  Description	
 //
@@ -52,6 +52,7 @@ static const char rcsid[] = "@(#) : $Id$";
 
 #include "Lamp.hxx"
 #include "Rule.hxx"
+#include "Mast.hxx"
 
 ConfigUpdateListener::UpdateAction Rule::apply_configuration(int fd, 
                                        bool initial_load,
@@ -101,6 +102,14 @@ void Rule::handle_event_report(const EventRegistryEntry &entry,
                                EventReport *event,
                                BarrierNotifiable *done)
 {
+    if (event->event == eventsets_) {
+        if (parent_ != nullptr) {
+            parent_->SetRule(this,speed_,done);
+        } else {
+            done->notify();
+        }
+    }
+    done->maybe_done();
 }
 
 void Rule::handle_identify_consumer(const EventRegistryEntry &registry_entry,
@@ -125,5 +134,30 @@ void Rule::SendConsumerIdentified(EventReport *event,BarrierNotifiable *done)
 {
 }
 
+
+
+void Rule::ClearRule(BarrierNotifiable *done)
+{
+    for (int i=0; i < LAMPCOUNT; i++) {
+        lamps_[i]->Off();
+    }
+    /* Effects: effects_, effectsLamp_ */
+    write_helper.WriteAsync(node_,openlcb::Defs::MTI_EVENT_REPORT,
+                            openlcb::WriteHelper::global(),
+                            openlcb::eventid_to_buffer(eventclear_),
+                            done);
+}
+
+void Rule::SetRule(BarrierNotifiable *done)
+{
+    for (int i=0; i < LAMPCOUNT; i++) {
+        lamps_[i]->On();
+    }
+    /* Effects: effects_, effectsLamp_ */
+    write_helper.WriteAsync(node_,openlcb::Defs::MTI_EVENT_REPORT,
+                            openlcb::WriteHelper::global(),
+                            openlcb::eventid_to_buffer(eventset_),
+                            done);
+}
 
 

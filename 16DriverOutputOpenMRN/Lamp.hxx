@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 11:37:34 2019
-//  Last Modified : <190225.1822>
+//  Last Modified : <190226.2224>
 //
 //  Description	
 //
@@ -50,6 +50,8 @@
 #include "openlcb/RefreshLoop.hxx"
 #include <os/Gpio.hxx>
 #include <stdio.h>
+
+#include "Blink.hxx"
 
 #define LAMPCOUNT 4
 
@@ -102,16 +104,18 @@ CDI_GROUP_END();
 
 using LampGroup = openlcb::RepeatedGroup<LampConfig, LAMPCOUNT>;
 
-class Lamp : public ConfigUpdateListener {
+class Lamp : public ConfigUpdateListener , public Blinking {
 public:
     enum LampID {Unused, A0, A1, A2, A3, A4, A5, A6, A7, 
               B0, B1, B2, B3, B4, B5, B6, B7};
     enum LampPhase {Steady,A_Slow,A_Medium,A_Fast,None,B_Slow,B_Medium,
-              C_Fast};
+              B_Fast};
     Lamp(const LampConfig &cfg) : cfg_(cfg)
     {
         lampid_ = Unused;
         phase_  = Steady;
+        isOn_   = false;
+        blinker.AddMe(this);
         ConfigUpdateService::instance()->register_update_listener(this);
     }
     void factory_reset(int fd) OVERRIDE
@@ -132,11 +136,36 @@ public:
     static const Gpio* PinLookup(LampID id) {
         return pinlookup_[(int)id];
     }
+    void On() {isOn_ = true;}
+    void Off() {isOn_ = false;}
+    virtual void blink(bool AFast, bool AMedium, bool ASlow)
+    {
+        //fprintf(stderr,"*** Lamp::blink(%d,%d,%d)\n",AFast,AMedium,ASlow);
+        //return;
+        if (lampid_ == Unused) return;
+        const Gpio* p = Pin();
+        if (p == nullptr) return;
+        if (!isOn_) {
+            p->clr(); 
+            return;
+        }
+        switch (phase_) {
+        case Steady: p->set(); break;
+        case A_Slow: p->write(ASlow); break;
+        case A_Medium: p->write(AMedium); break;
+        case A_Fast: p->write(AFast); break;
+        case None: p->clr(); break;
+        case B_Slow: p->write(!ASlow); break;
+        case B_Medium: p->write(!AMedium); break;
+        case B_Fast: p->write(!AFast); break;
+        }
+    }
 private:
     const static Gpio* pinlookup_[17];
     LampID lampid_;
     LampPhase  phase_;
     const LampConfig cfg_;
+    bool isOn_;
 };
 
 #endif // __LAMP_HXX

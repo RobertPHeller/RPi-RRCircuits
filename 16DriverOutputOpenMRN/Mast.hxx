@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 15:59:18 2019
-//  Last Modified : <190226.1500>
+//  Last Modified : <190226.2021>
 //
 //  Description	
 //
@@ -80,9 +80,11 @@ CDI_GROUP_ENTRY(mastid, openlcb::StringConfigEntry<8>,
                 Name("Mast ID"));
 CDI_GROUP_ENTRY(linkevent,EventConfigEntryRO,
                 Name("(P) Track Circuit Link Address. Copy and Paste into linked Track Circuit. (Read Only)"));
+#ifdef HAVEPWM
 CDI_GROUP_ENTRY(fade,openlcb::Uint8ConfigEntry,
                 Name("Lamp Fade"),Default(0),
                 MapValues(LampFadeMap));
+#endif
 CDI_GROUP_ENTRY(rules,RulesGroup,Name("Rules"),RepName("Rule"));
 CDI_GROUP_END();
 
@@ -91,15 +93,22 @@ class Mast : public ConfigUpdateListener,
              public openlcb::SimpleEventHandler {
 public:
     enum MastProcessing {Unused, Normal, Linked};
+#ifdef HAVEPWM
     enum LampFade {None, Incandescent};
-    Mast(openlcb::Node *n,const MastConfig &cfg) : node_(n), cfg_(cfg)
+#endif
+    Mast(openlcb::Node *n,const MastConfig &cfg, Mast *previous) 
+      : node_(n), cfg_(cfg)
     {
 //        fprintf(stderr,"*** Mast::Mast(): cfg.offset() is %d, cfg_.offset() is %d\n",cfg.offset(),cfg_.offset());
 //        fprintf(stderr,"*** Mast::Mast(): &cfg_ is %p\n", &cfg_);
         processing_ = Unused;
+#ifdef HAVEPWM
         fade_ = None;
+#endif
+        previous_ = previous;
+        current_  = nullptr;
         for (int i = 0; i < RULESCOUNT; i++) {
-            rules_[i] = new Rule(node_,cfg_.rules().entry(i));
+            rules_[i] = new Rule(node_,cfg_.rules().entry(i),this);
         }
         ConfigUpdateService::instance()->register_update_listener(this);
     }
@@ -112,24 +121,24 @@ public:
     void handle_identify_producer(const EventRegistryEntry &registry_entry,
                                   EventReport *event, 
                                   BarrierNotifiable *done) override;
-    void handle_event_report(const EventRegistryEntry &entry, 
-                             EventReport *event,
-                             BarrierNotifiable *done) override;
-    void handle_identify_consumer(const EventRegistryEntry &registry_entry,
-                                  EventReport *event,
-                                  BarrierNotifiable *done) override;
-
+    void SetRule(Rule *newRule,Rule::TrackSpeed speed,BarrierNotifiable *done);
+    void UpdateMastHead(Mast *head);
 private:
     openlcb::Node *node_;
     const MastConfig cfg_;
     MastProcessing processing_;
+#ifdef HAVEPWM
     LampFade fade_;
+#endif
     openlcb::EventId linkevent_;
     Rule *rules_[RULESCOUNT];
+    Rule *current_;
+    Mast *previous_;
     void register_handler();
     void unregister_handler();
-    void SendAllConsumersIdentified(EventReport *event,BarrierNotifiable *done);
-    void SendConsumerIdentified(EventReport *event,BarrierNotifiable *done);
+    void SendAllProducersIdentified(EventReport *event,BarrierNotifiable *done);
+    void SendProducerIdentified(EventReport *event,BarrierNotifiable *done);
+    openlcb::WriteHelper write_helper;
 };
 
 

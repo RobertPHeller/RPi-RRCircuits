@@ -47,6 +47,7 @@
 
 #include "Hardware.hxx"
 #include "Mast.hxx"
+#include "Blink.hxx"
 
 // Changes the default behavior by adding a newline after each gridconnect
 // packet. Makes it easier for debugging the raw device.
@@ -88,15 +89,17 @@ extern const size_t openlcb::CONFIG_FILE_SIZE =
 extern const char *const openlcb::SNIP_DYNAMIC_FILENAME =
     openlcb::CONFIG_FILENAME;
 
+BlinkTimer blinker(stack.executor()->active_timers());
+
 //#if 0
-Mast m1(stack.node(),cfg.seg().masts().entry<0>());
-Mast m2(stack.node(),cfg.seg().masts().entry<1>());
-Mast m3(stack.node(),cfg.seg().masts().entry<2>());
-Mast m4(stack.node(),cfg.seg().masts().entry<3>());
-Mast m5(stack.node(),cfg.seg().masts().entry<4>());
-Mast m6(stack.node(),cfg.seg().masts().entry<5>());
-Mast m7(stack.node(),cfg.seg().masts().entry<6>());
-Mast m8(stack.node(),cfg.seg().masts().entry<7>());
+Mast m1(stack.node(),cfg.seg().masts().entry<0>(),nullptr);
+Mast m2(stack.node(),cfg.seg().masts().entry<1>(),&m1);
+Mast m3(stack.node(),cfg.seg().masts().entry<2>(),&m2);
+Mast m4(stack.node(),cfg.seg().masts().entry<3>(),&m3);
+Mast m5(stack.node(),cfg.seg().masts().entry<4>(),&m4);
+Mast m6(stack.node(),cfg.seg().masts().entry<5>(),&m5);
+Mast m7(stack.node(),cfg.seg().masts().entry<6>(),&m6);
+Mast m8(stack.node(),cfg.seg().masts().entry<7>(),&m7);
 //#endif
 
 // Instantiates the actual producer and consumer objects for the given GPIO
@@ -168,6 +171,8 @@ int appl_main(int argc, char *argv[])
     GpioInit::hw_init();
     stack.create_config_file_if_needed(cfg.seg().internal_config(), openlcb::CANONICAL_VERSION, openlcb::CONFIG_FILE_SIZE);
     
+    blinker.start(500000000);
+
     
     // Connects to a TCP hub on the internet.
     //stack.connect_tcp_gridconnect_hub("28k.ch", 50007);

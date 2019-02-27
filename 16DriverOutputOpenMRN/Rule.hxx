@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 17:12:10 2019
-//  Last Modified : <190226.1455>
+//  Last Modified : <190226.2032>
 //
 //  Description	
 //
@@ -50,7 +50,7 @@
 #include "openlcb/RefreshLoop.hxx"
 #include <os/Gpio.hxx>
 
-
+class Mast;
 #include "Lamp.hxx"
 
 #define RULESCOUNT 8
@@ -145,9 +145,10 @@ public:
                    ApproachLimited,AdvanceApproachLimited,Clear,
                    CabSpeed,Dark};
     enum TrackSpeed {Stop_,Restricting_,Slow_,Medium_,Limited_,
-                     Approach_,ApproachMedium_,Clear_};
+                     Approach_,ApproachMedium_,Clear_,None_};
     enum Effects {None,Transition,H2RedFlash,Strobe};
-    Rule(openlcb::Node *n,const RuleConfig &cfg) : node_(n), cfg_(cfg) 
+    Rule(openlcb::Node *n,const RuleConfig &cfg, Mast *parent) 
+      : node_(n), cfg_(cfg) 
     {
         name_ = Stop;
         speed_ = Stop_;
@@ -156,6 +157,7 @@ public:
         for (int i = 0; i < LAMPCOUNT; i++) {
             lamps_[i] = new Lamp(cfg_.lamps().entry(i));
         }
+        parent_ = parent;
         ConfigUpdateService::instance()->register_update_listener(this);
     }
     virtual UpdateAction apply_configuration(int fd, 
@@ -173,6 +175,9 @@ public:
     void handle_identify_consumer(const EventRegistryEntry &registry_entry,
                                   EventReport *event,
                                   BarrierNotifiable *done) override;
+    void SetParent(Mast *h) {parent_ = h;}
+    void ClearRule(BarrierNotifiable *done);
+    void SetRule(BarrierNotifiable *done);
 private:
     openlcb::Node *node_;
     const RuleConfig cfg_;
@@ -182,10 +187,12 @@ private:
     Lamp::LampID effectsLamp_;
     Lamp *lamps_[LAMPCOUNT];
     openlcb::EventId eventsets_,eventset_,eventclear_;
+    Mast *parent_;
     void register_handler();
     void unregister_handler();
     void SendAllConsumersIdentified(EventReport *event,BarrierNotifiable *done);
     void SendConsumerIdentified(EventReport *event,BarrierNotifiable *done);
+    openlcb::WriteHelper write_helper;
 };
 
 #endif // __RULE_HXX
