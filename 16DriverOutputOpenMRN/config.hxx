@@ -9,7 +9,9 @@
 #include "Hardware.hxx"
 #include "Revision.hxxout"
 
+#include "Logic.hxx"
 #include "Mast.hxx"
+#include "TrackCircuit.hxx"
 
 namespace openlcb
 {
@@ -37,7 +39,9 @@ extern const SimpleNodeStaticValues SNIP_STATIC_DATA = {
 /// the config eeprom file's layout changes.
 static constexpr uint16_t CANONICAL_VERSION = 0x9000;
 
-using MastGroup = openlcb::RepeatedGroup<MastConfig, 8>;
+using LogicGroup = openlcb::RepeatedGroup<LogicConfig, LOGICCOUNT>;
+using MastGroup = openlcb::RepeatedGroup<MastConfig, MASTCOUNT>;
+using TrackCircuitGroup = openlcb::RepeatedGroup<TrackCircuitConfig, TRACKCIRCUITCOUNT>;
 
 /// Defines the main segment in the configuration CDI. This is laid out at
 /// origin 128 to give space for the ACDI user data at the beginning.
@@ -45,7 +49,9 @@ CDI_GROUP(IoBoardSegment, Name(HARDWARE_IMPL), Segment(MemoryConfigDefs::SPACE_C
 /// Each entry declares the name of the current entry, then the type and then
 /// optional arguments list.
 CDI_GROUP_ENTRY(internal_config, InternalConfigData);
+CDI_GROUP_ENTRY(logics, LogicGroup, Name("LOGIC"), RepName("Logic"));
 CDI_GROUP_ENTRY(masts, MastGroup, Name("Rule to aspect"),RepName("Mast"));
+CDI_GROUP_ENTRY(circuits, TrackCircuitGroup, Name("TRACK CIRCUITS"), RepName("Circuit"));
 CDI_GROUP_END();
 
 /// This segment is only needed temporarily until there is program code to set

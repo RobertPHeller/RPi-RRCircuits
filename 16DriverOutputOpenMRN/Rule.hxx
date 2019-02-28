@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 17:12:10 2019
-//  Last Modified : <190226.2032>
+//  Last Modified : <190227.0932>
 //
 //  Description	
 //
@@ -99,11 +99,13 @@ static const char TrackSpeedMap[] =
 "<relation><property>6</property><value>Approach-Medium</value></relation>"
 "<relation><property>7</property><value>Clear/Procede</value></relation>";
 
+#ifdef EFFECTS
 static const char EffectsMap[] = 
 "<relation><property>0</property><value>None</value></relation>"
 "<relation><property>1</property><value>Transition down</value></relation>"
 "<relation><property>2</property><value>H2 Red Flash</value></relation>"
 "<relation><property>3</property><value>Strobe</value></relation>";
+#endif
 
 /// CDI Configuration for a @ref Rule
 CDI_GROUP(RuleConfig);
@@ -121,12 +123,14 @@ CDI_GROUP_ENTRY(eventclear,openlcb::EventConfigEntry,
 CDI_GROUP_ENTRY(lamps,LampGroup,Name("Appearance"),
                 Description("Individual Aspect Lamps"),
                 RepName("Lamp"));
+#ifdef EFFECTS
 CDI_GROUP_ENTRY(effects,openlcb::Uint8ConfigEntry,
                 Name("Appearance Effects"),Default(0),
                 MapValues(EffectsMap));
 CDI_GROUP_ENTRY(effectslamp,openlcb::Uint8ConfigEntry,
                 Name("Effects Lamp"),Default(0),
                 MapValues(LampSelectMap));
+#endif
 CDI_GROUP_END();
 
 using RulesGroup = openlcb::RepeatedGroup<RuleConfig, RULESCOUNT>;
@@ -145,19 +149,24 @@ public:
                    ApproachLimited,AdvanceApproachLimited,Clear,
                    CabSpeed,Dark};
     enum TrackSpeed {Stop_,Restricting_,Slow_,Medium_,Limited_,
-                     Approach_,ApproachMedium_,Clear_,None_};
+                     Approach_,ApproachMedium_,Clear_};
+#ifdef EFFECTS
     enum Effects {None,Transition,H2RedFlash,Strobe};
+#endif
     Rule(openlcb::Node *n,const RuleConfig &cfg, Mast *parent) 
       : node_(n), cfg_(cfg) 
     {
         name_ = Stop;
         speed_ = Stop_;
+#ifdef EFFECTS
         effects_ = None;
         effectsLamp_ = Lamp::Unused;
+#endif
         for (int i = 0; i < LAMPCOUNT; i++) {
             lamps_[i] = new Lamp(cfg_.lamps().entry(i));
         }
         parent_ = parent;
+        isSet_ = false;
         ConfigUpdateService::instance()->register_update_listener(this);
     }
     virtual UpdateAction apply_configuration(int fd, 
@@ -175,24 +184,27 @@ public:
     void handle_identify_consumer(const EventRegistryEntry &registry_entry,
                                   EventReport *event,
                                   BarrierNotifiable *done) override;
-    void SetParent(Mast *h) {parent_ = h;}
     void ClearRule(BarrierNotifiable *done);
-    void SetRule(BarrierNotifiable *done);
 private:
     openlcb::Node *node_;
     const RuleConfig cfg_;
     RuleName name_;
     TrackSpeed speed_;
+#ifdef EFFECTS
     Effects effects_;
     Lamp::LampID effectsLamp_;
+#endif
     Lamp *lamps_[LAMPCOUNT];
     openlcb::EventId eventsets_,eventset_,eventclear_;
     Mast *parent_;
+    bool isSet_;
     void register_handler();
     void unregister_handler();
     void SendAllConsumersIdentified(EventReport *event,BarrierNotifiable *done);
     void SendConsumerIdentified(EventReport *event,BarrierNotifiable *done);
-    openlcb::WriteHelper write_helper;
+    void SendAllProducersIdentified(EventReport *event,BarrierNotifiable *done);
+    void SendProducerIdentified(EventReport *event,BarrierNotifiable *done);
+    openlcb::WriteHelper write_helpers[3];
 };
 
 #endif // __RULE_HXX

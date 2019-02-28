@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 15:59:18 2019
-//  Last Modified : <190226.2021>
+//  Last Modified : <190227.1414>
 //
 //  Description	
 //
@@ -53,6 +53,8 @@
 
 #include "Lamp.hxx"
 #include "Rule.hxx"
+
+#define MASTCOUNT 8
 
 static const char MastProcessingMap[] = 
 "<relation><property>0</property><value>Unused</value></relation>"
@@ -106,7 +108,8 @@ public:
         fade_ = None;
 #endif
         previous_ = previous;
-        current_  = nullptr;
+        currentRule_  = nullptr;
+        currentSpeed_ = Rule::Stop_;
         for (int i = 0; i < RULESCOUNT; i++) {
             rules_[i] = new Rule(node_,cfg_.rules().entry(i),this);
         }
@@ -121,8 +124,9 @@ public:
     void handle_identify_producer(const EventRegistryEntry &registry_entry,
                                   EventReport *event, 
                                   BarrierNotifiable *done) override;
-    void SetRule(Rule *newRule,Rule::TrackSpeed speed,BarrierNotifiable *done);
-    void UpdateMastHead(Mast *head);
+     void ClearCurrentRule(BarrierNotifiable *done);
+     void SetCurrentRuleAndSpeed(Rule *r, Rule::TrackSpeed s, 
+                                 BarrierNotifiable *done);
 private:
     openlcb::Node *node_;
     const MastConfig cfg_;
@@ -132,13 +136,14 @@ private:
 #endif
     openlcb::EventId linkevent_;
     Rule *rules_[RULESCOUNT];
-    Rule *current_;
+    Rule *currentRule_;
+    Rule::TrackSpeed currentSpeed_;
     Mast *previous_;
     void register_handler();
     void unregister_handler();
     void SendAllProducersIdentified(EventReport *event,BarrierNotifiable *done);
     void SendProducerIdentified(EventReport *event,BarrierNotifiable *done);
-    openlcb::WriteHelper write_helper;
+    openlcb::WriteHelper write_helper[8];
 };
 
 
