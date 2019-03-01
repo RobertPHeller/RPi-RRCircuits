@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 15:59:18 2019
-//  Last Modified : <190227.1414>
+//  Last Modified : <190228.1421>
 //
 //  Description	
 //
@@ -53,6 +53,7 @@
 
 #include "Lamp.hxx"
 #include "Rule.hxx"
+#include "TrackCircuit.hxx"
 
 #define MASTCOUNT 8
 
@@ -109,7 +110,7 @@ public:
 #endif
         previous_ = previous;
         currentRule_  = nullptr;
-        currentSpeed_ = Rule::Stop_;
+        currentSpeed_ = TrackCircuit::Stop_;
         for (int i = 0; i < RULESCOUNT; i++) {
             rules_[i] = new Rule(node_,cfg_.rules().entry(i),this);
         }
@@ -125,7 +126,7 @@ public:
                                   EventReport *event, 
                                   BarrierNotifiable *done) override;
      void ClearCurrentRule(BarrierNotifiable *done);
-     void SetCurrentRuleAndSpeed(Rule *r, Rule::TrackSpeed s, 
+     void SetCurrentRuleAndSpeed(Rule *r, TrackCircuit::TrackSpeed s, 
                                  BarrierNotifiable *done);
 private:
     openlcb::Node *node_;
@@ -137,7 +138,7 @@ private:
     openlcb::EventId linkevent_;
     Rule *rules_[RULESCOUNT];
     Rule *currentRule_;
-    Rule::TrackSpeed currentSpeed_;
+    TrackCircuit::TrackSpeed currentSpeed_;
     Mast *previous_;
     void register_handler();
     void unregister_handler();

@@ -49,6 +49,8 @@
 #include "Mast.hxx"
 #include "Blink.hxx"
 
+#include "TrackCircuit.hxx"
+
 // Changes the default behavior by adding a newline after each gridconnect
 // packet. Makes it easier for debugging the raw device.
 OVERRIDE_CONST(gc_generate_newlines, 1);
@@ -91,7 +93,6 @@ extern const char *const openlcb::SNIP_DYNAMIC_FILENAME =
 
 BlinkTimer blinker(stack.executor()->active_timers());
 
-//#if 0
 Mast m1(stack.node(),cfg.seg().masts().entry<0>(),nullptr);
 Mast m2(stack.node(),cfg.seg().masts().entry<1>(),&m1);
 Mast m3(stack.node(),cfg.seg().masts().entry<2>(),&m2);
@@ -100,7 +101,17 @@ Mast m5(stack.node(),cfg.seg().masts().entry<4>(),&m4);
 Mast m6(stack.node(),cfg.seg().masts().entry<5>(),&m5);
 Mast m7(stack.node(),cfg.seg().masts().entry<6>(),&m6);
 Mast m8(stack.node(),cfg.seg().masts().entry<7>(),&m7);
-//#endif
+
+TrackCircuit c1(stack.node(),cfg.seg().circuits().entry<0>());
+TrackCircuit c2(stack.node(),cfg.seg().circuits().entry<1>());
+TrackCircuit c3(stack.node(),cfg.seg().circuits().entry<2>());
+TrackCircuit c4(stack.node(),cfg.seg().circuits().entry<3>());
+TrackCircuit c5(stack.node(),cfg.seg().circuits().entry<4>());
+TrackCircuit c6(stack.node(),cfg.seg().circuits().entry<5>());
+TrackCircuit c7(stack.node(),cfg.seg().circuits().entry<6>());
+TrackCircuit c8(stack.node(),cfg.seg().circuits().entry<7>());
+
+TrackCircuit *circuits[8] = {&c1, &c2, &c3, &c4, &c5, &c6, &c7, &c8};
 
 // Instantiates the actual producer and consumer objects for the given GPIO
 // pins from above. The ConfiguredConsumer class takes care of most of the

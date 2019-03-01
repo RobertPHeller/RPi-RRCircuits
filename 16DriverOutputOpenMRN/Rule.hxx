@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 17:12:10 2019
-//  Last Modified : <190227.0932>
+//  Last Modified : <190228.1420>
 //
 //  Description	
 //
@@ -52,6 +52,7 @@
 
 class Mast;
 #include "Lamp.hxx"
+#include "TrackCircuit.hxx"
 
 #define RULESCOUNT 8
 
@@ -88,16 +89,6 @@ static const char RuleNamesMap[] =
 "<relation><property>29</property><value>29-Clear</value></relation>"
 "<relation><property>30</property><value>30-Cab Speed</value></relation>"
 "<relation><property>31</property><value>31-Dark</value></relation>";
-
-static const char TrackSpeedMap[] = 
-"<relation><property>0</property><value>Stop</value></relation>"
-"<relation><property>1</property><value>Restricting/Tumble Down</value></relation>"
-"<relation><property>2</property><value>Slow</value></relation>"
-"<relation><property>3</property><value>Medium</value></relation>"
-"<relation><property>4</property><value>Limited</value></relation>"
-"<relation><property>5</property><value>Approach</value></relation>"
-"<relation><property>6</property><value>Approach-Medium</value></relation>"
-"<relation><property>7</property><value>Clear/Procede</value></relation>";
 
 #ifdef EFFECTS
 static const char EffectsMap[] = 
@@ -148,8 +139,6 @@ public:
                    ApproachMedium,AdvanceApproachMedium,
                    ApproachLimited,AdvanceApproachLimited,Clear,
                    CabSpeed,Dark};
-    enum TrackSpeed {Stop_,Restricting_,Slow_,Medium_,Limited_,
-                     Approach_,ApproachMedium_,Clear_};
 #ifdef EFFECTS
     enum Effects {None,Transition,H2RedFlash,Strobe};
 #endif
@@ -157,7 +146,7 @@ public:
       : node_(n), cfg_(cfg) 
     {
         name_ = Stop;
-        speed_ = Stop_;
+        speed_ = TrackCircuit::Stop_;
 #ifdef EFFECTS
         effects_ = None;
         effectsLamp_ = Lamp::Unused;
@@ -189,7 +178,7 @@ private:
     openlcb::Node *node_;
     const RuleConfig cfg_;
     RuleName name_;
-    TrackSpeed speed_;
+    TrackCircuit::TrackSpeed speed_;
 #ifdef EFFECTS
     Effects effects_;
     Lamp::LampID effectsLamp_;

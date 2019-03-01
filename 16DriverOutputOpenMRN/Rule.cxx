@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 20:06:13 2019
-//  Last Modified : <190227.0935>
+//  Last Modified : <190228.1414>
 //
 //  Description	
 //
@@ -53,6 +53,7 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "Lamp.hxx"
 #include "Rule.hxx"
 #include "Mast.hxx"
+#include "TrackCircuit.hxx"
 
 ConfigUpdateListener::UpdateAction Rule::apply_configuration(int fd, 
                                        bool initial_load,
@@ -60,7 +61,7 @@ ConfigUpdateListener::UpdateAction Rule::apply_configuration(int fd,
 {
     AutoNotify n(done);
     name_ = (RuleName) cfg_.name().read(fd);
-    speed_ = (TrackSpeed) cfg_.speed().read(fd);
+    speed_ = (TrackCircuit::TrackSpeed) cfg_.speed().read(fd);
     openlcb::EventId eventsets_cfg = cfg_.eventsets().read(fd);
     openlcb::EventId eventset_cfg = cfg_.eventset().read(fd);
     openlcb::EventId eventclear_cfg = cfg_.eventclear().read(fd);

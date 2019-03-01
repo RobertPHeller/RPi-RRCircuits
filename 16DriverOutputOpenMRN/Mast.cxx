@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 20:26:38 2019
-//  Last Modified : <190227.0927>
+//  Last Modified : <190228.1416>
 //
 //  Description	
 //
@@ -53,6 +53,7 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "Lamp.hxx"
 #include "Rule.hxx"
 #include "Mast.hxx"
+#include "TrackCircuit.hxx"
 
 ConfigUpdateListener::UpdateAction Mast::apply_configuration(int fd, 
                                                        bool initial_load,
@@ -171,7 +172,7 @@ void Mast::ClearCurrentRule(BarrierNotifiable *done)
     }
 }
 
-void Mast::SetCurrentRuleAndSpeed(Rule *r, Rule::TrackSpeed s, 
+void Mast::SetCurrentRuleAndSpeed(Rule *r, TrackCircuit::TrackSpeed s, 
                                   BarrierNotifiable *done)
 {
     if (processing_ == Linked) {
