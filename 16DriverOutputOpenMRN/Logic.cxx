@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Mar 1 10:46:51 2019
-//  Last Modified : <190302.1341>
+//  Last Modified : <190302.1427>
 //
 //  Description	
 //
@@ -376,6 +376,7 @@ bool Logic::Evaluate(Which v,BarrierNotifiable *done)
         if (prev) return prev;
     }
     bool result = false;
+    bool newresult;
     switch (logicFunction_) {
     case AND:
         result = v1_->Value() && v2_->Value();
@@ -387,12 +388,14 @@ bool Logic::Evaluate(Which v,BarrierNotifiable *done)
         result =  ((v1_->Value() && !v2_->Value()) || ((v2_->Value() && !v1_->Value())));
         break;
     case ANDChange:
-        result = v1_->Value() && v2_->Value();
-        result = result != oldValue_;        
+        newresult = v1_->Value() && v2_->Value();
+        result = newresult != oldValue_;
+        oldValue_ = newresult;
         break;
     case ORChange:
-        result = v1_->Value() || v2_->Value();
-        result = result != oldValue_;        
+        newresult = v1_->Value() || v2_->Value();
+        result = newresult != oldValue_;        
+        oldValue_ = newresult;
         break;
     case ANDthenV2:
         result = (v1_->Value() && v2_->Value() && v == LogicCallback::V2);
@@ -406,7 +409,6 @@ bool Logic::Evaluate(Which v,BarrierNotifiable *done)
         result = true;
         break;
     }
-    oldValue_ = result;
     ActionType action_;
     if (result) {
         action_ = trueAction_;
