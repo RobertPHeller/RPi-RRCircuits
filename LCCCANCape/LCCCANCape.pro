@@ -1,4 +1,4 @@
-update=Sat 23 Feb 2019 14:11:24 EST
+update=Sat 02 Mar 2019 07:51:29 AM EST
 version=1
 last_client=eeschema
 [cvpcb]
@@ -86,3 +86,4 @@ LibName29=contrib
 LibName30=../74lv125AN
 LibName31=../mcp25xxx
 LibName32=../BBBHalfSiding/cat24c256w
+LibName33=../sn65hvd233-ht
