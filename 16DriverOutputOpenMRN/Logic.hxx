@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:08:16 2019
-//  Last Modified : <190228.2158>
+//  Last Modified : <190302.1057>
 //
 //  Description	
 //
@@ -50,6 +50,7 @@
 #include "openlcb/RefreshLoop.hxx"
 #include "openlcb/SimpleStack.hxx"
 #include "executor/Timer.hxx"
+#include "executor/Notifiable.hxx"
 #include <stdio.h>
 
 #include "TrackCircuit.hxx"
@@ -130,18 +131,24 @@ CDI_GROUP_ENTRY(eventfalse,openlcb::EventConfigEntry,
                 Name("(C) Event to set variable false."));
 CDI_GROUP_END();
 
-class Logic;
+class LogicCallback {
+public:
+    enum Which {V1, V2};
+    virtual void Evaluate(Which v,BarrierNotifiable *done) = 0;
+};
 
 class Variable : public TrackCircuitCallback, public ConfigUpdateListener, public openlcb::SimpleEventHandler {
 public:
     enum Trigger {Change, Event, None};
     enum Source {Events,TrackCircuit1,TrackCircuit2,TrackCircuit3,TrackCircuit4,TrackCircuit5,TrackCircuit6,TrackCircuit7,TrackCircuit8};
-    Variable(openlcb::Node *n,const VariableConfig &cfg, Logic *p)
-                : node_(n), cfg_(cfg), parent_(p)
+    Variable(openlcb::Node *n,const VariableConfig &cfg, LogicCallback *p, const LogicCallback::Which which)
+                : node_(n), cfg_(cfg), parent_(p), which_(which)
     {
+        value_ = false;
+        source_ = Events;
         ConfigUpdateService::instance()->register_update_listener(this);
     }
-    void trigger(const TrackCircuit *caller);
+    void trigger(const TrackCircuit *caller,BarrierNotifiable *done);
     virtual UpdateAction apply_configuration(int fd, 
                                              bool initial_load,
                                              BarrierNotifiable *done) override;
@@ -154,14 +161,17 @@ public:
     void handle_identify_consumer(const EventRegistryEntry &registry_entry,
                                   EventReport *event,
                                   BarrierNotifiable *done) override;
+    bool Value() const {return value_;}
 private:
     openlcb::Node *node_;
     const VariableConfig cfg_;
-    Logic *parent_;
+    LogicCallback *parent_;
+    const LogicCallback::Which which_;
     Trigger trigger_;
     Source  source_;
     openlcb::EventId event_true_, event_false_;
     TrackCircuit::TrackSpeed speed_;
+    bool value_;
     void register_handler();
     void unregister_handler();
     void SendAllConsumersIdentified(EventReport *event,BarrierNotifiable *done);
@@ -183,31 +193,52 @@ CDI_GROUP_ENTRY(timedelay,openlcb::Uint16ConfigEntry,
                 Default(0),Min(0),Max(60000));
 CDI_GROUP_ENTRY(interval,openlcb::Uint8ConfigEntry,
                 Name("Interval"),Default(0),MapValues(IntervalMap));
-#ifdef RETRIGGERABLE
 CDI_GROUP_ENTRY(retriggerable,openlcb::Uint8ConfigEntry,
                 Name("Retriggerable"),Default(0),
                 MapValues(RetriggerableMap));
-#endif
 CDI_GROUP_END();
 
-class Action;
+class ActionTrigger {
+public:
+    virtual void trigger(BarrierNotifiable *done) = 0;
+};
 
-class Timing : public Timer, public ConfigUpdateListener, public openlcb::SimpleEventHandler {
+class Timing : public Timer, public ConfigUpdateListener {
 public:
     enum Interval {Milliseconds, Seconds, Minutes};
     Timing (ActiveTimers *timers, const TimingConfig &cfg) : Timer(timers) , cfg_(cfg)
     {
+        running_ = false;
         ConfigUpdateService::instance()->register_update_listener(this);
     }
-    long long timeout() override;
+    long long timeout() override
+    {
+        running_ = false;
+        for (actionVector_type_iterator i = actions_.begin();
+             i != actions_.end(); i++) {
+            (*i)->trigger((BarrierNotifiable *)this);
+        }
+        return NONE;
+    }
     virtual UpdateAction apply_configuration(int fd, 
                                              bool initial_load,
-                                             BarrierNotifiable *done) override;
-    virtual void factory_reset(int fd);
-    void AddDelayedAction(Action *a) {
+                                             BarrierNotifiable *done) override
+    {
+        AutoNotify n(done);
+        timedelay_ = cfg_.timedelay().read(fd);
+        interval_ = (Interval) cfg_.interval().read(fd);
+        retriggerable_ = (cfg_.retriggerable().read(fd) != 0);
+        return UPDATED;
+    }
+    virtual void factory_reset(int fd) {
+        CDI_FACTORY_RESET(cfg_.timedelay);
+        CDI_FACTORY_RESET(cfg_.interval);
+        CDI_FACTORY_RESET(cfg_.retriggerable);
+    }
+    void AddDelayedAction(ActionTrigger *a) {
         actions_.push_back(a);
     }
-    void RemoveDelayedAction(Action *a) {
+    void RemoveDelayedAction(ActionTrigger *a) {
         for (actionVector_type_iterator i = actions_.begin();
              i != actions_.end(); i++) {
             if (*i == a) actions_.erase(i);
@@ -215,6 +246,10 @@ public:
         }
     }
     void startDelay() {
+        if (running_) {
+            if (retriggerable_) restart();
+            return;
+        }
         long long p;
         switch (interval_) {
         case Milliseconds: 
@@ -228,28 +263,62 @@ public:
             break;
         }
         start(p);
+        running_ = true;
     }
 private:
+    bool running_;
     const TimingConfig cfg_;
     Interval interval_;
     uint16_t timedelay_;
-#ifdef RETRIGGERABLE
     bool retriggerable_;
-    bool triggered_;
-#endif
-    typedef vector<Action *> actionVector_type;
+    typedef vector<ActionTrigger *> actionVector_type;
     typedef actionVector_type::iterator actionVector_type_iterator;
     actionVector_type actions_;
 };
 
 CDI_GROUP(ActionConfig);
 CDI_GROUP_ENTRY(actiontrigger,openlcb::Uint8ConfigEntry,
-                MapValues(ActionTriggerMap));
+                MapValues(ActionTriggerMap),Default(0));
 CDI_GROUP_ENTRY(actionevent,openlcb::EventConfigEntry,
                 Name("(P) this event will be sent."));
 CDI_GROUP_END();
 
 using ActionGroup = openlcb::RepeatedGroup<ActionConfig,4>;
+
+class Action : public ActionTrigger, public ConfigUpdateListener, public openlcb::SimpleEventHandler {
+public:
+    enum Trigger {None, Immediately, AfterDelay, ImmediateTrue, 
+              ImmediateFalse, DelayedTrue, DelayedFalse};
+    Action(openlcb::Node *n,const ActionConfig &cfg, Timing *timer) 
+                : node_(n), cfg_(cfg), timer_(timer)
+    {
+        ConfigUpdateService::instance()->register_update_listener(this);
+    }
+    void trigger(BarrierNotifiable *done);
+    void DoAction(bool logicResult,BarrierNotifiable *done);
+    virtual UpdateAction apply_configuration(int fd, 
+                                             bool initial_load,
+                                             BarrierNotifiable *done) override;
+    virtual void factory_reset(int fd);
+    void handle_identify_global(const openlcb::EventRegistryEntry &registry_entry, 
+                                EventReport *event, BarrierNotifiable *done) override;
+    void handle_identify_producer(const EventRegistryEntry &registry_entry,
+                                  EventReport *event,
+                                  BarrierNotifiable *done) override;
+private:
+    openlcb::Node *node_;
+    const ActionConfig cfg_;
+    Trigger actionTrigger_;
+    bool lastLogicValue_;
+    openlcb::EventId action_event_;
+    Timing *timer_;
+    void register_handler();
+    void unregister_handler();
+    void SendAllProducersIdentified(EventReport *event,BarrierNotifiable *done);
+    void SendProducerIdentified(EventReport *event,BarrierNotifiable *done);
+    void SendEventReport(BarrierNotifiable *done);
+    openlcb::WriteHelper write_helper;
+};
 
 /// CDI Configuration for a @ref Logic
 CDI_GROUP(LogicConfig);
@@ -272,6 +341,38 @@ CDI_GROUP_ENTRY(falseAction,openlcb::Uint8ConfigEntry,
 CDI_GROUP_ENTRY(timing,TimingConfig);
 CDI_GROUP_ENTRY(actions,ActionGroup,Name("A trigger or change will generate the following events."),RepName("Action"));
 CDI_GROUP_END();
+
+class Logic : public LogicCallback, public ConfigUpdateListener {
+public:
+    enum GroupFunction {Blocked,Group,Last};
+    enum LogicFunction {AND, OR, XOR, ANDChange, ORChange, ANDthenV2, V1, V2, True};
+    enum ActionType {SendExitGroup, SendEvaluateNext, ExitGroup, EvaluateNext};
+    Logic (openlcb::Node *node, const LogicConfig &cfg, ActiveTimers *timers) 
+                : node_(node), cfg_(cfg)
+    {
+        v1_ = new Variable(node_,cfg_.v1(),this,LogicCallback::V1);
+        v2_ = new Variable(node_,cfg_.v2(),this,LogicCallback::V2);
+        timer_ = new Timing(timers, cfg_.timing());
+        for (int i = 0; i < 4; i++) {
+            actions_[i] = new Action(node_,cfg_.actions().entry(i),timer_);
+        }
+        ConfigUpdateService::instance()->register_update_listener(this);
+    }
+    virtual UpdateAction apply_configuration(int fd, 
+                                             bool initial_load,
+                                             BarrierNotifiable *done) override;
+    virtual void factory_reset(int fd);
+    virtual void Evaluate(Which v,BarrierNotifiable *done);
+private:
+    openlcb::Node *node_;
+    const LogicConfig cfg_;
+    GroupFunction groupFunction_;
+    Variable *v1_, *v2_;
+    LogicFunction logicFunction_;
+    ActionType trueAction_, falseAction_;
+    Timing *timer_;
+    Action *actions_[4];
+};
 
 #endif // __LOGIC_HXX
 

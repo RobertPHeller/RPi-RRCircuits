@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 15:59:18 2019
-//  Last Modified : <190228.1421>
+//  Last Modified : <190301.2053>
 //
 //  Description	
 //
@@ -63,15 +63,11 @@ static const char MastProcessingMap[] =
 "<relation><property>2</property><value>Linked to previous</value></relation>";
 
 
-class EventConfigEntryRO : public openlcb::EventConfigEntry {
-public:
-    INHERIT_CONSTEXPR_CONSTRUCTOR(EventConfigEntryRO, openlcb::EventConfigEntry)
-    void write(int fd, uint64_t d) const {}
-};
-
 static const char LampFadeMap[] =
 "<relation><property>0</property><value>None</value></relation>"
 "<relation><property>1</property><value>Incandescent</value></relation>";
+
+
 
 /// CDI Configuration for a @ref Mast
 CDI_GROUP(MastConfig);
@@ -81,7 +77,7 @@ CDI_GROUP_ENTRY(processing,openlcb::Uint8ConfigEntry,
                 MapValues(MastProcessingMap));
 CDI_GROUP_ENTRY(mastid, openlcb::StringConfigEntry<8>,
                 Name("Mast ID"));
-CDI_GROUP_ENTRY(linkevent,EventConfigEntryRO,
+CDI_GROUP_ENTRY(linkevent,openlcb::EventConfigEntry,
                 Name("(P) Track Circuit Link Address. Copy and Paste into linked Track Circuit. (Read Only)"));
 #ifdef HAVEPWM
 CDI_GROUP_ENTRY(fade,openlcb::Uint8ConfigEntry,

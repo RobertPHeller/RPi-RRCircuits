@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:11:23 2019
-//  Last Modified : <190228.2036>
+//  Last Modified : <190302.1035>
 //
 //  Description	
 //
@@ -78,7 +78,7 @@ class TrackCircuit;
 
 class TrackCircuitCallback {
 public:
-    virtual void trigger(const TrackCircuit *caller) = 0;
+    virtual void trigger(const TrackCircuit *caller,BarrierNotifiable *done) = 0;
 };
 
 class TrackCircuit : public ConfigUpdateListener, public openlcb::SimpleEventHandler {
