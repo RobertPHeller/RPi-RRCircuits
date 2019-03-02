@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:08:16 2019
-//  Last Modified : <190302.1057>
+//  Last Modified : <190302.1323>
 //
 //  Description	
 //
@@ -133,8 +133,8 @@ CDI_GROUP_END();
 
 class LogicCallback {
 public:
-    enum Which {V1, V2};
-    virtual void Evaluate(Which v,BarrierNotifiable *done) = 0;
+    enum Which {V1, V2, Unknown};
+    virtual bool Evaluate(Which v,BarrierNotifiable *done) = 0;
 };
 
 class Variable : public TrackCircuitCallback, public ConfigUpdateListener, public openlcb::SimpleEventHandler {
@@ -295,7 +295,7 @@ public:
         ConfigUpdateService::instance()->register_update_listener(this);
     }
     void trigger(BarrierNotifiable *done);
-    void DoAction(bool logicResult,BarrierNotifiable *done);
+    bool DoAction(bool logicResult,BarrierNotifiable *done);
     virtual UpdateAction apply_configuration(int fd, 
                                              bool initial_load,
                                              BarrierNotifiable *done) override;
@@ -347,27 +347,43 @@ public:
     enum GroupFunction {Blocked,Group,Last};
     enum LogicFunction {AND, OR, XOR, ANDChange, ORChange, ANDthenV2, V1, V2, True};
     enum ActionType {SendExitGroup, SendEvaluateNext, ExitGroup, EvaluateNext};
-    Logic (openlcb::Node *node, const LogicConfig &cfg, ActiveTimers *timers) 
-                : node_(node), cfg_(cfg)
+    Logic (openlcb::Node *node, const LogicConfig &cfg, ActiveTimers *timers, Logic *next) 
+                : node_(node), cfg_(cfg), next_(next)
     {
+        previous_ = nullptr;
         v1_ = new Variable(node_,cfg_.v1(),this,LogicCallback::V1);
         v2_ = new Variable(node_,cfg_.v2(),this,LogicCallback::V2);
         timer_ = new Timing(timers, cfg_.timing());
         for (int i = 0; i < 4; i++) {
             actions_[i] = new Action(node_,cfg_.actions().entry(i),timer_);
         }
+        if (next_ != nullptr) {
+            next_->_setPrevious(this);
+        }
+        oldValue_ = false;
         ConfigUpdateService::instance()->register_update_listener(this);
     }
     virtual UpdateAction apply_configuration(int fd, 
                                              bool initial_load,
                                              BarrierNotifiable *done) override;
     virtual void factory_reset(int fd);
-    virtual void Evaluate(Which v,BarrierNotifiable *done);
+    virtual bool Evaluate(Which v,BarrierNotifiable *done);
 private:
+    void _setPrevious(Logic *p) {previous_ = p;}
+    Logic *_topOfGroup() {
+        Logic *top = this;
+        while (top->previous_ != nullptr && 
+               top->previous_->groupFunction_ == Group) {
+            top = top->previous_;
+        }
+        return top;
+    }
     openlcb::Node *node_;
     const LogicConfig cfg_;
+    Logic *next_, *previous_;
     GroupFunction groupFunction_;
     Variable *v1_, *v2_;
+    bool oldValue_;
     LogicFunction logicFunction_;
     ActionType trueAction_, falseAction_;
     Timing *timer_;

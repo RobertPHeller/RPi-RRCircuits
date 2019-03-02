@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Mar 1 10:46:51 2019
-//  Last Modified : <190302.1055>
+//  Last Modified : <190302.1341>
 //
 //  Description	
 //
@@ -245,7 +245,7 @@ void Action::trigger(BarrierNotifiable *done)
     }
 }
 
-void Action::DoAction(bool logicResult,BarrierNotifiable *done)
+bool Action::DoAction(bool logicResult,BarrierNotifiable *done)
 {
     switch (actionTrigger_) {
     case None: break;
@@ -264,8 +264,10 @@ void Action::DoAction(bool logicResult,BarrierNotifiable *done)
         break;
     default:
         lastLogicValue_ = logicResult;
+        return true;
         break;
     }
+    return false;
 }
 
 ConfigUpdateListener::UpdateAction Action::apply_configuration(int fd, 
@@ -344,3 +346,111 @@ void Action::SendEventReport(BarrierNotifiable *done)
                             openlcb::eventid_to_buffer(action_event_),
                             done);
 }
+
+ConfigUpdateListener::UpdateAction Logic::apply_configuration(int fd, 
+                                                              bool initial_load,
+                                                              BarrierNotifiable *done)
+{
+    AutoNotify n(done);
+    groupFunction_ = (GroupFunction) cfg_.groupFunction().read(fd);
+    logicFunction_ = (LogicFunction) cfg_.logic().logicFunction().read(fd);
+    trueAction_    = (ActionType)    cfg_.trueAction().read(fd);
+    falseAction_   = (ActionType)    cfg_.falseAction().read(fd);
+    return UPDATED;
+}
+
+void Logic::factory_reset(int fd)
+{
+    cfg_.description().write(fd,"");
+    CDI_FACTORY_RESET(cfg_.groupFunction);
+    CDI_FACTORY_RESET(cfg_.logic().logicFunction);
+    CDI_FACTORY_RESET(cfg_.trueAction);
+    CDI_FACTORY_RESET(cfg_.falseAction);
+}
+
+bool Logic::Evaluate(Which v,BarrierNotifiable *done)
+{
+    if (groupFunction_ == Blocked) return false;
+    if (groupFunction_ == Group) {
+        bool prev = _topOfGroup()->Evaluate(LogicCallback::Unknown,done);
+        if (prev) return prev;
+    }
+    bool result = false;
+    switch (logicFunction_) {
+    case AND:
+        result = v1_->Value() && v2_->Value();
+        break;
+    case OR:
+        result = v1_->Value() || v2_->Value();
+        break;
+    case XOR:
+        result =  ((v1_->Value() && !v2_->Value()) || ((v2_->Value() && !v1_->Value())));
+        break;
+    case ANDChange:
+        result = v1_->Value() && v2_->Value();
+        result = result != oldValue_;        
+        break;
+    case ORChange:
+        result = v1_->Value() || v2_->Value();
+        result = result != oldValue_;        
+        break;
+    case ANDthenV2:
+        result = (v1_->Value() && v2_->Value() && v == LogicCallback::V2);
+        break;
+    case V1:
+        result = (v1_->Value() != 0);
+        break;
+    case V2:
+        result = (v2_->Value() != 0);
+    case True:
+        result = true;
+        break;
+    }
+    oldValue_ = result;
+    ActionType action_;
+    if (result) {
+        action_ = trueAction_;
+    } else {
+        action_ = falseAction_;
+    }
+    bool delayStarted = false;
+    int i;
+    switch (action_) {
+    case SendExitGroup:
+        for (i = 0; i < 4; i++) {
+            if (actions_[i]->DoAction(result,done) && !delayStarted) {
+                timer_->startDelay();
+                delayStarted = true;
+            }
+        }
+        return true;
+    case SendEvaluateNext:
+        for (i = 0; i < 4; i++) {
+            if (actions_[i]->DoAction(result,done) && !delayStarted) {
+                timer_->startDelay();
+                delayStarted = true;
+            }
+        }
+        if (v == LogicCallback::Unknown) {
+            if (groupFunction_ == Group && next_ != nullptr) {
+                return next_->Evaluate(LogicCallback::Unknown,done);
+            } else {
+                return false;
+            }
+        }
+        break;
+    case ExitGroup:
+        return true;
+    case EvaluateNext:
+        if (v == LogicCallback::Unknown) {
+            if (groupFunction_ == Group && next_ != nullptr) {
+                return next_->Evaluate(LogicCallback::Unknown,done);
+            } else {
+                return false;
+            }
+        }
+        break;
+    }
+    return result;
+}
+
