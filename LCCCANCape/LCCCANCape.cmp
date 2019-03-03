@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Sat 02 Mar 2019 18:56:18 EST
+Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Sun 03 Mar 2019 07:59:32 AM EST
 
 BeginCmp
 TimeStamp = /5C71783C;
@@ -155,10 +155,10 @@ IdModule  = ScrewTerm2.54-2;
 EndCmp
 
 BeginCmp
-TimeStamp = /5C7B1976;
+TimeStamp = /5C7A7F11;
 Reference = U1;
-ValeurCmp = TCAN332DR;
-IdModule  = SOIC-8_N;
+ValeurCmp = SN65HVD233-HT;
+IdModule  = DIP-8__300;
 EndCmp
 
 BeginCmp
@@ -166,6 +166,13 @@ TimeStamp = /5C719AD8/5C573FFA;
 Reference = U2;
 ValeurCmp = CAT24C256W;
 IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7BCFCE;
+Reference = U3;
+ValeurCmp = TCAN332DR;
+IdModule  = SOIC-8_N;
 EndCmp
 
 EndListe
