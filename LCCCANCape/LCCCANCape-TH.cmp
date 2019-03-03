@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Sat 02 Mar 2019 18:56:18 EST
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Mon 25 Feb 2019 21:07:04 EST
 
 BeginCmp
 TimeStamp = /5C71783C;
@@ -26,6 +26,13 @@ TimeStamp = /5C719AD8/5C57407C;
 Reference = C4;
 ValeurCmp = .1 uf;
 IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C718393;
+Reference = D1;
+ValeurCmp = 1N5226B;
+IdModule  = DO-35;
 EndCmp
 
 BeginCmp
@@ -82,6 +89,13 @@ TimeStamp = /55DF7DBA;
 Reference = P9;
 ValeurCmp = BeagleBone_Black_Header;
 IdModule  = Socket_BeagleBone_Black:Socket_BeagleBone_Black;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7183A2;
+Reference = R1;
+ValeurCmp = 220 Ohms;
+IdModule  = R1;
 EndCmp
 
 BeginCmp
@@ -155,10 +169,10 @@ IdModule  = ScrewTerm2.54-2;
 EndCmp
 
 BeginCmp
-TimeStamp = /5C7B1976;
+TimeStamp = /5C717688;
 Reference = U1;
-ValeurCmp = TCAN332DR;
-IdModule  = SOIC-8_N;
+ValeurCmp = MCP2551;
+IdModule  = DIP-8__300;
 EndCmp
 
 BeginCmp
