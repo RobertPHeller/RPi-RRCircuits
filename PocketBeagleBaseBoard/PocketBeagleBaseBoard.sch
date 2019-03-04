@@ -38,7 +38,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "3 mar 2019"
+Date "4 mar 2019"
 Rev ""
 Comp ""
 Comment1 ""
@@ -218,9 +218,9 @@ F 3 "" H 7000 2350 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4700 2750 4000 2750
+	4000 2750 4700 2750
 Wire Wire Line
-	4000 2750 4000 2450
+	4000 2450 4000 2750
 Wire Wire Line
 	3300 2250 3750 2250
 Wire Wire Line
@@ -278,7 +278,7 @@ Wire Wire Line
 Wire Wire Line
 	8700 3050 9250 3050
 Wire Wire Line
-	9250 3150 8600 3150
+	8600 3150 9250 3150
 Wire Wire Line
 	8600 3150 8600 5100
 Wire Wire Line
@@ -304,14 +304,14 @@ Wire Wire Line
 Wire Wire Line
 	6350 2000 7000 2000
 Wire Wire Line
-	7000 2350 7000 2200
+	7000 2200 7000 2350
 Connection ~ 7000 2200
 Wire Wire Line
 	8950 2300 8950 3150
 Connection ~ 8950 2850
 Connection ~ 8950 3150
 Wire Wire Line
-	8950 2300 7000 2300
+	7000 2300 8950 2300
 Connection ~ 7000 2300
 Connection ~ 8500 2300
 Connection ~ 8500 3250
@@ -414,7 +414,7 @@ F 3 "~" H 5200 5450 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5200 5250 4800 5250
+	4800 5250 5200 5250
 Wire Wire Line
 	4800 5650 5200 5650
 $Comp
@@ -503,9 +503,9 @@ $EndComp
 Wire Wire Line
 	7400 6300 7400 6450
 Wire Wire Line
-	7800 5700 7800 5850
+	7800 5850 7800 5700
 Wire Wire Line
-	7800 5850 7000 5850
+	7000 5850 7800 5850
 Wire Wire Line
 	7000 5850 7000 5700
 Wire Wire Line
@@ -524,7 +524,7 @@ Wire Wire Line
 Wire Wire Line
 	7600 4700 7600 4850
 Text Notes 1850 5300 0    60   ~ 0
-Use only one of U1 or U3, not both.\nU1 is the older through hole part\nand U3 is the newer SMD part.
+Use only one of U1 or U2, not both.\nU2 is the older through hole part\nand U1 is the newer SMD part.
 Wire Wire Line
 	4500 4700 4500 5950
 Wire Wire Line
@@ -541,4 +541,226 @@ Wire Wire Line
 	4600 5150 4200 5150
 Connection ~ 7100 4600
 Connection ~ 4600 5150
+$Comp
+L CONN_5X2 H1
+U 1 1 5C7C70F6
+P 3750 1000
+F 0 "H1" H 3750 1300 60  0000 C CNN
+F 1 "GPIO1" V 3750 1000 50  0000 C CNN
+F 2 "" H 3750 1000 60  0000 C CNN
+F 3 "" H 3750 1000 60  0000 C CNN
+	1    3750 1000
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_5X2 H2
+U 1 1 5C7C7105
+P 5350 1000
+F 0 "H2" H 5350 1300 60  0000 C CNN
+F 1 "GPIO2" V 5350 1000 50  0000 C CNN
+F 2 "" H 5350 1000 60  0000 C CNN
+F 3 "" H 5350 1000 60  0000 C CNN
+	1    5350 1000
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR013
+U 1 1 5C7C7501
+P 3250 1000
+F 0 "#PWR013" H 3250 1000 30  0001 C CNN
+F 1 "GND" H 3250 930 30  0001 C CNN
+F 2 "" H 3250 1000 60  0000 C CNN
+F 3 "" H 3250 1000 60  0000 C CNN
+	1    3250 1000
+	0    1    1    0   
+$EndComp
+$Comp
+L +3.3V #PWR014
+U 1 1 5C7C7510
+P 4250 1000
+F 0 "#PWR014" H 4250 960 30  0001 C CNN
+F 1 "+3.3V" H 4250 1110 30  0000 C CNN
+F 2 "" H 4250 1000 60  0000 C CNN
+F 3 "" H 4250 1000 60  0000 C CNN
+	1    4250 1000
+	0    1    1    0   
+$EndComp
+$Comp
+L +3.3V #PWR015
+U 1 1 5C7C751F
+P 5850 1000
+F 0 "#PWR015" H 5850 960 30  0001 C CNN
+F 1 "+3.3V" H 5850 1110 30  0000 C CNN
+F 2 "" H 5850 1000 60  0000 C CNN
+F 3 "" H 5850 1000 60  0000 C CNN
+	1    5850 1000
+	0    1    1    0   
+$EndComp
+$Comp
+L GND #PWR016
+U 1 1 5C7C752E
+P 4850 1000
+F 0 "#PWR016" H 4850 1000 30  0001 C CNN
+F 1 "GND" H 4850 930 30  0001 C CNN
+F 2 "" H 4850 1000 60  0000 C CNN
+F 3 "" H 4850 1000 60  0000 C CNN
+	1    4850 1000
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5850 1000 5750 1000
+Wire Wire Line
+	4950 1000 4850 1000
+Wire Wire Line
+	3250 1000 3350 1000
+Wire Wire Line
+	4250 1000 4150 1000
+Text Label 3300 1650 0    60   ~ 0
+GPIO87
+Text Label 3300 1750 0    60   ~ 0
+GPIO89
+Text Label 3300 2550 0    60   ~ 0
+GPIO20
+Text Label 3300 3250 0    60   ~ 0
+GPIO26
+Text Label 4700 3250 2    60   ~ 0
+GPIO45
+Text Label 4700 2550 2    60   ~ 0
+GPIO27
+Text Label 4700 2450 2    60   ~ 0
+GPIO65
+Text Label 4700 1750 2    60   ~ 0
+GPIO23
+Text Label 5600 1650 0    60   ~ 0
+GPIO59
+Text Label 5600 1750 0    60   ~ 0
+GPIO58
+Text Label 5600 1850 0    60   ~ 0
+GPIO57
+Text Label 5600 1950 0    60   ~ 0
+GPIO60
+Text Label 5600 2050 0    60   ~ 0
+GPIO52
+Text Label 5600 2450 0    60   ~ 0
+GPIO47
+Text Label 5600 2550 0    60   ~ 0
+GPIO64
+Text Label 5600 2650 0    60   ~ 0
+GPIO46
+Text Label 5600 2750 0    60   ~ 0
+GPIO48
+Text Label 4150 1200 0    60   ~ 0
+GPIO20
+Text Label 4150 1100 0    60   ~ 0
+GPIO26
+Text Label 4150 900  0    60   ~ 0
+GPIO45
+Text Label 4150 800  0    60   ~ 0
+GPIO47
+Text Label 3350 800  2    60   ~ 0
+GPIO48
+Text Label 3350 900  2    60   ~ 0
+GPIO46
+Text Label 3350 1100 2    60   ~ 0
+GPIO27
+Text Label 3350 1200 2    60   ~ 0
+GPIO23
+Text Label 4950 800  2    60   ~ 0
+GPIO87
+Text Label 4950 900  2    60   ~ 0
+GPIO64
+Text Label 4950 1100 2    60   ~ 0
+GPIO59
+Text Label 4950 1200 2    60   ~ 0
+GPIO57
+Text Label 5750 800  0    60   ~ 0
+GPIO65
+Text Label 5750 900  0    60   ~ 0
+GPIO60
+Text Label 5750 1100 0    60   ~ 0
+GPIO58
+Text Label 5750 1200 0    60   ~ 0
+GPIO52
+$Comp
+L CONN_6 H3
+U 1 1 5C7C8AE3
+P 4150 1900
+F 0 "H3" V 4100 1900 60  0000 C CNN
+F 1 "SPI0" V 4200 1900 60  0000 C CNN
+F 2 "" H 4150 1900 60  0000 C CNN
+F 3 "" H 4150 1900 60  0000 C CNN
+	1    4150 1900
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_4 H4
+U 1 1 5C7C8AF2
+P 4150 3100
+F 0 "H4" V 4100 3100 50  0000 C CNN
+F 1 "I2C2" V 4200 3100 50  0000 C CNN
+F 2 "" H 4150 3100 60  0000 C CNN
+F 3 "" H 4150 3100 60  0000 C CNN
+	1    4150 3100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3800 2950 3800 2700
+Wire Wire Line
+	3800 2700 4000 2700
+Connection ~ 4000 2700
+Wire Wire Line
+	3800 2150 3800 2550
+Wire Wire Line
+	3800 2550 3650 2550
+Connection ~ 3650 2550
+Wire Wire Line
+	3800 3250 3500 3250
+Wire Wire Line
+	3500 3250 3500 2650
+Connection ~ 3500 2650
+Wire Wire Line
+	3300 1850 3550 1850
+Wire Wire Line
+	3550 1850 3550 1750
+Wire Wire Line
+	3550 1750 3800 1750
+Wire Wire Line
+	3800 1650 3650 1650
+Wire Wire Line
+	3650 1650 3650 2250
+Connection ~ 3650 2250
+Wire Wire Line
+	3300 1950 3700 1950
+Wire Wire Line
+	3700 1950 3700 1850
+Wire Wire Line
+	3700 1850 3800 1850
+Wire Wire Line
+	3500 2050 3500 2000
+Wire Wire Line
+	3500 2000 3750 2000
+Wire Wire Line
+	3750 2000 3750 1950
+Wire Wire Line
+	3750 1950 3800 1950
+Wire Wire Line
+	3500 2050 3300 2050
+Wire Wire Line
+	3300 2150 3700 2150
+Wire Wire Line
+	3700 2150 3700 2050
+Wire Wire Line
+	3700 2050 3800 2050
+Wire Wire Line
+	3300 2850 3600 2850
+Wire Wire Line
+	3600 2850 3600 3050
+Wire Wire Line
+	3600 3050 3800 3050
+Wire Wire Line
+	3300 2950 3550 2950
+Wire Wire Line
+	3550 2950 3550 3150
+Wire Wire Line
+	3550 3150 3800 3150
 $EndSCHEMATC

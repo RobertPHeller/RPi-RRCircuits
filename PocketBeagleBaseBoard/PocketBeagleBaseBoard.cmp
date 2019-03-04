@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Sun 03 Mar 2019 04:29:02 PM EST
+Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Sun 03 Mar 2019 09:21:40 PM EST
 
 BeginCmp
 TimeStamp = /5C7C46C3;
@@ -33,6 +33,34 @@ TimeStamp = /5C7C4232;
 Reference = D2;
 ValeurCmp = SB240E;
 IdModule  = DO-35;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7C70F6;
+Reference = H1;
+ValeurCmp = GPIO1;
+IdModule  = vasch_strip_5x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7C7105;
+Reference = H2;
+ValeurCmp = GPIO2;
+IdModule  = vasch_strip_5x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7C8AE3;
+Reference = H3;
+ValeurCmp = SPI0;
+IdModule  = pin_strip_6-90;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7C8AF2;
+Reference = H4;
+ValeurCmp = I2C2;
+IdModule  = pin_strip_4-90;
 EndCmp
 
 BeginCmp

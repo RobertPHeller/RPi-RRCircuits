@@ -1,4 +1,4 @@
-update=Sun 03 Mar 2019 04:38:12 PM EST
+update=Sun 03 Mar 2019 08:18:02 PM EST
 version=1
 last_client=pcbnew
 [cvpcb]
@@ -91,3 +91,4 @@ LibName18=../ScrewTerm254_2
 LibName19=../RJ45-8N-S
 LibName20=smd_soic_packages
 LibName21=MountingHole_RevA
+LibName22=GPIOHeaders
