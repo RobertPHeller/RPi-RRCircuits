@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Feb 14 12:59:07 2019
-//  Last Modified : <190219.1928>
+//  Last Modified : <190304.1541>
 //
 //  Description	
 //
@@ -159,8 +159,8 @@ int appl_main(int argc, char *argv[])
              "/tmp/config_eeprom_%012llX",NODE_ID);
     parse_args(argc, argv);
     GpioInit::hw_init();
-    PWM1_Pin.exportPin();
-    PWM2_Pin.exportPin();
+    PWM1_Pin.export_pin();
+    PWM2_Pin.export_pin();
     stack.create_config_file_if_needed(cfg.seg().internal_config(), openlcb::CANONICAL_VERSION, openlcb::CONFIG_FILE_SIZE);
     
     // Connects to a TCP hub on the internet.
