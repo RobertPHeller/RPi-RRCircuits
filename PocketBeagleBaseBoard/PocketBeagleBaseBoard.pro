@@ -1,4 +1,4 @@
-update=Sun 03 Mar 2019 08:18:02 PM EST
+update=Mon 04 Mar 2019 09:45:25 AM EST
 version=1
 last_client=pcbnew
 [cvpcb]
@@ -48,15 +48,16 @@ LibName28=atmel
 LibName29=contrib
 LibName30=valves
 LibName31=pocketbeagle
-LibName32=/home/heller/RRCircuits/sn65hvd233-ht
+LibName32=../sn65hvd233-ht
+LibName33=../lm2574n-5
 [pcbnew]
 version=1
 LastNetListRead=PocketBeagleBaseBoard.net
 UseCmpFile=1
-PadDrill=0.600000000000
-PadDrillOvalY=0.600000000000
-PadSizeH=1.500000000000
-PadSizeV=1.500000000000
+PadDrill=1.016000000000
+PadDrillOvalY=1.016000000000
+PadSizeH=1.778000000000
+PadSizeV=1.778000000000
 PcbTextSizeV=1.500000000000
 PcbTextSizeH=1.500000000000
 PcbTextThickness=0.300000000000
@@ -92,3 +93,5 @@ LibName19=../RJ45-8N-S
 LibName20=smd_soic_packages
 LibName21=MountingHole_RevA
 LibName22=GPIOHeaders
+LibName23=../PELowProfile
+LibName24=../C1-3V8

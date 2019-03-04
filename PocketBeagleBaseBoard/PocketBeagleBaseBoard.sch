@@ -31,12 +31,13 @@ LIBS:contrib
 LIBS:valves
 LIBS:pocketbeagle
 LIBS:sn65hvd233-ht
+LIBS:lm2574n-5
 LIBS:PocketBeagleBaseBoard-cache
 EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 1
+Sheet 1 2
 Title ""
 Date "4 mar 2019"
 Rev ""
@@ -763,4 +764,23 @@ Wire Wire Line
 	3550 2950 3550 3150
 Wire Wire Line
 	3550 3150 3800 3150
+$Sheet
+S 650  2850 1500 1600
+U 5C7D285B
+F0 "Power Supply" 50
+F1 "PowerSupply.sch" 50
+F2 "5V Out" O R 2150 3050 60 
+F3 "12-15 Volt input" I R 2150 3750 60 
+$EndSheet
+Wire Wire Line
+	2400 1650 2250 1650
+Wire Wire Line
+	2250 1650 2250 3050
+Wire Wire Line
+	2250 3050 2150 3050
+Wire Wire Line
+	2150 3750 7100 3750
+Wire Wire Line
+	7100 3750 7100 3400
+Connection ~ 7100 3400
 $EndSCHEMATC

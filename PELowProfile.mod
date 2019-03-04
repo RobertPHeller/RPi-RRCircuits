@@ -1,0 +1,34 @@
+PCBNEW-LibModule-V1  Mon 04 Mar 2019 09:21:31 AM EST
+# encoding utf-8
+Units mm
+$INDEX
+PE-LowProfile
+$EndINDEX
+$MODULE PE-LowProfile
+Po 0 0 0 15 5C7D3398 00000000 ~~
+Li PE-LowProfile
+Sc 0
+AR 
+Op 0 0 0
+T0 0 -3.81 1 1 0 0.15 N V 21 N "PE-LowProfile"
+T1 0 3.81 1 1 0 0.15 N V 21 N "VAL**"
+DS -9.015 -9.015 9.015 -9.015 0.15 21
+DS 9.015 -9.015 9.015 9.015 0.15 21
+DS 9.015 9.015 -9.015 9.015 0.15 21
+DS -9.015 9.015 -9.015 -9.015 0.15 21
+$PAD
+Sh "1" C 1.78 1.78 0 0 0
+Dr 1.14 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 5.08 -7.62
+$EndPAD
+$PAD
+Sh "2" C 1.78 1.78 0 0 0
+Dr 1.14 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -5.08 7.62
+$EndPAD
+$EndMODULE PE-LowProfile
+$EndLIBRARY

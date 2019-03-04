@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Sun 03 Mar 2019 09:21:40 PM EST
+Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Mon 04 Mar 2019 10:24:52 AM EST
 
 BeginCmp
 TimeStamp = /5C7C46C3;
@@ -22,6 +22,20 @@ IdModule  = C1;
 EndCmp
 
 BeginCmp
+TimeStamp = /5C7D285B/5C7D358B;
+Reference = C4;
+ValeurCmp = 220 uf 25V;
+IdModule  = C1-3V8;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7D285B/5C7D3DB0;
+Reference = C5;
+ValeurCmp = 22 uf 100V;
+IdModule  = C1-3V8;
+EndCmp
+
+BeginCmp
 TimeStamp = /5C7C4223;
 Reference = D1;
 ValeurCmp = SB240E;
@@ -33,6 +47,13 @@ TimeStamp = /5C7C4232;
 Reference = D2;
 ValeurCmp = SB240E;
 IdModule  = DO-35;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7D285B/5C7D3F8E;
+Reference = D3;
+ValeurCmp = SB160-E3/54;
+IdModule  = DO-41;
 EndCmp
 
 BeginCmp
@@ -82,6 +103,13 @@ TimeStamp = /5C7C484B;
 Reference = JMP1;
 ValeurCmp = Termination;
 IdModule  = PIN_ARRAY_2X2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7D285B/5C7D34C6;
+Reference = L1;
+ValeurCmp = 330 uh;
+IdModule  = PE-LowProfile;
 EndCmp
 
 BeginCmp
@@ -137,6 +165,13 @@ BeginCmp
 TimeStamp = /5C7C40B3;
 Reference = U2;
 ValeurCmp = SN65HVD233-HT;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7D285B/5C7D307C;
+Reference = U3;
+ValeurCmp = LM2574N-5.0;
 IdModule  = DIP-8__300;
 EndCmp
 

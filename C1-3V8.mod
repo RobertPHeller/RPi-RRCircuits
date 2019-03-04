@@ -1,0 +1,39 @@
+PCBNEW-LibModule-V1  Mon 04 Mar 2019 09:49:03 AM EST
+# encoding utf-8
+Units mm
+$INDEX
+C1-3V8
+$EndINDEX
+$MODULE C1-3V8
+Po 0 0 0 15 5C7D3915 00000000 ~~
+Li C1-3V8
+Cd Condensateur polarise
+Kw CP
+Sc 0
+AR 
+Op 0 0 0
+T0 0 2.54 1.016 1.016 0 0.2032 N V 21 N "C1.3V8"
+T1 0 -2.54 1.016 1.016 0 0.2032 N V 21 N "C***"
+DC 0 0 -4.445 0 0.3048 21
+$PAD
+Sh "1" R 1.778 1.778 0 0 0
+Dr 1.016 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -1.75 0
+$EndPAD
+$PAD
+Sh "2" C 1.778 1.778 0 0 0
+Dr 1.016 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 1.75 0
+$EndPAD
+$SHAPE3D
+Na "discret/c_vert_c2v10.wrl"
+Sc 1 1 1
+Of 0 0 0
+Ro 0 0 0
+$EndSHAPE3D
+$EndMODULE C1-3V8
+$EndLIBRARY
