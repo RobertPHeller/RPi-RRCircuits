@@ -1,0 +1,248 @@
+Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Tue 05 Mar 2019 09:07:49 AM EST
+
+BeginCmp
+TimeStamp = /5C7C46C3;
+Reference = C1;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7C46D2;
+Reference = C2;
+ValeurCmp = 15 uf, 15V;
+IdModule  = C1V5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7C485A;
+Reference = C3;
+ValeurCmp = 47 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7D285B/5C7D358B;
+Reference = C4;
+ValeurCmp = 220 uf 25V;
+IdModule  = C1-3V8;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7D285B/5C7D3DB0;
+Reference = C5;
+ValeurCmp = 22 uf 100V;
+IdModule  = C1-3V8;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7E77D4/5C7E7814;
+Reference = C6;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7C4223;
+Reference = D1;
+ValeurCmp = SB240E;
+IdModule  = DO-35;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7C4232;
+Reference = D2;
+ValeurCmp = SB240E;
+IdModule  = DO-35;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7D285B/5C7D3F8E;
+Reference = D3;
+ValeurCmp = SB160-E3/54;
+IdModule  = DO-41;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7C40D6;
+Reference = J1;
+ValeurCmp = RJ45;
+IdModule  = RJ45_8N-S;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7C40FE;
+Reference = J2;
+ValeurCmp = RJ45;
+IdModule  = RJ45_8N-S;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7C484B;
+Reference = JMP1;
+ValeurCmp = Termination;
+IdModule  = PIN_ARRAY_2X2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7E77D4/5C7E7896;
+Reference = JP1;
+ValeurCmp = CK A CA;
+IdModule  = 3PosJumper;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7E77D4/5C7E78B4;
+Reference = JP2;
+ValeurCmp = CK A CA;
+IdModule  = 3PosJumper;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7E77D4/5C7E78A5;
+Reference = JP3;
+ValeurCmp = CK B CA;
+IdModule  = 3PosJumper;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7E77D4/5C7E78C3;
+Reference = JP4;
+ValeurCmp = CK B CA;
+IdModule  = 3PosJumper;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7D285B/5C7D34C6;
+Reference = L1;
+ValeurCmp = 330 uh;
+IdModule  = PE-LowProfile;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7C1FE0;
+Reference = P1;
+ValeurCmp = POCKETBEAGLE-P1;
+IdModule  = pin_socket_18x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7C1FEF;
+Reference = P2;
+ValeurCmp = POCKETBEAGLE-P2;
+IdModule  = pin_socket_18x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7E77D4/5C7E7800;
+Reference = P3;
+ValeurCmp = 0 1 2;
+IdModule  = pin_array_3x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7E77D4/5C7E78F0;
+Reference = P4;
+ValeurCmp = B7 B6 B5 B4 B3 B2 B1 B0 C;
+IdModule  = ScrewTerm_2.54-9;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7E77D4/5C7E78FF;
+Reference = P5;
+ValeurCmp = A7 A6 A5 A4 A3 A2 A1 A0 C;
+IdModule  = ScrewTerm_2.54-9;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7C482D;
+Reference = R1;
+ValeurCmp = 60 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7C483C;
+Reference = R2;
+ValeurCmp = 60 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7E77D4/5C7E78E1;
+Reference = RP1;
+ValeurCmp = 220 Ohms;
+IdModule  = DIP-16__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7E77D4/5C7E78D2;
+Reference = RP2;
+ValeurCmp = 220 Ohms;
+IdModule  = DIP-16__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7E77D4/5C7E77F1;
+Reference = RR1;
+ValeurCmp = 10K Ohms;
+IdModule  = SIL-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7C4241;
+Reference = T1;
+ValeurCmp = + 15 in -;
+IdModule  = ScrewTerm2.54-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7C4250;
+Reference = T2;
+ValeurCmp = + 15 out -;
+IdModule  = ScrewTerm2.54-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7C40A4;
+Reference = U1;
+ValeurCmp = TCAN332DR;
+IdModule  = SOIC-8_N;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7C40B3;
+Reference = U2;
+ValeurCmp = SN65HVD233-HT;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7D285B/5C7D307C;
+Reference = U3;
+ValeurCmp = LM2574N-5.0;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7E77D4/5C7E77E2;
+Reference = U4;
+ValeurCmp = MCP23017;
+IdModule  = DIP-28__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7E77D4/5C7E7823;
+Reference = U5;
+ValeurCmp = TBD62X83A;
+IdModule  = DIP-18__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7E77D4/5C7E7864;
+Reference = U6;
+ValeurCmp = TBD62X83A;
+IdModule  = DIP-18__300;
+EndCmp
+
+EndListe
