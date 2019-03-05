@@ -1,0 +1,47 @@
+PCBNEW-LibModule-V1  Mon 04 Mar 2019 18:37:20 EST
+# encoding utf-8
+Units mm
+$INDEX
+mors_2p
+$EndINDEX
+$MODULE mors_2p
+Po 0 0 0 15 4B90D9AA 00000000 ~~
+Li mors_2p
+Cd Terminal block 2 pins
+Kw DEV
+Sc 0
+AR 
+Op 0 0 0
+T0 0 -5.842 1.524 1.524 0 0.3048 N V 21 N "MORS_2P"
+T1 0 5.842 1.524 1.524 0 0.3048 N V 21 N "JP***"
+DS 5.08 -3.81 5.08 -4.572 0.254 21
+DS 5.08 -4.572 -5.08 -4.572 0.254 21
+DS -5.08 -4.572 -5.08 -3.81 0.254 21
+DS 5.08 4.572 -5.08 4.572 0.254 21
+DS -5.08 4.572 -5.08 3.556 0.254 21
+DS -5.08 3.556 5.08 3.556 0.254 21
+DS 5.08 3.556 5.08 4.572 0.254 21
+DS 5.08 3.81 5.08 -3.81 0.254 21
+DS -5.08 -3.81 -5.08 3.81 0.254 21
+$PAD
+Sh "1" R 2.99974 2.99974 0 0 0
+Dr 1.24968 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -2.54 0
+$EndPAD
+$PAD
+Sh "2" C 2.99974 2.99974 0 0 0
+Dr 1.24968 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 2.54 0
+$EndPAD
+$SHAPE3D
+Na "walter/conn_screw/mors_2p.wrl"
+Sc 1 1 1
+Of 0 0 0
+Ro 0 0 0
+$EndSHAPE3D
+$EndMODULE mors_2p
+$EndLIBRARY
