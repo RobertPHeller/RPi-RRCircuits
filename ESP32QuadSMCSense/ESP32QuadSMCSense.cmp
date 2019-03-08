@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Fri 08 Mar 2019 12:02:37 PM EST
+Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Fri 08 Mar 2019 02:01:38 PM EST
 
 BeginCmp
 TimeStamp = /5C828AE5/5C828DA1;
@@ -33,6 +33,20 @@ TimeStamp = /5C828B13/5C829D01;
 Reference = C5;
 ValeurCmp = 22 uf 100V;
 IdModule  = C1-3V8;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C82D6C5;
+Reference = C6;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C82D6DA;
+Reference = C7;
+ValeurCmp = .1 uf;
+IdModule  = C1;
 EndCmp
 
 BeginCmp
@@ -106,6 +120,13 @@ IdModule  = R1;
 EndCmp
 
 BeginCmp
+TimeStamp = /5C82CB13;
+Reference = RR1;
+ValeurCmp = 10K Ohms;
+IdModule  = SIL-9;
+EndCmp
+
+BeginCmp
 TimeStamp = /5C828AE5/5C82965E;
 Reference = T1;
 ValeurCmp = + 15 in -;
@@ -117,6 +138,34 @@ TimeStamp = /5C828AE5/5C829479;
 Reference = T2;
 ValeurCmp = + 15 out -;
 IdModule  = ScrewTerm2.54-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C82C278;
+Reference = T3;
+ValeurCmp = Motor 1;
+IdModule  = ScrewTerm_2.54-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C82C2AF;
+Reference = T4;
+ValeurCmp = Motor 2;
+IdModule  = ScrewTerm_2.54-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C82C2D2;
+Reference = T5;
+ValeurCmp = Motor 3;
+IdModule  = ScrewTerm_2.54-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C82C2D8;
+Reference = T6;
+ValeurCmp = Motor 4;
+IdModule  = ScrewTerm_2.54-5;
 EndCmp
 
 BeginCmp
@@ -145,6 +194,48 @@ TimeStamp = /5C828B13/5C829CEE;
 Reference = U3;
 ValeurCmp = LM2574N-5.0;
 IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C82B683;
+Reference = U4;
+ValeurCmp = TC4428;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C82C081;
+Reference = U5;
+ValeurCmp = TC4428;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C82C0BD;
+Reference = U6;
+ValeurCmp = TC4428;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C82C0DB;
+Reference = U7;
+ValeurCmp = TC4428;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C82C5A8;
+Reference = U8;
+ValeurCmp = 74HCT00;
+IdModule  = DIP-14__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C82C717;
+Reference = U9;
+ValeurCmp = 74HCT00;
+IdModule  = DIP-14__300;
 EndCmp
 
 EndListe
