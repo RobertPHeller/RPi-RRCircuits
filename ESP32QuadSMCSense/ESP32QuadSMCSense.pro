@@ -51,7 +51,7 @@ LibName31=esp32_devboards
 LibName32=smalljumper
 LibName33=../sn65hvd233-ht
 LibName34=../lm2574n-5
-LibName35=/home/heller/RRCircuits/tc442x
+LibName35=../tc442x
 [pcbnew]
 version=1
 LastNetListRead=
@@ -96,4 +96,4 @@ LibName20=../PELowProfile
 LibName21=../C1-3V8
 LibName22=../ScrewTerm254_2
 LibName23=../RJ45-8N-S
-LibName24=/home/heller/RRCircuits/ScrewTerm254_5
+LibName24=../ScrewTerm254_5
