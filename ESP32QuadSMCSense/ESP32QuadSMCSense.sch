@@ -149,6 +149,8 @@ S 4300 1650 950  850
 U 5C828AE5
 F0 "CAN Transceiver" 50
 F1 "CAN_Transeiver.sch" 50
+F2 "CAN_TX" I L 4300 2000 60 
+F3 "CAN_RX" I L 4300 2150 60 
 $EndSheet
 $Sheet
 S 2700 2800 1250 1050
@@ -156,4 +158,8 @@ U 5C828B13
 F0 "Power Supply" 50
 F1 "PowerSupply.sch" 50
 $EndSheet
+Wire Wire Line
+	4300 2000 3550 2000
+Wire Wire Line
+	4300 2150 3550 2150
 $EndSCHEMATC
