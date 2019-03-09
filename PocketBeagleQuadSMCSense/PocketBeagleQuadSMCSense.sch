@@ -600,7 +600,7 @@ $Sheet
 S 8250 850  1400 1100
 U 5C7D527A
 F0 "Quad SMC Sense" 50
-F1 "Quad SMCSense.sch" 50
+F1 "QuadSMCSense.sch" 50
 F2 "Motor 1" I L 8250 950 60 
 F3 "Motor 2" I L 8250 1100 60 
 F4 "Motor 4" I L 8250 1400 60 
