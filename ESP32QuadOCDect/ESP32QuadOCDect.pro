@@ -51,6 +51,8 @@ LibName31=esp32_devboards
 LibName32=smalljumper
 LibName33=../sn65hvd233-ht
 LibName34=../lm2574n-5
+LibName35=../MetroMiniABSBiDir-noCANSlave/mct6h
+LibName36=../MetroMiniABSBiDir-noCANSlave/bridge
 [pcbnew]
 version=1
 LastNetListRead=
@@ -95,3 +97,5 @@ LibName20=../PELowProfile
 LibName21=../C1-3V8
 LibName22=../ScrewTerm254_2
 LibName23=../RJ45-8N-S
+LibName24=../MetroMiniABSBiDir-noCANSlave/KBL
+LibName25=../Screw5.08-2

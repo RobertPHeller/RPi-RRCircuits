@@ -33,14 +33,16 @@ LIBS:esp32_devboards
 LIBS:smalljumper
 LIBS:sn65hvd233-ht
 LIBS:lm2574n-5
+LIBS:mct6h
+LIBS:bridge
 LIBS:ESP32QuadOCDect-cache
 EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 3
+Sheet 3 7
 Title ""
-Date "8 mar 2019"
+Date "9 mar 2019"
 Rev ""
 Comp ""
 Comment1 ""

@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Fri 08 Mar 2019 12:02:37 PM EST
+Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Fri 08 Mar 2019 08:36:25 PM EST
 
 BeginCmp
 TimeStamp = /5C828AE5/5C828DA1;
@@ -57,6 +57,62 @@ IdModule  = DO-41;
 EndCmp
 
 BeginCmp
+TimeStamp = /5C70A8FB/5C8316FD;
+Reference = D4;
+ValeurCmp = BRIDGEX;
+IdModule  = KBL;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C831BA4/5C8316FF;
+Reference = D5;
+ValeurCmp = BRIDGEX;
+IdModule  = KBL;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C831BA3/5C70AB0F;
+Reference = D6;
+ValeurCmp = BRIDGEX;
+IdModule  = KBL;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C831BA2/5C8316FE;
+Reference = D7;
+ValeurCmp = BRIDGEX;
+IdModule  = KBL;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C70A8FB/5C831704;
+Reference = IC1;
+ValeurCmp = MCT6H;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C831BA4/5C831705;
+Reference = IC2;
+ValeurCmp = MCT6H;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C831BA3/5C831703;
+Reference = IC3;
+ValeurCmp = MCT6H;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C831BA2/5C7DB98D;
+Reference = IC4;
+ValeurCmp = MCT6H;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
 TimeStamp = /5C828AE5/5C829180;
 Reference = J1;
 ValeurCmp = RJ45;
@@ -106,6 +162,62 @@ IdModule  = R1;
 EndCmp
 
 BeginCmp
+TimeStamp = /5C70A8FB/5C831701;
+Reference = R3;
+ValeurCmp = 10 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C70A8FB/5C831709;
+Reference = R4;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C831BA4/5C831702;
+Reference = R5;
+ValeurCmp = 10 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C831BA4/5C83170B;
+Reference = R6;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C831BA3/5C831700;
+Reference = R7;
+ValeurCmp = 10 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C831BA3/5C7DB993;
+Reference = R8;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C831BA2/5C7DB98A;
+Reference = R9;
+ValeurCmp = 10 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C831BA2/5C83170A;
+Reference = R10;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
 TimeStamp = /5C828AE5/5C82965E;
 Reference = T1;
 ValeurCmp = + 15 in -;
@@ -117,6 +229,34 @@ TimeStamp = /5C828AE5/5C829479;
 Reference = T2;
 ValeurCmp = + 15 out -;
 IdModule  = ScrewTerm2.54-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C70A8FB/5C8316FA;
+Reference = T3;
+ValeurCmp = In Track1 Out;
+IdModule  = bornier2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C831BA4/5C8316FB;
+Reference = T4;
+ValeurCmp = In Track1 Out;
+IdModule  = bornier2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C831BA3/5C8316FC;
+Reference = T5;
+ValeurCmp = In Track1 Out;
+IdModule  = bornier2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C831BA2/5C70A943;
+Reference = T6;
+ValeurCmp = In Track1 Out;
+IdModule  = bornier2;
 EndCmp
 
 BeginCmp

@@ -33,14 +33,16 @@ LIBS:esp32_devboards
 LIBS:smalljumper
 LIBS:sn65hvd233-ht
 LIBS:lm2574n-5
+LIBS:mct6h
+LIBS:bridge
 LIBS:ESP32QuadOCDect-cache
 EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 3
+Sheet 1 7
 Title ""
-Date "8 mar 2019"
+Date "9 mar 2019"
 Rev ""
 Comp ""
 Comment1 ""
@@ -162,4 +164,48 @@ Wire Wire Line
 	4300 2000 3550 2000
 Wire Wire Line
 	4300 2150 3550 2150
+$Sheet
+S 1850 4050 1750 1700
+U 5C70A8FB
+F0 "Occupancy Detector 1" 50
+F1 "OD1.sch" 50
+F2 "OD1" O L 1850 4250 60 
+$EndSheet
+$Sheet
+S 4400 4050 1750 1700
+U 5C831BA4
+F0 "Occupancy Detector 2" 50
+F1 "OD2.sch" 50
+F2 "OD2" O L 4400 4350 60 
+$EndSheet
+$Sheet
+S 6850 4150 1850 1850
+U 5C831BA3
+F0 "Occupancy Detector 3" 50
+F1 "OD3.sch" 50
+F2 "OD3" O L 6850 4400 60 
+$EndSheet
+$Sheet
+S 9400 4200 1600 1800
+U 5C831BA2
+F0 "Occupancy Detector 4" 50
+F1 "OD4.sch" 50
+F2 "OD4" O L 9400 4400 60 
+$EndSheet
+Text Label 2650 2000 2    25   ~ 0
+OD 1
+Text Label 2650 2050 2    25   ~ 0
+OD 2
+Text Label 2650 1650 2    25   ~ 0
+OD 3
+Text Label 2650 1700 2    25   ~ 0
+OD 4
+Text Label 1850 4250 2    25   ~ 0
+OD 1
+Text Label 4400 4350 2    25   ~ 0
+OD 2
+Text Label 6850 4400 2    25   ~ 0
+OD 3
+Text Label 9400 4400 2    25   ~ 0
+OD 4
 $EndSCHEMATC
