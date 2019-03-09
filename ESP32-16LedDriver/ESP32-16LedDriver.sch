@@ -33,14 +33,16 @@ LIBS:esp32_devboards
 LIBS:smalljumper
 LIBS:sn65hvd233-ht
 LIBS:lm2574n-5
+LIBS:MCP23xxx
+LIBS:tbd62x83a
 LIBS:ESP32-16LedDriver-cache
 EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 3
+Sheet 1 4
 Title ""
-Date "8 mar 2019"
+Date "9 mar 2019"
 Rev ""
 Comp ""
 Comment1 ""
@@ -162,4 +164,16 @@ Wire Wire Line
 	4300 2000 3550 2000
 Wire Wire Line
 	4300 2150 3550 2150
+$Sheet
+S 7000 2850 1950 2150
+U 5C73EAFA
+F0 "Drivers" 50
+F1 "drivers.sch" 50
+F2 "SDA" B L 7000 3200 60 
+F3 "SCL" I L 7000 3400 60 
+$EndSheet
+Text Label 7000 3200 2    100  ~ 0
+SDA
+Text Label 7000 3400 2    100  ~ 0
+SCL
 $EndSCHEMATC
