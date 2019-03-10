@@ -5,13 +5,13 @@
 #include <os/LinuxPWM.hxx>
 #include "utils/GpioInitializer.hxx"
 
-#define HARDWARE_IMPL "BBB 16 Channel PWM LED Driver"
+#define HARDWARE_IMPL "PB 16 Channel PWM LED Driver"
 
 // On chip GPIO:
 
 #define OEPin GpioOutputSafeLow
 
-GPIO_PIN(OE, OEPin, (32*1)+12); // GPIO1_12: P8-12
+GPIO_PIN(OE, OEPin, 89); // GPIO89: P1-4
 
 
 typedef GpioInitializer<OE_Pin> GpioInit;
