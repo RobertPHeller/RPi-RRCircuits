@@ -1,5 +1,5 @@
-update=Sat 09 Mar 2019 15:30:52 EST
-last_client=cvpcb
+update=Sun 10 Mar 2019 03:14:53 PM EDT
+last_client=pcbnew
 [general]
 version=1
 [eeschema]
@@ -43,26 +43,32 @@ LibName29=contrib
 LibName30=valves
 LibName31=pca9685
 LibName32=../tbd62x83a
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
 [pcbnew]
 version=1
 LastNetListRead=
 UseCmpFile=1
-PadDrill="    2.750000"
-PadDrillOvalY="    2.750000"
-PadSizeH="    2.750000"
-PadSizeV="    2.750000"
-PcbTextSizeV="    1.500000"
-PcbTextSizeH="    1.500000"
-PcbTextThickness="    0.300000"
-ModuleTextSizeV="    1.000000"
-ModuleTextSizeH="    1.000000"
-ModuleTextSizeThickness="    0.150000"
-SolderMaskClearance="    0.000000"
-SolderMaskMinWidth="    0.000000"
-DrawSegmentWidth="    0.200000"
-BoardOutlineThickness="    0.100000"
-ModuleOutlineThickness="    0.150000"
+PadDrill=0.000000000000
+PadDrillOvalY=0.000000000000
+PadSizeH=2.540000000000
+PadSizeV=2.540000000000
+PcbTextSizeV=1.500000000000
+PcbTextSizeH=1.500000000000
+PcbTextThickness=0.300000000000
+ModuleTextSizeV=1.000000000000
+ModuleTextSizeH=1.000000000000
+ModuleTextSizeThickness=0.150000000000
+SolderMaskClearance=0.000000000000
+SolderMaskMinWidth=0.000000000000
+DrawSegmentWidth=0.200000000000
+BoardOutlineThickness=0.100000000000
+ModuleOutlineThickness=0.150000000000
 [pcbnew/libraries]
+LibDir=
 LibName1=sockets
 LibName2=connect
 LibName3=discret
@@ -82,9 +88,4 @@ LibName16=valves
 LibName17=DIP28_700
 LibName18=../16DriverOutputHAT/3PosJumper
 LibName19=../ScrewTerm254_9
-LibDir=
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
+LibName20=SolderJumpers

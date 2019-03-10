@@ -38,7 +38,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 2 2
 Title ""
-Date "9 mar 2019"
+Date "10 mar 2019"
 Rev ""
 Comp ""
 Comment1 ""
@@ -61,7 +61,7 @@ Text HLabel 2450 2000 0    25   Input ~ 0
 SCL
 Text HLabel 2450 2050 0    25   BiDi ~ 0
 SDA
-Text HLabel 2450 2150 0    25   Input ~ 0
+Text HLabel 1550 3300 0    25   Input ~ 0
 OE
 $Comp
 L +3.3V #PWR04
@@ -1082,4 +1082,38 @@ Wire Wire Line
 	2000 1350 2000 2250
 Wire Wire Line
 	2000 2250 2450 2250
+$Comp
+L CLOSED JP6
+U 1 1 5C8558D0
+P 1650 3200
+F 0 "JP6" H 1650 3200 60  0000 C CNN
+F 1 "OE GPIO" H 1650 2950 60  0000 C CNN
+F 2 "" H 1650 3200 60  0000 C CNN
+F 3 "" H 1650 3200 60  0000 C CNN
+	1    1650 3200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2400 3300 2400 2250
+Wire Wire Line
+	1550 3300 2400 3300
+Connection ~ 2400 2250
+$Comp
+L OPEN JP7
+U 1 1 5C855C89
+P 2600 2900
+F 0 "JP7" H 2600 2900 60  0000 C CNN
+F 1 "OE Bypass" H 2600 2650 60  0000 C CNN
+F 2 "" H 2600 2900 60  0000 C CNN
+F 3 "" H 2600 2900 60  0000 C CNN
+	1    2600 2900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2700 3000 2800 3000
+Connection ~ 2800 3000
+Wire Wire Line
+	2500 3000 2400 3000
+Connection ~ 2400 3000
+Connection ~ 1750 3300
 $EndSCHEMATC

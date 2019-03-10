@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Sat 09 Mar 2019 16:06:12 EST
+Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Sun 10 Mar 2019 04:11:49 PM EDT
 
 BeginCmp
 TimeStamp = /5C840A32/5C8437D0;
@@ -52,21 +52,35 @@ EndCmp
 BeginCmp
 TimeStamp = /5C840A32/5C84277B;
 Reference = JP5;
-ValeurCmp = 0 1 2 3 4 5;
+ValeurCmp = 0  1  2  3  4  5;
 IdModule  = pin_array_6x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C840A32/5C8558D0;
+Reference = JP6;
+ValeurCmp = OE GPIO;
+IdModule  = Open_Jumper;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C840A32/5C855C89;
+Reference = JP7;
+ValeurCmp = OE Bypass;
+IdModule  = Open_Jumper;
 EndCmp
 
 BeginCmp
 TimeStamp = /5C840A32/5C840BF6;
 Reference = P1;
-ValeurCmp = A7 A6 A5 A4 A3 A2 A1 A0 C;
+ValeurCmp = C A0 A1 A2 A3 A4 A5 A6 A7;
 IdModule  = ScrewTerm_2.54-9;
 EndCmp
 
 BeginCmp
 TimeStamp = /5C840A32/5C840C05;
 Reference = P2;
-ValeurCmp = B7 B6 B5 B4 B3 B2 B1 B0 C;
+ValeurCmp = C B0 B1 B2 B3 B4 B5 B6 B7;
 IdModule  = ScrewTerm_2.54-9;
 EndCmp
 
