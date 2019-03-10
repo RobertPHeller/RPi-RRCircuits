@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 11:37:34 2019
-//  Last Modified : <190309.2103>
+//  Last Modified : <190309.2209>
 //
 //  Description	
 //
@@ -99,10 +99,18 @@ CDI_GROUP_ENTRY(selection, openlcb::Uint8ConfigEntry,
 CDI_GROUP_ENTRY(phase, openlcb::Uint8ConfigEntry,
                 Name("Lamp Phase (A-B) - Flash Rate"),
                 MapValues(LampPhaseMap), Default(0));
+CDI_GROUP_ENTRY(brightness, openlcb::Uint16ConfigEntry,
+                Name("Lamp brightness, hundreths of a percent (0 to 10000)"),
+                Min(0), Max(10000), Default(5000));
+CDI_GROUP_ENTRY(period, openlcb::Uint32ConfigEntry,
+                Name("PWM Period, in nanoseconds"),
+                Default(1000000));
 CDI_GROUP_END();
 
 
 using LampGroup = openlcb::RepeatedGroup<LampConfig, LAMPCOUNT>;
+
+#define BRIGHNESSHUNDRETHSPERCENT(b) ((b)*.0001)
 
 class Lamp : public ConfigUpdateListener , public Blinking {
 public:
@@ -115,8 +123,10 @@ public:
         lampid_ = Unused;
         phase_  = Steady;
         isOn_   = false;
-        brightness_ = 0;
-        period_ = 0;
+        // Default: 50%
+        brightness_ = 5000;
+        // 1Khz
+        period_ = 1000000;
         blinker.AddMe(this);
         ConfigUpdateService::instance()->register_update_listener(this);
     }
@@ -124,6 +134,8 @@ public:
     {
         CDI_FACTORY_RESET(cfg_.selection);
         CDI_FACTORY_RESET(cfg_.phase);
+        CDI_FACTORY_RESET(cfg_.brightness);
+        CDI_FACTORY_RESET(cfg_.period);
     }
     UpdateAction apply_configuration(int fd, bool initial_load,
                                      BarrierNotifiable *done) override
@@ -131,6 +143,8 @@ public:
         AutoNotify n(done);
         lampid_ = (LampID)     cfg_.selection().read(fd);
         phase_  = (LampPhase)  cfg_.phase().read(fd);
+        brightness_ = cfg_.brightness().read(fd);
+        period_ = cfg_.period().read(fd);
         return UPDATED;
     }
     PWM* Pin() const       {return pinlookup_[(int)lampid_];}
@@ -155,17 +169,17 @@ public:
             p->set_period(period_);
         }
         switch (phase_) {
-        case Steady: p->set_duty((uint32_t)(brightness_*p->get_period())); break;
-        case A_Slow: p->set_duty(ASlow?(uint32_t)(brightness_*p->get_period()):0);break;
-        case A_Medium: p->set_duty(AMedium?(uint32_t)(brightness_*p->get_period()):0); break;
-        case A_Fast: p->set_duty(AFast?(uint32_t)(brightness_*p->get_period()):0); break;
+        case Steady: p->set_duty((uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period())); break;
+        case A_Slow: p->set_duty(ASlow?(uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period()):0);break;
+        case A_Medium: p->set_duty(AMedium?(uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period()):0); break;
+        case A_Fast: p->set_duty(AFast?(uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period()):0); break;
         case None: p->set_duty(0); break;
-        case B_Slow: p->set_duty(ASlow?0:(uint32_t)(brightness_*p->get_period())); break;
-        case B_Medium: p->set_duty(AMedium?0:(uint32_t)(brightness_*p->get_period())); break;
-        case B_Fast: p->set_duty(AFast?0:(uint32_t)(brightness_*p->get_period())); break;
+        case B_Slow: p->set_duty(ASlow?0:(uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period())); break;
+        case B_Medium: p->set_duty(AMedium?0:(uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period())); break;
+        case B_Fast: p->set_duty(AFast?0:(uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period())); break;
         }
     }
-    void Setbrightness(double brightness) {
+    void Setbrightness(uint16_t brightness) {
         brightness_ = brightness;
     }
     void SetPeriod(uint32_t period) {
@@ -177,7 +191,7 @@ private:
     LampPhase  phase_;
     const LampConfig cfg_;
     bool isOn_;
-    double brightness_;
+    uint16_t brightness_;
     uint32_t period_;    
 };
 

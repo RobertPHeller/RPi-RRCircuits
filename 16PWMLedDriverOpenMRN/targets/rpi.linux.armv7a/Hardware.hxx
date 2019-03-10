@@ -16,7 +16,7 @@ GPIO_PIN(OE, OEPin, 21);
 
 typedef GpioInitializer<OE_Pin> GpioInit;
 
-static constexpr uint32_t PWMCHIP = 1;
+static constexpr uint32_t PWMCHIP = 0; 
 
 static constexpr uint32_t A0 = 0;
 extern LinuxPWM A0_Pin;
