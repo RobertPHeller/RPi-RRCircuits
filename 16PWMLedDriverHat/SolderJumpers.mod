@@ -1,4 +1,4 @@
-PCBNEW-LibModule-V1  Sun 10 Mar 2019 05:39:40 PM EDT
+PCBNEW-LibModule-V1  Sun 10 Mar 2019 06:11:37 PM EDT
 # encoding utf-8
 Units mm
 $INDEX
@@ -6,15 +6,14 @@ Closed_Jumper
 Open_Jumper
 $EndINDEX
 $MODULE Closed_Jumper
-Po 0 0 0 15 5C8583BB 00000000 ~~
+Po 0 0 0 15 5C858B87 00000000 ~~
 Li Closed_Jumper
 Sc 0
 AR 
 Op 0 0 0
 T0 0 1.27 0.5 0.5 0 0.075 N V 21 N "Closed_Jumper"
 T1 0 -1.27 0.5 0.5 0 0.075 N V 21 N "VAL**"
-DS -1.27 0 1.27 0 1.27 21
-DS 1.27 0 1.27 0 0.15 21
+DS -1.27 0 1.27 0 1.27 23
 DS -1.27 0 1.27 0 0.25 15
 $PAD
 Sh "1" R 1.27 1.27 0 0 0
