@@ -83,4 +83,4 @@ LibName18=WirePads_RevA_15Jun2010
 LibName19=../ScrewTerm254_9
 LibName20=../16DriverOutputHAT/3PosJumper
 LibName21=../16PWMLedDriverHat/DIP28_700
-
+LibName22=SolderJumpers

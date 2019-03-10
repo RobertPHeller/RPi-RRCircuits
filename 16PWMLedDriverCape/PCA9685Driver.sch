@@ -60,7 +60,7 @@ Text HLabel 2450 2000 0    25   Input ~ 0
 SCL
 Text HLabel 2450 2050 0    25   BiDi ~ 0
 SDA
-Text HLabel 2450 2150 0    25   Input ~ 0
+Text HLabel 1300 3350 0    25   Input ~ 0
 OE
 $Comp
 L +3.3V #PWR016
@@ -1081,4 +1081,44 @@ Wire Wire Line
 	2000 1350 2000 2250
 Wire Wire Line
 	2000 2250 2450 2250
+$Comp
+L CLOSED JP6
+U 1 1 5C857420
+P 1400 3250
+F 0 "JP6" H 1400 3250 60  0000 C CNN
+F 1 "OE GPIO" H 1400 3000 60  0000 C CNN
+F 2 "~" H 1400 3250 60  0000 C CNN
+F 3 "~" H 1400 3250 60  0000 C CNN
+	1    1400 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L OPEN JP7
+U 1 1 5C85742F
+P 2550 2950
+F 0 "JP7" H 2550 2950 60  0000 C CNN
+F 1 "OE Bypass" H 2550 2700 60  0000 C CNN
+F 2 "~" H 2550 2950 60  0000 C CNN
+F 3 "~" H 2550 2950 60  0000 C CNN
+	1    2550 2950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1300 3350 1800 3350
+Wire Wire Line
+	1800 3350 1800 3050
+Wire Wire Line
+	1800 3050 2450 3050
+Connection ~ 1500 3350
+Wire Wire Line
+	2650 3050 2700 3050
+Wire Wire Line
+	2700 3050 2700 3000
+Wire Wire Line
+	2700 3000 2800 3000
+Connection ~ 2800 3000
+Wire Wire Line
+	2400 2150 2400 3050
+Connection ~ 2400 3050
+Connection ~ 2400 2150
 $EndSCHEMATC
