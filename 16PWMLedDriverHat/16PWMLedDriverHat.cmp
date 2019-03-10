@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Sun 10 Mar 2019 04:11:49 PM EDT
+Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Sun 10 Mar 2019 05:49:21 PM EDT
 
 BeginCmp
 TimeStamp = /5C840A32/5C8437D0;
@@ -60,7 +60,7 @@ BeginCmp
 TimeStamp = /5C840A32/5C8558D0;
 Reference = JP6;
 ValeurCmp = OE GPIO;
-IdModule  = Open_Jumper;
+IdModule  = Closed_Jumper;
 EndCmp
 
 BeginCmp
