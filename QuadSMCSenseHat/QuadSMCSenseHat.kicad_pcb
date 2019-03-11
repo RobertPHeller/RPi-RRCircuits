@@ -1,4 +1,4 @@
-(kicad_pcb (version 3) (host pcbnew "(22-Jun-2014 BZR 4027)-stable")
+(kicad_pcb (version 3) (host pcbnew "(2013-june-11)-stable")
 
   (general
     (links 76)
@@ -68,9 +68,9 @@
     (aux_axis_origin 0 0)
     (visible_elements 7FFEFFFF)
     (pcbplotparams
-      (layerselection 3178497)
-      (usegerberextensions false)
-      (excludeedgelayer true)
+      (layerselection 284196865)
+      (usegerberextensions true)
+      (excludeedgelayer false)
       (linewidth 0.100000)
       (plotframeref false)
       (viasonmask false)
@@ -92,7 +92,7 @@
       (mirror false)
       (drillshape 0)
       (scaleselection 1)
-      (outputdirectory meta/))
+      (outputdirectory Gerber))
   )
 
   (net 0 "")
