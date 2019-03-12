@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed May 31 19:27:54 2017
-#  Last Modified : <171103.2113>
+#  Last Modified : <190311.2022>
 #
 #  Description	
 #
@@ -61,7 +61,9 @@ TEXS=usermanual.tex ../SMCSenseHAT/SMCSenseHAT.tex \
 		    ../MCP23008Hat/MCP23008Hat.tex \
 		    ../CANHat/CANHat.tex \
 		    ../QuadUncoupler/QuadUncoupler.tex \
-		    ../QuadSMC/QuadSMC.tex
+		    ../QuadSMC/QuadSMC.tex \
+		    ../QuadSMCSenseHat/QuadSMCSenseHat.tex
+
 FIGURES= ../SMCSenseHAT/SMCSenseHAT3DTop.png \
 	 ../SMCSenseHAT/SMCSenseHAT.png \
 	 ../SMCSenseHAT/SMCSenseHAT.pdf \
@@ -73,7 +75,11 @@ FIGURES= ../SMCSenseHAT/SMCSenseHAT3DTop.png \
 	 ../MCP23017Hat/MCP23017.pdf \
 	 ../OctalLEDDriver/OctalLEDDriver3DTop.png \
 	 ../OctalLEDDriver/OctalLEDDriver.png \
-	 ../OctalLEDDriver/OctalLEDDriver.pdf
+	 ../OctalLEDDriver/OctalLEDDriver.pdf \
+	 ../QuadSMCSenseHat/QuadSMCSenseHat3DTop.png \
+	 ../QuadSMCSenseHat/QuadSMCSenseHat.pdf \
+	 ../QuadSMCSenseHat/QuadSMCSenseHat.png
+	 
 	 
 
 usermanual.pdf : $(TEXS) $(FIGURES)
