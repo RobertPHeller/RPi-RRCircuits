@@ -1,0 +1,22 @@
+QuadSMCSenseCape
+0001
+DeepwoodsSoftware
+0001
+10
+10
+4 yes output fast no up yes 7
+9 yes output fast yes up no 3
+10 yes bidir  fast no up no 3
+26 yes output fast no up yes 7
+27 yes input fast no up yes 7
+32 yes output fast no up yes 7
+33 yes output fast no up yes 7
+36 yes input fast no up yes 7
+64 yes input fast no up yes 7
+66 yes input fast no up yes 7
+0 19 xxx 0
+5
+0
+0
+0
+
