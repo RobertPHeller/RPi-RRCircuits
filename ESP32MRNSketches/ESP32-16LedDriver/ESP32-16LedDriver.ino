@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Mar 13 10:22:45 2019
-//  Last Modified : <190313.1053>
+//  Last Modified : <190314.2235>
 //
 //  Description	
 //
@@ -53,15 +53,69 @@
 #include <SPIFFS.h>
 
 #include <OpenMRNLite.h>
+#include <Adafruit_MCP23017.h>
 
 static const char rcsid[] = "@(#) : $Id$";
 
 
 #include "config.h"
 #include "NODEID.h" // Get nodeid from an externally generated header file
+#include "ArduinoExtenderGpio.h"
+#include "Lamp.h"
+#include "Mast.h"                                                    
+#include "Blink.h"                                                   
+#include "TrackCircuit.h"                                            
+#include "Logic.h"                                                   
+
+using mcp23017Gpio = ArduinoExtenderGpioTemplate<Adafruit_MCP23017>;
+
+extern const mcp23017Gpio A0_Pin, A1_Pin, A2_Pin, A3_Pin, A4_Pin, 
+                          A5_Pin, A6_Pin, A7_Pin, B0_Pin, B1_Pin, 
+                          B2_Pin, B3_Pin, B4_Pin, B5_Pin, B6_Pin, 
+                          B7_Pin;
 
 
-#include <utils/GpioInitializer.hxx>
+Adafruit_MCP23017 mcp;
+
+constexpr const mcp23017Gpio A0_Pin(&mcp,0,true,false);
+constexpr const mcp23017Gpio A1_Pin(&mcp,1,true,false);
+constexpr const mcp23017Gpio A2_Pin(&mcp,2,true,false);
+constexpr const mcp23017Gpio A3_Pin(&mcp,3,true,false);
+constexpr const mcp23017Gpio A4_Pin(&mcp,4,true,false);
+constexpr const mcp23017Gpio A5_Pin(&mcp,5,true,false);
+constexpr const mcp23017Gpio A6_Pin(&mcp,6,true,false);
+constexpr const mcp23017Gpio A7_Pin(&mcp,7,true,false);
+
+constexpr const mcp23017Gpio B0_Pin(&mcp,8,true,false);
+constexpr const mcp23017Gpio B1_Pin(&mcp,9,true,false);
+constexpr const mcp23017Gpio B2_Pin(&mcp,10,true,false);
+constexpr const mcp23017Gpio B3_Pin(&mcp,11,true,false);
+constexpr const mcp23017Gpio B4_Pin(&mcp,12,true,false);
+constexpr const mcp23017Gpio B5_Pin(&mcp,13,true,false);
+constexpr const mcp23017Gpio B6_Pin(&mcp,14,true,false);
+constexpr const mcp23017Gpio B7_Pin(&mcp,15,true,false);
+
+const Gpio* Lamp::pinlookup_[17] = {
+    nullptr,
+    
+    &A0_Pin,
+    &A1_Pin,
+    &A2_Pin,
+    &A3_Pin,
+    &A4_Pin,
+    &A5_Pin,
+    &A6_Pin,
+    &A7_Pin,
+    
+    &B0_Pin,
+    &B1_Pin,
+    &B2_Pin,
+    &B3_Pin,
+    &B4_Pin,
+    &B5_Pin,
+    &B6_Pin,
+    &B7_Pin
+};
 
 constexpr gpio_num_t CAN_RX_PIN = GPIO_NUM_4;
 constexpr gpio_num_t CAN_TX_PIN = GPIO_NUM_5;
@@ -79,9 +133,61 @@ string dummystring("abcdef");
 /// layout. The argument of offset zero is ignored and will be removed later.
 static constexpr openlcb::ConfigDef cfg(0);
 
-// Create an initializer that can initialize all the GPIO pins in one shot
-typedef GpioInitializer<
-    > GpioInit;
+
+BlinkTimer blinker(openmrn.stack()->executor()->active_timers());
+
+Mast m1(openmrn.stack()->node(),cfg.seg().masts().entry<0>(),nullptr);
+Mast m2(openmrn.stack()->node(),cfg.seg().masts().entry<1>(),&m1);
+Mast m3(openmrn.stack()->node(),cfg.seg().masts().entry<2>(),&m2);
+Mast m4(openmrn.stack()->node(),cfg.seg().masts().entry<3>(),&m3);
+Mast m5(openmrn.stack()->node(),cfg.seg().masts().entry<4>(),&m4);
+Mast m6(openmrn.stack()->node(),cfg.seg().masts().entry<5>(),&m5);
+Mast m7(openmrn.stack()->node(),cfg.seg().masts().entry<6>(),&m6);
+Mast m8(openmrn.stack()->node(),cfg.seg().masts().entry<7>(),&m7);
+
+TrackCircuit c1(openmrn.stack()->node(),cfg.seg().circuits().entry<0>());
+TrackCircuit c2(openmrn.stack()->node(),cfg.seg().circuits().entry<1>());
+TrackCircuit c3(openmrn.stack()->node(),cfg.seg().circuits().entry<2>());
+TrackCircuit c4(openmrn.stack()->node(),cfg.seg().circuits().entry<3>());
+TrackCircuit c5(openmrn.stack()->node(),cfg.seg().circuits().entry<4>());
+TrackCircuit c6(openmrn.stack()->node(),cfg.seg().circuits().entry<5>());
+TrackCircuit c7(openmrn.stack()->node(),cfg.seg().circuits().entry<6>());
+TrackCircuit c8(openmrn.stack()->node(),cfg.seg().circuits().entry<7>());
+
+TrackCircuit *circuits[8] = {&c1, &c2, &c3, &c4, &c5, &c6, &c7, &c8};
+
+Logic l32(openmrn.stack()->node(),cfg.seg().logics().entry<31>(),openmrn.stack()->executor()->active_timers(),nullptr);
+Logic l31(openmrn.stack()->node(),cfg.seg().logics().entry<30>(),openmrn.stack()->executor()->active_timers(),&l32);
+Logic l30(openmrn.stack()->node(),cfg.seg().logics().entry<29>(),openmrn.stack()->executor()->active_timers(),&l31);
+Logic l29(openmrn.stack()->node(),cfg.seg().logics().entry<28>(),openmrn.stack()->executor()->active_timers(),&l30);
+Logic l28(openmrn.stack()->node(),cfg.seg().logics().entry<27>(),openmrn.stack()->executor()->active_timers(),&l29);
+Logic l27(openmrn.stack()->node(),cfg.seg().logics().entry<26>(),openmrn.stack()->executor()->active_timers(),&l28);
+Logic l26(openmrn.stack()->node(),cfg.seg().logics().entry<25>(),openmrn.stack()->executor()->active_timers(),&l27);
+Logic l25(openmrn.stack()->node(),cfg.seg().logics().entry<24>(),openmrn.stack()->executor()->active_timers(),&l26);
+Logic l24(openmrn.stack()->node(),cfg.seg().logics().entry<23>(),openmrn.stack()->executor()->active_timers(),&l25);
+Logic l23(openmrn.stack()->node(),cfg.seg().logics().entry<22>(),openmrn.stack()->executor()->active_timers(),&l24);
+Logic l22(openmrn.stack()->node(),cfg.seg().logics().entry<21>(),openmrn.stack()->executor()->active_timers(),&l23);
+Logic l21(openmrn.stack()->node(),cfg.seg().logics().entry<20>(),openmrn.stack()->executor()->active_timers(),&l22);
+Logic l20(openmrn.stack()->node(),cfg.seg().logics().entry<19>(),openmrn.stack()->executor()->active_timers(),&l21);
+Logic l19(openmrn.stack()->node(),cfg.seg().logics().entry<18>(),openmrn.stack()->executor()->active_timers(),&l20);
+Logic l18(openmrn.stack()->node(),cfg.seg().logics().entry<17>(),openmrn.stack()->executor()->active_timers(),&l19);
+Logic l17(openmrn.stack()->node(),cfg.seg().logics().entry<16>(),openmrn.stack()->executor()->active_timers(),&l18);
+Logic l16(openmrn.stack()->node(),cfg.seg().logics().entry<15>(),openmrn.stack()->executor()->active_timers(),&l17);
+Logic l15(openmrn.stack()->node(),cfg.seg().logics().entry<14>(),openmrn.stack()->executor()->active_timers(),&l16);
+Logic l14(openmrn.stack()->node(),cfg.seg().logics().entry<13>(),openmrn.stack()->executor()->active_timers(),&l15);
+Logic l13(openmrn.stack()->node(),cfg.seg().logics().entry<12>(),openmrn.stack()->executor()->active_timers(),&l14);
+Logic l12(openmrn.stack()->node(),cfg.seg().logics().entry<11>(),openmrn.stack()->executor()->active_timers(),&l13);
+Logic l11(openmrn.stack()->node(),cfg.seg().logics().entry<10>(),openmrn.stack()->executor()->active_timers(),&l12);
+Logic l10(openmrn.stack()->node(),cfg.seg().logics().entry<9>(),openmrn.stack()->executor()->active_timers(),&l11);
+Logic l9(openmrn.stack()->node(),cfg.seg().logics().entry<8>(),openmrn.stack()->executor()->active_timers(),&l10);
+Logic l8(openmrn.stack()->node(),cfg.seg().logics().entry<7>(),openmrn.stack()->executor()->active_timers(),&l9);
+Logic l7(openmrn.stack()->node(),cfg.seg().logics().entry<6>(),openmrn.stack()->executor()->active_timers(),&l8);
+Logic l6(openmrn.stack()->node(),cfg.seg().logics().entry<5>(),openmrn.stack()->executor()->active_timers(),&l7);
+Logic l5(openmrn.stack()->node(),cfg.seg().logics().entry<4>(),openmrn.stack()->executor()->active_timers(),&l6);
+Logic l4(openmrn.stack()->node(),cfg.seg().logics().entry<3>(),openmrn.stack()->executor()->active_timers(),&l5);
+Logic l3(openmrn.stack()->node(),cfg.seg().logics().entry<2>(),openmrn.stack()->executor()->active_timers(),&l4);
+Logic l2(openmrn.stack()->node(),cfg.seg().logics().entry<1>(),openmrn.stack()->executor()->active_timers(),&l3);
+Logic l1(openmrn.stack()->node(),cfg.seg().logics().entry<0>(),openmrn.stack()->executor()->active_timers(),&l2);
 
 class FactoryResetHelper : public DefaultConfigUpdateListener {
 public:
@@ -153,7 +259,24 @@ void setup() {
         openlcb::CANONICAL_VERSION, openlcb::CONFIG_FILE_SIZE);
 
     // initialize all declared GPIO pins
-    GpioInit::hw_init();
+    mcp.begin();
+    A0_Pin.hw_init();
+    A1_Pin.hw_init();
+    A2_Pin.hw_init();
+    A3_Pin.hw_init();
+    A4_Pin.hw_init();
+    A5_Pin.hw_init();
+    A6_Pin.hw_init();
+    A7_Pin.hw_init();
+    
+    B0_Pin.hw_init();
+    B1_Pin.hw_init();
+    B2_Pin.hw_init();
+    B3_Pin.hw_init();
+    B4_Pin.hw_init();
+    B5_Pin.hw_init();
+    B6_Pin.hw_init();
+    B7_Pin.hw_init();
 
     // Start the OpenMRN stack
     openmrn.begin();

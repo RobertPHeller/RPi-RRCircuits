@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Mar 13 10:34:17 2019
-//  Last Modified : <190313.1042>
+//  Last Modified : <190314.2237>
 //
 //  Description	
 //
@@ -48,6 +48,10 @@
 #include "openlcb/ConfigRepresentation.hxx"
 #include "openlcb/MemoryConfig.hxx"
 
+#include "Logic.h"
+#include "Mast.h"
+#include "TrackCircuit.h"
+
 namespace openlcb
 {
 
@@ -78,8 +82,9 @@ extern const SimpleNodeStaticValues SNIP_STATIC_DATA = {
 /// ProducerConfig and ConsumerConfig groups represent the configuration layout
 /// needed by the ConfiguredProducer and ConfiguredConsumer classes, and come
 /// from their respective hxx file.
-//using AllConsumers = RepeatedGroup<ConsumerConfig, NUM_OUTPUTS>;
-//using AllProducers = RepeatedGroup<ProducerConfig, NUM_INPUTS>;
+using LogicGroup = openlcb::RepeatedGroup<LogicConfig, LOGICCOUNT>;
+using MastGroup = openlcb::RepeatedGroup<MastConfig, MASTCOUNT>;
+using TrackCircuitGroup = openlcb::RepeatedGroup<TrackCircuitConfig, TRACKCIRCUITCOUNT>;
 
 /// Modify this value every time the EEPROM needs to be cleared on the node
 /// after an update.
@@ -91,8 +96,9 @@ CDI_GROUP(IoBoardSegment, Segment(MemoryConfigDefs::SPACE_CONFIG), Offset(128));
 /// Each entry declares the name of the current entry, then the type and then
 /// optional arguments list.
 CDI_GROUP_ENTRY(internal_config, InternalConfigData);
-//CDI_GROUP_ENTRY(consumers, AllConsumers, Name("Outputs"));
-//CDI_GROUP_ENTRY(producers, AllProducers, Name("Inputs"));
+CDI_GROUP_ENTRY(logics, LogicGroup, Name("LOGIC"), RepName("Logic"));
+CDI_GROUP_ENTRY(masts, MastGroup, Name("Rule to aspect"),RepName("Mast"));
+CDI_GROUP_ENTRY(circuits, TrackCircuitGroup, Name("TRACK CIRCUITS"), RepName("Circuit"));
 CDI_GROUP_END();
 
 /// This segment is only needed temporarily until there is program code to set
