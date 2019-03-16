@@ -1,5 +1,5 @@
-update=Sat 02 Feb 2019 16:27:15 EST
-last_client=cvpcb
+update=Sat 16 Mar 2019 10:41:04 AM EDT
+last_client=pcbnew
 [general]
 version=1
 [eeschema]
@@ -42,26 +42,32 @@ LibName28=atmel
 LibName29=contrib
 LibName30=valves
 LibName31=../tc442x
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
 [pcbnew]
 version=1
 LastNetListRead=
 UseCmpFile=1
-PadDrill="    2.750000"
-PadDrillOvalY="    2.750000"
-PadSizeH="    2.750000"
-PadSizeV="    2.750000"
-PcbTextSizeV="    1.500000"
-PcbTextSizeH="    1.500000"
-PcbTextThickness="    0.300000"
-ModuleTextSizeV="    1.000000"
-ModuleTextSizeH="    1.000000"
-ModuleTextSizeThickness="    0.150000"
-SolderMaskClearance="    0.000000"
-SolderMaskMinWidth="    0.000000"
-DrawSegmentWidth="    0.200000"
-BoardOutlineThickness="    0.100000"
-ModuleOutlineThickness="    0.150000"
+PadDrill=2.750000000000
+PadDrillOvalY=2.750000000000
+PadSizeH=2.750000000000
+PadSizeV=2.750000000000
+PcbTextSizeV=1.500000000000
+PcbTextSizeH=1.500000000000
+PcbTextThickness=0.300000000000
+ModuleTextSizeV=1.000000000000
+ModuleTextSizeH=1.000000000000
+ModuleTextSizeThickness=0.150000000000
+SolderMaskClearance=0.000000000000
+SolderMaskMinWidth=0.000000000000
+DrawSegmentWidth=0.200000000000
+BoardOutlineThickness=0.100000000000
+ModuleOutlineThickness=0.150000000000
 [pcbnew/libraries]
+LibDir=
 LibName1=sockets
 LibName2=connect
 LibName3=discret
@@ -80,9 +86,3 @@ LibName15=pga_sockets
 LibName16=valves
 LibName17=../ScrewTerm254_2
 LibName18=../ScrewTerm254_5
-LibDir=
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
