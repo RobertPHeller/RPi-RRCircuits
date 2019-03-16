@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Fri 08 Mar 2019 12:02:37 PM EST
+Cmp-Mod V01 Created by PcbNew date = Sat 16 Mar 2019 14:24:49 EDT
 
 BeginCmp
 TimeStamp = /5C828AE5/5C828DA1;
@@ -11,7 +11,7 @@ BeginCmp
 TimeStamp = /5C828AE5/5C828DB0;
 Reference = C2;
 ValeurCmp = 15 uf 15V;
-IdModule  = C1.5V8V;
+IdModule  = C1V7;
 EndCmp
 
 BeginCmp

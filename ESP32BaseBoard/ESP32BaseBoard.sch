@@ -40,7 +40,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 3
 Title ""
-Date "8 mar 2019"
+Date "16 mar 2019"
 Rev ""
 Comp ""
 Comment1 ""
@@ -56,6 +56,7 @@ F 0 "U0" H 3100 2000 60  0000 C CNN
 F 1 "ESP32_DEVKIT_C or TTGO-T1" H 3100 2550 60  0000 C CNN
 F 2 "~" H 3100 2000 60  0000 C CNN
 F 3 "~" H 3100 2000 60  0000 C CNN
+F 4 "dummy" H 3100 2000 60  0001 C CNN "Mouser Part Number"
 	1    3100 2000
 	1    0    0    -1  
 $EndComp
@@ -67,6 +68,7 @@ F 0 "JP0" H 3755 1900 20  0000 C CNN
 F 1 "TIGO-T1 Power" H 3750 1815 20  0000 C CNN
 F 2 "~" H 3750 1850 60  0000 C CNN
 F 3 "~" H 3750 1850 60  0000 C CNN
+F 4 "dummp" H 3750 1850 60  0001 C CNN "Mouser Part Number"
 	1    3750 1850
 	1    0    0    -1  
 $EndComp
