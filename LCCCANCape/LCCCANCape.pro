@@ -1,4 +1,4 @@
-update=Sat 02 Mar 2019 18:42:43 EST
+update=Sat 16 Mar 2019 15:07:42 EDT
 version=1
 last_client=pcbnew
 [cvpcb]
@@ -52,10 +52,10 @@ LibName33=../sn65hvd233-ht
 version=1
 LastNetListRead=
 UseCmpFile=1
-PadDrill="    1.016000"
-PadDrillOvalY="    1.016000"
-PadSizeH="    1.727200"
-PadSizeV="    1.727200"
+PadDrill="    0.000000"
+PadDrillOvalY="    0.000000"
+PadSizeH="    0.600000"
+PadSizeV="    1.600000"
 PcbTextSizeV="    1.500000"
 PcbTextSizeH="    1.500000"
 PcbTextThickness="    0.300000"
