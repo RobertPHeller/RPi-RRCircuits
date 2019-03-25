@@ -1,0 +1,28 @@
+/* XPM */
+static char *mini_single_doc_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"    16    16        5            1",
+/* colors */
+"  c None",
+"# c #000000",
+"' c #c0c000",
+"o c #ffffff",
+". c #ffffc0",
+/* pixels */
+"      ##        ",
+"      #.###     ",
+"     #.o.o.###  ",
+"     #ooooo.o.##",
+"    #.oooo.o.o.#",
+"    #.ooo.o....#",
+"   #.o.o.o.o...#",
+"   #o.o.o.o.o.'#",
+"  #o.o.o.o.o..# ",
+" #..o...o.....# ",
+"#....o.o.o.o..# ",
+"#'......o....'# ",
+" ##'.........#  ",
+"   ###'.....'#  ",
+"      ###'.'#   ",
+"         ###    ",
+};
