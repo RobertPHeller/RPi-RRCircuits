@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sun Mar 24 21:25:42 2019
-#  Last Modified : <190324.2301>
+#  Last Modified : <190325.1331>
 #
 #  Description	
 #
@@ -48,6 +48,9 @@ package require MainWindow 1.0
 package require ROText 1.0
 package require LabelFrames
 
+set argv0 [file join  [file dirname [info nameofexecutable]] RRCircuits-Builder]
+
+
 snit::widgetadaptor OptionsFrame {
     option -parent
     component programselect
@@ -56,7 +59,7 @@ snit::widgetadaptor OptionsFrame {
     component firstNID
     constructor {args} {
         installhull using ttk::labelframe -labelanchor nw \
-              -text Options
+              -text "Build Options:"
         install programselect using LabelComboBox $win.programselect \
               -label "Program to build: " \
               -values {{16 LED Driver Output}
@@ -65,22 +68,23 @@ snit::widgetadaptor OptionsFrame {
             {Quad StallMotor W/Sense}} \
               -editable no
         $programselect set {16 LED Driver Output}
-        pack $programselect -fill x -expand yes
+        pack $programselect -fill x
         install targetselect using LabelComboBox $win.targetselect \
               -label "Target machine type: " \
               -values {{Raspberry Pi} {Beagle Bone Black} 
             {Pocket Beagle}} \
               -editable no
         $targetselect set {Raspberry Pi}
-        pack $targetselect -fill x -expand yes
+        pack $targetselect -fill x
         install numberoftargets using LabelSpinBox $win.numberoftargets \
               -label "Number of target instances: " \
               -range {1 10 1}
-        pack $numberoftargets -fill x -expand yes
+        pack $numberoftargets -fill x
         install firstNID using LabelEntry $win.firstNID \
-              -label "Starting NID: " \
+              -label "Starting NID (-1): " \
               -text  "05:01:01:01:22:80"
-        pack $firstNID -fill x -expand yes
+        pack $firstNID -fill x
+        pack [frame $win.fill] -fill both -expand yes
         $self configurelist $args
     }
     method GetBuildOptions {} {
@@ -103,7 +107,8 @@ snit::type RRCircuits-Builder {
     typecomponent buildlog
     typecomponent optionsFrame
     
-    typevariable BaseDirectory {/home/heller/RRCircuits}
+    typevariable BaseDirectory {}
+    typevariable OPENMRNPATH {}
     typevariable ProgramDirectories -array {
         {16 LED Driver Output} 16DriverOutputOpenMRN
         {16 PWM Led Driver} 16PWMLedDriverOpenMRN
@@ -115,27 +120,82 @@ snit::type RRCircuits-Builder {
         {Beagle Bone Black} bbb.linux.armv7a
         {Pocket Beagle} pb.linux.armv7a
     }
+    typevariable _eof
+    typevariable _logfp
     typeconstructor {
+        set BaseDirectory [file dirname [file dirname [file normalize [info nameofexecutable]]]]
+        if {[info exists ::env(OPENMRNPATH)]} {
+            set OPENMRNPATH $::env(OPENMRNPATH)
+        } elseif {[file exists /opt/openmrn/src]} {
+            set OPENMRNPATH /opt/openmrn
+        } elseif {[file exists ~/openmrn/src]} {
+            set OPENMRNPATH [file normalize ~/openmrn]
+        } elseif {[file exists ../../../src]} {
+            set OPENMRNPATH [file normalize ../../..]
+        } else {
+            tk_messageBox -default ok -icon error -type ok \
+                  -message "OPENMRNPATH not found.  Please install OpenMRN in one of the standard places."
+            $type _carefulExit yes
+        }
         set main [mainwindow .main -scrolling yes \
                   -height 480 -width 640]
         pack $main -fill both -expand yes
-        $main menu entryconfigure file "Exit" -command [mytypemethod _carefulExit]
+        $main menu entryconfigure file "Exit" \
+              -command [mytypemethod _carefulExit]
         set buildlog [ROText [$main scrollwindow getframe].buildlog]
         $main scrollwindow setwidget $buildlog
-        $main toolbar add tools
-        $main toolbar addbutton tools build -text "Build" \
-              -command [mytypemethod _Build]
-        $main toolbar show tools
+        $type _buildTools
         $main slideout add options
         set optionsFrame [OptionsFrame \
                           [$main slideout getframe options].options \
                           -parent $type]
         pack $optionsFrame -fill both -expand yes
+        pack [$type _makeConfigInfoFrame \
+              [$main slideout getframe options].configInfo] \
+              -fill both -expand yes
         $main slideout show options
         $main showit
     }
-    typevariable _eof
-    typevariable _logfp
+    typemethod _makeConfigInfoFrame {w} {
+        ttk::labelframe $w -labelanchor nw -text "Configuration:"
+        pack [LabelEntry $w.basedir -label "BaseDirectory: " \
+              -text $BaseDirectory -editable no] -fill x
+        pack [LabelEntry $w.openmrn -label "OPENMRNPATH: " \
+              -text $OPENMRNPATH -editable no] -fill x
+        set gccver [lindex [split [exec gcc -v 2>@1] "\n"] end]
+        pack [LabelEntry $w.gccversion -label "Compiler: " \
+              -text $gccver -editable no] -fill x
+        pack [LabelEntry $w.kversion -label "Kernel: " \
+              -text [exec uname -s -n -r -m -o] -editable no] -fill x
+        return $w
+    }
+    typemethod _buildTools {} {
+        $main toolbar add tools
+        $main toolbar addbutton tools sysinstall \
+              -text "System Install" \
+              -command [mytypemethod _SysInstall]
+        $main toolbar addbutton tools build -text "Build" \
+              -command [mytypemethod _Build]
+        $main toolbar addbutton tools clearlog -text "Clear Log" \
+              -command [mytypemethod _ClearLog]
+        $main toolbar addbutton tools savelog -text "Save log" \
+              -command [mytypemethod _SaveLog]
+        $main toolbar show tools
+    }
+    typemethod _SysInstall {} {
+        set _logfp [open "|sudo -A apt-get update" r]
+        set _eof 0
+        fileevent $_logfp readable [mytypemethod _fp2log]
+        vwait [mytypevar _eof]
+        set _logfp [open "|sudo -A apt-get dist-upgrade" r]
+        set _eof 0
+        fileevent $_logfp readable [mytypemethod _fp2log]
+        vwait [mytypevar _eof]
+        set _logfp [open "|sudo -A apt-get install build-essential tcl tcllib" r]
+        set _eof 0
+        fileevent $_logfp readable [mytypemethod _fp2log]
+        vwait [mytypevar _eof]
+    }
     typemethod _Build {} {
         set opts [$optionsFrame GetBuildOptions]
         $buildlog insert end "$opts"
@@ -143,7 +203,10 @@ snit::type RRCircuits-Builder {
         set topprogfile [file join $BaseDirectory $ProgramDirectories([from opts -program])]
         set targetdir   [file join $topprogfile targets $TargetDirectories([from opts -target])]
         if {[catch {open [file join $topprogfile NODEID.txt] w} nfp]} {
-            error ...
+            tk_messageBox -default ok -icon error \
+                  -message "Failed to open [file join $topprogfile NODEID.txt] for write: $nfp" \
+                  -type ok
+            return
         }
         puts $nfp [split [from opts -firstnid] :]
         close $nfp
@@ -156,6 +219,24 @@ snit::type RRCircuits-Builder {
             fileevent $_logfp readable [mytypemethod _fp2log]
             vwait [mytypevar _eof]
         }
+    }
+    typemethod _ClearLog {} {
+        $buildlog delete 1.0 end
+    }
+    typemethod _SaveLog {} {
+        set file [tk_getSaveFile -defaultextension .log \
+                  -filetypes { {{Log files} {.log}  } {{All Files}  *      } } \
+                  -initialdir . -initialfile build.log \
+                  -title "File to save the log to"]
+        if {$file eq {}} {return}
+        if {[catch {open $file w} fp]} {
+            tk_messageBox -default ok -icon error \
+                  -message "Failed to open $file for write: $fp" \
+                  -type ok
+            return
+        }
+        puts $fp [$buildlog get 1.0 end-1c]
+        close $fp
     }
     typemethod _fp2log {} {
         if {[gets $_logfp line] < 0} {
