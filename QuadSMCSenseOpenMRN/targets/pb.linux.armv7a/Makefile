@@ -9,16 +9,7 @@ sh -c "if [ \"X`printenv OPENMRNPATH`\" != \"X\" ]; then printenv OPENMRNPATH; \
      else echo OPENMRNPATH not found; fi" \
 )
 
-NODEID.hxx : NODEID.txt
-	../../GenerateNODEID.tcl
-	
-main.o: NODEID.hxx
-
-NodeIDBin: $(EXECUTABLE) NODEID.txt
-	mv $(EXECUTABLE) $(EXECUTABLE)_`cat NODEID.txt|tr ' ' '_'`
-	rm -f NODEID.hxx 
-	mv $(EXECUTABLE).lst $(EXECUTABLE)_`cat NODEID.txt|tr ' ' '_'`.lst
-	mv $(EXECUTABLE).map $(EXECUTABLE)_`cat NODEID.txt|tr ' ' '_'`.map
+include ../../../CommonOpenMRNExtras/NodeIDBin.mk
 
 APP_PATH ?= $(realpath ../..)
 -include ../../config.mk
