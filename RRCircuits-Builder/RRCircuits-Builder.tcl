@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sun Mar 24 21:25:42 2019
-#  Last Modified : <190326.0031>
+#  Last Modified : <190326.1322>
 #
 #  Description	
 #
@@ -135,9 +135,18 @@ snit::widgetadaptor DeployDialog {
         set sw [ScrolledWindow $frame.sw -scrollbar both -auto both]
         pack $sw -fill both -expand yes
         install programList using ttk::treeview $sw.programList \
-              -columns program -displaycolumns program \
-              -selectmode browse -show headings
-        $programList heading program -text "Node Program"
+              -selectmode browse -show tree
+        #$programList heading program -text "Node Program"
+        #$programList heading platform -text "Platform"
+        #$programList heading nodeid -text "Node ID"
+        foreach p [$builder ProgramDirectories] {
+            set progname [file join [$builder BaseDirectory] [$builder ProgramFromName $p]]
+            $programList insert {} end -id $progname -text $p
+            foreach t [$builder TargetDirectories] {
+                set tname [file join $progname targets [$builder TargetFromName $t]]
+                $programList insert $progname end -id $tname -text $t
+            }
+        }
         $sw setwidget $programList
         set lf [LabelFrame $frame.userhost -text "SSH Target: "]
         pack $lf -fill x -expand yes
@@ -157,10 +166,18 @@ snit::widgetadaptor DeployDialog {
     }
     method draw {args} {
         $self configurelist $args 
-        $programList delete [$programList children {}]
+        foreach p [$programList children {}] {
+            foreach t [$programList children $p] {
+                $programList delete [$programList children $t]
+            }
+        }
         foreach p [$builder FindAllDeployableNodes] {
-            $programList insert {} end -id $p \
-                  -value [file tail $p]
+            set nodeProg [file tail $p]
+            #puts stderr "*** $self draw: nodeProg is $nodeProg"
+            regexp {[^_]+_[^_]+_([[:xdigit:]_]+)$} $nodeProg => nodeid
+            set NID [regsub -all {_} $nodeid {:}]
+            set tname [file dirname $p]
+            $programList insert $tname end -id $p -text $NID
         }
         return [$hull draw]
     }
@@ -200,7 +217,8 @@ snit::type RRCircuits-Builder {
     typecomponent optionsFrame
     typecomponent deployDialog
     
-    typevariable BaseDirectory {}
+    typevariable _BaseDirectory {}
+    typemethod   BaseDirectory {} {return $_BaseDirectory}
     typevariable OPENMRNPATH {}
     typevariable _ProgramDirectories -array {
         {16 LED Driver Output} 16DriverOutputOpenMRN
@@ -209,7 +227,7 @@ snit::type RRCircuits-Builder {
         {Quad StallMotor W/Sense} QuadSMCSenseOpenMRN
     }
     typemethod ProgramDirectories {} {
-        return [array names _ProgramDirectories]
+        return [lsort -dictionary [array names _ProgramDirectories]]
     }
     typevariable _TargetDirectories -array {
         {Raspberry Pi} rpi.linux.armv7a
@@ -224,7 +242,7 @@ snit::type RRCircuits-Builder {
         }
     }
     typemethod TargetDirectories {} {
-        return [array names _TargetDirectories]
+        return [lsort -dictionary [array names _TargetDirectories]]
     }
     typemethod TargetFromName {name} {
         if {[info exists _TargetDirectories($name)]} {
@@ -237,7 +255,7 @@ snit::type RRCircuits-Builder {
     typevariable _eof
     typevariable _logfp
     typeconstructor {
-        set BaseDirectory [file dirname [file dirname [file normalize [info nameofexecutable]]]]
+        set _BaseDirectory [file dirname [file dirname [file normalize [info nameofexecutable]]]]
         if {[info exists ::env(OPENMRNPATH)]} {
             set OPENMRNPATH $::env(OPENMRNPATH)
         } elseif {[file exists /opt/openmrn/src]} {
@@ -284,7 +302,7 @@ snit::type RRCircuits-Builder {
     typemethod _makeConfigInfoFrame {w} {
         ttk::labelframe $w -labelanchor nw -text "Configuration:"
         pack [LabelEntry $w.basedir -label "BaseDirectory: " \
-              -text $BaseDirectory -editable no] -fill x
+              -text $_BaseDirectory -editable no] -fill x
         pack [LabelEntry $w.openmrn -label "OPENMRNPATH: " \
               -text $OPENMRNPATH -editable no] -fill x
         set gccver [lindex [split [exec gcc -v 2>@1] "\n"] end]
@@ -327,7 +345,7 @@ snit::type RRCircuits-Builder {
         set opts [$optionsFrame GetBuildOptions]
         $buildlog insert end "$opts"
         set count [from opts -numberoftargets]
-        set topprogfile [file join $BaseDirectory $_ProgramDirectories([from opts -program])]
+        set topprogfile [file join $_BaseDirectory $_ProgramDirectories([from opts -program])]
         set targetdir   [file join $topprogfile targets $_TargetDirectories([from opts -target])]
         if {[catch {open [file join $topprogfile NODEID.txt] w} nfp]} {
             tk_messageBox -default ok -icon error \
@@ -349,15 +367,15 @@ snit::type RRCircuits-Builder {
     }
     typemethod FindAllDeployableNodes {} {
         set result [list]
-        foreach p [array names _ProgramDirectories] {
+        foreach p [$type ProgramDirectories] {
             set ppath $_ProgramDirectories($p)
-            set progTargetPath [file join $BaseDirectory \
+            set progTargetPath [file join $_BaseDirectory \
                                 $ppath targets]
-            foreach t [array names _TargetDirectories] {
+            foreach t [$type TargetDirectories] {
                 set tpath $_TargetDirectories($t)
                 set t1 [string toupper [lindex [split $tpath {.}] 0]]
                 set dir [file join $progTargetPath $tpath]
-                puts stderr "*** $type FindAllDeployableNodes: dir = $dir"
+                #puts stderr "*** $type FindAllDeployableNodes: dir = $dir"
                 foreach exe [glob -nocomplain \
                               -directory $dir \
                              ${ppath}_${t1}_??_??_??_??_??_??] {
@@ -365,7 +383,7 @@ snit::type RRCircuits-Builder {
                 }
             }
         }
-        return $result
+        return [lsort -dictionary $result]
     }
     typemethod _Deploy {} {
         if {[info exists deployDialog] &&
