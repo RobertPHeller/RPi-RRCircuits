@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sun Mar 24 21:25:42 2019
-#  Last Modified : <190325.1958>
+#  Last Modified : <190326.0031>
 #
 #  Description	
 #
@@ -49,6 +49,8 @@ package require MainWindow 1.0
 package require ROText 1.0
 package require LabelFrames
 package require HTMLHelp 2.0
+package require Dialog
+package require ScrollWindow
 
 set argv0 [file join  [file dirname [info nameofexecutable]] RRCircuits-Builder]
 
@@ -59,29 +61,31 @@ set HelpDir [file join [file dirname [file dirname \
 
 
 snit::widgetadaptor OptionsFrame {
-    option -parent
+    option -builder -readonly yes -default {} -cgetmethod builder_cget
+    method parent_cget {option} {return $builder}
+    component builder
     component programselect
     component targetselect
     component numberoftargets
     component firstNID
     constructor {args} {
+        set builder [from args -builder]
+        if {$builder eq {}} {
+            error "Missing -builder option!"
+        }
         installhull using ttk::labelframe -labelanchor nw \
               -text "Build Options:"
         install programselect using LabelComboBox $win.programselect \
               -label "Program to build: " \
-              -values {{16 LED Driver Output}
-            {16 PWM Led Driver} 
-            {Quad Occupancy Detector}
-            {Quad StallMotor W/Sense}} \
+              -values [$builder ProgramDirectories] \
               -editable no
-        $programselect set {16 LED Driver Output}
+        $programselect set [lindex [$programselect cget -values] 0]
         pack $programselect -fill x
         install targetselect using LabelComboBox $win.targetselect \
               -label "Target machine type: " \
-              -values {{Raspberry Pi} {Beagle Bone Black} 
-            {Pocket Beagle}} \
+              -values [$builder TargetDirectories] \
               -editable no
-        $targetselect set {Raspberry Pi}
+        $targetselect set [lindex [$targetselect cget -values] 0]
         pack $targetselect -fill x
         install numberoftargets using LabelSpinBox $win.numberoftargets \
               -label "Number of target instances: " \
@@ -104,6 +108,87 @@ snit::widgetadaptor OptionsFrame {
     }
 }
 
+
+
+snit::widgetadaptor DeployDialog {
+    delegate option -parent to hull
+    component builder
+    option -builder -readonly yes -default {} -cgetmethod builder_cget
+    method parent_cget {option} {return $builder}
+    component programList
+    variable user {pi}
+    variable host {rasppi}
+    variable directory {bin}
+    constructor {args} {
+        set builder [from args -builder]
+        if {$builder eq {}} {
+            error "Missing -builder option!"
+        }
+        installhull using Dialog -separator 0 \
+              -modal local -parent . -place center \
+              -side bottom -title "Deploy nodes" \
+              -transient 1 -anchor e
+        $hull add deploy -text Deploy -command [mymethod _Deploy]
+        $hull add cancel -text Cancel -command [mymethod _Cancel]
+        wm protocol [winfo toplevel $win] WM_DELETE_WINDOW [mymethod _Cancel]
+        set frame [$hull getframe]
+        set sw [ScrolledWindow $frame.sw -scrollbar both -auto both]
+        pack $sw -fill both -expand yes
+        install programList using ttk::treeview $sw.programList \
+              -columns program -displaycolumns program \
+              -selectmode browse -show headings
+        $programList heading program -text "Node Program"
+        $sw setwidget $programList
+        set lf [LabelFrame $frame.userhost -text "SSH Target: "]
+        pack $lf -fill x -expand yes
+        set lfframe [$lf getframe]
+        set uentry [ttk::entry $lfframe.uentry \
+                    -textvariable [myvar user] -justify right]
+        pack $uentry -side left
+        pack [ttk::label $lfframe.at -text {@}] -side left
+        set hentry [ttk::entry $lfframe.hentry \
+                    -textvariable [myvar host] -justify left]
+        pack $hentry -side left
+        pack [ttk::label $lfframe.colon -text {:}] -side left
+        set dentry [ttk::entry $lfframe.dentry \
+                    -textvariable [myvar directory] -justify left]
+        pack $dentry -fill x -expand yes -side left
+        $self configurelist $args
+    }
+    method draw {args} {
+        $self configurelist $args 
+        $programList delete [$programList children {}]
+        foreach p [$builder FindAllDeployableNodes] {
+            $programList insert {} end -id $p \
+                  -value [file tail $p]
+        }
+        return [$hull draw]
+    }
+    method _Deploy {} {
+        $hull withdraw
+        set selected [$programList selection]
+        if {$selected ne {}} {
+            set result [list $selected]
+            set sshdest ${host}:
+            if {$user ne {}} {
+                set sshdest ${user}@$sshdest
+            }
+            if {$directory ne {}} {
+                append sshdest ${directory}/
+            }
+            lappend result $sshdest
+        } else {
+            set result {}
+        }
+        return [$hull enddialog $result]
+    }
+    method _Cancel {} {
+        $hull withdraw
+        return [$hull enddialog {}]
+    }
+}
+
+
 snit::type RRCircuits-Builder {
     # Set up for an ensemble command.
     pragma -hastypeinfo    no
@@ -113,20 +198,42 @@ snit::type RRCircuits-Builder {
     typecomponent main
     typecomponent buildlog
     typecomponent optionsFrame
+    typecomponent deployDialog
     
     typevariable BaseDirectory {}
     typevariable OPENMRNPATH {}
-    typevariable ProgramDirectories -array {
+    typevariable _ProgramDirectories -array {
         {16 LED Driver Output} 16DriverOutputOpenMRN
         {16 PWM Led Driver} 16PWMLedDriverOpenMRN
         {Quad Occupancy Detector} QuadOCDectOpenMRN
         {Quad StallMotor W/Sense} QuadSMCSenseOpenMRN
     }
-    typevariable TargetDirectories -array {
+    typemethod ProgramDirectories {} {
+        return [array names _ProgramDirectories]
+    }
+    typevariable _TargetDirectories -array {
         {Raspberry Pi} rpi.linux.armv7a
         {Beagle Bone Black} bbb.linux.armv7a
         {Pocket Beagle} pb.linux.armv7a
     }
+    typemethod ProgramFromName {name} {
+        if {[info exists _ProgramDirectories($name)]} {
+            return $_ProgramDirectories($name)
+        } else {
+            return {}
+        }
+    }
+    typemethod TargetDirectories {} {
+        return [array names _TargetDirectories]
+    }
+    typemethod TargetFromName {name} {
+        if {[info exists _TargetDirectories($name)]} {
+            return $_TargetDirectories($name)
+        } else {
+            return {}
+        }
+    }
+        
     typevariable _eof
     typevariable _logfp
     typeconstructor {
@@ -155,7 +262,7 @@ snit::type RRCircuits-Builder {
         $main slideout add options
         set optionsFrame [OptionsFrame \
                           [$main slideout getframe options].options \
-                          -parent $type]
+                          -builder $type]
         pack $optionsFrame -fill both -expand yes
         pack [$type _makeConfigInfoFrame \
               [$main slideout getframe options].configInfo] \
@@ -194,6 +301,8 @@ snit::type RRCircuits-Builder {
               -command [mytypemethod _SysInstall]
         $main toolbar addbutton tools build -text "Build" \
               -command [mytypemethod _Build]
+        $main toolbar addbutton tools deploy -text "Deploy" \
+              -command [mytypemethod _Deploy]
         $main toolbar addbutton tools clearlog -text "Clear Log" \
               -command [mytypemethod _ClearLog]
         $main toolbar addbutton tools savelog -text "Save log" \
@@ -218,8 +327,8 @@ snit::type RRCircuits-Builder {
         set opts [$optionsFrame GetBuildOptions]
         $buildlog insert end "$opts"
         set count [from opts -numberoftargets]
-        set topprogfile [file join $BaseDirectory $ProgramDirectories([from opts -program])]
-        set targetdir   [file join $topprogfile targets $TargetDirectories([from opts -target])]
+        set topprogfile [file join $BaseDirectory $_ProgramDirectories([from opts -program])]
+        set targetdir   [file join $topprogfile targets $_TargetDirectories([from opts -target])]
         if {[catch {open [file join $topprogfile NODEID.txt] w} nfp]} {
             tk_messageBox -default ok -icon error \
                   -message "Failed to open [file join $topprogfile NODEID.txt] for write: $nfp" \
@@ -237,6 +346,42 @@ snit::type RRCircuits-Builder {
             fileevent $_logfp readable [mytypemethod _fp2log]
             vwait [mytypevar _eof]
         }
+    }
+    typemethod FindAllDeployableNodes {} {
+        set result [list]
+        foreach p [array names _ProgramDirectories] {
+            set ppath $_ProgramDirectories($p)
+            set progTargetPath [file join $BaseDirectory \
+                                $ppath targets]
+            foreach t [array names _TargetDirectories] {
+                set tpath $_TargetDirectories($t)
+                set t1 [string toupper [lindex [split $tpath {.}] 0]]
+                set dir [file join $progTargetPath $tpath]
+                puts stderr "*** $type FindAllDeployableNodes: dir = $dir"
+                foreach exe [glob -nocomplain \
+                              -directory $dir \
+                             ${ppath}_${t1}_??_??_??_??_??_??] {
+                    lappend result $exe
+                }
+            }
+        }
+        return $result
+    }
+    typemethod _Deploy {} {
+        if {[info exists deployDialog] &&
+            [winfo exists $deployDialog]} {
+        } else {
+            set deployDialog [DeployDialog $main.deployDialog -builder $type]
+        }
+        set deployList [$deployDialog draw -parent $main]
+        if {$deployList eq {}} {return}
+        set command [linsert $deployList 0 scp]
+        $buildlog insert end "$command\n"
+        lappend command 2>@1
+        set _logfp [open "|$command" r]
+        set _eof 0
+        fileevent $_logfp readable [mytypemethod _fp2log]
+        vwait [mytypevar _eof]
     }
     typemethod _ClearLog {} {
         $buildlog delete 1.0 end
