@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sun Mar 24 21:25:42 2019
-#  Last Modified : <190325.1331>
+#  Last Modified : <190325.1958>
 #
 #  Description	
 #
@@ -41,14 +41,21 @@
 #*****************************************************************************
 
 
+
 package require snit
 package require Tk
 package require tile
 package require MainWindow 1.0
 package require ROText 1.0
 package require LabelFrames
+package require HTMLHelp 2.0
 
 set argv0 [file join  [file dirname [info nameofexecutable]] RRCircuits-Builder]
+
+global HelpDir
+set HelpDir [file join [file dirname [file dirname \
+                                      [file dirname \
+                                       [info script]]]] Help]
 
 
 snit::widgetadaptor OptionsFrame {
@@ -154,6 +161,17 @@ snit::type RRCircuits-Builder {
               [$main slideout getframe options].configInfo] \
               -fill both -expand yes
         $main slideout show options
+        HTMLHelp setDefaults "$::HelpDir" "index.html#toc"
+        $main menu entryconfigure help "On Help..." -command {HTMLHelp help Help}
+        $main menu delete help "On Keys..."
+        $main menu delete help "Index..."
+        $main menu delete help "Tutorial..."
+        $main menu entryconfigure help "On Version" -command {HTMLHelp help Version}
+        $main menu entryconfigure help "Warranty" -command {HTMLHelp help Warranty}
+        $main menu entryconfigure help "Copying" -command {HTMLHelp help Copying}
+        $main menu add help command \
+              -label "Reference Manual" \
+              -command {HTMLHelp help "RRCircuits Builder Reference"}
         $main showit
     }
     typemethod _makeConfigInfoFrame {w} {

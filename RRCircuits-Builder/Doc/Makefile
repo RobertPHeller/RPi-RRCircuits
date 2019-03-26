@@ -7,8 +7,8 @@
 #  Date          : $Date$
 #  Author        : $Author$
 #  Created By    : Robert Heller
-#  Created       : Sun Mar 24 20:59:52 2019
-#  Last Modified : <190325.2003>
+#  Created       : Mon Mar 25 19:01:24 2019
+#  Last Modified : <190325.1904>
 #
 #  Description	
 #
@@ -43,39 +43,9 @@
 ##############################################################################
 
 
-NATIVEKIT = /usr/local/bin/tclkit
-SDX       = /usr/local/bin/sdx
+SOURCES := $(wildcard *.h)
 
-RUNTIME_LinuxArmv7l = /usr/local/share/tclkits/tclkit-linux-armv7l
-
-SNITLIB = /usr/share/tcltk/tcllib1.16/snit/
-IMGLIB  = /usr/lib/tcltk/arm-linux-gnueabihf/Img1.4.2/
-
-SCRIPTSSRCS := $(wildcard Scripts/*.tcl)
-IMAGES      := $(wildcard Images/*.png) $(wildcard Images/*.gif) \
-		$(wildcard Images/*.xpm) $(wildcard Images/*.xbm)
-SOURCE = RRCircuits-Builder.tcl
-TARGET = RRCircuits-Builder
-
-$(TARGET) : $(SOURCE) $(SCRIPTSSRCS) $(IMAGES) Doc/html/index.html
-	-rm -f  $(TARGET).kit
-	-rm -rf $(TARGET).vfs
-	$(NATIVEKIT) $(SDX) qwrap $(SOURCE)
-	$(NATIVEKIT) $(SDX) unwrap $(TARGET).kit
-	-rm -f  $(TARGET).kit
-	ln -s $(SNITLIB) $(TARGET).vfs/lib/
-	ln -s $(IMGLIB)  $(TARGET).vfs/lib/
-	mkdir $(TARGET).vfs/lib/Scripts/
-	cp $(SCRIPTSSRCS) $(TARGET).vfs/lib/Scripts/
-	cp $(IMAGES) $(TARGET).vfs/lib/Scripts/
-	mkdir $(TARGET).vfs/Help/
-	cp Doc/html/* $(TARGET).vfs/Help/
-	echo "pkg_mkIndex $(TARGET).vfs/lib/Scripts/ \*.tcl" | $(NATIVEKIT) 
-	$(NATIVEKIT) $(SDX) wrap $(TARGET) -runtime $(RUNTIME_LinuxArmv7l)
-	-rm -rf $(TARGET).vfs
-
-Doc/html/index.html : FORCE
-	make -C Doc
-	
-FORCE:
+html/index.html latex/refman.pdf : doxyfile $(SOURCES)
+	doxygen doxyfile
+	make -C latex refman.pdf
 
