@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Mon Mar 25 19:01:24 2019
-#  Last Modified : <190325.1904>
+#  Last Modified : <190326.2118>
 #
 #  Description	
 #
@@ -45,7 +45,7 @@
 
 SOURCES := $(wildcard *.h)
 
-html/index.html latex/refman.pdf : doxyfile $(SOURCES)
+html/index.html latex/refman.pdf : doxyfile $(SOURCES) header.html
 	doxygen doxyfile
 	make -C latex refman.pdf
 

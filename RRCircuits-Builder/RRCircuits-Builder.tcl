@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sun Mar 24 21:25:42 2019
-#  Last Modified : <190326.1322>
+#  Last Modified : <190326.2131>
 #
 #  Description	
 #
@@ -254,6 +254,17 @@ snit::type RRCircuits-Builder {
         
     typevariable _eof
     typevariable _logfp
+    typevariable _Menu {
+        "&File" {file:menu} {file} 0 {
+            {command "E&xit" {file:exit} "Exit the application" {Ctrl q}}
+        }
+        "&Help" {help:menu} {help} 0 {
+            {command "On &Help..." {help:help} "Help on help" {}}
+            {command "On &Version" {help:version} "Version" {}}
+            {command "Warranty" {help:warranty} "Warranty" {}}
+            {command "Copying" {help:copying} "Copying" {}}
+        }
+    }
     typeconstructor {
         set _BaseDirectory [file dirname [file dirname [file normalize [info nameofexecutable]]]]
         if {[info exists ::env(OPENMRNPATH)]} {
@@ -262,15 +273,14 @@ snit::type RRCircuits-Builder {
             set OPENMRNPATH /opt/openmrn
         } elseif {[file exists ~/openmrn/src]} {
             set OPENMRNPATH [file normalize ~/openmrn]
-        } elseif {[file exists ../../../src]} {
-            set OPENMRNPATH [file normalize ../../..]
         } else {
             tk_messageBox -default ok -icon error -type ok \
                   -message "OPENMRNPATH not found.  Please install OpenMRN in one of the standard places."
             $type _carefulExit yes
         }
         set main [mainwindow .main -scrolling yes \
-                  -height 480 -width 640]
+                  -height 480 -width 640 \
+                  -menu $_Menu]
         pack $main -fill both -expand yes
         $main menu entryconfigure file "Exit" \
               -command [mytypemethod _carefulExit]
@@ -288,9 +298,6 @@ snit::type RRCircuits-Builder {
         $main slideout show options
         HTMLHelp setDefaults "$::HelpDir" "index.html#toc"
         $main menu entryconfigure help "On Help..." -command {HTMLHelp help Help}
-        $main menu delete help "On Keys..."
-        $main menu delete help "Index..."
-        $main menu delete help "Tutorial..."
         $main menu entryconfigure help "On Version" -command {HTMLHelp help Version}
         $main menu entryconfigure help "Warranty" -command {HTMLHelp help Warranty}
         $main menu entryconfigure help "Copying" -command {HTMLHelp help Copying}
@@ -314,9 +321,6 @@ snit::type RRCircuits-Builder {
     }
     typemethod _buildTools {} {
         $main toolbar add tools
-        $main toolbar addbutton tools sysinstall \
-              -text "System Install" \
-              -command [mytypemethod _SysInstall]
         $main toolbar addbutton tools build -text "Build" \
               -command [mytypemethod _Build]
         $main toolbar addbutton tools deploy -text "Deploy" \
@@ -326,20 +330,6 @@ snit::type RRCircuits-Builder {
         $main toolbar addbutton tools savelog -text "Save log" \
               -command [mytypemethod _SaveLog]
         $main toolbar show tools
-    }
-    typemethod _SysInstall {} {
-        set _logfp [open "|sudo -A apt-get update" r]
-        set _eof 0
-        fileevent $_logfp readable [mytypemethod _fp2log]
-        vwait [mytypevar _eof]
-        set _logfp [open "|sudo -A apt-get dist-upgrade" r]
-        set _eof 0
-        fileevent $_logfp readable [mytypemethod _fp2log]
-        vwait [mytypevar _eof]
-        set _logfp [open "|sudo -A apt-get install build-essential tcl tcllib" r]
-        set _eof 0
-        fileevent $_logfp readable [mytypemethod _fp2log]
-        vwait [mytypevar _eof]
     }
     typemethod _Build {} {
         set opts [$optionsFrame GetBuildOptions]

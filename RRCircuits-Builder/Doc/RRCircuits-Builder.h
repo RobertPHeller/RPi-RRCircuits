@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Mar 25 19:12:50 2019
-//  Last Modified : <190325.2055>
+//  Last Modified : <190326.2108>
 //
 //  Description	
 //
@@ -69,9 +69,9 @@
  * PocketBeagle boards allowing for the use of "embedded Linux"
  * as a platform for layout control.  Modelers can use these
  * small and inexpensive Linux computers with one (or in the case
- * the Raspberry Pi and BeagleBone Black) of the RRCircuits
- * add-on boards to implement a distributed network, using either
- * CAN (BeagleBone Black and PocketBeagle), wired Ethernet (
+ * the Raspberry Pi and BeagleBone Black, more than one) of the 
+ * RRCircuits add-on boards to implement a distributed network, using 
+ * either CAN (BeagleBone Black and PocketBeagle), wired Ethernet (
  * BeagleBone Black or Raspberry Pi), or WiFi (Raspberry Pi 3).
  * 
  * Deepwoods Software has provided OpenMRN node programs for these
@@ -109,10 +109,13 @@
  * 
  * To build a program you select the program to build, the target,
  * the number of copies to build (each with a unique Node ID), and
- * the starting Node ID to use.  Then you just need to click on the
- * Build button and wait for the compilation to complete.
+ * the starting Node ID (less one) to use.  Then you just need to 
+ * click on the Build button and wait for the compilation to complete.
  * 
  * @section deploying Deploying node programs
+ * 
+ * There is a Deploy button on the toolbar that can be used to copy
+ * a node program to a selected target machine, using ssh.
  * 
  */
 #endif // __RRCIRCUITS-BUILDER_H
