@@ -1,4 +1,4 @@
-update=Sun 24 Feb 2019 07:55:29 PM EST
+update=Wed 27 Mar 2019 08:19:50 PM EDT
 last_client=pcbnew
 [general]
 version=1
@@ -89,3 +89,4 @@ LibName17=WireConnections-Bridges_RevA
 LibName18=WirePads_RevA_15Jun2010
 LibName19=../ScrewTerm254_9
 LibName20=3PosJumper
+LibName21=/home/heller/RRCircuits/ScrewTerm254_2

@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Sun 24 Feb 2019 08:13:21 PM EST
+Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Wed 27 Mar 2019 08:20:21 PM EDT
 
 BeginCmp
 TimeStamp = /5C734D83;
@@ -17,14 +17,14 @@ EndCmp
 BeginCmp
 TimeStamp = /5C731FC4;
 Reference = JP1;
-ValeurCmp = CA A CK;
+ValeurCmp = CK A CA;
 IdModule  = 3PosJumper;
 EndCmp
 
 BeginCmp
 TimeStamp = /5C731FD3;
 Reference = JP2;
-ValeurCmp = CA A CK;
+ValeurCmp = CK A CA;
 IdModule  = 3PosJumper;
 EndCmp
 
@@ -45,21 +45,21 @@ EndCmp
 BeginCmp
 TimeStamp = /5C73212B;
 Reference = P1;
-ValeurCmp = Bank A;
+ValeurCmp = A7 A6 A5 A4 A3 A2 A1 A0 C;
 IdModule  = ScrewTerm_2.54-9;
 EndCmp
 
 BeginCmp
 TimeStamp = /5C73213A;
 Reference = P2;
-ValeurCmp = Bank B;
+ValeurCmp = C B0 B1 B2 B3 B4 B5 B6 B7;
 IdModule  = ScrewTerm_2.54-9;
 EndCmp
 
 BeginCmp
 TimeStamp = /5C733FAC;
 Reference = P3;
-ValeurCmp = 0 1 2;
+ValeurCmp = 0  1  2;
 IdModule  = pin_array_3x2;
 EndCmp
 
@@ -82,6 +82,13 @@ TimeStamp = /5C734570;
 Reference = RR1;
 ValeurCmp = 10K Ohms;
 IdModule  = SIL-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C9C1363;
+Reference = T1;
+ValeurCmp = + 12V -;
+IdModule  = ScrewTerm2.54-2;
 EndCmp
 
 BeginCmp
