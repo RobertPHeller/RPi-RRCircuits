@@ -41,7 +41,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 3
 Title ""
-Date "7 mar 2019"
+Date "28 mar 2019"
 Rev ""
 Comp ""
 Comment1 ""
@@ -591,4 +591,18 @@ Text Label 2800 6000 0    60   ~ 0
 SCL
 Text Label 2800 6300 0    60   ~ 0
 SDA
+$Comp
+L +12V #PWR014
+U 1 1 5C9C29E0
+P 4000 3600
+F 0 "#PWR014" H 4000 3550 20  0001 C CNN
+F 1 "+12V" H 4000 3700 30  0000 C CNN
+F 2 "" H 4000 3600 60  0000 C CNN
+F 3 "" H 4000 3600 60  0000 C CNN
+	1    4000 3600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4000 3600 4000 3750
+Connection ~ 4000 3750
 $EndSCHEMATC
