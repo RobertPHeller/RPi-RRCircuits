@@ -41,7 +41,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 3
 Title ""
-Date "11 mar 2019"
+Date "28 mar 2019"
 Rev ""
 Comp ""
 Comment1 ""
@@ -630,4 +630,18 @@ $EndComp
 Wire Wire Line
 	2300 1500 2300 1650
 Connection ~ 2300 1650
+$Comp
+L +12V #PWR014
+U 1 1 5C9CC877
+P 3450 3650
+F 0 "#PWR014" H 3450 3600 20  0001 C CNN
+F 1 "+12V" H 3450 3750 30  0000 C CNN
+F 2 "" H 3450 3650 60  0000 C CNN
+F 3 "" H 3450 3650 60  0000 C CNN
+	1    3450 3650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3450 3650 3450 3750
+Connection ~ 3450 3750
 $EndSCHEMATC

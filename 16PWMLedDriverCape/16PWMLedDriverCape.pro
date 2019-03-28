@@ -1,4 +1,4 @@
-update=Sun 10 Mar 2019 09:36:21 AM EDT
+update=Thu 28 Mar 2019 08:48:28 AM EDT
 version=1
 last_client=pcbnew
 [cvpcb]
@@ -84,3 +84,4 @@ LibName19=../ScrewTerm254_9
 LibName20=../16DriverOutputHAT/3PosJumper
 LibName21=../16PWMLedDriverHat/DIP28_700
 LibName22=SolderJumpers
+LibName23=/home/heller/RRCircuits/ScrewTerm254_2

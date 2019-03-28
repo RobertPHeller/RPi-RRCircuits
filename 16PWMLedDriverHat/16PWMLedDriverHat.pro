@@ -1,4 +1,4 @@
-update=Sun 10 Mar 2019 03:14:53 PM EDT
+update=Thu 28 Mar 2019 08:55:52 AM EDT
 last_client=pcbnew
 [general]
 version=1
@@ -54,8 +54,8 @@ LastNetListRead=
 UseCmpFile=1
 PadDrill=0.000000000000
 PadDrillOvalY=0.000000000000
-PadSizeH=2.540000000000
-PadSizeV=2.540000000000
+PadSizeH=1.270000000000
+PadSizeV=1.270000000000
 PcbTextSizeV=1.500000000000
 PcbTextSizeH=1.500000000000
 PcbTextThickness=0.300000000000
@@ -89,3 +89,4 @@ LibName17=DIP28_700
 LibName18=../16DriverOutputHAT/3PosJumper
 LibName19=../ScrewTerm254_9
 LibName20=SolderJumpers
+LibName21=/home/heller/RRCircuits/ScrewTerm254_2

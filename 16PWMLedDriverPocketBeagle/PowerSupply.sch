@@ -41,7 +41,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 2 3
 Title ""
-Date "11 mar 2019"
+Date "28 mar 2019"
 Rev ""
 Comp ""
 Comment1 ""
@@ -90,10 +90,10 @@ F 4 "REA221M1EBK-0811P" H 4650 3450 60  0001 C CNN "Part Number"
 $EndComp
 Connection ~ 4900 3250
 $Comp
-L GND #PWR014
+L GND #PWR015
 U 1 1 5C7D35B7
 P 5500 4050
-F 0 "#PWR014" H 5500 4050 30  0001 C CNN
+F 0 "#PWR015" H 5500 4050 30  0001 C CNN
 F 1 "GND" H 5500 3980 30  0001 C CNN
 F 2 "" H 5500 4050 60  0000 C CNN
 F 3 "" H 5500 4050 60  0000 C CNN
