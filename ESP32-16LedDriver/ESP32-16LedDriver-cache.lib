@@ -1,4 +1,4 @@
-EESchema-LIBRARY Version 2.3  Date: Sat 09 Mar 2019 11:42:18 EST
+EESchema-LIBRARY Version 2.3  Date: Wed 27 Mar 2019 09:34:04 PM EDT
 #encoding utf-8
 #
 # +12V
@@ -430,22 +430,6 @@ X 2 2 -350 100 300 R 60 60 1 1 P I
 X 3 3 -350 0 300 R 60 60 1 1 P I
 X 4 4 -350 -100 300 R 60 60 1 1 P I
 X 5 5 -350 -200 300 R 60 60 1 1 P I
-ENDDRAW
-ENDDEF
-#
-# smallJumper
-#
-DEF smallJumper JP 0 30 Y N 1 F N
-F0 "JP" 5 50 20 H V C CNN
-F1 "smallJumper" 0 -35 20 H V C CNN
-F2 "~" 0 0 60 H V C CNN
-F3 "~" 0 0 60 H V C CNN
-DRAW
-A 5 5 29 1490 309 0 1 0 N -20 20 30 20
-C -20 0 10 0 1 0 N
-C 30 0 11 0 1 0 N
-X 1 1 -100 0 65 R 20 20 0 1 P
-X 2 2 100 0 55 L 20 20 0 1 P
 ENDDRAW
 ENDDEF
 #

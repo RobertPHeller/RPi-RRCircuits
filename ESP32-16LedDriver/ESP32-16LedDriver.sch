@@ -42,7 +42,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 4
 Title ""
-Date "9 mar 2019"
+Date "28 mar 2019"
 Rev ""
 Comp ""
 Comment1 ""
@@ -61,25 +61,12 @@ F 3 "~" H 3100 2000 60  0000 C CNN
 	1    3100 2000
 	1    0    0    -1  
 $EndComp
-$Comp
-L SMALLJUMPER JP0
-U 1 1 5C81CE8C
-P 3750 1850
-F 0 "JP0" H 3755 1900 20  0000 C CNN
-F 1 "TIGO-T1 Power" H 3750 1815 20  0000 C CNN
-F 2 "~" H 3750 1850 60  0000 C CNN
-F 3 "~" H 3750 1850 60  0000 C CNN
-	1    3750 1850
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	3850 1750 3850 2600
 Wire Wire Line
 	3850 2600 2650 2600
 Wire Wire Line
 	2650 2600 2650 2450
-Wire Wire Line
-	3650 1850 3550 1850
 $Comp
 L GND #PWR01
 U 1 1 5C81D000
@@ -104,7 +91,6 @@ F 3 "" H 3850 1750 60  0000 C CNN
 	1    3850 1750
 	1    0    0    -1  
 $EndComp
-Connection ~ 3850 1850
 $Comp
 L GND #PWR03
 U 1 1 5C81D02F
