@@ -43,9 +43,9 @@ EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 5
+Sheet 1 6
 Title ""
-Date "1 apr 2019"
+Date "2 apr 2019"
 Rev ""
 Comp ""
 Comment1 ""
@@ -468,7 +468,7 @@ OD1
 $Sheet
 S 6950 5750 1700 1100
 U 5CA26382
-F0 "Occupency Detector" 50
+F0 "Occupency Detector 1" 50
 F1 "OD1.sch" 50
 F2 "OD1" I L 6950 6100 60 
 $EndSheet
@@ -530,4 +530,15 @@ F 3 "" H 10150 2400 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Connection ~ 10150 2150
+$Sheet
+S 9150 5800 1700 1100
+U 5CA368DE
+F0 "Occupency Detector 2" 50
+F1 "OD2.sch" 50
+F2 "OD2" I L 9150 6150 60 
+$EndSheet
+Text Label 9150 6150 2    25   ~ 0
+OD2
+Text Label 2650 2050 2    25   ~ 0
+OD2
 $EndSCHEMATC
