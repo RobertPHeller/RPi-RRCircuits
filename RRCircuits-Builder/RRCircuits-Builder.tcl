@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sun Mar 24 21:25:42 2019
-#  Last Modified : <190326.2131>
+#  Last Modified : <190404.1236>
 #
 #  Description	
 #
@@ -116,9 +116,12 @@ snit::widgetadaptor DeployDialog {
     option -builder -readonly yes -default {} -cgetmethod builder_cget
     method parent_cget {option} {return $builder}
     component programList
+    variable target local
     variable user {pi}
     variable host {rasppi}
     variable directory {bin}
+    component localdir
+    component remoteframe
     constructor {args} {
         set builder [from args -builder]
         if {$builder eq {}} {
@@ -148,21 +151,55 @@ snit::widgetadaptor DeployDialog {
             }
         }
         $sw setwidget $programList
-        set lf [LabelFrame $frame.userhost -text "SSH Target: "]
-        pack $lf -fill x -expand yes
-        set lfframe [$lf getframe]
-        set uentry [ttk::entry $lfframe.uentry \
+        set tsellf [LabelFrame $frame.targetselet -text "Deploy target type:"]
+        pack $tsellf -fill x -expand yes
+        set tsellframe [$tsellf getframe]
+        set localRB [ttk::radiobutton $tsellframe.local \
+                     -text "Local Machine" \
+                     -variable [myvar target] -value local \
+                     -command [mymethod _targetSelected]]
+        pack $localRB -side left -expand yes -fill x
+        set remoteRB [ttk::radiobutton $tsellframe.remote \
+                      -text "A Remote Machine" \
+                     -variable [myvar target] -value remote \
+                     -command [mymethod _targetSelected]]
+        pack $remoteRB -side right -expand yes -fill x
+        install localdir using LabelEntry $frame.localdir \
+              -label "Local Directory: " \
+              -textvariable [myvar directory]
+        pack $localdir -fill x -expand yes
+        install remoteframe using LabelFrame $frame.userhost -text "SSH Target: "
+        pack $remoteframe -fill x -expand yes
+        set rlfframe [$remoteframe getframe]
+        set uentry [ttk::entry $rlfframe.uentry -state disabled \
                     -textvariable [myvar user] -justify right]
         pack $uentry -side left
-        pack [ttk::label $lfframe.at -text {@}] -side left
-        set hentry [ttk::entry $lfframe.hentry \
+        pack [ttk::label $rlfframe.at -text {@}] -side left
+        set hentry [ttk::entry $rlfframe.hentry -state disabled \
                     -textvariable [myvar host] -justify left]
         pack $hentry -side left
-        pack [ttk::label $lfframe.colon -text {:}] -side left
-        set dentry [ttk::entry $lfframe.dentry \
+        pack [ttk::label $rlfframe.colon -text {:}] -side left
+        set dentry [ttk::entry $rlfframe.dentry -state disabled \
                     -textvariable [myvar directory] -justify left]
         pack $dentry -fill x -expand yes -side left
         $self configurelist $args
+    }
+    method _targetSelected {} {
+        puts stderr "*** $self _targetSelected: target is $target"
+        switch $target {
+            local {
+                $localdir configure -state normal
+                foreach c [winfo children [$remoteframe getframe]] {
+                    catch {$c configure -state disabled}
+                }
+            }
+            remote {
+                $localdir configure -state disabled
+                foreach c [winfo children [$remoteframe getframe]] {
+                    catch {$c configure -state normal}
+                }
+            }
+        }
     }
     method draw {args} {
         $self configurelist $args 
@@ -185,15 +222,27 @@ snit::widgetadaptor DeployDialog {
         $hull withdraw
         set selected [$programList selection]
         if {$selected ne {}} {
-            set result [list $selected]
-            set sshdest ${host}:
-            if {$user ne {}} {
-                set sshdest ${user}@$sshdest
+            switch $target {
+                local {
+                    set result [list cp -v $selected]
+                    if {$directory ne {}} {
+                        lappend result [file join [file normalize $directory] [file tail $selected]]
+                    } else {
+                        lappend result [file join [file normalize ~/bin] [file tail $selected]]
+                    }
+                }
+                remote {
+                    set result [list scp $selected]
+                    set sshdest ${host}:
+                    if {$user ne {}} {
+                        set sshdest ${user}@$sshdest
+                    }
+                    if {$directory ne {}} {
+                        append sshdest ${directory}/
+                    }
+                    lappend result $sshdest
+                }
             }
-            if {$directory ne {}} {
-                append sshdest ${directory}/
-            }
-            lappend result $sshdest
         } else {
             set result {}
         }
@@ -383,7 +432,7 @@ snit::type RRCircuits-Builder {
         }
         set deployList [$deployDialog draw -parent $main]
         if {$deployList eq {}} {return}
-        set command [linsert $deployList 0 scp]
+        set command $deployList
         $buildlog insert end "$command\n"
         lappend command 2>@1
         set _logfp [open "|$command" r]
