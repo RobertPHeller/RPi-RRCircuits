@@ -1,0 +1,108 @@
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Sat 06 Apr 2019 14:33:01 EDT
+
+BeginCmp
+TimeStamp = /5CA8ECD8/5CA8D4AB;
+Reference = C201;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5CA8ECDA/5CA8B4DA;
+Reference = C301;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5CA93DA6;
+Reference = P1;
+ValeurCmp = 0 1;
+IdModule  = PIN_ARRAY_2X2;
+EndCmp
+
+BeginCmp
+TimeStamp = /55DF7DE1;
+Reference = P8;
+ValeurCmp = BeagleBone_Black_Header;
+IdModule  = Socket_BeagleBone_Black:Socket_BeagleBone_Black;
+EndCmp
+
+BeginCmp
+TimeStamp = /55DF7DBA;
+Reference = P9;
+ValeurCmp = BeagleBone_Black_Header;
+IdModule  = Socket_BeagleBone_Black:Socket_BeagleBone_Black;
+EndCmp
+
+BeginCmp
+TimeStamp = /5CA8ECD8/5CA8B4BC;
+Reference = P201;
+ValeurCmp = GPIO 1;
+IdModule  = vasch_strip_5x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5CA8ECD8/5CA8D4AA;
+Reference = P202;
+ValeurCmp = GPIO 2;
+IdModule  = vasch_strip_5x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5CA8ECDA/5CA8D4A9;
+Reference = P301;
+ValeurCmp = GPIO 3;
+IdModule  = vasch_strip_5x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5CA8ECDA/5CA8B4CB;
+Reference = P302;
+ValeurCmp = GPIO 4;
+IdModule  = vasch_strip_5x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5CA957A6;
+Reference = R1;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5CA957D3;
+Reference = R2;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5CA95800;
+Reference = R3;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5CA8ECDA/5CA8B913;
+Reference = R301;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5CA8ECD8/5CA8B48F;
+Reference = U201;
+ValeurCmp = MCP23017;
+IdModule  = DIP-28__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5CA8ECDA/5CA8D4A8;
+Reference = U301;
+ValeurCmp = MCP23017;
+IdModule  = DIP-28__300;
+EndCmp
+
+EndListe
