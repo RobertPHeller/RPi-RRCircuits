@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sun Mar 24 21:25:42 2019
-#  Last Modified : <190404.1236>
+#  Last Modified : <190407.1417>
 #
 #  Description	
 #
@@ -274,6 +274,7 @@ snit::type RRCircuits-Builder {
         {16 PWM Led Driver} 16PWMLedDriverOpenMRN
         {Quad Occupancy Detector} QuadOCDectOpenMRN
         {Quad StallMotor W/Sense} QuadSMCSenseOpenMRN
+        {Mega I/O Board} MegaIOOpenMRN
     }
     typemethod ProgramDirectories {} {
         return [lsort -dictionary [array names _ProgramDirectories]]
