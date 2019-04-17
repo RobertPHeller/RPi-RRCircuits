@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Oct 17 13:05:06 2018
-//  Last Modified : <190222.1144>
+//  Last Modified : <190417.1209>
 //
 //  Description	
 //
@@ -70,7 +70,7 @@ typedef GpioInitializer<Motor1_Pin, Motor2_Pin, Motor3_Pin,
 
 
 #define HAVE_TCP_GRIDCONNECT_HOST
-#define TCP_GRIDCONNECT_HOST "127.0.0.1"
+#define TCP_GRIDCONNECT_HOST "fruitloops"
 #define TCP_GRIDCONNECT_PORT 12021
 
 //#define PRINT_ALL_PACKETS
