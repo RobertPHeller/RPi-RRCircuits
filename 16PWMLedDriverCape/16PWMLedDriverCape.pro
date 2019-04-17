@@ -84,4 +84,4 @@ LibName19=../ScrewTerm254_9
 LibName20=../16DriverOutputHAT/3PosJumper
 LibName21=../16PWMLedDriverHat/DIP28_700
 LibName22=SolderJumpers
-LibName23=/home/heller/RRCircuits/ScrewTerm254_2
+LibName23=../ScrewTerm254_2

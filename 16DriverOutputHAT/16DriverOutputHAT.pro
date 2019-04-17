@@ -89,4 +89,4 @@ LibName17=WireConnections-Bridges_RevA
 LibName18=WirePads_RevA_15Jun2010
 LibName19=../ScrewTerm254_9
 LibName20=3PosJumper
-LibName21=/home/heller/RRCircuits/ScrewTerm254_2
+LibName21=../ScrewTerm254_2
