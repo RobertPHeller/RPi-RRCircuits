@@ -42,7 +42,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 4
 Title ""
-Date "28 mar 2019"
+Date "9 apr 2019"
 Rev ""
 Comp ""
 Comment1 ""
@@ -122,9 +122,9 @@ Text Label 3550 2150 0    25   ~ 0
 CAN_RX
 Text Label 3550 2000 0    25   ~ 0
 CAN_TX
-Text Label 3550 1600 0    25   ~ 0
-SDA
 Text Label 3550 1800 0    25   ~ 0
+SDA
+Text Label 3550 1650 0    25   ~ 0
 SCL
 Text Label 3550 2300 0    25   ~ 0
 MOSI
