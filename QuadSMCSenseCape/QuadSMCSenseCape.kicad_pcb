@@ -594,7 +594,7 @@
     )
   )
 
-  (module ScrewTerm_2.54-5 (layer F.Cu) (tedit 5C8DB41F) (tstamp 5C7145D3)
+  (module ScrewTerm_2.54-5 (layer F.Cu) (tedit 5CC1E71A) (tstamp 5C7145D3)
     (at 121.92 123.19)
     (descr "Screw Terminals on 2.54mm centers, 5 position")
     (tags CONN)
@@ -602,7 +602,7 @@
     (fp_text reference T1 (at 0 -2.54) (layer F.SilkS) hide
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
-    (fp_text value "Motor 1" (at 0 2.54) (layer F.SilkS)
+    (fp_text value "Motor 1" (at 0 4.445) (layer F.SilkS)
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
     (fp_line (start -6.35 -1.27) (end -6.35 1.27) (layer F.SilkS) (width 0.3048))
@@ -636,7 +636,7 @@
     )
   )
 
-  (module ScrewTerm_2.54-5 (layer F.Cu) (tedit 5C8DB416) (tstamp 5C7145E0)
+  (module ScrewTerm_2.54-5 (layer F.Cu) (tedit 5CC1E721) (tstamp 5C7145E0)
     (at 134.62 123.19)
     (descr "Screw Terminals on 2.54mm centers, 5 position")
     (tags CONN)
@@ -644,7 +644,7 @@
     (fp_text reference T2 (at 0 -2.54) (layer F.SilkS) hide
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
-    (fp_text value "Motor 2" (at 0 2.54) (layer F.SilkS)
+    (fp_text value "Motor 2" (at 0 4.445) (layer F.SilkS)
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
     (fp_line (start -6.35 -1.27) (end -6.35 1.27) (layer F.SilkS) (width 0.3048))
@@ -678,7 +678,7 @@
     )
   )
 
-  (module ScrewTerm_2.54-5 (layer F.Cu) (tedit 5C8DB411) (tstamp 5C7145ED)
+  (module ScrewTerm_2.54-5 (layer F.Cu) (tedit 5CC1E72A) (tstamp 5C7145ED)
     (at 148.59 123.19)
     (descr "Screw Terminals on 2.54mm centers, 5 position")
     (tags CONN)
@@ -686,7 +686,7 @@
     (fp_text reference T3 (at 0 -2.54) (layer F.SilkS) hide
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
-    (fp_text value "Motor 3" (at 0 2.54) (layer F.SilkS)
+    (fp_text value "Motor 3" (at 0 4.445) (layer F.SilkS)
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
     (fp_line (start -6.35 -1.27) (end -6.35 1.27) (layer F.SilkS) (width 0.3048))
@@ -720,7 +720,7 @@
     )
   )
 
-  (module ScrewTerm_2.54-5 (layer F.Cu) (tedit 5C8DB409) (tstamp 5C7145FA)
+  (module ScrewTerm_2.54-5 (layer F.Cu) (tedit 5CC1E739) (tstamp 5C7145FA)
     (at 161.29 123.19)
     (descr "Screw Terminals on 2.54mm centers, 5 position")
     (tags CONN)
@@ -728,7 +728,7 @@
     (fp_text reference T4 (at 0 -2.54) (layer F.SilkS) hide
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
-    (fp_text value "Motor 4" (at 0 2.54) (layer F.SilkS)
+    (fp_text value "Motor 4" (at 0 4.445) (layer F.SilkS)
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
     (fp_line (start -6.35 -1.27) (end -6.35 1.27) (layer F.SilkS) (width 0.3048))
@@ -762,7 +762,7 @@
     )
   )
 
-  (module ScrewTerm2.54-2 (layer F.Cu) (tedit 594CFC1E) (tstamp 5C714604)
+  (module ScrewTerm2.54-2 (layer F.Cu) (tedit 5CC1E751) (tstamp 5C714604)
     (at 140.97 132.08)
     (descr "Connecteurs 2 pins")
     (tags "CONN DEV")
@@ -770,7 +770,7 @@
     (fp_text reference T5 (at -2.7 -1.9) (layer F.SilkS) hide
       (effects (font (size 0.762 0.762) (thickness 0.1524)))
     )
-    (fp_text value "+ 12V -" (at 0 -1.905) (layer F.SilkS)
+    (fp_text value "+ 12V -" (at 0 3.81) (layer F.SilkS)
       (effects (font (size 0.762 0.762) (thickness 0.1524)))
     )
     (fp_line (start -2.54 1.27) (end -2.54 -1.27) (layer F.SilkS) (width 0.1524))
