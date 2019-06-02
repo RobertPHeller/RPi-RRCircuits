@@ -1,0 +1,7 @@
+Value,Quantity,References,Mouser Part Number,Adafruit Part Number
+BRIDGEX,4,D1 D2 D3 D4,750-KBL401-G,
+MCT6H,4,IC1 IC2 IC3 IC4,782-MCT6H,
+RPi_GPIO,1,J0,,
+10 Ohms,4,R1 R3 R5 R7,CFR-25JR-52-10R,
+10K Ohms,4,R2 R4 R6 R8,603-CFR-25JB-52-10K,
+In Track1 Out;In Track2 Out;In Track3 Out;In Track4 Out,4,T1 T2 T3 T4,649-220316-H021B01LF,
