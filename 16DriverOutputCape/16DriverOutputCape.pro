@@ -1,4 +1,4 @@
-update=Wed 27 Mar 2019 09:17:51 PM EDT
+update=Tue 11 Jun 2019 09:44:54 AM EDT
 version=1
 last_client=pcbnew
 [cvpcb]
@@ -39,6 +39,7 @@ LibName28=atmel
 LibName29=contrib
 LibName30=../MCP23xxx
 LibName31=../tbd62x83a
+LibName32=../BBBHalfSiding/cat24c256w
 [general]
 version=1
 [pcbnew]
@@ -83,3 +84,5 @@ LibName18=WirePads_RevA_15Jun2010
 LibName19=../ScrewTerm254_9
 LibName20=../16DriverOutputHAT/3PosJumper
 LibName21=../ScrewTerm254_2
+LibName22=smd_soic_packages
+

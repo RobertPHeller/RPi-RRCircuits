@@ -30,14 +30,15 @@ LIBS:atmel
 LIBS:contrib
 LIBS:MCP23xxx
 LIBS:tbd62x83a
+LIBS:cat24c256w
 LIBS:16DriverOutputCape-cache
 EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 2
+Sheet 2 3
 Title ""
-Date "10 jun 2019"
+Date "11 jun 2019"
 Rev ""
 Comp ""
 Comment1 ""

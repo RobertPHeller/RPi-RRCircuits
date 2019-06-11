@@ -1,10 +1,24 @@
-Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Wed 27 Mar 2019 09:18:36 PM EDT
+Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Tue 11 Jun 2019 09:46:16 AM EDT
 
 BeginCmp
 TimeStamp = /5C73EAFA/5C73ED06;
 Reference = C1;
 ValeurCmp = .1 uf;
 IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C719AD8/5C57407C;
+Reference = C104;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C719AD8/5C574054;
+Reference = JMP102;
+ValeurCmp = WP 1 0;
+IdModule  = pin_array_3x2;
 EndCmp
 
 BeginCmp
@@ -71,6 +85,48 @@ IdModule  = Socket_BeagleBone_Black:Socket_BeagleBone_Black;
 EndCmp
 
 BeginCmp
+TimeStamp = /5C719AD8/5C574045;
+Reference = R104;
+ValeurCmp = 5.6K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C719AD8/5C574036;
+Reference = R105;
+ValeurCmp = 5.6K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C719AD8/5C574027;
+Reference = R106;
+ValeurCmp = 4.75K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C719AD8/5C574018;
+Reference = R107;
+ValeurCmp = 4.75K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C719AD8/5C574009;
+Reference = R108;
+ValeurCmp = 4.75K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C719AD8/5C574063;
+Reference = R109;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
 TimeStamp = /5C73EAFA/5C73ECF6;
 Reference = RP1;
 ValeurCmp = 1.5K Ohms;
@@ -117,6 +173,13 @@ TimeStamp = /5C73EAFA/5C73ECEA;
 Reference = U3;
 ValeurCmp = TBD62X83A;
 IdModule  = DIP-18__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C719AD8/5C573FFA;
+Reference = U102;
+ValeurCmp = CAT24C256W;
+IdModule  = SOIC-8_N;
 EndCmp
 
 EndListe
