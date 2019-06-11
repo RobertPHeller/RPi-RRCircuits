@@ -39,6 +39,7 @@ LibName28=atmel
 LibName29=contrib
 LibName30=../16PWMLedDriverHat/pca9685
 LibName31=../tbd62x83a
+LibName32=../BBBHalfSiding/cat24c256w
 [general]
 version=1
 [pcbnew]
@@ -85,3 +86,4 @@ LibName20=../16DriverOutputHAT/3PosJumper
 LibName21=../16PWMLedDriverHat/DIP28_700
 LibName22=SolderJumpers
 LibName23=../ScrewTerm254_2
+LibName24=smd_soic_packages
