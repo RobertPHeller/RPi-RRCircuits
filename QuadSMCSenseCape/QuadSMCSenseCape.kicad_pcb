@@ -1,9 +1,9 @@
-(kicad_pcb (version 3) (host pcbnew "(22-Jun-2014 BZR 4027)-stable")
+(kicad_pcb (version 3) (host pcbnew "(2013-june-11)-stable")
 
   (general
     (links 110)
     (no_connects 0)
-    (area 103.317323 42.696129 177.682877 139.700001)
+    (area 114.463829 42.696129 169.076371 139.058671)
     (thickness 1.6)
     (drawings 11)
     (tracks 374)
@@ -63,8 +63,8 @@
     (aux_axis_origin 0 0)
     (visible_elements 7FFFFFFF)
     (pcbplotparams
-      (layerselection 3178497)
-      (usegerberextensions false)
+      (layerselection 535855105)
+      (usegerberextensions true)
       (excludeedgelayer true)
       (linewidth 0.100000)
       (plotframeref false)
@@ -83,11 +83,11 @@
       (plotinvisibletext false)
       (padsonsilk false)
       (subtractmaskfromsilk false)
-      (outputformat 4)
+      (outputformat 1)
       (mirror false)
       (drillshape 0)
       (scaleselection 1)
-      (outputdirectory ""))
+      (outputdirectory Gerber/))
   )
 
   (net 0 "")
