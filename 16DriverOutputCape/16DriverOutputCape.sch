@@ -37,7 +37,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 2
 Title ""
-Date "28 mar 2019"
+Date "10 jun 2019"
 Rev ""
 Comp ""
 Comment1 ""
@@ -313,9 +313,9 @@ Connection ~ 2850 1050
 Wire Wire Line
 	1500 1250 1500 1150
 Connection ~ 1500 1150
-Text Label 2200 2050 2    60   ~ 0
+Text Label 2200 1950 2    60   ~ 0
 SCL
-Text Label 2700 2050 0    60   ~ 0
+Text Label 2700 1950 0    60   ~ 0
 SDA
 Text Label 7000 3200 2    60   ~ 0
 SDA
