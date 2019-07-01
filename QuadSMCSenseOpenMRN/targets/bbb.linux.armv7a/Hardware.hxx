@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Oct 17 13:05:06 2018
-//  Last Modified : <190222.1201>
+//  Last Modified : <190630.1322>
 //
 //  Description	
 //
@@ -62,7 +62,7 @@
 GPIO_PIN(Motor1, MotorPin, (32*0)+7); // GPIO0_7: P9-42
 GPIO_PIN(Motor2, MotorPin, (32*1)+6);// GPIO1_6: P8-3
 GPIO_PIN(Points1, SensePin, (32*1)+28); // GPIO1_28: P9-12
-GPIO_PIN(Points2, SensePin, (32*1)+2); // GPIO1_2: P8-5
+GPIO_PIN(Points2, SensePin, (32*1)+7); // GPIO1_7: P8-4
 
 
 GPIO_PIN(Motor3, MotorPin, (32*1)+16); // GPIO1_16: P9-15
