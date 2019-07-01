@@ -38,7 +38,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 6
 Title ""
-Date "24 feb 2019"
+Date "30 jun 2019"
 Rev ""
 Comp ""
 Comment1 ""
@@ -350,7 +350,7 @@ Text Label 2350 5050 2    60   ~ 0
 SCL
 Text Label 2350 5300 2    60   ~ 0
 SDA
-Text Label 5400 1250 0    60   ~ 0
+Text Label 5400 1650 0    60   ~ 0
 OC1
 Text Label 4900 1350 2    60   ~ 0
 OC2
