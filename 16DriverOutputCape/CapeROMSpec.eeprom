@@ -1,0 +1,16 @@
+16DriverOutputCape
+0001
+DeepwoodsSoftware
+BB-I2C1-MCP23017
+4
+10
+2 yes bidir  fast no up no 2
+3 yes output fast yes up no 2
+9 yes output fast yes up no 3
+10 yes bidir  fast no up no 3
+0 19 xxx 0
+10
+0
+0
+0
+
