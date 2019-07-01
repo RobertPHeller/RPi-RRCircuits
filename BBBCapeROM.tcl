@@ -9,7 +9,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sun Oct 21 09:00:39 2018
-#  Last Modified : <181021.1211>
+#  Last Modified : <190626.2113>
 #
 #  Description	
 #
@@ -53,13 +53,13 @@ snit::type BeagleBoneCapeROM {
     pragma -hastypeinfo no -hastypedestroy no -hasinstances no
     typevariable header [binary format H2H2H2H2 AA 55 33 EE]
     typevariable revision [binary format A2 A1]
-    typevariable bnameFMT {A32}
+    typevariable bnameFMT {a32}
     typevariable bname
-    typevariable versionFMT {A4}
+    typevariable versionFMT {a4}
     typevariable version
-    typevariable manufactFMT {A16}
+    typevariable manufactFMT {a16}
     typevariable manufact
-    typevariable partnoFMT {A16}
+    typevariable partnoFMT {a16}
     typevariable partno
     typevariable numberOfPinsFMT {S1}
     typevariable numberOfPins
