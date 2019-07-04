@@ -38,7 +38,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 3
 Title ""
-Date "11 jun 2019"
+Date "4 jul 2019"
 Rev ""
 Comp ""
 Comment1 ""
@@ -330,9 +330,9 @@ F1 "CapeEEPROM.sch" 50
 F2 "SCL2" I L 2350 5050 60 
 F3 "SDA2" B L 2350 5300 60 
 $EndSheet
-Text Label 2200 2050 2    60   ~ 0
-SDA2
 Text Label 2700 2050 0    60   ~ 0
+SDA2
+Text Label 2200 2050 2    60   ~ 0
 SCL2
 Text Label 2350 5050 2    60   ~ 0
 SCL2
