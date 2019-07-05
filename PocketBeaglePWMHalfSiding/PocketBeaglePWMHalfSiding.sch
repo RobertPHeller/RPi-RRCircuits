@@ -44,7 +44,7 @@ $Descr USLetter 11000 8500
 encoding utf-8
 Sheet 1 7
 Title "Main Sheet"
-Date "3 apr 2019"
+Date "5 jul 2019"
 Rev ""
 Comp "Deepwoods Software"
 Comment1 ""
@@ -188,9 +188,9 @@ F 3 "" H 4400 2350 60  0000 C CNN
 $EndComp
 Wire Wire Line
 	4400 2350 4700 2350
-Text Label 3300 2850 0    60   ~ 0
+Text Label 4700 2150 2    60   ~ 0
 SDA
-Text Label 3300 2950 0    60   ~ 0
+Text Label 4700 2050 2    60   ~ 0
 SCL
 Text Label 4700 2850 2    60   ~ 0
 CAN1_RX

@@ -44,7 +44,7 @@ $Descr USLetter 11000 8500
 encoding utf-8
 Sheet 3 7
 Title "Power Supply"
-Date "3 apr 2019"
+Date "5 jul 2019"
 Rev ""
 Comp "Deepwoods Software"
 Comment1 ""
