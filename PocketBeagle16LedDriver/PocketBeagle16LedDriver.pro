@@ -1,4 +1,4 @@
-update=Mon 04 Mar 2019 09:45:25 AM EST
+update=Mon 08 Jul 2019 06:42:46 PM EDT
 version=1
 last_client=pcbnew
 [cvpcb]
@@ -54,12 +54,12 @@ LibName34=../MCP23xxx
 LibName35=../tbd62x83a
 [pcbnew]
 version=1
-LastNetListRead=PocketBeagleBaseBoard.net
+LastNetListRead=
 UseCmpFile=1
-PadDrill=1.016000000000
-PadDrillOvalY=1.016000000000
-PadSizeH=1.778000000000
-PadSizeV=1.778000000000
+PadDrill=2.499360000000
+PadDrillOvalY=2.499360000000
+PadSizeH=2.499360000000
+PadSizeV=2.499360000000
 PcbTextSizeV=1.500000000000
 PcbTextSizeH=1.500000000000
 PcbTextThickness=0.300000000000

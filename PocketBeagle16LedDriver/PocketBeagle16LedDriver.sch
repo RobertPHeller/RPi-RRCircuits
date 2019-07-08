@@ -41,7 +41,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 3
 Title ""
-Date "28 mar 2019"
+Date "8 jul 2019"
 Rev ""
 Comp ""
 Comment1 ""
@@ -563,9 +563,9 @@ Wire Wire Line
 Wire Wire Line
 	7100 3750 7100 3400
 Connection ~ 7100 3400
-Text Label 3300 2850 0    60   ~ 0
+Text Label 4700 2150 2    60   ~ 0
 SDA
-Text Label 3300 2950 0    60   ~ 0
+Text Label 4700 2050 2    60   ~ 0
 SCL
 $Sheet
 S 1000 5750 1800 1450
