@@ -40,7 +40,7 @@ $Descr USLetter 11000 8500
 encoding utf-8
 Sheet 3 4
 Title "Mega I/O Hat"
-Date "7 apr 2019"
+Date "8 jul 2019"
 Rev "1.0"
 Comp "Deepwoods Software"
 Comment1 ""
