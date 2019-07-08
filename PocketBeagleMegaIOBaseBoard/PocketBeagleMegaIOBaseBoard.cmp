@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Sat 06 Apr 2019 09:58:47 PM EDT
+Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Mon 08 Jul 2019 06:31:44 PM EDT
 
 BeginCmp
 TimeStamp = /5C7C46C3;
@@ -134,30 +134,37 @@ IdModule  = PIN_ARRAY_2X2;
 EndCmp
 
 BeginCmp
+TimeStamp = /5D23C4D2;
+Reference = P102;
+ValeurCmp = Console;
+IdModule  = PIN_ARRAY-6X1;
+EndCmp
+
+BeginCmp
 TimeStamp = /5CA95717/5CA8B4BC;
 Reference = P201;
-ValeurCmp = GPIO 1;
+ValeurCmp = GPIO 3;
 IdModule  = vasch_strip_5x2;
 EndCmp
 
 BeginCmp
 TimeStamp = /5CA95717/5CA8D4AA;
 Reference = P202;
-ValeurCmp = GPIO 2;
+ValeurCmp = GPIO 4;
 IdModule  = vasch_strip_5x2;
 EndCmp
 
 BeginCmp
 TimeStamp = /5CA95725/5CA8D4A9;
 Reference = P301;
-ValeurCmp = GPIO 3;
+ValeurCmp = GPIO 5;
 IdModule  = vasch_strip_5x2;
 EndCmp
 
 BeginCmp
 TimeStamp = /5CA95725/5CA8B4CB;
 Reference = P302;
-ValeurCmp = GPIO 4;
+ValeurCmp = GPIO 6;
 IdModule  = vasch_strip_5x2;
 EndCmp
 

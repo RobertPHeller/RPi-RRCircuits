@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Mon 04 Mar 2019 12:18:36 PM EST
+Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Mon 08 Jul 2019 05:04:44 PM EDT
 
 BeginCmp
 TimeStamp = /5C7C46C3;
@@ -110,6 +110,13 @@ TimeStamp = /5C7C1FEF;
 Reference = P2;
 ValeurCmp = POCKETBEAGLE-P2;
 IdModule  = pin_socket_18x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D23B208;
+Reference = P101;
+ValeurCmp = Console;
+IdModule  = PIN_ARRAY-6X1;
 EndCmp
 
 BeginCmp

@@ -237,7 +237,7 @@ Wire Wire Line
 Wire Wire Line
 	3300 2650 3550 2650
 Wire Wire Line
-	3550 2650 3550 2350
+	3550 2350 3550 2850
 Connection ~ 3550 2350
 Wire Wire Line
 	4250 2350 4700 2350
@@ -605,4 +605,27 @@ $EndComp
 Wire Wire Line
 	4000 3600 4000 3750
 Connection ~ 4000 3750
+$Comp
+L CONN_6 P101
+U 1 1 5D23CD9C
+P 3900 3100
+F 0 "P101" V 3850 3100 60  0000 C CNN
+F 1 "Console" V 3950 3100 60  0000 C CNN
+F 2 "" H 3900 3100 60  0000 C CNN
+F 3 "" H 3900 3100 60  0000 C CNN
+	1    3900 3100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3300 3150 3550 3150
+Wire Wire Line
+	3550 3250 3450 3250
+Wire Wire Line
+	3450 3250 3450 3050
+Wire Wire Line
+	3450 3050 3300 3050
+Connection ~ 3550 2650
+NoConn ~ 3550 2950
+NoConn ~ 3550 3050
+NoConn ~ 3550 3350
 $EndSCHEMATC

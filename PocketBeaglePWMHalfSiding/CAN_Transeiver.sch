@@ -44,7 +44,7 @@ $Descr USLetter 11000 8500
 encoding utf-8
 Sheet 2 7
 Title "CAN Transeiver Circuit"
-Date "5 jul 2019"
+Date "8 jul 2019"
 Rev ""
 Comp "Deepwoods Software"
 Comment1 ""

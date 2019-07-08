@@ -44,7 +44,7 @@ $Descr USLetter 11000 8500
 encoding utf-8
 Sheet 6 7
 Title "Occupancy Detector 2"
-Date "5 jul 2019"
+Date "8 jul 2019"
 Rev ""
 Comp "Deepwoods Software"
 Comment1 ""

@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Tue 02 Apr 2019 10:03:53 PM EDT
+Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Mon 08 Jul 2019 04:54:39 PM EDT
 
 BeginCmp
 TimeStamp = /5CA3E65E/5C8437D0;
@@ -208,6 +208,13 @@ TimeStamp = /5CA3E65E/5C840C05;
 Reference = P4;
 ValeurCmp = C B0 B1 B2 B3 B4 B5 B6 B7;
 IdModule  = ScrewTerm_2.54-9;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D23B034;
+Reference = P101;
+ValeurCmp = Console;
+IdModule  = PIN_ARRAY-6X1;
 EndCmp
 
 BeginCmp

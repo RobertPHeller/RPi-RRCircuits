@@ -44,7 +44,7 @@ $Descr USLetter 11000 8500
 encoding utf-8
 Sheet 1 7
 Title "Main Sheet"
-Date "5 jul 2019"
+Date "8 jul 2019"
 Rev ""
 Comp "Deepwoods Software"
 Comment1 ""
@@ -270,4 +270,35 @@ GPIO52
 Text Label 8900 1900 2    60   ~ 0
 GPIO57
 Connection ~ 3500 2250
+$Comp
+L CONN_6 P101
+U 1 1 5D23B034
+P 3950 2850
+F 0 "P101" V 3900 2850 60  0000 C CNN
+F 1 "Console" V 4000 2850 60  0000 C CNN
+F 2 "" H 3950 2850 60  0000 C CNN
+F 3 "" H 3950 2850 60  0000 C CNN
+	1    3950 2850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3600 2600 3450 2600
+Wire Wire Line
+	3450 2600 3450 2350
+Connection ~ 3450 2350
+Wire Wire Line
+	3300 3050 3450 3050
+Wire Wire Line
+	3450 3050 3450 3000
+Wire Wire Line
+	3450 3000 3600 3000
+Wire Wire Line
+	3300 3150 3500 3150
+Wire Wire Line
+	3500 3150 3500 2900
+Wire Wire Line
+	3500 2900 3600 2900
+NoConn ~ 3600 2700
+NoConn ~ 3600 2800
+NoConn ~ 3600 3100
 $EndSCHEMATC

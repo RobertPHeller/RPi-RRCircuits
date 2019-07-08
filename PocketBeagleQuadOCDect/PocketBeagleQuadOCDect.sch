@@ -41,7 +41,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 6
 Title ""
-Date "4 mar 2019"
+Date "8 jul 2019"
 Rev ""
 Comp ""
 Comment1 ""
@@ -253,13 +253,13 @@ Wire Wire Line
 Wire Wire Line
 	9250 2650 9100 2650
 Wire Wire Line
-	9100 4600 9100 2650
+	9100 2650 9100 4600
 Wire Wire Line
 	4600 4600 9250 4600
 Wire Wire Line
 	9250 2750 9000 2750
 Wire Wire Line
-	9000 4700 9000 2750
+	9000 2750 9000 4700
 Wire Wire Line
 	4500 4700 9250 4700
 Wire Wire Line
@@ -617,4 +617,29 @@ Text Label 8300 1900 2    60   ~ 0
 GPIO58
 Text Label 9450 1850 2    60   ~ 0
 GPIO59
+$Comp
+L CONN_6 P101
+U 1 1 5D23BE0C
+P 3800 3100
+F 0 "P101" V 3750 3100 60  0000 C CNN
+F 1 "Console" V 3850 3100 60  0000 C CNN
+F 2 "" H 3800 3100 60  0000 C CNN
+F 3 "" H 3800 3100 60  0000 C CNN
+	1    3800 3100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3450 2850 3450 2650
+Connection ~ 3450 2650
+Wire Wire Line
+	3300 3150 3450 3150
+Wire Wire Line
+	3300 3050 3350 3050
+Wire Wire Line
+	3350 3050 3350 3250
+Wire Wire Line
+	3350 3250 3450 3250
+NoConn ~ 3450 2950
+NoConn ~ 3450 3050
+NoConn ~ 3450 3350
 $EndSCHEMATC
