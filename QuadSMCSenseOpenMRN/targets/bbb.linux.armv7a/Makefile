@@ -14,3 +14,6 @@ include ../../../CommonOpenMRNExtras/NodeIDBin.mk
 APP_PATH ?= $(realpath ../..)
 -include ../../config.mk
 include $(OPENMRNPATH)/etc/prog.mk
+
+SYSLIBRARIES += -lavahi-client -lavahi-common
+

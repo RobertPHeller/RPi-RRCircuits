@@ -38,6 +38,9 @@
 #include "openlcb/SimpleStack.hxx"
 #include "openlcb/ConfiguredConsumer.hxx"
 #include "openlcb/ConfiguredProducer.hxx"
+#include "utils/HubDeviceSelect.hxx"
+#include "utils/SocketClient.hxx"
+#include "utils/SocketClientParams.hxx"
 
 #include "config.hxx"
 #include "freertos_drivers/common/DummyGPIO.hxx"
@@ -64,11 +67,18 @@ OVERRIDE_CONST(main_thread_stack_size, 2500);
 #include "NODEID.hxx"
 //extern const openlcb::NodeID NODE_ID = MyAddress;
 
+#if defined(HAVE_TCP_GRIDCONNECT_HOST) || defined(HAVE_SOCKET_CAN_PORT)
 // Sets up a comprehensive OpenLCB stack for a single virtual node. This stack
 // contains everything needed for a usual peripheral node -- all
 // CAN-bus-specific components, a virtual node, PIP, SNIP, Memory configuration
 // protocol, ACDI, CDI, a bunch of memory spaces, etc.
 openlcb::SimpleCanStack stack(NODE_ID);
+#else
+#ifdef HAVE_OPENLCB_TCP_HOST
+Executor<1> g_connect_executor("connect_executor", 0, 2048);
+openlcb::SimpleTcpStack stack(NODE_ID);
+#endif
+#endif
 
 // ConfigDef comes from config.hxx and is specific to the particular device and
 // target. It defines the layout of the configuration memory space and is also
@@ -167,6 +177,14 @@ void parse_args(int argc, char *argv[])
     }
 }
 
+#ifdef HAVE_OPENLCB_TCP_HOST
+void connect_callback(int fd, Notifiable *on_error)
+{
+    LOG(INFO, "Connected to hub.");
+    stack.add_tcp_port_select(fd, on_error);
+    stack.restart_stack();
+}
+#endif
 
 /** Entry point to application.
  * @param argc number of command line arguments
@@ -186,6 +204,12 @@ int appl_main(int argc, char *argv[])
     //stack.connect_tcp_gridconnect_hub("28k.ch", 50007);
 #ifdef HAVE_TCP_GRIDCONNECT_HOST
     stack.connect_tcp_gridconnect_hub(TCP_GRIDCONNECT_HOST, TCP_GRIDCONNECT_PORT);
+#endif
+#ifdef HAVE_OPENLCB_TCP_HOST
+    SocketClient socket_client(stack.service(), &g_connect_executor,
+      &g_connect_executor,
+      SocketClientParams::from_static(OPENLCB_TCP_HOST,OPENLCB_TCP_PORT),
+      &connect_callback);
 #endif
 #ifdef PRINT_ALL_PACKETS
     // Causes all packets to be dumped to stdout.

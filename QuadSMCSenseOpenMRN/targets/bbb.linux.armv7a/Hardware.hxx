@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Oct 17 13:05:06 2018
-//  Last Modified : <190630.1322>
+//  Last Modified : <190709.1007>
 //
 //  Description	
 //
@@ -81,9 +81,12 @@ typedef GpioInitializer<Motor1_Pin, Motor2_Pin, Points1_Pin,
 
 //#define PRINT_ALL_PACKETS
 
-#define HAVE_SOCKET_CAN_PORT
-#define SOCKET_CAN_PORT "can1"
+//#define HAVE_SOCKET_CAN_PORT
+//#define SOCKET_CAN_PORT "can1"
 
+#define HAVE_OPENLCB_TCP_HOST
+#define OPENLCB_TCP_HOST "snoopy"
+#define OPENLCB_TCP_PORT 12000
 
 #endif // __HARDWARE_HXX
 
