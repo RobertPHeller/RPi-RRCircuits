@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Oct 17 13:05:06 2018
-//  Last Modified : <190709.0958>
+//  Last Modified : <190712.1650>
 //
 //  Description	
 //
@@ -69,12 +69,12 @@ typedef GpioInitializer<Motor1_Pin, Motor2_Pin, Motor3_Pin,
 
 
 
-#define HAVE_OPENLCB_TCP_HOST
-//#define HAVE_TCP_GRIDCONNECT_HOST
-//#define TCP_GRIDCONNECT_HOST "fruitloops"
-//#define TCP_GRIDCONNECT_PORT 12021
-#define OPENLCB_TCP_HOST "snoopy"
-#define OPENLCB_TCP_PORT 12000
+#define USE_OPENLCB_TCP_HOST
+//#define USE_GRIDCONNECT_HOST
+//#define DEFAULT_TCP_GRIDCONNECT_HOST "fruitloops"
+//#define DEFAULT_TCP_GRIDCONNECT_PORT 12021
+#define DEFAULT_OPENLCB_TCP_HOST "snoopy"
+#define DEFAULT_OPENLCB_TCP_PORT 12000
 
 //#define PRINT_ALL_PACKETS
 //#define HAVE_SOCKET_CAN_PORT

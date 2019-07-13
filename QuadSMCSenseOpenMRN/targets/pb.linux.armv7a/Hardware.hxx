@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Oct 17 13:05:06 2018
-//  Last Modified : <190304.1455>
+//  Last Modified : <190712.1733>
 //
 //  Description	
 //
@@ -75,14 +75,14 @@ typedef GpioInitializer<Motor1_Pin, Motor2_Pin, Points1_Pin,
                         Points3_Pin, Points4_Pin> GpioInit;
 
 
-//#define HAVE_TCP_GRIDCONNECT_HOST
-//#define TCP_GRIDCONNECT_HOST "localhost"
-//#define TCP_GRIDCONNECT_PORT 12021
+//#define USE_TCP_GRIDCONNECT_HOST
+//#define DEFAULT_TCP_GRIDCONNECT_HOST "localhost"
+//#define DEFAULT_GRIDCONNECT_PORT 12021
 
 //#define PRINT_ALL_PACKETS
 
-#define HAVE_SOCKET_CAN_PORT
-#define SOCKET_CAN_PORT "can1"
+#define USE_SOCKET_CAN_PORT
+#define DEFAULT_CAN_SOCKET "can1"
 
 
 #endif // __HARDWARE_HXX
