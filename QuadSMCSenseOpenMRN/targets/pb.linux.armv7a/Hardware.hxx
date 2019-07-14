@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Oct 17 13:05:06 2018
-//  Last Modified : <190712.1733>
+//  Last Modified : <190713.2326>
 //
 //  Description	
 //
@@ -68,7 +68,7 @@ GPIO_PIN(Points2, SensePin, 46); // GPIO46: P2-22
 GPIO_PIN(Motor3, MotorPin, 26); // GPIO26: P1-34
 GPIO_PIN(Motor4, MotorPin, 27); // GPIO27: P2-19
 GPIO_PIN(Points3, SensePin, 47); // GPIO47: P2-18
-GPIO_PIN(Points4, SensePin, 48); // GPIO48: P2-24
+GPIO_PIN(Points4, SensePin, 44); // GPIO44: P2-24
 
 typedef GpioInitializer<Motor1_Pin, Motor2_Pin, Points1_Pin, 
                         Points2_Pin, Motor3_Pin, Motor4_Pin,
