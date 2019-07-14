@@ -51,6 +51,7 @@ LibName31=pocketbeagle
 LibName32=../sn65hvd233-ht
 LibName33=../lm2574n-5
 LibName34=../tc442x
+LibName35=../BBBHalfSiding/cat24c256w
 [pcbnew]
 version=1
 LastNetListRead=PocketBeagleBaseBoard.net
