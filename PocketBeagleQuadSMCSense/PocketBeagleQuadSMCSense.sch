@@ -39,9 +39,9 @@ EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 4
+Sheet 1 3
 Title ""
-Date "14 jul 2019"
+Date "16 jul 2019"
 Rev ""
 Comp ""
 Comment1 ""
@@ -433,14 +433,6 @@ F7 "Sense 2" O R 9650 1150 60
 F8 "Sense 3" O R 9650 1350 60 
 F9 "Sense 4" O R 9650 1500 60 
 $EndSheet
-$Sheet
-S 1000 5800 1850 1650
-U 5C719AD8
-F0 "Cape EEProm" 50
-F1 "CapeEEPROM.sch" 50
-F2 "SCL2" I L 1000 6050 60 
-F3 "SDA2" B L 1000 6300 60 
-$EndSheet
 $Comp
 L +12V #PWR013
 U 1 1 5C7D5504
@@ -678,8 +670,4 @@ Text Label 3300 2850 0    60   ~ 0
 SDA2
 Text Label 3300 2950 0    60   ~ 0
 SCL2
-Text Label 1000 6050 2    60   ~ 0
-SCL2
-Text Label 1000 6300 2    60   ~ 0
-SDA2
 $EndSCHEMATC
