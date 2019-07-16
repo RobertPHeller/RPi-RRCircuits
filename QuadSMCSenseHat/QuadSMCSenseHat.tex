@@ -7,8 +7,8 @@
 %  Date          : $Date$
 %  Author        : $Author$
 %  Created By    : Robert Heller
-%  Created       : Mon Mar 11 19:32:20 2019
-%  Last Modified : <190311.2029>
+%  Created       : Mon Jul 15 17:33:37 2019
+%  Last Modified : <190716.1259>
 %
 %  Description 
 %
@@ -40,23 +40,16 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{QuadSMCSenseHat: Quad Stall Motor Control and Sense HAT}
+\chapter{QuadSMCSenseHat: Quad Motor Control and Sense HAT}
 
-This is a circuit board for an add-on board for a Raspberry Pi B+ that will
-control  four  stall-motor  turnout  motors for a model  railroad.  It also has
-sense  logic to return the state of the  turnouts,  using one pole of the DPDT
+This is a circuit board to for an add-on board for a Raspberry Pi B+ that will
+control four stall-motor turnout motors for a model railroad. It also has
+sense logic to return the state of the turnouts, using one pole of the DPDT
 contacts in the stall-motor (typical of Tortoise stall-motors).
 
 The circuit board uses a 40pin header socket to connect to the 40pin header on
 the  Raspberry Pi B+ and can use a  stack-through  header to allow  additional
 boards to be stacked on top of it.
-
-This uses a simplier (and probably cheaper) driver circuit, 
-consisting of a pair of complementary MOS drivers to drive the stall-motor. 
-This simplification uses so much less board space that it is possible to 
-implement four driver and point sensors on a standard size Raspberry Pi 
-``hat''.
-
 
 \section{GPIO Pins Used and stacking restrictions.}
 
@@ -81,8 +74,13 @@ stall motor 3.
 stall motor 4. 
 \end{description}
 
-Only one board of this type can be used on a given Raspberry Pi because of the 
-hard-wired GPIO pin usage.
+Each of the motor drive circuits is through a TC4428, which can drive up to
+1.5A, which is way more needed to drive typical stall motor. It is enough to
+drive a pair of stall motors, wired in parallel as would be the case for a
+cross over. 
+
+Because this board is hardwired to use eight specific GPIO pins it is not 
+possible to use two or more of these boards on given Raspberry Pi.
 
 \section{Circuit Description}
 
@@ -91,81 +89,65 @@ hard-wired GPIO pin usage.
 \caption{Circuit Diagram of the QuadSMCSenseHat}
 \end{centering}\end{figure}
 This circuit contains two sections.  There is an output section that contains 
-a dual complementary MOSFET driver (one inverting, one non-inverting) for each 
-motor.  The other section contains pairs of NAND gates wired as RS Flip Flops 
-that debounce and buffer/store point state.  Each GPIO output pin drives its 
-pair of MOSFET drivers, and since one of the pair in inverting and the 
-non-inverting only one of the drivers is activated when the GPIO output pin is 
-high and the other is activated when the GPIO output pin is low.  
+four TC4428 chips.  Each chip has a non-inverting and an inverting driver. The 
+inputs of both drivers are connected to one of the motor GPIO pins.  The 
+output are wired to the terminal block for a one of the motors. For any given 
+logic state of the motor control output, one of the drivers is ``on'' and the 
+other is ``off'', thus one motor terminal is ground and one is raised to the 
+12V supply.  This means alternative states of the logic line will drive the 
+stall motor in alternative directions.
 
-The other section is four flip-flop debounce circuits, one for each of four
-SPDT switch contacts that report the position of the turnout points. The
-output of these flip-flops goes to the four GPIO input pins.
+The other section is a quartet of flip-flop debounce circuits, one for each
+of two SPDT switch contacts that report the position of the turnout points.
+The output of these flip-flops goes to a quartet of GPIO input pins.
 
 \section{Parts List}
 
-\begin{table}[htdp]
-\begin{centering}\begin{tabular}{|l|l|p{1in}|l|}
+\begin{table}[htdp]                                                            
+\begin{centering}\begin{tabular}{|l|l|p{1in}|l|p{.5in}|}                       
+\hline                                                                         
+Value&Quantity&References&Mouser Part Number&Adafruit Part Number \\
 \hline
-Value&Qty&Refs&Mouser Part Number \\
+.1 uf&2&C1 C2&581-SR201C104KARTR1& \\
 \hline
-.1 uf&2&C1 C2&581-SR201C104KARTR1\\
+10 uf 35V&1&C3&667-ECA-1HM100I& \\
 \hline
-10 uf 35V&1&C3&667-ECA-1HM100I\\
+RPi\_GPIO&1&J0&855-M20-6102045& \\
 \hline
-RPi\_GPIO&1&J0&855-M20-6102045\\
+10K Ohms&1&RR1&652-4609X-1LF-10K& \\
 \hline
-10K Ohms&1&RR1&652-4609X-1LF-10K\\
+Motor 1;Motor 2;Motor 3;Motor 4&4&T1 T2 T3 T4&651-1725685& \\
 \hline
-Motor 1;Motor 2;Motor 3;Motor 4&4&T1 T2 T3 T4&651-1725685\\
++ 12V -&1&T5&651-1725656& \\
 \hline
-+ 12V -&1&T5&651-1725656\\
+TC4428&4&U1 U2 U3 U4&579-TC4428VPA& \\
 \hline
-TC4428&4&U1 U2 U3 U4&579-TC4428VPA\\
-\hline
-74HCT00&2&U5 U6&595-SN74AHC00N\\
+74HCT00&2&U5 U6&595-SN74AHC00N& \\
 \hline
 \end{tabular}
-\caption{Parts list for QuadSMCSenseHat boards.}
-\end{centering}\end{table}
+\caption{Parts list for QuadSMCSenseHat board.}
+\end{centering}\end{table}\footnote{Mouser Project link: 
+\url{http://www.mouser.com/ProjectManager/ProjectDetail.aspx?AccessID=}.}
 
-The only parts that might be substituted are J0 (the RPi GPIO Header), and T1
-through T4 (the Motor terminals) and T5 (the 12 to 16 Volts terminals). The
-parts listed are for the stacking headers for the RPi GPIO Header, and screw
-terminals for the Motor terminals and the motor power terminals. Feel free to
-select a non-stacking header for the RPi GPIO Header and to select either pin
-arrays or spring terminals for the T1 through T5 (any 2.54 pitch inline 
-terminals or connectors)\footnote{Mouser Project link: 
-\url{http://www.mouser.com/ProjectManager/ProjectDetail.aspx?AccessID=330542c522}.}.
+
+The only parts that might be substituted are J0 (the RPi GPIO Header), and T1 
+though T4 (the Motor terminals) and T5 (the 12 to 16 Volts terminals).  The parts 
+listed are for the stacking headers for the RPi GPIO Header, and screw 
+terminals for the Motor terminals and the motor power terminals.  Feel free to 
+select a non-stacking header for the RPi GPIO Header and to select either pin 
+arrays or spring terminals for the T1, T2, T3, T4 and T5.
 
 \section{Circuit Board Layout}
 
 \begin{figure}[hbpt]\begin{centering}%
 \includegraphics[width=5in]{QuadSMCSenseHat3DTop.png}
-\caption{3D rendering of the QuadSMCSenseHat board}
+\caption{3D rendering of the QuadSMCSenseHAT board}
 \end{centering}\end{figure}
 \begin{figure}[hbpt]\begin{centering}%
 \includegraphics[width=5in]{QuadSMCSenseHat.png}
-\caption{Fabrication image of the QuadSMCSenseHat board}
+\caption{Fabrication image of the QuadSMCSenseHAT board}
 \end{centering}\end{figure}
-Board assembly is straight forward.  You need to be careful orienting the ICs, 
-and the electrolytic capacitor.  And don't forget to orient the screw 
-terminals with the wire entries facing out from the board!
-
-\section{Downloadables and Software Support}
-
-Full design information is available on GitHub here:                           
- 
-\url{https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/QuadSMCSenseHat}.
-
-An OpenMRN program is available on GitHub here:
-
-\url{https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/QuadSMCSenseOpenMRN}.
-
-Also, bare boards can be ordered from Pcbway here:
-
-\url{https://www.pcbway.com/project/shareproject/Quad_Stall_Motor_Controller_w__point_Sense__hat_.html}.
-
-
+Board assembly is straight forward. You need to be careful orienting the ICs
+and the electrolytic capacitor.
 
 

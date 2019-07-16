@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Wed May 31 19:37:01 2017
-%  Last Modified : <190311.2020>
+%  Last Modified : <190715.1748>
 %
 %  Description 
 %
@@ -68,9 +68,9 @@
 \emergencystretch=50pt
 \setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{3}
-\includeonly{SMCSenseHAT,QuadSSSQuadIn,MCP23017,OctalLEDDriver,QuadSMCSenseHat}
+\includeonly{SMCSenseHAT,QuadSSSQuadIn,MCP23017,OctalLEDDriver,QuadSMCSenseHat,LCCCANCape,QuadSMCSenseCape,QuadSMCSenseHat}
 \begin{document}
-\title{Railroad Circuits for the Raspberry Pi}
+\title{Railroad Circuits for the Raspberry Pi, Beagle Bone Black, Pocket Beagle, and ESP32}
 \author{Robert Heller \\ The Country Robot \\ Wendell, MA, USA}
 \date{\today}
 \begin{titlepage}
@@ -84,7 +84,7 @@ This documentation was prepared with \LaTeX.
 \vspace{.25in}
 
 
-{\small Copyright \copyright 2017 by Robert Heller D/B/A The Country Robot}
+{\small Copyright \copyright 2017-2019 by Robert Heller D/B/A The Country Robot}
 \vspace{.25in}
 
 All rights reserved.  Permission is granted to copy this document in
@@ -125,7 +125,7 @@ finds something wrong, I would of course like to hear about it.
 \pagenumbering{arabic}
 \chapter{General Information}
 
-Most of these boards are add on boards for a Raspberry Pi ``B'' model, 
+Many of these boards are add on boards for a Raspberry Pi ``B'' model, 
 one with a 40-pin header and have the mechanical form factor of a Raspberry Pi 
 ``HAT''.  Since none of them have an eeprom on them, they are technically not 
 actual ``HATs''.  These boards can be ``stacked'', with some limitations, as 
@@ -136,7 +136,14 @@ sockets and male pins.  The end user has a choice of headers to use: standard
 female only headers, long female only headers, standard ``stacking'' headers 
 or long/tall ``stacking'' headers.  In the chapters for each board in the 
 parts list section, I list the various header options, with part numbers and 
-suppliers.
+suppliers.  Other boards are stackable ``Capes'' for the Beagle Bone Black. 
+Again, since many of these boards are stackable, ``stacking'' (or ``stack 
+through'') headers can be used.  Still other boards are for the Pocket Beagle 
+and the ESP32 devkit board.  These latter are not meant to be stackable and 
+for these, the add on board goes \textit{under} the processor board.  Unlike 
+the Raspberry Pi and Beagle Bone Black, these smaller boards have no mounting 
+holes, but the ``add on'' boards do.  Also for these smaller boards the add 
+on boards provide power to the processor board.
 
 Another place where the end user has choices is in the terminal blocks.  With 
 some exceptions (mostly for higher power cases), all of the terminal blocks 
@@ -146,12 +153,12 @@ angle pin arrays or even spring terminals.  This will depend on what sort of
 interconnection technology the end user would prefer.  In the parts list will 
 be the various alternative options.
 
-All of the boards use through-hole parts and should be fairly easy to hand 
-solder with a basic good quality soldering iron.  All of the components are 
-standard and readily available from various suppliers (like Mouser or 
+All of the boards use mostly through-hole parts and should be fairly easy to
+hand solder with a basic good quality soldering iron. All of the components
+are standard and readily available from various suppliers (like Mouser or
 Digi-Key).
 
-All of the boards have mounting holes.  The mounting holes on the HAT-like 
+Most of the boards have mounting holes.  The mounting holes on the HAT-like 
 boards align over the mounting holes in the Raspberry Pi.  Using standard 
 height headers allows about 3/8'' between boards and using tall headers allows 
 1/2'' between boards.  It is probably a good idea to use spacer hardware to 
@@ -164,17 +171,8 @@ male/female threaded hex spacers in pairs).
 \include{MCP23017}
 \include{OctalLEDDriver}
 \include{QuadSMCSenseHat}
-\include{CANHat2}
-\include{ButtonHat}
-\include{LEDDriverHat}
-\include{QuadSignalDriverCK}
-\include{QuadSignalDriverCA}
-\include{SignalHAT}
-\include{DualUncouplerHAT}
-\include{MCP23008Hat}
-\include{CANHat}
-\include{QuadUncoupler}
-\include{QuadSMC}
+\include{LCCCANCape}
+\include{QuadSMCSenseCape}
 \cleardoublepage
 %\bibliography{MRR}
 %\bibliographystyle{plain}
