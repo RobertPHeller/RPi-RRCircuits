@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Mon Jul 15 17:33:37 2019
-%  Last Modified : <190716.1304>
+%  Last Modified : <190717.1702>
 %
 %  Description 
 %
@@ -127,7 +127,7 @@ TC4428&4&U1 U2 U3 U4&579-TC4428VPA& \\
 \end{tabular}
 \caption{Parts list for QuadSMCSenseHat board.}
 \end{centering}\end{table}\footnote{Mouser Project link: 
-\url{http://www.mouser.com/ProjectManager/ProjectDetail.aspx?AccessID=}.}
+\url{http://www.mouser.com/ProjectManager/ProjectDetail.aspx?AccessID=330542c522}.}
 
 
 The only parts that might be substituted are J0 (the RPi GPIO Header), and T1 
@@ -149,5 +149,21 @@ arrays or spring terminals for the T1, T2, T3, T4 and T5.
 \end{centering}\end{figure}
 Board assembly is straight forward. You need to be careful orienting the ICs
 and the electrolytic capacitor.
+
+Bare circuit boards can be ordered from PCBWay here: 
+\url{https://www.pcbway.com/project/shareproject/Quad_Stall_Motor_Controller_w__point_Sense__hat_.html}.
+
+\section{Downloadables and Software Support}
+
+Full design information is available on GitHub here:
+\url{https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/QuadSMCSenseHat}.
+
+An OpenMRN program that supports this board is available here:
+\url{https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/QuadSMCSenseOpenMRN}.
+This board is also supported by the Model Railroad System\footnote{Available
+as a free download from Deepwoods Software at this web address:
+\url{http://www.deepsoft.com/home/products/modelrailroadsystem/}.}
+\texttt{OpenLCB\_PiGPIO} daemon. A basic XML file for it is included in its
+GitHub folder.
 
 
