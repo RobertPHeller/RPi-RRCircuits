@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+    Created By    : Robert Heller
+    Created       : Wed Jul 17 16:54:52 2019
+    Last Modified : <190717.1657>
+
+    Description	
+    
+    Copyright (C) 2019  Robert Heller D/B/A Deepwoods Software
+			51 Locke Hill Road
+			Wendell, MA 01379-9728
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+ 
+-->
+<?xml version='1.0'?>
+<OpenLCB_PiGPIO>
+  <pin frame="pin1">
+    <number>0</number>
+    <mode>out</mode>
+    <description>MSelect 1</description>
+  </pin>
+  <pin frame="pin2">
+    <number>1</number>
+    <mode>out</mode>
+    <description>MSelect 2</description>
+  </pin>
+  <pin frame="pin3">
+    <number>2</number>
+    <mode>in</mode>
+    <description>Point Sense 1</description>
+  </pin>
+  <pin frame="pin4">
+    <number>3</number>
+    <mode>in</mode>
+    <description>Point Sense 2</description>
+  </pin>
+  <pin frame="pin5">
+    <number>4</number>
+    <mode>out</mode>
+    <description>MSelect 3</description>
+  </pin>
+  <pin frame="pin6">
+    <number>5</number>
+    <mode>out</mode>
+    <description>MSelect 4</description>
+  </pin>
+  <pin frame="pin7">
+    <number>6</number>
+    <mode>in</mode>
+    <description>Point Sense 3</description>
+  </pin>
+  <pin frame="pin8">
+    <number>7</number>
+    <mode>in</mode>
+    <description>Point Sense 4</description>
+  </pin>
+  <transport>
+    <constructor/>
+    <options/>
+  </transport>
+  <identification>
+    <name>QuadSMCSenseHat</name>
+    <description>QuadSMCSenseHat (0-7)</description>
+  </identification>
+  <pollinterval>500</pollinterval>
+</OpenLCB_PiGPIO>
