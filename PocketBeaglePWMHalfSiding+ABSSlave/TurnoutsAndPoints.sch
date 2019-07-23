@@ -1,0 +1,380 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:special
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:pocketbeagle
+LIBS:sn65hvd233-ht
+LIBS:lm2574n-5
+LIBS:pca9685
+LIBS:tbd62x83a
+LIBS:tc442x
+LIBS:mct6h
+LIBS:bridge
+LIBS:sn75lbc179
+LIBS:trs202e
+LIBS:PocketBeaglePWMHalfSiding+ABSSlave-cache
+EELAYER 27 0
+EELAYER END
+$Descr USLetter 11000 8500
+encoding utf-8
+Sheet 7 9
+Title "Turnouts and Points"
+Date "22 jul 2019"
+Rev ""
+Comp "Deepwoods Software"
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L TC4428 U7
+U 1 1 5CA3F737
+P 2850 1850
+F 0 "U7" H 2850 1550 60  0000 C CNN
+F 1 "TC4428" H 2850 2150 60  0000 C CNN
+F 2 "~" H 2850 1850 60  0000 C CNN
+F 3 "~" H 2850 1850 60  0000 C CNN
+	1    2850 1850
+	1    0    0    -1  
+$EndComp
+$Comp
+L TC4428 U7
+U 2 1 5CA3F746
+P 2850 2550
+F 0 "U7" H 2850 2250 60  0000 C CNN
+F 1 "TC4428" H 2850 2850 60  0000 C CNN
+F 2 "~" H 2850 2550 60  0000 C CNN
+F 3 "~" H 2850 2550 60  0000 C CNN
+	2    2850 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L TC4428 U8
+U 1 1 5CA3F755
+P 2850 3350
+F 0 "U8" H 2850 3050 60  0000 C CNN
+F 1 "TC4428" H 2850 3650 60  0000 C CNN
+F 2 "~" H 2850 3350 60  0000 C CNN
+F 3 "~" H 2850 3350 60  0000 C CNN
+	1    2850 3350
+	1    0    0    -1  
+$EndComp
+$Comp
+L TC4428 U8
+U 2 1 5CA3F764
+P 2850 4150
+F 0 "U8" H 2850 3850 60  0000 C CNN
+F 1 "TC4428" H 2850 4450 60  0000 C CNN
+F 2 "~" H 2850 4150 60  0000 C CNN
+F 3 "~" H 2850 4150 60  0000 C CNN
+	2    2850 4150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2600 1850 2600 2550
+Wire Wire Line
+	2600 3350 2600 4150
+Text HLabel 2600 1850 0    60   Input ~ 0
+Motor 1
+Text HLabel 2600 3350 0    60   Input ~ 0
+Motor 2
+Text Label 3250 1850 0    60   ~ 0
+Motor1A
+Text Label 3250 2550 0    60   ~ 0
+Motor1B
+Text Label 3250 3350 0    60   ~ 0
+Motor2A
+Text Label 3250 4150 0    60   ~ 0
+Motor2B
+$Comp
+L +12V #PWR032
+U 1 1 5CA3F7D6
+P 2800 1400
+F 0 "#PWR032" H 2800 1350 20  0001 C CNN
+F 1 "+12V" H 2800 1500 30  0000 C CNN
+F 2 "" H 2800 1400 60  0000 C CNN
+F 3 "" H 2800 1400 60  0000 C CNN
+	1    2800 1400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2800 1400 2800 1700
+Wire Wire Line
+	2800 1500 1900 1500
+Wire Wire Line
+	1900 1500 1900 3150
+Wire Wire Line
+	1900 3150 2800 3150
+Wire Wire Line
+	2800 3150 2800 3200
+Connection ~ 2800 1500
+Wire Wire Line
+	2800 2750 2800 2900
+Wire Wire Line
+	2800 2900 1950 2900
+Wire Wire Line
+	1950 2900 1950 4550
+Wire Wire Line
+	1950 4550 2800 4550
+Wire Wire Line
+	2800 4350 2800 4700
+$Comp
+L GND #PWR033
+U 1 1 5CA3F806
+P 2800 4700
+F 0 "#PWR033" H 2800 4700 30  0001 C CNN
+F 1 "GND" H 2800 4630 30  0001 C CNN
+F 2 "" H 2800 4700 60  0000 C CNN
+F 3 "" H 2800 4700 60  0000 C CNN
+	1    2800 4700
+	1    0    0    -1  
+$EndComp
+Connection ~ 2800 4550
+$Comp
+L CONN_5 T5
+U 1 1 5CA3F832
+P 9750 2200
+F 0 "T5" V 9700 2200 50  0000 C CNN
+F 1 "Motor 1" V 9800 2200 50  0000 C CNN
+F 2 "" H 9750 2200 60  0000 C CNN
+F 3 "" H 9750 2200 60  0000 C CNN
+	1    9750 2200
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_5 T6
+U 1 1 5CA3F841
+P 9750 3150
+F 0 "T6" V 9700 3150 50  0000 C CNN
+F 1 "Motor 2" V 9800 3150 50  0000 C CNN
+F 2 "" H 9750 3150 60  0000 C CNN
+F 3 "" H 9750 3150 60  0000 C CNN
+	1    9750 3150
+	1    0    0    -1  
+$EndComp
+Text Label 9350 2000 2    60   ~ 0
+Motor1A
+Text Label 9350 2100 2    60   ~ 0
+Motor1B
+Text Label 9350 2950 2    60   ~ 0
+Motor2A
+Text Label 9350 3050 2    60   ~ 0
+Motor2B
+$Comp
+L GND #PWR034
+U 1 1 5CA3F877
+P 9000 3600
+F 0 "#PWR034" H 9000 3600 30  0001 C CNN
+F 1 "GND" H 9000 3530 30  0001 C CNN
+F 2 "" H 9000 3600 60  0000 C CNN
+F 3 "" H 9000 3600 60  0000 C CNN
+	1    9000 3600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9000 2300 9000 3600
+Wire Wire Line
+	9000 3250 9350 3250
+Wire Wire Line
+	9350 2300 9000 2300
+Connection ~ 9000 3250
+Text Label 9350 2200 2    60   ~ 0
+Points1A
+Text Label 9350 2400 2    60   ~ 0
+Points1B
+Text Label 9350 3150 2    60   ~ 0
+Points2A
+Text Label 9350 3350 2    60   ~ 0
+Points2B
+$Comp
+L 74HCT00 U9
+U 1 1 5CA3F8D1
+P 7050 1600
+F 0 "U9" H 7050 1650 60  0000 C CNN
+F 1 "74HCT00" H 7050 1500 60  0000 C CNN
+F 2 "~" H 7050 1600 60  0000 C CNN
+F 3 "~" H 7050 1600 60  0000 C CNN
+	1    7050 1600
+	1    0    0    -1  
+$EndComp
+$Comp
+L 74HCT00 U9
+U 2 1 5CA3F8E0
+P 7050 2250
+F 0 "U9" H 7050 2300 60  0000 C CNN
+F 1 "74HCT00" H 7050 2150 60  0000 C CNN
+F 2 "~" H 7050 2250 60  0000 C CNN
+F 3 "~" H 7050 2250 60  0000 C CNN
+	2    7050 2250
+	1    0    0    -1  
+$EndComp
+$Comp
+L 74HCT00 U9
+U 3 1 5CA3F8EF
+P 7100 3500
+F 0 "U9" H 7100 3550 60  0000 C CNN
+F 1 "74HCT00" H 7100 3400 60  0000 C CNN
+F 2 "~" H 7100 3500 60  0000 C CNN
+F 3 "~" H 7100 3500 60  0000 C CNN
+	3    7100 3500
+	1    0    0    -1  
+$EndComp
+$Comp
+L 74HCT00 U9
+U 4 1 5CA3F8FE
+P 7100 4300
+F 0 "U9" H 7100 4350 60  0000 C CNN
+F 1 "74HCT00" H 7100 4200 60  0000 C CNN
+F 2 "~" H 7100 4300 60  0000 C CNN
+F 3 "~" H 7100 4300 60  0000 C CNN
+	4    7100 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L RR4 RR1
+U 1 1 5CA3FD0A
+P 5600 750
+F 0 "RR1" H 5650 1050 70  0000 C CNN
+F 1 "10K Ohms" V 5650 650 70  0000 C CNN
+F 2 "~" H 5600 500 60  0000 C CNN
+F 3 "~" H 5600 500 60  0000 C CNN
+	1    5600 750 
+	0    -1   -1   0   
+$EndComp
+$Comp
+L 3V3 #PWR035
+U 1 1 5CA3FD19
+P 6850 900
+F 0 "#PWR035" H 6850 1000 40  0001 C CNN
+F 1 "3V3" H 6850 1025 40  0000 C CNN
+F 2 "" H 6850 900 60  0000 C CNN
+F 3 "" H 6850 900 60  0000 C CNN
+	1    6850 900 
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR036
+U 1 1 5CA3FD28
+P 6900 4800
+F 0 "#PWR036" H 6900 4800 30  0001 C CNN
+F 1 "GND" H 6900 4730 30  0001 C CNN
+F 2 "" H 6900 4800 60  0000 C CNN
+F 3 "" H 6900 4800 60  0000 C CNN
+	1    6900 4800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6850 900  6850 1400
+Wire Wire Line
+	6900 4500 6900 4800
+Wire Wire Line
+	5400 1100 5400 2450
+Wire Wire Line
+	5400 1250 6850 1250
+Connection ~ 6850 1250
+Wire Wire Line
+	6450 1700 6450 1950
+Wire Wire Line
+	6450 1950 7650 1950
+Wire Wire Line
+	7650 1950 7650 2250
+Wire Wire Line
+	7650 1600 7800 1600
+Wire Wire Line
+	7800 1600 7800 1900
+Wire Wire Line
+	7800 1900 6350 1900
+Wire Wire Line
+	6350 1900 6350 2150
+Wire Wire Line
+	6350 2150 6450 2150
+Text HLabel 7800 1600 2    60   Output ~ 0
+Sense 1
+Wire Wire Line
+	5500 1100 5500 1500
+Wire Wire Line
+	5500 1500 6450 1500
+Wire Wire Line
+	5600 1100 5600 2350
+Wire Wire Line
+	5600 2350 6450 2350
+Text Label 5950 1500 0    60   ~ 0
+Points1A
+Text Label 5950 2350 0    60   ~ 0
+Points1B
+Wire Wire Line
+	7700 3500 7900 3500
+Wire Wire Line
+	7900 3500 7900 3900
+Wire Wire Line
+	7900 3900 6300 3900
+Wire Wire Line
+	6300 3900 6300 4200
+Wire Wire Line
+	6300 4200 6500 4200
+Wire Wire Line
+	6500 3600 6500 4000
+Wire Wire Line
+	6500 4000 7700 4000
+Wire Wire Line
+	7700 4000 7700 4300
+Text HLabel 7900 3500 2    60   Output ~ 0
+Sense 2
+Wire Wire Line
+	5700 1100 5700 3400
+Wire Wire Line
+	5700 3400 6500 3400
+Wire Wire Line
+	5800 1100 5800 4400
+Wire Wire Line
+	5800 4400 6500 4400
+Text Label 6000 3400 0    60   ~ 0
+Points2A
+Text Label 6000 4400 0    60   ~ 0
+Points2B
+$Comp
+L C C7
+U 1 1 5CA3FF07
+P 5400 2650
+F 0 "C7" H 5400 2750 40  0000 L CNN
+F 1 ".1 uf" H 5406 2565 40  0000 L CNN
+F 2 "~" H 5438 2500 30  0000 C CNN
+F 3 "~" H 5400 2650 60  0000 C CNN
+	1    5400 2650
+	1    0    0    -1  
+$EndComp
+Connection ~ 5400 1250
+Wire Wire Line
+	5400 2850 5400 4700
+Wire Wire Line
+	5400 4700 6900 4700
+Connection ~ 6900 4700
+$EndSCHEMATC

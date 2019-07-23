@@ -1,0 +1,453 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:special
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:pocketbeagle
+LIBS:sn65hvd233-ht
+LIBS:lm2574n-5
+LIBS:pca9685
+LIBS:tbd62x83a
+LIBS:tc442x
+LIBS:mct6h
+LIBS:bridge
+LIBS:sn75lbc179
+LIBS:trs202e
+LIBS:PocketBeaglePWMHalfSiding+ABSSlave-cache
+EELAYER 27 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 8 9
+Title ""
+Date "22 jul 2019"
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L TRS202E U801
+U 1 1 5D3601FD
+P 3350 3100
+F 0 "U801" H 3350 3300 60  0000 C CNN
+F 1 "ADM3202" H 3350 3150 30  0000 C CNN
+F 2 "~" H 3350 3100 60  0000 C CNN
+F 3 "~" H 3350 3100 60  0000 C CNN
+	1    3350 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C802
+U 1 1 5D36021B
+P 2850 2650
+F 0 "C802" H 2850 2750 40  0000 L CNN
+F 1 ".1 uf" H 2856 2565 40  0000 L CNN
+F 2 "~" H 2888 2500 30  0000 C CNN
+F 3 "~" H 2850 2650 60  0000 C CNN
+	1    2850 2650
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C801
+U 1 1 5D36022A
+P 2700 3150
+F 0 "C801" H 2700 3250 40  0000 L CNN
+F 1 ".1 uf" H 2706 3065 40  0000 L CNN
+F 2 "~" H 2738 3000 30  0000 C CNN
+F 3 "~" H 2700 3150 60  0000 C CNN
+	1    2700 3150
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C803
+U 1 1 5D360243
+P 3850 2650
+F 0 "C803" H 3850 2750 40  0000 L CNN
+F 1 ".1 uf" H 3856 2565 40  0000 L CNN
+F 2 "~" H 3888 2500 30  0000 C CNN
+F 3 "~" H 3850 2650 60  0000 C CNN
+	1    3850 2650
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C804
+U 1 1 5D360252
+P 4100 3150
+F 0 "C804" H 4100 3250 40  0000 L CNN
+F 1 ".1 uf" H 4106 3065 40  0000 L CNN
+F 2 "~" H 4138 3000 30  0000 C CNN
+F 3 "~" H 4100 3150 60  0000 C CNN
+	1    4100 3150
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C805
+U 1 1 5D360261
+P 4300 2550
+F 0 "C805" H 4300 2650 40  0000 L CNN
+F 1 ".1 uf" H 4306 2465 40  0000 L CNN
+F 2 "~" H 4338 2400 30  0000 C CNN
+F 3 "~" H 4300 2550 60  0000 C CNN
+	1    4300 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_4 P801
+U 1 1 5D3602BB
+P 3300 900
+F 0 "P801" V 3250 900 50  0000 C CNN
+F 1 "East (Points)" V 3350 900 50  0000 C CNN
+F 2 "" H 3300 900 60  0000 C CNN
+F 3 "" H 3300 900 60  0000 C CNN
+	1    3300 900 
+	0    -1   -1   0   
+$EndComp
+$Comp
+L CONN_4 P802
+U 1 1 5D3602CA
+P 4700 900
+F 0 "P802" V 4650 900 50  0000 C CNN
+F 1 "West Main (Frog Normal)" V 4750 900 50  0000 C CNN
+F 2 "" H 4700 900 60  0000 C CNN
+F 3 "" H 4700 900 60  0000 C CNN
+	1    4700 900 
+	0    -1   -1   0   
+$EndComp
+$Comp
+L CONN_4 P803
+U 1 1 5D3602D9
+P 6450 900
+F 0 "P803" V 6400 900 50  0000 C CNN
+F 1 "West Div. (Frog Reversed)" V 6500 900 50  0000 C CNN
+F 2 "" H 6450 900 60  0000 C CNN
+F 3 "" H 6450 900 60  0000 C CNN
+	1    6450 900 
+	0    -1   -1   0   
+$EndComp
+$Comp
+L 3V3 #PWR037
+U 1 1 5D3602E8
+P 3350 2250
+F 0 "#PWR037" H 3350 2340 20  0001 C CNN
+F 1 "3V3" H 3350 2340 30  0000 C CNN
+F 2 "" H 3350 2250 60  0000 C CNN
+F 3 "" H 3350 2250 60  0000 C CNN
+	1    3350 2250
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR038
+U 1 1 5D360306
+P 3350 4150
+F 0 "#PWR038" H 3350 4150 30  0001 C CNN
+F 1 "GND" H 3350 4080 30  0001 C CNN
+F 2 "" H 3350 4150 60  0000 C CNN
+F 3 "" H 3350 4150 60  0000 C CNN
+	1    3350 4150
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR039
+U 1 1 5D360324
+P 2400 1500
+F 0 "#PWR039" H 2400 1500 30  0001 C CNN
+F 1 "GND" H 2400 1430 30  0001 C CNN
+F 2 "" H 2400 1500 60  0000 C CNN
+F 3 "" H 2400 1500 60  0000 C CNN
+	1    2400 1500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3050 2850 2850 2850
+Wire Wire Line
+	3050 2750 3050 2450
+Wire Wire Line
+	3050 2450 2850 2450
+Wire Wire Line
+	3650 2750 3650 2450
+Wire Wire Line
+	3650 2450 3850 2450
+Wire Wire Line
+	3850 2850 3650 2850
+Wire Wire Line
+	2700 2950 3050 2950
+Wire Wire Line
+	4100 2950 3650 2950
+Wire Wire Line
+	4300 2350 3350 2350
+Wire Wire Line
+	3350 2250 3350 2600
+Connection ~ 3350 2350
+Wire Wire Line
+	2700 3600 4300 3600
+Wire Wire Line
+	4100 3600 4100 3350
+Wire Wire Line
+	2700 3600 2700 3350
+Connection ~ 3350 3600
+Wire Wire Line
+	3350 3600 3350 4150
+Wire Wire Line
+	4300 3600 4300 2750
+Connection ~ 4100 3600
+$Comp
+L TRS202E U802
+U 1 1 5D3603F4
+P 7550 3150
+F 0 "U802" H 7550 3350 60  0000 C CNN
+F 1 "ADM3202" H 7550 3200 30  0000 C CNN
+F 2 "~" H 7550 3150 60  0000 C CNN
+F 3 "~" H 7550 3150 60  0000 C CNN
+	1    7550 3150
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C807
+U 1 1 5D3603FA
+P 7050 2700
+F 0 "C807" H 7050 2800 40  0000 L CNN
+F 1 ".1 uf" H 7056 2615 40  0000 L CNN
+F 2 "~" H 7088 2550 30  0000 C CNN
+F 3 "~" H 7050 2700 60  0000 C CNN
+	1    7050 2700
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C806
+U 1 1 5D360400
+P 6900 3200
+F 0 "C806" H 6900 3300 40  0000 L CNN
+F 1 ".1 uf" H 6906 3115 40  0000 L CNN
+F 2 "~" H 6938 3050 30  0000 C CNN
+F 3 "~" H 6900 3200 60  0000 C CNN
+	1    6900 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C808
+U 1 1 5D360406
+P 8050 2700
+F 0 "C808" H 8050 2800 40  0000 L CNN
+F 1 ".1 uf" H 8056 2615 40  0000 L CNN
+F 2 "~" H 8088 2550 30  0000 C CNN
+F 3 "~" H 8050 2700 60  0000 C CNN
+	1    8050 2700
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C809
+U 1 1 5D36040C
+P 8300 3200
+F 0 "C809" H 8300 3300 40  0000 L CNN
+F 1 ".1 uf" H 8306 3115 40  0000 L CNN
+F 2 "~" H 8338 3050 30  0000 C CNN
+F 3 "~" H 8300 3200 60  0000 C CNN
+	1    8300 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C810
+U 1 1 5D360412
+P 8500 2600
+F 0 "C810" H 8500 2700 40  0000 L CNN
+F 1 ".1 uf" H 8506 2515 40  0000 L CNN
+F 2 "~" H 8538 2450 30  0000 C CNN
+F 3 "~" H 8500 2600 60  0000 C CNN
+	1    8500 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L 3V3 #PWR040
+U 1 1 5D360418
+P 7550 2300
+F 0 "#PWR040" H 7550 2390 20  0001 C CNN
+F 1 "3V3" H 7550 2390 30  0000 C CNN
+F 2 "" H 7550 2300 60  0000 C CNN
+F 3 "" H 7550 2300 60  0000 C CNN
+	1    7550 2300
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR041
+U 1 1 5D36041E
+P 7550 4200
+F 0 "#PWR041" H 7550 4200 30  0001 C CNN
+F 1 "GND" H 7550 4130 30  0001 C CNN
+F 2 "" H 7550 4200 60  0000 C CNN
+F 3 "" H 7550 4200 60  0000 C CNN
+	1    7550 4200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7250 2900 7050 2900
+Wire Wire Line
+	7250 2800 7250 2500
+Wire Wire Line
+	7250 2500 7050 2500
+Wire Wire Line
+	7850 2800 7850 2500
+Wire Wire Line
+	7850 2500 8050 2500
+Wire Wire Line
+	8050 2900 7850 2900
+Wire Wire Line
+	6900 3000 7250 3000
+Wire Wire Line
+	8300 3000 7850 3000
+Wire Wire Line
+	8500 2400 7550 2400
+Wire Wire Line
+	7550 2300 7550 2650
+Connection ~ 7550 2400
+Wire Wire Line
+	6900 3650 8500 3650
+Wire Wire Line
+	8300 3650 8300 3400
+Wire Wire Line
+	6900 3650 6900 3400
+Connection ~ 7550 3650
+Wire Wire Line
+	7550 3650 7550 4200
+Wire Wire Line
+	8500 3650 8500 2800
+Connection ~ 8300 3650
+Wire Wire Line
+	3150 1250 3150 1400
+Wire Wire Line
+	2400 1400 6600 1400
+Wire Wire Line
+	2400 1400 2400 1500
+Wire Wire Line
+	3450 1400 3450 1250
+Connection ~ 3150 1400
+Wire Wire Line
+	4550 1400 4550 1250
+Connection ~ 3450 1400
+Wire Wire Line
+	4850 1400 4850 1250
+Connection ~ 4550 1400
+Wire Wire Line
+	6300 1400 6300 1250
+Connection ~ 4850 1400
+Wire Wire Line
+	6600 1400 6600 1250
+Connection ~ 6300 1400
+Wire Wire Line
+	3050 3250 2850 3250
+Wire Wire Line
+	2850 3250 2850 3900
+Wire Wire Line
+	2700 3900 8000 3900
+Wire Wire Line
+	3800 3900 3800 3250
+Wire Wire Line
+	3800 3250 3650 3250
+Wire Wire Line
+	8000 3900 8000 3300
+Wire Wire Line
+	8000 3300 7850 3300
+Connection ~ 3800 3900
+Wire Wire Line
+	7250 3300 7050 3300
+Wire Wire Line
+	7050 3300 7050 3900
+Connection ~ 7050 3900
+Connection ~ 2850 3900
+Text HLabel 2700 3900 0    60   Input ~ 0
+OS Section
+Wire Wire Line
+	3050 3150 2950 3150
+Wire Wire Line
+	2950 3150 2950 1600
+Wire Wire Line
+	2950 1600 3250 1600
+Wire Wire Line
+	3250 1600 3250 1250
+Wire Wire Line
+	4750 1250 4750 2150
+Wire Wire Line
+	4750 2150 3950 2150
+Wire Wire Line
+	3950 2150 3950 3150
+Wire Wire Line
+	3950 3150 3650 3150
+Wire Wire Line
+	7250 3200 7150 3200
+Wire Wire Line
+	7150 3200 7150 1600
+Wire Wire Line
+	7150 1600 6500 1600
+Wire Wire Line
+	6500 1600 6500 1250
+Wire Wire Line
+	3350 1250 3350 1950
+Wire Wire Line
+	3350 1950 2800 1950
+Wire Wire Line
+	2800 1950 2800 3200
+Wire Wire Line
+	2800 3200 3050 3200
+Wire Wire Line
+	3050 3300 3050 3500
+Wire Wire Line
+	3050 3500 2350 3500
+Text HLabel 2350 3500 0    60   Output ~ 0
+East (Points)
+Wire Wire Line
+	4650 1250 4650 2050
+Wire Wire Line
+	4650 2050 3700 2050
+Wire Wire Line
+	3700 2050 3700 3200
+Wire Wire Line
+	3700 3200 3650 3200
+Wire Wire Line
+	3650 3300 3650 3450
+Wire Wire Line
+	3650 3450 4550 3450
+Text HLabel 4550 3450 2    60   Output ~ 0
+West Main (Frog Normal)
+Wire Wire Line
+	7250 3250 7050 3250
+Wire Wire Line
+	7050 3250 7050 2950
+Wire Wire Line
+	7050 2950 6400 2950
+Wire Wire Line
+	6400 2950 6400 1250
+Wire Wire Line
+	7250 3350 7250 3750
+Wire Wire Line
+	7250 3750 6500 3750
+Text HLabel 6500 3750 0    60   Output ~ 0
+West Div. (Frog Reversed)
+$EndSCHEMATC
