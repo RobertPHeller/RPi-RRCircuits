@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed May 31 19:27:54 2017
-#  Last Modified : <190727.2301>
+#  Last Modified : <190803.1349>
 #
 #  Description	
 #
@@ -85,7 +85,9 @@ FIGURES= ../SMCSenseHAT/SMCSenseHAT3DTop.png \
 	 ../QuadSMCSenseCape/QuadSMCSenseCape-1.pdf \
 	 ../QuadSMCSenseCape/QuadSMCSenseCape-2.pdf \
 	 ../QuadSMCSenseCape/QuadSMCSenseCape.png \
-	 ../LCCCANCape/LCCCANCape-1.pdf
+	 ../LCCCANCape/LCCCANCape-1.pdf \
+	 ../LCCCANCape/LCCCANCape.png \
+	 ../LCCCANCape/LCCCANCape3DTop.png
 	 
 	 
 
