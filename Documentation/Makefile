@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed May 31 19:27:54 2017
-#  Last Modified : <190717.2201>
+#  Last Modified : <190727.2301>
 #
 #  Description	
 #
@@ -63,7 +63,8 @@ TEXS=usermanual.tex ../SMCSenseHAT/SMCSenseHAT.tex \
 		    ../QuadUncoupler/QuadUncoupler.tex \
 		    ../QuadSMC/QuadSMC.tex \
 		    ../QuadSMCSenseHat/QuadSMCSenseHat.tex \
-		    ../QuadSMCSenseCape/QuadSMCSenseCape.tex
+		    ../QuadSMCSenseCape/QuadSMCSenseCape.tex \
+		    ../LCCCANCape/LCCCANCape.tex
 
 FIGURES= ../SMCSenseHAT/SMCSenseHAT3DTop.png \
 	 ../SMCSenseHAT/SMCSenseHAT.png \
@@ -83,7 +84,8 @@ FIGURES= ../SMCSenseHAT/SMCSenseHAT3DTop.png \
 	 ../QuadSMCSenseCape/QuadSMCSenseCape3DTop.png \
 	 ../QuadSMCSenseCape/QuadSMCSenseCape-1.pdf \
 	 ../QuadSMCSenseCape/QuadSMCSenseCape-2.pdf \
-	 ../QuadSMCSenseCape/QuadSMCSenseCape.png
+	 ../QuadSMCSenseCape/QuadSMCSenseCape.png \
+	 ../LCCCANCape/LCCCANCape-1.pdf
 	 
 	 
 

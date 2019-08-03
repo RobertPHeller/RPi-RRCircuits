@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Mon Jul 15 17:34:14 2019
-%  Last Modified : <190717.2141>
+%  Last Modified : <190727.2307>
 %
 %  Description 
 %
@@ -41,4 +41,31 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{LCCCANCape: LCC CAN Tranceiver Cape}
+
+\section{GPIO Pins Used and stacking restrictions.}
+
+This board uses two pins on header P9: 24 and 26 in pin mux mode2, which makes 
+pin 24 Can1 RX, and pin 26 Can1 TX.  Only one of these capes can be on any 
+Beagle Bone Black.
+
+
+\section{Circuit Description}
+
+\begin{figure}[hbpt]\begin{centering}%                                         
+\includegraphics[width=5in]{LCCCANCape-1.pdf}                               
+\caption{Circuit Diagram of the LCCCANCape}                               
+\end{centering}\end{figure}                                                    
+This circuit contains two sectins.  There is the transciever section, which 
+includes the transciver itself, the termination block, the two RJ45 jacks, and 
+two terminal blocks for injecting and tapping into the power carried in the 
+CAT 5 cable.  Power is not used to power the Beagle Bone Black.  The other 
+section is the Cape EErom circuit.  The Cape EEProm contains         
+information about the cape and the name and version of the overlay that needs  
+to be loaded by uBoot.  
+
+\section{Parts List}
+
+\section{Circuit Board Layout}
+
+\section{Downloadables and Software Support}
 
