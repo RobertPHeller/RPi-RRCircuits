@@ -1,0 +1,311 @@
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 17 Oct 2019 01:16:04 EDT
+
+BeginCmp
+TimeStamp = /5DA863A5;
+Reference = C101;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D9CD96B/5D9CDB38;
+Reference = C201;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D9CD96B/5D9CDB39;
+Reference = C202;
+ValeurCmp = 15 uf 63V;
+IdModule  = C1V7;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D9CD96B/5D9CDB3D;
+Reference = C203;
+ValeurCmp = 47 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D9CD96F/5D9CDD31;
+Reference = C301;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DA7B1AF;
+Reference = C401;
+ValeurCmp = .01 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DA7B1BE;
+Reference = C402;
+ValeurCmp = .01 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DA7B1CD;
+Reference = C403;
+ValeurCmp = .01 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DA7B1DC;
+Reference = C404;
+ValeurCmp = .01 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D9CD96B/5D9CDB45;
+Reference = D201;
+ValeurCmp = SB240E;
+IdModule  = DO-41;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D9CD96B/5D9CDB42;
+Reference = D202;
+ValeurCmp = SB240E;
+IdModule  = DO-41;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D9CD96B/5D9CDB40;
+Reference = J201;
+ValeurCmp = RJ45;
+IdModule  = RJ45_8N-S;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D9CD96B/5D9CDB3F;
+Reference = J202;
+ValeurCmp = RJ45;
+IdModule  = RJ45_8N-S;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D9CD96B/5D9CDB3C;
+Reference = JP201;
+ValeurCmp = Termination;
+IdModule  = PIN_ARRAY_2X2;
+EndCmp
+
+BeginCmp
+TimeStamp = /55DF7DE1;
+Reference = P8;
+ValeurCmp = BeagleBone_Black_Header;
+IdModule  = Socket_BeagleBone_Black:Socket_BeagleBone_Black;
+EndCmp
+
+BeginCmp
+TimeStamp = /55DF7DBA;
+Reference = P9;
+ValeurCmp = BeagleBone_Black_Header;
+IdModule  = Socket_BeagleBone_Black:Socket_BeagleBone_Black;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D9CD96F/5D9CDD2F;
+Reference = P301;
+ValeurCmp = WP 1 0;
+IdModule  = pin_array_3x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D9CD96B/5D9CDB3A;
+Reference = R201;
+ValeurCmp = 60 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D9CD96B/5D9CDB3B;
+Reference = R202;
+ValeurCmp = 60 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D9CD96F/5D9CDD2E;
+Reference = R301;
+ValeurCmp = 5.6K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D9CD96F/5D9CDD2D;
+Reference = R302;
+ValeurCmp = 5.6K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D9CD96F/5D9CDD2C;
+Reference = R303;
+ValeurCmp = 4.75K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D9CD96F/5D9CDD2B;
+Reference = R304;
+ValeurCmp = 4.75K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D9CD96F/5D9CDD2A;
+Reference = R305;
+ValeurCmp = 4.75K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D9CD96F/5D9CDD30;
+Reference = R306;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DA7B1EB;
+Reference = R401;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DA7B1FA;
+Reference = R402;
+ValeurCmp = 1.591K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DA7B209;
+Reference = R403;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DA7B218;
+Reference = R404;
+ValeurCmp = 1.591K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7BBF9;
+Reference = T101;
+ValeurCmp = CMD 1;
+IdModule  = ScrewTerm254-6;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7BC14;
+Reference = T102;
+ValeurCmp = CMD 2;
+IdModule  = ScrewTerm254-6;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D9CD96B/5D9CDB44;
+Reference = T201;
+ValeurCmp = + 15 in -;
+IdModule  = ScrewTerm2.54-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D9CD96B/5D9CDB41;
+Reference = T202;
+ValeurCmp = + 15 out -;
+IdModule  = ScrewTerm2.54-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DA7B319;
+Reference = T401;
+ValeurCmp = + Power In -;
+IdModule  = mors_2p;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DA7B502;
+Reference = T402;
+ValeurCmp = CMD 1;
+IdModule  = ScrewTerm254-6;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DA7B41A;
+Reference = T403;
+ValeurCmp = DCC 1;
+IdModule  = mors_2p;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DA7B524;
+Reference = T404;
+ValeurCmp = CMD 2;
+IdModule  = ScrewTerm254-6;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DA7B4A9;
+Reference = T405;
+ValeurCmp = DCC 2;
+IdModule  = mors_2p;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA85345;
+Reference = U101;
+ValeurCmp = SN75ALS174;
+IdModule  = DIP-16__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D9CD96B/5D9CDB33;
+Reference = U201;
+ValeurCmp = TCAN332DR;
+IdModule  = SOIC-8_N;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D9CD96B/5D9CDB32;
+Reference = U202;
+ValeurCmp = SN65HVD233-HT;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5D9CD96F/5D9CDD29;
+Reference = U301;
+ValeurCmp = CAT24C256W;
+IdModule  = SOIC-8_N;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DA7AFF9;
+Reference = U401;
+ValeurCmp = LMD18200;
+IdModule  = TO220_11PIN_VERT;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DA7B008;
+Reference = U402;
+ValeurCmp = LMD18200;
+IdModule  = TO220_11PIN_VERT;
+EndCmp
+
+EndListe
