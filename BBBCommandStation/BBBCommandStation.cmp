@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 17 Oct 2019 01:16:04 EDT
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 17 Oct 2019 09:23:49 EDT
 
 BeginCmp
 TimeStamp = /5DA863A5;
@@ -117,6 +117,27 @@ TimeStamp = /5D9CD96F/5D9CDD2F;
 Reference = P301;
 ValeurCmp = WP 1 0;
 IdModule  = pin_array_3x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA8CB97;
+Reference = Q101;
+ValeurCmp = PN2222A;
+IdModule  = TO92;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA8CBBB;
+Reference = R101;
+ValeurCmp = 1K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA8CDC1;
+Reference = R102;
+ValeurCmp = 1K Ohms;
+IdModule  = R1;
 EndCmp
 
 BeginCmp
