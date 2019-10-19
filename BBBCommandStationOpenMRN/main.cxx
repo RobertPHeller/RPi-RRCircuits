@@ -43,7 +43,8 @@
 #include "freertos_drivers/common/DummyGPIO.hxx"
 #include "freertos_drivers/common/LoggingGPIO.hxx"
 #include "os/LinuxGpio.hxx"
-#include "utils/GpioInitializer.hxx"                                   
+#include "utils/GpioInitializer.hxx"
+#include "TractionProxyStack.hxx"
 
 #include "Hardware.hxx"
 
@@ -64,7 +65,7 @@ OVERRIDE_CONST(main_thread_stack_size, 2500);
 // contains everything needed for a usual peripheral node -- all
 // CAN-bus-specific components, a virtual node, PIP, SNIP, Memory configuration
 // protocol, ACDI, CDI, a bunch of memory spaces, etc.
-openlcb::SimpleCanStack stack(NODE_ID);
+//openlcb::SimpleCanStack stack(NODE_ID);
 
 // ConfigDef comes from config.hxx and is specific to the particular device and
 // target. It defines the layout of the configuration memory space and is also

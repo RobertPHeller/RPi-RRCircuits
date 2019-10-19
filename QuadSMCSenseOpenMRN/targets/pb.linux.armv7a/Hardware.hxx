@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Oct 17 13:05:06 2018
-//  Last Modified : <190713.2326>
+//  Last Modified : <190808.2125>
 //
 //  Description	
 //
@@ -74,6 +74,9 @@ typedef GpioInitializer<Motor1_Pin, Motor2_Pin, Points1_Pin,
                         Points2_Pin, Motor3_Pin, Motor4_Pin,
                         Points3_Pin, Points4_Pin> GpioInit;
 
+#define USE_OPENLCB_TCP_HOST
+#define DEFAULT_OPENLCB_TCP_HOST "localhost"
+#define DEFAULT_OPENLCB_TCP_PORT 12000
 
 //#define USE_TCP_GRIDCONNECT_HOST
 //#define DEFAULT_TCP_GRIDCONNECT_HOST "localhost"
@@ -81,8 +84,8 @@ typedef GpioInitializer<Motor1_Pin, Motor2_Pin, Points1_Pin,
 
 //#define PRINT_ALL_PACKETS
 
-#define USE_SOCKET_CAN_PORT
-#define DEFAULT_CAN_SOCKET "can1"
+//#define USE_SOCKET_CAN_PORT
+//#define DEFAULT_CAN_SOCKET "can1"
 
 
 #endif // __HARDWARE_HXX
