@@ -66,6 +66,14 @@ OVERRIDE_CONST(main_thread_stack_size, 2500);
 // CAN-bus-specific components, a virtual node, PIP, SNIP, Memory configuration
 // protocol, ACDI, CDI, a bunch of memory spaces, etc.
 //openlcb::SimpleCanStack stack(NODE_ID);
+#if defined(USE_GRIDCONNECT_HOST) || defined(USE_SOCKET_CAN_PORT)
+openlcb::SimpleTractionProxyCanStack stack(NODE_ID);
+#else
+#ifdef USE_OPENLCB_TCP_HOST
+Executor<1> g_connect_executor("connect_executor", 0, 2048);
+openlcb::SimpleTractionProxyTcpStack stack(NODE_ID);
+#endif
+#endif
 
 // ConfigDef comes from config.hxx and is specific to the particular device and
 // target. It defines the layout of the configuration memory space and is also
@@ -115,34 +123,100 @@ public:
     }
 } factory_reset_helper;
                                            
-                                           
-                                           
+#ifdef USE_OPENLCB_TCP_HOST
+int upstream_port = DEFAULT_OPENLCB_TCP_PORT;
+const char *upstream_host = DEFAULT_OPENLCB_TCP_HOST;
+#else
+#ifdef USE_GRIDCONNECT_HOST
+int upstream_port = DEFAULT_TCP_GRIDCONNECT_PORT;
+const char *upstream_host = DEFAULT_TCP_GRIDCONNECT_HOST;
+#endif
+#ifdef USE_SOCKET_CAN_PORT
+const char *cansocket = DEFAULT_CAN_SOCKET;
+#endif
+#endif
 
 void usage(const char *e)
 {
-    fprintf(stderr, "Usage: %s [-e EEPROM_file_path]\n\n", e);
-    fprintf(stderr, "OpenMRN-Cxx-Node.\nManages a QuadSMCSense HAT.\n");
+    fprintf(stderr, "Usage: %s [-e EEPROM_file_path]", e);
+#if defined(USE_OPENLCB_TCP_HOST) || defined(USE_GRIDCONNECT_HOST)
+    fprintf(stderr, " [-u upstream_host] [-q upstream_port]");
+#endif
+#ifdef USE_SOCKET_CAN_PORT
+    fprintf(stderr, " [-c can_socketname]");
+#endif
+    fprintf(stderr, "\n\n");    
+    fprintf(stderr, "OpenMRN-Cxx-Node.\nManages a Beagle Bone Command Station Cape.\n");
     fprintf(stderr, "\nOptions:\n");
     fprintf(stderr, "\t-e EEPROM_file_path is the path to use to the EEProm device.\n");
+#if defined(USE_OPENLCB_TCP_HOST) || defined(USE_GRIDCONNECT_HOST)
+    fprintf(stderr,"\t-u upstream_host   is the host name for an "
+            "upstream hub.\n");
+    fprintf(stderr,
+            "\t-q upstream_port   is the port number for the upstream "
+            "hub.\n");
+#endif
+#ifdef USE_SOCKET_CAN_PORT
+    fprintf(stderr,"\t-c can_socketname   is the name of the CAN "
+            "socket.\n");
+#endif
     exit(1);
 }
 
 void parse_args(int argc, char *argv[])
 {
     int opt;
-    while ((opt = getopt(argc, argv, "e:")) >= 0)
+#if defined(USE_OPENLCB_TCP_HOST) || defined(USE_GRIDCONNECT_HOST)
+#ifdef USE_SOCKET_CAN_PORT
+#define OPTSTRING "he:u:q:c:"
+#else
+#define OPTSTRING "he:u:q:"
+#endif
+#else
+#ifdef USE_SOCKET_CAN_PORT
+#define OPTSTRING "he:c:"
+#else
+#define OPTSTRING "he:"
+#endif
+#endif
+    while ((opt = getopt(argc, argv, OPTSTRING)) >= 0)
     {
         switch (opt)
         {
+        case 'h':
+            usage(argv[0]);
+            break;
         case 'e':
             strncpy(pathnamebuffer,optarg,sizeof(pathnamebuffer));
             break;
+#if defined(USE_OPENLCB_TCP_HOST) || defined(USE_GRIDCONNECT_HOST)
+        case 'u':
+            upstream_host = optarg;
+            break;
+        case 'q':
+            upstream_port = atoi(optarg);
+            break;
+#endif
+#ifdef USE_SOCKET_CAN_PORT
+        case 'c':
+            cansocket = optarg;
+            break;
+#endif
         default:
             fprintf(stderr, "Unknown option %c\n", opt);
             usage(argv[0]);
         }
     }
 }
+
+#ifdef USE_OPENLCB_TCP_HOST
+void connect_callback(int fd, Notifiable *on_error)
+{
+    LOG(INFO, "Connected to hub.");
+    stack.add_tcp_port_select(fd, on_error);
+    stack.restart_stack();
+}
+#endif
 
 
 /** Entry point to application.
@@ -161,17 +235,24 @@ int appl_main(int argc, char *argv[])
     
     // Connects to a TCP hub on the internet.
     //stack.connect_tcp_gridconnect_hub("28k.ch", 50007);
-#ifdef HAVE_TCP_GRIDCONNECT_HOST
-    stack.connect_tcp_gridconnect_hub(TCP_GRIDCONNECT_HOST, TCP_GRIDCONNECT_PORT);
+#ifdef USE_TCP_GRIDCONNECT_HOST
+    stack.connect_tcp_gridconnect_hub(upstream_host, upstream_port);
+#endif
+#ifdef USE_OPENLCB_TCP_HOST
+    SocketClient socket_client(stack.service(), &g_connect_executor,
+      &g_connect_executor,
+      SocketClientParams::from_static(upstream_host,upstream_port),
+      &connect_callback);
 #endif
 #ifdef PRINT_ALL_PACKETS
     // Causes all packets to be dumped to stdout.
     stack.print_all_packets();
 #endif
-#if defined(HAVE_SOCKET_CAN_PORT)
-    stack.add_socketcan_port_select(SOCKET_CAN_PORT);
+#if defined(USE_SOCKET_CAN_PORT)
+    stack.add_socketcan_port_select(cansocket);
 #endif
-// This command donates the main thread to the operation of the
+    
+    // This command donates the main thread to the operation of the
     // stack. Alternatively the stack could be started in a separate stack and
     // then application-specific business logic could be executed ion a busy
     // loop in the main thread.

@@ -6,6 +6,9 @@
 #include "openlcb/ConfigRepresentation.hxx"
 #include "openlcb/MemoryConfig.hxx"
 
+#include "Hardware.hxx"
+#include "Revision.hxxout"
+
 namespace openlcb
 {
 

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Oct 17 16:18:01 2019
-//  Last Modified : <191017.1634>
+//  Last Modified : <191019.1356>
 //
 //  Description	
 //
@@ -83,6 +83,7 @@ public:
     SimpleTractionProxyCanStack(const openlcb::NodeID node_id)
                 : SimpleCanStackBase(node_id)
           , node_(iface(), node_id)
+          , traction_service_(iface())
     {
     }
     /// @returns the virtual node pointer of the main virtual node of the stack
@@ -91,11 +92,13 @@ public:
     {
         return &node_;
     }
-
+    
+    TrainService *traction_service () {return &traction_service_;}
+    
 private:
     static const auto PIP_RESPONSE = Defs::EVENT_EXCHANGE | Defs::DATAGRAM |
         Defs::MEMORY_CONFIGURATION | Defs::ABBREVIATED_DEFAULT_CDI |
-        Defs::SIMPLE_NODE_INFORMATION | Defs::CDI | openlcb::Defs::TRACTION_PROXY;
+        Defs::SIMPLE_NODE_INFORMATION | Defs::CDI /*| Defs::TRACTION_PROXY*/;
 
     void start_node() override
     {
@@ -108,6 +111,7 @@ private:
     ProtocolIdentificationHandler pipHandler_ {&node_, PIP_RESPONSE};
     /// Handles SNIP requests.
     SNIPHandler snipHandler_ {iface(), &node_, &infoFlow_};
+    TrainService traction_service_;
 };
 
 class SimpleTractionProxyTcpStack : public SimpleTcpStackBase
@@ -116,6 +120,7 @@ public:
     SimpleTractionProxyTcpStack(const openlcb::NodeID node_id)
                 : SimpleTcpStackBase(node_id)
           , node_(iface(), node_id)
+          , traction_service_(iface())
     {
     }
 
@@ -125,11 +130,13 @@ public:
     {
         return &node_;
     }
-
+    
+    TrainService *traction_service () {return &traction_service_;}
+    
 private:
     static const auto PIP_RESPONSE = Defs::EVENT_EXCHANGE | Defs::DATAGRAM |
         Defs::MEMORY_CONFIGURATION | Defs::ABBREVIATED_DEFAULT_CDI |
-        Defs::SIMPLE_NODE_INFORMATION | Defs::CDI | openlcb::Defs::TRACTION_PROXY;
+        Defs::SIMPLE_NODE_INFORMATION | Defs::CDI /*| Defs::TRACTION_PROXY*/;
 
     void start_node() override
     {
@@ -142,10 +149,8 @@ private:
     ProtocolIdentificationHandler pipHandler_ {&node_, PIP_RESPONSE};
     /// Handles SNIP requests.
     SNIPHandler snipHandler_ {iface(), &node_, &infoFlow_};
+    openlcb::TrainService traction_service_;
 };
-
-    
-    
 
 }
 
