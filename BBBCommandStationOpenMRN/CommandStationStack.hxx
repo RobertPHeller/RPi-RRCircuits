@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Oct 17 16:18:01 2019
-//  Last Modified : <191019.2124>
+//  Last Modified : <191020.1351>
 //
 //  Description	
 //
@@ -63,6 +63,7 @@
 #include "openlcb/TractionTestTrain.hxx"
 #include "openlcb/TractionTrain.hxx"
 #include "openlcb/TrainInterface.hxx"
+#include "openlcb/SimpleStack.hxx"
 #include "utils/GcTcpHub.hxx"
 #include "utils/GridConnectHub.hxx"
 #include "utils/HubDevice.hxx"

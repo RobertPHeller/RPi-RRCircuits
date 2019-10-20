@@ -35,6 +35,8 @@
 #include "os/os.h"
 #include "nmranet_config.h"
 
+OVERRIDE_CONST(local_nodes_count,50);
+
 #include "openlcb/SimpleStack.hxx"
 #include "openlcb/ConfiguredConsumer.hxx"
 #include "openlcb/ConfiguredProducer.hxx"
@@ -45,7 +47,8 @@
 #include "os/LinuxGpio.hxx"
 #include "utils/GpioInitializer.hxx"
 #include "CommandStationStack.hxx"
-#include "TrainSNIP.hxx"
+#include "CommandStationConsole.hxx"
+
 
 #include "Hardware.hxx"
 
@@ -219,6 +222,13 @@ void connect_callback(int fd, Notifiable *on_error)
 }
 #endif
 
+//dcc::UpdateLoopBase DccPacketLoop();
+
+CommandStationConsole commandProcessorConsole(stack.info_flow(),
+                                              stack.traction_service(),
+                                              stack.executor(),
+                                              Console::FD_STDIN,
+                                              Console::FD_STDOUT);
 
 /** Entry point to application.
  * @param argc number of command line arguments
@@ -252,7 +262,7 @@ int appl_main(int argc, char *argv[])
 #if defined(USE_SOCKET_CAN_PORT)
     stack.add_socketcan_port_select(cansocket);
 #endif
-    
+        
     // This command donates the main thread to the operation of the
     // stack. Alternatively the stack could be started in a separate stack and
     // then application-specific business logic could be executed ion a busy
