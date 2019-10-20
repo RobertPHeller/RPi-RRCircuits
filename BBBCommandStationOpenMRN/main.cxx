@@ -44,7 +44,7 @@
 #include "freertos_drivers/common/LoggingGPIO.hxx"
 #include "os/LinuxGpio.hxx"
 #include "utils/GpioInitializer.hxx"
-#include "TractionProxyStack.hxx"
+#include "CommandStationStack.hxx"
 
 #include "Hardware.hxx"
 
@@ -67,11 +67,11 @@ OVERRIDE_CONST(main_thread_stack_size, 2500);
 // protocol, ACDI, CDI, a bunch of memory spaces, etc.
 //openlcb::SimpleCanStack stack(NODE_ID);
 #if defined(USE_GRIDCONNECT_HOST) || defined(USE_SOCKET_CAN_PORT)
-openlcb::SimpleTractionProxyCanStack stack(NODE_ID);
+openlcb::SimpleCommandStationCanStack stack(NODE_ID);
 #else
 #ifdef USE_OPENLCB_TCP_HOST
 Executor<1> g_connect_executor("connect_executor", 0, 2048);
-openlcb::SimpleTractionProxyTcpStack stack(NODE_ID);
+openlcb::SimpleCommandStationTcpStack stack(NODE_ID);
 #endif
 #endif
 

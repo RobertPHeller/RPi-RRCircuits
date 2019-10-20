@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Oct 17 16:18:01 2019
-//  Last Modified : <191019.1356>
+//  Last Modified : <191019.2124>
 //
 //  Description	
 //
@@ -40,8 +40,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef __TRACTIONPROXYSTACK_HXX
-#define __TRACTIONPROXYSTACK_HXX
+#ifndef __COMMANDSTATIONSTACK_HXX
+#define __COMMANDSTATIONSTACK_HXX
 #include <fcntl.h>
 
 #include "executor/Executor.hxx"
@@ -74,13 +74,13 @@
 namespace openlcb
 {
 
-/// CAN-based Traction Proxy stack 
-class SimpleTractionProxyCanStack : public SimpleCanStackBase
+/// CAN-based Command Station stack 
+class SimpleCommandStationCanStack : public SimpleCanStackBase
 {
 public:
     /// Creates a Traction Proxy OpenLCB stack.
     ///
-    SimpleTractionProxyCanStack(const openlcb::NodeID node_id)
+    SimpleCommandStationCanStack(const openlcb::NodeID node_id)
                 : SimpleCanStackBase(node_id)
           , node_(iface(), node_id)
           , traction_service_(iface())
@@ -114,10 +114,11 @@ private:
     TrainService traction_service_;
 };
 
-class SimpleTractionProxyTcpStack : public SimpleTcpStackBase
+/// Tcp-based Command Station stack 
+class SimpleCommandStationTcpStack : public SimpleTcpStackBase
 {
 public:
-    SimpleTractionProxyTcpStack(const openlcb::NodeID node_id)
+    SimpleCommandStationTcpStack(const openlcb::NodeID node_id)
                 : SimpleTcpStackBase(node_id)
           , node_(iface(), node_id)
           , traction_service_(iface())
@@ -154,5 +155,5 @@ private:
 
 }
 
-#endif // __TRACTIONPROXYSTACK_HXX
+#endif // __COMMANDSTATIONSTACK_HXX
 
