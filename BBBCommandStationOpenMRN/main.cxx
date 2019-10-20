@@ -45,6 +45,7 @@
 #include "os/LinuxGpio.hxx"
 #include "utils/GpioInitializer.hxx"
 #include "CommandStationStack.hxx"
+#include "TrainSNIP.hxx"
 
 #include "Hardware.hxx"
 
