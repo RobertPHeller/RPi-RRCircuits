@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 13:40:14 2019
-//  Last Modified : <191020.1706>
+//  Last Modified : <191021.0938>
 //
 //  Description	
 //
@@ -85,10 +85,6 @@ Console::CommandStatus CommandStationConsole::define_command(FILE *fp, int argc,
     string name, description;
     uint16_t address;
     int steps;
-    bool inquotes = false;
-    bool escaped = false;
-    int i;
-    char quote;
     if (argc == 0) {
         fprintf(fp, "Define a new locomotive\n");
         return COMMAND_OK;
@@ -104,78 +100,7 @@ Console::CommandStatus CommandStationConsole::define_command(FILE *fp, int argc,
         steps = atoi(argv[4]);
         if (steps != 28 && steps != 128) return Console::COMMAND_ERROR;
         name = argv[5];
-        if (name[0] == '"') {
-            name = name.substr(1,name.size()-1);
-            name += ' ';
-            inquotes = true;
-            quote = '"';
-        } else if (name[0] == '\'') {
-            name = name.substr(1,name.size()-1);
-            name += ' ';
-            inquotes = true;
-            quote = '\'';
-        } else if (name.back() == '\\') {
-            name.back() = ' ';
-            escaped = true;
-        }
-        //fprintf(stderr,"*** CommandStationConsole::define_command(): name is |%s|\n",name.c_str());
-        //fprintf(stderr,"*** -: inquotes = %d, escaped = %d\n",inquotes,escaped);
-        i = 6;
-        while ((inquotes || escaped) && i < argc) {
-            name += argv[i++];
-            //fprintf(stderr,"*** -: (before if in while) name = |%s|\n",name.c_str());
-            if (inquotes) {
-                if (name.back() == quote) {
-                    name.erase(name.end()-1);
-                    //fprintf(stderr,"*** -: (if inquotes) name = |%s|\n",name.c_str());
-                    inquotes = !inquotes;
-                } else {
-                    name += ' ';
-                }
-            } else {
-                if (name.back() == '\\') {
-                    name.back() = ' ';
-                    //fprintf(stderr,"*** -: (if escaped) name = |%s|\n",name.c_str());
-                } else {
-                    escaped = !escaped;
-                }
-            }
-            //fprintf(stderr,"*** -: (bottom of while) inquotes = %d, escaped = %d\n",inquotes,escaped);
-        }
-        if (inquotes || escaped) return COMMAND_ERROR;
-        description = argv[i++];
-        if (description[0] == '"') {
-            description = description.substr(1,description.size()-1);
-            description += ' ';
-            inquotes = true;
-            quote = '"';
-        } else if (description[0] == '\'') {
-            description = description.substr(1,description.size()-1);
-            description += ' ';
-            inquotes = true;
-            quote = '\'';
-        } else if (description.back() == '\\') {
-            description.back() = ' ';
-            escaped = true;
-        }
-        while ((inquotes || escaped) && i < argc) {
-            description += argv[i++];
-            if (inquotes) {
-                if (description.back() == quote) {
-                    description.erase(description.end()-1);
-                    inquotes = !inquotes;
-                } else {
-                    description += ' ';
-                }
-            } else {
-                if (description.back() == '\\') {
-                    description.back() = ' ';
-                } else {
-                    escaped = !escaped;
-                }
-            }
-        }
-        if (inquotes || escaped) return COMMAND_ERROR;
+        description = argv[6];
         fprintf(fp,"defining locomotive with DCC address %d, steps %d, with name '%s', and desciption '%s'\n",
                 address,steps,name.c_str(),description.c_str());
         TrainNodeImpl &n = trains_[address];
