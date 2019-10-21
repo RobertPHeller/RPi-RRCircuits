@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 20:21:25 2019
-//  Last Modified : <191020.2027>
+//  Last Modified : <191021.1050>
 //
 //  Description	
 //
@@ -43,16 +43,28 @@
 #ifndef __COMMANDSTATIONDCCMAINTRACK_HXX
 #define __COMMANDSTATIONDCCMAINTRACK_HXX
 
-#include "utils/Singleton.hxx"
-#include "dcc/PacketFlowInterface.hxx"
-#include "dcc/UpdateLoop.hxx"
+#include "executor/Executor.hxx"
+#include "executor/StateFlow.hxx"
+#include "dcc/Packet.hxx"
 
-class CommandStationDCCMainTrack : private dcc::UpdateLoopBase {
+class CommandStationDCCMainTrack : public StateFlow<Buffer<dcc::Packet>, QList<1>>
+{
 public:
-    CommandStationDCCMainTrack();
-    virtual void notify_update(dcc::PacketSource *source, unsigned code);
-    virtual bool add_refresh_source(dcc::PacketSource *source, unsigned priority = 0);
-    virtual void remove_refresh_source(dcc::PacketSource *source);
+    CommandStationDCCMainTrack(Service *service, int pool_size);
+    FixedPool *pool() OVERRIDE
+    {
+        return &pool_;
+    }
+protected:
+    Action entry() OVERRIDE;
+    
+    /// @return next action.
+    Action finish()
+    {
+        return release_and_exit();
+    }
+    /// Packet pool from which to allocate packets.
+    FixedPool pool_;
 };
 
 
