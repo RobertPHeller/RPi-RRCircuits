@@ -48,6 +48,7 @@ OVERRIDE_CONST(local_nodes_count,50);
 #include "utils/GpioInitializer.hxx"
 #include "CommandStationStack.hxx"
 #include "CommandStationConsole.hxx"
+#include "DuplexUpdateLoop.hxx"
 #include "CommandStationDCCMainTrack.hxx"
 #include "CommandStationDCCProgTrack.hxx"
 

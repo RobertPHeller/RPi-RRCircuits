@@ -1,4 +1,4 @@
-// -!- c++ -!- //////////////////////////////////////////////////////////////
+// -!- C++ -!- //////////////////////////////////////////////////////////////
 //
 //  System        : 
 //  Module        : 
@@ -7,8 +7,8 @@
 //  Date          : $Date$
 //  Author        : $Author$
 //  Created By    : Robert Heller
-//  Created       : Sun Oct 20 20:21:40 2019
-//  Last Modified : <191023.1730>
+//  Created       : Wed Oct 23 17:30:57 2019
+//  Last Modified : <191023.1732>
 //
 //  Description	
 //
@@ -40,34 +40,23 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef __COMMANDSTATIONDCCPROGTRACK_HXX
-#define __COMMANDSTATIONDCCPROGTRACK_HXX
+static const char rcsid[] = "@(#) : $Id$";
 
-#include "executor/Executor.hxx"
-#include "executor/StateFlow.hxx"
-#include "dcc/Packet.hxx"
+#include "CommandStationDCCProgTrack.hxx"
 
-class CommandStationDCCProgTrack : public StateFlow<Buffer<dcc::Packet>, QList<1>>
+#include <prussdrv.h>
+#include <pruss_intc_mapping.h>
+
+CommandStationDCCProgTrack::CommandStationDCCProgTrack(Service *service, int pool_size)
+      : StateFlow<Buffer<dcc::Packet>, QList<1>>(service)
+, pool_(sizeof(Buffer<dcc::Packet>), pool_size)
 {
-public:
-    CommandStationDCCProgTrack(Service *service, int pool_size);
-    FixedPool *pool() OVERRIDE
-    {
-        return &pool_;
-    }
-protected:
-    Action entry() OVERRIDE;
-    
-    /// @return next action.
-    Action finish()
-    {
-        return release_and_exit();
-    }
-    /// Packet pool from which to allocate packets.
-    FixedPool pool_;
-};
+}
 
-
-
-#endif // __COMMANDSTATIONDCCPROGTRACK_HXX
+StateFlowBase::Action CommandStationDCCProgTrack::entry()
+{
+    //auto *p = message()->data();
+    // -- send p to the PRU to send to the track.
+    return finish();
+}
 
