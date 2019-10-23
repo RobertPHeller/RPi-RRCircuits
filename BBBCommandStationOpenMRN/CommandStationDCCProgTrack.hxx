@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 20:21:40 2019
-//  Last Modified : <191023.1921>
+//  Last Modified : <191023.2121>
 //
 //  Description	
 //
@@ -70,12 +70,10 @@ protected:
     /// Packet pool from which to allocate packets.
     FixedPool pool_;
 private:
-    static const int PRU_NUM = 1;
-    static const char *PRU_Prog = "ProgTrackDCC.bin";
-    static const int PRU_DATARAM = PRUSS0_PRU1_DATARAM;
-    static const int PRUEVENT = PRU_EVOUT_1;
-    void *pruDataMem_;
-    dcc::Packet *pruDataMem_packet_;
+    static constexpr int PRU_NUM = 1;
+    static constexpr char const *PRU_Prog = "ProgTrackDCC.bin";
+    static constexpr int PRU_DATARAM = PRUSS0_PRU1_DATARAM;
+    static constexpr int PRUEVENT = PRU_EVTOUT_1;
 };
 
 
