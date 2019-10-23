@@ -36,13 +36,13 @@ LIBS:tmp36
 LIBS:BBBCommandStation-cache
 EELAYER 27 0
 EELAYER END
-$Descr A4 11693 8268
+$Descr USLetter 11000 8500
 encoding utf-8
 Sheet 1 4
-Title ""
+Title "BeagleBone Black based OpenLCB/DCC Command Station"
 Date "23 oct 2019"
-Rev ""
-Comp ""
+Rev "1.0"
+Comp "Deepwoods Software"
 Comment1 ""
 Comment2 ""
 Comment3 ""

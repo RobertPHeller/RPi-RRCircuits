@@ -39,10 +39,10 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 2 4
-Title ""
+Title "BeagleBone Black based OpenLCB/DCC Command Station"
 Date "23 oct 2019"
-Rev ""
-Comp ""
+Rev "1.0"
+Comp "Deepwoods Software"
 Comment1 ""
 Comment2 ""
 Comment3 ""
