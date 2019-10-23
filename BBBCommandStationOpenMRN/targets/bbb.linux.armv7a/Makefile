@@ -15,5 +15,6 @@ APP_PATH ?= $(realpath ../..)
 -include ../../config.mk
 include $(OPENMRNPATH)/etc/prog.mk
 
-SYSLIBRARIES += -lavahi-client -lavahi-common
+SYSLIBRARIES += -lavahi-client -lavahi-common -L/usr/local/lib -lprussdrv
+INCLUDES += -I/usr/local/include
 
