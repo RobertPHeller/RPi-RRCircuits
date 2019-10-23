@@ -10,17 +10,25 @@
 //
 // Mains:
 //
-// DCC P8-8  GPIO_67 (2.03)
-// EN  P8-19 GPIO_68 (2.04)
-// CSense P9-39 AIN0
-// TF  P8-12 GPIO_44 (1.12)
+// DCC P8_12 (PRU 0, R30.14) [config-pin P8_12 pruout]
+// EN  P8-10 GPIO_68 (2.04)  [config-pin P8_10 gpio]
+// CSense P9-39 AIN0         [/sys/bus/iio/devices/iio:device0/in_voltage0_raw]
+// TF  P8-11 GPIO_45 (1.13)  [config-pin P8_11 gpio_input]
 //
 // Prog Track:
 //
-// DCC P8-14 GPIO_26 (0.26)
-// EN  P8-16 GPIO_46 (1.14)
-// CSense P9-40 AIN1
-// TF  P8-18 GPIO_65 (2.01)
+// DCC P8-21 (PRU 1, R30.12) [config-pin P8_21 pruout]
+// EN  P8-16 GPIO_46 (1.14)  [config-pin P8_16 gpio]
+// CSense P9-40 AIN1         [/sys/bus/iio/devices/iio:device0/in_voltage1_raw]
+// TF  P8-18 GPIO_65 (2.01)  [config-pin P8_18 gpio_input]
+//
+// Tempsensor:
+//
+// P9-37 AIN2                [/sys/bus/iio/devices/iio:device0/in_voltage2_raw]
+//
+// Fan Control (out):
+//
+// P8-14 GPIO_26 (0.26)      [config-pin P8_14 gpio]
 //
 
 
