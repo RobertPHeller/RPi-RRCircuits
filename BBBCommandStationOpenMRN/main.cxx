@@ -48,7 +48,8 @@ OVERRIDE_CONST(local_nodes_count,50);
 #include "utils/GpioInitializer.hxx"
 #include "CommandStationStack.hxx"
 #include "CommandStationConsole.hxx"
-
+#include "CommandStationDCCMainTrack.hxx"
+#include "CommandStationDCCProgTrack.hxx"
 
 #include "Hardware.hxx"
 
@@ -224,12 +225,18 @@ void connect_callback(int fd, Notifiable *on_error)
 
 //dcc::UpdateLoopBase DccPacketLoop();
 
+#ifdef TERMINALCONSOLE
 CommandStationConsole commandProcessorConsole(stack.info_flow(),
                                               stack.traction_service(),
                                               stack.executor(),
                                               Console::FD_STDIN,
                                               Console::FD_STDOUT);
-
+#else
+CommandStationConsole commandProcessorConsole(stack.info_flow(),
+                                              stack.traction_service(),
+                                              stack.executor(),
+                                              CONSOLEPORT);
+#endif
 /** Entry point to application.
  * @param argc number of command line arguments
  * @param argv array of command line arguments
