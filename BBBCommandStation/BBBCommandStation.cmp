@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 17 Oct 2019 09:23:49 EDT
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Tue 22 Oct 2019 22:34:06 EDT
 
 BeginCmp
 TimeStamp = /5DA863A5;
@@ -78,6 +78,20 @@ IdModule  = DO-41;
 EndCmp
 
 BeginCmp
+TimeStamp = /5DA7A242/5DAFFF47;
+Reference = D401;
+ValeurCmp = 12V;
+IdModule  = DO-41;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DB000AC;
+Reference = H401;
+ValeurCmp = Fan;
+IdModule  = PIN_ARRAY_2X1;
+EndCmp
+
+BeginCmp
 TimeStamp = /5D9CD96B/5D9CDB40;
 Reference = J201;
 ValeurCmp = RJ45;
@@ -124,6 +138,13 @@ TimeStamp = /5DA8CB97;
 Reference = Q101;
 ValeurCmp = PN2222A;
 IdModule  = TO92;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DAFFE68;
+Reference = Q401;
+ValeurCmp = TIP120;
+IdModule  = TO220_VERT;
 EndCmp
 
 BeginCmp
@@ -225,6 +246,20 @@ IdModule  = R1;
 EndCmp
 
 BeginCmp
+TimeStamp = /5DA7A242/5DAFFFE9;
+Reference = R405;
+ValeurCmp = R;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DB02CE7;
+Reference = R406;
+ValeurCmp = 1K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
 TimeStamp = /5DA7BBF9;
 Reference = T101;
 ValeurCmp = CMD 1;
@@ -236,6 +271,20 @@ TimeStamp = /5DA7BC14;
 Reference = T102;
 ValeurCmp = CMD 2;
 IdModule  = ScrewTerm254-6;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DAFCB33;
+Reference = T103;
+ValeurCmp = ThermSense;
+IdModule  = ScrewTerm_2.54-3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DAFFA63;
+Reference = T104;
+ValeurCmp = FanControl;
+IdModule  = ScrewTerm2.54-2;
 EndCmp
 
 BeginCmp
@@ -288,6 +337,20 @@ IdModule  = mors_2p;
 EndCmp
 
 BeginCmp
+TimeStamp = /5DA7A242/5DAFC9E4;
+Reference = T406;
+ValeurCmp = ThermSense;
+IdModule  = ScrewTerm_2.54-3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DAFFE59;
+Reference = T407;
+ValeurCmp = FanControl;
+IdModule  = ScrewTerm2.54-2;
+EndCmp
+
+BeginCmp
 TimeStamp = /5DA85345;
 Reference = U101;
 ValeurCmp = SN75ALS174;
@@ -327,6 +390,13 @@ TimeStamp = /5DA7A242/5DA7B008;
 Reference = U402;
 ValeurCmp = LMD18200;
 IdModule  = TO220_11PIN_VERT;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DAFC9D5;
+Reference = U403;
+ValeurCmp = TMP36;
+IdModule  = TO92PN;
 EndCmp
 
 EndListe

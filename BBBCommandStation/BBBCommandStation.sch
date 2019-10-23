@@ -32,6 +32,7 @@ LIBS:sn65hvd233-ht
 LIBS:cat24c256w
 LIBS:lmd18200
 LIBS:sn75als174
+LIBS:tmp36
 LIBS:BBBCommandStation-cache
 EELAYER 27 0
 EELAYER END
@@ -39,7 +40,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 4
 Title ""
-Date "17 oct 2019"
+Date "23 oct 2019"
 Rev ""
 Comp ""
 Comment1 ""
@@ -67,7 +68,7 @@ Wire Wire Line
 Wire Wire Line
 	2050 3250 2050 3550
 Wire Wire Line
-	2050 3250 2200 3250
+	1400 3250 2200 3250
 Wire Wire Line
 	2200 3350 2050 3350
 Connection ~ 2050 3350
@@ -178,7 +179,7 @@ F 3 "" H 1850 950 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2050 1250 2200 1250
+	1400 1250 2200 1250
 Wire Wire Line
 	2050 950  2050 1250
 Wire Wire Line
@@ -392,16 +393,10 @@ Wire Wire Line
 	6600 3450 6600 3600
 Connection ~ 2850 2750
 Connection ~ 2850 3250
-Text Label 6600 1650 2    60   ~ 0
-DCC 1
 Text Label 6600 1750 2    60   ~ 0
 EN 1
 Text Label 6600 1850 2    60   ~ 0
 CurSense 1
-Text Label 6600 1950 2    60   ~ 0
-ThermFlag 1
-Text Label 6600 3050 2    60   ~ 0
-DCC 2
 Text Label 6600 3150 2    60   ~ 0
 EN 2
 Text Label 6600 3250 2    60   ~ 0
@@ -409,29 +404,11 @@ CurSense 2
 Text Label 6600 3350 2    60   ~ 0
 ThermFlag 2
 Wire Wire Line
-	6600 1650 6300 1650
-Wire Wire Line
-	6300 1650 6300 1450
-Wire Wire Line
-	6300 1450 5400 1450
-Wire Wire Line
 	6600 1750 6250 1750
 Wire Wire Line
 	6250 1750 6250 1550
 Wire Wire Line
 	6250 1550 5400 1550
-Wire Wire Line
-	6600 1950 6200 1950
-Wire Wire Line
-	6200 1950 6200 1650
-Wire Wire Line
-	6200 1650 5400 1650
-Wire Wire Line
-	6600 3050 6150 3050
-Wire Wire Line
-	6150 3050 6150 1750
-Wire Wire Line
-	6150 1750 5400 1750
 Wire Wire Line
 	6600 3150 6050 3150
 Wire Wire Line
@@ -468,10 +445,7 @@ Wire Wire Line
 Wire Wire Line
 	3250 4350 2400 4350
 Wire Wire Line
-	5500 1450 5500 4250
-Wire Wire Line
 	5500 4250 4000 4250
-Connection ~ 5500 1450
 Wire Wire Line
 	5650 1550 5650 4100
 Connection ~ 5650 1550
@@ -609,4 +583,76 @@ Wire Wire Line
 Wire Wire Line
 	3700 4600 3650 4600
 Connection ~ 5100 4300
+Wire Wire Line
+	5400 1650 6600 1650
+Connection ~ 5500 1650
+Wire Wire Line
+	5500 1650 5500 4250
+Text Label 6600 1650 2    60   ~ 0
+DCC 1
+Text Label 6600 1950 2    60   ~ 0
+ThermFlag 1
+Wire Wire Line
+	4900 1650 4900 1600
+Wire Wire Line
+	4900 1600 6200 1600
+Wire Wire Line
+	6200 1600 6200 1950
+Wire Wire Line
+	6200 1950 6600 1950
+Text Label 6600 3050 2    60   ~ 0
+DCC 2
+Wire Wire Line
+	6600 3050 5550 3050
+Wire Wire Line
+	5550 3050 5550 2100
+Wire Wire Line
+	5550 2100 4900 2100
+Wire Wire Line
+	4900 2100 4900 2150
+$Comp
+L CONN_3 T103
+U 1 1 5DAFCB33
+P 1050 2950
+F 0 "T103" V 1000 2950 50  0000 C CNN
+F 1 "ThermSense" V 1100 2950 40  0000 C CNN
+F 2 "~" H 1050 2950 60  0000 C CNN
+F 3 "~" H 1050 2950 60  0000 C CNN
+	1    1050 2950
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	1400 2950 2200 2950
+Wire Wire Line
+	1400 3050 1400 3250
+Connection ~ 2050 3250
+Wire Wire Line
+	1400 1250 1400 2850
+Connection ~ 2050 1250
+Text Label 5400 1750 0    60   ~ 0
+Fan
+$Comp
+L CONN_2 T104
+U 1 1 5DAFFA63
+P 7150 2500
+F 0 "T104" V 7100 2500 40  0000 C CNN
+F 1 "FanControl" V 7200 2500 40  0000 C CNN
+F 2 "~" H 7150 2500 60  0000 C CNN
+F 3 "~" H 7150 2500 60  0000 C CNN
+	1    7150 2500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5400 1750 5800 1750
+Wire Wire Line
+	5800 1750 5800 2400
+Wire Wire Line
+	5800 2400 6800 2400
+Wire Wire Line
+	6800 2600 5850 2600
+Wire Wire Line
+	5850 2600 5850 3550
+Wire Wire Line
+	5850 3550 6600 3550
+Connection ~ 6600 3550
 $EndSCHEMATC

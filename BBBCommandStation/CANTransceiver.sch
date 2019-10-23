@@ -32,6 +32,7 @@ LIBS:sn65hvd233-ht
 LIBS:cat24c256w
 LIBS:lmd18200
 LIBS:sn75als174
+LIBS:tmp36
 LIBS:BBBCommandStation-cache
 EELAYER 27 0
 EELAYER END
@@ -39,7 +40,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 2 4
 Title ""
-Date "17 oct 2019"
+Date "23 oct 2019"
 Rev ""
 Comp ""
 Comment1 ""
