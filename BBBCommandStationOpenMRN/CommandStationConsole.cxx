@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 13:40:14 2019
-//  Last Modified : <191024.0005>
+//  Last Modified : <191024.1657>
 //
 //  Description	
 //
@@ -55,6 +55,7 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "openlcb/TrainInterface.hxx"
 #include "openlcb/EventHandlerTemplates.hxx"
 #include "openlcb/EventService.hxx"
+#include "executor/CallableFlow.hxx"
 #include "dcc/Loco.hxx"
 #include "CommandStationStack.hxx"
 #include "TrainSNIP.hxx"
@@ -179,11 +180,15 @@ Console::CommandStatus CommandStationConsole::list_command(FILE *fp, int argc, c
         if (strcmp(argv[1],"locomotives") != 0) {
             return Console::COMMAND_ERROR;
         }
+        bool needsp = false;
         for (TrainMap::const_iterator itrain = trains_.begin();
              itrain != trains_.end();
              itrain++) {
-            fprintf(fp,"%d\n",itrain->first);
+            if (needsp) fputc(' ',fp);
+            fprintf(fp,"%d",itrain->first);
+            needsp = true;
         }
+        fputc('\n',fp);
     }
     return COMMAND_OK;
 }
@@ -203,24 +208,42 @@ Console::CommandStatus CommandStationConsole::describe_command(FILE *fp, int arg
         {
             fprintf(fp,"%d ",address);
             TrainSNIPHandler *snip_handler = (TrainSNIPHandler *)n.snip_handler.get();
-            const char *name = snip_handler->UserName();
-            if (strchr(name,'"') != NULL) {
-                fprintf(fp,"'%s' ",name);
-            } else {
-                fprintf(fp,"\"%s\" ",name);
-            }
-            const char *description = snip_handler->UserDescription();
-            if (strchr(description,'"') != NULL) {
-                fprintf(fp,"'%s' ",description);
-            } else {
-                fprintf(fp,"\"%s\" ",description);
-            }
-            
+            putTclBraceString(fp,snip_handler->UserName());
+            fputc(' ',fp);
+            putTclBraceString(fp,snip_handler->UserDescription());
+            fputc(' ',fp);            
             openlcb::SpeedType speed = n.impl.get()->get_speed();
-            fprintf(fp,"%c %.0f mph ",(speed.direction() == speed.FORWARD)?'F':'R',speed.mph());
+            fprintf(fp,"%c %.0f ",(speed.direction() == speed.FORWARD)?'F':'R',speed.mph());
+            char sp = '{';
             for (uint32_t f=0; f <= 28; f++) {
-                fprintf(fp,"%d:%s ",f,n.impl.get()->get_fn(f)?"On":"Off");
+                fprintf(fp,"%c%s",sp,n.impl.get()->get_fn(f)?"true":"false");
+                sp = ' ';
             }
+            fputc('}',fp);
+            fputc(' ',fp);
+            openlcb::NodeHandle controller = n.node.get()->get_controller();
+            if (controller.id == 0)
+            {
+                if (controller.alias != 0)
+                {
+                    openlcb::NodeIdLookupFlow nodeIdLookup((openlcb::IfCan*)(n.node.get()->iface()));
+                    auto result = invoke_flow(&nodeIdLookup,n.node.get(),controller);
+                    if (result->data()->resultCode == 0) {
+                        controller.id = result->data()->handle.id;
+                    }
+                }
+            }
+            fprintf(fp,"%llu ",controller.id);
+            fputc('{',fp);
+            bool needsp = false;
+            for (int i=0; i < n.node.get()->query_consist_length(); i++)
+            {
+                if (needsp) fputc(' ',fp);
+                openlcb::NodeID cn = n.node.get()->query_consist(i,NULL);
+                fprintf(fp,"%llu", cn);
+                needsp = true;
+            }
+            fputc('}',fp);
             fprintf(fp,"\n");
         } else {
             fprintf(fp,"Locomotive %d not found.\n",address);
@@ -230,3 +253,13 @@ Console::CommandStatus CommandStationConsole::describe_command(FILE *fp, int arg
     return COMMAND_OK;
 }
 
+void CommandStationConsole::putTclBraceString(FILE *fp, const char *s) const
+{
+    const char *p = s;
+    fputc('{',fp);
+    while (*p) {
+        if (*p == '{' || *p == '}') fputc('\\',fp);
+        fputc(*p++,fp);
+    }
+    fputc('}',fp);
+}
