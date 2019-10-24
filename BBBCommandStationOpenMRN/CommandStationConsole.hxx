@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 09:45:53 2019
-//  Last Modified : <191020.1339>
+//  Last Modified : <191023.2328>
 //
 //  Description	
 //
@@ -84,10 +84,21 @@ private:
         return static_cast<CommandStationConsole*>(context)->undefine_command(fp,argc,argv);
     }
     CommandStatus undefine_command(FILE *fp, int argc, const char *argv[]);
+    static CommandStatus list_command(FILE *fp, int argc, const char *argv[], void *context)
+    {
+        return static_cast<CommandStationConsole*>(context)->list_command(fp,argc,argv);
+    }
+    CommandStatus list_command(FILE *fp, int argc, const char *argv[]);
+    static CommandStatus describe_command(FILE *fp, int argc, const char *argv[], void *context)
+    {
+        return static_cast<CommandStationConsole*>(context)->describe_command(fp,argc,argv);
+    }
+    CommandStatus describe_command(FILE *fp, int argc, const char *argv[]);
     
     openlcb::TrainService *traction_service_;
     openlcb::SimpleInfoFlow *info_flow_;
-    map<uint16_t, TrainNodeImpl> trains_;
+    typedef map<uint16_t, TrainNodeImpl> TrainMap;
+    TrainMap trains_;
 };
 
 #endif // __COMMANDSTATIONCONSOLE_HXX

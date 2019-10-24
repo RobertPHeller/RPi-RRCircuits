@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 09:07:10 2019
-//  Last Modified : <191020.0943>
+//  Last Modified : <191023.2336>
 //
 //  Description	
 //
@@ -135,7 +135,8 @@ public:
         responseFlow_->send(b);
         return release_and_exit();
     }
-
+    const char *UserName() const {return user_name_;}
+    const char *UserDescription() const {return user_description_;}
 private:
     /** Defines the SNIP response fields. */
     openlcb::SimpleInfoDescriptor SNIP_RESPONSE[9];
