@@ -33,14 +33,17 @@ LIBS:cat24c256w
 LIBS:lmd18200
 LIBS:sn75als174
 LIBS:tmp36
+LIBS:cl2
+LIBS:dpdt
+LIBS:gbu4a
 LIBS:BBBCommandStation-cache
 EELAYER 27 0
 EELAYER END
 $Descr USLetter 11000 8500
 encoding utf-8
-Sheet 1 4
+Sheet 1 5
 Title "BeagleBone Black based OpenLCB/DCC Command Station"
-Date "23 oct 2019"
+Date "24 oct 2019"
 Rev "1.0"
 Comp "Deepwoods Software"
 Comment1 ""
@@ -655,4 +658,10 @@ Wire Wire Line
 Wire Wire Line
 	5850 3550 6600 3550
 Connection ~ 6600 3550
+$Sheet
+S 3700 5700 1450 1300
+U 5DB19B28
+F0 "Track Power Supply" 50
+F1 "TrackPowerSupply.sch" 50
+$EndSheet
 $EndSCHEMATC
