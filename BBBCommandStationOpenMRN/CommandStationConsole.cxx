@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 13:40:14 2019
-//  Last Modified : <191021.0938>
+//  Last Modified : <191024.0005>
 //
 //  Description	
 //
@@ -68,6 +68,8 @@ CommandStationConsole::CommandStationConsole(openlcb::SimpleInfoFlow *infoFlow, 
 {
     add_command("define",define_command,this);
     add_command("undefine",undefine_command,this);
+    add_command("list",list_command,this);
+    add_command("describe",describe_command,this);
 }
 
 
@@ -123,25 +125,25 @@ Console::CommandStatus CommandStationConsole::define_command(FILE *fp, int argc,
 #else
             n.impl.reset(new openlcb::LoggingTrain(address));
 #endif
-            fprintf(stderr,"*** CommandStationConsole::define_command(): created train implementation\n");
+            //fprintf(stderr,"*** CommandStationConsole::define_command(): created train implementation\n");
             n.node.reset(
                          new openlcb::TrainNodeForProxy(traction_service_,n.impl.get()));
-            fprintf(stderr,"*** -: created train node\n");
+            //fprintf(stderr,"*** -: created train node\n");
             n.is_train_event.reset(
                new openlcb::FixedEventProducer<
                                    openlcb::TractionDefs::IS_TRAIN_EVENT>(n.node.get()));
-            fprintf(stderr,"*** -: created FixedEventProducer\n");
+            //fprintf(stderr,"*** -: created FixedEventProducer\n");
             n.pip_handler.reset(
                new openlcb::ProtocolIdentificationHandler(
                      n.node.get(),
                      openlcb::Defs::EVENT_EXCHANGE | openlcb::Defs::TRACTION_CONTROL | openlcb::Defs::SIMPLE_NODE_INFORMATION));
-            fprintf(stderr,"*** -: created pip_handler\n");
+            //fprintf(stderr,"*** -: created pip_handler\n");
             n.snip_handler.reset(
                new TrainSNIPHandler(n.node.get()->iface(),
                                     n.node.get(),
                                     info_flow_,
                                     name,description));
-            fprintf(stderr,"*** -: created snip_handler\n");
+            //fprintf(stderr,"*** -: created snip_handler\n");
         }
     }
     return Console::COMMAND_OK;
@@ -162,29 +164,69 @@ Console::CommandStatus CommandStationConsole::undefine_command(FILE *fp, int arg
         if (n.node)
         {
             n.node.get()->iface()->delete_local_node(n.node.get());
-            //delete n.snip_handler.get();
-            //fprintf(stderr,"*** CommandStationConsole::undefine_command(): deleted snip_handler\n");
-            //n.snip_handler.reset(nullptr);
-            //fprintf(stderr,"*** -: reset snip_handler pointer\n");
-            //delete n.pip_handler.get();
-            //fprintf(stderr,"*** -: deleted pip_handler\n");
-            //n.pip_handler.reset(nullptr);
-            //fprintf(stderr,"*** -: reset pip_handler pointer\n");
-            //delete n.is_train_event.get();
-            //fprintf(stderr,"*** -: deleted is_train_event\n");
-            //n.is_train_event.reset(nullptr);
-            //fprintf(stderr,"*** -: reset is_train_event pointer\n");
-            //delete n.node.get();
-            //fprintf(stderr,"*** -: deleted node\n");
-            //n.node.reset(nullptr);
-            //fprintf(stderr,"*** -: reset node pointer\n");
-            //delete n.impl.get();
-            //fprintf(stderr,"*** -: deleted impl\n");
-            //n.impl.reset(nullptr);
-            //fprintf(stderr,"*** -: reset impl pointer\n");
             trains_.erase(address);
         }
     }
     return Console::COMMAND_OK;
+}
+
+Console::CommandStatus CommandStationConsole::list_command(FILE *fp, int argc, const char *argv[])
+{
+    if (argc == 0) {
+        fprintf(fp, "List locomotives\n");
+    } else {
+        if (argc < 2) return COMMAND_ERROR;
+        if (strcmp(argv[1],"locomotives") != 0) {
+            return Console::COMMAND_ERROR;
+        }
+        for (TrainMap::const_iterator itrain = trains_.begin();
+             itrain != trains_.end();
+             itrain++) {
+            fprintf(fp,"%d\n",itrain->first);
+        }
+    }
+    return COMMAND_OK;
+}
+
+Console::CommandStatus CommandStationConsole::describe_command(FILE *fp, int argc, const char *argv[])
+{
+    if (argc == 0) {
+        fprintf(fp, "Describe locomotive\n");
+    } else {
+        if (argc < 3) return COMMAND_ERROR;
+        if (strcmp(argv[1],"locomotive") != 0) {
+            return Console::COMMAND_ERROR;
+        }
+        uint16_t address = atoi(argv[2]);
+        TrainNodeImpl &n = trains_[address];
+        if (n.node)
+        {
+            fprintf(fp,"%d ",address);
+            TrainSNIPHandler *snip_handler = (TrainSNIPHandler *)n.snip_handler.get();
+            const char *name = snip_handler->UserName();
+            if (strchr(name,'"') != NULL) {
+                fprintf(fp,"'%s' ",name);
+            } else {
+                fprintf(fp,"\"%s\" ",name);
+            }
+            const char *description = snip_handler->UserDescription();
+            if (strchr(description,'"') != NULL) {
+                fprintf(fp,"'%s' ",description);
+            } else {
+                fprintf(fp,"\"%s\" ",description);
+            }
+            
+            openlcb::SpeedType speed = n.impl.get()->get_speed();
+            fprintf(fp,"%c %.0f mph ",(speed.direction() == speed.FORWARD)?'F':'R',speed.mph());
+            for (uint32_t f=0; f <= 28; f++) {
+                fprintf(fp,"%d:%s ",f,n.impl.get()->get_fn(f)?"On":"Off");
+            }
+            fprintf(fp,"\n");
+        } else {
+            fprintf(fp,"Locomotive %d not found.\n",address);
+            return COMMAND_ERROR;
+        }
+    }
+    return COMMAND_OK;
 }
 
