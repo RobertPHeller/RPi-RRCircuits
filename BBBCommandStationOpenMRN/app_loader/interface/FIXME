@@ -1,2 +1,0 @@
-is there a cleaner way to have the host interrupts be assigned so that we don't
-have to do the +-2 all the time?

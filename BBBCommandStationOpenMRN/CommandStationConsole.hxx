@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 09:45:53 2019
-//  Last Modified : <191024.1523>
+//  Last Modified : <191024.2241>
 //
 //  Description	
 //
@@ -94,6 +94,7 @@ private:
         return static_cast<CommandStationConsole*>(context)->describe_command(fp,argc,argv);
     }
     CommandStatus describe_command(FILE *fp, int argc, const char *argv[]);
+
     void putTclBraceString(FILE *fp, const char *s) const;
     openlcb::TrainService *traction_service_;
     openlcb::SimpleInfoFlow *info_flow_;

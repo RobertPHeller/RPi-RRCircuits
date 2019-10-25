@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 20:21:40 2019
-//  Last Modified : <191023.2121>
+//  Last Modified : <191025.1239>
 //
 //  Description	
 //
@@ -47,9 +47,6 @@
 #include "executor/StateFlow.hxx"
 #include "dcc/Packet.hxx"
 
-#include <prussdrv.h>
-#include <pruss_intc_mapping.h>
-
 class CommandStationDCCProgTrack : public StateFlow<Buffer<dcc::Packet>, QList<1>>
 {
 public:
@@ -58,7 +55,7 @@ public:
     {
         return &pool_;
     }
-    void StartPRU();
+    //void StartPRU();
 protected:
     Action entry() OVERRIDE;
     
@@ -70,10 +67,10 @@ protected:
     /// Packet pool from which to allocate packets.
     FixedPool pool_;
 private:
-    static constexpr int PRU_NUM = 1;
-    static constexpr char const *PRU_Prog = "ProgTrackDCC.bin";
-    static constexpr int PRU_DATARAM = PRUSS0_PRU1_DATARAM;
-    static constexpr int PRUEVENT = PRU_EVTOUT_1;
+    //static constexpr int PRU_NUM = 1;
+    //static constexpr char const *PRU_Prog = "ProgTrackDCC.bin";
+    //static constexpr int PRU_DATARAM = PRUSS0_PRU1_DATARAM;
+    //static constexpr int PRUEVENT = PRU_EVTOUT_1;
 };
 
 

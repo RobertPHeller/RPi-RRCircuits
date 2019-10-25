@@ -52,10 +52,6 @@ OVERRIDE_CONST(local_nodes_count,50);
 #include "CommandStationDCCMainTrack.hxx"
 #include "CommandStationDCCProgTrack.hxx"
 
-#include <prussdrv.h>
-#include <pruss_intc_mapping.h>
-
-
 #include "Hardware.hxx"
 
 // Changes the default behavior by adding a newline after each gridconnect
@@ -253,8 +249,6 @@ int appl_main(int argc, char *argv[])
              "/tmp/config_eeprom_%012llX",NODE_ID);
     parse_args(argc, argv);
     GpioInit::hw_init();
-    /* Initialize the PRUs */
-    prussdrv_init ();
     
     stack.create_config_file_if_needed(cfg.seg().internal_config(), openlcb::CANONICAL_VERSION, openlcb::CONFIG_FILE_SIZE);
     

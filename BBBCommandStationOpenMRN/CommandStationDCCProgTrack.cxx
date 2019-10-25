@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Oct 23 17:30:57 2019
-//  Last Modified : <191023.1813>
+//  Last Modified : <191025.1239>
 //
 //  Description	
 //
@@ -43,9 +43,6 @@
 static const char rcsid[] = "@(#) : $Id$";
 
 #include "CommandStationDCCProgTrack.hxx"
-
-#include <prussdrv.h>
-#include <pruss_intc_mapping.h>
 
 CommandStationDCCProgTrack::CommandStationDCCProgTrack(Service *service, int pool_size)
       : StateFlow<Buffer<dcc::Packet>, QList<1>>(service)
