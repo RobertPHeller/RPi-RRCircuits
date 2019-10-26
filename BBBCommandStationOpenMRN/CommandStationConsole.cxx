@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 13:40:14 2019
-//  Last Modified : <191024.1657>
+//  Last Modified : <191026.1341>
 //
 //  Description	
 //
@@ -104,8 +104,6 @@ Console::CommandStatus CommandStationConsole::define_command(FILE *fp, int argc,
         if (steps != 28 && steps != 128) return Console::COMMAND_ERROR;
         name = argv[5];
         description = argv[6];
-        fprintf(fp,"defining locomotive with DCC address %d, steps %d, with name '%s', and desciption '%s'\n",
-                address,steps,name.c_str(),description.c_str());
         TrainNodeImpl &n = trains_[address];
         if (!n.node)
         {
@@ -145,6 +143,9 @@ Console::CommandStatus CommandStationConsole::define_command(FILE *fp, int argc,
                                     info_flow_,
                                     name,description));
             //fprintf(stderr,"*** -: created snip_handler\n");
+            fprintf(fp,"#define# true\n");
+        } else {
+            fprintf(fp,"#define# false\n");
         }
     }
     return Console::COMMAND_OK;
@@ -166,6 +167,9 @@ Console::CommandStatus CommandStationConsole::undefine_command(FILE *fp, int arg
         {
             n.node.get()->iface()->delete_local_node(n.node.get());
             trains_.erase(address);
+            fprintf(fp,"#undefine# true\n");
+        } else {
+            fprintf(fp,"#undefine# false\n");
         }
     }
     return Console::COMMAND_OK;
@@ -181,6 +185,7 @@ Console::CommandStatus CommandStationConsole::list_command(FILE *fp, int argc, c
             return Console::COMMAND_ERROR;
         }
         bool needsp = false;
+        fprintf(fp,"#list# ");
         for (TrainMap::const_iterator itrain = trains_.begin();
              itrain != trains_.end();
              itrain++) {
@@ -206,7 +211,7 @@ Console::CommandStatus CommandStationConsole::describe_command(FILE *fp, int arg
         TrainNodeImpl &n = trains_[address];
         if (n.node)
         {
-            fprintf(fp,"%d ",address);
+            fprintf(fp,"#describe# %d ",address);
             TrainSNIPHandler *snip_handler = (TrainSNIPHandler *)n.snip_handler.get();
             putTclBraceString(fp,snip_handler->UserName());
             fputc(' ',fp);
@@ -246,8 +251,8 @@ Console::CommandStatus CommandStationConsole::describe_command(FILE *fp, int arg
             fputc('}',fp);
             fprintf(fp,"\n");
         } else {
-            fprintf(fp,"Locomotive %d not found.\n",address);
-            return COMMAND_ERROR;
+            fprintf(fp,"#describe# %d false.\n",address);
+            return COMMAND_OK;
         }
     }
     return COMMAND_OK;
