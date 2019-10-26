@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sat Oct 26 09:48:55 2019
-#  Last Modified : <191026.1010>
+#  Last Modified : <191026.1209>
 #
 #  Description	
 #
@@ -61,11 +61,26 @@ EXEEXT=
 PROG = CommandStationGUI
 SOURCE = $(PROG).tcl
 SCRIPTS = $(MRRSCRIPTLIB)/snitscrollw.tcl \
-	  $(MRRSCRIPTLIB)/snitrotext.tcl
+	  $(MRRSCRIPTLIB)/snitrotext.tcl \
+	  $(MRRSCRIPTLIB)/snitmainframe.tcl \
+	  $(MRRSCRIPTLIB)/mainwindow.tcl \
+	  $(MRRSCRIPTLIB)/snitStdMenuBar.tcl \
+	  $(MRRSCRIPTLIB)/splash.tcl \
+	  $(MRRSCRIPTLIB)/gettext.tcl \
+	  $(MRRSCRIPTLIB)/DynamicHelp.tcl \
+	  $(MRRSCRIPTLIB)/snitbuttonbox.tcl \
+	  $(MRRSCRIPTLIB)/snitHTMLHelp.tcl \
+	  $(MRRSCRIPTLIB)/snitdialog.tcl \
+	  $(MRRSCRIPTLIB)/IconsAndImages.tcl
+	  
+IMAGES = $(wildcard $(MRRSCRIPTLIB)/*.gif) \
+	 $(wildcard $(MRRSCRIPTLIB)/*.png) \
+	 $(wildcard $(MRRSCRIPTLIB)/*.xbm) \
+	 $(wildcard $(MRRSCRIPTLIB)/*.xpm)
 
 all: $(PROG)$(EXEEXT)
 
-$(PROG)$(EXEEXT): $(SOURCE) $(SCRIPTS)
+$(PROG)$(EXEEXT): $(SOURCE) $(SCRIPTS) $(IMAGES) Makefile
 	rm -f $(PROG).kit
 	rm -rf $(PROG).vfs 
 	$(TCLKIT) $(SDX) qwrap $(SOURCE)
@@ -73,7 +88,8 @@ $(PROG)$(EXEEXT): $(SOURCE) $(SCRIPTS)
 	rm -f $(PROG).kit
 	$(TCLKIT) $(ADDKITDIR) $(PROG) lib $(SNITLIB)
 	$(TCLKIT) $(ADDKITDIR) $(PROG) lib $(IMGLIB)
-	$(TCLKIT) $(ADDKITFILE) $(PROG) lib/Scripts $(SCRIPTS)
+	$(TCLKIT) $(ADDKITFILE) $(PROG) lib/Scripts \
+			$(SCRIPTS) $(IMAGES)
 	$(TCLKIT) $(MAKEPKGINDEX) $(PROG) Scripts
 	$(TCLKIT) $(SDX) wrap $(PROG)$(EXEEXT) -runtime $(TCLRUNTIME)
 	rm -rf $(PROG).vfs
