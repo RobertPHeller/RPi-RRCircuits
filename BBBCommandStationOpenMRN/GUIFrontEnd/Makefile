@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sat Oct 26 09:48:55 2019
-#  Last Modified : <191026.1209>
+#  Last Modified : <191026.1421>
 #
 #  Description	
 #
@@ -43,12 +43,15 @@
 ##############################################################################
 
 ## Target / system dependent configs.  Edit as needed
-TCLRUNTIME=/usr/local/share/tclkits/tclkit-linux-armv7l
+#TCLRUNTIME=/usr/local/share/tclkits/tclkit-linux-armv7l
+TCLRUNTIME=/usr/local/share/tclkits/tclkit-8.5.8-linux-x86_64
 TCLKIT=/usr/local/bin/tclkit
 SDX=/usr/local/bin/sdx
-TCLLIB=/usr/share/tcltk/tcllib1.16
+#TCLLIB=/usr/share/tcltk/tcllib1.16
+TCLLIB=/usr/share/tcl/tcllib1.16
 SNITLIB=$(TCLLIB)/snit
-IMGLIB=/usr/lib/tcltk/arm-linux-gnueabihf/Img1.4.2
+#IMGLIB=/usr/lib/tcltk/arm-linux-gnueabihf/Img1.4.2
+IMGLIB=/usr/lib64/tcl8.5/Img1.4
 MRRSCRIPTLIB=/home/heller/Deepwoods/ModelRRSystem/trunk/Scripts/Common
 MRRBUILDSCRIPTS=/home/heller/Deepwoods/ModelRRSystem/trunk/BuildScripts
 ADDKITDIR=$(MRRBUILDSCRIPTS)/AddKitDir.kit
@@ -60,10 +63,9 @@ EXEEXT=
 
 PROG = CommandStationGUI
 SOURCE = $(PROG).tcl
-SCRIPTS = $(MRRSCRIPTLIB)/snitscrollw.tcl \
+SCRIPTS = mainwindow.tcl $(MRRSCRIPTLIB)/snitscrollw.tcl \
 	  $(MRRSCRIPTLIB)/snitrotext.tcl \
 	  $(MRRSCRIPTLIB)/snitmainframe.tcl \
-	  $(MRRSCRIPTLIB)/mainwindow.tcl \
 	  $(MRRSCRIPTLIB)/snitStdMenuBar.tcl \
 	  $(MRRSCRIPTLIB)/splash.tcl \
 	  $(MRRSCRIPTLIB)/gettext.tcl \

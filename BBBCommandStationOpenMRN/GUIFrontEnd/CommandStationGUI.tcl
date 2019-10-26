@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sat Oct 26 10:09:51 2019
-#  Last Modified : <191026.1214>
+#  Last Modified : <191026.1503>
 #
 #  Description	
 #
@@ -44,7 +44,7 @@
 package require Tk
 package require tile
 package require snit
-package require MainWindow
+package require CMDMainWindow
 package require ScrollWindow
 package require ROText
 #package require ScrollableFrame
@@ -54,7 +54,7 @@ package require ButtonBox
 package require HTMLHelp 2.0
 
 snit::type CommandStationGUI {
-    pragma -hastypeinfo no -hastypedestroy no -hasinstances no
+    pragma -hastypedestroy no -hasinstances no
     typecomponent Main_
     typecomponent log
     typevariable socket_
@@ -86,13 +86,11 @@ snit::type CommandStationGUI {
         global argv
         set port [from argv -port 9900]
         set host [from argv -host snoopy]
-        set socket_ [socket $host $port]
-        fconfigure $socket_ -blocking 0 -buffering line -translation lf
-        fileevent $socket_ readable [mytypemethod _readSocket]
-        set Main_ [mainwindow .main -menu [subst $menu_]]
+        #set socket_ [socket $host $port]
+        #fconfigure $socket_ -blocking 0 -buffering line -translation lf
+        #fileevent $socket_ readable [mytypemethod _readSocket]
+        set Main_ [cmdmainwindow .main -menu [subst $menu_]]
         pack $Main_ -expand yes -fill both
-        set log [ROText [$Main_ scrollwindow getframe].log]
-        $Main_ scrollwindow setwidget $log
         $Main_ showit
     }
     typemethod _exit {} {
@@ -115,17 +113,17 @@ snit::type CommandStationGUI {
                 if {[info exists $key]} {
                     set answer [[set $key] AnswerCallback $result]
                     if {$answer ne "false"} {
-                        $log insert end "[$answer toString]\n"
+                        $Main_ log insert end "[$answer toString]\n"
                     } else {
-                        $log insert end "$result\n"
+                        $Main_ log insert end "$result\n"
                     }
                 } else {
-                    $log insert end "$result\n"
+                    $Main_ log insert end "$result\n"
                 }
             } else {
-                $log insert end "$line\n"
+                $Main_ log insert end "$line\n"
             }
-            $log see end
+            $Main_ log see end
         }
     }
 }
