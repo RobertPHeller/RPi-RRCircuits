@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 13:40:14 2019
-//  Last Modified : <191026.1341>
+//  Last Modified : <191027.2112>
 //
 //  Description	
 //
@@ -60,7 +60,8 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "CommandStationStack.hxx"
 #include "TrainSNIP.hxx"
 #include "CommandStationConsole.hxx"
-
+#include "AnalogReadSysFS.h"
+#include "Hardware.hxx"
 
 CommandStationConsole::CommandStationConsole(openlcb::SimpleInfoFlow *infoFlow, openlcb::TrainService *tractionService, ExecutorBase *executor, uint16_t port)
       : Console(executor,port)
@@ -71,6 +72,7 @@ CommandStationConsole::CommandStationConsole(openlcb::SimpleInfoFlow *infoFlow, 
     add_command("undefine",undefine_command,this);
     add_command("list",list_command,this);
     add_command("describe",describe_command,this);
+    add_command("status",status_command,this);
 }
 
 
@@ -143,6 +145,7 @@ Console::CommandStatus CommandStationConsole::define_command(FILE *fp, int argc,
                                     info_flow_,
                                     name,description));
             //fprintf(stderr,"*** -: created snip_handler\n");
+            n.steps = steps;
             fprintf(fp,"#define# true\n");
         } else {
             fprintf(fp,"#define# false\n");
@@ -211,7 +214,7 @@ Console::CommandStatus CommandStationConsole::describe_command(FILE *fp, int arg
         TrainNodeImpl &n = trains_[address];
         if (n.node)
         {
-            fprintf(fp,"#describe# %d ",address);
+            fprintf(fp,"#describe# %d %d ",address,n.steps);
             TrainSNIPHandler *snip_handler = (TrainSNIPHandler *)n.snip_handler.get();
             putTclBraceString(fp,snip_handler->UserName());
             fputc(' ',fp);
@@ -267,4 +270,17 @@ void CommandStationConsole::putTclBraceString(FILE *fp, const char *s) const
         fputc(*p++,fp);
     }
     fputc('}',fp);
+}
+
+Console::CommandStatus CommandStationConsole::status_command(FILE *fp, int argc, const char *argv[])
+{
+    if (argc == 0) {
+        fprintf(fp, "Status\n");
+    } else {
+        double CSenseMain = CurrentFromAIN(sysfs_adc_getvalue(CSenseMainAnalogChannel));
+        double CSenseProg = CurrentFromAIN(sysfs_adc_getvalue(CSenseProgAnalogChannel));
+        double TempCent   = TempFromAIN(sysfs_adc_getvalue(TempsensorChannel));
+        fprintf(fp, "#status# %7.3f %7.3f %7.3f\n",CSenseMain,CSenseProg,TempCent);
+    }
+    return COMMAND_OK;
 }

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 09:45:53 2019
-//  Last Modified : <191024.2241>
+//  Last Modified : <191027.2025>
 //
 //  Description	
 //
@@ -67,6 +67,7 @@ struct TrainNodeImpl
     std::unique_ptr<openlcb::EventHandler> is_train_event;
     std::unique_ptr<openlcb::IncomingMessageStateFlow> pip_handler;
     std::unique_ptr<openlcb::IncomingMessageStateFlow> snip_handler;
+    uint8_t steps;
 };
 
 class CommandStationConsole : public Console {
@@ -94,7 +95,11 @@ private:
         return static_cast<CommandStationConsole*>(context)->describe_command(fp,argc,argv);
     }
     CommandStatus describe_command(FILE *fp, int argc, const char *argv[]);
-
+    CommandStatus status_command(FILE *fp, int argc, const char *argv[]);
+    static CommandStatus status_command(FILE *fp, int argc, const char *argv[], void *context)
+    {
+        return static_cast<CommandStationConsole*>(context)->status_command(fp,argc,argv);
+    }
     void putTclBraceString(FILE *fp, const char *s) const;
     openlcb::TrainService *traction_service_;
     openlcb::SimpleInfoFlow *info_flow_;
