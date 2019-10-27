@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sat Oct 26 09:48:55 2019
-#  Last Modified : <191026.1421>
+#  Last Modified : <191027.1034>
 #
 #  Description	
 #
@@ -43,27 +43,35 @@
 ##############################################################################
 
 ## Target / system dependent configs.  Edit as needed
-#TCLRUNTIME=/usr/local/share/tclkits/tclkit-linux-armv7l
+
+NODE:=$(shell uname -n)
+ifeq ($(NODE),fruitloops)
+TCLRUNTIME=/usr/local/share/tclkits/tclkit-linux-armv7l
+TCLLIB=/usr/share/tcltk/tcllib1.16
+IMGLIB=/usr/lib/tcltk/arm-linux-gnueabihf/Img1.4.2
+else
 TCLRUNTIME=/usr/local/share/tclkits/tclkit-8.5.8-linux-x86_64
+TCLLIB=/usr/share/tcl/tcllib1.16
+IMGLIB=/usr/lib64/tcl8.5/Img1.4
+endif
+target:=$(shell uname -m)-$(shell uname -s | tr 'A-Z' 'a-z')
 TCLKIT=/usr/local/bin/tclkit
 SDX=/usr/local/bin/sdx
-#TCLLIB=/usr/share/tcltk/tcllib1.16
-TCLLIB=/usr/share/tcl/tcllib1.16
 SNITLIB=$(TCLLIB)/snit
-#IMGLIB=/usr/lib/tcltk/arm-linux-gnueabihf/Img1.4.2
-IMGLIB=/usr/lib64/tcl8.5/Img1.4
 MRRSCRIPTLIB=/home/heller/Deepwoods/ModelRRSystem/trunk/Scripts/Common
 MRRBUILDSCRIPTS=/home/heller/Deepwoods/ModelRRSystem/trunk/BuildScripts
 ADDKITDIR=$(MRRBUILDSCRIPTS)/AddKitDir.kit
 ADDKITFILE=$(MRRBUILDSCRIPTS)/AddKitFile.kit
 MAKEPKGINDEX=$(MRRBUILDSCRIPTS)/MakePkgIndex.kit
+DOXYGEN=/usr/bin/doxygen
 EXEEXT=
 
 ## No need to edit beyond this point.
 
+VERSION=1.0
 PROG = CommandStationGUI
 SOURCE = $(PROG).tcl
-SCRIPTS = mainwindow.tcl $(MRRSCRIPTLIB)/snitscrollw.tcl \
+SCRIPTS = mainwindow.tcl Version.tcl $(MRRSCRIPTLIB)/snitscrollw.tcl \
 	  $(MRRSCRIPTLIB)/snitrotext.tcl \
 	  $(MRRSCRIPTLIB)/snitmainframe.tcl \
 	  $(MRRSCRIPTLIB)/snitStdMenuBar.tcl \
@@ -73,18 +81,25 @@ SCRIPTS = mainwindow.tcl $(MRRSCRIPTLIB)/snitscrollw.tcl \
 	  $(MRRSCRIPTLIB)/snitbuttonbox.tcl \
 	  $(MRRSCRIPTLIB)/snitHTMLHelp.tcl \
 	  $(MRRSCRIPTLIB)/snitdialog.tcl \
-	  $(MRRSCRIPTLIB)/IconsAndImages.tcl
+	  $(MRRSCRIPTLIB)/IconsAndImages.tcl \
+	  $(MRRSCRIPTLIB)/snitLFs.tcl
 	  
 IMAGES = $(wildcard $(MRRSCRIPTLIB)/*.gif) \
 	 $(wildcard $(MRRSCRIPTLIB)/*.png) \
 	 $(wildcard $(MRRSCRIPTLIB)/*.xbm) \
 	 $(wildcard $(MRRSCRIPTLIB)/*.xpm)
 
-all: $(PROG)$(EXEEXT)
+all: $(PROG)$(EXEEXT) html/index.html latex/refman.pdf
 
-$(PROG)$(EXEEXT): $(SOURCE) $(SCRIPTS) $(IMAGES) Makefile
-	rm -f $(PROG).kit
-	rm -rf $(PROG).vfs 
+html/index.html latex/refman.pdf man/man1/$(PROG).1 : Doxyfile \
+		$(SOURCE) Version.tcl
+	-rm -rf html latex man
+	$(DOXYGEN)
+	make -C latex refman.pdf
+	
+$(PROG)$(EXEEXT): $(SOURCE) $(SCRIPTS) $(IMAGES) html/index.html Makefile
+	-rm -f $(PROG).kit
+	-rm -rf $(PROG).vfs 
 	$(TCLKIT) $(SDX) qwrap $(SOURCE)
 	$(TCLKIT) $(SDX) unwrap $(PROG).kit
 	rm -f $(PROG).kit
@@ -93,5 +108,21 @@ $(PROG)$(EXEEXT): $(SOURCE) $(SCRIPTS) $(IMAGES) Makefile
 	$(TCLKIT) $(ADDKITFILE) $(PROG) lib/Scripts \
 			$(SCRIPTS) $(IMAGES)
 	$(TCLKIT) $(MAKEPKGINDEX) $(PROG) Scripts
+	$(TCLKIT) $(ADDKITFILE) $(PROG) Help html/*
 	$(TCLKIT) $(SDX) wrap $(PROG)$(EXEEXT) -runtime $(TCLRUNTIME)
 	rm -rf $(PROG).vfs
+
+Version.tcl: FORCE
+	echo '## @page Version Version' >Version.tcl
+	echo "# Version is $(VERSION) on $(target)." >>Version.tcl
+	echo "# Built on `date`, build system: `uname -n -m`" >>Version.tcl
+	echo "#" >>Version.tcl
+	echo "" >>Version.tcl
+	echo "namespace eval Version {" >>Version.tcl
+	echo "    variable VERSION {$(VERSION)}" >>Version.tcl
+	echo "    variable target  {$(target)}"  >>Version.tcl
+	echo "    variable build   {`date +%Y%m%d%H%M`-`uname -n`-`uname -m`}" >>Version.tcl
+	echo "}" >>Version.tcl
+	echo "package provide Version $(VERSION)" >>Version.tcl
+	 
+FORCE:
