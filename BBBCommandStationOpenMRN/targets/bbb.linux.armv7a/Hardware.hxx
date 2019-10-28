@@ -50,7 +50,7 @@ GPIO_PIN(ProgTF, ThermFlagPin, 65);
 // P8-14 GPIO_26 (0.26)      [config-pin P8_14 gpio]
 //
 
-GPIO(FanControl, FANPin, 26);
+GPIO_PIN(FanControl, FANPin, 26);
 
 typedef GpioInitializer<MainEN_Pin, MainTF_Pin, ProgEN_Pin, 
                         ProgTF_Pin, FanControl_Pin> GpioInit;

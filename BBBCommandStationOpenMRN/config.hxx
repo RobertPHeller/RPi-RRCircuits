@@ -6,6 +6,8 @@
 #include "openlcb/ConfigRepresentation.hxx"
 #include "openlcb/MemoryConfig.hxx"
 
+#include "HBridgeControl.hxx"
+#include "FanControl.hxx"
 #include "Hardware.hxx"
 #include "Revision.hxxout"
 
@@ -41,6 +43,8 @@ CDI_GROUP(IoBoardSegment, Name(HARDWARE_IMPL), Segment(MemoryConfigDefs::SPACE_C
 /// Each entry declares the name of the current entry, then the type and then
 /// optional arguments list.
 CDI_GROUP_ENTRY(internal_config, InternalConfigData);
+CDI_GROUP_ENTRY(maindcc,HBridgeControlConfig,Name("Main DCC"));
+CDI_GROUP_ENTRY(progdcc,HBridgeControlConfig,Name("Programming Track DCC"));
 CDI_GROUP_END();
 
 /// This segment is only needed temporarily until there is program code to set

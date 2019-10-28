@@ -51,6 +51,8 @@ OVERRIDE_CONST(local_nodes_count,50);
 #include "DuplexUpdateLoop.hxx"
 #include "CommandStationDCCMainTrack.hxx"
 #include "CommandStationDCCProgTrack.hxx"
+#include "HBridgeControl.hxx"
+#include "FanControl.hxx"
 
 #include "Hardware.hxx"
 
@@ -112,6 +114,10 @@ extern const char *const openlcb::SNIP_DYNAMIC_FILENAME =
 // segment 'seg', in which there is a repeated group 'consumers', and we assign
 // the individual entries to the individual consumers. Each consumer gets its
 // own GPIO pin.
+
+HBridgeControl mains(stack.node(), cfg.seg().maindcc(), CSenseMainAnalogChannel, MainEN_Pin(), MainTF_Pin());
+HBridgeControl progtrack(stack.node(), cfg.seg().progdcc(), CSenseProgAnalogChannel, ProgEN_Pin(), ProgTF_Pin());
+
 
 class FactoryResetHelper : public DefaultConfigUpdateListener {
 public:
