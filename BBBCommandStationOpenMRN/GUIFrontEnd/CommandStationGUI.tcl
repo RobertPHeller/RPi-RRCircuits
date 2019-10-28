@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sat Oct 26 10:09:51 2019
-#  Last Modified : <191027.1712>
+#  Last Modified : <191028.1900>
 #
 #  Description	
 #
@@ -114,7 +114,6 @@ snit::integer FunctionNumber -min 0 -max 28
 snit::enum Orientation -values {horizontal vertical}
 
 snit::widget FunctionLight {
-    typecomponent lightbm
     component number
     option    -number   -default 0 -type FunctionNumber \
           -configuremethod _setnumber -cgetmethod _getnumber
@@ -122,32 +121,47 @@ snit::widget FunctionLight {
     method _setnumber {o v} {set number_ $v}
     method _getnumber {o} {return $number_}
     component light
-    option    -oncolor  -default white -type Color
-    option    -offcolor -default black -type Color
+    component onbm
+    component offbm
+    option    -oncolor  -default white -type Color \
+          -configuremethod setbmforeground_
+    option    -offcolor -default black -type Color \
+          -configuremethod setbmforeground_
+    method setbmforeground_ {o v} {
+        set options($o) $v
+        if {$o eq "-oncolor} {
+            $onbm configure -foregound $v
+        } else {
+            $offbm configure -foregound $v
+        }
+    }
     option    -orient   -default horizontal -type Orientation \
           -readonly yes
     method set {v} {
         snit::boolean validate $v
         if {$v} {
-            $light configure -foreground $options(-oncolor)
+            $light configure -image $onbm
         } else {
-            $light configure -foreground $options(-offcolor)
+            $light configure -image $offbm
         }
     }
-    typeconstructor {
-        set lightbm [image create bitmap lightbm -data {#define dot_width 16
-#define dot_height 16
-static unsigned char dot_bits[] = {
-   0x00, 0x00, 0x80, 0x01, 0xc0, 0x03, 0xe0, 0x07, 0xf0, 0x0f, 0xf8, 0x1f,
-   0xfc, 0x3f, 0xfe, 0x7f, 0xfe, 0x7f, 0xfc, 0x3f, 0xf8, 0x1f, 0xf0, 0x0f,
-   0xe0, 0x07, 0xc0, 0x03, 0x80, 0x01, 0x00, 0x00};
-}]
-    }
+    typevariable dot_ {#define dot9x9_width 9
+#define dot9x9_height 9
+static unsigned char dot9x9_bits[] = {
+   0x38, 0x00, 0x7c, 0x00, 0xfe, 0x00, 0xff, 0x01, 0xff, 0x01, 0xff, 0x01,
+   0xfe, 0x00, 0x7c, 0x00, 0x38, 0x00};
+}
     constructor {args} {
         install number using ttk::label $win.number \
               -textvariable [myvar number_]
+        set options(-oncolor) [from args -oncolor]
+        set options(-offcolor) [from args -offcolor]
+        set onbm [image create bitmap ${selfns}on -data $dot_ \
+                -foreground $options(-oncolor)]
+        set offbm [image create bitmap ${selfns}off -data $dot_ \
+                -foreground $options(-offcolor)]
         install light using ttk::label $win.light \
-              -image $lightbm
+              -image $offbm
         $self configurelist $args
         $self set off
         switch $options(-orient) {
@@ -157,6 +171,73 @@ static unsigned char dot_bits[] = {
             }
             vertical {
                 pack $number -side top
+                pack $light  -side bottom
+            }
+        }
+    }
+}
+
+snit::widget StatusLight {
+    component label
+    option    -label   -default 0 \
+          -configuremethod _setlabel -cgetmethod _getlabel
+    variable  label_
+    method _setlabel {o v} {set label_ $v}
+    method _getlabel {o} {return $label_}
+    component light
+    component onbm
+    component offbm
+    option    -oncolor  -default white -type Color \
+          -configuremethod setbmforeground_
+    option    -offcolor -default black -type Color \
+          -configuremethod setbmforeground_
+    method setbmforeground_ {o v} {
+        set options($o) $v
+        if {$o eq "-oncolor} {
+            $onbm configure -foregound $v
+        } else {
+            $offbm configure -foregound $v
+        }
+    }
+    option    -orient   -default horizontal -type Orientation \
+          -readonly yes
+    method set {v} {
+        #puts stderr "*** $self set $v"
+        snit::boolean validate $v
+        if {$v} {
+            $light configure -image $onbm
+        } else {
+            $light configure -image $offbm
+        }
+        #puts stderr "*** -: $light cget -image: [$light cget -image]"
+        #puts stderr "*** -: [$light cget -image] cget -foreground: [[$light cget -image] cget -foreground]"
+    }
+    typevariable dot_ {#define dot9x9_width 9
+#define dot9x9_height 9
+static unsigned char dot9x9_bits[] = {
+   0x38, 0x00, 0x7c, 0x00, 0xfe, 0x00, 0xff, 0x01, 0xff, 0x01, 0xff, 0x01,
+   0xfe, 0x00, 0x7c, 0x00, 0x38, 0x00};
+}
+    constructor {args} {
+        install label using ttk::label $win.label \
+              -textvariable [myvar label_]
+        set options(-oncolor) [from args -oncolor]
+        set options(-offcolor) [from args -offcolor]
+        set onbm [image create bitmap ${selfns}on -data $dot_ \
+                -foreground $options(-oncolor)]
+        set offbm [image create bitmap ${selfns}off -data $dot_ \
+                -foreground $options(-offcolor)]
+        install light using ttk::label $win.light \
+              -image $offbm
+        $self configurelist $args
+        $self set off
+        switch $options(-orient) {
+            horizontal {
+                pack $label -side left
+                pack $light  -side right
+            }
+            vertical {
+                pack $label -side top
                 pack $light  -side bottom
             }
         }
@@ -377,25 +458,68 @@ snit::widget Status {
     variable progCurrent_ 000.000
     component temperature
     variable temperature_ 000.000
+    component mainsenabled
+    component mainsthermflag
+    component mainsovercurrent
+    component progenabled
+    component progthermflag
+    component progovercurrent
+    component fanon
+    component alarmon
+    
     constructor {args} {
         $self configurelist $args
-        set mc [LabelFrame $win.mc -text [_m "Label|Mains current: "]]
+        set mc [ttk::labelframe $win.mc \
+                -text [_m "Label|Mains: "] \
+                -labelanchor nw]
         pack $mc -fill x
-        set mcFrame [$mc getframe]
+        set mcLF [LabelFrame $mc.current -text [_m "Label|Current: "]]
+        pack $mcLF -fill x
+        set mcFrame [$mcLF getframe]
         install mainCurrent using ttk::label $mcFrame.mainCurrent \
               -textvariable [myvar mainCurrent_] \
               -justify right -anchor e
         pack $mainCurrent -side left -expand yes -fill x
         pack [ttk::label $mcFrame.a -text A] -side right
-        set pc [LabelFrame $win.pc -text [_m "Label|Prog current: "]]
+        set statusFrame [ttk::frame $mc.status]
+        pack $statusFrame -fill x
+        install mainsenabled using StatusLight $statusFrame.en \
+              -label [_m "Label|Enabled: "]
+        pack $mainsenabled -side left
+        install mainsthermflag using StatusLight $statusFrame.tf \
+              -label [_m "Label|Thermal Flag: "] -oncolor red
+        pack $mainsthermflag -side left
+        install mainsovercurrent using StatusLight $statusFrame.oc \
+              -label [_m "Label|Over Current: "] -oncolor red
+        pack $mainsovercurrent -side left
+        set pc [ttk::labelframe $win.pc \
+                -text [_m "Label|Prog Track: "] \
+                -labelanchor nw]
         pack $pc -fill x
-        set pcFrame [$pc getframe]
+        set pcLF [LabelFrame $pc.current -text [_m "Label|Current: "]]
+        pack $pcLF -fill x
+        set pcFrame [$pcLF getframe]
         install progCurrent using ttk::label $pcFrame.progCurrent \
               -textvariable [myvar progCurrent_] \
               -justify right -anchor e
         pack $progCurrent -side left -expand yes -fill x
         pack [ttk::label $pcFrame.a -text A] -side right
-        set temp [LabelFrame $win.temp -text [_m "Label|Heat Sink Temp: "]]
+        set statusFrame [ttk::frame $pc.status]
+        pack $statusFrame -fill x
+        install progenabled using StatusLight $statusFrame.en \
+              -label [_m "Label|Enabled: "]
+        pack $progenabled -side left
+        install progthermflag using StatusLight $statusFrame.tf \
+              -label [_m "Label|Thermal Flag: "] -oncolor red
+        pack $progthermflag -side left
+        install progovercurrent using StatusLight $statusFrame.oc \
+              -label [_m "Label|Over Current: "] -oncolor red
+        pack $progovercurrent -side left
+        set hsfan [ttk::labelframe $win.hsfan \
+                   -text [_m "Label|Heat Sink: "] \
+                   -labelanchor nw]
+        pack $hsfan -fill x
+        set temp [LabelFrame $hsfan.temp -text [_m "Label|Temperature: "]]
         pack $temp -fill x
         set tempFrame [$temp getframe]
         install temperature using ttk::label $tempFrame.temperature \
@@ -403,6 +527,14 @@ snit::widget Status {
               -justify right -anchor e
         pack $temperature -side left -expand yes -fill x
         pack [ttk::label $tempFrame.c -text C] -side right
+        set statusFrame [ttk::frame $hsfan.status]
+        pack $statusFrame -fill x
+        install fanon using StatusLight $statusFrame.fanon \
+              -label [_m "Label|Fan On: "]
+        pack $fanon -side left
+        install alarmon using StatusLight $statusFrame.alarmon \
+              -label [_m "Label|Alarm: "] -oncolor red
+        pack $alarmon -side left
         pack [frame $win.filler] -expand yes -fill both
         $self _refresh
     }
@@ -411,7 +543,19 @@ snit::widget Status {
         after 1000 [mymethod _refresh]
     }
     method AnswerCallback {line} {
-        lassign $line mainCurrent_ progCurrent_ temperature_
+        #puts stderr "*** $self AnswerCallback $line"
+        lassign $line mainCurrent_ progCurrent_ temperature_ \
+              mainsEn mainsTF mainsOC \
+              progEn progTF progOC \
+              fanOn AlarmOn
+        $mainsenabled set $mainsEn
+        $mainsthermflag set $mainsTF
+        $mainsovercurrent set $mainsOC
+        $progenabled set $progEn
+        $progthermflag set $progTF
+        $progovercurrent set $progOC
+        $fanon set $fanOn
+        $alarmon set $AlarmOn
     }
 }
 
