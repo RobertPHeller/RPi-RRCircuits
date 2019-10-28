@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 28 13:33:15 2019
-//  Last Modified : <191028.1451>
+//  Last Modified : <191028.2129>
 //
 //  Description	
 //
@@ -57,6 +57,9 @@ CDI_GROUP_ENTRY(currentthresh,
                 Name("Current threshold, in milliamps."),
                 Default(3000),Min(250),Max(3000),
                 Description("This is the current level to issue an event."));
+CDI_GROUP_ENTRY(overcurrent,
+                openlcb::EventConfigEntry,
+                Name("Over Current Event"));
 CDI_GROUP_ENTRY(disable,
                 openlcb::EventConfigEntry,
                 Name("Disable DCC"));
@@ -102,17 +105,25 @@ public:
                                              BarrierNotifiable *done);
 
     virtual void factory_reset(int fd);
+    bool EnabledP() const {return isEnabled_;}
+    bool ThermalFlagP() const {return thermflagState_;}
+    bool OverCurrentP() const {return isOverCurrent_;}
 private:
     openlcb::Node *node_;
     const HBridgeControlConfig cfg_;
     uint8_t currentAIN_;
     const Gpio *enableGpio_;
     const Gpio *thermFlagGpio_;
-    uint64_t disable_event_;
-    uint64_t enable_event_;
-    uint64_t thermflagon_event_;
-    uint64_t thermflagoff_event_;
+    openlcb::EventId overcurrent_event_;
+    openlcb::EventId disable_event_;
+    openlcb::EventId enable_event_;
+    openlcb::EventId thermflagon_event_;
+    openlcb::EventId thermflagoff_event_;
     uint16_t currentthresh_;
+    bool registered_;
+    bool isEnabled_;
+    bool thermflagState_;
+    bool isOverCurrent_;
     /// Requests the event associated with the current value of the bit to be
     /// produced (unconditionally): sends an event report packet ot the bus.
     ///
@@ -120,7 +131,7 @@ private:
     ///
     /// @param done is the notification callback. If it is NULL, the writer will
     /// be invoked inline and potentially block the calling thread.
-    void SendEventReport(openlcb::WriteHelper *writer, Notifiable *done);
+    void SendEventReport(openlcb::WriteHelper *writer, openlcb::EventId event, Notifiable *done);
     /// Registers this event handler with the global event manager. Call this
     /// from the constructor of the derived class.
     void register_handler();
@@ -131,6 +142,7 @@ private:
     void SendAllProducersIdentified(openlcb::EventReport *event,BarrierNotifiable *done);
     void SendConsumerIdentified(openlcb::EventReport *event, BarrierNotifiable *done);
     void SendAllConsumersIdentified(openlcb::EventReport *event,BarrierNotifiable *done);
+    openlcb::WriteHelper write_helper[8];                              
 };            
 
 #endif // __HBRIDGECONTROL_HXX

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 13:40:14 2019
-//  Last Modified : <191027.2112>
+//  Last Modified : <191028.2141>
 //
 //  Description	
 //
@@ -280,7 +280,11 @@ Console::CommandStatus CommandStationConsole::status_command(FILE *fp, int argc,
         double CSenseMain = CurrentFromAIN(sysfs_adc_getvalue(CSenseMainAnalogChannel));
         double CSenseProg = CurrentFromAIN(sysfs_adc_getvalue(CSenseProgAnalogChannel));
         double TempCent   = TempFromAIN(sysfs_adc_getvalue(TempsensorChannel));
-        fprintf(fp, "#status# %7.3f %7.3f %7.3f\n",CSenseMain,CSenseProg,TempCent);
+        fprintf(fp, "#status# %7.3f %7.3f %7.3f %1d %1d %1d %1d %1d %1d %1d %1d\n",
+                CSenseMain,CSenseProg,TempCent,
+                mains.EnabledP(), mains.ThermalFlagP(), mains.OverCurrentP(),
+                progtrack.EnabledP(), progtrack.ThermalFlagP(), progtrack.OverCurrentP(),
+                fan.FanOn(), fan.AlarmOn());
     }
     return COMMAND_OK;
 }

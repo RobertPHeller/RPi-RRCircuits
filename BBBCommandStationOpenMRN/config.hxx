@@ -45,6 +45,7 @@ CDI_GROUP(IoBoardSegment, Name(HARDWARE_IMPL), Segment(MemoryConfigDefs::SPACE_C
 CDI_GROUP_ENTRY(internal_config, InternalConfigData);
 CDI_GROUP_ENTRY(maindcc,HBridgeControlConfig,Name("Main DCC"));
 CDI_GROUP_ENTRY(progdcc,HBridgeControlConfig,Name("Programming Track DCC"));
+CDI_GROUP_ENTRY(fancontrol,FanControlConfig,Name("Fan Control"));
 CDI_GROUP_END();
 
 /// This segment is only needed temporarily until there is program code to set

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 09:45:53 2019
-//  Last Modified : <191027.2025>
+//  Last Modified : <191028.2134>
 //
 //  Description	
 //
@@ -59,6 +59,11 @@
 
 #include "CommandStationStack.hxx"
 #include "TrainSNIP.hxx"
+#include "HBridgeControl.hxx"
+#include "FanControl.hxx"
+
+extern HBridgeControl mains, progtrack;
+extern FanControl fan;
 
 struct TrainNodeImpl
 {
