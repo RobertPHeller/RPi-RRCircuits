@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sat Oct 26 10:09:51 2019
-#  Last Modified : <191028.1900>
+#  Last Modified : <191029.1536>
 #
 #  Description	
 #
@@ -49,6 +49,10 @@
 # @htmlonly
 # <div class="contents">
 # <div class="textblock"><ol type="1">
+# <li><a class="el" href="group__CommandStationGUI.html">Man page</a></li>
+# <li><a class="el" href="reference.html">Command Station Reference</a><ol type="a">
+# <li><a class="el" href="reference.html#mainGUI">Main GUI</a></li>
+# </ol></li>
 # <li><a class="el" href="help.html">Help</a></li>
 # <li><a class="el" href="Version.html">Version</a></li>
 # <li><a class="el" href="Copying.html">Copying</a><ol type="a">
@@ -63,14 +67,69 @@
 # GUI Front end for the BeagleBone Black Command Station
 #
 # @section SYNOPSIS SYNOPSIS
+#
+# CommandStationGUI [options] [parameters]
+# 
 # @section DESCRIPTION DESCRIPTION
+#
+# This is the GUI Front end for the Beagleboard OpenLCB/OpenMRN/LCC/DCC
+# command station.  This program provides a friendly User Interface to
+# the command station.
+#
 # @section OPTIONS OPTIONS
+#
+# None.
+#
 # @section PARAMETERS PARAMETERS
+#
+# None.
+#
 # @section FILES FILES
+#
+# None.
+#
 # @section AUTHOR AUTHOR
 # Robert Heller \<heller\@deepsoft.com\>
 #
-# @page mainGUI Main GUI
+# @page reference Command Station Reference
+#
+# This is the GUI Front end for the Beagleboard OpenLCB/OpenMRN/LCC/DCC
+# command station.  This program provides a friendly User Interface to
+# the command station.  The command station implements the OpenLCB 
+# traction message protocol uses "virtual" Train nodes to receive
+# OpenLCB Traction messages from OpenLCB throttle nodes. These 
+# OpenLCB Traction messages are then converted to DCC packets and
+# sent to the rails.
+#
+# @section mainGUI Main GUI
+#
+# The main GUI is shown here:
+# @image  latex CommandStationMainGUI.png "Command Station Main GUI" width=5in
+# @image html CommandStationMainGUISmall.png
+# At the top is a menubar, with File, Edit, Programming Track, and 
+# Help menus. Then there is a toolbar. Below the toolbar are four 
+# sections:
+# -# The locomotive description section.
+# -# The locomotive list section.
+# -# The command station status section.
+# -# A log section.
+# @subsection locomotivedescription Locomotive Description
+# The locomotive description section contains a snapshot of a selected
+# locomotive, including its address, speed steps (28 or 128), name,
+# description, its speed and direction, its functions, its controlling
+# throttle and its consist status.
+# @subsection locomotivelist Locomotive List
+# The locomotive list section lists the virtual Train nodes in DCC
+# address order.  There are three bottoms below the list to describe,
+# delete, or add locomotives.
+# @subsection commandstationstatus Command Station Status
+# The command station status section displays the current status of
+# of the command station. This includes the current in use on each of
+# the outputs (mains and programming track), whether the output is
+# enabled, and if it is over current and if thermal shutdown is 
+# eminent.  It also displays the temperature of the heat sink, 
+# whether the fan is on, and if the temperature alarm is on.
+
 
 set argv0 [file join [file dirname [info nameofexecutable]] [file rootname [file tail [info script]]]]
 
@@ -587,12 +646,14 @@ snit::type CommandStationGUI {
             {separator}
             {command "[_m {Menu|Edit|Select All}]" {edit:selectall} "[_ {Select everything}]" {} -command {StdMenuBar EditSelectAll}}
             {command "[_m {Menu|Edit|De-select All}]" {edit:deselectall edit:havesel} "[_ {Select nothing}]" {} -command {StdMenuBar EditSelectNone} -state disabled}
+        } "[_m {Menu|&Programming Track}]" {prog} {prog} 0 {
+            {command "[_m {Menu|Programming Track|Service Mode}]" {prog:service} "[_ {Open Service Mode Screen}]" {Ctrl p} -command "[mytypemethod _serviceMode]"}
         } "[_m {Menu|&Help}]" {help} {help} 0 {
             {command "[_m {Menu|Help|On &Help...}]" {help:help} "[_ {Help on help}]" {} -command {HTMLHelp help Help}}
             {command "[_m {Menu|Help|On &Version}]" {help:help} "[_ {Version}]" {} -command {HTMLHelp help Version}}
             {command "[_m {Menu|Help|Warranty}]" {help:help} "[_ {Warranty}]" {} -command {HTMLHelp help Warranty}}
             {command "[_m {Menu|Help|Copying}]" {help:help} "[_ {Copying}]" {} -command {HTMLHelp help Copying}}
-            {command "[_m {Menu|Help|Reference node for a CTI Acela network}]" {help:help} {} {} -command {HTMLHelp help "Command Station Reference"}}
+            {command "[_m {Menu|Help|Reference}]" {help:help} {} {} -command {HTMLHelp help "Command Station Reference"}}
         }
     }
     typeconstructor {
@@ -601,12 +662,29 @@ snit::type CommandStationGUI {
         global argv
         set port [from argv -port 9900]
         set host [from argv -host snoopy]
-        set socket_ [socket $host $port]
-        #set socket_ stdout
-        fconfigure $socket_ -blocking 0 -buffering line -translation lf
-        fileevent $socket_ readable [mytypemethod _readSocket]
+        #set socket_ [socket $host $port]
+        set socket_ stdout
+        #fconfigure $socket_ -blocking 0 -buffering line -translation lf
+        #fileevent $socket_ readable [mytypemethod _readSocket]
         set Main_ [cmdmainwindow .main -menu [subst $menu_]]
         pack $Main_ -expand yes -fill both
+        $Main_ toolbar show
+        $Main_ toolbar addbutton exit -compound top \
+              -text [_m "Label|Exit"] -image [IconImage image quit] \
+              -command [mytypemethod _exit]
+        $Main_ toolbar addbutton load -compound top \
+              -text [_m "Label|Load"] -image [IconImage image folder-open] \
+              -command [mytypemethod _load]
+        $Main_ toolbar addbutton save -compound top \
+              -text [_m "Label|Save"] -image [IconImage image folder] \
+              -command [mytypemethod _save]
+        $Main_ toolbar addbutton service -compound top \
+              -text [_m "Label|Service"] \
+              -image [IconImage image configuration] \
+              -command [mytypemethod _serviceMode]
+        $Main_ toolbar addbutton help -compound top \
+              -text [_m "Label|Help"] -image [IconImage image help] \
+              -command {HTMLHelp help "Command Station Reference"}
         set upper [$Main_ getframe]
         set describe [DescribeLoco $upper.describe -commandstationsocket $socket_]
         $upper add $describe -weight 1
@@ -737,6 +815,8 @@ snit::type CommandStationGUI {
             }
             $Main_ log see end
         }
+    }
+    typemethod _serviceMode {} {
     }
 }
 

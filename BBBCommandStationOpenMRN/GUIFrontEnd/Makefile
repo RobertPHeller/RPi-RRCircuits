@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sat Oct 26 09:48:55 2019
-#  Last Modified : <191027.1034>
+#  Last Modified : <191029.1536>
 #
 #  Description	
 #
@@ -81,18 +81,19 @@ SCRIPTS = mainwindow.tcl Version.tcl $(MRRSCRIPTLIB)/snitscrollw.tcl \
 	  $(MRRSCRIPTLIB)/snitbuttonbox.tcl \
 	  $(MRRSCRIPTLIB)/snitHTMLHelp.tcl \
 	  $(MRRSCRIPTLIB)/snitdialog.tcl \
-	  $(MRRSCRIPTLIB)/IconsAndImages.tcl \
+	  IconsAndImages.tcl \
 	  $(MRRSCRIPTLIB)/snitLFs.tcl
 	  
-IMAGES = $(wildcard $(MRRSCRIPTLIB)/*.gif) \
-	 $(wildcard $(MRRSCRIPTLIB)/*.png) \
+IMAGES = $(wildcard $(MRRSCRIPTLIB)/*.png) \
 	 $(wildcard $(MRRSCRIPTLIB)/*.xbm) \
-	 $(wildcard $(MRRSCRIPTLIB)/*.xpm)
+	 $(wildcard $(MRRSCRIPTLIB)/*.xpm) \
+	 $(wildcard $(MRRSCRIPTLIB)/*.gif) \
+	 $(wildcard localImages/*.png)
 
 all: $(PROG)$(EXEEXT) html/index.html latex/refman.pdf
 
 html/index.html latex/refman.pdf man/man1/$(PROG).1 : Doxyfile \
-		$(SOURCE) Version.tcl
+		$(SOURCE) Version.tcl ScreenShots/*
 	-rm -rf html latex man
 	$(DOXYGEN)
 	make -C latex refman.pdf

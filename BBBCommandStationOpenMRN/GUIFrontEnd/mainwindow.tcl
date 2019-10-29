@@ -147,13 +147,57 @@ snit::widgetadaptor cmdmainwindow {
   ## Log window (below)
   component commandframe
   ## PaneWindow holding additional widgets (above)
-  component toolbar
-  ## toolbar
   variable progress
   ## The value of the progreee bar.
   variable status
   ## Status value.
+  component toolbar
+  ## toolbar
 
+  method {toolbar show} {} {
+      $hull showtoolbar 0 yes
+  }
+  method {toolbar hide} {} {
+      $hull showtoolbar 0 no
+  }
+  method {toolbar setbuttonstate} {state} {
+      foreach b [winfo children $toolbar] {
+          catch [list $b configure -state $state]
+      }
+  }
+  method {toolbar addbutton} {bname args} {
+      set helptext [from args -helptext]
+      set helptype [from args -helptype]
+      set helpvar  [from args -helpvar]
+      if {[string length "$helptext"]} {
+          #lappend args -helptext "$helptext" -helptype variable \
+          #-helpvar [myvar status]
+      }
+      pack [eval [list ttk::button $toolbar.$bname] $args] -side left
+  }
+  method {toolbar buttonconfigure} {bname args} {
+  ## Method to configure a button on a toolbar.
+  # @param bname The name of the button.
+  # @param ... Button configuration options (passed to configure).
+
+  set helptext [from args -helptext]
+  set helptype [from args -helptype]
+  set helpvar  [from args -helpvar]
+  if {[string length "$helptext"]} {
+      lappend args -helptext "$helptext" -helptype variable \
+            -helpvar [myvar status]
+      }
+      return [eval [list $toolbar.$bname configure] $args]
+  }
+
+  method {toolbar buttoncget} {bname option} {
+      ## Method to get a configuration option of a button on a toolbar.
+      # @param bname The name of the button.
+      # @param option Button configuration option (passed to cget).
+      
+      return [$toolbar.$bname cget $option]
+  }
+  
   method {menu activate} {menuid index} {
   ## Method to activate a menu on the main frame.
   # @param menuid Menu id.
@@ -338,6 +382,7 @@ snit::widgetadaptor cmdmainwindow {
 			-progressmax 100 \
 			-progresstype normal
     $hull showstatusbar progression
+    set toolbar [$hull addtoolbar]
     set toplevel [winfo toplevel $win]
 #    puts stderr "*** ${type}::constructor: wm state $toplevel = [wm state $toplevel]"
     if {!$options(-dontwithdraw)} {wm withdraw $toplevel}
