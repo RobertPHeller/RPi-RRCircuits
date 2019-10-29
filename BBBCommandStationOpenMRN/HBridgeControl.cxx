@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 28 13:33:31 2019
-//  Last Modified : <191028.2132>
+//  Last Modified : <191029.0107>
 //
 //  Description	
 //
@@ -49,6 +49,7 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "utils/ConfigUpdateListener.hxx"
 #include "utils/ConfigUpdateService.hxx"
 #include "openlcb/RefreshLoop.hxx"
+#include "utils/logging.h"
 
 #include "AnalogReadSysFS.h"
 #include "HBridgeControl.hxx"
@@ -154,9 +155,11 @@ void HBridgeControl::handle_event_report(const openlcb::EventRegistryEntry &regi
 
 void HBridgeControl::poll_33hz(openlcb::WriteHelper *helper, Notifiable *done)
 {
+    BarrierNotifiable barrier(done);
     uint16_t currentMA = (uint16_t)round(CurrentFromAIN(sysfs_adc_getvalue(currentAIN_))*1000);
+    //LOG(INFO, "*** HBridgeControl::poll_33hz(): currentMA = %d",currentMA);
     if (currentMA > currentthresh_ && !isOverCurrent_) {
-        SendEventReport(helper, overcurrent_event_, done);
+        SendEventReport(0, overcurrent_event_, &barrier);
         isOverCurrent_ = true;
     } else if (currentMA <= currentthresh_) {
         isOverCurrent_ = false;
@@ -164,10 +167,11 @@ void HBridgeControl::poll_33hz(openlcb::WriteHelper *helper, Notifiable *done)
     if (thermFlagGpio_->read() != thermflagState_) {
         thermflagState_ = thermFlagGpio_->read();
         if (thermflagState_) 
-            SendEventReport(helper, thermflagon_event_, done);
+            SendEventReport(1, thermflagon_event_, &barrier);
         else
-            SendEventReport(helper, thermflagoff_event_, done);
+            SendEventReport(1, thermflagoff_event_, &barrier);
     }
+    barrier.maybe_done();
 }
 
 ConfigUpdateListener::UpdateAction HBridgeControl::apply_configuration(int fd, bool initial_load,
@@ -305,12 +309,12 @@ void HBridgeControl::SendAllConsumersIdentified(openlcb::EventReport *event,Barr
                                                done->new_child());
 }
 
-void HBridgeControl::SendEventReport(openlcb::WriteHelper *writer, openlcb::EventId event, Notifiable *done)
+void HBridgeControl::SendEventReport(int helperIndex, openlcb::EventId event, BarrierNotifiable *done)
 {
-    writer->WriteAsync(node_, 
-                       openlcb::Defs::MTI_EVENT_REPORT,
-                       openlcb::WriteHelper::global(),
-                       openlcb::eventid_to_buffer(event),
-                       done);
+    write_helper[helperIndex].WriteAsync(node_, 
+                                         openlcb::Defs::MTI_EVENT_REPORT,
+                                         openlcb::WriteHelper::global(),
+                                         openlcb::eventid_to_buffer(event),
+                                         done->new_child());
                                                
 }

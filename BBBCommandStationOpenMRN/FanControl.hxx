@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 28 13:33:43 2019
-//  Last Modified : <191028.2136>
+//  Last Modified : <191029.0059>
 //
 //  Description	
 //
@@ -101,6 +101,7 @@ public:
     virtual void factory_reset(int fd);
     bool FanOn() const {return fanon_;}
     bool AlarmOn() const {return alarmon_;}
+    openlcb::Polling *polling() {return this;}
 private:
     openlcb::Node *node_;
     const FanControlConfig cfg_;
@@ -122,7 +123,7 @@ private:
     ///
     /// @param done is the notification callback. If it is NULL, the writer will
     /// be invoked inline and potentially block the calling thread.
-    void SendEventReport(openlcb::WriteHelper *writer, Notifiable *done);
+    void SendEventReport(int helperIndex, openlcb::EventId event, BarrierNotifiable *done);
     /// Registers this event handler with the global event manager. Call this
     /// from the constructor of the derived class.
     void register_handler();
