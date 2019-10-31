@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sat Oct 26 10:09:51 2019
-#  Last Modified : <191029.1536>
+#  Last Modified : <191031.1255>
 #
 #  Description	
 #
@@ -51,7 +51,16 @@
 # <div class="textblock"><ol type="1">
 # <li><a class="el" href="group__CommandStationGUI.html">Man page</a></li>
 # <li><a class="el" href="reference.html">Command Station Reference</a><ol type="a">
-# <li><a class="el" href="reference.html#mainGUI">Main GUI</a></li>
+# <li><a class="el" href="reference.html#mainGUI">Main GUI</a><ol type="a">
+# <li><a class="el" href="reference.html#locomotivedescription">Locomotive Description</a></li>
+# <li><a class="el" href="reference.html#locomotivelist">Locomotive List</a></li>
+# <li><a class="el" href="reference.html#commandstationstatus">Command Station Status</a></li>
+# <li><a class="el" href="reference.html#logsection">Log Output</a></li>
+# </ol></li>
+# <li><a class="el" href="reference.html#servicemode">Service Mode Screen</a><ol type="a">
+# <li><a class="el" href="reference.html#cvs">CV display</a></li>
+# <li><a class="el" href="reference.html#buttons">Buttons</a></li>
+# </ol></li>
 # </ol></li>
 # <li><a class="el" href="help.html">Help</a></li>
 # <li><a class="el" href="Version.html">Version</a></li>
@@ -120,7 +129,7 @@
 # throttle and its consist status.
 # @subsection locomotivelist Locomotive List
 # The locomotive list section lists the virtual Train nodes in DCC
-# address order.  There are three bottoms below the list to describe,
+# address order.  There are three buttons below the list to describe,
 # delete, or add locomotives.
 # @subsection commandstationstatus Command Station Status
 # The command station status section displays the current status of
@@ -129,6 +138,12 @@
 # enabled, and if it is over current and if thermal shutdown is 
 # eminent.  It also displays the temperature of the heat sink, 
 # whether the fan is on, and if the temperature alarm is on.
+# @subsection logsection Log Output
+# The log section at the bottom will contain and log messages produced
+# by the command station.
+# @section servicemode Service Mode Screen
+# @subsection cvs CV display
+# @subsection buttons Buttons
 
 
 set argv0 [file join [file dirname [info nameofexecutable]] [file rootname [file tail [info script]]]]
@@ -146,6 +161,7 @@ package require ButtonBox
 package require HTMLHelp 2.0
 package require LabelFrames
 package require Dialog
+package require ServiceMode
 package require Version
 
 global ImageDir 
@@ -628,6 +644,7 @@ snit::type CommandStationGUI {
     typecomponent list
     typecomponent status
     typecomponent nowhere
+    typecomponent servicemode
     
     typevariable socket_
     typevariable saveFp_ {}
@@ -694,6 +711,7 @@ snit::type CommandStationGUI {
         $upper add $status -weight 1
         HTMLHelp setDefaults "$::HelpDir" "index.html#toc"
         set nowhere [frame .nowhere]
+        set servicemode [ServiceMode $Main_.servicemode]
         $Main_ showit
     }
     typemethod lockscreen {} {
@@ -817,6 +835,7 @@ snit::type CommandStationGUI {
         }
     }
     typemethod _serviceMode {} {
+        $servicemode show
     }
 }
 
