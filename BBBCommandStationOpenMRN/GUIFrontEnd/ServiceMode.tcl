@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Thu Oct 31 10:11:53 2019
-#  Last Modified : <191031.1301>
+#  Last Modified : <191101.1427>
 #
 #  Description	
 #
@@ -53,8 +53,9 @@ snit::integer CVAddress -min 1 -max 1024
 snit::widgetadaptor CVByte {
     option -bytenumber -default 1 -type CVAddress -readonly yes
     option -label      -default "" -readonly yes
-    delegate option * to hull except {-label -from -to -editable}
-    delegate method * to hull 
+    option -changedcallback {}
+    delegate option * to hull except {-label -from -to -editable -command}
+    delegate method * to hull
     constructor {args} {
         installhull using LabelSpinBox -from 0 -to 255
         $self configurelist $args
@@ -63,12 +64,19 @@ snit::widgetadaptor CVByte {
         } else {
             $hull configure -label [_m "Label|CV number %d" $options(-bytenumber)]
         }
+        $hull bind <Return> [mymethod _update]
+    }
+    method _update {} {
+        if {$options(-changedcallback) ne {}} {
+            uplevel #0 "$options(-changedcallback) 1 $win"
+        }
     }
 }
 
 snit::widgetadaptor CVWord {
     option -bytenumber -default 1 -type CVAddress -readonly yes
     option -label      -default "" -readonly yes
+    option -changedcallback {}
     delegate option * to hull except {-label -from -to -editable}
     delegate method * to hull
     constructor {args} {
@@ -79,6 +87,12 @@ snit::widgetadaptor CVWord {
         } else {
             $hull configure -label [_m "Label|CV number %d" $options(-bytenumber)]
         }
+        $hull bind <Return> [mymethod _update]
+    }
+    method _update {} {
+        if {$options(-changedcallback) ne {}} {
+            uplevel #0 "$options(-changedcallback) 2 $win"
+        }
     }
 }
 
@@ -86,6 +100,7 @@ snit::widgetadaptor CVWord {
 snit::widgetadaptor CVReadonly {
     option -bytenumber -default 1 -type CVAddress -readonly yes
     option -label      -default "" -readonly yes
+    option -changedcallback {}
     delegate option * to hull except {-label -editable}
     delegate method * to hull 
     constructor {args} {
@@ -103,13 +118,12 @@ snit::listtype BitFields -minlen 8 -maxlen 8
 snit::integer BitNumber -min 0 -max 7
 snit::integer uint8_1 -min 0 -max 255
 
-snit::widgetadaptor CVBitField {
+snit::widget CVBitField {
     option -bytenumber -default 1 -type CVAddress -readonly yes
     option -label      -default "" -readonly yes
+    option -changedcallback {}
     option -fieldlables -type BitFields -readonly yes -default \
           {Bit0 Bit1 Bit2 Bit3 Bit4 Bit5 Bit6 Bit7}
-    delegate option * to hull except {-text}
-    delegate method * to hull except {getframe}
     variable bits_ -array {
         0 0
         1 0
@@ -133,34 +147,55 @@ snit::widgetadaptor CVBitField {
             set bits_($ibit) 0
         }
     }
-    method setbyte {byte} {
+    method set {byte} {
         uint8_1 validate $byte
         for {set ibit 0} {$ibit < 8} {incr ibit} {
             $self setbit [expr {($byte >> $ibit) & 0x01}]
         }
     }
-    method getbyte {} {
+    method get {} {
         set result 0
         for {set ibit 0} {$ibit < 8} {incr ibit} {
             set result [expr {$result | ([$self getbit $ibit] << $ibit)}]
         }
         return $result
     }
+    hulltype ttk::labelframe
     constructor {args} {
-        installhull using LabelFrame
         $self configurelist $args
+        $hull configure -labelanchor nw
         if {$options(-label) ne ""} {
             $hull configure -text $options(-label)
         } else {
             $hull configure -text [_m "Label|CV number %d" $options(-bytenumber)]
         }
-        set frame [$hull getframe]
+        set frame $win
         set ibit 0
+        set grow 0
+        set gcol 0
         foreach bitlabel $options(-fieldlables) {
-            pack [ttk::checkbutton $frame.bit$ibit -offvalue 0 \
+            grid [ttk::checkbutton $frame.bit$ibit -offvalue 0 \
                   -onvalue 1 -variable [myvar bits_($ibit)] \
-                  -text $bitlabel] -side left
+                  -text $bitlabel] -row $grow \
+                  -column $gcol -sticky news
             incr ibit
+            incr gcol
+            if {$gcol == 4} {
+                incr grow
+                set gcol 0
+            }
+        }
+        grid columnconfigure $frame 0 -weight 1 
+        grid columnconfigure $frame 1 -weight 1 
+        grid columnconfigure $frame 2 -weight 1 
+        grid columnconfigure $frame 3 -weight 1
+        grid [ttk::button $frame.update -text [_m "Label|Update"] \
+              -command [mymethod _update]] -row 2 -column 0 \
+              -columnspan 4 -sticky news
+    }
+    method _update {} {
+        if {$options(-changedcallback) ne {}} {
+            uplevel #0 "$options(-changedcallback) 1 $win"
         }
     }
 }
@@ -296,30 +331,48 @@ snit::widget ServiceMode {
         wm withdraw $win
         wm transient $win [winfo toplevel [winfo parent $win]]
         wm protocol $win WM_DELETE_WINDOW [mymethod hide]
-        install scroll using ScrolledWindow $win.scroll
+        install scroll using ScrolledWindow $win.scroll \
+              -scrollbar vertical -auto vertical
         pack $scroll -expand yes -fill both
-        install scrollframe using ScrollableFrame $win.scrollframe
+        install scrollframe using ScrollableFrame $win.scrollframe \
+              -constrainedwidth yes
         $scroll setwidget $scrollframe
         set frame [$scrollframe getframe]
-        set irow 0
+        set minwidth 0
         foreach cv [lsort -integer [array names CV_WidgetConstructors]] {
             set constructorFun [lindex $CV_WidgetConstructors($cv) 0]
             set constructorArgs [lrange $CV_WidgetConstructors($cv) 1 end]
             set cvWidgets_($cv) \
-                  [eval [list $constructorFun $frame.cv$cv] \
+                  [eval [list $constructorFun $frame.cv$cv \
+                         -changedcallback [mymethod _updateCV]] \
                    $constructorArgs]
-            grid $cvWidgets_($cv) -column 0 -row $irow -sticky news
-            incr irow
+            pack $cvWidgets_($cv) -fill x
+            update idle
+            set cvw [winfo reqwidth $cvWidgets_($cv)]
+            if {$cvw > $minwidth} {set minwidth $cvw}
+            puts stderr "*** $type create $self: minwidth = $minwidth"
         }
+        incr minwidth 20
         install buttons using ButtonBox $win.buttons \
               -orient horizontal
         pack $buttons -fill x
         $buttons add ttk::button close -text [_m "Label|Close"] \
               -command [mymethod hide]
-        
+        $buttons add ttk::button loadall  -text [_m "Label|Load All"] \
+              -command [mymethod loadall]
+        update idle
+        wm geometry $win [format {=%dx%d} $minwidth \
+                          [winfo reqheight $win]]
+        wm minsize  $win $minwidth [winfo reqheight $win]
     }
     method show {} {wm deiconify $win}
     method hide {} {wm withdraw $win}
+    method loadall {} {
+        tk_messageBox -message "Not Implemented Yet: loadall"
+    }
+    method _updateCV {size W} {
+        tk_messageBox -message "Not Implemented Yet: _updateCV $size [$W cget -bytenumber] [$W get]"
+    }
 }
 
 
