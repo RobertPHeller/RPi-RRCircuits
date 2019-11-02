@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Thu Oct 31 10:11:53 2019
-#  Last Modified : <191101.2242>
+#  Last Modified : <191102.0814>
 #
 #  Description	
 #
@@ -71,10 +71,10 @@ snit::widget CVByte {
               -textvariable [myvar _spinvalue]
         grid $spinbox -row 0 -column 0 -columnspan 2 -sticky news
         grid [ttk::button $win.update -text [_m "Label|Update"] \
-              -command [mymethod _update]] -row 1 -column 0 \
+              -command [mymethod update]] -row 1 -column 0 \
               -sticky news
         grid [ttk::button $win.load -text [_m "Label|Load"] \
-              -command [mymethod _load]] -row 1 -column 1 \
+              -command [mymethod load]] -row 1 -column 1 \
               -sticky news
         grid columnconfigure $win 0 -weight 1 
         grid columnconfigure $win 1 -weight 1 
@@ -83,12 +83,12 @@ snit::widget CVByte {
         uint8_t validate $value
         set _spinvalue $value
     }
-    method _update {} {
+    method update {} {
         if {$options(-callback) ne {}} {
-            uplevel #0 "$options(-changedcallback) update 1 $win"
+            uplevel #0 "$options(-callback) update 1 $win"
         }
     }
-    method _load {} {
+    method load {} {
         if {$options(-callback) ne {}} {
             uplevel #0 "$options(-callback) load 1 $win"
         }
@@ -117,10 +117,10 @@ snit::widget CVWord {
               -textvariable [myvar _spinvalue]
         grid $spinbox -row 0 -column 0 -columnspan 2 -sticky news
         grid [ttk::button $win.update -text [_m "Label|Update"] \
-              -command [mymethod _update]] -row 1 -column 0 \
+              -command [mymethod update]] -row 1 -column 0 \
               -sticky news
         grid [ttk::button $win.load -text [_m "Label|Load"] \
-              -command [mymethod _load]] -row 1 -column 1 \
+              -command [mymethod load]] -row 1 -column 1 \
               -sticky news
         grid columnconfigure $win 0 -weight 1 
         grid columnconfigure $win 1 -weight 1 
@@ -129,12 +129,12 @@ snit::widget CVWord {
         uint16_t validate $value
         set _spinvalue $value
     }
-    method _update {} {
+    method update {} {
         if {$options(-callback) ne {}} {
             uplevel #0 "$options(-callback) update 2 $win"
         }
     }
-    method _load {} {
+    method load {} {
         if {$options(-callback) ne {}} {
             uplevel #0 "$options(-callback) load 2 $win"
         }
@@ -148,7 +148,7 @@ snit::widget CVReadonly {
     option -callback {}
     hulltype ttk::labelframe
     component entry
-    variable _entryvalue
+    variable _entryvalue 0
     delegate method * to entry except {cget configure xview}
     constructor {args} {
         $self configurelist $args
@@ -162,7 +162,7 @@ snit::widget CVReadonly {
               -textvariable _entryvalue
         grid $entry -row 0 -column 0 -sticky news
         grid [ttk::button $win.load -text [_m "Label|Load"] \
-              -command [mymethod _load]] -row 1 -column 0 \
+              -command [mymethod load]] -row 1 -column 0 \
               -sticky news
         grid columnconfigure $win 0 -weight 1 
     }
@@ -170,11 +170,12 @@ snit::widget CVReadonly {
         uint8_t validate $value
         set _entryvalue $value
     }
-    method _load {} {
+    method load {} {
         if {$options(-callback) ne {}} {
-            uplevel #0 "$options(-callback) load 2 $win"
+            uplevel #0 "$options(-callback) load 1 $win"
         }
     }
+    method update {} {}
 }
 
 snit::listtype BitFields -minlen 8 -maxlen 8
@@ -252,18 +253,18 @@ snit::widget CVBitField {
         grid columnconfigure $frame 2 -weight 1 
         grid columnconfigure $frame 3 -weight 1
         grid [ttk::button $frame.update -text [_m "Label|Update"] \
-              -command [mymethod _update]] -row 2 -column 0 \
+              -command [mymethod update]] -row 2 -column 0 \
               -columnspan 2 -sticky news
         grid [ttk::button $frame.load -text [_m "Label|Load"] \
-              -command [mymethod _load]] -row 2 -column 2 \
+              -command [mymethod load]] -row 2 -column 2 \
               -columnspan 2 -sticky news
     }
-    method _update {} {
+    method update {} {
         if {$options(-callback) ne {}} {
             uplevel #0 "$options(-callback) update 1 $win"
         }
     }
-    method _load {} {
+    method load {} {
         if {$options(-callback) ne {}} {
             uplevel #0 "$options(-callback) load 1 $win"
         }
@@ -430,6 +431,8 @@ snit::widget ServiceMode {
               -command [mymethod hide]
         $buttons add ttk::button loadall  -text [_m "Label|Load All"] \
               -command [mymethod loadall]
+        $buttons add ttk::button updateall  -text [_m "Label|Update All"] \
+              -command [mymethod updateall]
         update idle
         wm geometry $win [format {=%dx%d} $minwidth \
                           [winfo reqheight $win]]
@@ -438,10 +441,17 @@ snit::widget ServiceMode {
     method show {} {wm deiconify $win}
     method hide {} {wm withdraw $win}
     method loadall {} {
-        tk_messageBox -message "Not Implemented Yet: loadall"
+        foreach cv [lsort -integer [array names CV_WidgetConstructors]] {
+            $cvWidgets_($cv) load
+        }
+    }
+    method updateall {} {
+        foreach cv [lsort -integer [array names CV_WidgetConstructors]] {
+            $cvWidgets_($cv) update
+        }
     }
     method _CVcallback {mode size W} {
-        tk_messageBox -message "Not Implemented Yet: _CVcallback $mode $size [$W cget -bytenumber] [$W get]"
+        puts stderr "*** $self _CVcallback: $mode $size [$W cget -bytenumber] [$W get]"
     }
 }
 
