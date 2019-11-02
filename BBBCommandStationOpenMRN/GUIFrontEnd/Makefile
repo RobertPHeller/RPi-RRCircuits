@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sat Oct 26 09:48:55 2019
-#  Last Modified : <191031.1204>
+#  Last Modified : <191102.1208>
 #
 #  Description	
 #
@@ -84,7 +84,8 @@ SCRIPTS = mainwindow.tcl Version.tcl $(MRRSCRIPTLIB)/snitscrollw.tcl \
 	  IconsAndImages.tcl \
 	  $(MRRSCRIPTLIB)/snitLFs.tcl \
 	  ServiceMode.tcl \
-	  $(MRRSCRIPTLIB)/snitscrollableframe.tcl
+	  $(MRRSCRIPTLIB)/snitscrollableframe.tcl \
+	  $(MRRSCRIPTLIB)/snitScrollNotebook.tcl
 	  
 IMAGES = $(wildcard $(MRRSCRIPTLIB)/*.png) \
 	 $(wildcard $(MRRSCRIPTLIB)/*.xbm) \

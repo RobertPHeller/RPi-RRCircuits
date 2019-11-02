@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Thu Oct 31 10:11:53 2019
-#  Last Modified : <191102.0814>
+#  Last Modified : <191102.1324>
 #
 #  Description	
 #
@@ -46,6 +46,7 @@ package require snit
 package require LabelFrames
 package require ScrollableFrame
 package require ScrollWindow
+package require ScrollTabNotebook
 
 snit::integer CVAddress -min 1 -max 1024
 
@@ -72,10 +73,10 @@ snit::widget CVByte {
         grid $spinbox -row 0 -column 0 -columnspan 2 -sticky news
         grid [ttk::button $win.update -text [_m "Label|Update"] \
               -command [mymethod update]] -row 1 -column 0 \
-              -sticky news
+              -sticky ns
         grid [ttk::button $win.load -text [_m "Label|Load"] \
               -command [mymethod load]] -row 1 -column 1 \
-              -sticky news
+              -sticky ns
         grid columnconfigure $win 0 -weight 1 
         grid columnconfigure $win 1 -weight 1 
     }
@@ -118,10 +119,10 @@ snit::widget CVWord {
         grid $spinbox -row 0 -column 0 -columnspan 2 -sticky news
         grid [ttk::button $win.update -text [_m "Label|Update"] \
               -command [mymethod update]] -row 1 -column 0 \
-              -sticky news
+              -sticky ns
         grid [ttk::button $win.load -text [_m "Label|Load"] \
               -command [mymethod load]] -row 1 -column 1 \
-              -sticky news
+              -sticky ns
         grid columnconfigure $win 0 -weight 1 
         grid columnconfigure $win 1 -weight 1 
     }
@@ -160,11 +161,12 @@ snit::widget CVReadonly {
         }
         install entry using ttk::entry $win.entry -state readonly \
               -textvariable _entryvalue
-        grid $entry -row 0 -column 0 -sticky news
+        grid $entry -row 0 -column 0 -columnspan 2 -sticky news
         grid [ttk::button $win.load -text [_m "Label|Load"] \
-              -command [mymethod load]] -row 1 -column 0 \
-              -sticky news
+              -command [mymethod load]] -row 1 -column 1 \
+              -sticky ns
         grid columnconfigure $win 0 -weight 1 
+        grid columnconfigure $win 1 -weight 1 
     }
     method set {value} {
         uint8_t validate $value
@@ -180,6 +182,7 @@ snit::widget CVReadonly {
 
 snit::listtype BitFields -minlen 8 -maxlen 8
 snit::integer BitNumber -min 0 -max 7
+snit::integer FieldColumns -min 2 -max 8
 
 snit::widget CVBitField {
     option -bytenumber -default 1 -type CVAddress -readonly yes
@@ -187,6 +190,7 @@ snit::widget CVBitField {
     option -callback {}
     option -fieldlables -type BitFields -readonly yes -default \
           {Bit0 Bit1 Bit2 Bit3 Bit4 Bit5 Bit6 Bit7}
+    option -columns -default 2 -type FieldColumns -readonly yes
     variable bits_ -array {
         0 0
         1 0
@@ -243,21 +247,23 @@ snit::widget CVBitField {
                   -column $gcol -sticky news
             incr ibit
             incr gcol
-            if {$gcol == 4} {
+            if {$gcol == $options(-columns)} {
                 incr grow
                 set gcol 0
             }
         }
-        grid columnconfigure $frame 0 -weight 1 
-        grid columnconfigure $frame 1 -weight 1 
-        grid columnconfigure $frame 2 -weight 1 
-        grid columnconfigure $frame 3 -weight 1
+        for {set icol 0} {$icol < $options(-columns)} {incr icol} {
+            grid columnconfigure $frame $icol -weight 1
+        }
         grid [ttk::button $frame.update -text [_m "Label|Update"] \
-              -command [mymethod update]] -row 2 -column 0 \
-              -columnspan 2 -sticky news
+              -command [mymethod update]] -row $grow -column 0 \
+              -columnspan [expr {$options(-columns) / 2}] \
+              -sticky ns
         grid [ttk::button $frame.load -text [_m "Label|Load"] \
-              -command [mymethod load]] -row 2 -column 2 \
-              -columnspan 2 -sticky news
+              -command [mymethod load]] -row $grow \
+              -column [expr {$options(-columns) / 2}] \
+              -columnspan [expr {$options(-columns) / 2}] \
+              -sticky ns
     }
     method update {} {
         if {$options(-callback) ne {}} {
@@ -276,77 +282,101 @@ snit::widget ServiceMode {
     option -commandstationsocket
     typevariable CV_Labels -array {}
     typevariable CV_WidgetConstructors -array {}
+    typevariable CV_Tab -array {}
     typeconstructor {
         set CV_Labels(1) [_m "Label|Primary Address"]
         set CV_WidgetConstructors(1) \
               [list CVByte -bytenumber 1 -label $CV_Labels(1)]
+        set CV_Tab(1) requiredCVs
         set CV_Labels(2) [_m "Label|Start Voltage"]
         set CV_WidgetConstructors(2) \
               [list CVByte -bytenumber 2 -label $CV_Labels(2)]
+        set CV_Tab(2) requiredCVs
         set CV_Labels(3) [_m "Label|Acceleration Rate"]
         set CV_WidgetConstructors(3) \
               [list CVByte -bytenumber 3 -label $CV_Labels(3)]
+        set CV_Tab(3) requiredCVs
         set CV_Labels(4) [_m "Label|Deceleration Rate"]
         set CV_WidgetConstructors(4) \
               [list CVByte -bytenumber 4 -label $CV_Labels(4)]
+        set CV_Tab(4) requiredCVs
         set CV_Labels(5) [_m "Label|High Voltage"]
         set CV_WidgetConstructors(5) \
               [list CVByte -bytenumber 5 -label $CV_Labels(5)]
+        set CV_Tab(5) optCommonCVsGroup1
         set CV_Labels(6) [_m "Label|Mid Voltage"]
         set CV_WidgetConstructors(6) \
               [list CVByte -bytenumber 6 -label $CV_Labels(6)]
+        set CV_Tab(6) optCommonCVsGroup1
         set CV_Labels(7) [_m "Label|Manufacturer Version Number"]
         set CV_WidgetConstructors(7) \
               [list CVReadonly -bytenumber 7 -label $CV_Labels(7)]
+        set CV_Tab(7) requiredCVs
         set CV_Labels(8) [_m "Label|Manufacturer ID"]
         set CV_WidgetConstructors(8) \
               [list CVReadonly -bytenumber 8 -label $CV_Labels(8)]
+        set CV_Tab(8) requiredCVs
         set CV_Labels(9) [_m "Label|Total PWM Period"]
         set CV_WidgetConstructors(9) \
               [list CVByte -bytenumber 9 -label $CV_Labels(9)]
+        set CV_Tab(9) optCommonCVsGroup1
         set CV_Labels(10) [_m "Label|EMF Feedback Cutout"]
         set CV_WidgetConstructors(10) \
               [list CVByte -bytenumber 10 -label $CV_Labels(10)]
+        set CV_Tab(10) optCommonCVsGroup1
         set CV_Labels(11) [_m "Label|Packet time-out Value"]
         set CV_WidgetConstructors(11) \
               [list CVByte -bytenumber 11 -label $CV_Labels(11)]
+        set CV_Tab(11) requiredCVs
         set CV_Labels(12) [_m "Label|Power Source Conversion"]
         set CV_WidgetConstructors(12) \
               [list CVByte -bytenumber 12 -label $CV_Labels(12)]
+        set CV_Tab(12) optCommonCVsGroup1
         set CV_Labels(13) [_m "Label|Alternate Mode Function Status"]
         set CV_WidgetConstructors(13) \
               [list CVByte -bytenumber 13 -label $CV_Labels(13)]
+        set CV_Tab(13) optCommonCVsGroup1
         set CV_Labels(14) [_m "Label|Alternate Mode Function 2 Status"]
         set CV_WidgetConstructors(14) \
               [list CVByte -bytenumber 14 -label $CV_Labels(14)]
+        set CV_Tab(14) optCommonCVsGroup1
         set CV_Labels(15) [_m "Label|Decoder Lock A"]
         set CV_WidgetConstructors(15) \
               [list CVByte -bytenumber 15 -label $CV_Labels(15)]
+        set CV_Tab(15) optCommonCVsGroup1
         set CV_Labels(16) [_m "Label|Decoder Lock B"]
         set CV_WidgetConstructors(16) \
               [list CVByte -bytenumber 16 -label $CV_Labels(16)]
+        set CV_Tab(16) optCommonCVsGroup1
         set CV_Labels(17) [_m "Label|Extended Address High"]
         set CV_Labels(18) [_m "Label|Extended Address Low"]
         set CV_WidgetConstructors(17) \
               [list CVWord -bytenumber 17 -label [_m "Label|Extended Address"]]
+        set CV_Tab(17) optCommonCVsGroup1
         set CV_Labels(19) [_m "Label|Consist Address"]
         set CV_WidgetConstructors(19) \
               [list CVByte -bytenumber 19 -label $CV_Labels(19)]
+        set CV_Tab(19) optCommonCVsGroup2
         set CV_Labels(21) [_m "Label|Consist Address Active for F1-F8"]
         set CV_WidgetConstructors(21) \
               [list CVByte -bytenumber 21 -label $CV_Labels(21)]
+        set CV_Tab(21) optCommonCVsGroup2
         set CV_Labels(22) [_m "Label|Consist Address Active for FL and F9-F12"]
         set CV_WidgetConstructors(22) \
               [list CVByte -bytenumber 22 -label $CV_Labels(22)]
+        set CV_Tab(22) optCommonCVsGroup2
         set CV_Labels(23) [_m "Label|Acceleration Adjustment"]
         set CV_WidgetConstructors(23) \
               [list CVByte -bytenumber 23 -label $CV_Labels(23)]
+        set CV_Tab(23) optCommonCVsGroup2
         set CV_Labels(24) [_m "Label|Deceleration Adjustment"]
         set CV_WidgetConstructors(24) \
               [list CVByte -bytenumber 24 -label $CV_Labels(24)]
+        set CV_Tab(24) optCommonCVsGroup2
         set CV_Labels(25) [_m "Label|Speed Table/Mid Range Cab Speed Step"]
         set CV_WidgetConstructors(25) \
               [list CVByte -bytenumber 25 -label $CV_Labels(25)]
+        set CV_Tab(25) optCommonCVsGroup2
         set CV_Labels(27) [_m "Label|Decoder Automatic Stopping Configuration"]
         set CV_WidgetConstructors(27) \
               [list CVBitField -bytenumber 27 \
@@ -360,6 +390,7 @@ snit::widget ServiceMode {
                 [_m "Label|Forward DC"] \
                 [_m "Label|Reserved"] \
                 [_m "Label|Reserved"]]]
+        set CV_Tab(27) optCommonCVsGroup2
         set CV_Labels(28) [_m "Label|Bi-Directional Communication Configuration"]
         set CV_WidgetConstructors(28) \
               [list CVBitField -bytenumber 28 \
@@ -373,7 +404,8 @@ snit::widget ServiceMode {
                 [_m "Label|Reserved"] \
                 [_m "Label|Reserved"] \
                 [_m "Label|Reserved"]]]
-        set CV_Labels(29) [_m "Label|Configurations Supported"]
+        set CV_Tab(28) optCommonCVsGroup2
+        set CV_Labels(29) [_m "Label|Configuration Data"]
         set CV_WidgetConstructors(29) \
               [list CVBitField -bytenumber 29 \
                -label $CV_Labels(29) \
@@ -386,43 +418,327 @@ snit::widget ServiceMode {
                 [_m "Label|Entended Addressing"] \
                 [_m "Label|Reserved"] \
                 [_m "Label|Decoder type"]]]
+        set CV_Tab(29) requiredCVs
         set CV_Labels(30) [_m "Label|ERROR Information"]
         set CV_WidgetConstructors(30) \
               [list CVByte -bytenumber 30 -label $CV_Labels(30)]
-        set CV_Labels(31) [_m "Label|Index High Byte"]
-        set CV_Labels(32) [_m "Label|Index Low Byte"]
-        set CV_WidgetConstructors(31) \
-              [list CVWord -bytenumber 31 -label [_m "Label|Index"]]
+        set CV_Tab(30) optCommonCVsGroup3
+        set CV_Labels(33) [_m "Label|Forward Headlight FL(f)"]
+        set CV_WidgetConstructors(33) \
+              [list CVBitField -bytenumber 33 \
+               -label $CV_Labels(33) \
+               -columns 8 -fieldlables \
+               [list [_m "Label|Output 1"] \
+                [_m "Label|Output 2"] \
+                [_m "Label|Output 3"] \
+                [_m "Label|Output 4"] \
+                [_m "Label|Output 5"] \
+                [_m "Label|Output 6"] \
+                [_m "Label|Output 7"] \
+                [_m "Label|Output 8"]]]
+        set CV_Tab(33) optCommonCVsGroup3
+        set CV_Labels(34) [_m "Label|Reverse Headlight FL(4)"]
+        set CV_WidgetConstructors(34) \
+              [list CVBitField -bytenumber 34 \
+               -label $CV_Labels(34) \
+               -columns 8 -fieldlables \
+               [list [_m "Label|Output 1"] \
+                [_m "Label|Output 2"] \
+                [_m "Label|Output 3"] \
+                [_m "Label|Output 4"] \
+                [_m "Label|Output 5"] \
+                [_m "Label|Output 6"] \
+                [_m "Label|Output 7"] \
+                [_m "Label|Output 8"]]]
+        set CV_Tab(34) optCommonCVsGroup3
+        set CV_Labels(35) [_m "Label|Function 1"]
+        set CV_WidgetConstructors(35) \
+              [list CVBitField -bytenumber 35 \
+               -label $CV_Labels(35) \
+               -columns 8 -fieldlables \
+               [list [_m "Label|Output 1"] \
+                [_m "Label|Output 2"] \
+                [_m "Label|Output 3"] \
+                [_m "Label|Output 4"] \
+                [_m "Label|Output 5"] \
+                [_m "Label|Output 6"] \
+                [_m "Label|Output 7"] \
+                [_m "Label|Output 8"]]]
+        set CV_Tab(35) optCommonCVsGroup3
+        set CV_Labels(36) [_m "Label|Function 2"]
+        set CV_WidgetConstructors(36) \
+              [list CVBitField -bytenumber 36 \
+               -label $CV_Labels(36) \
+               -columns 8 -fieldlables \
+               [list [_m "Label|Output 1"] \
+                [_m "Label|Output 2"] \
+                [_m "Label|Output 3"] \
+                [_m "Label|Output 4"] \
+                [_m "Label|Output 5"] \
+                [_m "Label|Output 6"] \
+                [_m "Label|Output 7"] \
+                [_m "Label|Output 8"]]]
+        set CV_Tab(36) optCommonCVsGroup3
+        set CV_Labels(37) [_m "Label|Function 3"]
+        set CV_WidgetConstructors(37) \
+              [list CVBitField -bytenumber 37 \
+               -label $CV_Labels(37) \
+               -columns 8 -fieldlables \
+               [list [_m "Label|Output 1"] \
+                [_m "Label|Output 2"] \
+                [_m "Label|Output 3"] \
+                [_m "Label|Output 4"] \
+                [_m "Label|Output 5"] \
+                [_m "Label|Output 6"] \
+                [_m "Label|Output 7"] \
+                [_m "Label|Output 8"]]]
+        set CV_Tab(37) optCommonCVsGroup3
+        set CV_Labels(38) [_m "Label|Function 4"]
+        set CV_WidgetConstructors(38) \
+              [list CVBitField -bytenumber 38 \
+               -label $CV_Labels(38) \
+               -columns 8 -fieldlables \
+               [list [_m "Label|Output 4"] \
+                [_m "Label|Output 5"] \
+                [_m "Label|Output 6"] \
+                [_m "Label|Output 7"] \
+                [_m "Label|Output 8"] \
+                [_m "Label|Output 9"] \
+                [_m "Label|Output 10"] \
+                [_m "Label|Output 11"]]]
+        set CV_Tab(38) optCommonCVsGroup3
+        set CV_Labels(39) [_m "Label|Function 5"]
+        set CV_WidgetConstructors(39) \
+              [list CVBitField -bytenumber 39 \
+               -label $CV_Labels(39) \
+               -columns 8 -fieldlables \
+               [list [_m "Label|Output 4"] \
+                [_m "Label|Output 5"] \
+                [_m "Label|Output 6"] \
+                [_m "Label|Output 7"] \
+                [_m "Label|Output 8"] \
+                [_m "Label|Output 9"] \
+                [_m "Label|Output 10"] \
+                [_m "Label|Output 11"]]]
+        set CV_Tab(39) optCommonCVsGroup3
+        set CV_Labels(40) [_m "Label|Function 6"]
+        set CV_WidgetConstructors(40) \
+              [list CVBitField -bytenumber 40 \
+               -label $CV_Labels(40) \
+               -columns 8 -fieldlables \
+               [list [_m "Label|Output 4"] \
+                [_m "Label|Output 5"] \
+                [_m "Label|Output 6"] \
+                [_m "Label|Output 7"] \
+                [_m "Label|Output 8"] \
+                [_m "Label|Output 9"] \
+                [_m "Label|Output 10"] \
+                [_m "Label|Output 11"]]]
+        set CV_Tab(40) optCommonCVsGroup4
+        set CV_Labels(41) [_m "Label|Function 7"]
+        set CV_WidgetConstructors(41) \
+              [list CVBitField -bytenumber 41 \
+               -label $CV_Labels(41) \
+               -columns 8 -fieldlables \
+               [list [_m "Label|Output 4"] \
+                [_m "Label|Output 5"] \
+                [_m "Label|Output 6"] \
+                [_m "Label|Output 7"] \
+                [_m "Label|Output 8"] \
+                [_m "Label|Output 9"] \
+                [_m "Label|Output 10"] \
+                [_m "Label|Output 11"]]]
+        set CV_Tab(41) optCommonCVsGroup4
+        set CV_Labels(42) [_m "Label|Function 8"]
+        set CV_WidgetConstructors(42) \
+              [list CVBitField -bytenumber 42 \
+               -label $CV_Labels(42) \
+               -columns 8 -fieldlables \
+               [list [_m "Label|Output 4"] \
+                [_m "Label|Output 5"] \
+                [_m "Label|Output 6"] \
+                [_m "Label|Output 7"] \
+                [_m "Label|Output 8"] \
+                [_m "Label|Output 9"] \
+                [_m "Label|Output 10"] \
+                [_m "Label|Output 11"]]]
+        set CV_Tab(42) optCommonCVsGroup4
+        set CV_Labels(43) [_m "Label|Function 9"]
+        set CV_WidgetConstructors(43) \
+              [list CVBitField -bytenumber 43 \
+               -label $CV_Labels(43) \
+               -columns 8 -fieldlables \
+               [list [_m "Label|Output 7"] \
+                [_m "Label|Output 8"] \
+                [_m "Label|Output 9"] \
+                [_m "Label|Output 10"] \
+                [_m "Label|Output 11"] \
+                [_m "Label|Output 12"] \
+                [_m "Label|Output 13"] \
+                [_m "Label|Output 14"]]]
+        set CV_Tab(43) optCommonCVsGroup4
+        set CV_Labels(44) [_m "Label|Function 10"]
+        set CV_WidgetConstructors(44) \
+              [list CVBitField -bytenumber 44 \
+               -label $CV_Labels(44) \
+               -columns 8 -fieldlables \
+               [list [_m "Label|Output 7"] \
+                [_m "Label|Output 8"] \
+                [_m "Label|Output 9"] \
+                [_m "Label|Output 10"] \
+                [_m "Label|Output 11"] \
+                [_m "Label|Output 12"] \
+                [_m "Label|Output 13"] \
+                [_m "Label|Output 14"]]]
+        set CV_Tab(44) optCommonCVsGroup4
+        set CV_Labels(45) [_m "Label|Function 11"]
+        set CV_WidgetConstructors(45) \
+              [list CVBitField -bytenumber 45 \
+               -label $CV_Labels(45) \
+               -columns 8 -fieldlables \
+               [list [_m "Label|Output 7"] \
+                [_m "Label|Output 8"] \
+                [_m "Label|Output 9"] \
+                [_m "Label|Output 10"] \
+                [_m "Label|Output 11"] \
+                [_m "Label|Output 12"] \
+                [_m "Label|Output 13"] \
+                [_m "Label|Output 14"]]]
+        set CV_Tab(45) optCommonCVsGroup4
+        set CV_Labels(46) [_m "Label|Function 12"]
+        set CV_WidgetConstructors(46) \
+              [list CVBitField -bytenumber 46 \
+               -label $CV_Labels(46) \
+               -columns 8 -fieldlables \
+               [list [_m "Label|Output 7"] \
+                [_m "Label|Output 8"] \
+                [_m "Label|Output 9"] \
+                [_m "Label|Output 10"] \
+                [_m "Label|Output 11"] \
+                [_m "Label|Output 12"] \
+                [_m "Label|Output 13"] \
+                [_m "Label|Output 14"]]]
+        set CV_Tab(46) optCommonCVsGroup4
+        set CV_Labels(65) [_m "Label|Kick Start"]
+        set CV_WidgetConstructors(65) \
+              [list CVByte -bytenumber 65 -label $CV_Labels(65)]
+        set CV_Tab(65) additionalCVsGroup1
+        set CV_Labels(66) [_m "Label|Forward Trim"]
+        set CV_WidgetConstructors(66) \
+              [list CVByte -bytenumber 66 -label $CV_Labels(66)]
+        set CV_Tab(66) additionalCVsGroup1
+        for {set i 67} {$i <= 94} {incr i} {
+            set CV_Labels($i) [_m "Label|Speed table element %d" [expr {$i - 66}]]
+            set CV_WidgetConstructors($i) \
+                  [list CVByte -bytenumber $i -label $CV_Labels($i)]
+            set CV_Tab($i) additionalCVsGroup1
+        }
+        set CV_Labels(95) [_m "Label|Reverse Trim"]
+        set CV_WidgetConstructors(95) \
+              [list CVByte -bytenumber 95 -label $CV_Labels(95)]
+        set CV_Tab(95) additionalCVsGroup1
+        set CV_Labels(105) [_m "Label|User Identifier #1"]
+        set CV_WidgetConstructors(105) \
+              [list CVByte -bytenumber 105 -label $CV_Labels(105)]
+        set CV_Tab(105) additionalCVsGroup1
+        set CV_Labels(106) [_m "Label|User Identifier #2"]
+        set CV_WidgetConstructors(106) \
+              [list CVByte -bytenumber 106 -label $CV_Labels(106)]
+        set CV_Tab(106) additionalCVsGroup1
+        set CV_Labels(892) [_m "Label|Decoder Load"]
+        set CV_WidgetConstructors(892) \
+              [list CVByte -bytenumber 892 -label $CV_Labels(892)]
+        set CV_Tab(892) additionalCVsGroup2
+        set CV_Labels(893) [_m "Label|Dynamic Flags"]a
+        set CV_WidgetConstructors(893) \
+              [list CVByte -bytenumber 893 -label $CV_Labels(893)]
+        set CV_Tab(893) additionalCVsGroup2
+        set CV_Labels(894) [_m "Label|Fuel/Coal"]
+        set CV_WidgetConstructors(894) \
+              [list CVByte -bytenumber 894 -label $CV_Labels(894)]
+        set CV_Tab(894) additionalCVsGroup2
+        set CV_Labels(895) [_m "Label|Water"]
+        set CV_WidgetConstructors(895) \
+              [list CVByte -bytenumber 895 -label $CV_Labels(895)]
+        set CV_Tab(895) additionalCVsGroup2
     }
     variable cvWidgets_ -array {}
-    component scroll
-    component scrollframe
+    #component scroll
+    #component scrollframe
+    component notebook
+    component  requiredCVs
+    component  optCommonCVsGroup1
+    component  optCommonCVsGroup2
+    component  optCommonCVsGroup3
+    component  optCommonCVsGroup4
+    component  additionalCVsGroup1
+    component  additionalCVsGroup2
+    component  customCVs
     component buttons
+    component indexpage
+    component  pageindex
+    variable   pageindex_ 0
+    component  pageoffset
+    variable   pageoffset_ 0
+    component  pagecv
+    variable   pagecv_ 0
+    component  indexpagebuttons
     constructor {args} {
         wm withdraw $win
         wm transient $win [winfo toplevel [winfo parent $win]]
         wm protocol $win WM_DELETE_WINDOW [mymethod hide]
-        install scroll using ScrolledWindow $win.scroll \
-              -scrollbar vertical -auto vertical
-        pack $scroll -expand yes -fill both
-        install scrollframe using ScrollableFrame $win.scrollframe \
-              -constrainedwidth yes
-        $scroll setwidget $scrollframe
-        set frame [$scrollframe getframe]
-        set minwidth 0
+        #install scroll using ScrolledWindow $win.scroll \
+        #      -scrollbar vertical -auto vertical
+        #pack $scroll -expand yes -fill both
+        #install scrollframe using ScrollableFrame $win.scrollframe \
+        #      -constrainedwidth yes
+        #$scroll setwidget $scrollframe
+        #set frame [$scrollframe getframe]
+        install notebook using ScrollTabNotebook $win.notebook
+        pack $notebook -expand yes -fill both
+        foreach c {requiredCVs optCommonCVsGroup1 optCommonCVsGroup2 optCommonCVsGroup3 optCommonCVsGroup4 additionalCVsGroup1 additionalCVsGroup2 customCVs} \
+              l [list [_m "Label|Required CVs"] [_m "Label|Optional Common CVs, Group 1"] [_m "Label|Optional Common CVs, Group 2"] [_m "Label|Optional Common CVs, Group 3"] [_m "Label|Optional Common CVs, Group 4"] [_m "Label|Additional Optional CVs, Group 1"] [_m "Label|Additional Optional CVs, Group 2"] [_m "Label|Custom CVs"]] {
+            install $c using ttk::frame $notebook.$c
+            $notebook add [set $c] -text $l -sticky news
+        }
+        
+        #set minwidth 0
         foreach cv [lsort -integer [array names CV_WidgetConstructors]] {
             set constructorFun [lindex $CV_WidgetConstructors($cv) 0]
             set constructorArgs [lrange $CV_WidgetConstructors($cv) 1 end]
+            set frame [set $CV_Tab($cv)]
             set cvWidgets_($cv) \
                   [eval [list $constructorFun $frame.cv$cv \
                          -callback [mymethod _CVcallback]] \
                    $constructorArgs]
             pack $cvWidgets_($cv) -fill x
-            update idle
-            set cvw [winfo reqwidth $cvWidgets_($cv)]
-            if {$cvw > $minwidth} {set minwidth $cvw}
-            puts stderr "*** $type create $self: minwidth = $minwidth"
+            #update idle
+            #set cvw [winfo reqwidth $cvWidgets_($cv)]
+            #if {$cvw > $minwidth} {set minwidth $cvw}
+            #puts stderr "*** $type create $self: minwidth = $minwidth"
         }
+        install indexpage using ttk::labelframe $additionalCVsGroup2.indexpage \
+              -labelanchor nw -text [_m "Label|Index page CVs"]
+        pack $indexpage -fill x
+        install pageindex using LabelSpinBox $indexpage.pageindex \
+              -label [_m "Label|Page number"] -from 0 -to 65525 \
+              -textvariable [myvar pageindex_]
+        pack $pageindex -fill x
+        install pageoffset  using LabelSpinBox $indexpage.pageoffset \
+              -label [_m "Label|Page Offset"] -from 0 -to 255 \
+              -textvariable [myvar pageoffset_]
+        pack $pageoffset -fill x
+        install pagecv using LabelSpinBox $indexpage.pagecv \
+              -label [_m "Label|Value"] \
+              -from 0 -to 255 -textvariable [myvar pagecv_]
+        pack $pagecv -fill x
+        install indexpagebuttons using ButtonBox  $indexpage.indexpagebuttons \
+              -orient horizontal
+        pack $indexpagebuttons -fill x
+        $indexpagebuttons add ttk::button update -text [_m "Label|Update"] \
+              -command [mymethod _updateIndexPage]
+        $indexpagebuttons add ttk::button load   -text [_m "Label|Load"] \
+              -command [mymethod _loadIndexPage]
         incr minwidth 20
         install buttons using ButtonBox $win.buttons \
               -orient horizontal
@@ -433,10 +749,12 @@ snit::widget ServiceMode {
               -command [mymethod loadall]
         $buttons add ttk::button updateall  -text [_m "Label|Update All"] \
               -command [mymethod updateall]
-        update idle
-        wm geometry $win [format {=%dx%d} $minwidth \
-                          [winfo reqheight $win]]
-        wm minsize  $win $minwidth [winfo reqheight $win]
+        $buttons add ttk::button custom -text [_m "Label|Add Custom CV"] \
+              -command [mymethod addCustomCV]
+        #update idle
+        #wm geometry $win [format {=%dx%d} $minwidth \
+        #                  [winfo reqheight $win]]
+        #wm minsize  $win $minwidth [winfo reqheight $win]
     }
     method show {} {wm deiconify $win}
     method hide {} {wm withdraw $win}
@@ -452,6 +770,8 @@ snit::widget ServiceMode {
     }
     method _CVcallback {mode size W} {
         puts stderr "*** $self _CVcallback: $mode $size [$W cget -bytenumber] [$W get]"
+    }
+    method addCustomCV {} {
     }
 }
 
