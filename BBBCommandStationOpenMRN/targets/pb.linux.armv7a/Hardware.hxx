@@ -4,7 +4,7 @@
 #include <os/LinuxGpio.hxx>
 #include "utils/GpioInitializer.hxx"
 
-#define HARDWARE_IMPL "BBB Command Station"
+#define HARDWARE_IMPL "PB Command Station"
 
 #define FANPin GpioOutputSafeLow
 #define EnablePin GpioOutputSafeHigh
@@ -19,15 +19,15 @@
 // DCC P8_12 (PRU 0, R30.14) [config-pin P8_12 pruout]
 //                           BeagleBone: P8_12, PocketBeagle: P2_24,
 //                           GPIO_44/1.12
-// EN  P8-10 GPIO_68 (2.04)  [config-pin P8_10 gpio]
-//                           BeagleBone: P8_10
+// EN  P8-10 GPIO_86 (2.22)  [config-pin P8_29 gpio]
+//                           PocketBeagle: P2_35
 // CSense P9-39 AIN0         [/sys/bus/iio/devices/iio:device0/in_voltage0_raw]
-//                           BeagleBone: P9_39
+//                           PocketBeagle: P1_19
 // TF  P8-11 GPIO_45 (1.13)  [config-pin P8_11 gpio_input]
-//                           Beaglebone: P8_11
+//                           PocketBeagle: P2_33
 
 #define CSenseMainAnalogChannel 0
-GPIO_PIN(MainEN, EnablePin, 68);
+GPIO_PIN(MainEN, EnablePin, 86);
 GPIO_PIN(MainTF, ThermFlagPin, 45);
 
 
@@ -37,12 +37,12 @@ GPIO_PIN(MainTF, ThermFlagPin, 45);
 // DCC P8-21 (PRU 1, R30.11) [config-pin P8_30 pruout] [disable video!]
 //                           BeagleBone: P8_30, PocketBeagle: P1_4,
 //                           GPIO_89/2.25
-// EN  P8-16 GPIO_46 (1.14)  [config-pin P8_16 gpio]
-//                           Beaglebone: P8_16
+// EN  P8-16 GPIO_87 (2.23)  [config-pin P8_29 gpio]
+//                           PocketBeagle: P1_2
 // CSense P9-40 AIN1         [/sys/bus/iio/devices/iio:device0/in_voltage1_raw]
-//                           Beaglebone: P9_40
+//                           Pocketbeagle: P1_21
 // TF  P8-18 GPIO_65 (2.01)  [config-pin P8_18 gpio_input]
-//                           Beaglebone: P8_18
+//                           Pocketbeagle: P2_17
 //
 
 #define CSenseProgAnalogChannel 1
@@ -51,7 +51,7 @@ GPIO_PIN(ProgTF, ThermFlagPin, 65);
 // Tempsensor:
 //
 // P9-37 AIN2                [/sys/bus/iio/devices/iio:device0/in_voltage2_raw]
-//                           Beaglebone: P9_37
+//                           Pocketbeagle: P1_23
 //
 
 #define TempsensorChannel 2
@@ -59,8 +59,7 @@ GPIO_PIN(ProgTF, ThermFlagPin, 65);
 // Fan Control (out):
 //
 // P8-14 GPIO_26 (0.26)      [config-pin P8_14 gpio]
-//                           Beaglebone: P8_14
-//
+//                           Pocketbeagle: P1_34
 
 GPIO_PIN(FanControl, FANPin, 26);
 

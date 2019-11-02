@@ -8,7 +8,7 @@
  *  Author        : $Author$
  *  Created By    : Robert Heller
  *  Created       : Fri Oct 25 16:47:20 2019
- *  Last Modified : <191025.1727>
+ *  Last Modified : <191102.1858>
  *
  *  Description	
  *
@@ -104,9 +104,9 @@ char payload[RPMSG_BUF_SIZE - RPMSG_BUF_HEADER_SIZE];
 volatile register unsigned int __R30;
 
 #ifdef MAINDCC
-#define DCCBit 14 /* __R30 bit 14 (on PRU0) => P8_12 */
+#define DCCBit 14 /* __R30 bit 14 (on PRU0) => P8_12 (BBB), P2_24 (PB) */
 #else
-#define DCCBit 12 /* __R30 bit 12 (on PRU1) => P8_21 */
+#define DCCBit 11 /* __R30 bit 11 (on PRU1) => P8_30 (BBB), P1_4  (PB) */
 #endif
 
 static void OneBit() 
