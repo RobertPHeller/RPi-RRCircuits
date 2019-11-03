@@ -1,0 +1,325 @@
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Sat 02 Nov 2019 23:04:05 EDT
+
+BeginCmp
+TimeStamp = /5DBE2BA8;
+Reference = C101;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE4E0/5DBDE932;
+Reference = C201;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE4E0/5DBDE933;
+Reference = C202;
+ValeurCmp = 15 uf 63V;
+IdModule  = C1V7;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE4E0/5DBDE937;
+Reference = C203;
+ValeurCmp = 47 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE50E/5DBDEBD1;
+Reference = C301;
+ValeurCmp = CP1;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DBDEFD3;
+Reference = C401;
+ValeurCmp = .01 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DBDEFD4;
+Reference = C402;
+ValeurCmp = .01 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DBDEFD5;
+Reference = C403;
+ValeurCmp = .01 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DBDEFD6;
+Reference = C404;
+ValeurCmp = .01 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE4E0/5DBDE93F;
+Reference = D201;
+ValeurCmp = SB240E;
+IdModule  = DO-41;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE4E0/5DBDE93C;
+Reference = D202;
+ValeurCmp = SB240E;
+IdModule  = DO-41;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE50E/5DBDEBD0;
+Reference = D301;
+ValeurCmp = GBU4A;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DBDEFEE;
+Reference = D401;
+ValeurCmp = 12V;
+IdModule  = DO-41;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DBDEFF1;
+Reference = H401;
+ValeurCmp = Fan;
+IdModule  = pin_strip_2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE4E0/5DBDE93A;
+Reference = J201;
+ValeurCmp = RJ45;
+IdModule  = RJ45_8N-S;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE4E0/5DBDE939;
+Reference = J202;
+ValeurCmp = RJ45;
+IdModule  = RJ45_8N-S;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE4E0/5DBDE936;
+Reference = JP201;
+ValeurCmp = Termination;
+IdModule  = pin_socket_2x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE50E/5DBDEBCE;
+Reference = K301;
+ValeurCmp = AC Power;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7C1FE0;
+Reference = P1;
+ValeurCmp = POCKETBEAGLE-P1;
+IdModule  = pin_socket_18x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C7C1FEF;
+Reference = P2;
+ValeurCmp = POCKETBEAGLE-P2;
+IdModule  = pin_socket_18x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBE467C;
+Reference = Q101;
+ValeurCmp = PN2222A;
+IdModule  = TO92;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DBDEFED;
+Reference = Q401;
+ValeurCmp = TIP120;
+IdModule  = TO220_VERT;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBE46B8;
+Reference = R101;
+ValeurCmp = R;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBE469A;
+Reference = R102;
+ValeurCmp = R;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE4E0/5DBDE934;
+Reference = R201;
+ValeurCmp = 60 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE4E0/5DBDE935;
+Reference = R202;
+ValeurCmp = 60 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DBDEFD7;
+Reference = R401;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DBDEFD8;
+Reference = R402;
+ValeurCmp = 1.591K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DBDEFD9;
+Reference = R403;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DBDEFDA;
+Reference = R404;
+ValeurCmp = 1.591K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DBDEFF2;
+Reference = R405;
+ValeurCmp = 1K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DBDEFEF;
+Reference = R406;
+ValeurCmp = R;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE50E/5DBDEBCD;
+Reference = SW301;
+ValeurCmp = DPDT;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE4E0/5DBDE93E;
+Reference = T201;
+ValeurCmp = + 15 in -;
+IdModule  = ScrewTerm2.54-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE4E0/5DBDE93B;
+Reference = T202;
+ValeurCmp = + 15 out -;
+IdModule  = ScrewTerm2.54-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE50E/5DBDEBCC;
+Reference = T301;
+ValeurCmp = CL2;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DBDEFDB;
+Reference = T401;
+ValeurCmp = + Power In -;
+IdModule  = mors_2p;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DBDEFE2;
+Reference = T402;
+ValeurCmp = DCC 1;
+IdModule  = mors_2p;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DBDEFE3;
+Reference = T403;
+ValeurCmp = DCC 2;
+IdModule  = mors_2p;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE50E/5DBDEBD2;
+Reference = TERM301;
+ValeurCmp = Track Power;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBE1658;
+Reference = U101;
+ValeurCmp = SN75ALS174;
+IdModule  = DIP-16__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE4E0/5DBDE92D;
+Reference = U201;
+ValeurCmp = TCAN332DR;
+IdModule  = SOIC-8_N;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE4E0/5DBDE92C;
+Reference = U202;
+ValeurCmp = SN65HVD233-HT;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DBDEFD1;
+Reference = U401;
+ValeurCmp = LMD18200;
+IdModule  = TO220_11PIN_VERT;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DBDEFEA;
+Reference = U402;
+ValeurCmp = TMP36;
+IdModule  = TO92PN;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DBDEFD2;
+Reference = U403;
+ValeurCmp = LMD18200;
+IdModule  = TO220_11PIN_VERT;
+EndCmp
+
+EndListe
