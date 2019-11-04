@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sat Oct 26 10:09:51 2019
-#  Last Modified : <191031.1255>
+#  Last Modified : <191104.1355>
 #
 #  Description	
 #
@@ -711,7 +711,8 @@ snit::type CommandStationGUI {
         $upper add $status -weight 1
         HTMLHelp setDefaults "$::HelpDir" "index.html#toc"
         set nowhere [frame .nowhere]
-        set servicemode [ServiceMode $Main_.servicemode]
+        set servicemode [ServiceMode $Main_.servicemode \
+                         -commandstationsocket $socket_]
         $Main_ showit
     }
     typemethod lockscreen {} {
@@ -823,6 +824,11 @@ snit::type CommandStationGUI {
                     define -
                     undefine {
                         $list Refresh
+                    }
+                    servicemode {
+                        if {![$servicemode AnswerCallback $result]} {
+                            $Main_ log insert end "$result
+                        }
                     }
                     default {
                         $Main_ log insert end "$result

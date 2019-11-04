@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Thu Oct 31 10:11:53 2019
-#  Last Modified : <191104.1207>
+#  Last Modified : <191104.1407>
 #
 #  Description	
 #
@@ -755,8 +755,7 @@ snit::widget ServiceMode {
               l [list [_m "Label|Required CVs"] [_m "Label|Common CVs, Group 1"] [_m "Label|Common CVs, Group 2"] [_m "Label|Common CVs, Group 3"] [_m "Label|Common CVs, Group 4"] [_m "Label|AdditionalCVs, Group 1"] [_m "Label|AdditionalCVs, Group 2"] [_m "Label|Custom CVs"]] {
             install $c using ttk::frame $notebook.$c
             $notebook add [set $c] -text $l -sticky news
-        }
-        
+        }        
         #set minwidth 0
         foreach cv [lsort -integer [array names CV_WidgetConstructors]] {
             set constructorFun [lindex $CV_WidgetConstructors($cv) 0]
@@ -810,9 +809,22 @@ snit::widget ServiceMode {
         #wm geometry $win [format {=%dx%d} $minwidth \
         #                  [winfo reqheight $win]]
         #wm minsize  $win $minwidth [winfo reqheight $win]
+        $self configurelist $args
     }
-    method show {} {wm deiconify $win}
-    method hide {} {wm withdraw $win}
+    method show {} {
+        $self _loadReq 
+        wm deiconify $win
+    }
+    method hide {} {
+        wm withdraw $win
+    }
+    method _loadReq {} {
+        foreach cv [lsort -integer [array names CV_WidgetConstructors]] {
+            if {[winfo parent $cvWidgets_($cv)] eq $requiredCVs} {
+                $cvWidgets_($cv) load
+            }
+        }
+    }
     method loadall {} {
         foreach cv [lsort -integer [array names CV_WidgetConstructors]] {
             $cvWidgets_($cv) load
@@ -823,8 +835,44 @@ snit::widget ServiceMode {
             $cvWidgets_($cv) update
         }
     }
+    variable _pendingLoads -array {}
     method _CVcallback {mode size W} {
         puts stderr "*** $self _CVcallback: $mode $size [$W cget -bytenumber] [$W get]"
+        switch $mode {
+            load {
+                switch $size {
+                    1 {
+                        set _pendingLoads([$W cget -bytenumber]) $W
+                        puts $options(-commandstationsocket) [format {verifycvbyte %d} [$W cget -bytenumber]]
+                    }
+                    2 {
+                        set _pendingLoads([$W cget -bytenumber]) $W
+                        puts $options(-commandstationsocket) [format {verifycvword %d} [$W cget -bytenumber]]
+                    }
+                }
+            }
+            update {
+                switch $size {
+                    1 {
+                        puts $options(-commandstationsocket) [format {writecvbyte %d %d} [$W cget -bytenumber] [$W get]]
+                    }
+                    2 {
+                        puts $options(-commandstationsocket) [format {writecvword %d %d} [$W cget -bytenumber] [$W get]]
+                    }
+                }
+            }
+        }
+    }
+    method AnswerCallback {result} {
+        lassign $result mode bytenum value
+        if {$mode eq "load"} {
+            if {[info exists _pendingLoads($bytenum)]} {
+                $_pendingLoads($bytenum) set $value
+                unset _pendingLoads($bytenum)
+                return true
+            }
+        }
+        return false
     }
     method _createCustomCVDialog {} {
         if {[info exists customCVDialog] && [winfo exists $customCVDialog]} {
