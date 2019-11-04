@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Thu Oct 31 10:11:53 2019
-#  Last Modified : <191102.1324>
+#  Last Modified : <191104.1207>
 #
 #  Description	
 #
@@ -47,6 +47,7 @@ package require LabelFrames
 package require ScrollableFrame
 package require ScrollWindow
 package require ScrollTabNotebook
+package require Dialog
 
 snit::integer CVAddress -min 1 -max 1024
 
@@ -276,6 +277,52 @@ snit::widget CVBitField {
         }
     }
 }
+
+snit::widget SpeedTable {
+    hulltype ttk::labelframe
+    option -callback -configuremethod _propagateoption
+    method _propagateoption {o v} {
+        set options($o) $v
+        foreach e [array names elements] {
+            $elements($e) configure $o $v
+        }
+    }
+    variable elements -array {}
+    constructor {args} {
+        $self configurelist $args
+        $hull configure -labelanchor nw
+        $hull configure -text [_m "Label|Speed table"]
+        set grow 0
+        set gcol 0
+        for {set i 67} {$i <= 94} {incr i} {
+            set element [expr {$i - 66}]
+            set elements($element) [CVByte $win.element$element \
+                                    -bytenumber $i \
+                                    -label [_m "Label|Element %d" $element] \
+                                    -callback $options(-callback)]
+            grid $elements($element) -row $grow -column $gcol -sticky news
+            incr gcol
+            if {$gcol > 6} {
+                incr grow
+                set gcol 0
+            }
+        }
+        for {set c 0} {$c < 7} {incr c} {
+            grid columnconfigure $win $c -weight 1
+        }
+    }
+    method update {} {
+        foreach e [array names elements] {
+            $elements($e) update
+        }
+    }
+    method load {} {
+        foreach e [array names elements] {
+            $elements($e) load
+        }
+    }
+}
+        
 
 snit::widget ServiceMode {
     hulltype tk::toplevel
@@ -627,12 +674,8 @@ snit::widget ServiceMode {
         set CV_WidgetConstructors(66) \
               [list CVByte -bytenumber 66 -label $CV_Labels(66)]
         set CV_Tab(66) additionalCVsGroup1
-        for {set i 67} {$i <= 94} {incr i} {
-            set CV_Labels($i) [_m "Label|Speed table element %d" [expr {$i - 66}]]
-            set CV_WidgetConstructors($i) \
-                  [list CVByte -bytenumber $i -label $CV_Labels($i)]
-            set CV_Tab($i) additionalCVsGroup1
-        }
+        set CV_WidgetConstructors(67) [list SpeedTable]
+        set CV_Tab(67) additionalCVsGroup1
         set CV_Labels(95) [_m "Label|Reverse Trim"]
         set CV_WidgetConstructors(95) \
               [list CVByte -bytenumber 95 -label $CV_Labels(95)]
@@ -683,6 +726,18 @@ snit::widget ServiceMode {
     component  pagecv
     variable   pagecv_ 0
     component  indexpagebuttons
+    component customCVDialog
+    component  customCVLabel
+    component  customCVType
+    component  customCVNumber
+    component  customCVBit0
+    component  customCVBit1
+    component  customCVBit2
+    component  customCVBit3
+    component  customCVBit4
+    component  customCVBit5
+    component  customCVBit6
+    component  customCVBit7
     constructor {args} {
         wm withdraw $win
         wm transient $win [winfo toplevel [winfo parent $win]]
@@ -697,7 +752,7 @@ snit::widget ServiceMode {
         install notebook using ScrollTabNotebook $win.notebook
         pack $notebook -expand yes -fill both
         foreach c {requiredCVs optCommonCVsGroup1 optCommonCVsGroup2 optCommonCVsGroup3 optCommonCVsGroup4 additionalCVsGroup1 additionalCVsGroup2 customCVs} \
-              l [list [_m "Label|Required CVs"] [_m "Label|Optional Common CVs, Group 1"] [_m "Label|Optional Common CVs, Group 2"] [_m "Label|Optional Common CVs, Group 3"] [_m "Label|Optional Common CVs, Group 4"] [_m "Label|Additional Optional CVs, Group 1"] [_m "Label|Additional Optional CVs, Group 2"] [_m "Label|Custom CVs"]] {
+              l [list [_m "Label|Required CVs"] [_m "Label|Common CVs, Group 1"] [_m "Label|Common CVs, Group 2"] [_m "Label|Common CVs, Group 3"] [_m "Label|Common CVs, Group 4"] [_m "Label|AdditionalCVs, Group 1"] [_m "Label|AdditionalCVs, Group 2"] [_m "Label|Custom CVs"]] {
             install $c using ttk::frame $notebook.$c
             $notebook add [set $c] -text $l -sticky news
         }
@@ -771,7 +826,99 @@ snit::widget ServiceMode {
     method _CVcallback {mode size W} {
         puts stderr "*** $self _CVcallback: $mode $size [$W cget -bytenumber] [$W get]"
     }
+    method _createCustomCVDialog {} {
+        if {[info exists customCVDialog] && [winfo exists $customCVDialog]} {
+            return $customCVDialog
+        }
+        install customCVDialog using Dialog $win.customCVDialog \
+              -cancel 1 -default 0 -modal local \
+              -parent $win -side bottom \
+              -title [_ "Add Custom CV"] -transient yes
+        $customCVDialog add add -text {Add CV} -command [mymethod _AddCustomCV]
+        $customCVDialog add cancel -text {Cancel} \
+              -command [mymethod _CancelAddCustomCV]
+        set frame [$customCVDialog getframe]
+        install customCVLabel using LabelEntry $frame.customCVLabel \
+              -label [_m "Name: "]
+        pack $customCVLabel -fill x
+        install customCVType using LabelComboBox $frame.customCVType \
+              -label [_m "Type: "] \
+              -values {Byte Word Bitfield} \
+              -modifycmd [mymethod _changeCustomCVType] -editable no
+        pack $customCVType -fill x
+        $customCVType set Byte
+        install customCVNumber using LabelSpinBox $frame.customCVNumber \
+              -label [_m "Label|CV Number"] -range {1 1024 1}
+        pack $customCVNumber -fill x
+        $customCVNumber set 896
+        for {set i 0} {$i < 8} {incr i} {
+            install customCVBit$i using LabelEntry $frame.customCVBit$i \
+                  -label [_m "Label|Bit %d label" $i] \
+                  -state disabled
+            pack [set customCVBit$i] -fill x
+        }
+        return $customCVDialog
+    }
+    variable _customCVIndex 1025
+    method _AddCustomCV {} {
+        $customCVDialog withdraw
+        set cvlabel [$customCVLabel get]
+        set cvtype [$customCVType get]
+        set cvnumber [$customCVNumber get]
+        puts stderr "*** $self _AddCustomCV: cvnumber is $cvnumber"
+        set cvfieldlabels [list]
+        if {$cvtype eq "Bitfield"} {
+            for {set i 0} {$i < 8} {incr i} {
+                set cvbitlabel [[set customCVBit$i] get]
+                lappend cvfieldlabels $cvbitlabel
+            }
+        }
+        switch $cvtype {
+            Byte {
+                set cvWidgets_($_customCVIndex) \
+                      [CVByte $customCVs.cv$_customCVIndex \
+                       -bytenumber $cvnumber -label $cvlabel \
+                       -callback [mymethod _CVcallback]]
+                pack $cvWidgets_($_customCVIndex) -fill x
+                incr _customCVIndex
+            }
+            Word {
+                set cvWidgets_($_customCVIndex) \
+                      [CVWord $customCVs.cv$_customCVIndex \
+                       -bytenumber $cvnumber -label $cvlabel \
+                       -callback [mymethod _CVcallback]]
+                pack $cvWidgets_($_customCVIndex) -fill x
+                incr _customCVIndex
+            }
+            Bitfield {
+                set cvWidgets_($_customCVIndex) \
+                      [CVBitField $customCVs.cv$_customCVIndex \
+                       -bytenumber $cvnumber -label $cvlabel \
+                       -fieldlables $cvfieldlabels \
+                       -callback [mymethod _CVcallback]]
+                pack $cvWidgets_($_customCVIndex) -fill x
+                incr _customCVIndex
+            }
+        }
+        $customCVDialog enddialog {}
+    }
+    method _CancelAddCustomCV {} {
+        $customCVDialog withdraw
+        $customCVDialog enddialog {}
+    }
+    method _changeCustomCVType {} {
+        if {[$customCVType get] eq "Bitfield"} {
+            set state normal
+        } else {
+            set state disabled
+        }
+        for {set i 0} {$i < 8} {incr i} {
+            [set customCVBit$i] configure -state $state
+        }
+        
+    }
     method addCustomCV {} {
+        [$self _createCustomCVDialog] draw
     }
 }
 
@@ -779,3 +926,4 @@ snit::widget ServiceMode {
 
 
 package provide ServiceMode 1.0
+

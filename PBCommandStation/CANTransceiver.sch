@@ -42,7 +42,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 2 4
 Title "BeagleBone Black based OpenLCB/DCC Command Station"
-Date "2 nov 2019"
+Date "3 nov 2019"
 Rev "1.0"
 Comp "Deepwoods Software"
 Comment1 ""
