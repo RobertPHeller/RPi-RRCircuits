@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sat Oct 26 10:09:51 2019
-#  Last Modified : <191104.1355>
+#  Last Modified : <191107.1345>
 #
 #  Description	
 #
@@ -44,23 +44,35 @@
 
 ##
 #
-# @mainpage BBB Command Station GUI Front End
+# @mainpage Introduction
+#
+# This is the GUI Front end for the Beagleboard OpenLCB/OpenMRN/LCC/DCC
+# command station.  This program provides a friendly User Interface to
+# the command station.  The command station implements the OpenLCB 
+# traction message protocol using "virtual" Train nodes to receive
+# OpenLCB Traction messages from OpenLCB throttle nodes. These 
+# OpenLCB Traction messages are then converted to DCC packets and
+# sent to the rails.
+#
+# The GUI provides an interface to command station operating status,
+# access to the table of "virtual" Train nodes (DCC locomotives 
+# available for throttles to control, and access to the decoder CVs
+# on the programming track.
 # @anchor toc
 # @htmlonly
 # <div class="contents">
 # <div class="textblock"><ol type="1">
-# <li><a class="el" href="group__CommandStationGUI.html">Man page</a></li>
-# <li><a class="el" href="reference.html">Command Station Reference</a><ol type="a">
-# <li><a class="el" href="reference.html#mainGUI">Main GUI</a><ol type="a">
-# <li><a class="el" href="reference.html#locomotivedescription">Locomotive Description</a></li>
-# <li><a class="el" href="reference.html#locomotivelist">Locomotive List</a></li>
-# <li><a class="el" href="reference.html#commandstationstatus">Command Station Status</a></li>
-# <li><a class="el" href="reference.html#logsection">Log Output</a></li>
+# <li><a class="el" href="CommandStationGUI.html">Man page</a></li>
+# <li><a class="el" href="index.html">GUI Front End Reference</a></li>
+# <li><a class="el" href="mainGUI.html">Main GUI</a><ol type="a">
+# <li><a class="el" href="mainGUI.html#locomotivedescription">Locomotive Description</a></li>
+# <li><a class="el" href="mainGUI.html#locomotivelist">Locomotive List</a></li>
+# <li><a class="el" href="mainGUI.html#commandstationstatus">Command Station Status</a></li>
+# <li><a class="el" href="mainGUI.html#logsection">Log Output</a></li>
 # </ol></li>
-# <li><a class="el" href="reference.html#servicemode">Service Mode Screen</a><ol type="a">
-# <li><a class="el" href="reference.html#cvs">CV display</a></li>
-# <li><a class="el" href="reference.html#buttons">Buttons</a></li>
-# </ol></li>
+# <li><a class="el" href="servicemode.html">Service Mode Screen</a><ol type="a">
+# <li><a class="el" href="servicemode.html#cvs">CV display</a></li>
+# <li><a class="el" href="servicemode.html#buttons">Buttons</a></li>
 # </ol></li>
 # <li><a class="el" href="help.html">Help</a></li>
 # <li><a class="el" href="Version.html">Version</a></li>
@@ -69,10 +81,9 @@
 # </ol></li>
 # </ol></div></div>
 # @endhtmlonly
-# @latexonly
-# @endlatexonly
 #
-# @defgroup CommandStationGUI BBB Command Station GUI Front End
+#
+# @page CommandStationGUI Invoking the GUI Front end
 # GUI Front end for the BeagleBone Black Command Station
 #
 # @section SYNOPSIS SYNOPSIS
@@ -100,21 +111,13 @@
 # @section AUTHOR AUTHOR
 # Robert Heller \<heller\@deepsoft.com\>
 #
-# @page reference Command Station Reference
-#
-# This is the GUI Front end for the Beagleboard OpenLCB/OpenMRN/LCC/DCC
-# command station.  This program provides a friendly User Interface to
-# the command station.  The command station implements the OpenLCB 
-# traction message protocol uses "virtual" Train nodes to receive
-# OpenLCB Traction messages from OpenLCB throttle nodes. These 
-# OpenLCB Traction messages are then converted to DCC packets and
-# sent to the rails.
-#
-# @section mainGUI Main GUI
+# @page mainGUI Main GUI
 #
 # The main GUI is shown here:
+# @par
 # @image  latex CommandStationMainGUI.png "Command Station Main GUI" width=5in
 # @image html CommandStationMainGUISmall.png
+# @par
 # At the top is a menubar, with File, Edit, Programming Track, and 
 # Help menus. Then there is a toolbar. Below the toolbar are four 
 # sections:
@@ -122,28 +125,25 @@
 # -# The locomotive list section.
 # -# The command station status section.
 # -# A log section.
-# @subsection locomotivedescription Locomotive Description
+# @section locomotivedescription Locomotive Description
 # The locomotive description section contains a snapshot of a selected
 # locomotive, including its address, speed steps (28 or 128), name,
 # description, its speed and direction, its functions, its controlling
 # throttle and its consist status.
-# @subsection locomotivelist Locomotive List
+# @section locomotivelist Locomotive List
 # The locomotive list section lists the virtual Train nodes in DCC
 # address order.  There are three buttons below the list to describe,
 # delete, or add locomotives.
-# @subsection commandstationstatus Command Station Status
+# @section commandstationstatus Command Station Status
 # The command station status section displays the current status of
 # of the command station. This includes the current in use on each of
 # the outputs (mains and programming track), whether the output is
 # enabled, and if it is over current and if thermal shutdown is 
 # eminent.  It also displays the temperature of the heat sink, 
 # whether the fan is on, and if the temperature alarm is on.
-# @subsection logsection Log Output
-# The log section at the bottom will contain and log messages produced
+# @section logsection Log Output
+# The log section at the bottom will contain any log messages produced
 # by the command station.
-# @section servicemode Service Mode Screen
-# @subsection cvs CV display
-# @subsection buttons Buttons
 
 
 set argv0 [file join [file dirname [info nameofexecutable]] [file rootname [file tail [info script]]]]
@@ -670,7 +670,7 @@ snit::type CommandStationGUI {
             {command "[_m {Menu|Help|On &Version}]" {help:help} "[_ {Version}]" {} -command {HTMLHelp help Version}}
             {command "[_m {Menu|Help|Warranty}]" {help:help} "[_ {Warranty}]" {} -command {HTMLHelp help Warranty}}
             {command "[_m {Menu|Help|Copying}]" {help:help} "[_ {Copying}]" {} -command {HTMLHelp help Copying}}
-            {command "[_m {Menu|Help|Reference}]" {help:help} {} {} -command {HTMLHelp help "Command Station Reference"}}
+            {command "[_m {Menu|Help|Reference}]" {help:help} {} {} -command {HTMLHelp help "GUI Front End Reference"}}
         }
     }
     typeconstructor {
@@ -701,7 +701,7 @@ snit::type CommandStationGUI {
               -command [mytypemethod _serviceMode]
         $Main_ toolbar addbutton help -compound top \
               -text [_m "Label|Help"] -image [IconImage image help] \
-              -command {HTMLHelp help "Command Station Reference"}
+              -command {HTMLHelp help "GUI Front End Reference"}
         set upper [$Main_ getframe]
         set describe [DescribeLoco $upper.describe -commandstationsocket $socket_]
         $upper add $describe -weight 1

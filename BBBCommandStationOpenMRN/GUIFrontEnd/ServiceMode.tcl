@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Thu Oct 31 10:11:53 2019
-#  Last Modified : <191104.1407>
+#  Last Modified : <191107.1434>
 #
 #  Description	
 #
@@ -39,6 +39,112 @@
 # 
 #
 #*****************************************************************************
+
+##
+# @page servicemode Service Mode Screen
+# The Service Mode Screen provides access to the service mode 
+# functions (reading and writing CVs) using the programming track.
+# @section cvs CV display
+# The bulk of the Service Mode Screen is the display of CVs.  The
+# CVs are broken up into groups under tabs.  The first group tab is 
+# the Required CVs.  These are the CVs that are manditory and required
+# by all decoders.  The second through fifth tabs have the common, but
+# optional CVs, broken up into 4 group.  Then there are two groups of
+# less common CVs.  Finally there is a tab for custom CVs.  This last
+# tab holds any additional CVs that are not defined elsewhere.
+#
+# The tabs contain these CVs:
+#
+# - Required CVs
+# @par
+# @image latex ServiceModeRequiredCVs.png "ServiceMode, Required CVs" width=5in
+# @image html ServiceModeRequiredCVsSmall.png
+#   - #1 Primary Address (short address)
+#   - #2 Start Voltage
+#   - #3 Acceleration Rate
+#   - #4 Deceleration Rate
+#   - #7 Manufacturer Version Number (readonly)
+#   - #8 Manufacturer ID (readonly)
+#   - #11 Packet time-out Value
+#   - #29 Configuration Data (bit field)
+# - Common CVs, Group 1
+# @par
+# @image latex ServiceModeCommonCVsGroup1.png "ServiceMode, Common CVs, Group 1" width=5in
+# @image html ServiceModeCommonCVsGroup1Small.png
+#   - #5 High Voltage
+#   - #6 Mid Voltage
+#   - #9 Total PWM Period
+#   - #10 EMF Feedback Cutout
+#   - #12 Power Source Conversion
+#   - #13 Alternate Mode Function Status
+#   - #14 Alternate Mode Function 2 Status
+#   - #15 Decoder Lock A
+#   - #16 Decoder Lock B
+#   - #17 & #18 Extended Address (long address) (2 bytes)
+# - Common CVs, Group 2
+# @par
+# @image latex ServiceModeCommonCVsGroup2.png "ServiceMode, Common CVs, Group 2" width=5in
+# @image html ServiceModeCommonCVsGroup2Small.png
+#   - #19 Consist Address
+#   - #21 Consist Address Active for F1-F8
+#   - #22 Consist Address Active for FL and F9-F12
+#   - #23 Acceleration Adjustment
+#   - #24 Deceleration Adjustment
+#   - #25 Speed Table/Mid Range Cab Speed Step
+#   - #27 Decoder Automatic Stopping Configuration (bit field)
+#   - #28 Bi-Directional Communication Configuration
+# - Common CVs, Group 3
+# @par
+# @image latex ServiceModeCommonCVsGroup3.png "ServiceMode, Common CVs, Group 3" width=5in
+# @image html ServiceModeCommonCVsGroup3Small.png
+#   - #30 ERROR Information
+#   - #33 Forward Headlight FL(f) (bit field)
+#   - #34 Reverse Headlight FL(r) (bit field)
+#   - #35 Function 1 (bit field)
+#   - #36 Function 2 (bit field)
+#   - #37 Function 3 (bit field)
+#   - #38 Function 4 (bit field)
+#   - #39 Function 5 (bit field)
+# - Common CVs, Group 4
+# @par
+# @image latex ServiceModeCommonCVsGroup4.png "ServiceMode, Common CVs, Group 4" width=5in
+# @image html ServiceModeCommonCVsGroup4Small.png
+#   - #40 Function 6 (bit field)
+#   - #41 Function 7 (bit field)
+#   - #42 Function 8 (bit field)
+#   - #43 Function 9 (bit field)
+#   - #44 Function 10 (bit field)
+#   - #45 Function 11 (bit field)
+#   - #46 Function 12 (bit field)
+# - AdditionalCVs, Group 1
+# @par
+# @image latex ServiceModeAdditionalCVsGroup1.png "ServiceMode, Additional CVs, Group 1" width=5in
+# @image html ServiceModeAdditionalCVsGroup1Small.png
+#   - #65 Kick Start
+#   - #66 Forward Trim
+#   - #67 through #94 SpeedTable (28 bytes)
+#   - #95 Reverse Trim
+#   - #105 User Identifier #1
+#   - #106 User Identifier #2
+# - AdditionalCVs, Group 2
+# @par
+# @image latex ServiceModeAdditionalCVsGroup2.png "ServiceMode, Additional CVs, Group 2" width=5in
+# @image html ServiceModeAdditionalCVsGroup2Small.png
+#   - #892 Decoder Load
+#   - #893 Dynamic Flags
+#   - #894 Fuel/Coal
+#   - #895 Water
+#   - Index Page CVs (#31 and #32 - the page index, plus #257 through 
+#     #512 - the page bytes)
+# - Custom CVs
+#
+# @section buttons Buttons
+# There are four buttons along the bottom of the Service Mode Screen.
+#
+# -# Close Closes the Service Mode Screen.
+# -# Load All Reads all of the CVs.
+# -# Update All Writes all of the CVs.
+# -# Add Custom CV Defines a CV not handled elsewhere.
 
 package require Tk
 package require tile
@@ -484,7 +590,7 @@ snit::widget ServiceMode {
                 [_m "Label|Output 7"] \
                 [_m "Label|Output 8"]]]
         set CV_Tab(33) optCommonCVsGroup3
-        set CV_Labels(34) [_m "Label|Reverse Headlight FL(4)"]
+        set CV_Labels(34) [_m "Label|Reverse Headlight FL(r)"]
         set CV_WidgetConstructors(34) \
               [list CVBitField -bytenumber 34 \
                -label $CV_Labels(34) \
@@ -692,7 +798,7 @@ snit::widget ServiceMode {
         set CV_WidgetConstructors(892) \
               [list CVByte -bytenumber 892 -label $CV_Labels(892)]
         set CV_Tab(892) additionalCVsGroup2
-        set CV_Labels(893) [_m "Label|Dynamic Flags"]a
+        set CV_Labels(893) [_m "Label|Dynamic Flags"]
         set CV_WidgetConstructors(893) \
               [list CVByte -bytenumber 893 -label $CV_Labels(893)]
         set CV_Tab(893) additionalCVsGroup2
@@ -742,6 +848,7 @@ snit::widget ServiceMode {
         wm withdraw $win
         wm transient $win [winfo toplevel [winfo parent $win]]
         wm protocol $win WM_DELETE_WINDOW [mymethod hide]
+        wm title $win [_ "Configuration Variables (Service mode / Programming Track)"]
         #install scroll using ScrolledWindow $win.scroll \
         #      -scrollbar vertical -auto vertical
         #pack $scroll -expand yes -fill both
