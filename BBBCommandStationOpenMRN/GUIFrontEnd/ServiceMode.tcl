@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Thu Oct 31 10:11:53 2019
-#  Last Modified : <191107.1434>
+#  Last Modified : <191107.1558>
 #
 #  Description	
 #
@@ -141,10 +141,14 @@
 # @section buttons Buttons
 # There are four buttons along the bottom of the Service Mode Screen.
 #
-# -# Close Closes the Service Mode Screen.
-# -# Load All Reads all of the CVs.
-# -# Update All Writes all of the CVs.
-# -# Add Custom CV Defines a CV not handled elsewhere.
+# -# Close 
+#    Closes the Service Mode Screen.
+# -# Load All 
+#    Reads all of the CVs.
+# -# Update All 
+#    Writes all of the CVs.
+# -# Add Custom CV 
+#    Defines a CV not handled elsewhere.
 
 package require Tk
 package require tile
@@ -925,6 +929,15 @@ snit::widget ServiceMode {
     method hide {} {
         wm withdraw $win
     }
+    method _updateIndexPage {} {
+        puts $options(-commandstationsocket) [format {writecvword %d %d} 31 $pageindex_]
+        puts $options(-commandstationsocket) [format {writecvbyte %d %d} [expr {256 + $pageoffset_}] $pagecv_]
+    }
+    method _loadIndexPage {} {
+        puts $options(-commandstationsocket) [format {writecvword %d %d} 31 $pageindex_]
+        set _pendingLoads([expr {256 + $pageoffset_}]) $indexpage.pagecv
+        puts $options(-commandstationsocket) [format {verifycvbyte %d} [expr {256 + $pageoffset_}]]
+    }
     method _loadReq {} {
         foreach cv [lsort -integer [array names CV_WidgetConstructors]] {
             if {[winfo parent $cvWidgets_($cv)] eq $requiredCVs} {
@@ -1081,4 +1094,5 @@ snit::widget ServiceMode {
 
 
 package provide ServiceMode 1.0
+
 
