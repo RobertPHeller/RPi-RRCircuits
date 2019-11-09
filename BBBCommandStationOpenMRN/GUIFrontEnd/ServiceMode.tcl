@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Thu Oct 31 10:11:53 2019
-#  Last Modified : <191107.1558>
+#  Last Modified : <191109.1606>
 #
 #  Description	
 #
@@ -137,7 +137,8 @@
 #   - Index Page CVs (#31 and #32 - the page index, plus #257 through 
 #     #512 - the page bytes)
 # - Custom CVs
-#
+# This tab holds any custom defined CV intefaces defined. See 
+# @ref definenewcv for help on creating custom CV intefaces.
 # @section buttons Buttons
 # There are four buttons along the bottom of the Service Mode Screen.
 #
@@ -148,7 +149,17 @@
 # -# Update All 
 #    Writes all of the CVs.
 # -# Add Custom CV 
-#    Defines a CV not handled elsewhere.
+#    Defines a CV not handled elsewhere. See @ref definenewcv.
+# @section definenewcv Defining new CVs
+# Custom CV interfaces can be created using the Add Custom CV Dialog 
+# box, shown here:
+# @par
+# @image latex AddCustomCVDialog.png "Add Custom CV Dialog"
+# @image html  AddCustomCVDialog.png
+# @par
+# A custom CV has a name, a type (Byte, Word, or Bit Field), a byte 
+# number, and for bit fields, each bit has a name (label).  The 
+# Custom CV interfaces are added to the Custom CV tab.
 
 package require Tk
 package require tile

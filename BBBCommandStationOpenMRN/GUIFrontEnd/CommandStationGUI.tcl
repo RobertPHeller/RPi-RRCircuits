@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sat Oct 26 10:09:51 2019
-#  Last Modified : <191107.1345>
+#  Last Modified : <191109.1600>
 #
 #  Description	
 #
@@ -73,6 +73,7 @@
 # <li><a class="el" href="servicemode.html">Service Mode Screen</a><ol type="a">
 # <li><a class="el" href="servicemode.html#cvs">CV display</a></li>
 # <li><a class="el" href="servicemode.html#buttons">Buttons</a></li>
+# <li><a class="el" href="servicemode.html#definenewcv">Defining new CVs</a></li>
 # </ol></li>
 # <li><a class="el" href="help.html">Help</a></li>
 # <li><a class="el" href="Version.html">Version</a></li>
