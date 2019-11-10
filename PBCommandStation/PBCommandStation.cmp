@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Sat 02 Nov 2019 23:04:05 EDT
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Sun 10 Nov 2019 10:58:48 EST
 
 BeginCmp
 TimeStamp = /5DBE2BA8;
@@ -64,6 +64,34 @@ IdModule  = C1;
 EndCmp
 
 BeginCmp
+TimeStamp = /5DBDE52D/5DC83445;
+Reference = C405;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DC83436;
+Reference = C406;
+ValeurCmp = 1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DC83427;
+Reference = C407;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DC8340E;
+Reference = C408;
+ValeurCmp = 1000 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
 TimeStamp = /5DBDE4E0/5DBDE93F;
 Reference = D201;
 ValeurCmp = SB240E;
@@ -87,7 +115,7 @@ EndCmp
 BeginCmp
 TimeStamp = /5DBDE52D/5DBDEFEE;
 Reference = D401;
-ValeurCmp = 12V;
+ValeurCmp = 1n5349;
 IdModule  = DO-41;
 EndCmp
 
@@ -157,14 +185,14 @@ EndCmp
 BeginCmp
 TimeStamp = /5DBE46B8;
 Reference = R101;
-ValeurCmp = R;
+ValeurCmp = 1K Ohms;
 IdModule  = R1;
 EndCmp
 
 BeginCmp
 TimeStamp = /5DBE469A;
 Reference = R102;
-ValeurCmp = R;
+ValeurCmp = 1K Ohms;
 IdModule  = R1;
 EndCmp
 
@@ -220,7 +248,42 @@ EndCmp
 BeginCmp
 TimeStamp = /5DBDE52D/5DBDEFEF;
 Reference = R406;
-ValeurCmp = R;
+ValeurCmp = 33 Ohms 1W;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DC83481;
+Reference = R407;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DC83490;
+Reference = R408;
+ValeurCmp = 13K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DC83472;
+Reference = R409;
+ValeurCmp = 1M Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DC83463;
+Reference = R410;
+ValeurCmp = 1M Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DC83454;
+Reference = R411;
+ValeurCmp = 10K Ohms;
 IdModule  = R1;
 EndCmp
 
@@ -320,6 +383,13 @@ TimeStamp = /5DBDE52D/5DBDEFD2;
 Reference = U403;
 ValeurCmp = LMD18200;
 IdModule  = TO220_11PIN_VERT;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DBDE52D/5DC833F0;
+Reference = U404;
+ValeurCmp = LM393;
+IdModule  = DIP-8__300;
 EndCmp
 
 EndListe

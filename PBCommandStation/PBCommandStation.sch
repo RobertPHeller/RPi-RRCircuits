@@ -42,7 +42,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 4
 Title ""
-Date "3 nov 2019"
+Date "10 nov 2019"
 Rev ""
 Comp ""
 Comment1 ""
@@ -104,6 +104,7 @@ F8 "Current Sense 2" O L 7600 3300 60
 F9 "Thermal Flag 2" O L 7600 3450 60 
 F10 "Fan Control" I L 7600 3750 60 
 F11 "Temp Sense" O L 7600 4000 60 
+F12 "Ack Detect" O L 7600 3600 60 
 $EndSheet
 $Comp
 L +3.3V #PWR01
@@ -458,4 +459,12 @@ Wire Wire Line
 	2300 4000 2300 2750
 Wire Wire Line
 	2300 2750 2400 2750
+Wire Wire Line
+	2400 3350 2400 3500
+Wire Wire Line
+	2400 3500 7100 3500
+Wire Wire Line
+	7100 3500 7100 3600
+Wire Wire Line
+	7100 3600 7600 3600
 $EndSCHEMATC
