@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sat Oct 26 10:09:51 2019
-#  Last Modified : <191109.1600>
+#  Last Modified : <191111.1028>
 #
 #  Description	
 #
@@ -56,8 +56,10 @@
 #
 # The GUI provides an interface to command station operating status,
 # access to the table of "virtual" Train nodes (DCC locomotives 
-# available for throttles to control, and access to the decoder CVs
+# available for throttles to control), and access to the decoder CVs
 # on the programming track.
+#
+# 
 # @anchor toc
 # @htmlonly
 # <div class="contents">
@@ -89,17 +91,26 @@
 #
 # @section SYNOPSIS SYNOPSIS
 #
-# CommandStationGUI [options] [parameters]
+# CommandStationGUI ?X11 options? ?-- options?
 # 
 # @section DESCRIPTION DESCRIPTION
 #
 # This is the GUI Front end for the Beagleboard OpenLCB/OpenMRN/LCC/DCC
 # command station.  This program provides a friendly User Interface to
-# the command station.
+# the command station.  It connects to the OpenMRN Command Station via
+# a Tcp/Ip connection.
 #
 # @section OPTIONS OPTIONS
 #
-# None.
+# See man page for wish for the X11 options.
+#
+# @arg -port The Tcp/Ip port to connect to.  Default is 9900.
+# @arg -host The host name or IP address of the Beagleboard the 
+# OpenMRN command station node is running on.  For Pocket Beagles
+# operating as USB tethered node, this would be IP address 192.168.6.2
+# or 192.168.7.2.
+# @arg -help Display help text and exit.
+# @par
 #
 # @section PARAMETERS PARAMETERS
 #
@@ -674,16 +685,38 @@ snit::type CommandStationGUI {
             {command "[_m {Menu|Help|Reference}]" {help:help} {} {} -command {HTMLHelp help "GUI Front End Reference"}}
         }
     }
+    typemethod usage {command} {
+        puts stderr "Usage:"
+        puts stderr [format {%s: ?X11 options? ?-- options?} $command]
+        puts stderr {}
+        puts stderr {Where options are:}
+        puts stderr "\t-port portnumber"
+        puts stderr "\t\tportnumber is the Tcp/Ip port to use.  Defaults to 9900."
+        puts stderr "\t-host hostorip"
+        puts stderr "\t\thostorip is the host or IP address of the beagleboard."
+        puts stderr {}
+    }
     typeconstructor {
         global argc
         global argv0
         global argv
+        if {[lsearch -exact $argv -help] >= 0} {
+            $type usage $argv0
+            ::exit
+        }
         set port [from argv -port 9900]
         set host [from argv -host snoopy]
+        if {[llength $argv] > 0} {
+            puts stderr "$argv0: unknown options or parameters: $argv"
+            $type usage $argv0
+            ::exit 99
+        }
         #set socket_ [socket $host $port]
         set socket_ stdout
         #fconfigure $socket_ -blocking 0 -buffering line -translation lf
         #fileevent $socket_ readable [mytypemethod _readSocket]
+        wm protocol . WM_DELETE_WINDOW [mytypemethod _exit]
+        wm title . [_ "Command Station GUI"]
         set Main_ [cmdmainwindow .main -menu [subst $menu_]]
         pack $Main_ -expand yes -fill both
         $Main_ toolbar show
@@ -723,7 +756,12 @@ snit::type CommandStationGUI {
     typemethod unlockscreen {} {
         grab  release .nowhere
     }
-    typemethod _exit {} {
+    typemethod _exit {{ask yes}} {
+        if {$ask} {
+            set answer [tk_messageBox -type yesno -icon question \
+                        -message [_ "Do you really want to quit?"]]
+            if {!$answer} {return}
+        }
         ::exit
     }
     typemethod _load {} {

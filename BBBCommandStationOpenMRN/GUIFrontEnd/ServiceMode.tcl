@@ -47,7 +47,7 @@
 # @section cvs CV display
 # The bulk of the Service Mode Screen is the display of CVs.  The
 # CVs are broken up into groups under tabs.  The first group tab is 
-# the Required CVs.  These are the CVs that are manditory and required
+# the Required CVs.  These are the CVs that are mandatory and required
 # by all decoders.  The second through fifth tabs have the common, but
 # optional CVs, broken up into 4 group.  Then there are two groups of
 # less common CVs.  Finally there is a tab for custom CVs.  This last
@@ -583,7 +583,7 @@ snit::widget ServiceMode {
                 [_m "Label|Power Source Conversion"] \
                 [_m "Label|Bi-Directional Communications"] \
                 [_m "Label|Speed Table"] \
-                [_m "Label|Entended Addressing"] \
+                [_m "Label|Extended Addressing"] \
                 [_m "Label|Reserved"] \
                 [_m "Label|Decoder type"]]]
         set CV_Tab(29) requiredCVs
