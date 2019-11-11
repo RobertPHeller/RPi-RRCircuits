@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sat Oct 26 09:48:55 2019
-#  Last Modified : <191107.1122>
+#  Last Modified : <191111.1057>
 #
 #  Description	
 #
@@ -65,6 +65,7 @@ ADDKITFILE=$(MRRBUILDSCRIPTS)/AddKitFile.kit
 MAKEPKGINDEX=$(MRRBUILDSCRIPTS)/MakePkgIndex.kit
 DOXYGEN=/usr/bin/doxygen
 EXEEXT=
+INSTALLPREFIX=/usr/local
 
 ## No need to edit beyond this point.
 
@@ -93,7 +94,15 @@ IMAGES = $(wildcard $(MRRSCRIPTLIB)/*.png) \
 	 $(wildcard $(MRRSCRIPTLIB)/*.gif) \
 	 $(wildcard localImages/*.png)
 
-all: $(PROG)$(EXEEXT) html/index.html latex/refman.pdf
+all: $(PROG)$(EXEEXT) man/man1/$(PROG).1 latex/refman.pdf
+
+install: all
+	install -d $(DESTDIR)$(INSTALLPREFIX)/bin/
+	install -d $(DESTDIR)$(INSTALLPREFIX)/share/doc/$(PROG)-$(VERSION)
+	install -d $(DESTDIR)$(INSTALLPREFIX)/share/man/man1/
+	install $(PROG)$(EXEEXT) $(DESTDIR)$(INSTALLPREFIX)/bin/
+	install -m 644 latex/refman.pdf $(DESTDIR)$(INSTALLPREFIX)/share/doc/$(PROG)-$(VERSION)/
+	install -m 644 man/man1/$(PROG).1 $(DESTDIR)$(INSTALLPREFIX)/share/man/man1/
 
 html/index.html latex/refman.pdf man/man1/$(PROG).1 : Doxyfile \
 		$(SOURCE) Version.tcl ScreenShots/*

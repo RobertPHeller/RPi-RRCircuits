@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sat Oct 26 10:09:51 2019
-#  Last Modified : <191111.1028>
+#  Last Modified : <191111.1037>
 #
 #  Description	
 #
@@ -87,7 +87,10 @@
 #
 #
 # @page CommandStationGUI Invoking the GUI Front end
-# GUI Front end for the BeagleBone Black Command Station
+# GUI Front end for the BeagleBone Black Command Station.  Complete
+# user documentation is available as a PDF reference manual which
+# can be printed or on screen by clicking on the Help toolbar button
+# or under the Help menu.
 #
 # @section SYNOPSIS SYNOPSIS
 #
@@ -102,7 +105,7 @@
 #
 # @section OPTIONS OPTIONS
 #
-# See man page for wish for the X11 options.
+# See the man page for wish for the X11 options.
 #
 # @arg -port The Tcp/Ip port to connect to.  Default is 9900.
 # @arg -host The host name or IP address of the Beagleboard the 
