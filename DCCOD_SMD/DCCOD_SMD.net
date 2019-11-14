@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/heller/RRCircuits/DCCOD_SMD/DCCOD_SMD.sch)
-    (date "Tue 12 Nov 2019 14:31:22 EST")
+    (date "Thu 14 Nov 2019 09:08:41 EST")
     (tool "eeschema (2013-june-11)-stable"))
   (components
     (comp (ref P101)
@@ -84,7 +84,7 @@
     (comp (ref P1)
       (value "10K Ohms")
       (fields
-        (field (name "Mouser Part Number") 652-TC33X-2-103E))
+        (field (name "Mouser Part Number") 652-3313S-1-103E))
       (libsource (lib device) (part POT))
       (sheetpath (names /) (tstamps /))
       (tstamp 5DCAB6EF))
@@ -153,7 +153,7 @@
       (value CMUT3904)
       (fields
         (field (name "Mouser Part Number") CMUT3904))
-      (libsource (lib device) (part CMUT3904))
+      (libsource (lib cmut3904) (part CMUT3904))
       (sheetpath (names /) (tstamps /))
       (tstamp 5DCAEECC))
     (comp (ref P102)
@@ -302,7 +302,7 @@
         (pin (num 12) (name +) (type input))
         (pin (num 13) (name -) (type input))
         (pin (num 14) (name ~) (type output))))
-    (libpart (lib device) (part cmut3904)
+    (libpart (lib cmut3904) (part cmut3904)
       (docs transistors/bipolar/*.*)
       (fields
         (field (name Reference) Q)
@@ -316,10 +316,12 @@
   (libraries
     (library (logical device)
       (uri /usr/share/kicad/library/device.lib))
+    (library (logical conn)
+      (uri /usr/share/kicad/library/conn.lib))
     (library (logical linear)
       (uri /usr/share/kicad/library/linear.lib))
-    (library (logical conn)
-      (uri /usr/share/kicad/library/conn.lib)))
+    (library (logical cmut3904)
+      (uri cmut3904.lib)))
   (nets
     (net (code 1) (name "")
       (node (ref R3) (pin 1))
@@ -334,11 +336,11 @@
       (node (ref P101) (pin 2))
       (node (ref P102) (pin 2))
       (node (ref U1) (pin 11))
+      (node (ref Q1) (pin 2))
       (node (ref R12) (pin 2))
       (node (ref C1) (pin 2))
       (node (ref P1) (pin 2))
       (node (ref P1) (pin 1))
-      (node (ref Q1) (pin 2))
       (node (ref C4) (pin 2))
       (node (ref C3) (pin 2))
       (node (ref D1) (pin 1))
@@ -348,7 +350,7 @@
       (node (ref U1) (pin 12))
       (node (ref R6) (pin 1))
       (node (ref R5) (pin 2)))
-    (net (code 7) (name +12V)
+    (net (code 7) (name +5V)
       (node (ref D3) (pin 2))
       (node (ref R5) (pin 1))
       (node (ref U1) (pin 4))

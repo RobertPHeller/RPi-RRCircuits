@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Tue 12 Nov 2019 14:27:47 EST
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 14 Nov 2019 08:40:55 EST
 
 BeginCmp
 TimeStamp = /5DCAB39F;
@@ -60,7 +60,7 @@ BeginCmp
 TimeStamp = /5DCAB6EF;
 Reference = P1;
 ValeurCmp = 10K Ohms;
-IdModule  = TC33X-2;
+IdModule  = burns-3313S-1;
 EndCmp
 
 BeginCmp
