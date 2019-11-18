@@ -43,7 +43,7 @@ $Descr USLetter 11000 8500
 encoding utf-8
 Sheet 1 5
 Title "BeagleBone Black based OpenLCB/DCC Command Station"
-Date "24 oct 2019"
+Date "10 nov 2019"
 Rev "1.0"
 Comp "Deepwoods Software"
 Comment1 ""
@@ -332,14 +332,14 @@ F 3 "~" H 6950 1800 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L CONN_6 T102
+L CONN_7 T102
 U 1 1 5DA7BC14
-P 6950 3200
-F 0 "T102" V 6900 3200 60  0000 C CNN
-F 1 "CMD 2" V 7000 3200 60  0000 C CNN
-F 2 "~" H 6950 3200 60  0000 C CNN
-F 3 "~" H 6950 3200 60  0000 C CNN
-	1    6950 3200
+P 6950 3250
+F 0 "T102" V 6900 3250 60  0000 C CNN
+F 1 "CMD 2" V 7000 3250 60  0000 C CNN
+F 2 "~" H 6950 3250 60  0000 C CNN
+F 3 "~" H 6950 3250 60  0000 C CNN
+	1    6950 3250
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -393,7 +393,7 @@ Wire Wire Line
 Wire Wire Line
 	6600 2800 6600 2950
 Wire Wire Line
-	6600 3450 6600 3600
+	6600 3550 6600 3600
 Connection ~ 2850 2750
 Connection ~ 2850 3250
 Text Label 6600 1750 2    60   ~ 0
@@ -402,8 +402,6 @@ Text Label 6600 1850 2    60   ~ 0
 CurSense 1
 Text Label 6600 3150 2    60   ~ 0
 EN 2
-Text Label 6600 3250 2    60   ~ 0
-CurSense 2
 Text Label 6600 3350 2    60   ~ 0
 ThermFlag 2
 Wire Wire Line
@@ -603,16 +601,6 @@ Wire Wire Line
 	6200 1600 6200 1950
 Wire Wire Line
 	6200 1950 6600 1950
-Text Label 6600 3050 2    60   ~ 0
-DCC 2
-Wire Wire Line
-	6600 3050 5550 3050
-Wire Wire Line
-	5550 3050 5550 2100
-Wire Wire Line
-	5550 2100 4900 2100
-Wire Wire Line
-	4900 2100 4900 2150
 $Comp
 L CONN_3 T103
 U 1 1 5DAFCB33
@@ -664,4 +652,34 @@ U 5DB19B28
 F0 "Track Power Supply" 50
 F1 "TrackPowerSupply.sch" 50
 $EndSheet
+Text Label 6600 3450 2    60   ~ 0
+Ack Detect
+Wire Wire Line
+	6600 3450 5750 3450
+Wire Wire Line
+	5750 3450 5750 2450
+Wire Wire Line
+	5750 2450 5400 2450
+Wire Wire Line
+	6600 3050 5550 3050
+Wire Wire Line
+	5550 3050 5550 2550
+Wire Wire Line
+	5550 2550 5400 2550
+Wire Wire Line
+	6600 3250 5450 3250
+Wire Wire Line
+	5450 3250 5450 3450
+Wire Wire Line
+	5450 3450 4650 3450
+Wire Wire Line
+	4650 3450 4650 3350
+Wire Wire Line
+	4650 3350 3050 3350
+Wire Wire Line
+	3050 3350 3050 3100
+Wire Wire Line
+	3050 3100 2700 3100
+Wire Wire Line
+	2700 3100 2700 3050
 $EndSCHEMATC

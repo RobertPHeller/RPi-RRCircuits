@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Tue 22 Oct 2019 22:34:06 EDT
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Sun 10 Nov 2019 09:33:47 EST
 
 BeginCmp
 TimeStamp = /5DA863A5;
@@ -64,6 +64,41 @@ IdModule  = C1;
 EndCmp
 
 BeginCmp
+TimeStamp = /5DA7A242/5DC82433;
+Reference = C405;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DC82424;
+Reference = C406;
+ValeurCmp = 10 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DC82442;
+Reference = C407;
+ValeurCmp = 1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DC822F1;
+Reference = C408;
+ValeurCmp = 1000 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DB19B28/5DB1A78D;
+Reference = C501;
+ValeurCmp = CP1;
+IdModule  = ;
+EndCmp
+
+BeginCmp
 TimeStamp = /5D9CD96B/5D9CDB45;
 Reference = D201;
 ValeurCmp = SB240E;
@@ -82,6 +117,13 @@ TimeStamp = /5DA7A242/5DAFFF47;
 Reference = D401;
 ValeurCmp = 12V;
 IdModule  = DO-41;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DB19B28/5DB1A743;
+Reference = D501;
+ValeurCmp = GBU4A;
+IdModule  = ;
 EndCmp
 
 BeginCmp
@@ -110,6 +152,13 @@ TimeStamp = /5D9CD96B/5D9CDB3C;
 Reference = JP201;
 ValeurCmp = Termination;
 IdModule  = PIN_ARRAY_2X2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DB19B28/5DB1A271;
+Reference = K501;
+ValeurCmp = AC Power;
+IdModule  = ;
 EndCmp
 
 BeginCmp
@@ -260,6 +309,48 @@ IdModule  = R1;
 EndCmp
 
 BeginCmp
+TimeStamp = /5DA7A242/5DC8293E;
+Reference = R407;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DC82952;
+Reference = R408;
+ValeurCmp = 13K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DC826C8;
+Reference = R409;
+ValeurCmp = 1M Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DC826B9;
+Reference = R410;
+ValeurCmp = 1M Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DC82230;
+Reference = R411;
+ValeurCmp = 10K Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DB19B28/5DB1A200;
+Reference = SW501;
+ValeurCmp = DPDT;
+IdModule  = ;
+EndCmp
+
+BeginCmp
 TimeStamp = /5DA7BBF9;
 Reference = T101;
 ValeurCmp = CMD 1;
@@ -270,7 +361,7 @@ BeginCmp
 TimeStamp = /5DA7BC14;
 Reference = T102;
 ValeurCmp = CMD 2;
-IdModule  = ScrewTerm254-6;
+IdModule  = pin_strip_7;
 EndCmp
 
 BeginCmp
@@ -326,7 +417,7 @@ BeginCmp
 TimeStamp = /5DA7A242/5DA7B524;
 Reference = T404;
 ValeurCmp = CMD 2;
-IdModule  = ScrewTerm254-6;
+IdModule  = pin_strip_7;
 EndCmp
 
 BeginCmp
@@ -348,6 +439,20 @@ TimeStamp = /5DA7A242/5DAFFE59;
 Reference = T407;
 ValeurCmp = FanControl;
 IdModule  = ScrewTerm2.54-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DB19B28/5DB1A0BE;
+Reference = T501;
+ValeurCmp = CL2;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DB19B28/5DB1A7DE;
+Reference = TERM501;
+ValeurCmp = Track Power;
+IdModule  = ;
 EndCmp
 
 BeginCmp
@@ -397,6 +502,13 @@ TimeStamp = /5DA7A242/5DAFC9D5;
 Reference = U403;
 ValeurCmp = TMP36;
 IdModule  = TO92PN;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DA7A242/5DC81FF8;
+Reference = U404;
+ValeurCmp = LM393;
+IdModule  = DIP-8__300;
 EndCmp
 
 EndListe

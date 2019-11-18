@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Thu Oct 31 10:11:53 2019
-#  Last Modified : <191102.1324>
+#  Last Modified : <191109.1606>
 #
 #  Description	
 #
@@ -40,6 +40,127 @@
 #
 #*****************************************************************************
 
+##
+# @page servicemode Service Mode Screen
+# The Service Mode Screen provides access to the service mode 
+# functions (reading and writing CVs) using the programming track.
+# @section cvs CV display
+# The bulk of the Service Mode Screen is the display of CVs.  The
+# CVs are broken up into groups under tabs.  The first group tab is 
+# the Required CVs.  These are the CVs that are mandatory and required
+# by all decoders.  The second through fifth tabs have the common, but
+# optional CVs, broken up into 4 group.  Then there are two groups of
+# less common CVs.  Finally there is a tab for custom CVs.  This last
+# tab holds any additional CVs that are not defined elsewhere.
+#
+# The tabs contain these CVs:
+#
+# - Required CVs
+# @par
+# @image latex ServiceModeRequiredCVs.png "ServiceMode, Required CVs" width=5in
+# @image html ServiceModeRequiredCVsSmall.png
+#   - #1 Primary Address (short address)
+#   - #2 Start Voltage
+#   - #3 Acceleration Rate
+#   - #4 Deceleration Rate
+#   - #7 Manufacturer Version Number (readonly)
+#   - #8 Manufacturer ID (readonly)
+#   - #11 Packet time-out Value
+#   - #29 Configuration Data (bit field)
+# - Common CVs, Group 1
+# @par
+# @image latex ServiceModeCommonCVsGroup1.png "ServiceMode, Common CVs, Group 1" width=5in
+# @image html ServiceModeCommonCVsGroup1Small.png
+#   - #5 High Voltage
+#   - #6 Mid Voltage
+#   - #9 Total PWM Period
+#   - #10 EMF Feedback Cutout
+#   - #12 Power Source Conversion
+#   - #13 Alternate Mode Function Status
+#   - #14 Alternate Mode Function 2 Status
+#   - #15 Decoder Lock A
+#   - #16 Decoder Lock B
+#   - #17 & #18 Extended Address (long address) (2 bytes)
+# - Common CVs, Group 2
+# @par
+# @image latex ServiceModeCommonCVsGroup2.png "ServiceMode, Common CVs, Group 2" width=5in
+# @image html ServiceModeCommonCVsGroup2Small.png
+#   - #19 Consist Address
+#   - #21 Consist Address Active for F1-F8
+#   - #22 Consist Address Active for FL and F9-F12
+#   - #23 Acceleration Adjustment
+#   - #24 Deceleration Adjustment
+#   - #25 Speed Table/Mid Range Cab Speed Step
+#   - #27 Decoder Automatic Stopping Configuration (bit field)
+#   - #28 Bi-Directional Communication Configuration
+# - Common CVs, Group 3
+# @par
+# @image latex ServiceModeCommonCVsGroup3.png "ServiceMode, Common CVs, Group 3" width=5in
+# @image html ServiceModeCommonCVsGroup3Small.png
+#   - #30 ERROR Information
+#   - #33 Forward Headlight FL(f) (bit field)
+#   - #34 Reverse Headlight FL(r) (bit field)
+#   - #35 Function 1 (bit field)
+#   - #36 Function 2 (bit field)
+#   - #37 Function 3 (bit field)
+#   - #38 Function 4 (bit field)
+#   - #39 Function 5 (bit field)
+# - Common CVs, Group 4
+# @par
+# @image latex ServiceModeCommonCVsGroup4.png "ServiceMode, Common CVs, Group 4" width=5in
+# @image html ServiceModeCommonCVsGroup4Small.png
+#   - #40 Function 6 (bit field)
+#   - #41 Function 7 (bit field)
+#   - #42 Function 8 (bit field)
+#   - #43 Function 9 (bit field)
+#   - #44 Function 10 (bit field)
+#   - #45 Function 11 (bit field)
+#   - #46 Function 12 (bit field)
+# - AdditionalCVs, Group 1
+# @par
+# @image latex ServiceModeAdditionalCVsGroup1.png "ServiceMode, Additional CVs, Group 1" width=5in
+# @image html ServiceModeAdditionalCVsGroup1Small.png
+#   - #65 Kick Start
+#   - #66 Forward Trim
+#   - #67 through #94 SpeedTable (28 bytes)
+#   - #95 Reverse Trim
+#   - #105 User Identifier #1
+#   - #106 User Identifier #2
+# - AdditionalCVs, Group 2
+# @par
+# @image latex ServiceModeAdditionalCVsGroup2.png "ServiceMode, Additional CVs, Group 2" width=5in
+# @image html ServiceModeAdditionalCVsGroup2Small.png
+#   - #892 Decoder Load
+#   - #893 Dynamic Flags
+#   - #894 Fuel/Coal
+#   - #895 Water
+#   - Index Page CVs (#31 and #32 - the page index, plus #257 through 
+#     #512 - the page bytes)
+# - Custom CVs
+# This tab holds any custom defined CV intefaces defined. See 
+# @ref definenewcv for help on creating custom CV intefaces.
+# @section buttons Buttons
+# There are four buttons along the bottom of the Service Mode Screen.
+#
+# -# Close 
+#    Closes the Service Mode Screen.
+# -# Load All 
+#    Reads all of the CVs.
+# -# Update All 
+#    Writes all of the CVs.
+# -# Add Custom CV 
+#    Defines a CV not handled elsewhere. See @ref definenewcv.
+# @section definenewcv Defining new CVs
+# Custom CV interfaces can be created using the Add Custom CV Dialog 
+# box, shown here:
+# @par
+# @image latex AddCustomCVDialog.png "Add Custom CV Dialog"
+# @image html  AddCustomCVDialog.png
+# @par
+# A custom CV has a name, a type (Byte, Word, or Bit Field), a byte 
+# number, and for bit fields, each bit has a name (label).  The 
+# Custom CV interfaces are added to the Custom CV tab.
+
 package require Tk
 package require tile
 package require snit
@@ -47,6 +168,7 @@ package require LabelFrames
 package require ScrollableFrame
 package require ScrollWindow
 package require ScrollTabNotebook
+package require Dialog
 
 snit::integer CVAddress -min 1 -max 1024
 
@@ -277,6 +399,52 @@ snit::widget CVBitField {
     }
 }
 
+snit::widget SpeedTable {
+    hulltype ttk::labelframe
+    option -callback -configuremethod _propagateoption
+    method _propagateoption {o v} {
+        set options($o) $v
+        foreach e [array names elements] {
+            $elements($e) configure $o $v
+        }
+    }
+    variable elements -array {}
+    constructor {args} {
+        $self configurelist $args
+        $hull configure -labelanchor nw
+        $hull configure -text [_m "Label|Speed table"]
+        set grow 0
+        set gcol 0
+        for {set i 67} {$i <= 94} {incr i} {
+            set element [expr {$i - 66}]
+            set elements($element) [CVByte $win.element$element \
+                                    -bytenumber $i \
+                                    -label [_m "Label|Element %d" $element] \
+                                    -callback $options(-callback)]
+            grid $elements($element) -row $grow -column $gcol -sticky news
+            incr gcol
+            if {$gcol > 6} {
+                incr grow
+                set gcol 0
+            }
+        }
+        for {set c 0} {$c < 7} {incr c} {
+            grid columnconfigure $win $c -weight 1
+        }
+    }
+    method update {} {
+        foreach e [array names elements] {
+            $elements($e) update
+        }
+    }
+    method load {} {
+        foreach e [array names elements] {
+            $elements($e) load
+        }
+    }
+}
+        
+
 snit::widget ServiceMode {
     hulltype tk::toplevel
     option -commandstationsocket
@@ -415,7 +583,7 @@ snit::widget ServiceMode {
                 [_m "Label|Power Source Conversion"] \
                 [_m "Label|Bi-Directional Communications"] \
                 [_m "Label|Speed Table"] \
-                [_m "Label|Entended Addressing"] \
+                [_m "Label|Extended Addressing"] \
                 [_m "Label|Reserved"] \
                 [_m "Label|Decoder type"]]]
         set CV_Tab(29) requiredCVs
@@ -437,7 +605,7 @@ snit::widget ServiceMode {
                 [_m "Label|Output 7"] \
                 [_m "Label|Output 8"]]]
         set CV_Tab(33) optCommonCVsGroup3
-        set CV_Labels(34) [_m "Label|Reverse Headlight FL(4)"]
+        set CV_Labels(34) [_m "Label|Reverse Headlight FL(r)"]
         set CV_WidgetConstructors(34) \
               [list CVBitField -bytenumber 34 \
                -label $CV_Labels(34) \
@@ -627,12 +795,8 @@ snit::widget ServiceMode {
         set CV_WidgetConstructors(66) \
               [list CVByte -bytenumber 66 -label $CV_Labels(66)]
         set CV_Tab(66) additionalCVsGroup1
-        for {set i 67} {$i <= 94} {incr i} {
-            set CV_Labels($i) [_m "Label|Speed table element %d" [expr {$i - 66}]]
-            set CV_WidgetConstructors($i) \
-                  [list CVByte -bytenumber $i -label $CV_Labels($i)]
-            set CV_Tab($i) additionalCVsGroup1
-        }
+        set CV_WidgetConstructors(67) [list SpeedTable]
+        set CV_Tab(67) additionalCVsGroup1
         set CV_Labels(95) [_m "Label|Reverse Trim"]
         set CV_WidgetConstructors(95) \
               [list CVByte -bytenumber 95 -label $CV_Labels(95)]
@@ -649,7 +813,7 @@ snit::widget ServiceMode {
         set CV_WidgetConstructors(892) \
               [list CVByte -bytenumber 892 -label $CV_Labels(892)]
         set CV_Tab(892) additionalCVsGroup2
-        set CV_Labels(893) [_m "Label|Dynamic Flags"]a
+        set CV_Labels(893) [_m "Label|Dynamic Flags"]
         set CV_WidgetConstructors(893) \
               [list CVByte -bytenumber 893 -label $CV_Labels(893)]
         set CV_Tab(893) additionalCVsGroup2
@@ -683,10 +847,23 @@ snit::widget ServiceMode {
     component  pagecv
     variable   pagecv_ 0
     component  indexpagebuttons
+    component customCVDialog
+    component  customCVLabel
+    component  customCVType
+    component  customCVNumber
+    component  customCVBit0
+    component  customCVBit1
+    component  customCVBit2
+    component  customCVBit3
+    component  customCVBit4
+    component  customCVBit5
+    component  customCVBit6
+    component  customCVBit7
     constructor {args} {
         wm withdraw $win
         wm transient $win [winfo toplevel [winfo parent $win]]
         wm protocol $win WM_DELETE_WINDOW [mymethod hide]
+        wm title $win [_ "Configuration Variables (Service mode / Programming Track)"]
         #install scroll using ScrolledWindow $win.scroll \
         #      -scrollbar vertical -auto vertical
         #pack $scroll -expand yes -fill both
@@ -697,11 +874,10 @@ snit::widget ServiceMode {
         install notebook using ScrollTabNotebook $win.notebook
         pack $notebook -expand yes -fill both
         foreach c {requiredCVs optCommonCVsGroup1 optCommonCVsGroup2 optCommonCVsGroup3 optCommonCVsGroup4 additionalCVsGroup1 additionalCVsGroup2 customCVs} \
-              l [list [_m "Label|Required CVs"] [_m "Label|Optional Common CVs, Group 1"] [_m "Label|Optional Common CVs, Group 2"] [_m "Label|Optional Common CVs, Group 3"] [_m "Label|Optional Common CVs, Group 4"] [_m "Label|Additional Optional CVs, Group 1"] [_m "Label|Additional Optional CVs, Group 2"] [_m "Label|Custom CVs"]] {
+              l [list [_m "Label|Required CVs"] [_m "Label|Common CVs, Group 1"] [_m "Label|Common CVs, Group 2"] [_m "Label|Common CVs, Group 3"] [_m "Label|Common CVs, Group 4"] [_m "Label|AdditionalCVs, Group 1"] [_m "Label|AdditionalCVs, Group 2"] [_m "Label|Custom CVs"]] {
             install $c using ttk::frame $notebook.$c
             $notebook add [set $c] -text $l -sticky news
-        }
-        
+        }        
         #set minwidth 0
         foreach cv [lsort -integer [array names CV_WidgetConstructors]] {
             set constructorFun [lindex $CV_WidgetConstructors($cv) 0]
@@ -755,9 +931,31 @@ snit::widget ServiceMode {
         #wm geometry $win [format {=%dx%d} $minwidth \
         #                  [winfo reqheight $win]]
         #wm minsize  $win $minwidth [winfo reqheight $win]
+        $self configurelist $args
     }
-    method show {} {wm deiconify $win}
-    method hide {} {wm withdraw $win}
+    method show {} {
+        $self _loadReq 
+        wm deiconify $win
+    }
+    method hide {} {
+        wm withdraw $win
+    }
+    method _updateIndexPage {} {
+        puts $options(-commandstationsocket) [format {writecvword %d %d} 31 $pageindex_]
+        puts $options(-commandstationsocket) [format {writecvbyte %d %d} [expr {256 + $pageoffset_}] $pagecv_]
+    }
+    method _loadIndexPage {} {
+        puts $options(-commandstationsocket) [format {writecvword %d %d} 31 $pageindex_]
+        set _pendingLoads([expr {256 + $pageoffset_}]) $indexpage.pagecv
+        puts $options(-commandstationsocket) [format {verifycvbyte %d} [expr {256 + $pageoffset_}]]
+    }
+    method _loadReq {} {
+        foreach cv [lsort -integer [array names CV_WidgetConstructors]] {
+            if {[winfo parent $cvWidgets_($cv)] eq $requiredCVs} {
+                $cvWidgets_($cv) load
+            }
+        }
+    }
     method loadall {} {
         foreach cv [lsort -integer [array names CV_WidgetConstructors]] {
             $cvWidgets_($cv) load
@@ -768,10 +966,138 @@ snit::widget ServiceMode {
             $cvWidgets_($cv) update
         }
     }
+    variable _pendingLoads -array {}
     method _CVcallback {mode size W} {
         puts stderr "*** $self _CVcallback: $mode $size [$W cget -bytenumber] [$W get]"
+        switch $mode {
+            load {
+                switch $size {
+                    1 {
+                        set _pendingLoads([$W cget -bytenumber]) $W
+                        puts $options(-commandstationsocket) [format {verifycvbyte %d} [$W cget -bytenumber]]
+                    }
+                    2 {
+                        set _pendingLoads([$W cget -bytenumber]) $W
+                        puts $options(-commandstationsocket) [format {verifycvword %d} [$W cget -bytenumber]]
+                    }
+                }
+            }
+            update {
+                switch $size {
+                    1 {
+                        puts $options(-commandstationsocket) [format {writecvbyte %d %d} [$W cget -bytenumber] [$W get]]
+                    }
+                    2 {
+                        puts $options(-commandstationsocket) [format {writecvword %d %d} [$W cget -bytenumber] [$W get]]
+                    }
+                }
+            }
+        }
+    }
+    method AnswerCallback {result} {
+        lassign $result mode bytenum value
+        if {$mode eq "load"} {
+            if {[info exists _pendingLoads($bytenum)]} {
+                $_pendingLoads($bytenum) set $value
+                unset _pendingLoads($bytenum)
+                return true
+            }
+        }
+        return false
+    }
+    method _createCustomCVDialog {} {
+        if {[info exists customCVDialog] && [winfo exists $customCVDialog]} {
+            return $customCVDialog
+        }
+        install customCVDialog using Dialog $win.customCVDialog \
+              -cancel 1 -default 0 -modal local \
+              -parent $win -side bottom \
+              -title [_ "Add Custom CV"] -transient yes
+        $customCVDialog add add -text {Add CV} -command [mymethod _AddCustomCV]
+        $customCVDialog add cancel -text {Cancel} \
+              -command [mymethod _CancelAddCustomCV]
+        set frame [$customCVDialog getframe]
+        install customCVLabel using LabelEntry $frame.customCVLabel \
+              -label [_m "Name: "]
+        pack $customCVLabel -fill x
+        install customCVType using LabelComboBox $frame.customCVType \
+              -label [_m "Type: "] \
+              -values {Byte Word Bitfield} \
+              -modifycmd [mymethod _changeCustomCVType] -editable no
+        pack $customCVType -fill x
+        $customCVType set Byte
+        install customCVNumber using LabelSpinBox $frame.customCVNumber \
+              -label [_m "Label|CV Number"] -range {1 1024 1}
+        pack $customCVNumber -fill x
+        $customCVNumber set 896
+        for {set i 0} {$i < 8} {incr i} {
+            install customCVBit$i using LabelEntry $frame.customCVBit$i \
+                  -label [_m "Label|Bit %d label" $i] \
+                  -state disabled
+            pack [set customCVBit$i] -fill x
+        }
+        return $customCVDialog
+    }
+    variable _customCVIndex 1025
+    method _AddCustomCV {} {
+        $customCVDialog withdraw
+        set cvlabel [$customCVLabel get]
+        set cvtype [$customCVType get]
+        set cvnumber [$customCVNumber get]
+        puts stderr "*** $self _AddCustomCV: cvnumber is $cvnumber"
+        set cvfieldlabels [list]
+        if {$cvtype eq "Bitfield"} {
+            for {set i 0} {$i < 8} {incr i} {
+                set cvbitlabel [[set customCVBit$i] get]
+                lappend cvfieldlabels $cvbitlabel
+            }
+        }
+        switch $cvtype {
+            Byte {
+                set cvWidgets_($_customCVIndex) \
+                      [CVByte $customCVs.cv$_customCVIndex \
+                       -bytenumber $cvnumber -label $cvlabel \
+                       -callback [mymethod _CVcallback]]
+                pack $cvWidgets_($_customCVIndex) -fill x
+                incr _customCVIndex
+            }
+            Word {
+                set cvWidgets_($_customCVIndex) \
+                      [CVWord $customCVs.cv$_customCVIndex \
+                       -bytenumber $cvnumber -label $cvlabel \
+                       -callback [mymethod _CVcallback]]
+                pack $cvWidgets_($_customCVIndex) -fill x
+                incr _customCVIndex
+            }
+            Bitfield {
+                set cvWidgets_($_customCVIndex) \
+                      [CVBitField $customCVs.cv$_customCVIndex \
+                       -bytenumber $cvnumber -label $cvlabel \
+                       -fieldlables $cvfieldlabels \
+                       -callback [mymethod _CVcallback]]
+                pack $cvWidgets_($_customCVIndex) -fill x
+                incr _customCVIndex
+            }
+        }
+        $customCVDialog enddialog {}
+    }
+    method _CancelAddCustomCV {} {
+        $customCVDialog withdraw
+        $customCVDialog enddialog {}
+    }
+    method _changeCustomCVType {} {
+        if {[$customCVType get] eq "Bitfield"} {
+            set state normal
+        } else {
+            set state disabled
+        }
+        for {set i 0} {$i < 8} {incr i} {
+            [set customCVBit$i] configure -state $state
+        }
+        
     }
     method addCustomCV {} {
+        [$self _createCustomCVDialog] draw
     }
 }
 
@@ -779,3 +1105,5 @@ snit::widget ServiceMode {
 
 
 package provide ServiceMode 1.0
+
+

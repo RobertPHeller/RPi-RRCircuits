@@ -1,0 +1,192 @@
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 14 Nov 2019 08:40:55 EST
+
+BeginCmp
+TimeStamp = /5DCAB39F;
+Reference = C1;
+ValeurCmp = .01 uf;
+IdModule  = c_0402;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCAB1F0;
+Reference = C3;
+ValeurCmp = 1 uf, 35V;
+IdModule  = c_elec_4x5.3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCAB53C;
+Reference = C4;
+ValeurCmp = 1 uf, 35V;
+IdModule  = c_elec_4x5.3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCABA3C;
+Reference = C5;
+ValeurCmp = 1 uf, 35V;
+IdModule  = c_elec_4x5.3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCAB319;
+Reference = D1;
+ValeurCmp = SD103;
+IdModule  = sod123;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCAB930;
+Reference = D2;
+ValeurCmp = 1N4002;
+IdModule  = DO-214AC(SMA);
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCAB2C0;
+Reference = D3;
+ValeurCmp = 1N4934;
+IdModule  = DO-214BA;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCAB845;
+Reference = L1;
+ValeurCmp = LED;
+IdModule  = LED-0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCAB6EF;
+Reference = P1;
+ValeurCmp = 10K Ohms;
+IdModule  = burns-3313S-1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCAB101;
+Reference = P101;
+ValeurCmp = CONN_2;
+IdModule  = ScrewTerm2.54-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCB0757;
+Reference = P102;
+ValeurCmp = CONN_4;
+IdModule  = pin_strip_4-90;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCAEECC;
+Reference = Q1;
+ValeurCmp = CMUT3904;
+IdModule  = SOT-523;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCAB15D;
+Reference = R1;
+ValeurCmp = 1K Ohms;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCAB13D;
+Reference = R2;
+ValeurCmp = 1K Ohms;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCAB965;
+Reference = R3;
+ValeurCmp = 220K Ohms;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCAB769;
+Reference = R4;
+ValeurCmp = 100K Ohms;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCABB24;
+Reference = R5;
+ValeurCmp = 100K Ohms;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCABB3D;
+Reference = R6;
+ValeurCmp = 100K Ohms;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCAB52D;
+Reference = R7;
+ValeurCmp = 10K Ohms;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCAB90E;
+Reference = R8;
+ValeurCmp = 3.3M Ohms;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCAB82C;
+Reference = R9;
+ValeurCmp = 1K Ohms;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCABCA5;
+Reference = R10;
+ValeurCmp = 1K Ohms;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCAB3DA;
+Reference = R11;
+ValeurCmp = 10K Ohms;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCAB44F;
+Reference = R12;
+ValeurCmp = 10K Ohms;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCAB49D;
+Reference = R13;
+ValeurCmp = 1M Ohms;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCABDA9;
+Reference = R101;
+ValeurCmp = 10K Ohms;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5DCAB424;
+Reference = U1;
+ValeurCmp = LM324;
+IdModule  = SO14N;
+EndCmp
+
+EndListe

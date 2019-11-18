@@ -1,19 +1,19 @@
-update=Thu 24 Oct 2019 09:28:33 EDT
+update=Sat 02 Nov 2019 16:28:12 EDT
 version=1
 last_client=eeschema
-[general]
-version=1
 [cvpcb]
 version=1
 NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
 [pcbnew]
 version=1
-LastNetListRead=BBBCommandStation.net
+LastNetListRead=
 UseCmpFile=1
-PadDrill="    1.016000"
-PadDrillOvalY="    1.016000"
-PadSizeH="    1.727200"
-PadSizeV="    1.727200"
+PadDrill="    0.600000"
+PadDrillOvalY="    0.600000"
+PadSizeH="    1.500000"
+PadSizeV="    1.500000"
 PcbTextSizeV="    1.500000"
 PcbTextSizeH="    1.500000"
 PcbTextThickness="    0.300000"
@@ -23,7 +23,7 @@ ModuleTextSizeThickness="    0.150000"
 SolderMaskClearance="    0.000000"
 SolderMaskMinWidth="    0.000000"
 DrawSegmentWidth="    0.200000"
-BoardOutlineThickness="    0.002540"
+BoardOutlineThickness="    0.100000"
 ModuleOutlineThickness="    0.150000"
 [pcbnew/libraries]
 LibDir=
@@ -51,10 +51,13 @@ LibName21=MountingHole_RevA
 LibName22=w_conn_screw
 LibName23=../ScrewTerm254_6
 LibName24=../ScrewTerm254_3
+LibName25=GPIOHeaders
+[general]
+version=1
 [eeschema]
 version=1
 LibDir=
-NetFmtName=PcbnewAdvanced
+NetFmtName=
 RptD_X=0
 RptD_Y=100
 RptLab=1
@@ -90,10 +93,10 @@ LibName27=opto
 LibName28=atmel
 LibName29=contrib
 LibName30=../sn65hvd233-ht
-LibName31=../BBBHalfSiding/cat24c256w
-LibName32=../lmd18200
-LibName33=sn75als174
-LibName34=tmp36
-LibName35=cl2
-LibName36=dpdt
-LibName37=gbu4a
+LibName31=../lmd18200
+LibName32=../BBBCommandStation/sn75als174
+LibName33=../BBBCommandStation/tmp36
+LibName34=../BBBCommandStation/cl2
+LibName35=../BBBCommandStation/dpdt
+LibName36=../BBBCommandStation/gbu4a
+LibName37=/home/heller/RRCircuits/sn65hvd233-ht
