@@ -8,7 +8,7 @@
  *  Author        : $Author$
  *  Created By    : Robert Heller
  *  Created       : Fri Oct 25 16:47:20 2019
- *  Last Modified : <191102.1858>
+ *  Last Modified : <191118.1658>
  *
  *  Description	
  *
@@ -54,6 +54,7 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "resource_table_0.h"
 #else
 #include "resource_table_1.h"
+#include <time.h>
 #endif
 
 volatile register uint32_t __R31;
@@ -102,6 +103,9 @@ char payload[RPMSG_BUF_SIZE - RPMSG_BUF_HEADER_SIZE];
 
 /* output GPIOs */
 volatile register unsigned int __R30;
+#ifdef PROGDCC
+volatile register unsigned int __R31;
+#endif
 
 #ifdef MAINDCC
 #define DCCBit 14 /* __R30 bit 14 (on PRU0) => P8_12 (BBB), P2_24 (PB) */
@@ -109,7 +113,11 @@ volatile register unsigned int __R30;
 #define DCCBit 11 /* __R30 bit 11 (on PRU1) => P8_30 (BBB), P1_4  (PB) */
 #endif
 
-static void OneBit() 
+#ifdef PROGDCC
+#define ACCDetect 10
+#endif
+
+static inline void OneBit() 
 {
     __R30 |= 1 << DCCBit;
     __delay_cycles(ONEBitTime);
@@ -117,12 +125,12 @@ static void OneBit()
     __delay_cycles(ONEBitTime);
 }
 
-static void ZeroBit() 
+static inline void ZeroBit() 
 {
     __R30 |= 1 << DCCBit;
     __delay_cycles(ZEROBitTime);
     __R30 = __R30 & ~(1 << DCCBit);
-    __delay_cycles(ZeroBitTime);
+    __delay_cycles(ZEROBitTime);
 }
 
 static void SendPreamble()
@@ -132,6 +140,7 @@ static void SendPreamble()
     {
         OneBit();
     }
+}
 
 static void SendByte(uint8_t byte)
 {
@@ -145,15 +154,38 @@ static void SendByte(uint8_t byte)
     }
 }
 
+#ifdef PROGDCC
+static unsigned ackDetectBit = 0, ackDetectTime = 0, ackDetect = 0;
+#define CLOCKS_PER_MSEC (CLOCKS_PER_SEC / 1000)
+static void checkAckDetect()
+{
+    if (__R31 & (1 << ACCDetect)) {
+        if (!ackDetectBit) {
+            ackDetectBit = 1;
+            ackDetectTime = clock();
+        }
+    } else {
+        if (ackDetectBit) {
+            unsigned periodMS = (clock() - ackDetectTime) / CLOCKS_PER_MSEC;
+            if (periodMS >= 5 || periodMS <= 7) {
+                ackDetect = 1;
+            }
+            ackDetectBit = 0;
+        }
+    }
+}
+#endif
+
+
 DCCPacket current;
 
+    
 
 void main(void)
 {
     struct pru_rpmsg_transport transport;
     uint16_t src, dst, len;
     volatile uint8_t *status;
-    struct shared_struct message;
     
     /* 
      * Allow OCP master port access by the PRU so the PRU can read 
@@ -195,6 +227,14 @@ void main(void)
     while (1) {
         SendPreamble();
         ZeroBit();
+#ifdef PROGDCC
+        checkAckDetect();
+        if (ackDetect) {
+            payload[0] = 1;
+            pru_rpmsg_send(&transport, dst, src, payload, 1);
+            ackDetect = 0;
+        }
+#endif
         /* Check register R31 bit 30 to see if the ARM has kicked us */
         if ((__R31 & HOST_INT))
         {
@@ -211,11 +251,20 @@ void main(void)
                 memcpy(&current,payload,len);
             }
         }
+        
         SendByte(current.payload[0]);
         int i;
         for (i=1; i<current.dlc; i++)
         {
             ZeroBit();
+#ifdef PROGDCC
+            checkAckDetect();
+            if (ackDetect) {
+                payload[0] = 1;
+                pru_rpmsg_send(&transport, dst, src, payload, 1);
+                ackDetect = 0;
+            }
+#endif
             SendByte(current.payload[i]);
         }
         OneBit();
