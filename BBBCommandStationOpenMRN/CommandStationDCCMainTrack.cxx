@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 21 16:43:24 2019
-//  Last Modified : <191025.1237>
+//  Last Modified : <191118.2200>
 //
 //  Description	
 //
@@ -42,13 +42,60 @@
 
 static const char rcsid[] = "@(#) : $Id$";
 
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include <sys/time.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <stdbool.h>
+#include <poll.h>
+#include <inttypes.h>
+#include <unistd.h>
+#include <errno.h>
+#include <utils/logging.h>
 #include "CommandStationDCCMainTrack.hxx"
+
+
+#define MAX_BUFFER_SIZE			512
+#define RPMSG_BUF_SIZE MAX_BUFFER_SIZE
+#define RPMSG_BUF_HEADER_SIZE           16
+///char payload[RPMSG_BUF_SIZE - RPMSG_BUF_HEADER_SIZE];
+
+
 
 CommandStationDCCMainTrack::CommandStationDCCMainTrack(Service *service, int pool_size)
       : StateFlow<Buffer<dcc::Packet>, QList<1>>(service)
 , pool_(sizeof(Buffer<dcc::Packet>), pool_size)
 {
+}
+
+void CommandStationDCCMainTrack::StartPRU()
+{
+    /* test that /dev/rpmsg_pru30 exists */
+    if (!access(pruMessageDevice,F_OK)) {
+        FILE *sysfs_node;
+        sysfs_node = fopen(pruFirmware, "r+");
+        if (sysfs_node == NULL) {
+            LOG(FATAL, "CommandStationDCCMainTrack::StartPRU(): Cannot open firmware sysfs_node %s (%d)", pruFirmware, errno);
+        }
+        fwrite(firmwareName,sizeof(uint8_t),strlen(firmwareName),sysfs_node);
+        fclose(sysfs_node);
+        sysfs_node = fopen(pruState, "r+");
+        if (sysfs_node == NULL) {
+            LOG(FATAL, "CommandStationDCCMainTrack::StartPRU(): Cannot open firmware sysfs_node %s (%d)", pruState, errno);
+        }
+        fwrite("start",sizeof(uint8_t),strlen("start"),sysfs_node);
+        fclose(sysfs_node);
+        /* give RPMSG time to initialize */
+        sleep(3);
+        if (!access(pruMessageDevice,F_OK)) {
+            LOG(FATAL, "CommandStationDCCMainTrack::StartPRU(): Could not open %s (%d)", pruMessageDevice, errno);
+        }
+    }
+    
 }
 
 StateFlowBase::Action CommandStationDCCMainTrack::entry()

@@ -8,7 +8,7 @@
  *  Author        : $Author$
  *  Created By    : Robert Heller
  *  Created       : Fri Oct 25 16:47:20 2019
- *  Last Modified : <191118.1658>
+ *  Last Modified : <191119.0059>
  *
  *  Description	
  *
@@ -57,11 +57,19 @@ static const char rcsid[] = "@(#) : $Id$";
 #include <time.h>
 #endif
 
+/* output GPIOs */
+volatile register uint32_t __R30;
+/* input GPIOs and Host IRQs */
 volatile register uint32_t __R31;
 
-/* ??? -- pru1 different? need to check */
+#ifdef MAINDCC
 /* Host-0 Interrupt sets bit 30 in register R31 */
 #define HOST_INT			((uint32_t) 1 << 30)
+#endif
+#ifdef PROGDCC
+/* Host-1 Interrupt sets bit 31 in register R31 */
+#define HOST_INT                        ((uint32_t) 1 << 31)
+#endif
 
 /* 
  * The PRU-ICSS system events used for RPMsg are defined in the Linux devicetree
@@ -71,7 +79,8 @@ volatile register uint32_t __R31;
 #ifdef MAINDCC
 #define TO_ARM_HOST			16
 #define FROM_ARM_HOST			17
-#else
+#endif
+#ifdef PROGDCC
 #define TO_ARM_HOST                     18
 #define FROM_ARM_HOST                   19
 #endif
@@ -84,7 +93,8 @@ volatile register uint32_t __R31;
 #ifdef MAINDCC
 #define CHAN_DESC			"Channel 30"
 #define CHAN_PORT			30
-#else
+#endif
+#ifdef PROGDCC
 #define CHAN_DESC                       "Channel 31"
 #define CHAN_PORT                       31
 #endif
@@ -101,15 +111,10 @@ char payload[RPMSG_BUF_SIZE - RPMSG_BUF_HEADER_SIZE];
 
 #include "dccpacket.h" /* define the DCC Packet struct */
 
-/* output GPIOs */
-volatile register unsigned int __R30;
-#ifdef PROGDCC
-volatile register unsigned int __R31;
-#endif
-
 #ifdef MAINDCC
 #define DCCBit 14 /* __R30 bit 14 (on PRU0) => P8_12 (BBB), P2_24 (PB) */
-#else
+#endif
+#ifdef PROGDCC
 #define DCCBit 11 /* __R30 bit 11 (on PRU1) => P8_30 (BBB), P1_4  (PB) */
 #endif
 

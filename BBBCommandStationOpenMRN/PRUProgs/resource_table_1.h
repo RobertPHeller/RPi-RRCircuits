@@ -57,8 +57,8 @@
 #define HOST_UNUSED		255
 
 /* Mapping sysevts to a channel. Each pair contains a sysevt, channel. */
-struct ch_map pru_intc_map[] = { {16, 2},
-				 {17, 0},
+struct ch_map pru_intc_map[] = { {18, 3},
+				 {19, 1},
 };
 
 struct my_resource_table {
@@ -122,7 +122,7 @@ struct my_resource_table resourceTable = {
 		{ /* PRU_INTS version */
 			0x0000,
 			/* Channel-to-host mapping, 255 for unused */
-			0, HOST_UNUSED, 2, HOST_UNUSED, HOST_UNUSED,
+			HOST_UNUSED, 1, HOST_UNUSED, 3, HOST_UNUSED,
 			HOST_UNUSED, HOST_UNUSED, HOST_UNUSED, HOST_UNUSED, HOST_UNUSED,
 			/* Number of evts being mapped to channels */
 			(sizeof(pru_intc_map) / sizeof(struct ch_map)),

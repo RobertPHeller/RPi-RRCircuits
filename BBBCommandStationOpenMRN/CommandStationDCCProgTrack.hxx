@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 20:21:40 2019
-//  Last Modified : <191025.1239>
+//  Last Modified : <191118.2154>
 //
 //  Description	
 //
@@ -47,6 +47,7 @@
 #include "executor/StateFlow.hxx"
 #include "dcc/Packet.hxx"
 
+
 class CommandStationDCCProgTrack : public StateFlow<Buffer<dcc::Packet>, QList<1>>
 {
 public:
@@ -55,7 +56,7 @@ public:
     {
         return &pool_;
     }
-    //void StartPRU();
+    void StartPRU();
 protected:
     Action entry() OVERRIDE;
     
@@ -67,6 +68,11 @@ protected:
     /// Packet pool from which to allocate packets.
     FixedPool pool_;
 private:
+    static constexpr char const *pruFirmware = "/sys/class/remoteproc/remoteproc2/firmware";
+    static constexpr char const *firmwareName = "ProgTrackDCC.out";
+    static constexpr char const *pruState = "/sys/class/remoteproc/remoteproc2/state";
+    static constexpr char const *pruMessageDevice = "/dev/rpmsg_pru31";
+    
     //static constexpr int PRU_NUM = 1;
     //static constexpr char const *PRU_Prog = "ProgTrackDCC.bin";
     //static constexpr int PRU_DATARAM = PRUSS0_PRU1_DATARAM;

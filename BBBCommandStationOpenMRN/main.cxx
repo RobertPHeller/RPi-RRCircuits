@@ -249,6 +249,11 @@ CommandStationConsole commandProcessorConsole(stack.info_flow(),
                                               stack.executor(),
                                               CONSOLEPORT);
 #endif
+
+CommandStationDCCMainTrack mainDCC(stack.traction_service(),2);
+CommandStationDCCProgTrack progDCC(stack.traction_service(),2);
+
+
 /** Entry point to application.
  * @param argc number of command line arguments
  * @param argv array of command line arguments
@@ -262,7 +267,8 @@ int appl_main(int argc, char *argv[])
     GpioInit::hw_init();
     
     stack.create_config_file_if_needed(cfg.seg().internal_config(), openlcb::CANONICAL_VERSION, openlcb::CONFIG_FILE_SIZE);
-    
+    mainDCC.StartPRU();
+    progDCC.StartPRU();
     
     // Connects to a TCP hub on the internet.
     //stack.connect_tcp_gridconnect_hub("28k.ch", 50007);
