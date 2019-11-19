@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Nov 18 23:46:08 2019
-//  Last Modified : <191119.0032>
+//  Last Modified : <191119.0129>
 //
 //  Description	
 //
@@ -109,31 +109,19 @@ public:
     {
         int wrote;
         char buffer[128];
-        snprintf(buffer,sizeof(buffer),"/dev/rpmsg_pru%d",channel_);
-        if (!access(buffer,F_OK)) {
-            FILE *sysfs_node;
-            printf("%s exists, stopping PRU\n",buffer);
-            snprintf(buffer,sizeof(buffer),"/sys/class/remoteproc/remoteproc%d/state",procnum_);
-            sysfs_node = fopen(buffer, "r+");
-            if (sysfs_node == NULL) {
-                printf("Cannot open state sysfs_node %s (%d)\n", buffer, errno);
-                exit(99);
-            }
-            wrote = fwrite("stop",sizeof(uint8_t),strlen("stop"),sysfs_node);
-            if (wrote < strlen("stop")) {
-                printf("Error writing stop: %d\n",errno);
-                exit(99);
-            }
-            fclose(sysfs_node);
-            sleep(3);
-            snprintf(buffer,sizeof(buffer),"/dev/rpmsg_pru%d",channel_);
-            if (!access(buffer,F_OK)) {
-                printf("%s still exists...\n",buffer);
-                exit(99);
-            }
-        } else {
-            printf("%s does not exist\n",buffer);
+        FILE *sysfs_node;
+        snprintf(buffer,sizeof(buffer),"/sys/class/remoteproc/remoteproc%d/state",procnum_);
+        sysfs_node = fopen(buffer, "r+");
+        if (sysfs_node == NULL) {
+            printf("Cannot open state sysfs_node %s (%d)\n", buffer, errno);
+            exit(99);
         }
+        wrote = fwrite("stop",sizeof(uint8_t),strlen("stop"),sysfs_node);
+        if (wrote < strlen("stop")) {
+            printf("Error writing stop: %d\n",errno);
+            exit(99);
+        }
+        fclose(sysfs_node);
     }
     void PRUState()
     {

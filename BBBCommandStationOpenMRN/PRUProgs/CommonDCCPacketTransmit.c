@@ -8,7 +8,7 @@
  *  Author        : $Author$
  *  Created By    : Robert Heller
  *  Created       : Fri Oct 25 16:47:20 2019
- *  Last Modified : <191119.0059>
+ *  Last Modified : <191119.0152>
  *
  *  Description	
  *
@@ -164,6 +164,7 @@ static unsigned ackDetectBit = 0, ackDetectTime = 0, ackDetect = 0;
 #define CLOCKS_PER_MSEC (CLOCKS_PER_SEC / 1000)
 static void checkAckDetect()
 {
+#if 1
     if (__R31 & (1 << ACCDetect)) {
         if (!ackDetectBit) {
             ackDetectBit = 1;
@@ -178,6 +179,7 @@ static void checkAckDetect()
             ackDetectBit = 0;
         }
     }
+#endif
 }
 #endif
 
@@ -228,7 +230,6 @@ void main(void)
         /* Optional: implement timeout logic */
     };
     
-
     while (1) {
         SendPreamble();
         ZeroBit();
@@ -240,6 +241,7 @@ void main(void)
             ackDetect = 0;
         }
 #endif
+#if 1
         /* Check register R31 bit 30 to see if the ARM has kicked us */
         if ((__R31 & HOST_INT))
         {
@@ -256,7 +258,7 @@ void main(void)
                 memcpy(&current,payload,len);
             }
         }
-        
+#endif
         SendByte(current.payload[0]);
         int i;
         for (i=1; i<current.dlc; i++)
