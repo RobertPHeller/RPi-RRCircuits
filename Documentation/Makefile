@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed May 31 19:27:54 2017
-#  Last Modified : <190803.1349>
+#  Last Modified : <191125.1001>
 #
 #  Description	
 #
@@ -64,6 +64,8 @@ TEXS=usermanual.tex ../SMCSenseHAT/SMCSenseHAT.tex \
 		    ../QuadSMC/QuadSMC.tex \
 		    ../QuadSMCSenseHat/QuadSMCSenseHat.tex \
 		    ../QuadSMCSenseCape/QuadSMCSenseCape.tex \
+		    ../PocketBeagleQuadSMCSense/PocketBeagleQuadSMCSense.tex \
+		    ../ESP32QuadSMCSense/ESP32QuadSMCSense.tex \
 		    ../LCCCANCape/LCCCANCape.tex
 
 FIGURES= ../SMCSenseHAT/SMCSenseHAT3DTop.png \
@@ -87,7 +89,17 @@ FIGURES= ../SMCSenseHAT/SMCSenseHAT3DTop.png \
 	 ../QuadSMCSenseCape/QuadSMCSenseCape.png \
 	 ../LCCCANCape/LCCCANCape-1.pdf \
 	 ../LCCCANCape/LCCCANCape.png \
-	 ../LCCCANCape/LCCCANCape3DTop.png
+	 ../LCCCANCape/LCCCANCape3DTop.png \
+	 ../PocketBeagleQuadSMCSense/PocketBeagleQuadSMCSense3DTop.png \
+	 ../PocketBeagleQuadSMCSense/PocketBeagleQuadSMCSense-1.pdf \
+	 ../PocketBeagleQuadSMCSense/PocketBeagleQuadSMCSense-2.pdf \
+	 ../PocketBeagleQuadSMCSense/PocketBeagleQuadSMCSense-3.pdf \
+	 ../PocketBeagleQuadSMCSense/PocketBeagleQuadSMCSense.png \
+	 ../ESP32QuadSMCSense/ESP32QuadSMCSense3DTop.png \
+	 ../ESP32QuadSMCSense/ESP32QuadSMCSense-1.pdf \
+	 ../ESP32QuadSMCSense/ESP32QuadSMCSense-2.pdf \
+	 ../ESP32QuadSMCSense/ESP32QuadSMCSense-3.pdf \
+	 ../ESP32QuadSMCSense/ESP32QuadSMCSense.png
 	 
 	 
 
