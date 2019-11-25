@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Sun 10 Nov 2019 09:33:47 EST
+Cmp-Mod V01 Created by PcbNew date = Tue 19 Nov 2019 13:05:12 EST
 
 BeginCmp
 TimeStamp = /5DA863A5;
@@ -186,7 +186,7 @@ BeginCmp
 TimeStamp = /5DA8CB97;
 Reference = Q101;
 ValeurCmp = PN2222A;
-IdModule  = TO92;
+IdModule  = TO92-EBC;
 EndCmp
 
 BeginCmp
