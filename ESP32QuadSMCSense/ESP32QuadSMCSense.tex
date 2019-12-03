@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Mon Nov 25 10:02:10 2019
-%  Last Modified : <191125.1132>
+%  Last Modified : <191127.1229>
 %
 %  Description 
 %
@@ -42,13 +42,13 @@
 
 \chapter{ESP32QuadSMCSense: Quad Motor Control and Sense base board for an ESP32 Dev Kit MCU board}
 
-This is a circuit board that supports a Pocket Beagle controlling four 
-stall-motor turnout motors for a model railroad. It also has sense logic to 
-return the state of the turnouts, using one pole of the DPDT contacts in the 
-stall-motor (typical of Tortoise stall-motors). This circuit board provides 
-connections to a LCC CAN network via RJ45 connectors, the ability to inject 
-and extract 12V power from the LCC CAN network, and a 5V power supply from the 
-LCC CAN network 12V power bus.
+This is a circuit board that supports an ESP32 Dev Kit board or TTGO-T1 board
+controlling four stall-motor turnout motors for a model railroad. It also has
+sense logic to return the state of the turnouts, using one pole of the DPDT
+contacts in the stall-motor (typical of Tortoise stall-motors). This circuit
+board provides connections to a LCC CAN network via RJ45 connectors, the
+ability to inject and extract 12V power from the LCC CAN network, and a 5V
+power supply from the LCC CAN network 12V power bus.
 
 \section{GPIO Pins Used.}
 
@@ -163,7 +163,9 @@ LM2574N-5.0&1&U3&926-LM2574N-5.0/NOPB\\
 \end{tabular}
 \caption{Parts list for ESP32QuadSMCSense board.}
 \end{centering}\end{table}\footnote{Mouser Project link: 
-\url{http://www.mouser.com/ProjectManager/ProjectDetail.aspx?AccessID=330542c522}.}
+\url{http://www.mouser.com/ProjectManager/ProjectDetail.aspx?AccessID=330542c522},
+\url{http://www.mouser.com/ProjectManager/ProjectDetail.aspx?AccessID=82b1e6b259}, and
+\url{http://www.mouser.com/ProjectManager/ProjectDetail.aspx?AccessID=ae58a2d985}.}
 
 
 The only parts that might be substituted are T1 though T4 (the Motor
@@ -189,7 +191,7 @@ Board assembly is straight forward. You need to be careful orienting the ICs
 and the electrolytic capacitor.
 
 Bare circuit boards can be ordered from PCBWay here: 
-\url{https://www.pcbway.com/project/shareproject/Quad_Stall_Motor_Controller_w__point_Sense__hat_.html}.
+\url{https://www.pcbway.com/project/shareproject/ESP32QuadSMCSense.html}.
 
 \section{Downloadables and Software Support}
 

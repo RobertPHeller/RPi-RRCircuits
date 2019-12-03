@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed May 31 19:27:54 2017
-#  Last Modified : <191125.1001>
+#  Last Modified : <191125.2024>
 #
 #  Description	
 #
@@ -46,6 +46,7 @@
 LATEX=/usr/bin/pdflatex
 BIBTEX=/usr/bin/bibtex
 MAKEINDEX=/usr/bin/makeindex
+GS=/usr/bin/gs
 
 TEXS=usermanual.tex ../SMCSenseHAT/SMCSenseHAT.tex \
 		    ../QuadSSSQuadIn/QuadSSSQuadIn.tex \
@@ -113,6 +114,9 @@ usermanual.pdf : $(TEXS) $(FIGURES)
 	-$(MAKEINDEX) usermanual.inx
 	$(LATEX) usermanual
 	$(LATEX) usermanual
+	mv usermanual.pdf usermanual-orig.pdf
+	$(GS) -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -dEmbedAllFonts=true -sOutputFile=usermanual.pdf -f usermanual-orig.pdf
+
 	
 clean:
 	rm -f usermanual.pdf *.aux *.log *.inx *.bbl *.blg *.idx *.lof *.lot \

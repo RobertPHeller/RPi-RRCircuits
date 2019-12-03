@@ -1,0 +1,23 @@
+LCC Quad Stall Motor Driver with Sense for various SMB/MCUs
+<p>The Country Robot has designed four printed circuit boards that implement a Quad Stall Motor Driver with Sense.  These boards use the same basic circuit.  There is a HAT board for a Rasberry Pi B+, a Cape board for a Beagle Bone, a base board for a Pocket Beagle, and a base board for an ESP32 Dev Kit board (or TTGO-T1 board). There is an OpenMRN node program for the Linux-based SMCs and an OpenMRN Lite sketch for the ESP32 MCU.</p>
+<h3>Circuit Description</h3>
+<p>This circuit contains two sections.  There is an output section that contains four TC4428 chips.  Each chip has a non-inverting and an inverting driver. The inputs of both drivers are connected to one of the motor GPIO pins.  The output are wired to the terminal block for a one of the motors. For any given logic state of the motor control output, one of the drivers is &quot;on&quot; and the other is &quot;off&quot;, thus one motor terminal is ground and one is raised to the 12V supply.  This means alternative states of the logic line will drive the stall motor in alternative directions.</p>
+<p>The other section is a quartet of flip-flop debounce circuits, one for each of two SPDT switch contacts that report the position of the turnout points. The output of these flip-flops goes to a quartet of GPIO input pins.</p>
+<h3>Board Documentation</h3>
+<p>The board designs are on GitHub:
+<dl><dt>Raspberry Pi HAT</dt><dd><a href="https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/QuadSMCSenseHat">https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/QuadSMCSenseHat</a></dd>
+    <dt>Beagle Bone Cape</dt><dd><a href="https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/QuadSMCSenseCape">https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/QuadSMCSenseCape</a></dd>
+    <dt>Pocket Beagle Base Board</dt><dd><a href="https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/PocketBeagleQuadSMCSense">https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/PocketBeagleQuadSMCSense</a></dd>
+    <dt>ESP32 Base Board</dt><dd><a href="https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32QuadSMCSense">https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32QuadSMCSense</a></dd></dl>
+The base boards for the Pocket Beagle and the ESP32 also include a CAN transciver with LCC connectors and 5V power supply. Additionally, printable documentation is available as LaTeX source at <a href="https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/Documentation">https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/Documentation</a> and is available in printed form from <a href="http://www.lulu.com/shop/robert-heller/model-railroad-circuits/paperback/product-24336232.html">LuLu</a>.</p>
+<h3>Getting the boards</h3>
+<p>There is a limited supply of the boards for sale on E-Bay:
+<ul><li><a href="http://ebay.us/R2z0m1?cmpnId=5338273189">Raspberry Pi HAT</a></li>
+    <li><a href="http://ebay.us/3I0lPl?cmpnId=5338273189">Beagle Bone Cape</a></li>
+    <li><a href="http://ebay.us/yJvooJ?cmpnId=5338273189">Pocket Beagle Base Board</a></li>
+    <li><a href="http://ebay.us/d2v9i1?cmpnId=5338273189">ESP32 Base Board</a></li></ul>
+And boards can also be ordered from PCBWay:
+<ul><li><a href="https://www.pcbway.com/project/shareproject/Quad_Stall_Motor_Controller_w__point_Sense__hat_.html">Raspberry Pi HAT</a></li>
+    <li><a href="https://www.pcbway.com/project/shareproject/Quad_Stall_motor_with_point_sense_cape.html">Beagle Bone Cape</a></li>
+    <li><a href="https://www.pcbway.com/project/shareproject/Pocket_Beagle_Quad_StallMotor_w_Sense_base_board__includes_LCC_CAN_and_power_supply.html">Pocket Beagle Base Board</a></li>
+    <li><a href="https://www.pcbway.com/project/shareproject/ESP32QuadSMCSense.html">ESP32 Base Board</a></li></ul></p>
