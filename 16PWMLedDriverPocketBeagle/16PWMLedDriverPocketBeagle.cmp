@@ -1,11 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Sun 10 Mar 2019 08:02:47 PM EDT
-
-BeginCmp
-TimeStamp = /5C840A32/5C8437D0;
-Reference = AltU4;
-ValeurCmp = PCA9685;
-IdModule  = tssop-28;
-EndCmp
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 30 Jan 2020 14:08:32 EST
 
 BeginCmp
 TimeStamp = /5C7C46C3;
@@ -68,6 +61,13 @@ TimeStamp = /5C7D285B/5C7D3F8E;
 Reference = D3;
 ValeurCmp = SB160-E3/54;
 IdModule  = DO-41;
+EndCmp
+
+BeginCmp
+TimeStamp = /5E333922;
+Reference = D101;
+ValeurCmp = SB240E;
+IdModule  = DO-35;
 EndCmp
 
 BeginCmp
@@ -192,14 +192,14 @@ EndCmp
 BeginCmp
 TimeStamp = /5C840A32/5C840B92;
 Reference = RP1;
-ValeurCmp = 220 Ohms;
+ValeurCmp = 1.5K Ohms;
 IdModule  = DIP-16__300;
 EndCmp
 
 BeginCmp
 TimeStamp = /5C840A32/5C840BA1;
 Reference = RP2;
-ValeurCmp = 220 Ohms;
+ValeurCmp = 1.5K Ohms;
 IdModule  = DIP-16__300;
 EndCmp
 
@@ -221,6 +221,13 @@ BeginCmp
 TimeStamp = /5C7C4250;
 Reference = T2;
 ValeurCmp = + 15 out -;
+IdModule  = ScrewTerm2.54-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5E333E44;
+Reference = T101;
+ValeurCmp = + 12V -;
 IdModule  = ScrewTerm2.54-2;
 EndCmp
 
@@ -249,7 +256,7 @@ BeginCmp
 TimeStamp = /5C840A32/5C840A85;
 Reference = U4;
 ValeurCmp = PCA9685;
-IdModule  = DIP-28__700;
+IdModule  = tssop-28;
 EndCmp
 
 BeginCmp
