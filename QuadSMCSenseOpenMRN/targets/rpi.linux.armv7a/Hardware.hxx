@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Oct 17 13:05:06 2018
-//  Last Modified : <190712.1650>
+//  Last Modified : <200121.1438>
 //
 //  Description	
 //
@@ -73,7 +73,7 @@ typedef GpioInitializer<Motor1_Pin, Motor2_Pin, Motor3_Pin,
 //#define USE_GRIDCONNECT_HOST
 //#define DEFAULT_TCP_GRIDCONNECT_HOST "fruitloops"
 //#define DEFAULT_TCP_GRIDCONNECT_PORT 12021
-#define DEFAULT_OPENLCB_TCP_HOST "snoopy"
+#define DEFAULT_OPENLCB_TCP_HOST "localhost"
 #define DEFAULT_OPENLCB_TCP_PORT 12000
 
 //#define PRINT_ALL_PACKETS

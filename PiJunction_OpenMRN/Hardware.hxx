@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 14 13:41:42 2018
-//  Last Modified : <181014.2037>
+//  Last Modified : <200116.1436>
 //
 //  Description	
 //
@@ -81,7 +81,7 @@ GPIO_PIN(Points2, SensePin, 22);
 
 #define SSRPin GpioOutputSafeLow
 #define ODPin  GpioInputActiveLow
-#define LEDPin GpioOutputSafeLow
+#define LEDPin Gpio OutputSafeLow
 
 
 GPIO_PIN(MadHatterLights, SSRPin, QuadSSSQuadInBase+0);
