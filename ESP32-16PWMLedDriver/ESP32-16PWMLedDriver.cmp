@@ -1,0 +1,269 @@
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 30 Jan 2020 16:42:29 EST
+
+BeginCmp
+TimeStamp = /5C828AE5/5C828DA1;
+Reference = C1;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C828AE5/5C828DB0;
+Reference = C2;
+ValeurCmp = 15 uf 15V;
+IdModule  = C1.5V8V;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C828AE5/5C8290C3;
+Reference = C3;
+ValeurCmp = 47 nf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C828B13/5C829D34;
+Reference = C4;
+ValeurCmp = 220 uf 25V;
+IdModule  = C1-3V8;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C828B13/5C829D01;
+Reference = C5;
+ValeurCmp = 22 uf 100V;
+IdModule  = C1-3V8;
+EndCmp
+
+BeginCmp
+TimeStamp = /5E334987/5E334BBD;
+Reference = C401;
+ValeurCmp = .1 uf;
+IdModule  = C1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C828AE5/5C8297A7;
+Reference = D1;
+ValeurCmp = SB240E;
+IdModule  = DO-35;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C828AE5/5C829535;
+Reference = D2;
+ValeurCmp = SB240E;
+IdModule  = DO-35;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C828B13/5C829D75;
+Reference = D3;
+ValeurCmp = SB160-E3/54;
+IdModule  = DO-41;
+EndCmp
+
+BeginCmp
+TimeStamp = /5E334987/5E334D12;
+Reference = D401;
+ValeurCmp = SB240E;
+IdModule  = DO-35;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C828AE5/5C829180;
+Reference = J1;
+ValeurCmp = RJ45;
+IdModule  = RJ45_8N-S;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C828AE5/5C829171;
+Reference = J2;
+ValeurCmp = RJ45;
+IdModule  = RJ45_8N-S;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C828AE5/5C829002;
+Reference = JP1;
+ValeurCmp = Termination;
+IdModule  = PIN_ARRAY_2X2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5E334987/5E334BE2;
+Reference = JP401;
+ValeurCmp = OE GPIO;
+IdModule  = Closed_Jumper;
+EndCmp
+
+BeginCmp
+TimeStamp = /5E334987/5E334BDF;
+Reference = JP402;
+ValeurCmp = 0  1  2  3  4  5;
+IdModule  = pin_array_6x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5E334987/5E334BE3;
+Reference = JP403;
+ValeurCmp = OE Bypass;
+IdModule  = Open_Jumper;
+EndCmp
+
+BeginCmp
+TimeStamp = /5E334987/5E334BD3;
+Reference = JP404;
+ValeurCmp = CK A CA;
+IdModule  = 3PosJumper;
+EndCmp
+
+BeginCmp
+TimeStamp = /5E334987/5E334BD1;
+Reference = JP405;
+ValeurCmp = CK A CA;
+IdModule  = 3PosJumper;
+EndCmp
+
+BeginCmp
+TimeStamp = /5E334987/5E334BD4;
+Reference = JP406;
+ValeurCmp = CK B CA;
+IdModule  = 3PosJumper;
+EndCmp
+
+BeginCmp
+TimeStamp = /5E334987/5E334BD2;
+Reference = JP407;
+ValeurCmp = CK B CA;
+IdModule  = 3PosJumper;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C828B13/5C829D66;
+Reference = L1;
+ValeurCmp = 330 uh;
+IdModule  = PE-LowProfile;
+EndCmp
+
+BeginCmp
+TimeStamp = /5E334987/5E334BD5;
+Reference = P401;
+ValeurCmp = C A0 A1 A2 A3 A4 A5 A6 A7;
+IdModule  = ScrewTerm_2.54-9;
+EndCmp
+
+BeginCmp
+TimeStamp = /5E334987/5E334BD6;
+Reference = P402;
+ValeurCmp = C B0 B1 B2 B3 B4 B5 B6 B7;
+IdModule  = ScrewTerm_2.54-9;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C828AE5/5C828F93;
+Reference = R1;
+ValeurCmp = 60 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C828AE5/5C828FA2;
+Reference = R2;
+ValeurCmp = 60 Ohms;
+IdModule  = R1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5E334987/5E334BCF;
+Reference = RP401;
+ValeurCmp = 1.5K Ohms;
+IdModule  = DIP-16__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5E334987/5E334BD0;
+Reference = RP402;
+ValeurCmp = 1.5K Ohms;
+IdModule  = DIP-16__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5E334987/5E334BE1;
+Reference = RR401;
+ValeurCmp = 10K Ohms;
+IdModule  = SIL-7;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C828AE5/5C82965E;
+Reference = T1;
+ValeurCmp = + 15 in -;
+IdModule  = ScrewTerm2.54-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C828AE5/5C829479;
+Reference = T2;
+ValeurCmp = + 15 out -;
+IdModule  = ScrewTerm2.54-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5E334987/5E334E15;
+Reference = T401;
+ValeurCmp = + 12V -;
+IdModule  = ScrewTerm2.54-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C81CCAA;
+Reference = U0;
+ValeurCmp = ESP32_DEVKIT_C or TTGO-T1;
+IdModule  = ESP32-Devkit-C;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C828AE5/5C828C17;
+Reference = U1;
+ValeurCmp = TCAN332DR;
+IdModule  = SOIC-8_N;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C828AE5/5C828BDF;
+Reference = U2;
+ValeurCmp = SN65HVD233-HT;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C828B13/5C829CEE;
+Reference = U3;
+ValeurCmp = LM2574N-5.0;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5E334987/5E334BBA;
+Reference = U401;
+ValeurCmp = PCA9685;
+IdModule  = tssop-28;
+EndCmp
+
+BeginCmp
+TimeStamp = /5E334987/5E334BBF;
+Reference = U402;
+ValeurCmp = TBD62X83A;
+IdModule  = DIP-18__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /5E334987/5E334BC7;
+Reference = U403;
+ValeurCmp = TBD62X83A;
+IdModule  = DIP-18__300;
+EndCmp
+
+EndListe
