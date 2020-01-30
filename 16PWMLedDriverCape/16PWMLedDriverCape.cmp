@@ -1,11 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (22-Jun-2014 BZR 4027)-stable date = Tue 11 Jun 2019 10:39:05 AM EDT
-
-BeginCmp
-TimeStamp = /5C840A32/5C8437D0;
-Reference = AltU1;
-ValeurCmp = PCA9685;
-IdModule  = tssop-28;
-EndCmp
+Cmp-Mod V01 Created by CvPcb (2013-june-11)-stable date = Thu 30 Jan 2020 08:10:10 EST
 
 BeginCmp
 TimeStamp = /5C840A32/5C840AC9;
@@ -179,7 +172,7 @@ BeginCmp
 TimeStamp = /5C840A32/5C840A85;
 Reference = U1;
 ValeurCmp = PCA9685;
-IdModule  = DIP-28__700;
+IdModule  = tssop-28;
 EndCmp
 
 BeginCmp
