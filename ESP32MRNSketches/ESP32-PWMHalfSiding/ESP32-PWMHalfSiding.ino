@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Mar 13 10:22:45 2019
-//  Last Modified : <190402.0956>
+//  Last Modified : <200202.1003>
 //
 //  Description	
 //
@@ -53,50 +53,43 @@
 #include <SPIFFS.h>
 
 #include <OpenMRNLite.h>
-#include <Adafruit_MCP23017.h>
+#include <FaBoPWM_PCA9685.h>
 
 static const char rcsid[] = "@(#) : $Id$";
 
-
+#include "FaBoPWM_PCA9685_PWMPin.h"
 #include "config.h"
 #include "NODEID.h" // Get nodeid from an externally generated header file
 #include <utils/GpioInitializer.hxx>                                   
-#include "ArduinoExtenderGpio.h"
 #include "Lamp.h"
 #include "Mast.h"                                                    
 #include "Blink.h"                                                   
 #include "TrackCircuit.h"                                            
 #include "Logic.h"                                                   
 
-using mcp23017Gpio = ArduinoExtenderGpioTemplate<Adafruit_MCP23017>;
+using FaBo_PWMPin = FaBoPWM_PCA9685_PWMChannel<FaBoPWM>;
 
-extern const mcp23017Gpio A0_Pin, A1_Pin, A2_Pin, A3_Pin, A4_Pin, 
-                          A5_Pin, A6_Pin, A7_Pin, B0_Pin, B1_Pin, 
-                          B2_Pin, B3_Pin, B4_Pin, B5_Pin, B6_Pin, 
-                          B7_Pin;
+FaBoPWM pwmchip;
 
+FaBo_PWMPin A0_Pin(&pwmchip,0);
+FaBo_PWMPin A1_Pin(&pwmchip,1);
+FaBo_PWMPin A2_Pin(&pwmchip,2);
+FaBo_PWMPin A3_Pin(&pwmchip,3);
+FaBo_PWMPin A4_Pin(&pwmchip,4);
+FaBo_PWMPin A5_Pin(&pwmchip,5);
+FaBo_PWMPin A6_Pin(&pwmchip,6);
+FaBo_PWMPin A7_Pin(&pwmchip,7);
 
-Adafruit_MCP23017 mcp;
+FaBo_PWMPin B0_Pin(&pwmchip,8);
+FaBo_PWMPin B1_Pin(&pwmchip,9);
+FaBo_PWMPin B2_Pin(&pwmchip,10);
+FaBo_PWMPin B3_Pin(&pwmchip,11);
+FaBo_PWMPin B4_Pin(&pwmchip,12);
+FaBo_PWMPin B5_Pin(&pwmchip,13);
+FaBo_PWMPin B6_Pin(&pwmchip,14);
+FaBo_PWMPin B7_Pin(&pwmchip,15);
 
-constexpr const mcp23017Gpio A0_Pin(&mcp,0,true,false);
-constexpr const mcp23017Gpio A1_Pin(&mcp,1,true,false);
-constexpr const mcp23017Gpio A2_Pin(&mcp,2,true,false);
-constexpr const mcp23017Gpio A3_Pin(&mcp,3,true,false);
-constexpr const mcp23017Gpio A4_Pin(&mcp,4,true,false);
-constexpr const mcp23017Gpio A5_Pin(&mcp,5,true,false);
-constexpr const mcp23017Gpio A6_Pin(&mcp,6,true,false);
-constexpr const mcp23017Gpio A7_Pin(&mcp,7,true,false);
-
-constexpr const mcp23017Gpio B0_Pin(&mcp,8,true,false);
-constexpr const mcp23017Gpio B1_Pin(&mcp,9,true,false);
-constexpr const mcp23017Gpio B2_Pin(&mcp,10,true,false);
-constexpr const mcp23017Gpio B3_Pin(&mcp,11,true,false);
-constexpr const mcp23017Gpio B4_Pin(&mcp,12,true,false);
-constexpr const mcp23017Gpio B5_Pin(&mcp,13,true,false);
-constexpr const mcp23017Gpio B6_Pin(&mcp,14,true,false);
-constexpr const mcp23017Gpio B7_Pin(&mcp,15,true,false);
-
-const Gpio* Lamp::pinlookup_[17] = {
+PWM* const Lamp::pinlookup_[17] = {
     nullptr,
     
     &A0_Pin,
@@ -310,7 +303,7 @@ void setup() {
     // initialize all declared GPIO pins
     GpioInit::hw_init();
     
-    mcp.begin();
+    pwmchip.begin();
     A0_Pin.hw_init();
     A1_Pin.hw_init();
     A2_Pin.hw_init();
