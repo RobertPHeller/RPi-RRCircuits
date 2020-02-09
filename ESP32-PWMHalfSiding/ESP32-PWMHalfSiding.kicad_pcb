@@ -698,7 +698,7 @@
     )
   )
 
-  (module R1 (layer F.Cu) (tedit 5E408A7F) (tstamp 5C82A0A6)
+  (module R1 (layer F.Cu) (tedit 5E40975C) (tstamp 5C82A0A6)
     (at 132.08 21.59)
     (descr "Resistance verticale")
     (tags R)
@@ -708,7 +708,7 @@
     (fp_text reference R2 (at -1.016 2.54) (layer F.SilkS) hide
       (effects (font (size 1.397 1.27) (thickness 0.2032)))
     )
-    (fp_text value "60 Ohms" (at 0 -2.286) (layer F.SilkS) hide
+    (fp_text value "60 Ohms" (at 0 -2.286) (layer F.SilkS)
       (effects (font (size 0.635 0.635) (thickness 0.1016)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.SilkS) (width 0.381))
