@@ -46,7 +46,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 6 6
 Title ""
-Date "1 feb 2020"
+Date "9 feb 2020"
 Rev ""
 Comp ""
 Comment1 ""
@@ -468,17 +468,6 @@ F 3 "" H 5050 750 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L CONN_6X2 JP602
-U 1 1 5E35CA23
-P 1600 2700
-F 0 "JP602" H 1600 3050 60  0000 C CNN
-F 1 "0  1  2  3  4  5" V 1600 2700 60  0000 C CNN
-F 2 "~" H 1600 2700 60  0000 C CNN
-F 3 "~" H 1600 2700 60  0000 C CNN
-	1    1600 2700
-	1    0    0    -1  
-$EndComp
-$Comp
 L GND #PWR033
 U 1 1 5E35CA24
 P 1200 3100
@@ -488,17 +477,6 @@ F 2 "" H 1200 3100 60  0000 C CNN
 F 3 "" H 1200 3100 60  0000 C CNN
 	1    1200 3100
 	1    0    0    -1  
-$EndComp
-$Comp
-L RR6 RR601
-U 1 1 5E35CA25
-P 1600 1950
-F 0 "RR601" H 1650 2500 70  0000 C CNN
-F 1 "10K Ohms" V 1630 1950 70  0000 C CNN
-F 2 "~" H 1600 1950 60  0000 C CNN
-F 3 "~" H 1600 1950 60  0000 C CNN
-	1    1600 1950
-	-1   0    0    -1  
 $EndComp
 $Comp
 L CLOSED JP601
@@ -529,7 +507,7 @@ Wire Wire Line
 Wire Wire Line
 	3200 1800 3200 1400
 Wire Wire Line
-	2550 1800 3200 1800
+	2800 1800 3200 1800
 Connection ~ 2800 1800
 Wire Wire Line
 	3200 1400 3550 1400
@@ -862,59 +840,27 @@ Wire Wire Line
 Wire Wire Line
 	5050 4900 5000 4900
 Wire Wire Line
-	1950 1500 2550 1500
-Wire Wire Line
-	2550 1500 2550 1800
-Wire Wire Line
-	2000 2450 2450 2450
+	1200 2450 2450 2450
 Wire Wire Line
 	2450 2450 2450 2550
 Wire Wire Line
-	2000 2950 2450 2950
+	1200 2950 2450 2950
 Wire Wire Line
 	2450 2950 2450 2800
 Wire Wire Line
 	2450 2600 2400 2600
 Wire Wire Line
-	2400 2600 2400 2550
+	2400 2550 2400 2600
 Wire Wire Line
-	2400 2550 2000 2550
+	1200 2550 2400 2550
 Wire Wire Line
 	2450 2750 2400 2750
 Wire Wire Line
-	2400 2850 2000 2850
+	1200 2850 2400 2850
 Wire Wire Line
 	2250 2700 2450 2700
 Wire Wire Line
-	2000 2650 2450 2650
-Wire Wire Line
-	1950 2100 2050 2100
-Wire Wire Line
-	2050 2100 2050 2950
-Connection ~ 2050 2950
-Wire Wire Line
-	1950 2000 2100 2000
-Wire Wire Line
-	2100 2000 2100 2850
-Connection ~ 2100 2850
-Wire Wire Line
-	2150 2750 2150 1900
-Wire Wire Line
-	2150 1900 1950 1900
-Connection ~ 2150 2750
-Wire Wire Line
-	1950 1800 2200 1800
-Connection ~ 2200 2650
-Wire Wire Line
-	2250 2550 2250 1700
-Wire Wire Line
-	2250 1700 1950 1700
-Connection ~ 2250 2550
-Wire Wire Line
-	1950 1600 2300 1600
-Wire Wire Line
-	2300 1600 2300 2450
-Connection ~ 2300 2450
+	1200 2650 2450 2650
 Wire Wire Line
 	1200 2250 1200 3100
 Connection ~ 1200 2550
@@ -940,13 +886,11 @@ Wire Wire Line
 	2700 3000 2800 3000
 Connection ~ 2800 3000
 Wire Wire Line
-	2400 2750 2400 2850
+	2400 2850 2400 2750
 Wire Wire Line
-	2200 1800 2200 2650
+	2250 2750 2250 2700
 Wire Wire Line
-	2250 2700 2250 2750
-Wire Wire Line
-	2250 2750 2000 2750
+	1200 2750 2250 2750
 Connection ~ 2350 3050
 Wire Wire Line
 	2350 2150 2350 3050
