@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Mon Feb 10 14:21:24 2020
-%  Last Modified : <200210.1503>
+%  Last Modified : <200211.1420>
 %
 %  Description 
 %
@@ -67,6 +67,7 @@ stall motor 1.
 stall motor 2. 
 \item[GPIO26] Occupancy Detector 1.
 \item[GPIO27] Occupancy Detector 2.
+\item[GPIO16] (Optional) Output enable for the PWM LED Controller.
 \item[I2C Address 0x40] A PCA9685 16-channel, 12-bit PWM LED Controller.
 \end{description}
 
@@ -98,6 +99,7 @@ The other section is a pair of flip-flop debounce circuits, one for each of
 two SPDT switch contacts that report the position of the turnout points. The
 output of these flip-flops goes to a quartet of GPIO input pins.
 
+\clearpage
 \subsection{CAN Transceiver}
 \begin{figure}[hbpt]\begin{centering}%
 \includegraphics[width=5in]{ESP32-PWMHalfSiding-2.pdf}
@@ -107,6 +109,7 @@ output of these flip-flops goes to a quartet of GPIO input pins.
 This section contains the CAN Transceiver, along with a termination jumper 
 block. Power insertion and pick off and the RJ45 Jacks.
 
+\clearpage
 \subsection{Power Supply}
 \begin{figure}[hbpt]\begin{centering}%
 \includegraphics[width=5in]{ESP32-PWMHalfSiding-3.pdf}
@@ -116,6 +119,7 @@ block. Power insertion and pick off and the RJ45 Jacks.
 This section contains a 5V power supply that takes the nominal 12V on the CAN 
 power bus and regulates it down to 5V to supply the ESP32 MCU board.
 
+\clearpage
 \subsection{Occupancy Detectors}
 \begin{figure}[hbpt]\begin{centering}%
 \includegraphics[width=5in]{ESP32-PWMHalfSiding-4.pdf}
@@ -132,6 +136,7 @@ The occupancy detectors use optoisolators in series with the track power
 supply.  There is a heavy duty bridge rectifier in parallel with the 
 optoisolators to carry the bulk of the current to the track.
 
+\clearpage
 \subsection{PWM LED Driver}
 \begin{figure}[hbpt]\begin{centering}%
 \includegraphics[width=5in]{ESP32-PWMHalfSiding-6.pdf}
@@ -144,4 +149,117 @@ included on the board.  The MOSFET drivers come in both inverting (low-side
 drive) and non-inverting (high-side drive), so it is possible to support both 
 common anode and common cathode LED signals.  There are also (solder) jumpers 
 on the board to support selecting the proper common wiring.
+
+\clearpage
+\section{Parts List}
+
+%\begin{table}[htdp]
+\begin{centering}\begin{tabular}{|p{1.75in}|l|l|p{2.75in}|}
+\hline  
+Value&Qty&Refs&Mouser Part Number\\
+\hline  
+.1 uf&3&C1 C7 C601&21RZ310-RC\\
+\hline  
+15 uf 15V&1&C2&710-860080773002\\
+\hline  
+47 nf&1&C3&75-1C10Z5U473M050B\\
+\hline  
+220 uf 25V&1&C4&140-REA221M1EBK0811P\\
+\hline  
+22 uf 100V&1&C5&140-REA220M2ABK0811P\\
+\hline  
+SB240E&3&D1 D2 D601&625-SB240-E3\\
+\hline  
+SB160-E3/54&1&D3&625-SB160-E3\\
+\hline  
+BRIDGEX&2&D4 D5&750-KBL401-G\\
+\hline  
+MCT6H&2&IC1 IC2&782-MCT6H\\
+\hline  
+RJ45&2&J1 J2&710-615008144221\\
+\hline  
+Termination&1&JP1&649-67997-404HLF\\
+\hline  
+330 uh&1&L1&673-PE-52627NL\\
+\hline  
+Signal Terminals&2&P601 P602&651-1725724\\
+\hline  
+60 Ohms&2&R1 R2&71-RN60C60R0B/R\\
+\hline  
+10 Ohms&2&R3 R5&603-CFR-25JR-5210R\\
+\hline  
+10K Ohms&2&R4 R6&603-CFR25SJT-52-10K\\
+\hline  
+1.5K Ohms&2&RP601 RP602&652-4116R-1LF-1.5K\\
+\hline  
+10K Ohms&1&RR2&652-4605X-AP1-103LF\\
+\hline  
+Power Terminals&3&T1 T2 T601&651-1725656\\
+\hline  
+Track Terminals&2&T3 T6&490-TB007-508-02BE\\
+\hline  
+Turnout Terminals&2&T4 T5&651-1725685\\
+\hline  
+ESP32\_DEVKIT\_C or TTGO-T1&1&U0&2x517-929974-01-19-RK (ESP32\_DEVKIT\_C) or 2x517-929850-01-18-10 (TTGO-T1)\\
+\hline  
+TCAN332DR&1&U1&595-TCAN332DR\\
+\hline  
+LM2574N-5.0&1&U3&926-LM2574N-5.0/NOPB\\
+\hline  
+PCA9685&1&U601&771-PCA9685PW\\
+\hline  
+TBD62X83A&2&U602 U603&757-TBD62083APG or 757-TBD62783APG\\
+\hline  
+TC4428&2&U7 U8&579-TC4428VPA\\
+\hline  
+74HCT00&1&U9&595-SN74AHC00N\\
+\hline  
+\end{tabular}
+%\caption{Parts list for ESP32-PWMHalfSiding board.}
+\end{centering}
+%\end{table}
+
+%\clearpage
+\section{Circuit Board Layout}
+
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{ESP32-PWMHalfSiding3DTop.png}
+\caption{3D rendering of the ESP32-PWMHalfSiding board}
+\end{centering}\end{figure}
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{ESP32-PWMHalfSiding.png}
+\caption{Fabrication image of the ESP32-PWMHalfSiding board}
+\end{centering}\end{figure}
+
+\subsection{Notes on Building the board}
+
+Board assembly is straight forward. You need to be careful orienting the ICs
+and the electrolytic capacitor. You should start with the parts lowest to the
+board (the SMD chips). Hand soldering SMD is not terribly hard. There is are
+excellent videos on YouTube, partitularly this one
+\url{https://www.youtube.com/watch?v=QzoPxvIM2qE} from Collin's lab which can
+be very helpful. Once you have soldered the SMD chips, procede with
+successively taller components. You have some choices to make about some
+components. For the MCU board you can use just two 19 pin headers if you will
+be using a ESP32\_DEVKIT\_C MCU board or two 18 pin headers if you will be
+using a TTGO-T1 or two 19 pin headers and one 18 pin header, if you want to
+use either MCU board\footnote{The kit includes two 19 pin headers and one 18
+pin header.}. Then for the LED output drivers you can chose 757-TBD62083APGs
+for common cathode or 757-TBD62783APGs for common anode signals. Don't forget
+to insert and solder jumpers for the commons.\footnote{The kit comes with
+pairs of both driver chips.}
+
+\clearpage
+\section{Downloadables and Software Support}
+
+\subsection{Building and installing the software}
+
+\section{Application Notes}
+
+\subsection{Typical Siding}
+
+\subsection{Implementing Automatic Block Signals}
+
+\subsection{Crossing with Interchange}
+
 
