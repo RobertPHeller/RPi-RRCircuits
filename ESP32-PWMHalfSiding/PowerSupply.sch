@@ -46,7 +46,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 3 6
 Title ""
-Date "9 feb 2020"
+Date "11 feb 2020"
 Rev ""
 Comp ""
 Comment1 ""
@@ -62,6 +62,7 @@ F 0 "U3" H 5200 2850 60  0000 C CNN
 F 1 "LM2574N-5.0" H 5200 2950 21  0000 C CNN
 F 2 "~" H 5200 2800 60  0000 C CNN
 F 3 "~" H 5200 2800 60  0000 C CNN
+F 4 "926-LM2574N-5.0/NOPB" H 5200 2800 60  0001 C CNN "Mouser Part Number"
 	1    5200 2800
 	1    0    0    -1  
 $EndComp
@@ -73,6 +74,7 @@ F 0 "C5" H 6000 3000 50  0000 L CNN
 F 1 "22 uf 100V" H 6000 2800 50  0000 L CNN
 F 2 "~" H 5950 2900 60  0000 C CNN
 F 3 "~" H 5950 2900 60  0000 C CNN
+F 4 " 140-REA220M2ABK0811P" H 5950 2900 60  0001 C CNN "Mouser Part Number"
 	1    5950 2900
 	1    0    0    -1  
 $EndComp
@@ -84,6 +86,7 @@ F 0 "C4" H 3750 2900 50  0000 L CNN
 F 1 "220 uf 25V" H 3750 2700 50  0000 L CNN
 F 2 "~" H 3700 2800 60  0000 C CNN
 F 3 "~" H 3700 2800 60  0000 C CNN
+F 4 " 140-REA221M1EBK0811P" H 3700 2800 60  0001 C CNN "Mouser Part Number"
 	1    3700 2800
 	1    0    0    -1  
 $EndComp
@@ -95,6 +98,7 @@ F 0 "L1" H 4550 3000 50  0000 C CNN
 F 1 "330 uh" H 4550 2850 50  0000 C CNN
 F 2 "~" H 4550 2900 60  0000 C CNN
 F 3 "~" H 4550 2900 60  0000 C CNN
+F 4 "673-PE-52627NL" H 4550 2900 60  0001 C CNN "Mouser Part Number"
 	1    4550 2900
 	1    0    0    -1  
 $EndComp
@@ -106,6 +110,7 @@ F 0 "D3" H 4850 3200 40  0000 C CNN
 F 1 "SB160-E3/54" H 4850 3000 40  0000 C CNN
 F 2 "~" H 4850 3100 60  0000 C CNN
 F 3 "~" H 4850 3100 60  0000 C CNN
+F 4 "625-SB160-E3" H 4850 3100 60  0001 C CNN "Mouser Part Number"
 	1    4850 3100
 	0    -1   -1   0   
 $EndComp

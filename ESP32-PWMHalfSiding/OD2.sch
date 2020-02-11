@@ -46,7 +46,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 5 6
 Title ""
-Date "9 feb 2020"
+Date "11 feb 2020"
 Rev ""
 Comp ""
 Comment1 ""
@@ -64,6 +64,7 @@ F 0 "T6" V 1300 1300 40  0000 C CNN
 F 1 "In Track1 Out" V 1400 1300 40  0000 C CNN
 F 2 "~" H 1350 1300 60  0000 C CNN
 F 3 "~" H 1350 1300 60  0000 C CNN
+F 4 " 490-TB007-508-02BE" H 1350 1300 60  0001 C CNN "Mouser Part Number"
 	1    1350 1300
 	0    -1   -1   0   
 $EndComp
@@ -77,6 +78,7 @@ F 0 "R5" V 2580 1500 40  0000 C CNN
 F 1 "10 Ohms" V 2507 1501 40  0000 C CNN
 F 2 "~" V 2430 1500 30  0000 C CNN
 F 3 "~" H 2500 1500 30  0000 C CNN
+F 4 "603-CFR-25JR-5210R" H 2500 1500 60  0001 C CNN "Mouser Part Number"
 	1    2500 1500
 	0    -1   -1   0   
 $EndComp
@@ -90,6 +92,7 @@ F 0 "IC2" H 3490 1790 40  0000 C CNN
 F 1 "MCT6H" H 3810 1410 40  0000 C CNN
 F 2 "DIP-8__300" H 3540 1420 30  0001 C CIN
 F 3 "~" H 3700 1600 60  0000 C CNN
+F 4 " 782-MCT6H" H 3700 1600 60  0001 C CNN "Mouser Part Number"
 	1    3700 1600
 	1    0    0    -1  
 $EndComp
@@ -103,6 +106,7 @@ F 0 "IC2" H 3490 2340 40  0000 C CNN
 F 1 "MCT6H" H 3810 1960 40  0000 C CNN
 F 2 "DIP-8__300" H 3540 1970 30  0001 C CIN
 F 3 "~" H 3700 2150 60  0000 C CNN
+F 4 " 782-MCT6H" H 3700 2150 60  0001 C CNN "Mouser Part Number"
 	2    3700 2150
 	1    0    0    -1  
 $EndComp
@@ -116,6 +120,7 @@ F 0 "R6" V 4380 1100 40  0000 C CNN
 F 1 "10K Ohms" V 4307 1101 40  0000 C CNN
 F 2 "~" V 4230 1100 30  0000 C CNN
 F 3 "~" H 4300 1100 30  0000 C CNN
+F 4 "603-CFR25SJT-52-10K" H 4300 1100 60  0001 C CNN "Mouser Part Number"
 	1    4300 1100
 	1    0    0    -1  
 $EndComp
@@ -135,6 +140,7 @@ F 0 "D5" H 2050 3000 70  0000 C CNN
 F 1 "BRIDGEX" H 2050 2900 70  0000 C CNN
 F 2 "~" H 2050 2950 60  0000 C CNN
 F 3 "~" H 2050 2950 60  0000 C CNN
+F 4 "750-KBL401-G" H 2050 2950 60  0001 C CNN "Mouser Part Number"
 	1    2050 2950
 	0    1    1    0   
 $EndComp
