@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed May 31 19:27:54 2017
-#  Last Modified : <191125.2024>
+#  Last Modified : <200210.1431>
 #
 #  Description	
 #
@@ -67,7 +67,8 @@ TEXS=usermanual.tex ../SMCSenseHAT/SMCSenseHAT.tex \
 		    ../QuadSMCSenseCape/QuadSMCSenseCape.tex \
 		    ../PocketBeagleQuadSMCSense/PocketBeagleQuadSMCSense.tex \
 		    ../ESP32QuadSMCSense/ESP32QuadSMCSense.tex \
-		    ../LCCCANCape/LCCCANCape.tex
+		    ../LCCCANCape/LCCCANCape.tex \
+		    ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding.tex
 
 FIGURES= ../SMCSenseHAT/SMCSenseHAT3DTop.png \
 	 ../SMCSenseHAT/SMCSenseHAT.png \
@@ -100,7 +101,15 @@ FIGURES= ../SMCSenseHAT/SMCSenseHAT3DTop.png \
 	 ../ESP32QuadSMCSense/ESP32QuadSMCSense-1.pdf \
 	 ../ESP32QuadSMCSense/ESP32QuadSMCSense-2.pdf \
 	 ../ESP32QuadSMCSense/ESP32QuadSMCSense-3.pdf \
-	 ../ESP32QuadSMCSense/ESP32QuadSMCSense.png
+	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding.png \
+	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding3DTop.png \
+	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding-1.pdf \
+	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding-2.pdf \
+	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding-3.pdf \
+	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding-4.pdf \
+	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding-5.pdf \
+	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding-6.pdf \
+	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding.png
 	 
 	 
 
