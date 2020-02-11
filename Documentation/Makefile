@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed May 31 19:27:54 2017
-#  Last Modified : <200210.1431>
+#  Last Modified : <200211.1236>
 #
 #  Description	
 #
@@ -101,6 +101,7 @@ FIGURES= ../SMCSenseHAT/SMCSenseHAT3DTop.png \
 	 ../ESP32QuadSMCSense/ESP32QuadSMCSense-1.pdf \
 	 ../ESP32QuadSMCSense/ESP32QuadSMCSense-2.pdf \
 	 ../ESP32QuadSMCSense/ESP32QuadSMCSense-3.pdf \
+	 ../ESP32QuadSMCSense/ESP32QuadSMCSense.png \
 	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding.png \
 	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding3DTop.png \
 	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding-1.pdf \
