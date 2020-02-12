@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Mon Feb 10 14:21:24 2020
-%  Last Modified : <200211.1420>
+%  Last Modified : <200211.1939>
 %
 %  Description 
 %
@@ -252,7 +252,61 @@ pairs of both driver chips.}
 \clearpage
 \section{Downloadables and Software Support}
 
+The ESP32 needs to have a program installed in it to run the board.  This 
+program can be downloaded from GitHub as part of the RRCircuits package: 
+\url{https://github.com/RobertPHeller/RPi-RRCircuits}. The sketch is in the 
+ESP32MRNSketches folder and is named ESP32-PWMHalfSiding. 
+
+
 \subsection{Building and installing the software}
+
+
+The ESP32 MCU is programmed with the Arduino IDE. It uses two libraries: the
+FaBo PWM PCA9685 library for the PCA9685 chip and the OpenMRN\_lite library to
+implement the OpenLCB/LCC stack. First you need to install board support for
+te ESP32 and then install the FaBo PWM PCA9685 library. Both of these can be
+done using the Arduino IDE board and library managers. Installing the
+OpenMRN\_lite library is a little different. The OpenMRN\_lite library is part
+of the OpenMRN package, available on GitHub here:
+\url{https://github.com/bakerstu/openmrn}. You will also need the sketch for
+this board which is also on GitHub in the RRCircuits repository:
+\url{https://github.com/RobertPHeller/RPi-RRCircuits} in the
+ESP32MRNSketches/ESP32-PWMHalfSiding. The kit includes a thumb drive that
+contains two Zip files: one for the OpenMRN\_lite library
+(\texttt{OpenMRN\_lite.zip}) and one for the sketch
+(\texttt{ESP32-PWMHalfSiding.zip}). Just unpack the \texttt{OpenMRN\_lite.zip}
+file under your Arduino libraries folder (usually named libraries in the
+Arduino folder in your home folder). And then unpack the sketch
+(\texttt{ESP32-PWMHalfSiding.zip}) directly under your Arduino folder. Then
+open the sketch with the Arduino IDE. Before you compile it, you will need to
+edit the NODEID.h file to set the node ID, which should be one of the node ids
+you got from the OpenLCB website. If you have more than one of these boards,
+you need to give each one a different node id.
+
+Once you have built the sketch, you can upload it using an USB cable connected 
+between your computer and the MCU board.
+
+\subsection{Program Description}
+
+The program consists of a main sketch file, and several support files.  Most 
+of the support files implememt I/O or logic elements:
+
+\begin{description}
+\item[Blink.h] This file provides support for blinking (flashing) signal 
+lamps.
+\item[config.h] This file defines the structure of the node's configuration.
+\item[Lamp.h] This file implements the output functions for signal lamps.
+\item[Logic.cpp, Logic.h] These files implement the Logic elements available 
+in the node.
+\item[Mast.cpp, Mast.h] These files implement signal masts.
+\item[NODEID.h] This file contains the Node ID.
+\item[OccupancyDetector.h] This file implements the occupancy detector inputs.
+\item[Points.h] This file implements the point sense inputs.
+\item[PWM.h] This file implements the PWM abstraction.
+\item[Rule.cpp, Rule.h] These files implement traffic rules.
+\item[TrackCircuit.cpp, TrackCircuit.h] These files implement track circuits.
+\item[Turnout.h] This file implements the switch motor outputs.
+\end{description}
 
 \section{Application Notes}
 
