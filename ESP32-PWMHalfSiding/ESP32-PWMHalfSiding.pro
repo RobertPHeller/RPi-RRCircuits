@@ -51,7 +51,7 @@ LibName36=../tbd62x83a
 LibName37=../tc442x
 LibName38=../MetroMiniABSBiDir-noCANSlave/mct6h
 LibName39=../MetroMiniABSBiDir-noCANSlave/bridge
-LibName40=/home/heller/RRCircuits/16PWMLedDriverHat/pca9685
+LibName40=../16PWMLedDriverHat/pca9685
 [cvpcb]
 version=1
 NetIExt=net
@@ -105,5 +105,5 @@ LibName24=../ScrewTerm254_9
 LibName25=../16DriverOutputHAT/3PosJumper
 LibName26=../ScrewTerm254_5
 LibName27=../MetroMiniABSBiDir-noCANSlave/KBL
-LibName28=/home/heller/RRCircuits/16PWMLedDriverHat/SolderJumpers
-LibName29=/home/heller/RRCircuits/DWSLogoBCU
+LibName28=../16PWMLedDriverHat/SolderJumpers
+LibName29=../DWSLogoBCU
