@@ -1,0 +1,77 @@
+PCBNEW-LibModule-V1  Mon 17 Feb 2020 09:59:38 EST
+# encoding utf-8
+Units mm
+$INDEX
+SMT8
+$EndINDEX
+$MODULE SMT8
+Po 0 0 0 15 5E4AA982 00000000 ~~
+Li SMT8
+Sc 0
+AR 
+Op 0 0 0
+T0 0 -2.54 1 1 0 0.15 N V 21 N "SMT8"
+T1 0 2.54 1 1 0 0.15 N V 21 N "VAL**"
+DC 3.937 -2.5 4.445 -2.5 0.15 21
+DS -5.09 -3.5 5.09 -3.5 0.15 21
+DS 5.09 -3.5 5.09 3.5 0.15 21
+DS 5.09 3.5 -5.09 3.5 0.15 21
+DS -5.09 3.5 -5.09 -3.5 0.15 21
+$PAD
+Sh "1" R 1.5 1.3 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 3.81 -4.6
+$EndPAD
+$PAD
+Sh "2" R 1.5 1.3 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 1.27 -4.6
+$EndPAD
+$PAD
+Sh "3" R 1.5 1.3 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -1.27 -4.6
+$EndPAD
+$PAD
+Sh "4" R 1.5 1.3 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -3.81 -4.6
+$EndPAD
+$PAD
+Sh "5" R 1.5 1.3 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -3.81 4.6
+$EndPAD
+$PAD
+Sh "6" R 1.5 1.3 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -1.27 4.6
+$EndPAD
+$PAD
+Sh "7" R 1.5 1.3 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 1.27 4.6
+$EndPAD
+$PAD
+Sh "8" R 1.5 1.3 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 3.81 4.6
+$EndPAD
+$EndMODULE SMT8
+$EndLIBRARY

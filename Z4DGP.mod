@@ -1,0 +1,52 @@
+PCBNEW-LibModule-V1  Mon 17 Feb 2020 10:28:13 EST
+# encoding utf-8
+Units mm
+$INDEX
+Z4DGP
+$EndINDEX
+$MODULE Z4DGP
+Po 0 0 0 15 5E4AB0BC 00000000 ~~
+Li Z4DGP
+Sc 0
+AR 
+Op 0 0 0
+T0 0 -1.27 0.5 0.5 0 0.075 N V 21 N "Z4DGP"
+T1 0 1.27 0.5 0.5 0 0.075 N V 21 N "VAL**"
+T2 2.6 3.81 1 1 0 0.15 N V 21 N "AC"
+T2 -2.6 3.81 1 1 0 0.15 N V 21 N "AC"
+T2 2.6 -3.81 1 1 0 0.15 N V 21 N "+"
+T2 -2.6 -3.81 1 1 0 0.15 N V 21 N "-"
+DS -4.1 5.3 -4.1 -5.3 0.15 21
+DS -4.1 -5.3 4.1 -5.3 0.15 21
+DS 4.1 -5.3 4.1 5.3 0.15 21
+DS 4.1 5.3 -4.1 5.3 0.15 21
+$PAD
+Sh "1" R 2.3 4.3 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 2.6 -3.85
+$EndPAD
+$PAD
+Sh "2" R 2.3 4.3 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 2.6 3.85
+$EndPAD
+$PAD
+Sh "3" R 2.3 4.3 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -2.6 3.85
+$EndPAD
+$PAD
+Sh "4" R 2.3 4.3 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -2.6 -3.85
+$EndPAD
+$EndMODULE Z4DGP
+$EndLIBRARY

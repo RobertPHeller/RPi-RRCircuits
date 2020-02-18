@@ -1,0 +1,132 @@
+PCBNEW-LibModule-V1  Mon 17 Feb 2020 17:48:04 EST
+# encoding utf-8
+Units mm
+$INDEX
+742C163
+$EndINDEX
+$MODULE 742C163
+Po 0 0 0 15 5E4B0B7A 00000000 ~~
+Li 742C163
+Sc 0
+AR 
+Op 0 0 0
+T0 0 0.4191 0.5 0.5 0 0.075 N V 21 N "742C163"
+T1 0 -0.3556 0.5 0.5 0 0.075 N V 21 N "VAL**"
+DS -3.2 -0.8 3.2 -0.8 0.15 21
+DS 3.2 -0.8 3.2 0.8 0.15 21
+DS 3.2 0.8 -3.2 0.8 0.15 21
+DS -3.2 0.8 -3.2 -0.8 0.15 21
+$PAD
+Sh "1" R 0.45 0.45 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -2.8 -0.625
+$EndPAD
+$PAD
+Sh "16" R 0.45 0.45 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -2.8 0.625
+$EndPAD
+$PAD
+Sh "2" R 0.45 0.45 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -2 -0.625
+$EndPAD
+$PAD
+Sh "3" R 0.45 0.45 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -1.2 -0.625
+$EndPAD
+$PAD
+Sh "4" R 0.45 0.45 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -0.4 -0.625
+$EndPAD
+$PAD
+Sh "5" R 0.45 0.45 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 0.4 -0.625
+$EndPAD
+$PAD
+Sh "6" R 0.45 0.45 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 1.2 -0.625
+$EndPAD
+$PAD
+Sh "7" R 0.45 0.45 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 2 -0.625
+$EndPAD
+$PAD
+Sh "8" R 0.45 0.45 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 2.8 -0.625
+$EndPAD
+$PAD
+Sh "9" R 0.45 0.45 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 2.8 0.625
+$EndPAD
+$PAD
+Sh "10" R 0.45 0.45 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 2 0.625
+$EndPAD
+$PAD
+Sh "11" R 0.45 0.45 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 1.2 0.625
+$EndPAD
+$PAD
+Sh "12" R 0.45 0.45 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 0.4 0.625
+$EndPAD
+$PAD
+Sh "13" R 0.45 0.45 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -0.4 0.625
+$EndPAD
+$PAD
+Sh "14" R 0.45 0.45 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -1.2 0.625
+$EndPAD
+$PAD
+Sh "15" R 0.45 0.45 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -2 0.625
+$EndPAD
+$EndMODULE 742C163
+$EndLIBRARY
