@@ -1,8 +1,9 @@
-PCBNEW-LibModule-V1  Sun 24 Feb 2019 07:55:53 PM EST
+PCBNEW-LibModule-V1  Mon 17 Feb 2020 12:17:25 EST
 # encoding utf-8
 Units mm
 $INDEX
 3PosJumper
+3PosSMDJumper
 $EndINDEX
 $MODULE 3PosJumper
 Po 0 0 0 15 5C733C5D 00000000 ~~
@@ -34,4 +35,35 @@ Ne 0 ""
 Po 3.175 0
 $EndPAD
 $EndMODULE 3PosJumper
+$MODULE 3PosSMDJumper
+Po 0 0 0 15 5E4ACA8D 00000000 ~~
+Li 3PosSMDJumper
+Sc 0
+AR 
+Op 0 0 0
+T0 0 -2.54 1 1 0 0.15 N V 21 N "3PosSMDJumper"
+T1 0 2.54 1 1 0 0.15 N V 21 N "VAL**"
+DS 2.54 0 -2.54 0 2.54 23
+$PAD
+Sh "2" R 1.27 1.27 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 0 0
+$EndPAD
+$PAD
+Sh "1" R 1.27 1.27 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -2.54 0
+$EndPAD
+$PAD
+Sh "3" R 1.27 1.27 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 2.54 0
+$EndPAD
+$EndMODULE 3PosSMDJumper
 $EndLIBRARY
