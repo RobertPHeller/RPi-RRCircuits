@@ -496,7 +496,7 @@
     )
   )
 
-  (module ScrewTerm2.54-2 (layer F.Cu) (tedit 5E408A34) (tstamp 5C82A060)
+  (module ScrewTerm2.54-2 (layer F.Cu) (tedit 5E67C155) (tstamp 5C82A060)
     (at 154.94 34.29)
     (descr "Connecteurs 2 pins")
     (tags "CONN DEV")
@@ -504,7 +504,7 @@
     (fp_text reference T1 (at -2.7 -1.9) (layer F.SilkS) hide
       (effects (font (size 0.762 0.762) (thickness 0.1524)))
     )
-    (fp_text value "+ 15 in -" (at 0.889 -3.683) (layer F.SilkS)
+    (fp_text value "+ 15 in -" (at 0 -3.175) (layer F.SilkS)
       (effects (font (size 0.762 0.762) (thickness 0.1524)))
     )
     (fp_line (start -2.54 1.27) (end -2.54 -1.27) (layer F.SilkS) (width 0.1524))
@@ -526,7 +526,7 @@
     )
   )
 
-  (module ScrewTerm2.54-2 (layer F.Cu) (tedit 5E4088E9) (tstamp 5C82A06A)
+  (module ScrewTerm2.54-2 (layer F.Cu) (tedit 5E67C15A) (tstamp 5C82A06A)
     (at 166.37 34.29)
     (descr "Connecteurs 2 pins")
     (tags "CONN DEV")
@@ -534,7 +534,7 @@
     (fp_text reference T2 (at -2.7 -1.9) (layer F.SilkS) hide
       (effects (font (size 0.762 0.762) (thickness 0.1524)))
     )
-    (fp_text value "+ 15 out -" (at 0 -3.81) (layer F.SilkS)
+    (fp_text value "+ 15 out -" (at -0.381 -3.048) (layer F.SilkS)
       (effects (font (size 0.762 0.762) (thickness 0.1524)))
     )
     (fp_line (start -2.54 1.27) (end -2.54 -1.27) (layer F.SilkS) (width 0.1524))
@@ -1154,7 +1154,7 @@
     )
   )
 
-  (module ScrewTerm_2.54-9 (layer F.Cu) (tedit 5E4B38C5) (tstamp 5E4DF5B1)
+  (module ScrewTerm_2.54-9 (layer F.Cu) (tedit 5E67AEBF) (tstamp 5E4DF5B1)
     (at 175.26 124.46 270)
     (descr "Screw Terminals on 2.54mm centers, 9 position")
     (tags CONN)
@@ -1162,7 +1162,7 @@
     (fp_text reference P602 (at 0 -2.54 270) (layer F.SilkS) hide
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
-    (fp_text value "C B0 B1 B2 B3 B4 B5 B6 B7" (at 0 2.921 270) (layer F.SilkS)
+    (fp_text value "C B0 B1 B2 B3 B4 B5 B6 B7" (at -0.381 -3.302 270) (layer F.SilkS)
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
     (fp_line (start -11.45 -1.27) (end -11.45 1.27) (layer F.SilkS) (width 0.3048))
@@ -1212,7 +1212,7 @@
     )
   )
 
-  (module ScrewTerm_2.54-9 (layer F.Cu) (tedit 5E408ED2) (tstamp 5E35C6B3)
+  (module ScrewTerm_2.54-9 (layer F.Cu) (tedit 5E67AEB4) (tstamp 5E35C6B3)
     (at 175.26 71.12 270)
     (descr "Screw Terminals on 2.54mm centers, 9 position")
     (tags CONN)
@@ -1220,7 +1220,7 @@
     (fp_text reference P601 (at 0 -2.54 270) (layer F.SilkS) hide
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
-    (fp_text value "C A0 A1 A2 A3 A4 A5 A6 A7" (at 0 2.54 270) (layer F.SilkS)
+    (fp_text value "C A0 A1 A2 A3 A4 A5 A6 A7" (at 0.254 -3.175 270) (layer F.SilkS)
       (effects (font (size 1.016 1.016) (thickness 0.2032)))
     )
     (fp_line (start -11.45 -1.27) (end -11.45 1.27) (layer F.SilkS) (width 0.3048))
@@ -1270,7 +1270,7 @@
     )
   )
 
-  (module ScrewTerm2.54-2 (layer F.Cu) (tedit 5E408E57) (tstamp 5E35C6BD)
+  (module ScrewTerm2.54-2 (layer F.Cu) (tedit 5E67AE9C) (tstamp 5E35C6BD)
     (at 175.26 90.17 90)
     (descr "Connecteurs 2 pins")
     (tags "CONN DEV")
@@ -1278,7 +1278,7 @@
     (fp_text reference T601 (at -2.7 -1.9 90) (layer F.SilkS) hide
       (effects (font (size 0.762 0.762) (thickness 0.1524)))
     )
-    (fp_text value "+ 12V -" (at 0 -3.81 90) (layer F.SilkS)
+    (fp_text value "+ 12V -" (at 0 3.302 90) (layer F.SilkS)
       (effects (font (size 0.762 0.762) (thickness 0.1524)))
     )
     (fp_line (start -2.54 1.27) (end -2.54 -1.27) (layer F.SilkS) (width 0.1524))
@@ -1300,13 +1300,13 @@
     )
   )
 
-  (module Open_Jumper (layer F.Cu) (tedit 5C85840D) (tstamp 5E35C6D8)
+  (module Open_Jumper (layer F.Cu) (tedit 5E67AEFF) (tstamp 5E35C6D8)
     (at 152.4 105.41 90)
     (path /5E35C594/5E35CA27)
     (fp_text reference JP603 (at 0 -1.27 90) (layer F.SilkS)
       (effects (font (size 0.5 0.5) (thickness 0.075)))
     )
-    (fp_text value "OE Bypass" (at 0 1.27 90) (layer F.SilkS)
+    (fp_text value "OE Bypass" (at -6.35 -0.254 90) (layer F.SilkS)
       (effects (font (size 0.5 0.5) (thickness 0.075)))
     )
     (fp_line (start -1.27 0) (end 1.27 0) (layer F.Mask) (width 1.27))
@@ -2009,13 +2009,13 @@
     )
   )
 
-  (module 3PosSMDJumper (layer F.Cu) (tedit 5E4ACAE3) (tstamp 5E4E0F5B)
+  (module 3PosSMDJumper (layer F.Cu) (tedit 5E67AF2B) (tstamp 5E4E0F5B)
     (at 170.18 90.17 90)
     (path /5E35C594/5E35CA15)
-    (fp_text reference JP605 (at 0 3.81 90) (layer F.SilkS)
+    (fp_text reference JP605 (at 0 3.81 90) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value "CK A CA" (at 0 2.54 90) (layer F.SilkS)
+    (fp_text value "CK A CA" (at -0.254 1.905 90) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_line (start 2.54 0) (end -2.54 0) (layer F.Mask) (width 2.54))
@@ -2033,10 +2033,10 @@
     )
   )
 
-  (module 3PosSMDJumper (layer F.Cu) (tedit 5E4ACADE) (tstamp 5E4E0F63)
+  (module 3PosSMDJumper (layer F.Cu) (tedit 5E67AF37) (tstamp 5E4E0F63)
     (at 170.18 81.28 90)
     (path /5E35C594/5E35CA17)
-    (fp_text reference JP604 (at 0 3.81 90) (layer F.SilkS)
+    (fp_text reference JP604 (at 0 3.81 90) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_text value "CK A CA" (at 0 2.54 90) (layer F.SilkS)
@@ -2081,13 +2081,13 @@
     )
   )
 
-  (module 3PosSMDJumper (layer F.Cu) (tedit 5E4ACB10) (tstamp 5E4E1075)
+  (module 3PosSMDJumper (layer F.Cu) (tedit 5E67AEF6) (tstamp 5E4E1075)
     (at 156.21 105.41 90)
     (path /5E35C594/5E35CA16)
-    (fp_text reference JP607 (at 0 -1.27 90) (layer F.SilkS)
+    (fp_text reference JP607 (at 0 -1.27 90) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value "CK B CA" (at 0 -2.54 90) (layer F.SilkS)
+    (fp_text value "CK B CA" (at 0.127 -1.905 90) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_line (start 2.54 0) (end -2.54 0) (layer F.Mask) (width 2.54))
@@ -2347,13 +2347,13 @@
     )
   )
 
-  (module SMB (layer F.Cu) (tedit 5E4AF79D) (tstamp 5E4F2997)
+  (module SMB (layer F.Cu) (tedit 5E67AF4D) (tstamp 5E4F2997)
     (at 175.26 96.52 270)
     (path /5E35C594/5E35CA28)
     (fp_text reference D601 (at 0 -1.27 270) (layer F.SilkS)
       (effects (font (size 0.5 0.5) (thickness 0.075)))
     )
-    (fp_text value DFLS240-7 (at 0 1.143 270) (layer F.SilkS)
+    (fp_text value DFLS240-7 (at 0 2.54 270) (layer F.SilkS)
       (effects (font (size 0.5 0.5) (thickness 0.075)))
     )
     (fp_line (start -1.778 -1.89) (end -1.778 1.89) (layer F.SilkS) (width 0.3))
@@ -2371,13 +2371,13 @@
     )
   )
 
-  (module SMB (layer F.Cu) (tedit 5E4AF79D) (tstamp 5E4F29A2)
+  (module SMB (layer F.Cu) (tedit 5E67AF57) (tstamp 5E4F29A2)
     (at 165.1 39.37 270)
     (path /5C828AE5/5C829535)
     (fp_text reference D2 (at 0 -1.27 270) (layer F.SilkS)
       (effects (font (size 0.5 0.5) (thickness 0.075)))
     )
-    (fp_text value DFLS240-7 (at 0 1.143 270) (layer F.SilkS)
+    (fp_text value DFLS240-7 (at 0.254 2.413 270) (layer F.SilkS)
       (effects (font (size 0.5 0.5) (thickness 0.075)))
     )
     (fp_line (start -1.778 -1.89) (end -1.778 1.89) (layer F.SilkS) (width 0.3))
@@ -2395,13 +2395,13 @@
     )
   )
 
-  (module SMB (layer F.Cu) (tedit 5E4AF79D) (tstamp 5E4F29AD)
+  (module SMB (layer F.Cu) (tedit 5E67AF5F) (tstamp 5E4F29AD)
     (at 153.67 39.37 90)
     (path /5C828AE5/5C8297A7)
     (fp_text reference D1 (at 0 -1.27 90) (layer F.SilkS)
       (effects (font (size 0.5 0.5) (thickness 0.075)))
     )
-    (fp_text value DFLS240-7 (at 0 1.143 90) (layer F.SilkS)
+    (fp_text value DFLS240-7 (at 0.127 2.667 90) (layer F.SilkS)
       (effects (font (size 0.5 0.5) (thickness 0.075)))
     )
     (fp_line (start -1.778 -1.89) (end -1.778 1.89) (layer F.SilkS) (width 0.3))
@@ -2419,13 +2419,13 @@
     )
   )
 
-  (module SMB (layer F.Cu) (tedit 5E4AF79D) (tstamp 5E4F29B8)
+  (module SMB (layer F.Cu) (tedit 5E67AD43) (tstamp 5E4F29B8)
     (at 129.54 119.38 90)
     (path /5C828B13/5C829D75)
     (fp_text reference D3 (at 0 -1.27 90) (layer F.SilkS)
       (effects (font (size 0.5 0.5) (thickness 0.075)))
     )
-    (fp_text value "CMSH1-60 TR13" (at 0 1.143 90) (layer F.SilkS)
+    (fp_text value "CMSH1-60 TR13" (at 0 -2.667 90) (layer F.SilkS)
       (effects (font (size 0.5 0.5) (thickness 0.075)))
     )
     (fp_line (start -1.778 -1.89) (end -1.778 1.89) (layer F.SilkS) (width 0.3))
@@ -2443,14 +2443,14 @@
     )
   )
 
-  (module SM0603 (layer F.Cu) (tedit 4E43A3D1) (tstamp 5E4F29C2)
+  (module SM0603 (layer F.Cu) (tedit 5E67ACCB) (tstamp 5E4F29C2)
     (at 121.92 118.11 90)
     (path /5CA368DE/5CA369C8)
     (attr smd)
-    (fp_text reference R6 (at 0 0 90) (layer F.SilkS)
+    (fp_text reference R6 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 0.508 0.4572) (thickness 0.1143)))
     )
-    (fp_text value "10K Ohms" (at 0 0 90) (layer F.SilkS) hide
+    (fp_text value "10K Ohms" (at -0.254 1.143 90) (layer F.SilkS)
       (effects (font (size 0.508 0.4572) (thickness 0.1143)))
     )
     (fp_line (start -1.143 -0.635) (end 1.143 -0.635) (layer F.SilkS) (width 0.127))
@@ -2472,14 +2472,14 @@
     )
   )
 
-  (module SM0603 (layer F.Cu) (tedit 4E43A3D1) (tstamp 5E4F29CC)
+  (module SM0603 (layer F.Cu) (tedit 5E67AD2C) (tstamp 5E4F29CC)
     (at 100.33 115.57)
     (path /5CA368DE/5CA369C5)
     (attr smd)
-    (fp_text reference R5 (at 0 0) (layer F.SilkS)
+    (fp_text reference R5 (at 0 0) (layer F.SilkS) hide
       (effects (font (size 0.508 0.4572) (thickness 0.1143)))
     )
-    (fp_text value "10 Ohms" (at 0 0) (layer F.SilkS) hide
+    (fp_text value "10 Ohms" (at -0.127 1.27) (layer F.SilkS)
       (effects (font (size 0.508 0.4572) (thickness 0.1143)))
     )
     (fp_line (start -1.143 -0.635) (end 1.143 -0.635) (layer F.SilkS) (width 0.127))
@@ -2501,14 +2501,14 @@
     )
   )
 
-  (module SM0603 (layer F.Cu) (tedit 4E43A3D1) (tstamp 5E4F29D6)
+  (module SM0603 (layer F.Cu) (tedit 5E67ACEF) (tstamp 5E4F29D6)
     (at 121.92 88.9 90)
     (path /5CA26382/5C831709)
     (attr smd)
-    (fp_text reference R4 (at 0 0 90) (layer F.SilkS)
+    (fp_text reference R4 (at 0 0 90) (layer F.SilkS) hide
       (effects (font (size 0.508 0.4572) (thickness 0.1143)))
     )
-    (fp_text value "10K Ohms" (at 0 0 90) (layer F.SilkS) hide
+    (fp_text value "10K Ohms" (at 0 -1.27 90) (layer F.SilkS)
       (effects (font (size 0.508 0.4572) (thickness 0.1143)))
     )
     (fp_line (start -1.143 -0.635) (end 1.143 -0.635) (layer F.SilkS) (width 0.127))
@@ -2530,14 +2530,14 @@
     )
   )
 
-  (module SM0603 (layer F.Cu) (tedit 4E43A3D1) (tstamp 5E4F29F4)
+  (module SM0603 (layer F.Cu) (tedit 5E67AD0B) (tstamp 5E4F29F4)
     (at 105.41 90.17)
     (path /5CA26382/5C831701)
     (attr smd)
-    (fp_text reference R3 (at 0 0) (layer F.SilkS)
+    (fp_text reference R3 (at 0 0) (layer F.SilkS) hide
       (effects (font (size 0.508 0.4572) (thickness 0.1143)))
     )
-    (fp_text value "10 Ohms" (at 0 0) (layer F.SilkS) hide
+    (fp_text value "10 Ohms" (at -0.127 1.27) (layer F.SilkS)
       (effects (font (size 0.508 0.4572) (thickness 0.1143)))
     )
     (fp_line (start -1.143 -0.635) (end 1.143 -0.635) (layer F.SilkS) (width 0.127))
@@ -2559,14 +2559,14 @@
     )
   )
 
-  (module c_elec_8x10 (layer F.Cu) (tedit 49F5C68A) (tstamp 5E4F2A13)
+  (module c_elec_8x10 (layer F.Cu) (tedit 5E67AD6F) (tstamp 5E4F2A13)
     (at 146.05 130.81 270)
     (descr "SMT capacitor, aluminium electrolytic, 8x10")
     (path /5C828B13/5C829D34)
     (fp_text reference C4 (at 0 -4.826 270) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.11938)))
     )
-    (fp_text value "220 uf 25V" (at 0 4.826 270) (layer F.SilkS) hide
+    (fp_text value "220 uf 25V" (at 0.127 0.254 360) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.11938)))
     )
     (fp_line (start -3.81 -1.016) (end -3.81 1.016) (layer F.SilkS) (width 0.127))
@@ -2599,14 +2599,14 @@
     )
   )
 
-  (module c_elec_8x10 (layer F.Cu) (tedit 49F5C68A) (tstamp 5E4F2A28)
+  (module c_elec_8x10 (layer F.Cu) (tedit 5E67AD57) (tstamp 5E4F2A28)
     (at 137.16 119.38 270)
     (descr "SMT capacitor, aluminium electrolytic, 8x10")
     (path /5C828B13/5C829D01)
     (fp_text reference C5 (at 0 -4.826 270) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.11938)))
     )
-    (fp_text value "22 uf 100V" (at 0 4.826 270) (layer F.SilkS) hide
+    (fp_text value "22 uf 100V" (at -0.381 -0.635 360) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.11938)))
     )
     (fp_line (start -3.81 -1.016) (end -3.81 1.016) (layer F.SilkS) (width 0.127))
@@ -2639,14 +2639,14 @@
     )
   )
 
-  (module c_elec_4x5.7 (layer F.Cu) (tedit 49F5A3B0) (tstamp 5E4F2A3F)
+  (module c_elec_4x5.7 (layer F.Cu) (tedit 5E67ADDD) (tstamp 5E4F2A3F)
     (at 137.16 69.85)
     (descr "SMT capacitor, aluminium electrolytic, 4x5.7")
     (path /5C828AE5/5C828DB0)
-    (fp_text reference C2 (at 0 -2.794) (layer F.SilkS)
+    (fp_text reference C2 (at 0 -1.524) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.11938)))
     )
-    (fp_text value "15 uf 15V" (at 0 2.794) (layer F.SilkS) hide
+    (fp_text value "15 uf 15V" (at 0.381 0.254 90) (layer F.SilkS)
       (effects (font (size 0.50038 0.50038) (thickness 0.11938)))
     )
     (fp_line (start 1.651 0) (end 0.889 0) (layer F.SilkS) (width 0.127))
@@ -2681,14 +2681,14 @@
     )
   )
 
-  (module c_0603 (layer F.Cu) (tedit 490472AA) (tstamp 5E4F2A4B)
+  (module c_0603 (layer F.Cu) (tedit 5E67AE31) (tstamp 5E4F2A4B)
     (at 142.24 46.99 90)
     (descr "SMT capacitor, 0603")
     (path /5C828AE5/5C8290C3)
     (fp_text reference C3 (at 0 -0.635 90) (layer F.SilkS)
       (effects (font (size 0.20066 0.20066) (thickness 0.04064)))
     )
-    (fp_text value "47 nf" (at 0 0.635 90) (layer F.SilkS) hide
+    (fp_text value "47 nf" (at 0 0.635 90) (layer F.SilkS)
       (effects (font (size 0.20066 0.20066) (thickness 0.04064)))
     )
     (fp_line (start 0.5588 0.4064) (end 0.5588 -0.4064) (layer F.SilkS) (width 0.127))
@@ -2712,14 +2712,14 @@
     )
   )
 
-  (module c_0603 (layer F.Cu) (tedit 490472AA) (tstamp 5E4F2A57)
+  (module c_0603 (layer F.Cu) (tedit 5E67ADD1) (tstamp 5E4F2A57)
     (at 137.16 66.04)
     (descr "SMT capacitor, 0603")
     (path /5C828AE5/5C828DA1)
-    (fp_text reference C1 (at 0 -0.635) (layer F.SilkS)
+    (fp_text reference C1 (at 0 -0.635) (layer F.SilkS) hide
       (effects (font (size 0.20066 0.20066) (thickness 0.04064)))
     )
-    (fp_text value ".1 uf" (at 0 0.635) (layer F.SilkS) hide
+    (fp_text value ".1 uf" (at 0 0.635) (layer F.SilkS)
       (effects (font (size 0.20066 0.20066) (thickness 0.04064)))
     )
     (fp_line (start 0.5588 0.4064) (end 0.5588 -0.4064) (layer F.SilkS) (width 0.127))
@@ -2743,14 +2743,14 @@
     )
   )
 
-  (module c_0603 (layer F.Cu) (tedit 490472AA) (tstamp 5E4F2A63)
+  (module c_0603 (layer F.Cu) (tedit 5E67AE7E) (tstamp 5E4F2A63)
     (at 170.18 97.79 270)
     (descr "SMT capacitor, 0603")
     (path /5E35C594/5E35CA01)
-    (fp_text reference C601 (at 0 -0.635 270) (layer F.SilkS)
+    (fp_text reference C601 (at 0 -0.635 270) (layer F.SilkS) hide
       (effects (font (size 0.20066 0.20066) (thickness 0.04064)))
     )
-    (fp_text value ".1 uf" (at 0 0.635 270) (layer F.SilkS) hide
+    (fp_text value ".1 uf" (at 0 0.635 270) (layer F.SilkS)
       (effects (font (size 0.20066 0.20066) (thickness 0.04064)))
     )
     (fp_line (start 0.5588 0.4064) (end 0.5588 -0.4064) (layer F.SilkS) (width 0.127))
@@ -2774,14 +2774,14 @@
     )
   )
 
-  (module c_0603 (layer F.Cu) (tedit 490472AA) (tstamp 5E4F2A6F)
+  (module c_0603 (layer F.Cu) (tedit 5E67AE59) (tstamp 5E4F2A6F)
     (at 116.84 69.85)
     (descr "SMT capacitor, 0603")
     (path /5CA25DF1)
-    (fp_text reference C7 (at 0 -0.635) (layer F.SilkS)
+    (fp_text reference C7 (at 0 -0.635) (layer F.SilkS) hide
       (effects (font (size 0.20066 0.20066) (thickness 0.04064)))
     )
-    (fp_text value ".1 uf" (at 0 0.635) (layer F.SilkS) hide
+    (fp_text value ".1 uf" (at 0 0.635) (layer F.SilkS)
       (effects (font (size 0.20066 0.20066) (thickness 0.04064)))
     )
     (fp_line (start 0.5588 0.4064) (end 0.5588 -0.4064) (layer F.SilkS) (width 0.127))
@@ -2890,11 +2890,11 @@
     )
   )
 
-  (module MountingHole_2-5mm_RevA_Date21Jun2010 (layer F.Cu) (tedit 4C1FDEBF) (tstamp 5E50DDB1)
+  (module MountingHole_2-5mm_RevA_Date21Jun2010 (layer F.Cu) (tedit 5E67C164) (tstamp 5E50DDB1)
     (at 175.26 34.29)
     (descr "Mounting hole, Befestigungsbohrung, 2,5mm, No Annular, Kein Restring,")
     (tags "Mounting hole, Befestigungsbohrung, 2,5mm, No Annular, Kein Restring,")
-    (fp_text reference MH (at 0 -3.50012) (layer F.SilkS)
+    (fp_text reference MH (at 0 -3.50012) (layer F.SilkS) hide
       (effects (font (size 1.524 1.524) (thickness 0.3048)))
     )
     (fp_text value MountingHole_2-5mm_RevA_Date21Jun2010 (at 0.09906 3.59918) (layer F.SilkS) hide
@@ -2906,11 +2906,11 @@
     )
   )
 
-  (module MountingHole_2-5mm_RevA_Date21Jun2010 (layer F.Cu) (tedit 4C1FDEBF) (tstamp 5E50DDBC)
+  (module MountingHole_2-5mm_RevA_Date21Jun2010 (layer F.Cu) (tedit 5E67C171) (tstamp 5E50DDBC)
     (at 175.26 139.7)
     (descr "Mounting hole, Befestigungsbohrung, 2,5mm, No Annular, Kein Restring,")
     (tags "Mounting hole, Befestigungsbohrung, 2,5mm, No Annular, Kein Restring,")
-    (fp_text reference MH (at 0 -3.50012) (layer F.SilkS)
+    (fp_text reference MH (at 0 -3.50012) (layer F.SilkS) hide
       (effects (font (size 1.524 1.524) (thickness 0.3048)))
     )
     (fp_text value MountingHole_2-5mm_RevA_Date21Jun2010 (at 0.09906 3.59918) (layer F.SilkS) hide
@@ -2922,11 +2922,11 @@
     )
   )
 
-  (module MountingHole_2-5mm_RevA_Date21Jun2010 (layer F.Cu) (tedit 4C1FDEBF) (tstamp 5E50DDC7)
+  (module MountingHole_2-5mm_RevA_Date21Jun2010 (layer F.Cu) (tedit 5E67C17F) (tstamp 5E50DDC7)
     (at 100.33 139.7)
     (descr "Mounting hole, Befestigungsbohrung, 2,5mm, No Annular, Kein Restring,")
     (tags "Mounting hole, Befestigungsbohrung, 2,5mm, No Annular, Kein Restring,")
-    (fp_text reference MH (at 0 -3.50012) (layer F.SilkS)
+    (fp_text reference MH (at 0 -3.50012) (layer F.SilkS) hide
       (effects (font (size 1.524 1.524) (thickness 0.3048)))
     )
     (fp_text value MountingHole_2-5mm_RevA_Date21Jun2010 (at 0.09906 3.59918) (layer F.SilkS) hide
@@ -2938,11 +2938,11 @@
     )
   )
 
-  (module MountingHole_2-5mm_RevA_Date21Jun2010 (layer F.Cu) (tedit 4C1FDEBF) (tstamp 5E50DE23)
+  (module MountingHole_2-5mm_RevA_Date21Jun2010 (layer F.Cu) (tedit 5E67C145) (tstamp 5E50DE23)
     (at 100.33 34.29)
     (descr "Mounting hole, Befestigungsbohrung, 2,5mm, No Annular, Kein Restring,")
     (tags "Mounting hole, Befestigungsbohrung, 2,5mm, No Annular, Kein Restring,")
-    (fp_text reference MH (at 0 -3.50012) (layer F.SilkS)
+    (fp_text reference MH (at 0 -3.50012) (layer F.SilkS) hide
       (effects (font (size 1.524 1.524) (thickness 0.3048)))
     )
     (fp_text value MountingHole_2-5mm_RevA_Date21Jun2010 (at 0.09906 3.59918) (layer F.SilkS) hide
@@ -2954,14 +2954,14 @@
     )
   )
 
-  (module SM1206 (layer F.Cu) (tedit 42806E24) (tstamp 5E4F29EA)
+  (module SM1206 (layer F.Cu) (tedit 5E67AE07) (tstamp 5E4F29EA)
     (at 132.08 40.64)
     (path /5C828AE5/5C828FA2)
     (attr smd)
-    (fp_text reference R2 (at 0 0) (layer F.SilkS)
+    (fp_text reference R2 (at 0 0) (layer F.SilkS) hide
       (effects (font (size 0.762 0.762) (thickness 0.127)))
     )
-    (fp_text value "60 Ohms" (at 0 0) (layer F.SilkS) hide
+    (fp_text value "60 Ohms" (at 0 -1.905) (layer F.SilkS)
       (effects (font (size 0.762 0.762) (thickness 0.127)))
     )
     (fp_line (start -2.54 -1.143) (end -2.54 1.143) (layer F.SilkS) (width 0.127))
@@ -2985,14 +2985,14 @@
     )
   )
 
-  (module SM1206 (layer F.Cu) (tedit 42806E24) (tstamp 5E4F29E0)
+  (module SM1206 (layer F.Cu) (tedit 5E67AE23) (tstamp 5E4F29E0)
     (at 132.08 43.18)
     (path /5C828AE5/5C828F93)
     (attr smd)
-    (fp_text reference R1 (at 0 0) (layer F.SilkS)
+    (fp_text reference R1 (at 0 0) (layer F.SilkS) hide
       (effects (font (size 0.762 0.762) (thickness 0.127)))
     )
-    (fp_text value "60 Ohms" (at 0 0) (layer F.SilkS) hide
+    (fp_text value "60 Ohms" (at 0 2.159) (layer F.SilkS)
       (effects (font (size 0.762 0.762) (thickness 0.127)))
     )
     (fp_line (start -2.54 -1.143) (end -2.54 1.143) (layer F.SilkS) (width 0.127))
@@ -3377,8 +3377,8 @@
   (segment (start 121.793 75.946) (end 121.285 75.438) (width 0.254) (layer F.Cu) (net 23) (tstamp 5E4F2D14))
   (via (at 121.793 75.946) (size 0.889) (layers F.Cu B.Cu) (net 23))
   (segment (start 121.539 76.2) (end 121.793 75.946) (width 0.254) (layer B.Cu) (net 23) (tstamp 5E4F2D12))
-  (segment (start 168.05402 99.31908) (end 168.05402 101.25202) (width 0.254) (layer F.Cu) (net 24) (status 400000))
-  (segment (start 138.96086 101.57714) (end 138.96086 69.85) (width 0.254) (layer F.Cu) (net 24) (tstamp 5E4D1637) (status 800000))
+  (segment (start 168.05402 99.31908) (end 168.05402 101.25202) (width 0.254) (layer F.Cu) (net 24))
+  (segment (start 138.96086 101.57714) (end 138.96086 69.85) (width 0.254) (layer F.Cu) (net 24) (tstamp 5E4D1637))
   (segment (start 138.938 101.6) (end 138.96086 101.57714) (width 0.254) (layer F.Cu) (net 24) (tstamp 5E4D1636))
   (via (at 138.938 101.6) (size 0.889) (layers F.Cu B.Cu) (net 24))
   (segment (start 167.894 101.6) (end 138.938 101.6) (width 0.254) (layer B.Cu) (net 24) (tstamp 5E4D1633))
