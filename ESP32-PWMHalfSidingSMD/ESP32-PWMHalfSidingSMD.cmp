@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by PcbNew date = Tue 18 Feb 2020 00:17:41 EST
+Cmp-Mod V01 Created by PcbNew date = Tue 18 Feb 2020 15:50:52 EST
 
 BeginCmp
 TimeStamp = /5C828AE5/5C828DA1;
@@ -193,14 +193,14 @@ BeginCmp
 TimeStamp = /5C828AE5/5C828F93;
 Reference = R1;
 ValeurCmp = 60 Ohms;
-IdModule  = SM0603;
+IdModule  = SM1206;
 EndCmp
 
 BeginCmp
 TimeStamp = /5C828AE5/5C828FA2;
 Reference = R2;
 ValeurCmp = 60 Ohms;
-IdModule  = SM0603;
+IdModule  = SM1206;
 EndCmp
 
 BeginCmp
