@@ -126,8 +126,9 @@ GPIO4_7_Pin,GPIO4_8_Pin,GPIO4_9_Pin,GPIO4_10_Pin> GpioInit;
 
 //#define PRINT_ALL_PACKETS
 
+#define USE_SOCKET_CAN_PORT
 #define HAVE_SOCKET_CAN_PORT
-#define SOCKET_CAN_PORT "can1"
+#define DEFAULT_CAN_SOCKET "can1"
 
 
 #endif // __HARDWARE_HXX

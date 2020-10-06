@@ -39,6 +39,9 @@
 #include "openlcb/ConfiguredConsumer.hxx"
 #include "openlcb/ConfiguredProducer.hxx"
 #include "openlcb/MultiConfiguredPC.hxx"
+#include "utils/HubDeviceSelect.hxx"
+#include "utils/SocketClient.hxx"
+#include "utils/SocketClientParams.hxx"
 
 #include "config.hxx"
 #include "freertos_drivers/common/DummyGPIO.hxx"
@@ -63,11 +66,20 @@ OVERRIDE_CONST(main_thread_stack_size, 2500);
 #include "NODEID.hxx"
 //extern const openlcb::NodeID NODE_ID = MyAddress;
 
+#if defined(USE_GRIDCONNECT_HOST) || defined(USE_SOCKET_CAN_PORT)      
 // Sets up a comprehensive OpenLCB stack for a single virtual node. This stack
 // contains everything needed for a usual peripheral node -- all
 // CAN-bus-specific components, a virtual node, PIP, SNIP, Memory configuration
 // protocol, ACDI, CDI, a bunch of memory spaces, etc.
 openlcb::SimpleCanStack stack(NODE_ID);
+#else
+#ifdef USE_OPENLCB_TCP_HOST
+Executor<1> g_connect_executor("connect_executor", 0, 2048);
+openlcb::SimpleTcpStack stack(NODE_ID);
+#else
+#error "None of USE_GRIDCONNECT_HOST, USE_SOCKET_CAN_PORT, orUSE_OPENLCB_TCP_HOST defined!"
+#endif
+#endif
 
 // ConfigDef comes from config.hxx and is specific to the particular device and
 // target. It defines the layout of the configuration memory space and is also
@@ -172,7 +184,30 @@ constexpr const Gpio *const kGPIO6_Header[] = {
     GPIO6_7_Pin::instance(), GPIO6_8_Pin::instance(),
     GPIO6_9_Pin::instance(), GPIO6_10_Pin::instance()};
 #endif
+#ifdef HAVEQUADMCP23017
+constexpr const Gpio *const kGPIO5_Header[] = {
+    GPIO5_1_Pin::instance(), GPIO5_2_Pin::instance(),
+    GPIO5_3_Pin::instance(), GPIO5_4_Pin::instance(),
+    GPIO5_7_Pin::instance(), GPIO5_8_Pin::instance(),
+    GPIO5_9_Pin::instance(), GPIO5_10_Pin::instance()};
 
+constexpr const Gpio *const kGPIO6_Header[] = {
+    GPIO6_1_Pin::instance(), GPIO6_2_Pin::instance(),
+    GPIO6_3_Pin::instance(), GPIO6_4_Pin::instance(),
+    GPIO6_7_Pin::instance(), GPIO6_8_Pin::instance(),
+    GPIO6_9_Pin::instance(), GPIO6_10_Pin::instance()};
+constexpr const Gpio *const kGPIO7_Header[] = {
+    GPIO7_1_Pin::instance(), GPIO7_2_Pin::instance(),
+    GPIO7_3_Pin::instance(), GPIO7_4_Pin::instance(),
+    GPIO7_7_Pin::instance(), GPIO7_8_Pin::instance(),
+    GPIO7_9_Pin::instance(), GPIO7_10_Pin::instance()};
+
+constexpr const Gpio *const kGPIO8_Header[] = {
+    GPIO8_1_Pin::instance(), GPIO8_2_Pin::instance(),
+    GPIO8_3_Pin::instance(), GPIO8_4_Pin::instance(),
+    GPIO8_7_Pin::instance(), GPIO8_8_Pin::instance(),
+    GPIO8_9_Pin::instance(), GPIO8_10_Pin::instance()};
+#endif
 openlcb::MultiConfiguredPC gpio1(stack.node(),
    kGPIO1_Header, ARRAYSIZE(kGPIO1_Header),
    cfg.seg().headers().entry<0>().gpio());
@@ -198,6 +233,22 @@ openlcb::MultiConfiguredPC gpio6(stack.node(),
    kGPIO6_Header, ARRAYSIZE(kGPIO6_Header),
    cfg.seg().headers().entry<5>().gpio());
 #endif
+#ifdef HAVEQUADMCP23017
+openlcb::MultiConfiguredPC gpio5(stack.node(),
+   kGPIO5_Header, ARRAYSIZE(kGPIO5_Header),
+   cfg.seg().headers().entry<4>().gpio());
+
+openlcb::MultiConfiguredPC gpio6(stack.node(),
+   kGPIO6_Header, ARRAYSIZE(kGPIO6_Header),
+   cfg.seg().headers().entry<5>().gpio());
+openlcb::MultiConfiguredPC gpio7(stack.node(),
+   kGPIO5_Header, ARRAYSIZE(kGPIO5_Header),
+   cfg.seg().headers().entry<6>().gpio());
+
+openlcb::MultiConfiguredPC gpio8(stack.node(),
+   kGPIO6_Header, ARRAYSIZE(kGPIO6_Header),
+   cfg.seg().headers().entry<7>().gpio());
+#endif
 
 openlcb::RefreshLoop gpioLoop(stack.node(), {
                           gpio1.polling(),
@@ -208,6 +259,13 @@ openlcb::RefreshLoop gpioLoop(stack.node(), {
                           gpio5.polling(),
                           gpio6.polling(),
 #endif
+#ifdef HAVEQUADMCP23017
+                          gpio5.polling(),
+                          gpio6.polling(),
+                          gpio7.polling(),
+                          gpio8.polling(),
+#endif
+          
 });
 
 
@@ -238,28 +296,85 @@ public:
     }
 } factory_reset_helper;
                                            
-                                           
-                                           
+#ifdef USE_OPENLCB_TCP_HOST
+int upstream_port = DEFAULT_OPENLCB_TCP_PORT;
+const char *upstream_host = DEFAULT_OPENLCB_TCP_HOST;
+#else
+#ifdef USE_GRIDCONNECT_HOST
+int upstream_port = DEFAULT_TCP_GRIDCONNECT_PORT;
+const char *upstream_host = DEFAULT_TCP_GRIDCONNECT_HOST;
+#endif
+#ifdef USE_SOCKET_CAN_PORT
+const char *cansocket = DEFAULT_CAN_SOCKET;
+#endif
+#endif
 
 void usage(const char *e)
 {
-    fprintf(stderr, "Usage: %s [-e EEPROM_file_path]\n\n", e);
+    fprintf(stderr, "Usage: %s [-e EEPROM_file_path]", e);
+#if defined(USE_OPENLCB_TCP_HOST) || defined(USE_GRIDCONNECT_HOST)
+    fprintf(stderr, " [-u upstream_host] [-q upstream_port]");
+#endif
+#ifdef USE_SOCKET_CAN_PORT
+    fprintf(stderr, " [-c can_socketname]");
+#endif
+    fprintf(stderr, "\n\n");    
     fprintf(stderr, "OpenMRN-Cxx-Node.\nManages a QuadSMCSense HAT.\n");
     fprintf(stderr, "\nOptions:\n");
     fprintf(stderr, "\t-e EEPROM_file_path is the path to use to the EEProm device.\n");
+#if defined(USE_OPENLCB_TCP_HOST) || defined(USE_GRIDCONNECT_HOST)
+    fprintf(stderr,"\t-u upstream_host   is the host name for an "
+            "upstream hub.\n");
+    fprintf(stderr,
+            "\t-q upstream_port   is the port number for the upstream "
+            "hub.\n");
+#endif
+#ifdef USE_SOCKET_CAN_PORT
+    fprintf(stderr,"\t-c can_socketname   is the name of the CAN "
+            "socket.\n");
+#endif
     exit(1);
 }
 
 void parse_args(int argc, char *argv[])
 {
     int opt;
-    while ((opt = getopt(argc, argv, "e:")) >= 0)
+#if defined(USE_OPENLCB_TCP_HOST) || defined(USE_GRIDCONNECT_HOST)
+#ifdef USE_SOCKET_CAN_PORT
+#define OPTSTRING "he:u:q:c:"
+#else
+#define OPTSTRING "he:u:q:"
+#endif
+#else
+#ifdef USE_SOCKET_CAN_PORT
+#define OPTSTRING "he:c:"
+#else
+#define OPTSTRING "he:"
+#endif
+#endif
+    while ((opt = getopt(argc, argv, OPTSTRING)) >= 0)
     {
         switch (opt)
         {
+        case 'h':
+            usage(argv[0]);
+            break;
         case 'e':
             strncpy(pathnamebuffer,optarg,sizeof(pathnamebuffer));
             break;
+#if defined(USE_OPENLCB_TCP_HOST) || defined(USE_GRIDCONNECT_HOST)
+        case 'u':
+            upstream_host = optarg;
+            break;
+        case 'q':
+            upstream_port = atoi(optarg);
+            break;
+#endif
+#ifdef USE_SOCKET_CAN_PORT
+        case 'c':
+            cansocket = optarg;
+            break;
+#endif
         default:
             fprintf(stderr, "Unknown option %c\n", opt);
             usage(argv[0]);
@@ -267,6 +382,14 @@ void parse_args(int argc, char *argv[])
     }
 }
 
+#ifdef USE_OPENLCB_TCP_HOST
+void connect_callback(int fd, Notifiable *on_error)
+{
+    LOG(INFO, "Connected to hub.");
+    stack.add_tcp_port_select(fd, on_error);
+    stack.restart_stack();
+}
+#endif
 
 /** Entry point to application.
  * @param argc number of command line arguments
@@ -291,8 +414,14 @@ int appl_main(int argc, char *argv[])
     // Causes all packets to be dumped to stdout.
     stack.print_all_packets();
 #endif
+#ifdef USE_OPENLCB_TCP_HOST
+    SocketClient socket_client(stack.service(), &g_connect_executor,
+      &g_connect_executor,
+      SocketClientParams::from_static(upstream_host,upstream_port),
+      &connect_callback);
+#endif
 #if defined(HAVE_SOCKET_CAN_PORT)
-    stack.add_socketcan_port_select(SOCKET_CAN_PORT);
+    stack.add_socketcan_port_select(cansocket);
 #endif
 // This command donates the main thread to the operation of the
     // stack. Alternatively the stack could be started in a separate stack and

@@ -38,10 +38,14 @@ CDI_GROUP(headerGroup);
 CDI_GROUP_ENTRY(gpio,GPIOHeaderConfig,Name("GPIO Header"), Description("This is one GPIO Header"), RepName("Line"));
 CDI_GROUP_END();
 
+#ifdef HAVEQUADMCP23017
+using HeaderConfig = RepeatedGroup<headerGroup, 8>;
+#else
 #ifdef EXTRAHEADERS
 using HeaderConfig = RepeatedGroup<headerGroup, 6>;
 #else
 using HeaderConfig = RepeatedGroup<headerGroup, 4>;
+#endif
 #endif
 
 using LogicGroup = openlcb::RepeatedGroup<LogicConfig, LOGICCOUNT>;

@@ -1,5 +1,6 @@
 SUBDIRS = \
           bbb.linux.armv7a \
+          bbb64.linux.armv7a \
           rpi.linux.armv7a \
 	  pb.linux.armv7a \
 	  
