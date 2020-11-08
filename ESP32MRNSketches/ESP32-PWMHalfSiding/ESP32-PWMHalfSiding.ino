@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Mar 13 10:22:45 2019
-//  Last Modified : <200202.1003>
+//  Last Modified : <201107.2116>
 //
 //  Description	
 //
@@ -49,7 +49,7 @@
  * @date 13 March 2019
  */
 
-#include <Arduino.h>
+//#include <Arduino.h>
 #include <SPIFFS.h>
 
 #include <OpenMRNLite.h>
