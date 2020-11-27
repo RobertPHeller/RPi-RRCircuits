@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Mon Feb 10 14:21:24 2020
-%  Last Modified : <200211.1939>
+%  Last Modified : <201126.2015>
 %
 %  Description 
 %
@@ -134,7 +134,8 @@ Detector 2)}
 
 The occupancy detectors use optoisolators in series with the track power 
 supply.  There is a heavy duty bridge rectifier in parallel with the 
-optoisolators to carry the bulk of the current to the track.
+optoisolators to carry the bulk of the current to the track.  They will work 
+with either DC or DCC track power.
 
 \clearpage
 \subsection{PWM LED Driver}
@@ -233,6 +234,21 @@ TC4428&2&U7 U8&579-TC4428VPA\\
 
 \subsection{Notes on Building the board}
 
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{ESP32-PWMHalfSidingOEEnableMods.png}
+\caption{OE Jumper modifications.}
+\label{fig:ESP32-PWMHalfSidingOEEnableMods}
+\end{centering}\end{figure}
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{ESP32-PWMHalfSidingCommonAnodeLamps.png}
+\caption{Building for Common Anode Signals}
+\label{fig:ESP32-PWMHalfSidingCommonAnodeLamps}
+\end{centering}\end{figure} 
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{ESP32-PWMHalfSidingCommonCathodeLamps.png}
+\caption{Building for Common Cathode Signals}
+\label{fig:ESP32-PWMHalfSidingCommonCathodeLamps}
+\end{centering}\end{figure} 
 Board assembly is straight forward. You need to be careful orienting the ICs
 and the electrolytic capacitor. You should start with the parts lowest to the
 board (the SMD chips). Hand soldering SMD is not terribly hard. There is are
@@ -247,7 +263,12 @@ use either MCU board\footnote{The kit includes two 19 pin headers and one 18
 pin header.}. Then for the LED output drivers you can chose 757-TBD62083APGs
 for common cathode or 757-TBD62783APGs for common anode signals. Don't forget
 to insert and solder jumpers for the commons.\footnote{The kit comes with
-pairs of both driver chips.}
+pairs of both driver chips.}  See Figures 
+\ref{fig:ESP32-PWMHalfSidingCommonAnodeLamps} and 
+\ref{fig:ESP32-PWMHalfSidingCommonCathodeLamps}. Also, the software at present does not use the 
+output enable, so the trace at OE GPIO needs to be cut and the contacts at OE 
+Bypass need to be bridged, as shown in 
+Figure~\ref{fig:ESP32-PWMHalfSidingOEEnableMods}.
 
 \clearpage
 \section{Downloadables and Software Support}
@@ -308,10 +329,112 @@ in the node.
 \item[Turnout.h] This file implements the switch motor outputs.
 \end{description}
 
+\section{General Wiring Notes}
+
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{ESP32HalfSidingWiring.png}
+\caption{Placement of terminal blocks, connectors, and jumper blocks.}
+\end{centering}\end{figure}
+There are various terminal blocks, connectors, and jumper blocks on this
+board. At the top end of the board are a pair of two position terminal blocks, 
+one for injecting power into the LCC bus and one for extracting power from the 
+LCC bus.  Between these terminal blocks is the termination jumper block for 
+the LCC bus.  Below the LCC  power erminal blocks is a pair of RJ45 
+connectors. These are for connecting the board to the LCC bus.  These 
+connectors are wired in parallel.  Down along the left side are the two stall 
+motor terminal blocks (small 5 position terminal blocks) and the occupancy 
+detector terminal blocks (large 2 position terminal blocks).  On the right 
+side are two 9 position terminal blocks for the signal lamp LEDs.  Finally, at 
+the bottom right is a two position terminal block to (optionally) provide 
+power for the signal lamp LEDs.
+
+\subsection{LCC Power}
+
+Power can be optionally injected into the LCC bus or extracted from the LCC 
+bus. Power can be injected to into the LCC bus to power this and other boards. 
+Power can also be extracted to power local devices.
+
+\subsection{LCC Bus connections and termination}
+
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics{ESP32-PWMHalfSidingTermination.png}
+\caption{Termination Jumper Options}
+\label{fig:ESP32-PWMHalfSidingTermination}
+\end{centering}\end{figure}
+The two RJ45 connections connect to the LCC bus.  If this board is at the end 
+of bus, you will need to terminate the bus.  There are two possible 
+termination options as shown in 
+Figure~\ref{fig:ESP32-PWMHalfSidingTermination}.
+
+\subsection{Stall Motor connections}
+
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics{ESP32-PWMHalfSidingTurnoutMotorsFig.png}
+\caption{Stall Motor terminal block connections}
+\label{fig:ESP32-PWMHalfSidingTurnoutMotorsFig}
+\end{centering}\end{figure}
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics{ESP32-PWMHalfSidingTotoiseWiring.png}
+\caption{Wiring a Totoise to the ESP32-PWMHalfSiding Turnout Motors terminals}
+\label{fig:ESP32-PWMHalfSidingTotoiseWiring}
+\end{centering}\end{figure}
+The five position Stall Motor terminal blocks, shown in 
+Figure~\ref{fig:ESP32-PWMHalfSidingTurnoutMotorsFig}, connect to the turnout 
+stall motors, the Motor A and Motor B connections go to the motor (pins 1 and 
+8 of a tortoise), the other three connections go to a single pole double 
+through switch contacts to sense the position of the stall motor / points. 
+There are contacts available on tortoise stall motor that can be used for this 
+purpose, as shown in Figure~\ref{fig:ESP32-PWMHalfSidingTotoiseWiring}.
+
+
+\subsection{Occupancy Detector connections}
+
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics{ESP32-PWMHalfSidingOccupancyDetectors.png}
+\caption{Occupancy Detector Wiring}
+\label{fig:ESP32-PWMHalfSidingOccupancyDetectors}
+\end{centering}\end{figure}
+The larger two position Occupancy Detector terminal blocks are connected to 
+the track power feeds as shown in 
+Figure~\ref{fig:ESP32-PWMHalfSidingOccupancyDetectors}.
+
+\subsection{Signal Lamp (LED) connections}
+
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics{ESP32-PWMHalfSidingLampDivers.png}
+\caption{Typical Signal Lamp Diver Wiring}
+\label{fig:ESP32-PWMHalfSidingLampDivers}
+\end{centering}\end{figure}
+Signal lamp diver wiring assumes common cathode or common anode signals as 
+shown Figure~\ref{fig:ESP32-PWMHalfSidingLampDivers}.  
+
+\clearpage
 \section{Application Notes}
+
+Three applications will presented, a typical siding using two boards, an 
+implementation of a section of Automatic Block Signals, and Crossing with 
+Interchange.  Other trackwork arangements are possible as well.
+
 
 \subsection{Typical Siding}
 
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{ExampleSiding.png}
+\caption{A Typical Siding}
+\label{fig:ExampleSiding}
+\end{centering}\end{figure}
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{ESP32HalfSiding-CP1Wiring.png}
+\caption{Wiring the ESP32HalfSiding board to the control elements of CP1 (West 
+end of the siding}
+\label{fig:ESP32HalfSiding-CP1Wiring}
+\end{centering}\end{figure}
+A typical siding is shown in Figure~\ref{fig:ExampleSiding}. And the wiring of 
+the west end, CP1, is shown in Figure~\ref{fig:ESP32HalfSiding-CP1Wiring}. The 
+other end is wired similarly (except that the second occupancy detector is 
+wired to the main line block between the turnouts).
+
+\clearpage
 \subsection{Implementing Automatic Block Signals}
 
 \subsection{Crossing with Interchange}

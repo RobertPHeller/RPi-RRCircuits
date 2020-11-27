@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   width="47"
+   height="44"
+   sodipodi:docname="ESP32-PWMHalfSidingTermination.svg"
+   inkscape:export-filename="/home/heller/RRCircuits/ESP32-PWMHalfSiding/ESP32-PWMHalfSidingTermination.png"
+   inkscape:export-xdpi="299.9202"
+   inkscape:export-ydpi="299.9202">
+  <metadata
+     id="metadata8">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs6">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       id="perspective10" />
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="986"
+     inkscape:window-height="692"
+     id="namedview4"
+     showgrid="false"
+     inkscape:zoom="1.8963318"
+     inkscape:cx="23.779661"
+     inkscape:cy="21.640998"
+     inkscape:window-x="16"
+     inkscape:window-y="57"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <image
+     sodipodi:absref="/home/heller/RRCircuits/ESP32-PWMHalfSiding/ESP32-PWMHalfSidingTermBlock.png"
+     xlink:href="ESP32-PWMHalfSidingTermBlock.png"
+     y="0"
+     x="0"
+     id="image12"
+     height="44"
+     width="47" />
+  <image
+     sodipodi:absref="/home/heller/RRCircuits/ESP32-PWMHalfSiding/ESP32-PWMHalfSidingTermBlock.png"
+     xlink:href="ESP32-PWMHalfSidingTermBlock.png"
+     width="47"
+     height="44"
+     id="image2818"
+     x="0"
+     y="72.244743" />
+  <image
+     sodipodi:absref="/home/heller/RRCircuits/ESP32-PWMHalfSiding/ESP32-PWMHalfSidingTermBlock.png"
+     xlink:href="ESP32-PWMHalfSidingTermBlock.png"
+     y="-79.100075"
+     x="0.52733386"
+     id="image2820"
+     height="44"
+     width="47" />
+  <path
+     style="color:#000000;fill:none;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+     d="m 20.302354,14.601137 0.263667,11.601345"
+     id="path2830" />
+  <path
+     style="color:#000000;fill:none;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+     d="m 27.289528,14.33747 0.3955,11.996845"
+     id="path2832" />
+  <path
+     style="color:#000000;fill:none;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+     d="M 18.324852,89.350713 28.739696,89.087046"
+     id="path2834" />
+  <path
+     style="color:#000000;fill:none;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+     d="m 17.929352,96.601554 11.205844,0.131833"
+     id="path2836" />
+  <text
+     xml:space="preserve"
+     style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:CM Roman;-inkscape-font-specification:'CM Roman,'"
+     x="63.807396"
+     y="-48.81076"
+     id="text3610"
+     sodipodi:linespacing="100%"><tspan
+       sodipodi:role="line"
+       id="tspan3612"
+       x="63.807396"
+       y="-48.81076">No termination</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:CM Roman;-inkscape-font-specification:'CM Roman,'"
+     x="59.061394"
+     y="29.234652"
+     id="text3614"
+     sodipodi:linespacing="100%"><tspan
+       sodipodi:role="line"
+       id="tspan3616"
+       x="59.061394"
+       y="29.234652">Simple Termination</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:CM Roman;-inkscape-font-specification:'CM Roman,'"
+     x="58.006725"
+     y="98.315392"
+     id="text3618"
+     sodipodi:linespacing="100%"><tspan
+       sodipodi:role="line"
+       id="tspan3620"
+       x="58.006725"
+       y="98.315392">Center Tapped Termination</tspan></text>
+</svg>
