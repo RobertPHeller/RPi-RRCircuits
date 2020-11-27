@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="ESP32-PWMHalfSidingCommonAnodeLamps.svg">
+  <defs
+     id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+    <inkscape:perspective
+       id="perspective2884"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="379.28571"
+     inkscape:cy="508.57143"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1164"
+     inkscape:window-height="682"
+     inkscape:window-x="48"
+     inkscape:window-y="89"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <image
+       y="246.6479"
+       x="62.214287"
+       id="image2886"
+       height="520"
+       width="647"
+       xlink:href="file:///home/heller/RRCircuits/ESP32-PWMHalfSiding/LampDivers.png" />
+    <text
+       xml:space="preserve"
+       style="font-size:20.72274771px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:CM Roman;-inkscape-font-specification:'CM Roman,'"
+       x="316.76682"
+       y="503.30869"
+       id="text2890"
+       sodipodi:linespacing="100%"
+       transform="scale(1.1512638,0.86861066)"><tspan
+         sodipodi:role="line"
+         id="tspan3715">TBD62783A</tspan></text>
+    <path
+       style="color:#000000;fill:none;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m 271.73103,681.6362 c 2.02031,0 4.04061,0 6.06092,0 0.94835,0 4.47195,-0.19294 5.05076,0 0.45176,0.15058 0.58424,0.79719 1.01015,1.01015 0.26562,0.1328 3.51239,0 4.04061,0 5.7242,0 -6.73435,0 -1.01015,0 3.70389,0 7.40779,0 11.11168,0 1.34687,0 2.69374,0 4.04061,0 0.67344,0 2.69374,0 2.02031,0 -0.67344,0 -2.69374,0 -2.02031,0 1.01015,0 2.02031,0 3.03046,0 0.33672,0 1.01015,-0.33672 1.01015,0 0,0.33672 -1.01015,0.33672 -1.01015,0 0,-0.47619 1.01015,-0.53396 1.01015,-1.01015 0,-0.33672 -0.77206,0.23809 -1.01015,0 -0.2381,-0.2381 0,-0.67344 0,-1.01016"
+       id="path2900" />
+    <path
+       style="color:#000000;fill:none;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m 375.77674,681.6362 c 0.67344,0 1.34687,0 2.02031,0 0,-0.33672 -0.30117,-0.85957 0,-1.01016 0.15805,-0.079 4.76835,0 5.05076,0 0.7026,0 4.68546,-0.18265 5.05076,0 0.42592,0.21296 0.58424,0.7972 1.01016,1.01016 0.26117,0.13058 5.34491,0 6.06091,0 3.36718,0 6.73435,0 10.10153,0 0.67343,0 1.34687,0 2.0203,0 0.33672,0 1.01016,-0.33672 1.01016,0 0,0.33671 -1.34688,0 -1.01016,0 0.67344,0 1.34687,0 2.02031,0"
+       id="path2902" />
+  </g>
+</svg>
