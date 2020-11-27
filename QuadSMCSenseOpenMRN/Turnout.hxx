@@ -14,7 +14,7 @@
 CDI_GROUP(TurnoutConfig);
 /// Allows the user to assign a name for this output.
 CDI_GROUP_ENTRY(description, openlcb::StringConfigEntry<8>, //
-                Name("Description"), Description("User name of this output."));
+                Name("Description"), Description("User name of this turnout."));
 /// Specifies the event ID to set the output to ON.
 CDI_GROUP_ENTRY(
     normal, openlcb::EventConfigEntry, //

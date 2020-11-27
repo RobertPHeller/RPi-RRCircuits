@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 14 15:16:50 2018
-//  Last Modified : <181014.1643>
+//  Last Modified : <201125.0858>
 //
 //  Description	
 //
@@ -53,7 +53,7 @@
 CDI_GROUP(PointsConfig);
 /// Allows the user to assign a name for this input.
 CDI_GROUP_ENTRY(description, openlcb::StringConfigEntry<15>, //
-                Name("Description"), Description("User name of this input."));
+                Name("Description"), Description("User name of this set of points."));
 /// This event will be produced when the input goes to HIGH.
 CDI_GROUP_ENTRY(
     normal, openlcb::EventConfigEntry, //
