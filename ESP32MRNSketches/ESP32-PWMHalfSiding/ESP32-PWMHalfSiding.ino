@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Mar 13 10:22:45 2019
-//  Last Modified : <201107.2116>
+//  Last Modified : <201124.1350>
 //
 //  Description	
 //
@@ -253,6 +253,41 @@ public:
             cfg.seg().ocs().entry(i).description().write(fd, "");
             CDI_FACTORY_RESET(cfg.seg().ocs().entry(i).debounce);
         }
+#if 0
+        for(int i = 0; i < LOGICCOUNT; i++)
+        {
+            cfg.seg().logics().entry(i).description().write(fd, "");
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).groupFunction);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).logic().logicFunction);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).trueAction);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).falseAction);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).timing().timedelay);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).timing().interval);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).timing().retriggerable);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v1().trigger);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v1().source);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v1().trackspeed);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v2().trigger);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v2().source);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v2().trackspeed);
+            for (int j = 0; j < 4 ; j++)
+            {
+                CDI_FACTORY_RESET(cfg.seg().logics().entry(i).actions().entry(j).actiontrigger);
+            }
+        }
+        for(int i = 0; i < MASTCOUNT; i++)
+        {
+            CDI_FACTORY_RESET(cfg.seg().masts().entry(i).processing);
+            cfg.seg().masts().entry(i).mastid().write(fd,"");
+#ifdef HAVEPWM
+            CDI_FACTORY_RESET(cfg.seg().masts().entry(i).fade);
+#endif
+        }
+        for(int i = 0; i < TRACKCIRCUITCOUNT; i++)
+        {
+            cfg.seg().circuits().entry(i).description().write(fd,"");
+        }
+#endif
     }
 } factory_reset_helper;
 
@@ -278,13 +313,14 @@ namespace openlcb
 void setup() {
     // put your setup code here, to run once:
     Serial.begin(115200L);
+    Serial.println("Starting...");
     // Initialize the SPIFFS filesystem as our persistence layer
     if (!SPIFFS.begin())
     {
-        printf("SPIFFS failed to mount, attempting to format and remount\n");
+        Serial.println("SPIFFS failed to mount, attempting to format and remount");
         if (!SPIFFS.begin(true))
         {
-            printf("SPIFFS mount failed even with format, giving up!\n");
+            Serial.println("SPIFFS mount failed even with format, giving up!");
             while (1)
             {
                 // Unable to start SPIFFS successfully, give up and wait
@@ -292,14 +328,17 @@ void setup() {
             }
         }
     }
-
+    Serial.println("SPIFFS begun...");
+    
     // Create the CDI.xml dynamically
     openmrn.create_config_descriptor_xml(cfg, openlcb::CDI_FILENAME);
-
+    
+    Serial.println("CDI.xml created...");
     // Create the default internal configuration file
     openmrn.stack()->create_config_file_if_needed(cfg.seg().internal_config(),
         openlcb::CANONICAL_VERSION, openlcb::CONFIG_FILE_SIZE);
-
+    Serial.println("Create the default internal configuration file...");
+    
     // initialize all declared GPIO pins
     GpioInit::hw_init();
     
@@ -325,10 +364,12 @@ void setup() {
     // Start the OpenMRN stack
     openmrn.begin();
     openmrn.start_executor_thread();
-
+    Serial.println("Started the OpenMRN stack...");
+    
     // Add the hardware CAN device as a bridge
     openmrn.add_can_port(
-        new Esp32HardwareCan("esp32can", CAN_RX_PIN, CAN_TX_PIN));
+           new Esp32HardwareCan("esp32can", CAN_RX_PIN, CAN_TX_PIN));
+    Serial.println("Added the hardware CAN device as a bridge...");
 }
                 
 void loop() {

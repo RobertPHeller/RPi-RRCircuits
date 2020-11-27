@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Mar 13 10:34:17 2019
-//  Last Modified : <190402.0958>
+//  Last Modified : <201123.0741>
 //
 //  Description	
 //
@@ -76,7 +76,7 @@ namespace openlcb
 extern const SimpleNodeStaticValues SNIP_STATIC_DATA = {
     4,
     "OpenMRN",
-    "Deepwoods Software ESP32 IO Board (CAN)",
+    "DWS ESP32 PWM Half-Siding Board",
     ARDUINO_VARIANT,
     "1.00"};
 
@@ -101,7 +101,7 @@ using OCGroup = RepeatedGroup<OccupancyDetectorConfig, NUM_OCS>;
 
 /// Modify this value every time the EEPROM needs to be cleared on the node
 /// after an update.
-static constexpr uint16_t CANONICAL_VERSION = 0x1000;
+static constexpr uint16_t CANONICAL_VERSION = 0x100;
 
 /// Defines the main segment in the configuration CDI. This is laid out at
 /// origin 128 to give space for the ACDI user data at the beginning.
