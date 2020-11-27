@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="990"
+   height="765"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="ABSTrack_Wiring.svg">
+  <defs
+     id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+    <inkscape:perspective
+       id="perspective2884"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective2958"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3861"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3937"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="1"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.5"
+     inkscape:cx="-584.14221"
+     inkscape:cy="-44.274521"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="997"
+     inkscape:window-height="808"
+     inkscape:window-x="278"
+     inkscape:window-y="-16"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-287.36218)">
+    <image
+       y="-489.84506"
+       x="-1369.8264"
+       id="image2886"
+       height="2474"
+       width="2811"
+       xlink:href="file:///home/heller/RRCircuits/ESP32-PWMHalfSiding/ABSTrack_Stacked.png" />
+    <image
+       y="861.7663"
+       x="25.183971"
+       id="image2960"
+       height="112"
+       width="65"
+       xlink:href="file:///home/heller/RRCircuits/ESP32-PWMHalfSiding/OccupancyDetectors.png" />
+    <path
+       style="color:#000000;fill:none;stroke:#000000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m -259.57772,-26.551814 3.20466,1227.386014"
+       id="path2964"
+       transform="translate(0,287.36218)" />
+    <path
+       style="color:#000000;fill:none;stroke:#000000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m -320.46632,1200.8342 0,185.8705"
+       id="path3738"
+       transform="translate(0,287.36218)" />
+    <path
+       style="color:#000000;fill:none;stroke:#ff0000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m 33.648964,591.94819 -249.963734,-4.807 0,796.35881"
+       id="path3740"
+       transform="translate(0,287.36218)" />
+    <path
+       style="color:#000000;fill:none;stroke:#ff0000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="M 35.251295,651.23446 -217.9171,648.02979"
+       id="path3742"
+       transform="translate(0,287.36218)" />
+    <path
+       style="color:#000000;fill:none;stroke:#ff8000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m 35.251295,667.25777 -203.496115,1.60233 1.60233,472.6878"
+       id="path3744"
+       transform="translate(0,287.36218)" />
+    <path
+       style="color:#000000;fill:none;stroke:#ff8000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m 35.251295,607.9715 -203.496115,0 -1.60233,-695.411915"
+       id="path3746"
+       transform="translate(0,287.36218)" />
+    <image
+       y="269.49957"
+       x="-1375.1422"
+       id="image3863"
+       height="333"
+       width="167"
+       xlink:href="file:///home/heller/RRCircuits/ESP32-PWMHalfSiding/LampDivers.png" />
+    <image
+       y="885.86218"
+       x="-1352.4818"
+       id="image3939"
+       height="333"
+       width="167"
+       xlink:href="file:///home/heller/RRCircuits/ESP32-PWMHalfSiding/LampDivers.png" />
+    <text
+       xml:space="preserve"
+       style="font-size:32px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:CM Roman;-inkscape-font-specification:'CM Roman,'"
+       x="-1383.6235"
+       y="639.53931"
+       id="text3943"
+       sodipodi:linespacing="100%"><tspan
+         sodipodi:role="line"
+         id="tspan3945"
+         x="-1383.6235"
+         y="639.53931">Lamp group A</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:32px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:CM Roman;-inkscape-font-specification:'CM Roman,'"
+       x="-1380.5593"
+       y="1255.3699"
+       id="text3947"
+       sodipodi:linespacing="100%"><tspan
+         sodipodi:role="line"
+         id="tspan3949"
+         x="-1380.5593"
+         y="1255.3699">Lamp  group B</tspan></text>
+    <path
+       style="color:#000000;fill:none;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m -1237.2573,275.53556 228.8699,-2.26604 -15.8623,-231.13599"
+       id="path3951"
+       transform="translate(0,287.36218)" />
+    <path
+       style="color:#000000;fill:none;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m -1009.4689,271.48187 2204.8083,0 3.2046,-224.32643 -16.0233,-9.61399"
+       id="path3953"
+       transform="translate(0,287.36218)" />
+    <path
+       style="color:#000000;fill:none;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m 1096.2226,1365.2862 -6.4093,-182.6658 -2208.013,-6.4094 -94.1312,-1.4827"
+       id="path3957" />
+    <path
+       style="color:#000000;fill:none;stroke:#00ff00;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m -1237,242.6399 211.5078,-3.20467 -3.2047,-201.89378"
+       id="path3959"
+       transform="translate(0,287.36218)" />
+    <path
+       style="color:#000000;fill:none;stroke:#ffff00;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m -1234.9913,214.3525 196.0124,0 7.9311,-169.952931"
+       id="path3961"
+       transform="translate(0,287.36218)" />
+    <path
+       style="color:#000000;fill:none;stroke:#ff0000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m -1236.1243,184.89399 177.884,4.53208 22.6604,-145.026501"
+       id="path3963"
+       transform="translate(0,287.36218)" />
+    <path
+       style="color:#000000;fill:none;stroke:#00ff00;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m -1236.1243,157.70152 871.29201,7.93114 1002.72229,3.39906 544.9824,-2.26604 1.133,-122.366111"
+       id="path3965"
+       transform="translate(0,287.36218)" />
+    <path
+       style="color:#000000;fill:none;stroke:#ffff00;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m -1233.8583,129.37603 867.89299,13.59624 999.32324,5.6651 530.25317,2.26604 12.4632,-106.503841"
+       id="path3967"
+       transform="translate(0,287.36218)" />
+    <path
+       style="color:#000000;fill:none;stroke:#ff0000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m -1236.1243,101.05055 866.75993,14.72925 1004.98834,11.3302 513.25783,3.39905 22.6604,-89.50854"
+       id="path3969"
+       transform="translate(0,287.36218)" />
+    <path
+       style="color:#000000;fill:none;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m -1118.2903,888.49913 -12.4632,185.81517"
+       id="path3977"
+       transform="translate(0,287.36218)" />
+    <path
+       style="color:#000000;fill:none;stroke:#00ff00;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m -1211.1979,859.04062 81.5774,-1.13302 -10.1972,210.7416"
+       id="path3979"
+       transform="translate(0,287.36218)" />
+    <path
+       style="color:#000000;fill:none;stroke:#ffff00;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m -1212.3309,830.71513 69.1142,-1.13302 0,244.73219"
+       id="path3981"
+       transform="translate(0,287.36218)" />
+    <path
+       style="color:#000000;fill:none;stroke:#ff0000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m -1211.1979,802.38965 53.2519,1.13301 11.3302,277.58984"
+       id="path3983"
+       transform="translate(0,287.36218)" />
+    <path
+       style="color:#000000;fill:none;stroke:#00ff00;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m -1212,777 1794,8 470,-4 22,288"
+       id="path3985"
+       transform="translate(0,287.36218)" />
+    <path
+       style="color:#000000;fill:none;stroke:#ffff00;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m -1214,747 1798,6 450,2 32,320"
+       id="path3987"
+       transform="translate(0,287.36218)" />
+    <path
+       style="color:#000000;fill:none;stroke:#ff0000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m -1214,719 1758,-2 464,4 56,362"
+       id="path3989"
+       transform="translate(0,287.36218)" />
+  </g>
+</svg>

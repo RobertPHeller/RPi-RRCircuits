@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed May 31 19:27:54 2017
-#  Last Modified : <200211.1236>
+#  Last Modified : <201127.1550>
 #
 #  Description	
 #
@@ -110,9 +110,23 @@ FIGURES= ../SMCSenseHAT/SMCSenseHAT3DTop.png \
 	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding-4.pdf \
 	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding-5.pdf \
 	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding-6.pdf \
-	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding.png
-	 
-	 
+	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding.png \
+	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSidingTermination.png \
+	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSidingTurnoutMotorsFig.png \
+	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSidingTotoiseWiring.png \
+	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSidingOccupancyDetectors.png \
+	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSidingLampDivers.png \
+	 ../ESP32-PWMHalfSiding/ExampleSiding.png \
+	 ../ESP32-PWMHalfSiding/ESP32HalfSiding-CP1Wiring.png \
+	 ../ESP32-PWMHalfSiding/ABSTrack_Annotated.png \
+	 ../ESP32-PWMHalfSiding/ABSTrack_Wiring.png \
+	 ../ESP32-PWMHalfSiding/CP1-ID-Config.png  \
+	 ../ESP32-PWMHalfSiding/CP1-OC-Config.png \
+	 ../ESP32-PWMHalfSiding/CP1-Turnout-Config.png \
+	 ../ESP32-PWMHalfSiding/CP1-Mast1-Config.png \
+	 ../ESP32-PWMHalfSiding/CP1-OSVeto-Normal1.png \
+	 ../ESP32-PWMHalfSiding/CP1-OSVeto-Normal2.png \
+	 ../ESP32-PWMHalfSiding/CP1-OSVeto-Normal3.png
 
 usermanual.pdf : $(TEXS) $(FIGURES)
 	for f in $(TEXS) $(FIGURES);  do \

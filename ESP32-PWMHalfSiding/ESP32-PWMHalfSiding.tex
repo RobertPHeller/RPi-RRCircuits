@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Mon Feb 10 14:21:24 2020
-%  Last Modified : <201126.2015>
+%  Last Modified : <201127.1601>
 %
 %  Description 
 %
@@ -386,7 +386,7 @@ through switch contacts to sense the position of the stall motor / points.
 There are contacts available on tortoise stall motor that can be used for this 
 purpose, as shown in Figure~\ref{fig:ESP32-PWMHalfSidingTotoiseWiring}.
 
-
+\clearpage
 \subsection{Occupancy Detector connections}
 
 \begin{figure}[hbpt]\begin{centering}%
@@ -398,6 +398,7 @@ The larger two position Occupancy Detector terminal blocks are connected to
 the track power feeds as shown in 
 Figure~\ref{fig:ESP32-PWMHalfSidingOccupancyDetectors}.
 
+\clearpage
 \subsection{Signal Lamp (LED) connections}
 
 \begin{figure}[hbpt]\begin{centering}%
@@ -426,7 +427,7 @@ Interchange.  Other trackwork arangements are possible as well.
 \begin{figure}[hbpt]\begin{centering}%
 \includegraphics[width=5in]{ESP32HalfSiding-CP1Wiring.png}
 \caption{Wiring the ESP32HalfSiding board to the control elements of CP1 (West 
-end of the siding}
+end of the siding)}
 \label{fig:ESP32HalfSiding-CP1Wiring}
 \end{centering}\end{figure}
 A typical siding is shown in Figure~\ref{fig:ExampleSiding}. And the wiring of 
@@ -434,9 +435,121 @@ the west end, CP1, is shown in Figure~\ref{fig:ESP32HalfSiding-CP1Wiring}. The
 other end is wired similarly (except that the second occupancy detector is 
 wired to the main line block between the turnouts).
 
+\subsubsection{Configuring the CP1 node (west end)}
+
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{CP1-ID-Config.png}
+\caption{CP1 Node ID configuration}
+\label{fig:CP1-ID-Config}
+\end{centering}\end{figure}
+First the node's user name and desciption is configured.  This makes it easier 
+to find the node in the node listing.
+
+\clearpage
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{CP1-OC-Config.png}
+\caption{CP1 Occupancy Detectors configuration}
+\label{fig:CP1-OC-Config}
+\end{centering}\end{figure}
+Next we configure the Occupancy Detectors.  All we do at this point is fill in 
+the names of the blocks.  This helps us when we grab the event ids later.
+ 
+\clearpage
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{CP1-Turnout-Config.png}
+\caption{CP1 Turnout and Points configuration}
+\label{fig:CP1-Turnout-Config}
+\end{centering}\end{figure}
+Next we configure the Turnout and Points.  All we do at this point is fill in 
+the name of the turnout.  We fill in the name for both the turnout and the 
+points.  Only turnout 1 and points 1 are configured, since we are only using 
+motor 1.
+
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{CP1-Mast1-Config.png}
+\caption{CP1, Mast1 configuration}
+\label{fig:CP1-Mast1-Config}
+\end{centering}\end{figure}
+Now we skip down to the masts. Mast 1 is the two head signal at the points
+entrance, named CP1ME (Control Point 1, main, eastbound). We set its Mast ID
+and copy and past its Track Circuit Link Address to Circuit 1. This is a 3
+(green-yellow-red) over 2 (yellow-red) signal. It has 4 rules:
+\begin{table}[htdp]\begin{centering}\begin{tabular}{|l|l|l|}
+\hline
+Rule Name&Track Speed&Appearence\\
+\hline
+0-Stop&Stop&Red over Red\\
+21-Approach&Approach&Yellow over Red\\
+29-Clear&Clear/Procede&Green over Red\\
+1-Take Siding&Slow&Red over Yellow\\
+\hline
+\end{tabular}
+\caption{CP1ME's Rules}
+\label{tab:CP1MERules}
+\end{centering}\end{table}
+The LEDs are wired to lamp group A as follows (see Figure~\ref{fig:ESP32HalfSiding-CP1Wiring}: 
+\begin{description}
+\item[A0] Upper Green
+\item[A1] Upper Yellow
+\item[A2] Upper Red
+\item[A3] Lower Yellow
+\item[A4] Lower Red
+\end{description}
+Lamp 1 will be the upper head and Lamp 2 will be for the lower head:
+\begin{description}
+\item[Rule 1: 0-Stop] Red over Red -- Lamp 1 will be A2 (upper red) and Lamp 2 
+will be A4 (lower red).
+\item[Rule 2: 21-Approach] Yellow over Red -- Lamp 1 will be A1 (upper yellow) 
+and Lamp 2 will be A4 (lower red).
+\item[Rule 3: 29-Clear] Green over Red -- Lamp 1 will be A0 (upper green) and 
+Lamp 2 will be A4 (lower red).
+\item[Rule 4: 1-Take Siding] Red over Yellow -- Lamp 1 will be A2 (upper red) 
+and Lamp 2 will be A3 (lower yellow).
+\end{description}
+
+
+\begin{figure}[hbpt]\begin{centering}%                                         
+\includegraphics[width=5in]{CP1-OSVeto-Normal1.png}
+\caption{CP1 OS Veto, part 1 (description, group function, variable 1)}
+\label{fig:CP1-OSVeto-Normal1}
+\end{centering}\end{figure}                                                    
+\begin{figure}[hbpt]\begin{centering}%                                         
+\includegraphics[width=5in]{CP1-OSVeto-Normal2.png}
+\caption{CP1 OS Veto, part 2 (variable 2)}
+\label{fig:CP1-OSVeto-Normal2}
+\end{centering}\end{figure}                                                    
+\begin{figure}[hbpt]\begin{centering}%                                         
+\includegraphics[width=5in]{CP1-OSVeto-Normal3.png}
+\caption{CP1 OS Veto, part 3 (Action 1)}
+\label{fig:CP1-OSVeto-Normal3}
+\end{centering}\end{figure}                                                    
+Next we use the CP1 OS occupancy detector as a veto to prevent moving the 
+points while a train is occupying the turnout.  This is done with two logic 
+elements.  One logic handles the normal request and the other handles the 
+reverse request.  The second variable consumer events for these logics become 
+the external events consumed for throwing the turnout and the variable 2 
+events for the first logic are cross copied to the second logic.
+
 \clearpage
 \subsection{Implementing Automatic Block Signals}
 
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{ABSTrack_Annotated.png}
+\caption{A Bi-directional track with ABS}
+\label{fig:ABSTrack}
+\end{centering}\end{figure}
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{ABSTrack_Wiring.png}
+\caption{Wiring two Bi-directional ABS blocks}
+\label{fig:ABSTrack_Wiring}
+\end{centering}\end{figure}
+A stretch of Bi-directional track with ABS is shown in 
+Figure~\ref{fig:ABSTrack} and Figure~\ref{fig:ABSTrack_Wiring} shows how two 
+of the blocks would be wired to a ESP32 HalfSiding board. Additional boards 
+would be used for additional pairs of blocks.
+
+
+\clearpage
 \subsection{Crossing with Interchange}
 
 
