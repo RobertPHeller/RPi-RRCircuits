@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Mon Feb 10 14:21:24 2020
-%  Last Modified : <201127.1601>
+%  Last Modified : <201128.1539>
 %
 %  Description 
 %
@@ -437,6 +437,7 @@ wired to the main line block between the turnouts).
 
 \subsubsection{Configuring the CP1 node (west end)}
 
+\paragraph{Node idenification configuration}
 \begin{figure}[hbpt]\begin{centering}%
 \includegraphics[width=5in]{CP1-ID-Config.png}
 \caption{CP1 Node ID configuration}
@@ -446,6 +447,7 @@ First the node's user name and desciption is configured.  This makes it easier
 to find the node in the node listing.
 
 \clearpage
+\paragraph{Occupancy Detector configuration}
 \begin{figure}[hbpt]\begin{centering}%
 \includegraphics[width=5in]{CP1-OC-Config.png}
 \caption{CP1 Occupancy Detectors configuration}
@@ -455,6 +457,7 @@ Next we configure the Occupancy Detectors.  All we do at this point is fill in
 the names of the blocks.  This helps us when we grab the event ids later.
  
 \clearpage
+\paragraph{Turnout and Points configuration}
 \begin{figure}[hbpt]\begin{centering}%
 \includegraphics[width=5in]{CP1-Turnout-Config.png}
 \caption{CP1 Turnout and Points configuration}
@@ -465,6 +468,8 @@ the name of the turnout.  We fill in the name for both the turnout and the
 points.  Only turnout 1 and points 1 are configured, since we are only using 
 motor 1.
 
+\clearpage
+\paragraph{Signal mast configuration}
 \begin{figure}[hbpt]\begin{centering}%
 \includegraphics[width=5in]{CP1-Mast1-Config.png}
 \caption{CP1, Mast1 configuration}
@@ -507,7 +512,10 @@ Lamp 2 will be A4 (lower red).
 and Lamp 2 will be A3 (lower yellow).
 \end{description}
 
+\clearpage
+\paragraph{Logic block configuration}
 
+\subparagraph{Logic for interlocking}
 \begin{figure}[hbpt]\begin{centering}%                                         
 \includegraphics[width=5in]{CP1-OSVeto-Normal1.png}
 \caption{CP1 OS Veto, part 1 (description, group function, variable 1)}
@@ -529,6 +537,95 @@ elements.  One logic handles the normal request and the other handles the
 reverse request.  The second variable consumer events for these logics become 
 the external events consumed for throwing the turnout and the variable 2 
 events for the first logic are cross copied to the second logic.
+
+\clearpage
+\subparagraph{Logic for signal CP1ME}
+This signal uses a chain of four logic blocks to implement this logic:
+\begin{verbatim}
+if OS is occupied then
+    show Stop
+else if CP1 points aligned for the siding then
+    show Take Siding
+else if Main line beyond the turnout is occupied then
+    show Approach
+else
+    show Clear
+\end{verbatim}
+
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{CP1ME-Stop-Logic-Config1.png}
+\caption{Configuring the logic element for CP1ME Stop aspect, part 1}
+\label{fig:CP1ME-Stop-Logic-Config1}
+\end{centering}\end{figure}
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{CP1ME-Stop-Logic-Config2.png}
+\caption{Configuring the logic element for CP1ME Stop aspect, part 2}
+\label{fig:CP1ME-Stop-Logic-Config2}
+\end{centering}\end{figure}
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{CP1ME-Stop-Logic-Config3.png}
+\caption{Configuring the logic element for CP1ME Stop aspect, part 3}
+\label{fig:CP1ME-Stop-Logic-Config3}
+\end{centering}\end{figure}
+First we configure the logic element for the Stop aspect (the most restrictive 
+aspect) of signa CP1ME, as shown in Figures 
+\ref{fig:CP1ME-Stop-Logic-Config1}, \ref{fig:CP1ME-Stop-Logic-Config2}, and 
+\ref{fig:CP1ME-Stop-Logic-Config3}.
+
+\clearpage
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{CP1ME-TakeSiding-Logic-Config1.png}
+\caption{Configuring the logic element for CP1ME Take Siding aspect, part 1}
+\label{fig:CP1ME-TakeSiding-Logic-Config1}
+\end{centering}\end{figure}
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{CP1ME-TakeSiding-Logic-Config2.png}
+\caption{Configuring the logic element for CP1ME Take Siding aspect, part 2}
+\label{fig:CP1ME-TakeSiding-Logic-Config2}
+\end{centering}\end{figure}
+Next we configure the logic element for the Take Siding aspect (the next 
+restrictive aspect) of signa CP1ME, as shown in Figures 
+\ref{fig:CP1ME-TakeSiding-Logic-Config1} and 
+\ref{fig:CP1ME-TakeSiding-Logic-Config2}.
+ 
+\clearpage
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{CP1ME-Approach-Logic-Config1.png}
+\caption{Configuring the logic element for CP1ME Approach aspect, part 1}
+\label{fig:CP1ME-Approach-Logic-Config1}
+\end{centering}\end{figure}
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{CP1ME-Approach-Logic-Config2.png}
+\caption{Configuring the logic element for CP1ME Approach aspect, part 2}
+\label{fig:CP1ME-Approach-Logic-Config2}
+\end{centering}\end{figure}
+Next we configure the logic element for the Approach aspect (the next 
+restrictive aspect) of signa CP1ME, as shown in Figures 
+\ref{fig:CP1ME-Approach-Logic-Config1} and 
+\ref{fig:CP1ME-Approach-Logic-Config2}. We have not set up the events for the 
+variable yet, since these events will come from the other ESP32-PWMHalfSiding 
+board's second occupancy detector, which is for the main line between the 
+sidings.
+
+\clearpage
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{CP1ME-Clear-Logic-Config1.png}
+\caption{Configuring the logic element for CP1ME Clear aspect, part 1}
+\label{fig:CP1ME-Clear-Logic-Config1}
+\end{centering}\end{figure}
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{CP1ME-Clear-Logic-Config2.png}
+\caption{Configuring the logic element for CP1ME Clear aspect, part 2}
+\label{fig:CP1ME-Clear-Logic-Config2}
+\end{centering}\end{figure}
+Lastly we configure the logic element for the Clear aspect (the least 
+restrictive aspect) of signa CP1ME, as shown in Figures 
+\ref{fig:CP1ME-Clear-Logic-Config1} and 
+\ref{fig:CP1ME-Clear-Logic-Config2}. This is an unconditional logic and is the 
+last in this chain.
+
+
+ 
 
 \clearpage
 \subsection{Implementing Automatic Block Signals}

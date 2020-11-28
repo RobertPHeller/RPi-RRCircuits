@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Thu Nov 26 21:13:49 2020
-#  Last Modified : <201127.1316>
+#  Last Modified : <201128.1512>
 #
 #  Description	
 #
@@ -68,7 +68,17 @@ FIGURES= ESP32-PWMHalfSiding.png \
 	 ESP32HalfSiding-CP1Wiring.png \
 	 ABSTrack_Annotated.png ABSTrack_Wiring.png \
 	 CP1-ID-Config.png  CP1-OC-Config.png \
-	 CP1-Turnout-Config.png CP1-Mast1-Config.png
+	 CP1-Turnout-Config.png CP1-Mast1-Config.png \
+	 CP1-OSVeto-Normal1.png CP1-OSVeto-Normal2.png CP1-OSVeto-Normal3.png \
+	 CP1ME-Stop-Logic-Config1.png  CP1ME-Stop-Logic-Config3.png \
+	 CP1ME-Stop-Logic-Config2.png  \
+	 CP1ME-TakeSiding-Logic-Config1.png  \
+	 CP1ME-TakeSiding-Logic-Config2.png \
+	 CP1ME-Approach-Logic-Config1.png CP1ME-Approach-Logic-Config2.png \
+	 CP1ME-Clear-Logic-Config1.png CP1ME-Clear-Logic-Config2.png
+	 
+	 
+	 
 
 KitBooklet.pdf : $(TEXS) $(FIGURES)
 	$(LATEX) KitBooklet
