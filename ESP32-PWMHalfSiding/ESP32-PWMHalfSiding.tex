@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Mon Feb 10 14:21:24 2020
-%  Last Modified : <201128.1539>
+%  Last Modified : <201128.2133>
 %
 %  Description 
 %
@@ -252,9 +252,9 @@ TC4428&2&U7 U8&579-TC4428VPA\\
 Board assembly is straight forward. You need to be careful orienting the ICs
 and the electrolytic capacitor. You should start with the parts lowest to the
 board (the SMD chips). Hand soldering SMD is not terribly hard. There is are
-excellent videos on YouTube, partitularly this one
+excellent videos on YouTube, particularly this one
 \url{https://www.youtube.com/watch?v=QzoPxvIM2qE} from Collin's lab which can
-be very helpful. Once you have soldered the SMD chips, procede with
+be very helpful. Once you have soldered the SMD chips, proceed with
 successively taller components. You have some choices to make about some
 components. For the MCU board you can use just two 19 pin headers if you will
 be using a ESP32\_DEVKIT\_C MCU board or two 18 pin headers if you will be
@@ -285,7 +285,7 @@ ESP32MRNSketches folder and is named ESP32-PWMHalfSiding.
 The ESP32 MCU is programmed with the Arduino IDE. It uses two libraries: the
 FaBo PWM PCA9685 library for the PCA9685 chip and the OpenMRN\_lite library to
 implement the OpenLCB/LCC stack. First you need to install board support for
-te ESP32 and then install the FaBo PWM PCA9685 library. Both of these can be
+the ESP32 and then install the FaBo PWM PCA9685 library. Both of these can be
 done using the Arduino IDE board and library managers. Installing the
 OpenMRN\_lite library is a little different. The OpenMRN\_lite library is part
 of the OpenMRN package, available on GitHub here:
@@ -310,7 +310,7 @@ between your computer and the MCU board.
 \subsection{Program Description}
 
 The program consists of a main sketch file, and several support files.  Most 
-of the support files implememt I/O or logic elements:
+of the support files implement I/O or logic elements:
 
 \begin{description}
 \item[Blink.h] This file provides support for blinking (flashing) signal 
@@ -339,7 +339,7 @@ There are various terminal blocks, connectors, and jumper blocks on this
 board. At the top end of the board are a pair of two position terminal blocks, 
 one for injecting power into the LCC bus and one for extracting power from the 
 LCC bus.  Between these terminal blocks is the termination jumper block for 
-the LCC bus.  Below the LCC  power erminal blocks is a pair of RJ45 
+the LCC bus.  Below the LCC  power terminal blocks is a pair of RJ45 
 connectors. These are for connecting the board to the LCC bus.  These 
 connectors are wired in parallel.  Down along the left side are the two stall 
 motor terminal blocks (small 5 position terminal blocks) and the occupancy 
@@ -375,7 +375,7 @@ Figure~\ref{fig:ESP32-PWMHalfSidingTermination}.
 \end{centering}\end{figure}
 \begin{figure}[hbpt]\begin{centering}%
 \includegraphics{ESP32-PWMHalfSidingTotoiseWiring.png}
-\caption{Wiring a Totoise to the ESP32-PWMHalfSiding Turnout Motors terminals}
+\caption{Wiring a Tortoise to the ESP32-PWMHalfSiding Turnout Motors terminals}
 \label{fig:ESP32-PWMHalfSidingTotoiseWiring}
 \end{centering}\end{figure}
 The five position Stall Motor terminal blocks, shown in 
@@ -414,7 +414,7 @@ shown Figure~\ref{fig:ESP32-PWMHalfSidingLampDivers}.
 
 Three applications will presented, a typical siding using two boards, an 
 implementation of a section of Automatic Block Signals, and Crossing with 
-Interchange.  Other trackwork arangements are possible as well.
+Interchange.  Other trackwork arrangements are possible as well.
 
 
 \subsection{Typical Siding}
@@ -437,13 +437,13 @@ wired to the main line block between the turnouts).
 
 \subsubsection{Configuring the CP1 node (west end)}
 
-\paragraph{Node idenification configuration}
+\paragraph{Node identification configuration}
 \begin{figure}[hbpt]\begin{centering}%
 \includegraphics[width=5in]{CP1-ID-Config.png}
 \caption{CP1 Node ID configuration}
 \label{fig:CP1-ID-Config}
 \end{centering}\end{figure}
-First the node's user name and desciption is configured.  This makes it easier 
+First the node's user name and description is configured.  This makes it easier 
 to find the node in the node listing.
 
 \clearpage
@@ -481,11 +481,11 @@ and copy and past its Track Circuit Link Address to Circuit 1. This is a 3
 (green-yellow-red) over 2 (yellow-red) signal. It has 4 rules:
 \begin{table}[htdp]\begin{centering}\begin{tabular}{|l|l|l|}
 \hline
-Rule Name&Track Speed&Appearence\\
+Rule Name&Track Speed&Appearance\\
 \hline
 0-Stop&Stop&Red over Red\\
 21-Approach&Approach&Yellow over Red\\
-29-Clear&Clear/Procede&Green over Red\\
+29-Clear&Clear/Proceed&Green over Red\\
 1-Take Siding&Slow&Red over Yellow\\
 \hline
 \end{tabular}
@@ -568,7 +568,7 @@ else
 \label{fig:CP1ME-Stop-Logic-Config3}
 \end{centering}\end{figure}
 First we configure the logic element for the Stop aspect (the most restrictive 
-aspect) of signa CP1ME, as shown in Figures 
+aspect) of signal CP1ME, as shown in Figures 
 \ref{fig:CP1ME-Stop-Logic-Config1}, \ref{fig:CP1ME-Stop-Logic-Config2}, and 
 \ref{fig:CP1ME-Stop-Logic-Config3}.
 
@@ -584,7 +584,7 @@ aspect) of signa CP1ME, as shown in Figures
 \label{fig:CP1ME-TakeSiding-Logic-Config2}
 \end{centering}\end{figure}
 Next we configure the logic element for the Take Siding aspect (the next 
-restrictive aspect) of signa CP1ME, as shown in Figures 
+restrictive aspect) of signal CP1ME, as shown in Figures 
 \ref{fig:CP1ME-TakeSiding-Logic-Config1} and 
 \ref{fig:CP1ME-TakeSiding-Logic-Config2}.
  
@@ -600,7 +600,7 @@ restrictive aspect) of signa CP1ME, as shown in Figures
 \label{fig:CP1ME-Approach-Logic-Config2}
 \end{centering}\end{figure}
 Next we configure the logic element for the Approach aspect (the next 
-restrictive aspect) of signa CP1ME, as shown in Figures 
+restrictive aspect) of signal CP1ME, as shown in Figures 
 \ref{fig:CP1ME-Approach-Logic-Config1} and 
 \ref{fig:CP1ME-Approach-Logic-Config2}. We have not set up the events for the 
 variable yet, since these events will come from the other ESP32-PWMHalfSiding 
@@ -619,7 +619,7 @@ sidings.
 \label{fig:CP1ME-Clear-Logic-Config2}
 \end{centering}\end{figure}
 Lastly we configure the logic element for the Clear aspect (the least 
-restrictive aspect) of signa CP1ME, as shown in Figures 
+restrictive aspect) of signal CP1ME, as shown in Figures 
 \ref{fig:CP1ME-Clear-Logic-Config1} and 
 \ref{fig:CP1ME-Clear-Logic-Config2}. This is an unconditional logic and is the 
 last in this chain.
