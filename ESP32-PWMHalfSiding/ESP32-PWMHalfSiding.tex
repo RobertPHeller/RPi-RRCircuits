@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Mon Feb 10 14:21:24 2020
-%  Last Modified : <201128.2133>
+%  Last Modified : <201129.1452>
 %
 %  Description 
 %
@@ -439,7 +439,7 @@ wired to the main line block between the turnouts).
 
 \paragraph{Node identification configuration}
 \begin{figure}[hbpt]\begin{centering}%
-\includegraphics[width=5in]{CP1-ID-Config.png}
+\includegraphics[width=5in]{CP1-ID-Config-Annotated.png}
 \caption{CP1 Node ID configuration}
 \label{fig:CP1-ID-Config}
 \end{centering}\end{figure}
@@ -449,7 +449,7 @@ to find the node in the node listing.
 \clearpage
 \paragraph{Occupancy Detector configuration}
 \begin{figure}[hbpt]\begin{centering}%
-\includegraphics[width=5in]{CP1-OC-Config.png}
+\includegraphics[width=5in]{CP1-OC-Config-Annotated.png}
 \caption{CP1 Occupancy Detectors configuration}
 \label{fig:CP1-OC-Config}
 \end{centering}\end{figure}
@@ -459,7 +459,7 @@ the names of the blocks.  This helps us when we grab the event ids later.
 \clearpage
 \paragraph{Turnout and Points configuration}
 \begin{figure}[hbpt]\begin{centering}%
-\includegraphics[width=5in]{CP1-Turnout-Config.png}
+\includegraphics[width=5in]{CP1-Turnout-Config-Annotated.png}
 \caption{CP1 Turnout and Points configuration}
 \label{fig:CP1-Turnout-Config}
 \end{centering}\end{figure}
@@ -471,7 +471,7 @@ motor 1.
 \clearpage
 \paragraph{Signal mast configuration}
 \begin{figure}[hbpt]\begin{centering}%
-\includegraphics[width=5in]{CP1-Mast1-Config.png}
+\includegraphics[width=5in]{CP1-Mast1-Config-Annotated.png}
 \caption{CP1, Mast1 configuration}
 \label{fig:CP1-Mast1-Config}
 \end{centering}\end{figure}
@@ -479,14 +479,14 @@ Now we skip down to the masts. Mast 1 is the two head signal at the points
 entrance, named CP1ME (Control Point 1, main, eastbound). We set its Mast ID
 and copy and past its Track Circuit Link Address to Circuit 1. This is a 3
 (green-yellow-red) over 2 (yellow-red) signal. It has 4 rules:
-\begin{table}[htdp]\begin{centering}\begin{tabular}{|l|l|l|}
+\begin{table}[htdp]\begin{centering}\begin{tabular}{|l|l|l|l|}
 \hline
-Rule Name&Track Speed&Appearance\\
+Tab&Rule Name&Track Speed&Appearance\\
 \hline
-0-Stop&Stop&Red over Red\\
-21-Approach&Approach&Yellow over Red\\
-29-Clear&Clear/Proceed&Green over Red\\
-1-Take Siding&Slow&Red over Yellow\\
+Rule 1&0-Stop&Stop&Red over Red\\
+Rule 2&21-Approach&Approach&Yellow over Red\\
+Rule 3&29-Clear&Clear/Proceed&Green over Red\\
+Rule 4&1-Take Siding&Slow&Red over Yellow\\
 \hline
 \end{tabular}
 \caption{CP1ME's Rules}
@@ -517,17 +517,17 @@ and Lamp 2 will be A3 (lower yellow).
 
 \subparagraph{Logic for interlocking}
 \begin{figure}[hbpt]\begin{centering}%                                         
-\includegraphics[width=5in]{CP1-OSVeto-Normal1.png}
+\includegraphics[width=5in]{CP1-OSVeto-Normal1-Annotated.png}
 \caption{CP1 OS Veto, part 1 (description, group function, variable 1)}
 \label{fig:CP1-OSVeto-Normal1}
 \end{centering}\end{figure}                                                    
 \begin{figure}[hbpt]\begin{centering}%                                         
-\includegraphics[width=5in]{CP1-OSVeto-Normal2.png}
+\includegraphics[width=5in]{CP1-OSVeto-Normal2-Annotated.png}
 \caption{CP1 OS Veto, part 2 (variable 2)}
 \label{fig:CP1-OSVeto-Normal2}
 \end{centering}\end{figure}                                                    
 \begin{figure}[hbpt]\begin{centering}%                                         
-\includegraphics[width=5in]{CP1-OSVeto-Normal3.png}
+\includegraphics[width=5in]{CP1-OSVeto-Normal3-Annotated.png}
 \caption{CP1 OS Veto, part 3 (Action 1)}
 \label{fig:CP1-OSVeto-Normal3}
 \end{centering}\end{figure}                                                    
