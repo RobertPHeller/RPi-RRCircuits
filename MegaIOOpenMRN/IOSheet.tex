@@ -1,0 +1,145 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  System        : 
+%  Module        : 
+%  Object Name   : $RCSfile$
+%  Revision      : $Revision$
+%  Date          : $Date$
+%  Author        : $Author$
+%  Created By    : Robert Heller
+%  Created       : Mon Jan 25 15:28:51 2021
+%  Last Modified : <210125.1619>
+%
+%  Description 
+%
+%  Notes
+%
+%  History
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%    Copyright (C) 2021  Robert Heller D/B/A Deepwoods Software
+%			51 Locke Hill Road
+%			Wendell, MA 01379-9728
+%
+%    This program is free software; you can redistribute it and/or modify
+%    it under the terms of the GNU General Public License as published by
+%    the Free Software Foundation; either version 2 of the License, or
+%    (at your option) any later version.
+%
+%    This program is distributed in the hope that it will be useful,
+%    but WITHOUT ANY WARRANTY; without even the implied warranty of
+%    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%    GNU General Public License for more details.
+%
+%    You should have received a copy of the GNU General Public License
+%    along with this program; if not, write to the Free Software
+%    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt,twoside]{article}
+\title{Mega I/O -- BufferBoard-2 I/O Sheet}
+\author{Robert Heller \\ The Country Robot \\ Wendell, MA, USA}
+\date{\today}
+\newcommand{\ledgrouptopcommon}[1]{%
+\begin{tabular}{|l|p{1in}|p{2in}|}
+\hline
+\multicolumn{3}{|c|}{#1}\\
+\hline
+TL&Cable/Color&Function\\
+\hline
+C&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+8&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+7&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+6&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+5&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+4&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+3&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+2&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+1&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+\end{tabular}}
+\newcommand{\ledgroupbottomcommon}[1]{%
+\begin{tabular}{|l|p{1in}|p{2in}|}
+\hline
+\multicolumn{3}{|c|}{#1}\\
+\hline
+TL&Cable/Color&Function\\
+\hline
+1&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+2&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+3&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+4&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+5&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+6&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+7&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+8&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+C&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+\end{tabular}}
+\newcommand{\inputterms}[1]{%
+\begin{tabular}{|l|p{1in}|p{2in}|}
+\hline
+\multicolumn{3}{|c|}{#1}\\
+\hline
+TL&Cable/Color&Function\\
+\hline                                                                 
+8A&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+8B&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+7A&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+7B&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+6&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+5&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+GND&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+\end{tabular}}
+\parskip=15pt
+\parindent=0pt
+\begin{document}
+%\maketitle
+
+\section{Left side, top to bottom}
+
+\ledgrouptopcommon{J3: GPIO 2}
+
+\ledgrouptopcommon{J2: GPIO 1}
+
+\ledgrouptopcommon{J4: GPIO 4}
+
+\ledgrouptopcommon{J5: GPIO 3}
+
+%\clearpage
+\section{Right side, top to bottom}
+
+\ledgroupbottomcommon{J8: GPIO 6}
+
+\ledgroupbottomcommon{J7: GPIO 5}
+
+\inputterms{J9: GPIO 7}
+
+\end{document}
