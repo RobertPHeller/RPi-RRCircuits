@@ -1,0 +1,316 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  System        : 
+%  Module        : 
+%  Object Name   : $RCSfile$
+%  Revision      : $Revision$
+%  Date          : $Date$
+%  Author        : $Author$
+%  Created By    : Robert Heller
+%  Created       : Mon Jan 25 15:28:51 2021
+%  Last Modified : <210224.0945>
+%
+%  Description 
+%
+%  Notes
+%
+%  History
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%    Copyright (C) 2021  Robert Heller D/B/A Deepwoods Software
+%			51 Locke Hill Road
+%			Wendell, MA 01379-9728
+%
+%    This program is free software; you can redistribute it and/or modify
+%    it under the terms of the GNU General Public License as published by
+%    the Free Software Foundation; either version 2 of the License, or
+%    (at your option) any later version.
+%
+%    This program is distributed in the hope that it will be useful,
+%    but WITHOUT ANY WARRANTY; without even the implied warranty of
+%    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%    GNU General Public License for more details.
+%
+%    You should have received a copy of the GNU General Public License
+%    along with this program; if not, write to the Free Software
+%    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt,twoside]{article}
+\title{Mega I/O -- BufferBoard-2 I/O Sheet}
+\author{Robert Heller \\ The Country Robot \\ Wendell, MA, USA}
+\date{\today}
+\newcommand{\ledgrouptopcommon}[1]{%
+\begin{tabular}{|l|p{1in}|p{2in}|}
+\hline
+\multicolumn{3}{|c|}{#1}\\
+\hline
+TL&Cable/Color&Function\\
+\hline
+C&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+8&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+7&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+6&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+5&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+4&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+3&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+2&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+1&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+\end{tabular}}
+\newcommand{\ledgroupbottomcommon}[1]{%
+\begin{tabular}{|l|p{1in}|p{2in}|}
+\hline
+\multicolumn{3}{|c|}{#1}\\
+\hline
+TL&Cable/Color&Function\\
+\hline
+1&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+2&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+3&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+4&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+5&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+6&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+7&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+8&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+C&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+\end{tabular}}
+\newcommand{\inputterms}[1]{%
+\begin{tabular}{|l|p{1in}|p{2in}|}
+\hline
+\multicolumn{3}{|c|}{#1}\\
+\hline
+TL&Cable/Color&Function\\
+\hline                                                                 
+8A&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+8B&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+7A&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+7B&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+6&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+5&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+GND&~~~~~~~~~~~&~~~~~~~~~~~~~~~~~\\
+\hline
+\end{tabular}}
+\parskip=15pt
+\parindent=0pt
+\begin{document}
+%\maketitle
+
+\section{Left side, top to bottom}
+
+%%\ledgrouptopcommon{J3: GPIO 2}
+\begin{tabular}{|l|p{1in}|p{2in}|}
+\hline
+\multicolumn{3}{|c|}{J3: GPIO 2: OCC, blue lanterns}\\
+\hline
+TL&Cable/Color&Function\\
+\hline
+C&Red&--------------\\
+\hline
+8&Orange&Blue Lanterns\\
+\hline
+7&Yellow&CP2 OS OCC\\
+\hline
+6&Green&Block3 OCC\\
+\hline
+5&Blue&Block 2 OCC\\
+\hline
+4&Violet&Block 1 OCC\\
+\hline
+3&Gray&CP1 OS OCC\\
+\hline
+2&White&Main OCC\\
+\hline
+1&Black&Siding OCC\\
+\hline
+\end{tabular}
+
+%%\ledgrouptopcommon{J2: GPIO 1}
+\begin{tabular}{|l|p{1in}|p{2in}|}
+\hline
+\multicolumn{3}{|c|}{J2: GPIO 1: CP2MW (Points), CP2EM (Frog Main)}\\
+\hline
+TL&Cable/Color&Function\\
+\hline
+C&Brown/Brown&-------------\\
+\hline
+8&Red&Lower Red (CP2MW)\\
+\hline
+7&Orange&Lower Yellow\\
+\hline
+6&Yellow&Upper Red\\
+\hline
+5&Green&Upper Yellow\\
+\hline
+4&Blue&Upper Green\\
+\hline
+3&Red&Red (CP2EM)\\
+\hline
+2&Orange&Yellow\\
+\hline
+1&Yellow&Green\\
+\hline
+\end{tabular}
+
+%%\ledgrouptopcommon{J4: GPIO 4}
+\begin{tabular}{|l|p{1in}|p{2in}|}
+\hline
+\multicolumn{3}{|c|}{J4: GPIO 4: CP1ME (Points), CP1MW (Frog Main)}\\
+\hline
+TL&Cable/Color&Function\\
+\hline
+C&Brown / Brown&-------------\\
+\hline
+8&Red&Lower Red (CP1ME)\\
+\hline
+7&Orange&Lower Yellow\\
+\hline
+6&Yellow&Upper Red\\
+\hline
+5&Green&Upper Yellow\\
+\hline
+4&Blue&Upper Green\\
+\hline
+3&Red&Red (CP1MW)\\
+\hline
+2&Orange&Yellow\\
+\hline
+1&Yellow&Green\\
+\hline
+\end{tabular}
+
+%%\ledgrouptopcommon{J5: GPIO 3}
+\begin{tabular}{|l|p{1in}|p{2in}|}
+\hline
+\multicolumn{3}{|c|}{J5: GPIO 3: CP1SW, CP2SE, CP1 Switch Plate}\\
+\hline
+TL&Cable/Color&Function\\
+\hline
+C&Brown / Blue / Green&------------\\
+\hline
+8&Red&Red CP1SW (Frog Siding)\\
+\hline
+7&Orange&Yellow\\
+\hline
+6&Yellow&Green\\
+\hline
+5&Green&Red CP2SE (Frog Siding)\\
+\hline
+4&Yellow&Yellow\\
+\hline
+3&Orange&Green\\
+\hline
+2&Violet&Green (Normal) CP1 SWP\\
+\hline
+1&Blue&Yellow (Reverse)\\
+\hline
+\end{tabular}
+
+%\clearpage
+\section{Right side, top to bottom}
+
+%%\ledgroupbottomcommon{J8: GPIO 6}
+\begin{tabular}{|l|p{1in}|p{2in}|}
+\hline
+\multicolumn{3}{|c|}{J8: GPIO 6: CP2 SWP, 2W, 3E}\\
+\hline
+TL&Cable/Color&Function\\
+\hline
+1&Yellow&Yellow (Reverse) CP2 SWP\\
+\hline
+2&Green&Green (Normal)\\
+\hline
+3&Green&Green 2W\\
+\hline
+4&Blue&Yellow\\
+\hline
+5&Violet&Red\\
+\hline
+6&Yellow&Green 3E\\
+\hline
+7&Orange&Yellow\\
+\hline
+8&Red&Red\\
+\hline
+C&Brown / Gray / Blue&------------\\
+\hline
+\end{tabular}
+
+%%\ledgroupbottomcommon{J7: GPIO 5}
+\begin{tabular}{|l|p{1in}|p{2in}|}
+\hline
+\multicolumn{3}{|c|}{J7: GPIO 5: 1W, 2E}\\
+\hline
+TL&Cable/Color&Function\\
+\hline
+1&White&Green 1W\\
+\hline
+2&Black&Yellow\\
+\hline
+3&Brown&Red\\
+\hline
+4&Blue&Green 2E\\
+\hline
+5&Green&Yellow\\
+\hline
+6&Yellow&Red\\
+\hline
+7&NC&~~~~~~~~~~~~~~~~~\\
+\hline
+8&NC&~~~~~~~~~~~~~~~~~\\
+\hline
+C&Orange / Red&------------\\
+\hline
+\end{tabular}
+
+%%\inputterms{J9: GPIO 7}
+\begin{tabular}{|l|p{1in}|p{2in}|}
+\hline
+\multicolumn{3}{|c|}{J9: GPIO 7: CP1 SWP, CP2 SWP, CP1 Code, CP2 Code}\\
+\hline
+TL&Cable/Color&Function\\
+\hline                                                                 
+8A&Orange&Normal CP1 SWP\\
+\hline
+8B&Red&Reverse\\
+\hline
+7A&Brown&Normal CP2 SWP\\
+\hline
+7B&Red&Reverse\\
+\hline
+6&Yellow&Code CP1\\
+\hline
+5&Orange&Code CP2\\
+\hline
+GND&Brown / Black&-----------\\
+\hline
+\end{tabular}
+
+\end{document}
