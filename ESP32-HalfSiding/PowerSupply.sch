@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:ESP32-HalfSiding-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -10,7 +11,6 @@ LIBS:cmos4000
 LIBS:adc-dac
 LIBS:memory
 LIBS:xilinx
-LIBS:special
 LIBS:microcontrollers
 LIBS:dsp
 LIBS:microchip
@@ -39,7 +39,7 @@ LIBS:tc442x
 LIBS:mct6h
 LIBS:bridge
 LIBS:ESP32-HalfSiding-cache
-EELAYER 27 0
+EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -65,7 +65,7 @@ F 3 "~" H 5200 2800 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L CP1 C5
+L CP1-RESCUE-ESP32-HalfSiding C5
 U 1 1 5C829D01
 P 5950 2900
 F 0 "C5" H 6000 3000 50  0000 L CNN
@@ -76,7 +76,7 @@ F 3 "~" H 5950 2900 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L CP1 C4
+L CP1-RESCUE-ESP32-HalfSiding C4
 U 1 1 5C829D34
 P 3700 2800
 F 0 "C4" H 3750 2900 50  0000 L CNN
@@ -132,7 +132,7 @@ Wire Wire Line
 	3700 3300 3700 3000
 Connection ~ 4850 3300
 $Comp
-L GND #PWR018
+L GND-RESCUE-ESP32-HalfSiding #PWR018
 U 1 1 5C829DEF
 P 4850 3400
 F 0 "#PWR018" H 4850 3400 30  0001 C CNN

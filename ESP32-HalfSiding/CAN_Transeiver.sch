@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:ESP32-HalfSiding-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -10,7 +11,6 @@ LIBS:cmos4000
 LIBS:adc-dac
 LIBS:memory
 LIBS:xilinx
-LIBS:special
 LIBS:microcontrollers
 LIBS:dsp
 LIBS:microchip
@@ -39,7 +39,7 @@ LIBS:tc442x
 LIBS:mct6h
 LIBS:bridge
 LIBS:ESP32-HalfSiding-cache
-EELAYER 27 0
+EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -98,7 +98,7 @@ F 3 "" H 4100 4050 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR013
+L GND-RESCUE-ESP32-HalfSiding #PWR013
 U 1 1 5C828CBC
 P 4100 3800
 F 0 "#PWR013" H 4100 3800 30  0001 C CNN
@@ -109,7 +109,7 @@ F 3 "" H 4100 3800 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR014
+L GND-RESCUE-ESP32-HalfSiding #PWR014
 U 1 1 5C828CCB
 P 4100 4950
 F 0 "#PWR014" H 4100 4950 30  0001 C CNN
@@ -152,7 +152,7 @@ Wire Wire Line
 	3750 3300 3750 4400
 Connection ~ 3750 4400
 $Comp
-L C C1
+L C-RESCUE-ESP32-HalfSiding C1
 U 1 1 5C828DA1
 P 4650 3800
 F 0 "C1" H 4650 3900 40  0000 L CNN
@@ -163,7 +163,7 @@ F 3 "~" H 4650 3800 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L CP1 C2
+L CP1-RESCUE-ESP32-HalfSiding C2
 U 1 1 5C828DB0
 P 5000 3800
 F 0 "C2" H 5050 3900 50  0000 L CNN
@@ -205,7 +205,7 @@ CANH
 Text Label 5400 3250 0    25   ~ 0
 CANL
 $Comp
-L R R1
+L R-RESCUE-ESP32-HalfSiding R1
 U 1 1 5C828F93
 P 5850 3650
 F 0 "R1" V 5930 3650 40  0000 C CNN
@@ -216,7 +216,7 @@ F 3 "~" H 5850 3650 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R2
+L R-RESCUE-ESP32-HalfSiding R2
 U 1 1 5C828FA2
 P 6550 3650
 F 0 "R2" V 6630 3650 40  0000 C CNN
@@ -255,7 +255,7 @@ Wire Wire Line
 Wire Wire Line
 	6700 4150 6600 4150
 $Comp
-L C C3
+L C-RESCUE-ESP32-HalfSiding C3
 U 1 1 5C8290C3
 P 6200 4750
 F 0 "C3" H 6200 4850 40  0000 L CNN
@@ -266,7 +266,7 @@ F 3 "~" H 6200 4750 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR015
+L GND-RESCUE-ESP32-HalfSiding #PWR015
 U 1 1 5C8290D2
 P 6200 5100
 F 0 "#PWR015" H 6200 5100 30  0001 C CNN
@@ -405,7 +405,7 @@ Wire Wire Line
 Wire Wire Line
 	7450 3000 7450 5050
 $Comp
-L GND #PWR016
+L GND-RESCUE-ESP32-HalfSiding #PWR016
 U 1 1 5C8295F7
 P 6750 2650
 F 0 "#PWR016" H 6750 2650 30  0001 C CNN
