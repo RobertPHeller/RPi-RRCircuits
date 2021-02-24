@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:QuadOCDectHat-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -10,7 +11,6 @@ LIBS:cmos4000
 LIBS:adc-dac
 LIBS:memory
 LIBS:xilinx
-LIBS:special
 LIBS:microcontrollers
 LIBS:dsp
 LIBS:microchip
@@ -32,7 +32,7 @@ LIBS:valves
 LIBS:mct6h
 LIBS:bridge
 LIBS:QuadOCDectHat-cache
-EELAYER 27 0
+EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -110,7 +110,7 @@ Wire Wire Line
 Wire Wire Line
 	4450 4250 4150 4250
 $Comp
-L +3.3V #PWR01
+L +3.3V-RESCUE-QuadOCDectHat #PWR01
 U 1 1 5C70B840
 P 1350 950
 F 0 "#PWR01" H 1350 910 30  0001 C CNN
@@ -121,7 +121,7 @@ F 3 "" H 1350 950 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR02
+L GND-RESCUE-QuadOCDectHat #PWR02
 U 1 1 5C70B85B
 P 1300 3450
 F 0 "#PWR02" H 1300 3450 30  0001 C CNN

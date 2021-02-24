@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:QuadOCDectHat-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -10,7 +11,6 @@ LIBS:cmos4000
 LIBS:adc-dac
 LIBS:memory
 LIBS:xilinx
-LIBS:special
 LIBS:microcontrollers
 LIBS:dsp
 LIBS:microchip
@@ -32,7 +32,7 @@ LIBS:valves
 LIBS:mct6h
 LIBS:bridge
 LIBS:QuadOCDectHat-cache
-EELAYER 27 0
+EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -61,7 +61,7 @@ F 4 "649-220316-H021B01LF" H 1350 1300 60  0001 C CNN "Mouser Part Number"
 	0    -1   -1   0   
 $EndComp
 $Comp
-L R R5
+L R-RESCUE-QuadOCDectHat R5
 U 1 1 5C70A952
 P 2500 1500
 AR Path="/5C70A8FB/5C70A952" Ref="R5"  Part="1" 
@@ -103,7 +103,7 @@ F 4 "782-MCT6H " H 3700 2150 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R6
+L R-RESCUE-QuadOCDectHat R6
 U 1 1 5C70A98C
 P 4300 1100
 AR Path="/5C70A8FB/5C70A98C" Ref="R6"  Part="1" 
@@ -172,11 +172,12 @@ Connection ~ 2900 1850
 Connection ~ 3350 1850
 Connection ~ 4300 1500
 $Comp
-L +3.3V #PWR07
+L +3.3V-RESCUE-QuadOCDectHat #PWR07
 U 1 1 5C70AC29
 P 4300 750
 AR Path="/5C70A8FB/5C70AC29" Ref="#PWR07"  Part="1" 
 AR Path="/5C70AEE5/5C70AC29" Ref="#PWR?"  Part="1" 
+AR Path="/5C70AC29" Ref="#PWR07"  Part="1" 
 F 0 "#PWR07" H 4300 710 30  0001 C CNN
 F 1 "+3.3V" H 4300 860 30  0000 C CNN
 F 2 "" H 4300 750 60  0000 C CNN
@@ -187,7 +188,7 @@ $EndComp
 Wire Wire Line
 	4300 750  4300 850 
 $Comp
-L GND #PWR08
+L GND-RESCUE-QuadOCDectHat #PWR08
 U 1 1 5C70AC50
 P 4200 2450
 AR Path="/5C70A8FB/5C70AC50" Ref="#PWR08"  Part="1" 
