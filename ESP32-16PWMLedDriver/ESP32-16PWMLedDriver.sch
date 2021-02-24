@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:ESP32-16PWMLedDriver-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -10,7 +11,6 @@ LIBS:cmos4000
 LIBS:adc-dac
 LIBS:memory
 LIBS:xilinx
-LIBS:special
 LIBS:microcontrollers
 LIBS:dsp
 LIBS:microchip
@@ -37,7 +37,7 @@ LIBS:MCP23xxx
 LIBS:tbd62x83a
 LIBS:pca9685
 LIBS:ESP32-16PWMLedDriver-cache
-EELAYER 27 0
+EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -69,7 +69,7 @@ Wire Wire Line
 Wire Wire Line
 	2650 2600 2650 2450
 $Comp
-L GND #PWR01
+L GND-RESCUE-ESP32-16PWMLedDriver #PWR01
 U 1 1 5C81D000
 P 2500 2200
 F 0 "#PWR01" H 2500 2200 30  0001 C CNN
@@ -93,7 +93,7 @@ F 3 "" H 3850 1750 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR03
+L GND-RESCUE-ESP32-16PWMLedDriver #PWR03
 U 1 1 5C81D02F
 P 3700 1550
 F 0 "#PWR03" H 3700 1550 30  0001 C CNN
