@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:ESP32-HalfSiding-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -10,7 +11,6 @@ LIBS:cmos4000
 LIBS:adc-dac
 LIBS:memory
 LIBS:xilinx
-LIBS:special
 LIBS:microcontrollers
 LIBS:dsp
 LIBS:microchip
@@ -39,7 +39,7 @@ LIBS:tc442x
 LIBS:mct6h
 LIBS:bridge
 LIBS:ESP32-HalfSiding-cache
-EELAYER 27 0
+EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -71,7 +71,7 @@ Wire Wire Line
 Wire Wire Line
 	2650 2600 2650 2450
 $Comp
-L GND #PWR01
+L GND-RESCUE-ESP32-HalfSiding #PWR01
 U 1 1 5C81D000
 P 2500 2200
 F 0 "#PWR01" H 2500 2200 30  0001 C CNN
@@ -95,7 +95,7 @@ F 3 "" H 3850 1750 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR03
+L GND-RESCUE-ESP32-HalfSiding #PWR03
 U 1 1 5C81D02F
 P 3700 1550
 F 0 "#PWR03" H 3700 1550 30  0001 C CNN
@@ -247,7 +247,7 @@ Wire Wire Line
 Wire Wire Line
 	8600 850  8600 950 
 $Comp
-L GND #PWR06
+L GND-RESCUE-ESP32-HalfSiding #PWR06
 U 1 1 5CA24864
 P 7400 2200
 F 0 "#PWR06" H 7400 2200 30  0001 C CNN
@@ -410,7 +410,7 @@ Wire Wire Line
 Text Label 5500 4800 0    25   ~ 0
 Sense 2
 $Comp
-L GND #PWR09
+L GND-RESCUE-ESP32-HalfSiding #PWR09
 U 1 1 5CA2542A
 P 4700 6100
 F 0 "#PWR09" H 4700 6100 30  0001 C CNN
@@ -443,7 +443,7 @@ Sense2A
 Text Label 1400 3800 2    25   ~ 0
 Sense2B
 $Comp
-L C C7
+L C-RESCUE-ESP32-HalfSiding C7
 U 1 1 5CA25DF1
 P 3650 5100
 F 0 "C7" H 3650 5200 40  0000 L CNN
@@ -519,7 +519,7 @@ Wire Wire Line
 Wire Wire Line
 	10150 2150 10550 2150
 $Comp
-L GND #PWR010
+L GND-RESCUE-ESP32-HalfSiding #PWR010
 U 1 1 5CA23630
 P 10150 2400
 F 0 "#PWR010" H 10150 2400 30  0001 C CNN
