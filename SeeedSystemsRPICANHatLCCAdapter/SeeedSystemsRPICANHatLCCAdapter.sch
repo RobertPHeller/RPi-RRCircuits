@@ -31,6 +31,7 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
+LIBS:1737022
 LIBS:SeeedSystemsRPICANHatLCCAdapter-cache
 EELAYER 25 0
 EELAYER END
@@ -46,18 +47,6 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Comp
-L Conn_01x03_Male J1
-U 1 1 6035406B
-P 3250 2550
-F 0 "J1" H 3250 2750 50  0000 C CNN
-F 1 "PC 1737022 " H 3250 2350 50  0000 C CNN
-F 2 "MyPinHeaders:PinArray_3_RA_3.5MM" H 3250 2550 50  0001 C CNN
-F 3 "" H 3250 2550 50  0001 C CNN
-F 4 "651-1737022" H 3250 2550 60  0001 C CNN "Mouser Part Number"
-	1    3250 2550
-	1    0    0    -1  
-$EndComp
 $Comp
 L RJ45 J2
 U 1 1 603540A0
@@ -93,7 +82,7 @@ Wire Wire Line
 Wire Wire Line
 	6000 2550 4100 2550
 Wire Wire Line
-	3450 2650 6000 2650
+	3250 2650 6000 2650
 Wire Wire Line
 	6000 2750 4100 2750
 Wire Wire Line
@@ -116,12 +105,12 @@ $EndComp
 Wire Wire Line
 	3450 2650 3450 2750
 Wire Wire Line
-	3450 2450 3700 2450
+	3250 2450 3700 2450
 Wire Wire Line
 	3700 2450 3700 2150
 Connection ~ 4100 2150
 Wire Wire Line
-	3450 2550 3750 2550
+	3250 2550 3750 2550
 Wire Wire Line
 	3750 2550 3750 2250
 Connection ~ 4100 2250
@@ -130,4 +119,22 @@ Wire Wire Line
 Connection ~ 4100 2350
 Connection ~ 3850 2650
 Connection ~ 4100 2650
+$Comp
+L 1737022 J1
+U 1 1 6036F3EC
+P 3250 2450
+F 0 "J1" H 3900 2750 50  0000 L CNN
+F 1 "1737022" H 3900 2650 50  0000 L CNN
+F 2 "1737022:HDRRA3W100P0X350_1X3_1050X200X280P" H 3900 2550 50  0001 L CNN
+F 3 "https://componentsearchengine.com/Datasheets/1/1737022.pdf" H 3900 2450 50  0001 L CNN
+F 4 "Phoenix Contact PST Series, 3.5mm Pitch 3 Way Printed Circuit Board Connector, Solder Termination, 8A" H 3900 2350 50  0001 L CNN "Description"
+F 5 "2.8" H 3900 2250 50  0001 L CNN "Height"
+F 6 "651-1737022" H 3900 2150 50  0001 L CNN "Mouser Part Number"
+F 7 "https://www.mouser.com/Search/Refine.aspx?Keyword=651-1737022" H 3900 2050 50  0001 L CNN "Mouser Price/Stock"
+F 8 "Phoenix Contact" H 3900 1950 50  0001 L CNN "Manufacturer_Name"
+F 9 "1737022" H 3900 1850 50  0001 L CNN "Manufacturer_Part_Number"
+	1    3250 2450
+	-1   0    0    -1  
+$EndComp
+Connection ~ 3450 2650
 $EndSCHEMATC

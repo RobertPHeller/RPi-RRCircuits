@@ -1,29 +1,24 @@
 EESchema-LIBRARY Version 2.3
 #encoding utf-8
 #
-# Conn_01x03_Male
+# 1737022
 #
-DEF Conn_01x03_Male J 0 40 Y N 1 F N
-F0 "J" 0 200 50 H V C CNN
-F1 "Conn_01x03_Male" 0 -200 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- Connector*:*_??x*mm*
- Connector*:*1x??x*mm*
- Pin?Header?Straight?1X*
- Pin?Header?Angled?1X*
-$ENDFPLIST
+DEF 1737022 J 0 30 Y Y 1 F N
+F0 "J" 650 300 50 H V L CNN
+F1 "1737022" 650 200 50 H V L CNN
+F2 "HDRRA3W100P0X350_1X3_1050X200X280P" 650 100 50 H I L CNN
+F3 "https://componentsearchengine.com/Datasheets/1/1737022.pdf" 650 0 50 H I L CNN
+F4 "Phoenix Contact PST Series, 3.5mm Pitch 3 Way Printed Circuit Board Connector, Solder Termination, 8A" 650 -100 50 H I L CNN "Description"
+F5 "2.8" 650 -200 50 H I L CNN "Height"
+F6 "651-1737022" 650 -300 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.com/Search/Refine.aspx?Keyword=651-1737022" 650 -400 50 H I L CNN "Mouser Price/Stock"
+F8 "Phoenix Contact" 650 -500 50 H I L CNN "Manufacturer_Name"
+F9 "1737022" 650 -600 50 H I L CNN "Manufacturer_Part_Number"
 DRAW
-S 34 -95 0 -105 1 1 6 F
-S 34 5 0 -5 1 1 6 F
-S 34 105 0 95 1 1 6 F
-P 2 1 1 6 50 -100 34 -100 N
-P 2 1 1 6 50 0 34 0 N
-P 2 1 1 6 50 100 34 100 N
-X Pin_1 1 200 100 150 L 50 50 1 1 P
-X Pin_2 2 200 0 150 L 50 50 1 1 P
-X Pin_3 3 200 -100 150 L 50 50 1 1 P
+X 1 1 0 0 200 R 50 50 0 0 P
+X 2 2 0 -100 200 R 50 50 0 0 P
+X 3 3 0 -200 200 R 50 50 0 0 P
+P 5 0 1 6 200 100 600 100 600 -300 200 -300 200 100 N
 ENDDRAW
 ENDDEF
 #
