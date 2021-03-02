@@ -1,0 +1,298 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:pocketbeagle
+LIBS:lm2574n-5
+LIBS:lmd18200
+LIBS:tmp36
+LIBS:sn65hvd233-ht
+LIBS:PocketBeagleCommandStation-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 4 7
+Title "Pocket Beagle DCC Command Station"
+Date "3 mar 2019"
+Rev "A"
+Comp "Deepwoods Software"
+Comment1 "OPS DCC Driver"
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L LMD18200 U?
+U 1 1 603F10F3
+P 5400 2800
+F 0 "U?" H 5400 2800 60  0000 C CNN
+F 1 "LMD18200" H 5400 2900 60  0000 C CNN
+F 2 "" H 5400 2800 60  0000 C CNN
+F 3 "" H 5400 2800 60  0000 C CNN
+	1    5400 2800
+	0    1    1    0   
+$EndComp
+Text HLabel 3200 1750 0    60   Input ~ 0
+PowerIn
+$Comp
+L C C?
+U 1 1 603F1229
+P 3450 1750
+F 0 "C?" H 3475 1850 50  0000 L CNN
+F 1 "1 uf" H 3475 1650 50  0000 L CNN
+F 2 "" H 3488 1600 50  0001 C CNN
+F 3 "" H 3450 1750 50  0001 C CNN
+	1    3450 1750
+	0    1    1    0   
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 603F1296
+P 3700 1750
+F 0 "#PWR?" H 3700 1500 50  0001 C CNN
+F 1 "GND" H 3700 1600 50  0000 C CNN
+F 2 "" H 3700 1750 50  0001 C CNN
+F 3 "" H 3700 1750 50  0001 C CNN
+	1    3700 1750
+	0    -1   -1   0   
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 603F130C
+P 4800 2850
+F 0 "#PWR?" H 4800 2600 50  0001 C CNN
+F 1 "GND" H 4800 2700 50  0000 C CNN
+F 2 "" H 4800 2850 50  0001 C CNN
+F 3 "" H 4800 2850 50  0001 C CNN
+	1    4800 2850
+	0    1    1    0   
+$EndComp
+Text HLabel 4700 2600 0    60   Output ~ 0
+A
+Text HLabel 4700 3000 0    60   Output ~ 0
+B
+$Comp
+L C C?
+U 1 1 603F13C3
+P 4950 3150
+F 0 "C?" H 4975 3250 50  0000 L CNN
+F 1 "10 nf" H 4975 3050 50  0000 L CNN
+F 2 "" H 4988 3000 50  0001 C CNN
+F 3 "" H 4950 3150 50  0001 C CNN
+	1    4950 3150
+	0    1    1    0   
+$EndComp
+$Comp
+L C C?
+U 1 1 603F1459
+P 4950 2400
+F 0 "C?" H 4975 2500 50  0000 L CNN
+F 1 "10 nf" H 4975 2300 50  0000 L CNN
+F 2 "" H 4988 2250 50  0001 C CNN
+F 3 "" H 4950 2400 50  0001 C CNN
+	1    4950 2400
+	0    1    1    0   
+$EndComp
+Text HLabel 4900 2950 0    60   Output ~ 0
+THERM
+Text HLabel 4400 3300 0    60   Output ~ 0
+Current-Sense
+$Comp
+L R R?
+U 1 1 603F16E6
+P 4750 3450
+F 0 "R?" V 4830 3450 50  0000 C CNN
+F 1 "1.5K Ohms" V 4750 3450 50  0000 C CNN
+F 2 "" V 4680 3450 50  0001 C CNN
+F 3 "" H 4750 3450 50  0001 C CNN
+	1    4750 3450
+	0    1    1    0   
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 603EA966
+P 5200 3550
+F 0 "#PWR?" H 5200 3300 50  0001 C CNN
+F 1 "GND" H 5200 3400 50  0000 C CNN
+F 2 "" H 5200 3550 50  0001 C CNN
+F 3 "" H 5200 3550 50  0001 C CNN
+	1    5200 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 603EA99F
+P 4750 3700
+F 0 "C?" H 4775 3800 50  0000 L CNN
+F 1 "100 nf" H 4775 3600 50  0000 L CNN
+F 2 "" H 4788 3550 50  0001 C CNN
+F 3 "" H 4750 3700 50  0001 C CNN
+	1    4750 3700
+	0    1    1    0   
+$EndComp
+Text HLabel 3750 2050 0    60   Input ~ 0
+SIGNAL
+Text HLabel 3750 2200 0    60   Input ~ 0
+BRAKE
+Text HLabel 3750 2350 0    60   Input ~ 0
+ENABLE
+Wire Wire Line
+	3250 2800 5100 2800
+Wire Wire Line
+	3200 1750 3300 1750
+Connection ~ 3250 1750
+Wire Wire Line
+	3700 1750 3600 1750
+Wire Wire Line
+	5100 2850 4800 2850
+Wire Wire Line
+	4700 2600 5100 2600
+Wire Wire Line
+	4700 3000 5100 3000
+Wire Wire Line
+	5100 2400 5100 2550
+Wire Wire Line
+	4800 2400 4800 2600
+Connection ~ 4800 2600
+Wire Wire Line
+	4800 3150 4800 3000
+Connection ~ 4800 3000
+Wire Wire Line
+	5100 3150 5100 3050
+Wire Wire Line
+	5100 2950 4900 2950
+Wire Wire Line
+	5100 2900 4500 2900
+Wire Wire Line
+	4500 2900 4500 3450
+Wire Wire Line
+	4500 3300 4400 3300
+Wire Wire Line
+	4500 3450 4600 3450
+Connection ~ 4500 3300
+Wire Wire Line
+	4900 3450 5200 3450
+Wire Wire Line
+	5200 3450 5200 3550
+Wire Wire Line
+	4900 3700 4900 3450
+Wire Wire Line
+	4600 3450 4600 3700
+Wire Wire Line
+	3250 2800 3250 1750
+Wire Wire Line
+	5100 2650 4300 2650
+Wire Wire Line
+	4300 2650 4300 2050
+Wire Wire Line
+	4300 2050 3750 2050
+Wire Wire Line
+	5100 2700 4200 2700
+Wire Wire Line
+	4200 2700 4200 2200
+Wire Wire Line
+	4200 2200 3750 2200
+Wire Wire Line
+	4100 2750 5100 2750
+Wire Wire Line
+	4100 2750 4100 2350
+Wire Wire Line
+	4100 2350 3750 2350
+$Comp
+L R R?
+U 1 1 603EB304
+P 3800 2550
+F 0 "R?" V 3880 2550 50  0000 C CNN
+F 1 "20K Ohms" V 3800 2550 50  0000 C CNN
+F 2 "" V 3730 2550 50  0001 C CNN
+F 3 "" H 3800 2550 50  0001 C CNN
+	1    3800 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R?
+U 1 1 603EB358
+P 3950 2550
+F 0 "R?" V 4030 2550 50  0000 C CNN
+F 1 "20K Ohms" V 3950 2550 50  0000 C CNN
+F 2 "" V 3880 2550 50  0001 C CNN
+F 3 "" H 3950 2550 50  0001 C CNN
+	1    3950 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R?
+U 1 1 603EB37F
+P 4450 1950
+F 0 "R?" V 4530 1950 50  0000 C CNN
+F 1 "20K Ohms" V 4450 1950 50  0000 C CNN
+F 2 "" V 4380 1950 50  0001 C CNN
+F 3 "" H 4450 1950 50  0001 C CNN
+	1    4450 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 603EB3A8
+P 3800 2950
+F 0 "#PWR?" H 3800 2700 50  0001 C CNN
+F 1 "GND" H 3800 2800 50  0000 C CNN
+F 2 "" H 3800 2950 50  0001 C CNN
+F 3 "" H 3800 2950 50  0001 C CNN
+	1    3800 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L +3.3V #PWR?
+U 1 1 603EB3FB
+P 4450 1600
+F 0 "#PWR?" H 4450 1450 50  0001 C CNN
+F 1 "+3.3V" H 4450 1740 50  0000 C CNN
+F 2 "" H 4450 1600 50  0001 C CNN
+F 3 "" H 4450 1600 50  0001 C CNN
+	1    4450 1600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4450 1600 4450 1800
+Wire Wire Line
+	4450 2100 4450 2700
+Connection ~ 4450 2700
+Wire Wire Line
+	3800 2700 3800 2950
+Wire Wire Line
+	3950 2700 3800 2700
+Wire Wire Line
+	3800 2400 3800 2350
+Connection ~ 3800 2350
+Wire Wire Line
+	3950 2400 3950 2050
+Connection ~ 3950 2050
+$EndSCHEMATC
