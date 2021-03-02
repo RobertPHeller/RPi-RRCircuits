@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:BBBCommandStation-rescue
 LIBS:valves
 LIBS:power
 LIBS:device
@@ -37,7 +38,7 @@ LIBS:cl2
 LIBS:dpdt
 LIBS:gbu4a
 LIBS:BBBCommandStation-cache
-EELAYER 27 0
+EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -160,7 +161,7 @@ Wire Wire Line
 Wire Wire Line
 	8700 1200 8700 2350
 $Comp
-L CP1 C501
+L CP1-RESCUE-BBBCommandStation C501
 U 1 1 5DB1A78D
 P 9700 2250
 F 0 "C501" H 9750 2350 50  0000 L CNN

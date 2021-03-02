@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:BBBCommandStation-rescue
 LIBS:valves
 LIBS:power
 LIBS:device
@@ -37,7 +38,7 @@ LIBS:cl2
 LIBS:dpdt
 LIBS:gbu4a
 LIBS:BBBCommandStation-cache
-EELAYER 27 0
+EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -74,7 +75,7 @@ F 3 "~" H 6100 2200 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C401
+L C-RESCUE-BBBCommandStation C401
 U 1 1 5DA7B1AF
 P 2450 2700
 F 0 "C401" H 2450 2800 40  0000 L CNN
@@ -85,7 +86,7 @@ F 3 "~" H 2450 2700 60  0000 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L C C402
+L C-RESCUE-BBBCommandStation C402
 U 1 1 5DA7B1BE
 P 3150 2700
 F 0 "C402" H 3150 2800 40  0000 L CNN
@@ -96,7 +97,7 @@ F 3 "~" H 3150 2700 60  0000 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L C C403
+L C-RESCUE-BBBCommandStation C403
 U 1 1 5DA7B1CD
 P 5750 2700
 F 0 "C403" H 5750 2800 40  0000 L CNN
@@ -107,7 +108,7 @@ F 3 "~" H 5750 2700 60  0000 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L C C404
+L C-RESCUE-BBBCommandStation C404
 U 1 1 5DA7B1DC
 P 6450 2700
 F 0 "C404" H 6450 2800 40  0000 L CNN
@@ -118,7 +119,7 @@ F 3 "~" H 6450 2700 60  0000 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L R R401
+L R-RESCUE-BBBCommandStation R401
 U 1 1 5DA7B1EB
 P 2550 3850
 F 0 "R401" V 2630 3850 40  0000 C CNN
@@ -129,7 +130,7 @@ F 3 "~" H 2550 3850 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R402
+L R-RESCUE-BBBCommandStation R402
 U 1 1 5DA7B1FA
 P 2900 3850
 F 0 "R402" V 2980 3850 40  0000 C CNN
@@ -140,7 +141,7 @@ F 3 "~" H 2900 3850 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R403
+L R-RESCUE-BBBCommandStation R403
 U 1 1 5DA7B209
 P 6000 3850
 F 0 "R403" V 6080 3850 40  0000 C CNN
@@ -151,7 +152,7 @@ F 3 "~" H 6000 3850 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R404
+L R-RESCUE-BBBCommandStation R404
 U 1 1 5DA7B218
 P 6200 3800
 F 0 "R404" V 6280 3800 40  0000 C CNN
@@ -536,7 +537,7 @@ $EndComp
 Wire Wire Line
 	7700 5000 8100 5000
 $Comp
-L R R405
+L R-RESCUE-BBBCommandStation R405
 U 1 1 5DAFFFE9
 P 7850 4200
 F 0 "R405" V 7930 4200 40  0000 C CNN
@@ -579,7 +580,7 @@ Wire Wire Line
 	8100 4550 7850 4550
 Connection ~ 7850 4550
 $Comp
-L R R406
+L R-RESCUE-BBBCommandStation R406
 U 1 1 5DB02CE7
 P 7050 5200
 F 0 "R406" V 7130 5200 40  0000 C CNN
@@ -594,7 +595,7 @@ Wire Wire Line
 Wire Wire Line
 	6800 5200 6750 5200
 $Comp
-L LM393 U404
+L LM393-RESCUE-BBBCommandStation U404
 U 1 1 5DC81FF8
 P 9150 2950
 F 0 "U404" H 9300 3100 60  0000 C CNN
@@ -605,7 +606,7 @@ F 3 "" H 9150 2950 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L LM393 U404
+L LM393-RESCUE-BBBCommandStation U404
 U 2 1 5DC82007
 P 10650 2900
 F 0 "U404" H 10800 3050 60  0000 C CNN
@@ -639,7 +640,7 @@ Wire Wire Line
 Text Label 10550 2500 0    60   ~ 0
 Vcc 2
 $Comp
-L R R411
+L R-RESCUE-BBBCommandStation R411
 U 1 1 5DC82230
 P 9650 2500
 F 0 "R411" V 9730 2500 40  0000 C CNN
@@ -658,7 +659,7 @@ Wire Wire Line
 Text Label 9650 2950 0    60   ~ 0
 Ack Detect
 $Comp
-L C C408
+L C-RESCUE-BBBCommandStation C408
 U 1 1 5DC822F1
 P 10000 2550
 F 0 "C408" H 10000 2650 40  0000 L CNN
@@ -676,7 +677,7 @@ Wire Wire Line
 Wire Wire Line
 	10000 3000 10150 3000
 $Comp
-L C C406
+L C-RESCUE-BBBCommandStation C406
 U 1 1 5DC82424
 P 8450 2950
 F 0 "C406" H 8450 3050 40  0000 L CNN
@@ -687,7 +688,7 @@ F 3 "~" H 8450 2950 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C405
+L C-RESCUE-BBBCommandStation C405
 U 1 1 5DC82433
 P 8100 3050
 F 0 "C405" H 8100 3150 40  0000 L CNN
@@ -698,7 +699,7 @@ F 3 "~" H 8100 3050 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C407
+L C-RESCUE-BBBCommandStation C407
 U 1 1 5DC82442
 P 8650 3300
 F 0 "C407" H 8650 3400 40  0000 L CNN
@@ -750,7 +751,7 @@ Wire Wire Line
 Wire Wire Line
 	8100 3250 8100 3450
 $Comp
-L R R410
+L R-RESCUE-BBBCommandStation R410
 U 1 1 5DC826B9
 P 8550 2450
 F 0 "R410" V 8630 2450 40  0000 C CNN
@@ -761,7 +762,7 @@ F 3 "~" H 8550 2450 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R409
+L R-RESCUE-BBBCommandStation R409
 U 1 1 5DC826C8
 P 8100 2500
 F 0 "R409" V 8180 2500 40  0000 C CNN
@@ -785,7 +786,7 @@ Wire Wire Line
 	9650 2200 9650 2250
 Connection ~ 8550 2200
 $Comp
-L R R407
+L R-RESCUE-BBBCommandStation R407
 U 1 1 5DC8293E
 P 7800 2850
 F 0 "R407" V 7880 2850 40  0000 C CNN
@@ -796,7 +797,7 @@ F 3 "~" H 7800 2850 30  0000 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L R R408
+L R-RESCUE-BBBCommandStation R408
 U 1 1 5DC82952
 P 7800 3200
 F 0 "R408" V 7880 3200 40  0000 C CNN

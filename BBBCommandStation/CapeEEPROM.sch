@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:BBBCommandStation-rescue
 LIBS:valves
 LIBS:power
 LIBS:device
@@ -37,7 +38,7 @@ LIBS:cl2
 LIBS:dpdt
 LIBS:gbu4a
 LIBS:BBBCommandStation-cache
-EELAYER 27 0
+EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -64,7 +65,7 @@ F 4 "698-CAT24C256WI-GT3" H 5200 3650 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R305
+L R-RESCUE-BBBCommandStation R305
 U 1 1 5D9CDD2A
 P 4650 3000
 F 0 "R305" V 4730 3000 40  0000 C CNN
@@ -76,7 +77,7 @@ F 4 "603-CFR-25JR-524K7" H 4650 3000 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R304
+L R-RESCUE-BBBCommandStation R304
 U 1 1 5D9CDD2B
 P 4450 3000
 F 0 "R304" V 4530 3000 40  0000 C CNN
@@ -88,7 +89,7 @@ F 4 "603-CFR-25JR-524K7" H 4450 3000 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R303
+L R-RESCUE-BBBCommandStation R303
 U 1 1 5D9CDD2C
 P 4200 3000
 F 0 "R303" V 4280 3000 40  0000 C CNN
@@ -100,7 +101,7 @@ F 4 "603-CFR-25JR-524K7" H 4200 3000 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R302
+L R-RESCUE-BBBCommandStation R302
 U 1 1 5D9CDD2D
 P 3850 3000
 F 0 "R302" V 3930 3000 40  0000 C CNN
@@ -112,7 +113,7 @@ F 4 "603-CFR-25JR-525K6" H 3850 3000 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R301
+L R-RESCUE-BBBCommandStation R301
 U 1 1 5D9CDD2E
 P 3650 3000
 F 0 "R301" V 3730 3000 40  0000 C CNN
@@ -136,7 +137,7 @@ F 4 "649-67996-406HLF" H 3550 3850 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R306
+L R-RESCUE-BBBCommandStation R306
 U 1 1 5D9CDD30
 P 6400 3600
 F 0 "R306" V 6480 3600 40  0000 C CNN
@@ -148,7 +149,7 @@ F 4 "603-CFR-25JR-5210K" H 6400 3600 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C301
+L C-RESCUE-BBBCommandStation C301
 U 1 1 5D9CDD31
 P 6100 3550
 F 0 "C301" H 6100 3650 40  0000 L CNN
@@ -160,7 +161,7 @@ F 4 "581-SR201C104KARTR1" H 6100 3550 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR027
+L GND-RESCUE-BBBCommandStation #PWR027
 U 1 1 5D9CDD32
 P 6100 4250
 F 0 "#PWR027" H 6100 4250 30  0001 C CNN
@@ -210,7 +211,7 @@ Wire Wire Line
 Wire Wire Line
 	6100 3750 6100 4250
 $Comp
-L GND #PWR029
+L GND-RESCUE-BBBCommandStation #PWR029
 U 1 1 5D9CDD34
 P 3150 4200
 F 0 "#PWR029" H 3150 4200 30  0001 C CNN

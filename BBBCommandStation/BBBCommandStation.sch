@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:BBBCommandStation-rescue
 LIBS:valves
 LIBS:power
 LIBS:device
@@ -37,7 +38,7 @@ LIBS:cl2
 LIBS:dpdt
 LIBS:gbu4a
 LIBS:BBBCommandStation-cache
-EELAYER 27 0
+EELAYER 25 0
 EELAYER END
 $Descr USLetter 11000 8500
 encoding utf-8
@@ -301,7 +302,7 @@ F2 "SCL" I R 2550 5650 60
 F3 "SDA" B R 2550 6000 60 
 $EndSheet
 $Comp
-L GND #PWR014
+L GND-RESCUE-BBBCommandStation #PWR014
 U 1 1 5D9CDD3C
 P 3400 1300
 F 0 "#PWR014" H 3400 1300 30  0001 C CNN
@@ -473,7 +474,7 @@ Wire Wire Line
 	2850 3450 4600 3450
 Connection ~ 2850 3450
 $Comp
-L C C101
+L C-RESCUE-BBBCommandStation C101
 U 1 1 5DA863A5
 P 4100 4950
 F 0 "C101" H 4100 5050 40  0000 L CNN
@@ -536,7 +537,7 @@ F 3 "" H 5200 4600 60  0000 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L R R101
+L R-RESCUE-BBBCommandStation R101
 U 1 1 5DA8CBBB
 P 5100 3900
 F 0 "R101" V 5180 3900 40  0000 C CNN
@@ -561,7 +562,7 @@ Wire Wire Line
 	5100 5150 5100 4800
 Connection ~ 4600 5150
 $Comp
-L R R102
+L R-RESCUE-BBBCommandStation R102
 U 1 1 5DA8CDC1
 P 5650 4350
 F 0 "R102" V 5730 4350 40  0000 C CNN

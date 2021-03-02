@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:BBBCommandStation-rescue
 LIBS:valves
 LIBS:power
 LIBS:device
@@ -37,7 +38,7 @@ LIBS:cl2
 LIBS:dpdt
 LIBS:gbu4a
 LIBS:BBBCommandStation-cache
-EELAYER 27 0
+EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -98,7 +99,7 @@ F 3 "" H 4100 4050 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR022
+L GND-RESCUE-BBBCommandStation #PWR022
 U 1 1 5D9CDB36
 P 4100 3800
 F 0 "#PWR022" H 4100 3800 30  0001 C CNN
@@ -109,7 +110,7 @@ F 3 "" H 4100 3800 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR023
+L GND-RESCUE-BBBCommandStation #PWR023
 U 1 1 5D9CDB37
 P 4100 4950
 F 0 "#PWR023" H 4100 4950 30  0001 C CNN
@@ -152,7 +153,7 @@ Wire Wire Line
 	3750 3300 3750 4400
 Connection ~ 3750 4400
 $Comp
-L C C201
+L C-RESCUE-BBBCommandStation C201
 U 1 1 5D9CDB38
 P 4650 3800
 F 0 "C201" H 4650 3900 40  0000 L CNN
@@ -164,7 +165,7 @@ F 4 "21RZ310-RC" H 4650 3800 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L CP1 C202
+L CP1-RESCUE-BBBCommandStation C202
 U 1 1 5D9CDB39
 P 5000 3800
 F 0 "C202" H 5050 3900 50  0000 L CNN
@@ -207,7 +208,7 @@ CANH
 Text Label 5400 3250 0    25   ~ 0
 CANL
 $Comp
-L R R201
+L R-RESCUE-BBBCommandStation R201
 U 1 1 5D9CDB3A
 P 5850 3650
 F 0 "R201" V 5930 3650 40  0000 C CNN
@@ -219,7 +220,7 @@ F 4 "71-RN60C60R0B/R" H 5850 3650 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R202
+L R-RESCUE-BBBCommandStation R202
 U 1 1 5D9CDB3B
 P 6550 3650
 F 0 "R202" V 6630 3650 40  0000 C CNN
@@ -260,7 +261,7 @@ Wire Wire Line
 Wire Wire Line
 	6700 4150 6600 4150
 $Comp
-L C C203
+L C-RESCUE-BBBCommandStation C203
 U 1 1 5D9CDB3D
 P 6200 4750
 F 0 "C203" H 6200 4850 40  0000 L CNN
@@ -272,7 +273,7 @@ F 4 "75-1C10Z5U473M050B" H 6200 4750 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR024
+L GND-RESCUE-BBBCommandStation #PWR024
 U 1 1 5D9CDB3E
 P 6200 5100
 F 0 "#PWR024" H 6200 5100 30  0001 C CNN
@@ -415,7 +416,7 @@ Wire Wire Line
 Wire Wire Line
 	7450 3000 7450 5050
 $Comp
-L GND #PWR025
+L GND-RESCUE-BBBCommandStation #PWR025
 U 1 1 5D9CDB43
 P 6750 2650
 F 0 "#PWR025" H 6750 2650 30  0001 C CNN
