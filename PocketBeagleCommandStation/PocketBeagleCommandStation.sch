@@ -33,6 +33,7 @@ LIBS:lm2574n-5
 LIBS:lmd18200
 LIBS:tmp36
 LIBS:sn65hvd233-ht
+LIBS:L298N
 LIBS:PocketBeagleCommandStation-cache
 EELAYER 25 0
 EELAYER END
@@ -109,6 +110,16 @@ S 4950 3850 1800 1500
 U 603E655D
 F0 "Prog and LCC Alt H/L Driver" 60
 F1 "ProgAndLCCAltHL.sch" 60
+F2 "Signal1" I R 6750 4300 60 
+F3 "Signal2" I R 6750 4800 60 
+F4 "Enable1" I R 6750 4500 60 
+F5 "Enable2" I R 6750 4950 60 
+F6 "Power" I R 6750 4100 60 
+F7 "Sense1" O R 6750 4650 60 
+F8 "1A" O L 4950 4500 60 
+F9 "1B" O L 4950 4300 60 
+F10 "2A" O R 6750 5200 60 
+F11 "2B" O R 6750 5100 60 
 $EndSheet
 $Sheet
 S 1650 6000 2200 1400
@@ -245,50 +256,8 @@ F 3 "" H 7200 2000 50  0001 C CNN
 	1    7200 2000
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	7550 1500 7350 1500
-Wire Wire Line
-	7350 1500 7350 1300
-Wire Wire Line
-	2400 1650 2400 1500
-Wire Wire Line
-	3300 2250 3600 2250
-Wire Wire Line
-	3400 2350 3300 2350
-Wire Wire Line
-	3400 2650 3300 2650
-Wire Wire Line
-	2300 2350 2400 2350
-Wire Wire Line
-	4700 2350 4600 2350
-Wire Wire Line
-	4700 2650 4600 2650
-Wire Wire Line
-	7150 1750 7200 1750
-Wire Wire Line
-	7500 1750 7550 1750
-Wire Wire Line
-	7150 1850 7200 1850
-Wire Wire Line
-	7200 1650 7200 2000
-Wire Wire Line
-	7150 1650 7200 1650
-Connection ~ 7200 1850
-Wire Wire Line
-	7250 2350 7500 2350
-Wire Wire Line
-	7500 2350 7500 1750
 Text Label 7250 2350 2    60   ~ 0
 DCC_VS
-Wire Wire Line
-	4700 2750 3750 2750
-Wire Wire Line
-	3750 2750 3750 2400
-Wire Wire Line
-	3750 2400 3600 2400
-Wire Wire Line
-	3600 2400 3600 2250
-Connection ~ 3550 2250
 Text Label 5600 2750 0    60   ~ 0
 OPS-SIG
 Text Label 4700 3350 2    60   ~ 0
@@ -340,14 +309,6 @@ F 3 "" H 4200 3700 50  0001 C CNN
 	1    4200 3700
 	0    -1   -1   0   
 $EndComp
-Wire Wire Line
-	3350 4300 4100 4300
-Wire Wire Line
-	4100 4300 4100 3900
-Wire Wire Line
-	3350 4450 4200 4450
-Wire Wire Line
-	4200 4450 4200 3900
 $Comp
 L R R?
 U 1 1 603EDB79
@@ -370,6 +331,87 @@ F 3 "" H 3700 4100 50  0001 C CNN
 	1    3700 4100
 	1    0    0    -1  
 $EndComp
+$Sheet
+S 7550 5200 1750 1100
+U 603EEB55
+F0 "Fan Control" 60
+F1 "FanControl.sch" 60
+F2 "FAN_POWER" I L 7550 5450 60 
+F3 "FAN_CONTROL" I L 7550 5650 60 
+F4 "TEMP_SENSE" O L 7550 5900 60 
+$EndSheet
+$Comp
+L R R?
+U 1 1 603EF918
+P 4600 3950
+F 0 "R?" V 4680 3950 50  0000 C CNN
+F 1 "2.4 Ohms" V 4600 3950 50  0000 C CNN
+F 2 "" V 4530 3950 50  0001 C CNN
+F 3 "" H 4600 3950 50  0001 C CNN
+	1    4600 3950
+	0    1    1    0   
+$EndComp
+$Comp
+L C C?
+U 1 1 603EFD3C
+P 4800 4150
+F 0 "C?" H 4825 4250 50  0000 L CNN
+F 1 "10 nf" H 4825 4050 50  0000 L CNN
+F 2 "" H 4838 4000 50  0001 C CNN
+F 3 "" H 4800 4150 50  0001 C CNN
+	1    4800 4150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7550 1500 7350 1500
+Wire Wire Line
+	7350 1500 7350 1300
+Wire Wire Line
+	2400 1650 2400 1500
+Wire Wire Line
+	3300 2250 3600 2250
+Wire Wire Line
+	3400 2350 3300 2350
+Wire Wire Line
+	3400 2650 3300 2650
+Wire Wire Line
+	2300 2350 2400 2350
+Wire Wire Line
+	4700 2350 4600 2350
+Wire Wire Line
+	4700 2650 4600 2650
+Wire Wire Line
+	7150 1750 7200 1750
+Wire Wire Line
+	7500 1750 7550 1750
+Wire Wire Line
+	7150 1850 7200 1850
+Wire Wire Line
+	7200 1650 7200 2000
+Wire Wire Line
+	7150 1650 7200 1650
+Connection ~ 7200 1850
+Wire Wire Line
+	7250 2350 7500 2350
+Wire Wire Line
+	7500 2350 7500 1750
+Wire Wire Line
+	4700 2750 3750 2750
+Wire Wire Line
+	3750 2750 3750 2400
+Wire Wire Line
+	3750 2400 3600 2400
+Wire Wire Line
+	3600 2400 3600 2250
+Connection ~ 3550 2250
+Wire Wire Line
+	4100 4300 3350 4300
+Wire Wire Line
+	4100 3900 4100 4300
+Wire Wire Line
+	3350 4450 4200 4450
+Wire Wire Line
+	4200 4450 4200 3900
 Wire Wire Line
 	3500 3750 3500 4150
 Wire Wire Line
@@ -382,10 +424,52 @@ Connection ~ 3700 4450
 Wire Wire Line
 	4050 3950 4100 3950
 Connection ~ 4100 3950
-$Sheet
-S 7550 5200 1750 1100
-U 603EEB55
-F0 "Fan Control" 60
-F1 "FanControl.sch" 60
-$EndSheet
+Wire Wire Line
+	4300 3900 4300 4500
+Wire Wire Line
+	4300 4500 4950 4500
+Wire Wire Line
+	4400 3900 4400 4300
+Wire Wire Line
+	4400 4300 4950 4300
+Connection ~ 4800 4300
+Wire Wire Line
+	4800 4000 4800 3950
+Wire Wire Line
+	4800 3950 4750 3950
+Wire Wire Line
+	6750 5200 7300 5200
+Wire Wire Line
+	7300 5200 7300 4200
+Wire Wire Line
+	7300 4200 7600 4200
+Wire Wire Line
+	7600 4000 7250 4000
+Wire Wire Line
+	7250 4000 7250 5100
+Wire Wire Line
+	7250 5100 6750 5100
+Text Label 9150 1950 0    60   ~ 0
+PROG_DCC_VS
+Text Label 6750 4100 0    60   ~ 0
+PROG_DCC_VS
+Text Label 6750 4300 0    60   ~ 0
+PROG-SIG
+Text Label 6750 4500 0    60   ~ 0
+PROG-ENABLE
+Text Label 6750 4650 0    60   ~ 0
+PROG-SENSE
+Text Label 6750 4800 0    60   ~ 0
+OPS-SIG
+Text Label 6750 4950 0    60   ~ 0
+OPS-ENABLE
+Wire Wire Line
+	4450 3950 4300 3950
+Connection ~ 4300 3950
+Text Label 7550 5450 2    60   ~ 0
+DCC_VS
+Text Label 7550 5650 2    60   ~ 0
+FAN-CONTROL
+Text Label 7550 5900 2    60   ~ 0
+TEMP-SENSE
 $EndSCHEMATC

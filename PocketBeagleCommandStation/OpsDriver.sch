@@ -33,6 +33,7 @@ LIBS:lm2574n-5
 LIBS:lmd18200
 LIBS:tmp36
 LIBS:sn65hvd233-ht
+LIBS:L298N
 LIBS:PocketBeagleCommandStation-cache
 EELAYER 25 0
 EELAYER END

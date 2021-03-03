@@ -1,4 +1,4 @@
-update=Tue 02 Mar 2021 11:56:03 AM EST
+update=Tue 02 Mar 2021 07:09:55 PM EST
 version=1
 last_client=kicad
 [cvpcb]
@@ -87,3 +87,4 @@ LibName32=/home/heller/RRCircuits/lm2574n-5
 LibName33=/home/heller/RRCircuits/lmd18200
 LibName34=/home/heller/RRCircuits/BBBCommandStation/tmp36
 LibName35=/home/heller/RRCircuits/sn65hvd233-ht
+LibName36=L298N
