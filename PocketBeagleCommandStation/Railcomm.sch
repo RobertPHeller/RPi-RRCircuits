@@ -222,7 +222,7 @@ F 1 "STD12NF06" H 4500 6000 50  0000 L CNN
 F 2 "TO_SOT_Packages_THT:TO-92_Molded_Narrow" H 4500 6150 50  0001 C CNN
 F 3 "" H 4300 6050 50  0001 C CNN
 	1    4300 6050
-	0    -1   -1   0   
+	0    1    -1   0   
 $EndComp
 $Comp
 L LM393 U6
@@ -254,7 +254,7 @@ Text Label 4400 6500 0    60   ~ 0
 GATE-EN
 Text HLabel 1400 6000 0    60   Input ~ 0
 OPS-A
-Text HLabel 4900 5950 2    60   Input ~ 0
+Text HLabel 4850 5950 2    60   Input ~ 0
 OPS-B
 Text HLabel 3500 4400 0    60   Input ~ 0
 VREF
