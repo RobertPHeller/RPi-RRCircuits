@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Thu Mar 4 11:40:45 2021
-#  Last Modified : <210304.1607>
+#  Last Modified : <210304.2036>
 #
 #  Description	
 #
@@ -87,37 +87,61 @@ class HeatSinkCommon(object):
     # U4: L298N driver for prog track power and ALT H/L
     _TO220_15_MinHoleHeight = 17.65
     _U4CenterOffset = 67.31
-    def TO220_Holes(self,xoff=0):
-        xNorm = Base.Vector(1,0,0)
-        xExtrude = Base.Vector(-self._Thickness,0,0)
-        origin = self.origin
-        q13_mh = origin.add(Base.Vector(xoff,self._Q13CenterOffset,\
-                                        self._TO220_3_MinHoleHeight))
-        self.cutfrom(Part.Face(Part.Wire(\
-                Part.makeCircle(self._Number6Shoulder_Diameter/2,q13_mh,xNorm)))\
-                .extrude(xExtrude))
-        u3_mh = origin.add(Base.Vector(xoff,self._U3CenterOffset,\
-                                        self._TO220_11_MinHoleHeight))
-        self.cutfrom(Part.Face(Part.Wire(\
-                Part.makeCircle(self._TO220_HoleDiameter/2,u3_mh,xNorm)))\
-                .extrude(xExtrude))
-        u4_mh = origin.add(Base.Vector(xoff,self._U4CenterOffset,\
-                                        self._TO220_15_MinHoleHeight))
-        self.cutfrom(Part.Face(Part.Wire(\
-                Part.makeCircle(self._TO220_HoleDiameter/2,u4_mh,xNorm)))\
-                .extrude(xExtrude))
-    
-class HeatSinkMainPanel(HeatSinkCommon):
-    def show(self):
+    def cutfrom3D(self,shape):
+        self.body = self.body.cut(shape)
+    def fuseto3D(self,shape):
+        self.body = self.body.fuse(shape)
+    def cutfrom2D(self,shape):
+        self.sheet = self.sheet.cut(shape)
+    def fuseto2D(self,shape):
+        self.sheet = self.sheet.fuse(shape)
+    def show3D(self):
         doc = App.activeDocument()
         obj = doc.addObject("Part::Feature",self.name)
         obj.Shape = self.body
         obj.Label=self.name
         obj.ViewObject.ShapeColor=tuple([.85,.85,.85])
-    def cutfrom(self,shape):
-        self.body = self.body.cut(shape)
-    def fuseto(self,shape):
-        self.body = self.body.fuse(shape)
+    def show2D(self):
+        doc = App.activeDocument()
+        obj = doc.addObject("Part::Feature",self.name)
+        obj.Shape = self.sheet
+        obj.Label=self.name
+        obj.ViewObject.ShapeColor=tuple([.85,.85,.85])
+    def TO220_Holes3D(self,xoff=0):
+        xNorm = Base.Vector(1,0,0)
+        xExtrude = Base.Vector(-self._Thickness,0,0)
+        origin = self.origin
+        q13_mh = origin.add(Base.Vector(xoff,self._Q13CenterOffset,\
+                                        self._TO220_3_MinHoleHeight))
+        self.cutfrom3D(Part.Face(Part.Wire(\
+                Part.makeCircle(self._Number6Shoulder_Diameter/2,q13_mh,xNorm)))\
+                .extrude(xExtrude))
+        u3_mh = origin.add(Base.Vector(xoff,self._U3CenterOffset,\
+                                        self._TO220_11_MinHoleHeight))
+        self.cutfrom3D(Part.Face(Part.Wire(\
+                Part.makeCircle(self._TO220_HoleDiameter/2,u3_mh,xNorm)))\
+                .extrude(xExtrude))
+        u4_mh = origin.add(Base.Vector(xoff,self._U4CenterOffset,\
+                                        self._TO220_15_MinHoleHeight))
+        self.cutfrom3D(Part.Face(Part.Wire(\
+                Part.makeCircle(self._TO220_HoleDiameter/2,u4_mh,xNorm)))\
+                .extrude(xExtrude))
+    def TO220_Holes2D(self,origin):
+        zExtrude = Base.Vector(0,0,self._Thickness)
+        q13_mh = origin.add(Base.Vector(self._TO220_3_MinHoleHeight,self._Q13CenterOffset,0))
+        self.cutfrom2D(Part.Face(Part.Wire(\
+            Part.makeCircle(self._Number6Shoulder_Diameter/2,q13_mh)))\
+            .extrude(zExtrude))
+        u3_mh = origin.add(Base.Vector(self._TO220_11_MinHoleHeight,self._U3CenterOffset,0))
+        self.cutfrom2D(Part.Face(Part.Wire(\
+            Part.makeCircle(self._TO220_HoleDiameter/2,u3_mh)))\
+            .extrude(zExtrude))
+        u4_mh = origin.add(Base.Vector(self._TO220_15_MinHoleHeight,self._U4CenterOffset,0))
+        self.cutfrom2D(Part.Face(Part.Wire(\
+            Part.makeCircle(self._TO220_HoleDiameter/2,u4_mh)))\
+            .extrude(zExtrude))
+
+class HeatSinkMainPanel(HeatSinkCommon):
     def __init__(self,name,origin):
         self.name = name
         if not isinstance(origin,Base.Vector):
@@ -133,59 +157,89 @@ class HeatSinkMainPanel(HeatSinkCommon):
                                                         self._HSLength,\
                                                         self._Thickness)),\
                                     xNorm).extrude(xExtrude)
-        self.TO220_Holes()
+    
+        self.sheet = Part.makePlane(self._HSHeight,self._HSLength,\
+                                    self.origin.add(Base.Vector(0,0,0)))\
+                                    .extrude(zExtrude)
+        self.TO220_Holes3D()
+        self.TO220_Holes2D(origin)
         bottom = Part.makePlane(self._HSDepth,self._HSLength,\
                 self.origin.add(Base.Vector(-(self._HSDepth),0,0)))\
                 .extrude(zExtrude)
-        self.fuseto(bottom)
-        top = Part.makePlane(self._HSDepth,self._HSLength,\
-                self.origin.add(Base.Vector(-(self._HSDepth),0,self._HSHeight+self._Thickness)))\
-                .extrude(zExtrude)
-        self.fuseto(top)
+        self.fuseto3D(bottom)
+        bottom = Part.makePlane(self._HSDepth,self._HSLength,\
+                                self.origin.add(\
+                                    Base.Vector(-(self._HSHeight),0,0)))\
+                                 .extrude(zExtrude)
+        self.fuseto2D(bottom)
         mh1 = origin.add(Base.Vector(-(self._BoardEdgeToDeviceMountPlane-\
                                         self._BoardEdgeMHOffset),\
                                      self._BoardEdgeMHOffset,0))
         mh2 = mh1.add(Base.Vector(0,self._MHoleSpacingY,0))
-        self.cutfrom(Part.Face(Part.Wire(\
+        mh1_hole = Part.Face(Part.Wire(\
                 Part.makeCircle(self._MHoleDiameter/2.0,mh1)))\
-                .extrude(zExtrude))
-        self.cutfrom(Part.Face(Part.Wire(\
-                Part.makeCircle(self._MHoleDiameter/2.0,mh2)))\
-                .extrude(zExtrude))
+                .extrude(zExtrude)
+        self.cutfrom3D(mh1_hole)
+        self.cutfrom2D(mh1_hole)
+        mh2_hole = Part.Face(Part.Wire(\
+                        Part.makeCircle(self._MHoleDiameter/2.0,mh2)))\
+                        .extrude(zExtrude)
+        self.cutfrom3D(mh2_hole)
+        self.cutfrom2D(mh2_hole)
+        top = Part.makePlane(self._HSDepth,self._HSLength,\
+                self.origin.add(Base.Vector(-(self._HSDepth),0,self._HSHeight+self._Thickness)))\
+                .extrude(zExtrude)
+        self.fuseto3D(top)
+        top = Part.makePlane(self._HSDepth,self._HSLength,\
+                             self.origin.add(\
+                                    Base.Vector(self._HSHeight,0,0)))\
+                             .extrude(zExtrude)
+        self.fuseto2D(top)
         fanmounttab = Part.makePlane(self._HSHeight,self._FanMTab+self._Thickness,\
                                      origin.add(Base.Vector(-(self._FanMTab+self._Thickness),\
                                                             0,self._Thickness)),yNorm)\
                                     .extrude(yExtrude)
-        self.fuseto(fanmounttab)
+        self.fuseto3D(fanmounttab)
         fanmX = -(self._Thickness + (self._HSDepth-self._FanMHoleCenters)/2.0)
         fanmZ1 = self._Thickness+(self._HSDepth-self._FanMHoleCenters)/2.0
         fanmZ2 = fanmZ1+self._FanMHoleCenters
         fanm1 = origin.add(Base.Vector(fanmX,0,fanmZ1))
         fanm2 = origin.add(Base.Vector(fanmX,0,fanmZ2))
-        self.cutfrom(Part.Face(Part.Wire(\
+        self.cutfrom3D(Part.Face(Part.Wire(\
             Part.makeCircle(self._FanMHoleDiameter/2.0,fanm1,yNorm)))\
             .extrude(yExtrude))
-        self.cutfrom(Part.Face(Part.Wire(\
+        self.cutfrom3D(Part.Face(Part.Wire(\
             Part.makeCircle(self._FanMHoleDiameter/2.0,fanm2,yNorm)))\
             .extrude(yExtrude))
         fanCX = -(self._Thickness + self._HSDepth/2.0)
         fanCZ = self._Thickness+self._HSDepth/2.0
         fanHole = origin.add(Base.Vector(fanCX,0,fanCZ))
-        self.cutfrom(Part.Face(Part.Wire(\
+        self.cutfrom3D(Part.Face(Part.Wire(\
             Part.makeCircle(self._FanHoleDiameter/2.0,fanHole,yNorm)))\
             .extrude(yExtrude))
+        fanmounttab = Part.makePlane(self._HSHeight,self._FanMTab,\
+                                     origin.add(Base.Vector(0,-self._FanMTab,0)))\
+                                     .extrude(zExtrude)
+        self.fuseto2D(fanmounttab)
+        fanmY = -((self._HSDepth-self._FanMHoleCenters)/2.0)
+        fanmX1 = (self._HSDepth-self._FanMHoleCenters)/2.0
+        fanmX2 = fanmX1+self._FanMHoleCenters
+        fanm1 = origin.add(Base.Vector(fanmX1,fanmY,0))
+        fanm2 = origin.add(Base.Vector(fanmX2,fanmY,0))
+        self.cutfrom2D(Part.Face(Part.Wire(\
+            Part.makeCircle(self._FanMHoleDiameter/2.0,fanm1)))\
+            .extrude(zExtrude))
+        self.cutfrom2D(Part.Face(Part.Wire(\
+            Part.makeCircle(self._FanMHoleDiameter/2.0,fanm2)))\
+            .extrude(zExtrude))
+        fanCY = -(self._HSDepth/2.0)
+        fanCX = self._HSDepth/2.0
+        fanHole = origin.add(Base.Vector(fanCX,fanCY,0))
+        self.cutfrom2D(Part.Face(Part.Wire(\
+            Part.makeCircle(self._FanHoleDiameter/2.0,fanHole)))\
+            .extrude(zExtrude))
 
 class HeatSinkFin1(HeatSinkCommon):
-    def show(self):
-        doc = App.activeDocument()
-        obj = doc.addObject("Part::Feature",self.name)
-        obj.Shape = self.body
-        obj.Label=self.name
-        obj.ViewObject.ShapeColor=tuple([.85,.85,.85])
-    def cutfrom(self,shape):
-        self.body = self.body.cut(shape)
-    def fuseto(self,shape):
-        self.body = self.body.fuse(shape)
     def __init__(self,name,origin):
         self.name = name
         if not isinstance(origin,Base.Vector):
@@ -204,25 +258,29 @@ class HeatSinkFin1(HeatSinkCommon):
                                                        self._Thickness+\
                                                         (self._HSHeight*.2))),\
                            xNorm).extrude(xExtrude)
-        self.TO220_Holes(-self._Thickness)
+        self.TO220_Holes3D(-self._Thickness)
+        self.sheetorigin = origin.add(Base.Vector(0,0,25.4))
+        self.sheet = \
+            Part.makePlane(self._HSHeight*.6,\
+                           self._HSLength,\
+                           self.sheetorigin.add(Base.Vector(self._Thickness+self._HSHeight*.2,0,0)))\
+                           .extrude(zExtrude)
+        self.TO220_Holes2D(self.sheetorigin)
         bottom = Part.makePlane(self._HSDepth-self._Thickness,self._HSLength,\
                                 self.origin.add(Base.Vector(-(self._HSDepth),0,self._HSHeight*.2))).extrude(zExtrude)        
-        self.fuseto(bottom)
+        self.fuseto3D(bottom)
+        bottom = Part.makePlane(self._HSDepth,self._HSLength,\
+                                self.sheetorigin.add(Base.Vector(-self._HSDepth+self._Thickness+self._HSHeight*.2,0,0))).extrude(zExtrude)
+        self.fuseto2D(bottom)
         top = Part.makePlane(self._HSDepth-self._Thickness,self._HSLength,\
                                 self.origin.add(Base.Vector(-(self._HSDepth),0,self._Thickness+self._HSHeight*.8))).extrude(zExtrude)
-        self.fuseto(top)
+        self.fuseto3D(top)
+        top = Part.makePlane(self._HSDepth,self._HSLength,\
+                                self.sheetorigin.add(Base.Vector(self._Thickness+self._HSHeight*.8,0,0)))\
+                                .extrude(zExtrude)
+        self.fuseto2D(top)
             
 class HeatSinkFin2(HeatSinkCommon):
-    def show(self):
-        doc = App.activeDocument()
-        obj = doc.addObject("Part::Feature",self.name)
-        obj.Shape = self.body
-        obj.Label=self.name
-        obj.ViewObject.ShapeColor=tuple([.85,.85,.85])
-    def cutfrom(self,shape):
-        self.body = self.body.cut(shape)
-    def fuseto(self,shape):
-        self.body = self.body.fuse(shape)
     def __init__(self,name,origin):
         self.name = name
         if not isinstance(origin,Base.Vector):
@@ -241,16 +299,20 @@ class HeatSinkFin2(HeatSinkCommon):
                                                        self._Thickness+\
                                                         (self._HSHeight*.4))),\
                            xNorm).extrude(xExtrude)
-        self.TO220_Holes(-self._Thickness*2)
+        self.TO220_Holes3D(-self._Thickness*2)
         bottom = Part.makePlane(self._HSDepth-(self._Thickness*2),self._HSLength,\
                                 self.origin.add(Base.Vector(-(self._HSDepth),0,self._HSHeight*.4))).extrude(zExtrude)        
-        self.fuseto(bottom)
+        self.fuseto3D(bottom)
             
 class HeatSink(HeatSinkCommon):
-    def show(self):
-        self.main.show()
-        self.fin1.show()
-        self.fin2.show()
+    def show3D(self):
+        self.main.show3D()
+        self.fin1.show3D()
+        self.fin2.show3D()
+    def show2D(self):
+        self.main.show2D()
+        self.fin1.show2D()
+        #self.fin2.show2D()
     def __init__(self,name,origin):
         self.name = name
         if not isinstance(origin,Base.Vector):
@@ -266,6 +328,6 @@ if __name__ == '__main__':
     App.ActiveDocument=App.newDocument("HeatSink")
     doc = App.activeDocument()
     hs = HeatSink("heatsink",Base.Vector(0,0,0))
-    hs.show()
+    hs.show2D()
     Gui.SendMsgToActiveView("ViewFit")
     Gui.activeDocument().activeView().viewIsometric()
