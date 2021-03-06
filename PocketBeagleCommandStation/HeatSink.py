@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Thu Mar 4 11:40:45 2021
-#  Last Modified : <210306.1212>
+#  Last Modified : <210306.1711>
 #
 #  Description	
 #
@@ -163,8 +163,8 @@ class HeatSinkMainPanel(HeatSinkCommon):
                                     .extrude(zExtrude)
         self.TO220_Holes3D()
         self.TO220_Holes2D(origin)
-        bottom = Part.makePlane(self._HSDepth,self._HSLength,\
-                self.origin.add(Base.Vector(-(self._HSDepth),0,0)))\
+        bottom = Part.makePlane(self._HSDepth+self._Thickness,self._HSLength,\
+                self.origin.add(Base.Vector(-(self._HSDepth+self._Thickness),0,0)))\
                 .extrude(zExtrude)
         self.fuseto3D(bottom)
         bottom = Part.makePlane(self._HSDepth+self._Thickness,self._HSLength,\
@@ -196,10 +196,11 @@ class HeatSinkMainPanel(HeatSinkCommon):
                         .extrude(zExtrude)
         self.cutfrom2D(mh2_hole)
         top = Part.makePlane(self._HSDepth+self._Thickness,self._HSLength,\
-                self.origin.add(Base.Vector(-(self._HSDepth+self._Thickness),0,self._HSHeight+self._Thickness)))\
+                self.origin.add(Base.Vector(-(self._HSDepth+self._Thickness),\
+                                            0,self._HSHeight+self._Thickness)))\
                 .extrude(zExtrude)
         self.fuseto3D(top)
-        top = Part.makePlane(self._HSDepth,self._HSLength,\
+        top = Part.makePlane(self._HSDepth+self._Thickness,self._HSLength,\
                              self.origin.add(\
                                     Base.Vector(self._HSHeight,0,0)))\
                              .extrude(zExtrude)
@@ -277,16 +278,16 @@ class HeatSinkFin1(HeatSinkCommon):
                            self.sheetorigin.add(Base.Vector(self._HSHeight*.2,0,0)))\
                            .extrude(zExtrude)
         self.TO220_Holes2D(self.sheetorigin)
-        bottom = Part.makePlane(self._HSDepth-self._Thickness,self._HSLength,\
-                                self.origin.add(Base.Vector(-(self._HSDepth),0,self._HSHeight*.2))).extrude(zExtrude)        
+        bottom = Part.makePlane(self._HSDepth,self._HSLength,\
+                                self.origin.add(Base.Vector(-(self._HSDepth+self._Thickness),0,self._HSHeight*.2))).extrude(zExtrude)        
         self.fuseto3D(bottom)
-        bottom = Part.makePlane(self._HSDepth+self._Thickness,self._HSLength,\
-                                self.sheetorigin.add(Base.Vector(-(self._HSDepth+self._Thickness)+self._HSHeight*.2,0,0))).extrude(zExtrude)
+        bottom = Part.makePlane(self._HSDepth,self._HSLength,\
+                                self.sheetorigin.add(Base.Vector(-(self._HSDepth)+self._HSHeight*.2,0,0))).extrude(zExtrude)
         self.fuseto2D(bottom)
-        top = Part.makePlane(self._HSDepth-self._Thickness,self._HSLength,\
-                                self.origin.add(Base.Vector(-(self._HSDepth),0,self._Thickness+self._HSHeight*.8))).extrude(zExtrude)
+        top = Part.makePlane(self._HSDepth,self._HSLength,\
+                                self.origin.add(Base.Vector(-(self._HSDepth+self._Thickness),0,self._Thickness+self._HSHeight*.8))).extrude(zExtrude)
         self.fuseto3D(top)
-        top = Part.makePlane(self._HSDepth+self._Thickness,self._HSLength,\
+        top = Part.makePlane(self._HSDepth,self._HSLength,\
                                 self.sheetorigin.add(Base.Vector(self._HSHeight*.8,0,0)))\
                                 .extrude(zExtrude)
         self.fuseto2D(top)
@@ -318,11 +319,11 @@ class HeatSinkFin2(HeatSinkCommon):
                            self.sheetorigin.add(Base.Vector(self._HSHeight*.4,0,0)))\
                            .extrude(zExtrude)
         self.TO220_Holes2D(self.sheetorigin)
-        bottom = Part.makePlane(self._HSDepth-(self._Thickness*2),self._HSLength,\
-                                self.origin.add(Base.Vector(-(self._HSDepth),0,self._HSHeight*.4))).extrude(zExtrude)        
+        bottom = Part.makePlane(self._HSDepth-(self._Thickness*1),self._HSLength,\
+                                self.origin.add(Base.Vector(-(self._HSDepth+self._Thickness),0,self._HSHeight*.4))).extrude(zExtrude)        
         self.fuseto3D(bottom)
-        bottom = Part.makePlane(self._HSDepth-(self._Thickness*2),self._HSLength,\
-                                self.sheetorigin.add(Base.Vector(-(self._HSDepth-self._Thickness*2)+self._HSHeight*.4,0,0)))\
+        bottom = Part.makePlane(self._HSDepth-(self._Thickness*1),self._HSLength,\
+                                self.sheetorigin.add(Base.Vector(-(self._HSDepth-self._Thickness*1)+self._HSHeight*.4,0,0)))\
                                 .extrude(zExtrude)
         self.fuseto2D(bottom)
             
@@ -351,6 +352,8 @@ if __name__ == '__main__':
         App.closeDocument("HeatSink3D")
     if "HeatSinkMainPanelPage" in App.listDocuments().keys():
         App.closeDocument("HeatSinkMainPanelPage")
+    if "HeatSinkFin1PanelPage" in App.listDocuments().keys():
+        App.closeDocument("HeatSinkFin1PanelPage")
     App.ActiveDocument=App.newDocument("HeatSink3D")
     doc = App.activeDocument()
     hs = HeatSink("heatsink",Base.Vector(0,0,0))
@@ -387,18 +390,18 @@ if __name__ == '__main__':
     edt['Sheet'] = "Sheet 1 of 3"
     doc.HeatSinkMainPanelPage.Template.EditableTexts = edt
     doc.HeatSinkMainPanelPage.ViewObject.show()
-    sheet = doc.addObject('Spreadsheet::Sheet','DimensionTable')
-    sheet.set("A1",'%-11.11s'%"Dim")
-    sheet.set("B1",'%10.10s'%"inch")
-    sheet.set("C1",'%10.10s'%"mm")
+    mainsheet = doc.addObject('Spreadsheet::Sheet','MainDimensionTable')
+    mainsheet.set("A1",'%-11.11s'%"Dim")
+    mainsheet.set("B1",'%10.10s'%"inch")
+    mainsheet.set("C1",'%10.10s'%"mm")
     ir = 2
-    doc.addObject('TechDraw::DrawViewPart','TopView')
-    doc.HeatSinkMainPanelPage.addView(doc.TopView)
-    doc.TopView.Source = doc.heatsink_main
-    doc.TopView.X = 200
-    doc.TopView.Y = 135
-    doc.TopView.Direction=(0.0,0.0,1.0)
-    #doc.TopView.Scale=3.0
+    doc.addObject('TechDraw::DrawViewPart','MainTopView')
+    doc.HeatSinkMainPanelPage.addView(doc.MainTopView)
+    doc.MainTopView.Source = doc.heatsink_main
+    doc.MainTopView.X = 200
+    doc.MainTopView.Y = 135
+    doc.MainTopView.Direction=(0.0,0.0,1.0)
+    #doc.MainTopView.Scale=3.0
     # Vertex14: upper left corner
     # Vertex33: upper right corner
     # Vertex3:  lower left corner
@@ -409,87 +412,87 @@ if __name__ == '__main__':
     #
     # Vertex0:  lower left fan tab corner
     #
-    doc.addObject('TechDraw::DrawViewDimension','Length')
-    doc.Length.Type = 'DistanceY'
-    doc.Length.References2D=[(doc.TopView,'Vertex33'),(doc.TopView,'Vertex32')]
-    doc.Length.FormatSpec='l'
-    doc.Length.Arbitrary = True
-    doc.Length.X = -50
-    doc.Length.Y = 0
-    doc.HeatSinkMainPanelPage.addView(doc.Length)
-    sheet.set("A%d"%ir,'%-11.11s'%"l")
-    sheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._HSLength/25.4))
-    sheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._HSLength)
+    doc.addObject('TechDraw::DrawViewDimension','MainLength')
+    doc.MainLength.Type = 'DistanceY'
+    doc.MainLength.References2D=[(doc.MainTopView,'Vertex33'),(doc.MainTopView,'Vertex32')]
+    doc.MainLength.FormatSpec='l'
+    doc.MainLength.Arbitrary = True
+    doc.MainLength.X = -50
+    doc.MainLength.Y = 0
+    doc.HeatSinkMainPanelPage.addView(doc.MainLength)
+    mainsheet.set("A%d"%ir,'%-11.11s'%"l")
+    mainsheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._HSLength/25.4))
+    mainsheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._HSLength)
     ir += 1
-    doc.addObject('TechDraw::DrawViewDimension','SheetTotalLength')
-    doc.SheetTotalLength.Type = 'DistanceY'
-    doc.SheetTotalLength.References2D=[(doc.TopView,'Vertex33'),\
-                                       (doc.TopView,'Vertex0')]
-    doc.SheetTotalLength.FormatSpec='tl'
-    doc.SheetTotalLength.Arbitrary = True
-    doc.SheetTotalLength.X = -60
-    doc.SheetTotalLength.Y = 0
-    doc.HeatSinkMainPanelPage.addView(doc.SheetTotalLength)
-    sheet.set("A%d"%ir,'%-11.11s'%"tl")
+    doc.addObject('TechDraw::DrawViewDimension','MainSheetTotalLength')
+    doc.MainSheetTotalLength.Type = 'DistanceY'
+    doc.MainSheetTotalLength.References2D=[(doc.MainTopView,'Vertex33'),\
+                                       (doc.MainTopView,'Vertex0')]
+    doc.MainSheetTotalLength.FormatSpec='tl'
+    doc.MainSheetTotalLength.Arbitrary = True
+    doc.MainSheetTotalLength.X = -60
+    doc.MainSheetTotalLength.Y = 0
+    doc.HeatSinkMainPanelPage.addView(doc.MainSheetTotalLength)
+    mainsheet.set("A%d"%ir,'%-11.11s'%"tl")
     tl = HeatSinkCommon._HSLength+HeatSinkCommon._FanMTab+\
             HeatSinkCommon._Thickness
-    sheet.set("B%d"%ir,'%10.6f'%(tl/25.4))
-    sheet.set("C%d"%ir,'%10.6f'%tl)
+    mainsheet.set("B%d"%ir,'%10.6f'%(tl/25.4))
+    mainsheet.set("C%d"%ir,'%10.6f'%tl)
     ir += 1
-    doc.addObject('TechDraw::DrawViewDimension','SheetTotalWidth')
-    doc.SheetTotalWidth.Type = 'DistanceX'
-    doc.SheetTotalWidth.References2D=[(doc.TopView,'Vertex14'),\
-                                     (doc.TopView,'Vertex33')]
-    doc.SheetTotalWidth.FormatSpec='tw'
-    doc.SheetTotalWidth.Arbitrary = True
-    doc.SheetTotalWidth.X = 0
-    doc.SheetTotalWidth.Y = 64
-    doc.HeatSinkMainPanelPage.addView(doc.SheetTotalWidth)
-    sheet.set("A%d"%ir,'%-11.11s'%"tw")
+    doc.addObject('TechDraw::DrawViewDimension','MainSheetTotalWidth')
+    doc.MainSheetTotalWidth.Type = 'DistanceX'
+    doc.MainSheetTotalWidth.References2D=[(doc.MainTopView,'Vertex14'),\
+                                     (doc.MainTopView,'Vertex33')]
+    doc.MainSheetTotalWidth.FormatSpec='tw'
+    doc.MainSheetTotalWidth.Arbitrary = True
+    doc.MainSheetTotalWidth.X = 0
+    doc.MainSheetTotalWidth.Y = 64
+    doc.HeatSinkMainPanelPage.addView(doc.MainSheetTotalWidth)
+    mainsheet.set("A%d"%ir,'%-11.11s'%"tw")
     tw = HeatSinkCommon._HSHeight+\
              ((HeatSinkCommon._HSDepth+HeatSinkCommon._Thickness)*2)
-    sheet.set("B%d"%ir,'%10.6f'%(tw/25.4))
-    sheet.set("C%d"%ir,'%10.6f'%tw)
+    mainsheet.set("B%d"%ir,'%10.6f'%(tw/25.4))
+    mainsheet.set("C%d"%ir,'%10.6f'%tw)
     ir += 1
-    doc.addObject('TechDraw::DrawViewDimension','BottomWidth')
-    doc.BottomWidth.Type = 'DistanceX'
-    doc.BottomWidth.References2D=[(doc.TopView,'Vertex14'),\
-                                      (doc.TopView,'Vertex15')]
-    doc.BottomWidth.FormatSpec='b'
-    doc.BottomWidth.Arbitrary = True
-    doc.BottomWidth.X = -25
-    doc.BottomWidth.Y = 55
-    doc.HeatSinkMainPanelPage.addView(doc.BottomWidth)
-    sheet.set("A%d"%ir,'%-11.11s'%"b")
+    doc.addObject('TechDraw::DrawViewDimension','MainBottomWidth')
+    doc.MainBottomWidth.Type = 'DistanceX'
+    doc.MainBottomWidth.References2D=[(doc.MainTopView,'Vertex14'),\
+                                      (doc.MainTopView,'Vertex15')]
+    doc.MainBottomWidth.FormatSpec='b'
+    doc.MainBottomWidth.Arbitrary = True
+    doc.MainBottomWidth.X = -25
+    doc.MainBottomWidth.Y = 55
+    doc.HeatSinkMainPanelPage.addView(doc.MainBottomWidth)
+    mainsheet.set("A%d"%ir,'%-11.11s'%"b")
     b = HeatSinkCommon._HSDepth+HeatSinkCommon._Thickness
-    sheet.set("B%d"%ir,'%10.6f'%(b/25.4))
-    sheet.set("C%d"%ir,'%10.6f'%b)
+    mainsheet.set("B%d"%ir,'%10.6f'%(b/25.4))
+    mainsheet.set("C%d"%ir,'%10.6f'%b)
     ir += 1
     doc.addObject('TechDraw::DrawViewDimension','MainWidth')
     doc.MainWidth.Type = 'DistanceX'
-    doc.MainWidth.References2D=[(doc.TopView,'Vertex15'),\
-                                 (doc.TopView,'Vertex22')]
+    doc.MainWidth.References2D=[(doc.MainTopView,'Vertex15'),\
+                                 (doc.MainTopView,'Vertex22')]
     doc.MainWidth.FormatSpec='w'
     doc.MainWidth.Arbitrary = True
     doc.MainWidth.X = 0
     doc.MainWidth.Y = 55
     doc.HeatSinkMainPanelPage.addView(doc.MainWidth)
-    sheet.set("A%d"%ir,'%-11.11s'%"w")
-    sheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._HSHeight/25.4))
-    sheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._HSHeight)
+    mainsheet.set("A%d"%ir,'%-11.11s'%"w")
+    mainsheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._HSHeight/25.4))
+    mainsheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._HSHeight)
     ir += 1
-    doc.addObject('TechDraw::DrawViewDimension','TopWidth')
-    doc.TopWidth.Type = 'DistanceX'
-    doc.TopWidth.References2D=[(doc.TopView,'Vertex22'),\
-                                 (doc.TopView,'Vertex33')]
-    doc.TopWidth.FormatSpec='t'
-    doc.TopWidth.Arbitrary = True
-    doc.TopWidth.X = 25
-    doc.TopWidth.Y = 55
-    doc.HeatSinkMainPanelPage.addView(doc.TopWidth)
-    sheet.set("A%d"%ir,'%-11.11s'%"t")
-    sheet.set("B%d"%ir,'%10.6f'%(b/25.4))
-    sheet.set("C%d"%ir,'%10.6f'%b)
+    doc.addObject('TechDraw::DrawViewDimension','MainTopWidth')
+    doc.MainTopWidth.Type = 'DistanceX'
+    doc.MainTopWidth.References2D=[(doc.MainTopView,'Vertex22'),\
+                                 (doc.MainTopView,'Vertex33')]
+    doc.MainTopWidth.FormatSpec='t'
+    doc.MainTopWidth.Arbitrary = True
+    doc.MainTopWidth.X = 25
+    doc.MainTopWidth.Y = 55
+    doc.HeatSinkMainPanelPage.addView(doc.MainTopWidth)
+    mainsheet.set("A%d"%ir,'%-11.11s'%"t")
+    mainsheet.set("B%d"%ir,'%10.6f'%(b/25.4))
+    mainsheet.set("C%d"%ir,'%10.6f'%b)
     ir += 1
     # 
     # Edge13: mh2 circ
@@ -497,58 +500,58 @@ if __name__ == '__main__':
     # Edge12: mh1 circ
     # Vertex18: mh1 center
     #
-    doc.addObject('TechDraw::DrawViewDimension','MountHoleDiameter')
-    doc.MountHoleDiameter.Type = 'Diameter'
-    doc.MountHoleDiameter.References2D=[(doc.TopView,'Edge13')]
-    doc.MountHoleDiameter.FormatSpec='mhDia (2x)'
-    doc.MountHoleDiameter.Arbitrary = True
-    doc.MountHoleDiameter.X = -15
-    doc.MountHoleDiameter.Y =  26.16
-    doc.HeatSinkMainPanelPage.addView(doc.MountHoleDiameter)
-    sheet.set("A%d"%ir,'%-11.11s'%"mhDia")
-    sheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._MHoleDiameter/25.4))
-    sheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._MHoleDiameter)
+    doc.addObject('TechDraw::DrawViewDimension','MainMountHoleDiameter')
+    doc.MainMountHoleDiameter.Type = 'Diameter'
+    doc.MainMountHoleDiameter.References2D=[(doc.MainTopView,'Edge13')]
+    doc.MainMountHoleDiameter.FormatSpec='mhDia (2x)'
+    doc.MainMountHoleDiameter.Arbitrary = True
+    doc.MainMountHoleDiameter.X = -15
+    doc.MainMountHoleDiameter.Y =  26.16
+    doc.HeatSinkMainPanelPage.addView(doc.MainMountHoleDiameter)
+    mainsheet.set("A%d"%ir,'%-11.11s'%"mhDia")
+    mainsheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._MHoleDiameter/25.4))
+    mainsheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._MHoleDiameter)
     ir += 1
-    doc.addObject('TechDraw::DrawViewDimension','MountHoleXOffset')
-    doc.MountHoleXOffset.Type = 'DistanceX'
-    doc.MountHoleXOffset.References2D=[(doc.TopView,'Vertex14'),\
-                                       (doc.TopView,'Vertex18')]
-    doc.MountHoleXOffset.FormatSpec='mhx'
-    doc.MountHoleXOffset.Arbitrary = True
-    doc.MountHoleXOffset.X = -30
-    doc.MountHoleXOffset.Y = 35
-    doc.HeatSinkMainPanelPage.addView(doc.MountHoleXOffset)
-    sheet.set("A%d"%ir,'%-11.11s'%"mhx")
+    doc.addObject('TechDraw::DrawViewDimension','MainMountHoleXOffset')
+    doc.MainMountHoleXOffset.Type = 'DistanceX'
+    doc.MainMountHoleXOffset.References2D=[(doc.MainTopView,'Vertex14'),\
+                                       (doc.MainTopView,'Vertex18')]
+    doc.MainMountHoleXOffset.FormatSpec='mhx'
+    doc.MainMountHoleXOffset.Arbitrary = True
+    doc.MainMountHoleXOffset.X = -30
+    doc.MainMountHoleXOffset.Y = 35
+    doc.HeatSinkMainPanelPage.addView(doc.MainMountHoleXOffset)
+    mainsheet.set("A%d"%ir,'%-11.11s'%"mhx")
     mhx = HeatSinkCommon._HSDepth-\
         (HeatSinkCommon._BoardEdgeToDeviceMountPlane+HeatSinkCommon._Thickness)
-    sheet.set("B%d"%ir,'%10.6f'%(mhx/25.4))
-    sheet.set("C%d"%ir,'%10.6f'%mhx)
+    mainsheet.set("B%d"%ir,'%10.6f'%(mhx/25.4))
+    mainsheet.set("C%d"%ir,'%10.6f'%mhx)
     ir += 1
-    doc.addObject('TechDraw::DrawViewDimension','MountHole1YOffset')
-    doc.MountHole1YOffset.Type = 'DistanceY'
-    doc.MountHole1YOffset.References2D=[(doc.TopView,'Vertex18'),\
-                                        (doc.TopView,'Vertex3')]
-    doc.MountHole1YOffset.FormatSpec='mh1x'
-    doc.MountHole1YOffset.Arbitrary = True
-    doc.MountHole1YOffset.X = -21
-    doc.MountHole1YOffset.Y = -23
-    doc.HeatSinkMainPanelPage.addView(doc.MountHole1YOffset)
-    sheet.set("A%d"%ir,'%-11.11s'%"mh1x")
-    sheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._BoardEdgeMHOffset/25.4))
-    sheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._BoardEdgeMHOffset)
+    doc.addObject('TechDraw::DrawViewDimension','MainMountHole1YOffset')
+    doc.MainMountHole1YOffset.Type = 'DistanceY'
+    doc.MainMountHole1YOffset.References2D=[(doc.MainTopView,'Vertex18'),\
+                                        (doc.MainTopView,'Vertex3')]
+    doc.MainMountHole1YOffset.FormatSpec='mh1x'
+    doc.MainMountHole1YOffset.Arbitrary = True
+    doc.MainMountHole1YOffset.X = -21
+    doc.MainMountHole1YOffset.Y = -23
+    doc.HeatSinkMainPanelPage.addView(doc.MainMountHole1YOffset)
+    mainsheet.set("A%d"%ir,'%-11.11s'%"mh1x")
+    mainsheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._BoardEdgeMHOffset/25.4))
+    mainsheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._BoardEdgeMHOffset)
     ir += 1
-    doc.addObject('TechDraw::DrawViewDimension','MountHole1_2YOffset')
-    doc.MountHole1_2YOffset.Type = 'DistanceY'
-    doc.MountHole1_2YOffset.References2D=[(doc.TopView,'Vertex18'),\
-                                        (doc.TopView,'Vertex21')]
-    doc.MountHole1_2YOffset.FormatSpec='mh12x'
-    doc.MountHole1_2YOffset.Arbitrary = True
-    doc.MountHole1_2YOffset.X = -35
-    doc.MountHole1_2YOffset.Y =   0
-    doc.HeatSinkMainPanelPage.addView(doc.MountHole1_2YOffset)
-    sheet.set("A%d"%ir,'%-11.11s'%"mh12x")
-    sheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._MHoleSpacingY/25.4))
-    sheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._MHoleSpacingY)
+    doc.addObject('TechDraw::DrawViewDimension','MainMountHole1_2YOffset')
+    doc.MainMountHole1_2YOffset.Type = 'DistanceY'
+    doc.MainMountHole1_2YOffset.References2D=[(doc.MainTopView,'Vertex18'),\
+                                        (doc.MainTopView,'Vertex21')]
+    doc.MainMountHole1_2YOffset.FormatSpec='mh12x'
+    doc.MainMountHole1_2YOffset.Arbitrary = True
+    doc.MainMountHole1_2YOffset.X = -35
+    doc.MainMountHole1_2YOffset.Y =   0
+    doc.HeatSinkMainPanelPage.addView(doc.MainMountHole1_2YOffset)
+    mainsheet.set("A%d"%ir,'%-11.11s'%"mh12x")
+    mainsheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._MHoleSpacingY/25.4))
+    mainsheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._MHoleSpacingY)
     ir += 1
     #
     # Edge18: u4_mh circ
@@ -558,116 +561,110 @@ if __name__ == '__main__':
     # Edge16: Q13_mh circ
     # Vertex25: Q13_mh center
     #
-    doc.addObject('TechDraw::DrawViewDimension','TO220_11_15_HoleDiameter')
-    doc.TO220_11_15_HoleDiameter.Type = 'Diameter'
-    doc.TO220_11_15_HoleDiameter.References2D=[(doc.TopView,'Edge18')]
-    doc.TO220_11_15_HoleDiameter.FormatSpec='ICMhDia (2x)'
-    doc.TO220_11_15_HoleDiameter.Arbitrary = True
-    doc.TO220_11_15_HoleDiameter.X =  11.25
-    doc.TO220_11_15_HoleDiameter.Y =  37.8
-    doc.HeatSinkMainPanelPage.addView(doc.TO220_11_15_HoleDiameter)
-    sheet.set("A%d"%ir,'%-11.11s'%"ICMhDia")
-    sheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._TO220_HoleDiameter/25.4))
-    sheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._TO220_HoleDiameter)
+    doc.addObject('TechDraw::DrawViewDimension','MainTO220_11_15_HoleDiameter')
+    doc.MainTO220_11_15_HoleDiameter.Type = 'Diameter'
+    doc.MainTO220_11_15_HoleDiameter.References2D=[(doc.MainTopView,'Edge18')]
+    doc.MainTO220_11_15_HoleDiameter.FormatSpec='ICMhDia (2x)'
+    doc.MainTO220_11_15_HoleDiameter.Arbitrary = True
+    doc.MainTO220_11_15_HoleDiameter.X =  11.25
+    doc.MainTO220_11_15_HoleDiameter.Y =  37.8
+    doc.HeatSinkMainPanelPage.addView(doc.MainTO220_11_15_HoleDiameter)
+    mainsheet.set("A%d"%ir,'%-11.11s'%"ICMhDia")
+    mainsheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._TO220_HoleDiameter/25.4))
+    mainsheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._TO220_HoleDiameter)
     ir += 1
-    doc.addObject('TechDraw::DrawViewDimension','ShoulderWasherHoleDiameter')
-    doc.ShoulderWasherHoleDiameter.Type = 'Diameter'
-    doc.ShoulderWasherHoleDiameter.References2D=[(doc.TopView,'Edge16')]
-    doc.ShoulderWasherHoleDiameter.FormatSpec='Q13Mh'
-    doc.ShoulderWasherHoleDiameter.Arbitrary = True
-    doc.ShoulderWasherHoleDiameter.X = -0.81
-    doc.ShoulderWasherHoleDiameter.Y = -12.86
-    doc.HeatSinkMainPanelPage.addView(doc.ShoulderWasherHoleDiameter)
-    sheet.set("A%d"%ir,'%-11.11s'%"Q13Mh")
-    sheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._Number6Shoulder_Diameter/25.4))
-    sheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._Number6Shoulder_Diameter)
+    doc.addObject('TechDraw::DrawViewDimension','MainShoulderWasherHoleDiameter')
+    doc.MainShoulderWasherHoleDiameter.Type = 'Diameter'
+    doc.MainShoulderWasherHoleDiameter.References2D=[(doc.MainTopView,'Edge16')]
+    doc.MainShoulderWasherHoleDiameter.FormatSpec='Q13Mh'
+    doc.MainShoulderWasherHoleDiameter.Arbitrary = True
+    doc.MainShoulderWasherHoleDiameter.X = -0.81
+    doc.MainShoulderWasherHoleDiameter.Y = -12.86
+    doc.HeatSinkMainPanelPage.addView(doc.MainShoulderWasherHoleDiameter)
+    mainsheet.set("A%d"%ir,'%-11.11s'%"Q13Mh")
+    mainsheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._Number6Shoulder_Diameter/25.4))
+    mainsheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._Number6Shoulder_Diameter)
     ir += 1
-    doc.addObject('TechDraw::DrawViewDimension','Q13XOffset')
-    doc.Q13XOffset.Type = 'DistanceX'
-    doc.Q13XOffset.References2D=[(doc.TopView,'Vertex3'),\
-                                 (doc.TopView,'Vertex25')]
-    doc.Q13XOffset.FormatSpec='Q13x'
-    doc.Q13XOffset.Arbitrary = True
-    doc.Q13XOffset.X =  -4
-    doc.Q13XOffset.Y = -24
-    doc.HeatSinkMainPanelPage.addView(doc.Q13XOffset)
-    sheet.set("A%d"%ir,'%-11.11s'%"Q13x")
-    Q13x = HeatSinkCommon._HSDepth+HeatSinkCommon._Thickness+\
-        (HeatSinkCommon._HSHeight+HeatSinkCommon._Thickness-\
-         HeatSinkCommon._Q13CenterOffset)
-    sheet.set("B%d"%ir,'%10.6f'%(Q13x/25.4))
-    sheet.set("C%d"%ir,'%10.6f'%Q13x)
+    doc.addObject('TechDraw::DrawViewDimension','MainQ13XOffset')
+    doc.MainQ13XOffset.Type = 'DistanceX'
+    doc.MainQ13XOffset.References2D=[(doc.MainTopView,'Vertex3'),\
+                                 (doc.MainTopView,'Vertex25')]
+    doc.MainQ13XOffset.FormatSpec='Q13x'
+    doc.MainQ13XOffset.Arbitrary = True
+    doc.MainQ13XOffset.X =  -4
+    doc.MainQ13XOffset.Y = -24
+    doc.HeatSinkMainPanelPage.addView(doc.MainQ13XOffset)
+    mainsheet.set("A%d"%ir,'%-11.11s'%"Q13x")
+    Q13x = b+HeatSinkCommon._Q13CenterOffset
+    mainsheet.set("B%d"%ir,'%10.6f'%(Q13x/25.4))
+    mainsheet.set("C%d"%ir,'%10.6f'%Q13x)
     ir += 1
-    doc.addObject('TechDraw::DrawViewDimension','U3XOffset')
-    doc.U3XOffset.Type = 'DistanceX'
-    doc.U3XOffset.References2D=[(doc.TopView,'Vertex3'),\
-                                 (doc.TopView,'Vertex28')]
-    doc.U3XOffset.FormatSpec='U3x'
-    doc.U3XOffset.Arbitrary = True
-    doc.U3XOffset.X = -4
-    doc.U3XOffset.Y = -2
-    doc.HeatSinkMainPanelPage.addView(doc.U3XOffset)
-    sheet.set("A%d"%ir,'%-11.11s'%"U3x")
-    U3x = HeatSinkCommon._HSDepth+HeatSinkCommon._Thickness+\
-        (HeatSinkCommon._HSHeight+HeatSinkCommon._Thickness-\
-         HeatSinkCommon._TO220_11_MinHoleHeight)
-    sheet.set("B%d"%ir,'%10.6f'%(U3x/25.4))
-    sheet.set("C%d"%ir,'%10.6f'%U3x)
+    doc.addObject('TechDraw::DrawViewDimension','MainU3XOffset')
+    doc.MainU3XOffset.Type = 'DistanceX'
+    doc.MainU3XOffset.References2D=[(doc.MainTopView,'Vertex3'),\
+                                 (doc.MainTopView,'Vertex28')]
+    doc.MainU3XOffset.FormatSpec='U3x'
+    doc.MainU3XOffset.Arbitrary = True
+    doc.MainU3XOffset.X = -4
+    doc.MainU3XOffset.Y = -2
+    doc.HeatSinkMainPanelPage.addView(doc.MainU3XOffset)
+    mainsheet.set("A%d"%ir,'%-11.11s'%"U3x")
+    U3x = b+HeatSinkCommon._TO220_11_MinHoleHeight
+    mainsheet.set("B%d"%ir,'%10.6f'%(U3x/25.4))
+    mainsheet.set("C%d"%ir,'%10.6f'%U3x)
     ir += 1
-    doc.addObject('TechDraw::DrawViewDimension','U4XOffset')
-    doc.U4XOffset.Type = 'DistanceX'
-    doc.U4XOffset.References2D=[(doc.TopView,'Vertex3'),\
-                                 (doc.TopView,'Vertex31')]
-    doc.U4XOffset.FormatSpec='U4x'
-    doc.U4XOffset.Arbitrary = True
-    doc.U4XOffset.X = -4
-    doc.U4XOffset.Y = 18
-    doc.HeatSinkMainPanelPage.addView(doc.U4XOffset)
-    sheet.set("A%d"%ir,'%-11.11s'%"U4x")
-    U4x = HeatSinkCommon._HSDepth+HeatSinkCommon._Thickness+\
-        (HeatSinkCommon._HSHeight+HeatSinkCommon._Thickness-\
-         HeatSinkCommon._TO220_15_MinHoleHeight)
-    sheet.set("B%d"%ir,'%10.6f'%(U4x/25.4))
-    sheet.set("C%d"%ir,'%10.6f'%U4x)
+    doc.addObject('TechDraw::DrawViewDimension','MainU4XOffset')
+    doc.MainU4XOffset.Type = 'DistanceX'
+    doc.MainU4XOffset.References2D=[(doc.MainTopView,'Vertex3'),\
+                                 (doc.MainTopView,'Vertex31')]
+    doc.MainU4XOffset.FormatSpec='U4x'
+    doc.MainU4XOffset.Arbitrary = True
+    doc.MainU4XOffset.X = -4
+    doc.MainU4XOffset.Y = 18
+    doc.HeatSinkMainPanelPage.addView(doc.MainU4XOffset)
+    mainsheet.set("A%d"%ir,'%-11.11s'%"U4x")
+    U4x = b+HeatSinkCommon._TO220_15_MinHoleHeight
+    mainsheet.set("B%d"%ir,'%10.6f'%(U4x/25.4))
+    mainsheet.set("C%d"%ir,'%10.6f'%U4x)
     ir += 1
-    doc.addObject('TechDraw::DrawViewDimension','Q13YOffset')
-    doc.Q13YOffset.Type = 'DistanceY'
-    doc.Q13YOffset.References2D=[(doc.TopView,'Vertex3'),\
-                                 (doc.TopView,'Vertex25')]
-    doc.Q13YOffset.FormatSpec='Q13y'
-    doc.Q13YOffset.Arbitrary = True
-    doc.Q13YOffset.X =  15
-    doc.Q13YOffset.Y = -24
-    doc.HeatSinkMainPanelPage.addView(doc.Q13YOffset)
-    sheet.set("A%d"%ir,'%-11.11s'%"Q13y")
-    sheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._Q13CenterOffset/25.4))
-    sheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._Q13CenterOffset)
+    doc.addObject('TechDraw::DrawViewDimension','MainQ13YOffset')
+    doc.MainQ13YOffset.Type = 'DistanceY'
+    doc.MainQ13YOffset.References2D=[(doc.MainTopView,'Vertex3'),\
+                                 (doc.MainTopView,'Vertex25')]
+    doc.MainQ13YOffset.FormatSpec='Q13y'
+    doc.MainQ13YOffset.Arbitrary = True
+    doc.MainQ13YOffset.X =  15
+    doc.MainQ13YOffset.Y = -24
+    doc.HeatSinkMainPanelPage.addView(doc.MainQ13YOffset)
+    mainsheet.set("A%d"%ir,'%-11.11s'%"Q13y")
+    mainsheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._Q13CenterOffset/25.4))
+    mainsheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._Q13CenterOffset)
     ir += 1
-    doc.addObject('TechDraw::DrawViewDimension','U3YOffset')
-    doc.U3YOffset.Type = 'DistanceY'
-    doc.U3YOffset.References2D=[(doc.TopView,'Vertex3'),\
-                                 (doc.TopView,'Vertex28')]
-    doc.U3YOffset.FormatSpec='U3y'
-    doc.U3YOffset.Arbitrary = True
-    doc.U3YOffset.X =  20
-    doc.U3YOffset.Y =  10
-    doc.HeatSinkMainPanelPage.addView(doc.U3YOffset)
-    sheet.set("A%d"%ir,'%-11.11s'%"U3y")
-    sheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._U3CenterOffset/25.4))
-    sheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._U3CenterOffset)
+    doc.addObject('TechDraw::DrawViewDimension','MainU3YOffset')
+    doc.MainU3YOffset.Type = 'DistanceY'
+    doc.MainU3YOffset.References2D=[(doc.MainTopView,'Vertex3'),\
+                                 (doc.MainTopView,'Vertex28')]
+    doc.MainU3YOffset.FormatSpec='U3y'
+    doc.MainU3YOffset.Arbitrary = True
+    doc.MainU3YOffset.X =  20
+    doc.MainU3YOffset.Y =  10
+    doc.HeatSinkMainPanelPage.addView(doc.MainU3YOffset)
+    mainsheet.set("A%d"%ir,'%-11.11s'%"U3y")
+    mainsheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._U3CenterOffset/25.4))
+    mainsheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._U3CenterOffset)
     ir += 1
-    doc.addObject('TechDraw::DrawViewDimension','U4YOffset')
-    doc.U4YOffset.Type = 'DistanceY'
-    doc.U4YOffset.References2D=[(doc.TopView,'Vertex3'),\
-                                 (doc.TopView,'Vertex31')]
-    doc.U4YOffset.FormatSpec='U4y'
-    doc.U4YOffset.Arbitrary = True
-    doc.U4YOffset.X = 27
-    doc.U4YOffset.Y = 23
-    doc.HeatSinkMainPanelPage.addView(doc.U4YOffset)
-    sheet.set("A%d"%ir,'%-11.11s'%"U4y")
-    sheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._U4CenterOffset/25.4))
-    sheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._U4CenterOffset)
+    doc.addObject('TechDraw::DrawViewDimension','MainU4YOffset')
+    doc.MainU4YOffset.Type = 'DistanceY'
+    doc.MainU4YOffset.References2D=[(doc.MainTopView,'Vertex3'),\
+                                 (doc.MainTopView,'Vertex31')]
+    doc.MainU4YOffset.FormatSpec='U4y'
+    doc.MainU4YOffset.Arbitrary = True
+    doc.MainU4YOffset.X = 27
+    doc.MainU4YOffset.Y = 23
+    doc.HeatSinkMainPanelPage.addView(doc.MainU4YOffset)
+    mainsheet.set("A%d"%ir,'%-11.11s'%"U4y")
+    mainsheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._U4CenterOffset/25.4))
+    mainsheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._U4CenterOffset)
     ir += 1
     #
     # Edge7: fan1_mh circ
@@ -675,88 +672,249 @@ if __name__ == '__main__':
     # Edge8: fan2_mh circ
     # Vertex13: fan2_mh center
     #
-    doc.addObject('TechDraw::DrawViewDimension','FanMHDiameter')
-    doc.FanMHDiameter.Type = 'Diameter'
-    doc.FanMHDiameter.References2D=[(doc.TopView,'Edge7')]
-    doc.FanMHDiameter.FormatSpec='fanmhDia (2x)'
-    doc.FanMHDiameter.Arbitrary = True
-    doc.FanMHDiameter.X =  -3
-    doc.FanMHDiameter.Y = -50
-    doc.HeatSinkMainPanelPage.addView(doc.FanMHDiameter)
-    sheet.set("A%d"%ir,'%-11.11s'%"fanmhDia")
-    sheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._FanMHoleDiameter/25.4))
-    sheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._FanMHoleDiameter)
+    doc.addObject('TechDraw::DrawViewDimension','MainFanMHDiameter')
+    doc.MainFanMHDiameter.Type = 'Diameter'
+    doc.MainFanMHDiameter.References2D=[(doc.MainTopView,'Edge7')]
+    doc.MainFanMHDiameter.FormatSpec='fanmhDia (2x)'
+    doc.MainFanMHDiameter.Arbitrary = True
+    doc.MainFanMHDiameter.X =  -3
+    doc.MainFanMHDiameter.Y = -50
+    doc.HeatSinkMainPanelPage.addView(doc.MainFanMHDiameter)
+    mainsheet.set("A%d"%ir,'%-11.11s'%"fanmhDia")
+    mainsheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._FanMHoleDiameter/25.4))
+    mainsheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._FanMHoleDiameter)
     ir += 1
-    doc.addObject('TechDraw::DrawViewDimension','FanMhY')
-    doc.FanMhY.Type = 'DistanceY'
-    doc.FanMhY.References2D=[(doc.TopView,'Vertex3'),\
-                              (doc.TopView,'Vertex10')]
-    doc.FanMhY.FormatSpec='fanmy'
-    doc.FanMhY.Arbitrary = True
-    doc.FanMhY.X = -39
-    doc.FanMhY.Y = -38
-    doc.HeatSinkMainPanelPage.addView(doc.FanMhY)
-    sheet.set("A%d"%ir,'%-11.11s'%"fanmy")
+    doc.addObject('TechDraw::DrawViewDimension','MainFanMhY')
+    doc.MainFanMhY.Type = 'DistanceY'
+    doc.MainFanMhY.References2D=[(doc.MainTopView,'Vertex3'),\
+                              (doc.MainTopView,'Vertex10')]
+    doc.MainFanMhY.FormatSpec='fanmy'
+    doc.MainFanMhY.Arbitrary = True
+    doc.MainFanMhY.X = -39
+    doc.MainFanMhY.Y = -38
+    doc.HeatSinkMainPanelPage.addView(doc.MainFanMhY)
+    mainsheet.set("A%d"%ir,'%-11.11s'%"fanmy")
     fanMhY = HeatSinkCommon._Thickness + \
             (HeatSinkCommon._HSDepth-HeatSinkCommon._FanMHoleCenters)/2.0
-    sheet.set("B%d"%ir,'%10.6f'%(fanMhY/25.4))
-    sheet.set("C%d"%ir,'%10.6f'%fanMhY)
+    mainsheet.set("B%d"%ir,'%10.6f'%(fanMhY/25.4))
+    mainsheet.set("C%d"%ir,'%10.6f'%fanMhY)
     ir += 1
-    doc.addObject('TechDraw::DrawViewDimension','FanMh1X')
-    doc.FanMh1X.Type = 'DistanceX'
-    doc.FanMh1X.References2D=[(doc.TopView,'Vertex15'),\
-                              (doc.TopView,'Vertex10')]
-    doc.FanMh1X.FormatSpec='fanmx1'
-    doc.FanMh1X.Arbitrary = True
-    doc.FanMh1X.X = -32
-    doc.FanMh1X.Y = -43
-    doc.HeatSinkMainPanelPage.addView(doc.FanMh1X)
-    sheet.set("A%d"%ir,'%-11.11s'%"fanmx1")
+    doc.addObject('TechDraw::DrawViewDimension','MainFanMh1X')
+    doc.MainFanMh1X.Type = 'DistanceX'
+    doc.MainFanMh1X.References2D=[(doc.MainTopView,'Vertex15'),\
+                              (doc.MainTopView,'Vertex10')]
+    doc.MainFanMh1X.FormatSpec='fanmx1'
+    doc.MainFanMh1X.Arbitrary = True
+    doc.MainFanMh1X.X = -32
+    doc.MainFanMh1X.Y = -43
+    doc.HeatSinkMainPanelPage.addView(doc.MainFanMh1X)
+    mainsheet.set("A%d"%ir,'%-11.11s'%"fanmx1")
     FanMh1X = HeatSinkCommon._Thickness + \
             (HeatSinkCommon._HSDepth-HeatSinkCommon._FanMHoleCenters)/2.0
-    sheet.set("B%d"%ir,'%10.6f'%(FanMh1X/25.4))
-    sheet.set("C%d"%ir,'%10.6f'%FanMh1X)
+    mainsheet.set("B%d"%ir,'%10.6f'%(FanMh1X/25.4))
+    mainsheet.set("C%d"%ir,'%10.6f'%FanMh1X)
     ir += 1
-    doc.addObject('TechDraw::DrawViewDimension','FanMh12X')
-    doc.FanMh12X.Type = 'DistanceX'
-    doc.FanMh12X.References2D=[(doc.TopView,'Vertex10'),\
-                              (doc.TopView,'Vertex13')]
-    doc.FanMh12X.FormatSpec='fanmx12'
-    doc.FanMh12X.Arbitrary = True
-    doc.FanMh12X.X =   9
-    doc.FanMh12X.Y = -50
-    doc.HeatSinkMainPanelPage.addView(doc.FanMh12X)
-    sheet.set("A%d"%ir,'%-11.11s'%"fanmx12")
-    sheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._FanMHoleCenters/25.4))
-    sheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._FanMHoleCenters)
+    doc.addObject('TechDraw::DrawViewDimension','MainFanMh12X')
+    doc.MainFanMh12X.Type = 'DistanceX'
+    doc.MainFanMh12X.References2D=[(doc.MainTopView,'Vertex10'),\
+                              (doc.MainTopView,'Vertex13')]
+    doc.MainFanMh12X.FormatSpec='fanmx12'
+    doc.MainFanMh12X.Arbitrary = True
+    doc.MainFanMh12X.X =   9
+    doc.MainFanMh12X.Y = -50
+    doc.HeatSinkMainPanelPage.addView(doc.MainFanMh12X)
+    mainsheet.set("A%d"%ir,'%-11.11s'%"fanmx12")
+    mainsheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._FanMHoleCenters/25.4))
+    mainsheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._FanMHoleCenters)
     ir += 1
     #
     # Edge6: fan cutout circ
     # Vertex7: fan cutout center
     #
-    doc.addObject('TechDraw::DrawViewDimension','FanHoleDiameter')
-    doc.FanHoleDiameter.Type = 'Diameter'
-    doc.FanHoleDiameter.References2D=[(doc.TopView,'Edge6')]
-    doc.FanHoleDiameter.FormatSpec='fanDia'
-    doc.FanHoleDiameter.Arbitrary = True
-    doc.FanHoleDiameter.X =  41
-    doc.FanHoleDiameter.Y = -41
-    doc.HeatSinkMainPanelPage.addView(doc.FanHoleDiameter)
-    sheet.set("A%d"%ir,'%-11.11s'%"fanDia")
-    sheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._FanHoleDiameter/25.4))
-    sheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._FanHoleDiameter)
+    doc.addObject('TechDraw::DrawViewDimension','MainFanHoleDiameter')
+    doc.MainFanHoleDiameter.Type = 'Diameter'
+    doc.MainFanHoleDiameter.References2D=[(doc.MainTopView,'Edge6')]
+    doc.MainFanHoleDiameter.FormatSpec='fanDia'
+    doc.MainFanHoleDiameter.Arbitrary = True
+    doc.MainFanHoleDiameter.X =  41
+    doc.MainFanHoleDiameter.Y = -41
+    doc.HeatSinkMainPanelPage.addView(doc.MainFanHoleDiameter)
+    mainsheet.set("A%d"%ir,'%-11.11s'%"fanDia")
+    mainsheet.set("B%d"%ir,'%10.6f'%(HeatSinkCommon._FanHoleDiameter/25.4))
+    mainsheet.set("C%d"%ir,'%10.6f'%HeatSinkCommon._FanHoleDiameter)
     ir += 1
     
-    sheet.recompute()
-    doc.addObject('TechDraw::DrawViewSpreadsheet','DimBlock')
-    doc.DimBlock.Source = sheet
-    doc.DimBlock.TextSize = 8
-    doc.DimBlock.Scale=.85
-    doc.DimBlock.CellEnd = "C%d"%(ir-1)
-    doc.HeatSinkMainPanelPage.addView(doc.DimBlock)
-    doc.DimBlock.recompute()
-    doc.DimBlock.X =  65
-    doc.DimBlock.Y = 110
+    mainsheet.recompute()
+    doc.addObject('TechDraw::DrawViewSpreadsheet','MainDimBlock')
+    doc.MainDimBlock.Source = mainsheet
+    doc.MainDimBlock.TextSize = 8
+    doc.MainDimBlock.Scale=.85
+    doc.MainDimBlock.CellEnd = "C%d"%(ir-1)
+    doc.HeatSinkMainPanelPage.addView(doc.MainDimBlock)
+    doc.MainDimBlock.recompute()
+    doc.MainDimBlock.X =  65
+    doc.MainDimBlock.Y = 110
     doc.HeatSinkMainPanelPage.recompute()
-    
+    #
+    doc.addObject('TechDraw::DrawPage','HeatSinkFin1PanelPage')
+    doc.HeatSinkFin1PanelPage.Template = doc.USLetterTemplate
+    edt = doc.HeatSinkFin1PanelPage.Template.EditableTexts
+    edt['CompanyName'] = "Deepwoods Software"
+    edt['CompanyAddress'] = '51 Locke Hill Road, Wendell, MA 01379 USA'
+    edt['DrawingTitle1']= 'Heat Sink Fin1 Panel'
+    edt['DrawingTitle3']= ""
+    edt['DrawnBy'] = "Robert Heller"
+    edt['CheckedBy'] = ""
+    edt['Approved1'] = ""
+    edt['Approved2'] = ""
+    edt['Code'] = ""
+    edt['Weight'] = ''
+    edt['DrawingNumber'] = datetime.datetime.now().ctime()
+    edt['Revision'] = "A"
+    edt['DrawingTitle2']= ""
+    edt['Scale'] = '1:1'
+    edt['Sheet'] = "Sheet 2 of 3"
+    doc.HeatSinkFin1PanelPage.Template.EditableTexts = edt
+    doc.HeatSinkFin1PanelPage.ViewObject.show()
+    fin1sheet = doc.addObject('Spreadsheet::Sheet','Fin1DimensionTable')
+    fin1sheet.set("A1",'%-11.11s'%"Dim")
+    fin1sheet.set("B1",'%10.10s'%"inch")
+    fin1sheet.set("C1",'%10.10s'%"mm")
+    ir = 2
+    doc.addObject('TechDraw::DrawViewPart','Fin1TopView')
+    doc.HeatSinkFin1PanelPage.addView(doc.Fin1TopView)
+    doc.Fin1TopView.Source = doc.heatsink_fin1
+    doc.Fin1TopView.X = 200
+    doc.Fin1TopView.Y = 135
+    doc.Fin1TopView.Direction=(0.0,0.0,1.0)
+    #doc.Fin1TopView.Scale=3.0
+    #
+    # Vertex16: upper left corner
+    # Vertex3:  upper right corner
+    # Vertex5:  lower left corner
+    # Vertex1:  lower right corner
+    #
+    # Vertex6:  upper right bottom corner
+    # Vertex4:  upper left  top corner
+    #
+    # Edge8:    Q13_mh circ
+    # Vertex9:  Q13_mh center
+    # Edge9:    u3_mh circ
+    # Vertex12: u3_mh center
+    # Edge10:   u4_mh circ
+    # Vertex15: u4_mh center
+    #
+    doc.addObject('TechDraw::DrawViewDimension','Fin1SheetTotalWidth')
+    doc.Fin1SheetTotalWidth.Type = 'DistanceX'
+    doc.Fin1SheetTotalWidth.References2D=[(doc.Fin1TopView,'Vertex16'),\
+                                     (doc.Fin1TopView,'Vertex1')]
+    doc.Fin1SheetTotalWidth.FormatSpec='tw'
+    doc.Fin1SheetTotalWidth.Arbitrary = True
+    doc.Fin1SheetTotalWidth.X = 0
+    doc.Fin1SheetTotalWidth.Y = 64
+    doc.HeatSinkFin1PanelPage.addView(doc.Fin1SheetTotalWidth)
+    fin1sheet.set("A%d"%ir,'%-11.11s'%"tw")
+    tw = HeatSinkCommon._HSHeight*.6+\
+             ((HeatSinkCommon._HSDepth)*2)
+    fin1sheet.set("B%d"%ir,'%10.6f'%(tw/25.4))
+    fin1sheet.set("C%d"%ir,'%10.6f'%tw)
+    ir += 1
+    doc.addObject('TechDraw::DrawViewDimension','Fin1BottomWidth')
+    doc.Fin1BottomWidth.Type = 'DistanceX'
+    doc.Fin1BottomWidth.References2D=[(doc.Fin1TopView,'Vertex16'),\
+                                      (doc.Fin1TopView,'Vertex6')]
+    doc.Fin1BottomWidth.FormatSpec='b'
+    doc.Fin1BottomWidth.Arbitrary = True
+    doc.Fin1BottomWidth.X = -25
+    doc.Fin1BottomWidth.Y = 55
+    doc.HeatSinkFin1PanelPage.addView(doc.Fin1BottomWidth)
+    fin1sheet.set("A%d"%ir,'%-11.11s'%"b")
+    b = HeatSinkCommon._HSDepth
+    fin1sheet.set("B%d"%ir,'%10.6f'%(b/25.4))
+    fin1sheet.set("C%d"%ir,'%10.6f'%b)
+    ir += 1
+    doc.addObject('TechDraw::DrawViewDimension','Fin1Width')
+    doc.Fin1Width.Type = 'DistanceX'
+    doc.Fin1Width.References2D=[(doc.Fin1TopView,'Vertex6'),\
+                                 (doc.Fin1TopView,'Vertex4')]
+    doc.Fin1Width.FormatSpec='w'
+    doc.Fin1Width.Arbitrary = True
+    doc.Fin1Width.X = 0
+    doc.Fin1Width.Y = 55
+    doc.HeatSinkFin1PanelPage.addView(doc.Fin1Width)
+    fin1sheet.set("A%d"%ir,'%-11.11s'%"w")
+    w = HeatSinkCommon._HSHeight*.6
+    fin1sheet.set("B%d"%ir,'%10.6f'%(w/25.4))
+    fin1sheet.set("C%d"%ir,'%10.6f'%w)
+    ir += 1
+    doc.addObject('TechDraw::DrawViewDimension','Fin1TopWidth')
+    doc.Fin1TopWidth.Type = 'DistanceX'
+    doc.Fin1TopWidth.References2D=[(doc.Fin1TopView,'Vertex4'),\
+                                 (doc.Fin1TopView,'Vertex1')]
+    doc.Fin1TopWidth.FormatSpec='t'
+    doc.Fin1TopWidth.Arbitrary = True
+    doc.Fin1TopWidth.X = 25
+    doc.Fin1TopWidth.Y = 55
+    doc.HeatSinkFin1PanelPage.addView(doc.Fin1TopWidth)
+    fin1sheet.set("A%d"%ir,'%-11.11s'%"t")
+    fin1sheet.set("B%d"%ir,'%10.6f'%(b/25.4))
+    fin1sheet.set("C%d"%ir,'%10.6f'%b)
+    ir += 1
+    doc.addObject('TechDraw::DrawViewDimension','Fin1Q13XOffset')
+    doc.Fin1Q13XOffset.Type = 'DistanceX'
+    doc.Fin1Q13XOffset.References2D=[(doc.Fin1TopView,'Vertex16'),\
+                                 (doc.Fin1TopView,'Vertex9')]
+    doc.Fin1Q13XOffset.FormatSpec='Q13x'
+    doc.Fin1Q13XOffset.Arbitrary = True
+    doc.Fin1Q13XOffset.X =  -4
+    doc.Fin1Q13XOffset.Y = -24
+    doc.HeatSinkFin1PanelPage.addView(doc.Fin1Q13XOffset)
+    fin1sheet.set("A%d"%ir,'%-11.11s'%"Q13x")
+    Q13x = b+HeatSinkCommon._Q13CenterOffset-(HeatSinkCommon._HSHeight*.2)
+    fin1sheet.set("B%d"%ir,'%10.6f'%(Q13x/25.4))
+    fin1sheet.set("C%d"%ir,'%10.6f'%Q13x)
+    ir += 1
+    doc.addObject('TechDraw::DrawViewDimension','Fin1U3XOffset')
+    doc.Fin1U3XOffset.Type = 'DistanceX'
+    doc.Fin1U3XOffset.References2D=[(doc.Fin1TopView,'Vertex16'),\
+                                 (doc.Fin1TopView,'Vertex12')]
+    doc.Fin1U3XOffset.FormatSpec='U3x'
+    doc.Fin1U3XOffset.Arbitrary = True
+    doc.Fin1U3XOffset.X = -4
+    doc.Fin1U3XOffset.Y = -2
+    doc.HeatSinkFin1PanelPage.addView(doc.Fin1U3XOffset)
+    fin1sheet.set("A%d"%ir,'%-11.11s'%"U3x")
+    U3x = b+HeatSinkCommon._TO220_11_MinHoleHeight-(HeatSinkCommon._HSHeight*.2)
+    fin1sheet.set("B%d"%ir,'%10.6f'%(U3x/25.4))
+    fin1sheet.set("C%d"%ir,'%10.6f'%U3x)
+    ir += 1
+    doc.addObject('TechDraw::DrawViewDimension','Fin1U4XOffset')
+    doc.Fin1U4XOffset.Type = 'DistanceX'
+    doc.Fin1U4XOffset.References2D=[(doc.Fin1TopView,'Vertex16'),\
+                                 (doc.Fin1TopView,'Vertex15')]
+    doc.Fin1U4XOffset.FormatSpec='U4x'
+    doc.Fin1U4XOffset.Arbitrary = True
+    doc.Fin1U4XOffset.X = -4
+    doc.Fin1U4XOffset.Y = 18
+    doc.HeatSinkFin1PanelPage.addView(doc.Fin1U4XOffset)
+    fin1sheet.set("A%d"%ir,'%-11.11s'%"U4x")
+    U4x = b+HeatSinkCommon._TO220_15_MinHoleHeight-(HeatSinkCommon._HSHeight*.2)
+    fin1sheet.set("B%d"%ir,'%10.6f'%(U4x/25.4))
+    fin1sheet.set("C%d"%ir,'%10.6f'%U4x)
+    ir += 1
+    fin1sheet.set("A%d"%ir,'All Other measurements')
+    fin1sheet.set("B%d"%ir,'are from sheet 1')
+    ir += 1
+    fin1sheet.recompute()
+    doc.addObject('TechDraw::DrawViewSpreadsheet','Fin1DimBlock')
+    doc.Fin1DimBlock.Source = fin1sheet
+    doc.Fin1DimBlock.TextSize = 8
+    #doc.Fin1DimBlock.Scale=.85
+    doc.Fin1DimBlock.CellEnd = "C%d"%(ir-1)
+    doc.HeatSinkFin1PanelPage.addView(doc.Fin1DimBlock)
+    doc.Fin1DimBlock.recompute()
+    doc.Fin1DimBlock.X =  65
+    doc.Fin1DimBlock.Y = 110
+    doc.HeatSinkFin1PanelPage.recompute()
+
     doc.recompute()
