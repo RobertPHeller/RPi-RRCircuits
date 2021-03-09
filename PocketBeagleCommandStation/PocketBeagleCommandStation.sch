@@ -286,11 +286,11 @@ Text Label 3300 3250 0    60   ~ 0
 FAN-CONTROL
 Text Label 4700 1850 2    60   ~ 0
 RAILCOM-DATA
-Text Label 5600 1650 0    60   ~ 0
+Text Label 5600 2450 0    60   ~ 0
 RAILCOM-ENABLE
-Text Label 5600 1750 0    60   ~ 0
+Text Label 5600 2650 0    60   ~ 0
 RAILCOM-SHORT
-Text Label 5600 1850 0    60   ~ 0
+Text Label 4700 1750 2    60   ~ 0
 RAILCOM-DIR
 Text Label 5600 1950 0    60   ~ 0
 OPS-BRAKE
@@ -537,9 +537,7 @@ NoConn ~ 5600 2950
 NoConn ~ 5600 2850
 NoConn ~ 4700 2550
 NoConn ~ 4700 2450
-NoConn ~ 5600 2650
 NoConn ~ 5600 2550
-NoConn ~ 5600 2450
 NoConn ~ 5600 2350
 NoConn ~ 5600 2250
 NoConn ~ 5600 2150
@@ -548,6 +546,8 @@ NoConn ~ 4700 2050
 NoConn ~ 4700 2150
 NoConn ~ 4700 2250
 NoConn ~ 4700 1950
-NoConn ~ 4700 1750
+NoConn ~ 5600 1850
 NoConn ~ 4700 1650
+NoConn ~ 5600 1650
+NoConn ~ 5600 1750
 $EndSCHEMATC

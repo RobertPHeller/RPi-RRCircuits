@@ -9,6 +9,7 @@
 #define FANPin GpioOutputSafeLow
 #define EnablePin GpioOutputSafeHigh
 #define ThermFlagPin GpioInputActiveLow
+#define Railcom
 #define CurrentFromAIN(val) ((val)*.0007326007)
 #define TempFromAIN(val) ((((val)*.0004395604)/.01)+(-50))
 
@@ -25,11 +26,13 @@
 //                           PocketBeagle: P1_19
 // TF  P8-11 GPIO_45 (1.13)  [config-pin P8_11 gpio_input]
 //                           PocketBeagle: P2_33
+// BRAKE P9-12 GPIO_60 (1.28) [config-pin P9-12 gpio_input]
+//                           PocketBeagle: P2_8
 
 #define CSenseMainAnalogChannel 0
 GPIO_PIN(MainEN, EnablePin, 86);
 GPIO_PIN(MainTF, ThermFlagPin, 45);
-
+GPIO_PIN(MainBRAKE, EnablePin, 60);
 
 //
 // Prog Track:
@@ -41,13 +44,10 @@ GPIO_PIN(MainTF, ThermFlagPin, 45);
 //                           PocketBeagle: P1_2
 // CSense P9-40 AIN1         [/sys/bus/iio/devices/iio:device0/in_voltage1_raw]
 //                           Pocketbeagle: P1_21
-// TF  P8-18 GPIO_65 (2.01)  [config-pin P8_18 gpio_input]
-//                           Pocketbeagle: P2_17
-//
 
 #define CSenseProgAnalogChannel 1
 GPIO_PIN(ProgEN, EnablePin, 46);
-GPIO_PIN(ProgTF, ThermFlagPin, 65);
+
 // Tempsensor:
 //
 // P9-37 AIN2                [/sys/bus/iio/devices/iio:device0/in_voltage2_raw]
@@ -63,8 +63,26 @@ GPIO_PIN(ProgTF, ThermFlagPin, 65);
 
 GPIO_PIN(FanControl, FANPin, 26);
 
+// Railcom:
+//
+// RAILCOM-ENABLE P8_15 GPIO_47 (1.15)  [config-pin P8_15 gpio output]
+//                                      PocketBeagle: P2_18
+// RAILCOM-SHORT P8_16 GPIO_46 (1.14)   [config-pin P8_15 gpio input]
+//                                      PocketBeagle: P2_22
+// RAILCOM-DIR   P8_13 GPIO_23 (0.23)   [config-pin P8_13 gpio input]
+//                                      PocketBeagle: P2_3
+// RAILCOM-DATA  P9_11 /dev/ttyS4       [config-pin P9_11 uart4 rx ?]
+//                                      PocketBeagle: P2_5
+
+GPIO_PIN(RailcomEN, EnablePin, 47);
+GPIO_PIN(RailcomShort, ThermFlagPin, 46);
+GPIO_PIN(RailcomDir, GpioInputActiveLow, 23);
+
 typedef GpioInitializer<MainEN_Pin, MainTF_Pin, ProgEN_Pin, 
-                        ProgTF_Pin, FanControl_Pin> GpioInit;
+                        MainBRAKE_Pin, FanControl_Pin, RailcomEN_Pin,
+                        RailcomShort_Pin, RailcomDir_Pin> GpioInit;
+
+#define RAILCOM_DATA_PORT "/dev/ttyS4"
 
 //#define USE_OPENLCB_TCP_HOST
 //#define DEFAULT_OPENLCB_TCP_HOST "localhost"
