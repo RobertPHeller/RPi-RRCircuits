@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 28 13:33:15 2019
-//  Last Modified : <191029.0057>
+//  Last Modified : <210316.1019>
 //
 //  Description	
 //
@@ -80,15 +80,7 @@ public:
                    const HBridgeControlConfig &cfg, 
                    uint8_t currentAIN, 
                    const Gpio *enableGpio, 
-                   const Gpio *thermFlagGpio);
-    template <class ENABLE, class THERMFLAG>
-          HBridgeControl(openlcb::Node *node, 
-                         const HBridgeControlConfig &cfg, 
-                         uint8_t currentAIN, 
-                         const ENABLE&, 
-                         const THERMFLAG&, 
-                         const Gpio *enableGpio = ENABLE::instance(), 
-                         const Gpio *thermFlagGpio = THERMFLAG::instance());
+                   const Gpio *thermFlagGpio = NULL);
     ~HBridgeControl();
     virtual void handle_identify_global(const openlcb::EventRegistryEntry &registry_entry,
                                         openlcb::EventReport *event,

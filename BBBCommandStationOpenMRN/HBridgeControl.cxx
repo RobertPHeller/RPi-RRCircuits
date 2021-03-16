@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 28 13:33:31 2019
-//  Last Modified : <191029.0107>
+//  Last Modified : <210316.1019>
 //
 //  Description	
 //
@@ -78,31 +78,6 @@ HBridgeControl::HBridgeControl(openlcb::Node *node,
         ConfigUpdateService::instance()->register_update_listener(this);
 }
 
-template <class ENABLE, class THERMFLAG>
-HBridgeControl::HBridgeControl(openlcb::Node *node, 
-                               const HBridgeControlConfig &cfg, 
-                               uint8_t currentAIN, 
-                               const ENABLE&, 
-                               const THERMFLAG&, 
-                               const Gpio *enableGpio, 
-                               const Gpio *thermFlagGpio)
-      : node_(node)
-, cfg_(cfg)
-, currentAIN_(currentAIN)
-, enableGpio_(enableGpio)
-, thermFlagGpio_(thermFlagGpio)
-, overcurrent_event_(0)
-, disable_event_(0)
-, enable_event_(0)
-, thermflagon_event_(0)
-, thermflagoff_event_(0)
-, currentthresh_(3000)
-, registered_(false)
-, isEnabled_(true)
-, isOverCurrent_(false)
-{
-        ConfigUpdateService::instance()->register_update_listener(this);
-}
 HBridgeControl::~HBridgeControl()
 {
     ConfigUpdateService::instance()->unregister_update_listener(this);
@@ -164,12 +139,14 @@ void HBridgeControl::poll_33hz(openlcb::WriteHelper *helper, Notifiable *done)
     } else if (currentMA <= currentthresh_) {
         isOverCurrent_ = false;
     }
-    if (thermFlagGpio_->read() != thermflagState_) {
-        thermflagState_ = thermFlagGpio_->read();
-        if (thermflagState_) 
-            SendEventReport(1, thermflagon_event_, &barrier);
-        else
-            SendEventReport(1, thermflagoff_event_, &barrier);
+    if (thermFlagGpio_ != NULL) {
+        if (thermFlagGpio_->read() != thermflagState_) {
+            thermflagState_ = thermFlagGpio_->read();
+            if (thermflagState_) 
+                SendEventReport(1, thermflagon_event_, &barrier);
+            else
+                SendEventReport(1, thermflagoff_event_, &barrier);
+        }
     }
     barrier.maybe_done();
 }
@@ -178,7 +155,7 @@ ConfigUpdateListener::UpdateAction HBridgeControl::apply_configuration(int fd, b
                                                                        BarrierNotifiable *done)
 {
     AutoNotify n(done);
-    if (initial_load) thermflagState_ = thermFlagGpio_->read();
+    if (initial_load) if (thermFlagGpio_ != NULL) thermflagState_ = thermFlagGpio_->read();
     currentthresh_ = cfg_.currentthresh().read(fd);
     openlcb::EventId cfg_overcurrent_event_  = cfg_.overcurrent().read(fd);
     openlcb::EventId cfg_disable_event_      = cfg_.disable().read(fd);

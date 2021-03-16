@@ -80,7 +80,7 @@ GPIO_PIN(RailcomShort, ThermFlagPin, 46);
 GPIO_PIN(RailcomDir, GpioInputActiveLow, 23);
 
 typedef GpioInitializer<MainEN_Pin, MainTF_Pin, ProgEN_Pin, 
-                        MainBRAKE_Pin,, FanControl_Pin, RailcomEN_Pin,
+                        MainBRAKE_Pin, FanControl_Pin, RailcomEN_Pin,
                         RailcomShort_Pin, RailcomDir_Pin> GpioInit;
 
 #define RAILCOM_DATA_PORT "/dev/ttyS4"
