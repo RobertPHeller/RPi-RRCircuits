@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sat Oct 26 10:09:51 2019
-#  Last Modified : <191111.1037>
+#  Last Modified : <210317.1531>
 #
 #  Description	
 #
@@ -410,7 +410,7 @@ snit::widget DescribeLoco {
         $self configurelist $args
     }
     method AnswerCallback {line} {
-                #puts stderr "*** $self AnswerCallback $line"
+        #puts stderr "*** $self AnswerCallback $line"
         #puts stderr "*** $self AnswerCallback: llength of line: [llength $line]"
         #puts stderr "*** $self AnswerCallback: llength of line(5) is [llength [lindex $line 5]]"
         if {[llength $line] == 9 &&
@@ -708,16 +708,16 @@ snit::type CommandStationGUI {
             ::exit
         }
         set port [from argv -port 9900]
-        set host [from argv -host snoopy]
+        set host [from argv -host lucy]
         if {[llength $argv] > 0} {
             puts stderr "$argv0: unknown options or parameters: $argv"
             $type usage $argv0
             ::exit 99
         }
-        #set socket_ [socket $host $port]
-        set socket_ stdout
-        #fconfigure $socket_ -blocking 0 -buffering line -translation lf
-        #fileevent $socket_ readable [mytypemethod _readSocket]
+        set socket_ [socket $host $port]
+        #set socket_ stdout
+        fconfigure $socket_ -blocking 0 -buffering line -translation lf
+        fileevent $socket_ readable [mytypemethod _readSocket]
         wm protocol . WM_DELETE_WINDOW [mytypemethod _exit]
         wm title . [_ "Command Station GUI"]
         set Main_ [cmdmainwindow .main -menu [subst $menu_]]
@@ -785,6 +785,8 @@ snit::type CommandStationGUI {
         }
         while {[gets $loadFp line] >= 0} {
             puts $socket_ $line
+            update idle
+            puts stderr "*** $type _load: line is $line"
         }
         close $loadFp
     }
@@ -848,6 +850,7 @@ snit::type CommandStationGUI {
         } else {
             set line [regsub {^> } $line {}]
             if {$line eq ""} {return}
+            #puts stderr "*** $type _readSocket: line is $line"
             if {[regexp {^#([^#]+)#[[:space:]]+(.*)$} $line => key result] > 0} {
                 switch $key {
                     status {

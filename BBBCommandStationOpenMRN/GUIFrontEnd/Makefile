@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sat Oct 26 09:48:55 2019
-#  Last Modified : <191111.1057>
+#  Last Modified : <210316.1003>
 #
 #  Description	
 #
@@ -47,8 +47,8 @@
 NODE:=$(shell uname -n)
 ifeq ($(NODE),fruitloops)
 TCLRUNTIME=/usr/local/share/tclkits/tclkit-linux-armv7l
-TCLLIB=/usr/share/tcltk/tcllib1.16
-IMGLIB=/usr/lib/tcltk/arm-linux-gnueabihf/Img1.4.2
+TCLLIB=/usr/share/tcltk/tcllib1.19
+IMGLIB=/usr/lib/tcltk/arm-linux-gnueabihf/Img1.4.8
 else
 TCLRUNTIME=/usr/local/share/tclkits/tclkit-8.5.8-linux-x86_64
 TCLLIB=/usr/share/tcl/tcllib1.16
