@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Thu Oct 24 19:39:06 2019
-#  Last Modified : <191119.0125>
+#  Last Modified : <210317.1258>
 #
 #  Description	
 #
@@ -42,68 +42,85 @@
 #
 ##############################################################################
 
-PRU_CGT=/usr/share/ti/cgt-pru
-PROGS=$(GEN_DIR)/MainTrackDCC.out $(GEN_DIR)/ProgTrackDCC.out $(GEN_DIR)/blink.out
-INCLUDES=-I. -I/usr/lib/ti/pru-software-support-package/include/ -I/usr/lib/ti/pru-software-support-package/include/am335x/
-HEADERS=dccpacket.h
-SOURCE=CommonDCCPacketTransmit.c
-LINKER_COMMAND_FILE=./AM335x_PRU.cmd
-LIBS=--library=/usr/lib/ti/pru-software-support-package/lib/rpmsg_lib.lib
+COMMON:=$(abspath $(lastword $(MAKEFILE_LIST)/..))
+PRU_CGT:=/usr/share/ti/cgt-pru
+PRU_SUPPORT:=/usr/lib/ti/pru-software-support-package
+MODEL:=$(shell cat /proc/device-tree/model | sed 's/ /_/g' | tr -d '\000')
+$(warning MODEL=$(MODEL),TARGET=$(TARGET),COMMON=$(COMMON))
+
+# Variables defined:
+#   CHIP - target system-on-chip (am57xx, am335x)
+#   CHIP_REV - target system-on-chip with rev (am572x_2_0, am335x)
+#   PROC - cpu type (arm, pru, c6x, etc.)
+#   PRUN - identifier for target PRU core
+#   PRU_DIR - control directory for the PRU
+#   CC -
+#   LD - 
+#   LDFLAGS - 
+#   CFLAGS -
+#
+# Depends on udev rules: https://github.com/beagleboard/customizations/blob/master/etc/udev/rules.d/86-remoteproc-noroot.rules
+# Check which model
+CHIP=am335x
+CHIP_REV=am335x
+PRU_DIR_OPS=/dev/remoteproc/pruss-core0
+PRUN_OPS=0
+PROC=pru
+EXE=.out
+PRU_DIR_PROG=/dev/remoteproc/pruss-core1
+PRUN_PROG=1
+
 STACK_SIZE=0x100
 HEAP_SIZE=0x100
 GEN_DIR=gen
+LINKER_COMMAND_FILE=./AM335x_PRU.cmd
+PROGS=$(GEN_DIR)/MainTrackDCC.out $(GEN_DIR)/ProgTrackDCC.out $(GEN_DIR)/blink.out
+CC=clpru -fe
+CFLAGS=--include_path=$(COMMON) \
+       --include_path=$(PRU_SUPPORT)/include \
+       --include_path=$(PRU_SUPPORT)/include/$(CHIP_REV) \
+       --include_path=$(PRU_CGT)/include\
+       -v3 -O2 --display_error_number --endian=little \
+       --hardware_mac=on --obj_directory=$(GEN_DIR) \
+       --pp_directory=$(GEN_DIR) --asm_directory=$(GEN_DIR) \
+       -ppd -ppa --asm_listing --c_src_interlist
+HEADERS=dccpacket.h
+SOURCE=CommonDCCPacketTransmit.c
+LD=lnkpru -o
+LDFLAGS=--reread_libs --warn_sections --stack_size=$(STACK_SIZE) \
+	--heap_size=$(HEAP_SIZE) -i$(PRU_CGT)/lib \
+	-i$(PRU_CGT)/include $(LINKER_COMMAND_FILE) \
+	--library=libc.a --library=$(PRU_SUPPORT)/lib/rpmsg_lib.lib
 
-CFLAGS=-v3 -O2 --display_error_number --endian=little --hardware_mac=on --obj_directory=$(GEN_DIR) --pp_directory=$(GEN_DIR) -ppd -ppa
-#Linker flags (Defined in 'PRU Optimizing C/C++ Compiler User's Guide)
-LFLAGS=--reread_libs --warn_sections --stack_size=$(STACK_SIZE) --heap_size=$(HEAP_SIZE)
 
 
 all: $(PROGS)
 
 $(GEN_DIR)/blink.out: $(GEN_DIR)/blink.object
-	$(PRU_CGT)/bin/clpru $(CFLAGS) -z -i$(PRU_CGT)/lib \
-		-i$(PRU_CGT)/include $(LFLAGS) \
-		-o  $(GEN_DIR)/blink.out \
-		$(GEN_DIR)/blink.object \
-		-m$(GEN_DIR)/blink.map \
-		$(LINKER_COMMAND_FILE) --library=libc.a $(LIBS)
+	$(LD) $@ $^ $(LDFLAGS) -m $(basename $@).map
 
 
 $(GEN_DIR)/MainTrackDCC.out:  $(GEN_DIR)/MainTrackDCC.object
-	$(PRU_CGT)/bin/clpru $(CFLAGS) -z -i$(PRU_CGT)/lib \
-		-i$(PRU_CGT)/include $(LFLAGS) \
-		-o  $(GEN_DIR)/MainTrackDCC.out \
-		$(GEN_DIR)/MainTrackDCC.object \
-		-m$(GEN_DIR)/MainTrackDCC.map \
-		$(LINKER_COMMAND_FILE) --library=libc.a $(LIBS)
-		
+	$(LD) $@ $^ $(LDFLAGS) -m $(basename $@).map
 		
 
 $(GEN_DIR)/ProgTrackDCC.out:  $(GEN_DIR)/ProgTrackDCC.object
-	$(PRU_CGT)/bin/clpru $(CFLAGS) -z -i$(PRU_CGT)/lib \
-		-i$(PRU_CGT)/include $(LFLAGS) \
-		-o  $(GEN_DIR)/ProgTrackDCC.out \
-		$(GEN_DIR)/ProgTrackDCC.object \
-		-m$(GEN_DIR)/ProgTrackDCC.map \
-		$(LINKER_COMMAND_FILE) --library=libc.a $(LIBS)
+	$(LD) $@ $^ $(LDFLAGS) -m $(basename $@).map
 
 $(GEN_DIR)/blink.object: blink.c
 	@mkdir -p $(GEN_DIR)
-	$(PRU_CGT)/bin/clpru --include_path=$(PRU_CGT)/include \
-		$(INCLUDES) $(CFLAGS) -fe $@ $<
+	$(CC) $@ $^ $(CFLAGS)
 
 $(GEN_DIR)/MainTrackDCC.object: $(SOURCE) $(HEADERS) resource_table_0.h
 	@mkdir -p $(GEN_DIR)
-	$(PRU_CGT)/bin/clpru -DMAINDCC \
-		--include_path=$(PRU_CGT)/include $(INCLUDES) \
-		$(CFLAGS) -fe $@ $<
+	$(CC) $@ $< -DMAINDCC $(CFLAGS)
 		
 
 $(GEN_DIR)/ProgTrackDCC.object: $(SOURCE) $(HEADERS) resource_table_1.h
 	@mkdir -p $(GEN_DIR)
-	$(PRU_CGT)/bin/clpru -DPROGDCC \
-		--include_path=$(PRU_CGT)/include $(INCLUDES) \
-		$(CFLAGS) -fe $@ $<
-		
+	$(CC) $@ $< -DPROGDCC $(CFLAGS)
+
+clean:
+	rm -rf $(GEN_DIR)		
 
  
