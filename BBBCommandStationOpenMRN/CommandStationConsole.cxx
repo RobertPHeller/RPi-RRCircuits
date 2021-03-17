@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 13:40:14 2019
-//  Last Modified : <191028.2141>
+//  Last Modified : <210317.1429>
 //
 //  Description	
 //
@@ -106,6 +106,7 @@ Console::CommandStatus CommandStationConsole::define_command(FILE *fp, int argc,
         if (steps != 28 && steps != 128) return Console::COMMAND_ERROR;
         name = argv[5];
         description = argv[6];
+        fprintf(stderr,"*** CommandStationConsole::define_command(): Defining loco address %d, steps %d, name %s, description %s\n",address,steps,name.c_str(),description.c_str());
         TrainNodeImpl &n = trains_[address];
         if (!n.node)
         {
@@ -126,25 +127,25 @@ Console::CommandStatus CommandStationConsole::define_command(FILE *fp, int argc,
 #else
             n.impl.reset(new openlcb::LoggingTrain(address));
 #endif
-            //fprintf(stderr,"*** CommandStationConsole::define_command(): created train implementation\n");
+            fprintf(stderr,"*** CommandStationConsole::define_command(): created train implementation\n");
             n.node.reset(
                          new openlcb::TrainNodeForProxy(traction_service_,n.impl.get()));
-            //fprintf(stderr,"*** -: created train node\n");
+            fprintf(stderr,"*** -: created train node\n");
             n.is_train_event.reset(
                new openlcb::FixedEventProducer<
                                    openlcb::TractionDefs::IS_TRAIN_EVENT>(n.node.get()));
-            //fprintf(stderr,"*** -: created FixedEventProducer\n");
+            fprintf(stderr,"*** -: created FixedEventProducer\n");
             n.pip_handler.reset(
                new openlcb::ProtocolIdentificationHandler(
                      n.node.get(),
                      openlcb::Defs::EVENT_EXCHANGE | openlcb::Defs::TRACTION_CONTROL | openlcb::Defs::SIMPLE_NODE_INFORMATION));
-            //fprintf(stderr,"*** -: created pip_handler\n");
+            fprintf(stderr,"*** -: created pip_handler\n");
             n.snip_handler.reset(
                new TrainSNIPHandler(n.node.get()->iface(),
                                     n.node.get(),
                                     info_flow_,
                                     name,description));
-            //fprintf(stderr,"*** -: created snip_handler\n");
+            fprintf(stderr,"*** -: created snip_handler\n");
             n.steps = steps;
             fprintf(fp,"#define# true\n");
         } else {

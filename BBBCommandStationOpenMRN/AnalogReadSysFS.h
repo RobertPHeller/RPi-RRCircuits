@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 27 19:51:05 2019
-//  Last Modified : <210316.1053>
+//  Last Modified : <210317.1346>
 //
 //  Description	
 //
@@ -50,7 +50,7 @@ extern "C" {
 #endif
 
 #define MAX_BUF 255
-#define SYSFS_ADC_DIR "/sys/devices/platform/ocp/44c00000.interconnect/44c00000.interconnect:segment@200000/44e0d000.target-module/44e0d000.tscadc/TI-am335x-adc.0.auto/iio:device0/"
+#define SYSFS_ADC_DIR "/sys/devices/platform/ocp/44e0d000.tscadc/TI-am335x-adc.0.auto/iio:device0/"
 
 uint32_t sysfs_adc_getvalue(uint32_t channel);
 
