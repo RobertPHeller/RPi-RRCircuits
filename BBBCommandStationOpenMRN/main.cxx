@@ -116,7 +116,7 @@ extern const char *const openlcb::SNIP_DYNAMIC_FILENAME =
 // own GPIO pin.
 
 HBridgeControl mains(stack.node(), cfg.seg().maindcc(), CSenseMainAnalogChannel, MainEN_Pin::instance(), MainTF_Pin::instance());
-HBridgeControl progtrack(stack.node(), cfg.seg().progdcc(), CSenseProgAnalogChannel, ProgEN_Pin::instance(), ProgTF_Pin::instance());
+HBridgeControl progtrack(stack.node(), cfg.seg().progdcc(), CSenseProgAnalogChannel, ProgEN_Pin::instance() );
 FanControl     fan(stack.node(), cfg.seg().fancontrol(), TempsensorChannel,FanControl_Pin::instance());
 
 openlcb::RefreshLoop loop(stack.node(),
