@@ -8,7 +8,7 @@
  *  Author        : $Author$
  *  Created By    : Robert Heller
  *  Created       : Fri Oct 25 16:47:20 2019
- *  Last Modified : <191119.0152>
+ *  Last Modified : <210318.1130>
  *
  *  Description	
  *
@@ -118,7 +118,7 @@ char payload[RPMSG_BUF_SIZE - RPMSG_BUF_HEADER_SIZE];
 #define DCCBit 11 /* __R30 bit 11 (on PRU1) => P8_30 (BBB), P1_4  (PB) */
 #endif
 
-#ifdef PROGDCC
+#if defined(PROGDCC) && defined(ACCDETECT)
 #define ACCDetect 10
 #endif
 
@@ -159,7 +159,7 @@ static void SendByte(uint8_t byte)
     }
 }
 
-#ifdef PROGDCC
+#if defined(PROGDCC) && defined(ACCDETECT)
 static unsigned ackDetectBit = 0, ackDetectTime = 0, ackDetect = 0;
 #define CLOCKS_PER_MSEC (CLOCKS_PER_SEC / 1000)
 static void checkAckDetect()
@@ -233,7 +233,7 @@ void main(void)
     while (1) {
         SendPreamble();
         ZeroBit();
-#ifdef PROGDCC
+#if defined(PROGDCC) && defined(ACCDETECT)
         checkAckDetect();
         if (ackDetect) {
             payload[0] = 1;
@@ -264,7 +264,7 @@ void main(void)
         for (i=1; i<current.dlc; i++)
         {
             ZeroBit();
-#ifdef PROGDCC
+#if defined(PROGDCC) && defined(ACCDETECT)
             checkAckDetect();
             if (ackDetect) {
                 payload[0] = 1;

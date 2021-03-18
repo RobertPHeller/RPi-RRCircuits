@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Thu Oct 24 19:39:06 2019
-#  Last Modified : <210317.1258>
+#  Last Modified : <210318.1138>
 #
 #  Description	
 #
@@ -113,12 +113,18 @@ $(GEN_DIR)/blink.object: blink.c
 
 $(GEN_DIR)/MainTrackDCC.object: $(SOURCE) $(HEADERS) resource_table_0.h
 	@mkdir -p $(GEN_DIR)
-	$(CC) $@ $< -DMAINDCC $(CFLAGS)
+	$(CC) $@ $< -DMAINDCC $(CFLAGS) 
+	@mv $(GEN_DIR)/$(basename $<).asm $(basename $@).asm
+	@mv $(GEN_DIR)/$(basename $<).lst $(basename $@).lst
+	@mv $(GEN_DIR)/$(basename $<).pp $(basename $@).pp
 		
 
 $(GEN_DIR)/ProgTrackDCC.object: $(SOURCE) $(HEADERS) resource_table_1.h
 	@mkdir -p $(GEN_DIR)
 	$(CC) $@ $< -DPROGDCC $(CFLAGS)
+	@mv $(GEN_DIR)/$(basename $<).asm $(basename $@).asm
+	@mv $(GEN_DIR)/$(basename $<).lst $(basename $@).lst
+	@mv $(GEN_DIR)/$(basename $<).pp $(basename $@).pp
 
 clean:
 	rm -rf $(GEN_DIR)		

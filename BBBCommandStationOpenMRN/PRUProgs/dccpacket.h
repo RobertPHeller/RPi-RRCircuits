@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Oct 24 19:45:55 2019
-//  Last Modified : <191118.1609>
+//  Last Modified : <210318.1127>
 //
 //  Description	
 //
@@ -107,6 +107,11 @@ typedef struct dcc_packet
 #define ONEBitTime 11600
 #define ZEROBitTime 20000
 /** Number of preamble one bits */
-#define PreambleLength 14
+#ifdef MAINDCC
+#define PreambleLength 16
+#endif
+#ifdef PROGDCC
+#define PreambleLength 22
+#endif
 #endif // __DCCPACKET_H
 
