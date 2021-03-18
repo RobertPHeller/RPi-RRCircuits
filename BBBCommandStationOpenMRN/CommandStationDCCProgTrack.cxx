@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Oct 23 17:30:57 2019
-//  Last Modified : <191118.2200>
+//  Last Modified : <210318.1402>
 //
 //  Description	
 //
@@ -71,24 +71,40 @@ CommandStationDCCProgTrack::CommandStationDCCProgTrack(Service *service, int poo
 
 void CommandStationDCCProgTrack::StartPRU()
 {
+    static char firmwarePath[256];
+    static uint8_t buffer[2048];
+    int len;
     /* test that /dev/rpmsg_pru30 exists */
-    if (!access(pruMessageDevice,F_OK)) {
-        FILE *sysfs_node;
-        sysfs_node = fopen(pruFirmware, "r+");
+    //fprintf(stderr,"*** CommandStationDCCProgTrack::StartPRU() (top if) : access(\"%s\",F_OK) returns %d\n",pruMessageDevice,access(pruMessageDevice,F_OK));
+    if (access(pruMessageDevice,F_OK)) {
+        FILE *sysfs_node, *firmfd;
+        sysfs_node = fopen(pruState,"r+");
+        fprintf(sysfs_node,"stop\n");
+        fclose(sysfs_node);
+        sysfs_node = fopen(pruFirmware, "w");
         if (sysfs_node == NULL) {
             LOG(FATAL, "CommandStationDCCProgTrack::StartPRU(): Cannot open firmware sysfs_node %s (%d)", pruFirmware, errno);
         }
-        fwrite(firmwareName,sizeof(uint8_t),strlen(firmwareName),sysfs_node);
+        strcpy(&firmwarePath[0],firmwareName);
+        firmfd = fopen(firmwarePath,"r");
+        if (firmfd == NULL) {
+            LOG(FATAL, "CommandStationDCCProgTrack::StartPRU(): Cannot open PRU program (%s)\n",firmwarePath);
+        }
+        while ((len = fread(buffer,sizeof(uint8_t),2048,firmfd))>0) {
+            len = fwrite(buffer,sizeof(uint8_t),len,sysfs_node);
+        }
+        fclose(firmfd);
         fclose(sysfs_node);
         sysfs_node = fopen(pruState, "r+");
         if (sysfs_node == NULL) {
             LOG(FATAL, "CommandStationDCCProgTrack::StartPRU(): Cannot open firmware sysfs_node %s (%d)", pruState, errno);
         }
-        fwrite("start",sizeof(uint8_t),strlen("start"),sysfs_node);
+        fprintf(sysfs_node,"start\n");
         fclose(sysfs_node);
         /* give RPMSG time to initialize */
         sleep(3);
-        if (!access(pruMessageDevice,F_OK)) {
+        //fprintf(stderr,"*** CommandStationDCCProgTrack::StartPRU() (bottom if) : access(\"%s\",F_OK) returns %d\n",pruMessageDevice,access(pruMessageDevice,F_OK));
+        if (access(pruMessageDevice,F_OK)) {
             LOG(FATAL, "CommandStationDCCProgTrack::StartPRU(): Could not open %s (%d)", pruMessageDevice, errno);
         }
     }

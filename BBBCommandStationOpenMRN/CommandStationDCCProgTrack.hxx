@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 20:21:40 2019
-//  Last Modified : <191118.2154>
+//  Last Modified : <210318.1307>
 //
 //  Description	
 //
@@ -68,9 +68,9 @@ protected:
     /// Packet pool from which to allocate packets.
     FixedPool pool_;
 private:
-    static constexpr char const *pruFirmware = "/sys/class/remoteproc/remoteproc2/firmware";
+    static constexpr char const *pruFirmware = "/lib/firmware/am335x-pru1-fw";
     static constexpr char const *firmwareName = "ProgTrackDCC.out";
-    static constexpr char const *pruState = "/sys/class/remoteproc/remoteproc2/state";
+    static constexpr char const *pruState = "/dev/remoteproc/pruss-core1/state";
     static constexpr char const *pruMessageDevice = "/dev/rpmsg_pru31";
     
     //static constexpr int PRU_NUM = 1;
