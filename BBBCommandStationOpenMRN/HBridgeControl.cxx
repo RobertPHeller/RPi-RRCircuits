@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 28 13:33:31 2019
-//  Last Modified : <210316.1019>
+//  Last Modified : <210318.1526>
 //
 //  Description	
 //
@@ -149,6 +149,9 @@ void HBridgeControl::poll_33hz(openlcb::WriteHelper *helper, Notifiable *done)
         }
     }
     barrier.maybe_done();
+    if (!barrier.is_done()) {
+        LOG(WARNING,"Opps, barrier in HBridgeControl::poll_33hz() is not done!");
+    }
 }
 
 ConfigUpdateListener::UpdateAction HBridgeControl::apply_configuration(int fd, bool initial_load,

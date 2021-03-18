@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 28 13:33:53 2019
-//  Last Modified : <210316.1116>
+//  Last Modified : <210318.1524>
 //
 //  Description	
 //
@@ -128,6 +128,7 @@ void FanControl::handle_identify_producer(const openlcb::EventRegistryEntry &reg
 void FanControl::poll_33hz(openlcb::WriteHelper *helper, Notifiable *done)
 {
     BarrierNotifiable barrier(done);
+    
     uint16_t hsTempTensC = (uint16_t)round(TempFromAIN(sysfs_adc_getvalue(temperatureAIN_))*10);
     //LOG(INFO,"*** FanControl::poll_33hz(): hsTempTensC = %d",hsTempTensC);
     //LOG(INFO,"*** -: alarmthresh_ = %d, alarmon_ = %d",alarmthresh_,alarmon_);
@@ -153,6 +154,10 @@ void FanControl::poll_33hz(openlcb::WriteHelper *helper, Notifiable *done)
         fanGpio_->clr();
     }
     barrier.maybe_done();
+    //LOG(INFO,"*** -: barrier.is_done() yields %d",barrier.is_done());
+    if (!barrier.is_done()) {
+        LOG(WARNING,"Opps, barrier in FanControl::poll_33hz() is not done!");
+    }
 }
 
 void FanControl::SendEventReport(int helperIndex, openlcb::EventId event, BarrierNotifiable *done)
