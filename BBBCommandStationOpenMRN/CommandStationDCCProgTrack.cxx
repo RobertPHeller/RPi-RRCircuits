@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Oct 23 17:30:57 2019
-//  Last Modified : <210318.1402>
+//  Last Modified : <210319.1008>
 //
 //  Description	
 //
@@ -113,8 +113,20 @@ void CommandStationDCCProgTrack::StartPRU()
 
 StateFlowBase::Action CommandStationDCCProgTrack::entry()
 {
-    //auto *p = message()->data();
+    dcc::Packet *p = message()->data();
     // -- send p to the PRU to send to the track.
+    int f = open(pruMessageDevice,O_WRONLY);
+    if (f < 0) {
+        LOG(FATAL, "CommandStationDCCProgTrack::entry(): Could not open %s (%d)", pruMessageDevice, errno);
+    }
+    int status = write(f,(const void *)p,sizeof(dcc::Packet));
+    if (status < (int)sizeof(dcc::Packet)) {
+        LOG(FATAL, "CommandStationDCCProgTrack::entry(): Could not write a packet to %s (%d)", pruMessageDevice, errno);
+    }
+    status = close(f);
+    if (status < 0) {
+        LOG(FATAL, "CommandStationDCCProgTrack::entry(): Could not close %s (%d)", pruMessageDevice, errno);
+    }
     return finish();
 }
 
