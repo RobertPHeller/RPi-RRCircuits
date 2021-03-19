@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 28 13:33:53 2019
-//  Last Modified : <210319.1617>
+//  Last Modified : <210319.1648>
 //
 //  Description	
 //
@@ -280,7 +280,7 @@ void FanControl::SendAllProducersIdentified(openlcb::EventReport *event,BarrierN
                                openlcb::WriteHelper::global(),
                                openlcb::eventid_to_buffer(fanon_event_),
                                done->new_child());
-    write_helper_[4].WriteAsync(node_, mti_fanoff,
+    event_write_helper<5>()->WriteAsync(node_, mti_fanoff,
                                openlcb::WriteHelper::global(),
                                openlcb::eventid_to_buffer(fanoff_event_),
                                done->new_child());
