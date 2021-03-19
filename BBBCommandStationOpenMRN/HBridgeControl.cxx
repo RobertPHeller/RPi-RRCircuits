@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 28 13:33:31 2019
-//  Last Modified : <210318.1526>
+//  Last Modified : <210319.1240>
 //
 //  Description	
 //
@@ -74,6 +74,7 @@ HBridgeControl::HBridgeControl(openlcb::Node *node,
 , registered_(false)
 , isEnabled_(true)
 , isOverCurrent_(false)
+, barrier_()
 {
         ConfigUpdateService::instance()->register_update_listener(this);
 }
@@ -130,11 +131,14 @@ void HBridgeControl::handle_event_report(const openlcb::EventRegistryEntry &regi
 
 void HBridgeControl::poll_33hz(openlcb::WriteHelper *helper, Notifiable *done)
 {
-    BarrierNotifiable barrier(done);
+    if (!barrier_.is_done()) {
+        LOG(WARNING, "*** HBridgeControl::poll_33hz(): barrier_ is not done!");
+    }
+    barrier_.reset(done);
     uint16_t currentMA = (uint16_t)round(CurrentFromAIN(sysfs_adc_getvalue(currentAIN_))*1000);
-    //LOG(INFO, "*** HBridgeControl::poll_33hz(): currentMA = %d",currentMA);
+    LOG(INFO, "*** HBridgeControl::poll_33hz(): currentMA = %d",currentMA);
     if (currentMA > currentthresh_ && !isOverCurrent_) {
-        SendEventReport(0, overcurrent_event_, &barrier);
+        SendEventReport(7, overcurrent_event_, &barrier_);
         isOverCurrent_ = true;
     } else if (currentMA <= currentthresh_) {
         isOverCurrent_ = false;
@@ -143,15 +147,12 @@ void HBridgeControl::poll_33hz(openlcb::WriteHelper *helper, Notifiable *done)
         if (thermFlagGpio_->read() != thermflagState_) {
             thermflagState_ = thermFlagGpio_->read();
             if (thermflagState_) 
-                SendEventReport(1, thermflagon_event_, &barrier);
+                SendEventReport(8, thermflagon_event_, &barrier_);
             else
-                SendEventReport(1, thermflagoff_event_, &barrier);
+                SendEventReport(9, thermflagoff_event_, &barrier_);
         }
     }
-    barrier.maybe_done();
-    if (!barrier.is_done()) {
-        LOG(WARNING,"Opps, barrier in HBridgeControl::poll_33hz() is not done!");
-    }
+    barrier_.maybe_done();
 }
 
 ConfigUpdateListener::UpdateAction HBridgeControl::apply_configuration(int fd, bool initial_load,
@@ -224,7 +225,7 @@ void HBridgeControl::SendProducerIdentified(openlcb::EventReport *event, Barrier
         else mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
     }
 
-    write_helper[0].WriteAsync(node_, mti,
+    write_helper_[0].WriteAsync(node_, mti,
                                 openlcb::WriteHelper::global(),
                                 openlcb::eventid_to_buffer(event->event),
                                 done->new_child());
@@ -243,15 +244,15 @@ void HBridgeControl::SendAllProducersIdentified(openlcb::EventReport *event,Barr
     if (isOverCurrent_) {
         mti_currover = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
     }
-    write_helper[1].WriteAsync(node_, mti_on,
+    write_helper_[1].WriteAsync(node_, mti_on,
                                                openlcb::WriteHelper::global(),
                                                openlcb::eventid_to_buffer(thermflagon_event_),
                                                done->new_child());
-    write_helper[2].WriteAsync(node_, mti_off,
+    write_helper_[2].WriteAsync(node_, mti_off,
                                                openlcb::WriteHelper::global(),
                                                openlcb::eventid_to_buffer(thermflagoff_event_),
                                                done->new_child());
-    write_helper[3].WriteAsync(node_, mti_currover,
+    write_helper_[3].WriteAsync(node_, mti_currover,
                                                openlcb::WriteHelper::global(),
                                                openlcb::eventid_to_buffer(overcurrent_event_),
                                                done->new_child());
@@ -267,7 +268,7 @@ void HBridgeControl::SendConsumerIdentified(openlcb::EventReport *event, Barrier
         if (!isEnabled_) mti = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_VALID;
         else mti = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_INVALID;
     }
-    write_helper[4].WriteAsync(node_, mti,
+    write_helper_[4].WriteAsync(node_, mti,
                                                openlcb::WriteHelper::global(),
                                                openlcb::eventid_to_buffer(event->event),
                                                done->new_child());
@@ -279,11 +280,11 @@ void HBridgeControl::SendAllConsumersIdentified(openlcb::EventReport *event,Barr
           mti_disabled = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_INVALID;
     if (isEnabled_) mti_enabled = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_VALID;
     else mti_disabled = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_VALID;
-    write_helper[5].WriteAsync(node_, mti_enabled,
+    write_helper_[5].WriteAsync(node_, mti_enabled,
                                                openlcb::WriteHelper::global(),
                                                openlcb::eventid_to_buffer(enable_event_),
                                                done->new_child());
-    write_helper[6].WriteAsync(node_, mti_disabled,
+    write_helper_[6].WriteAsync(node_, mti_disabled,
                                                openlcb::WriteHelper::global(),
                                                openlcb::eventid_to_buffer(disable_event_),
                                                done->new_child());
@@ -291,7 +292,7 @@ void HBridgeControl::SendAllConsumersIdentified(openlcb::EventReport *event,Barr
 
 void HBridgeControl::SendEventReport(int helperIndex, openlcb::EventId event, BarrierNotifiable *done)
 {
-    write_helper[helperIndex].WriteAsync(node_, 
+    write_helper_[helperIndex].WriteAsync(node_, 
                                          openlcb::Defs::MTI_EVENT_REPORT,
                                          openlcb::WriteHelper::global(),
                                          openlcb::eventid_to_buffer(event),

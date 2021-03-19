@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 28 13:33:43 2019
-//  Last Modified : <191029.0059>
+//  Last Modified : <210319.1148>
 //
 //  Description	
 //
@@ -132,7 +132,8 @@ private:
     void unregister_handler();
     void SendProducerIdentified(openlcb::EventReport *event, BarrierNotifiable *done);
     void SendAllProducersIdentified(openlcb::EventReport *event,BarrierNotifiable *done);
-    openlcb::WriteHelper write_helper[8];                              
+    openlcb::WriteHelper write_helper_[10];
+    BarrierNotifiable barrier_;
 };            
 
 #endif // __FANCONTROL_HXX

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 28 13:33:15 2019
-//  Last Modified : <210316.1019>
+//  Last Modified : <210319.1140>
 //
 //  Description	
 //
@@ -135,7 +135,8 @@ private:
     void SendAllProducersIdentified(openlcb::EventReport *event,BarrierNotifiable *done);
     void SendConsumerIdentified(openlcb::EventReport *event, BarrierNotifiable *done);
     void SendAllConsumersIdentified(openlcb::EventReport *event,BarrierNotifiable *done);
-    openlcb::WriteHelper write_helper[8];                              
+    openlcb::WriteHelper write_helper_[5];
+    BarrierNotifiable barrier_;
 };            
 
 #endif // __HBRIDGECONTROL_HXX
