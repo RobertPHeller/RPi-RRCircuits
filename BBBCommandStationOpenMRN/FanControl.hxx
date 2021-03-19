@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 28 13:33:43 2019
-//  Last Modified : <210319.1148>
+//  Last Modified : <210319.1609>
 //
 //  Description	
 //
@@ -133,6 +133,16 @@ private:
     void SendProducerIdentified(openlcb::EventReport *event, BarrierNotifiable *done);
     void SendAllProducersIdentified(openlcb::EventReport *event,BarrierNotifiable *done);
     openlcb::WriteHelper write_helper_[10];
+    template <int N> openlcb::WriteHelper *event_write_helper()
+    {
+        static_assert(1 <= N && N <= 10, "WriteHelper out of range.");
+        return write_helper_ + (N - 1);
+    }
+    openlcb::WriteHelper *event_write_helper(int N)
+    {
+        HASSERT(1 <= N && N <= 10);
+        return write_helper_ + (N - 1);
+    }
     BarrierNotifiable barrier_;
 };            
 
