@@ -83,6 +83,7 @@ typedef GpioInitializer<MainEN_Pin, MainTF_Pin, ProgEN_Pin,
                         RailcomShort_Pin, RailcomDir_Pin> GpioInit;
 
 #define RAILCOM_DATA_PORT "/dev/ttyS4"
+#define RAILCOM_FEEDBACK_QUEUE 4
 
 //#define USE_OPENLCB_TCP_HOST
 //#define DEFAULT_OPENLCB_TCP_HOST "localhost"

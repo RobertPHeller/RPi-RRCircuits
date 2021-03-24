@@ -53,8 +53,14 @@ OVERRIDE_CONST(local_nodes_count,50);
 #include "CommandStationDCCProgTrack.hxx"
 #include "HBridgeControl.hxx"
 #include "FanControl.hxx"
-
+#include "BBRailComDriver.hxx"
 #include "Hardware.hxx"
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <termios.h>
+#include <sys/ioctl.h>
 
 // Changes the default behavior by adding a newline after each gridconnect
 // packet. Makes it easier for debugging the raw device.
@@ -123,6 +129,56 @@ openlcb::RefreshLoop loop(stack.node(),
                       {mains.polling(), 
                           progtrack.polling(), 
                           fan.polling()});
+
+#define RAILCOM_BAUD B230400
+struct RailComHW
+{
+    using HB_BRAKE = MainBRAKE_Pin;
+    using HB_ENABLE = ProgEN_Pin;
+    using RC_ENABLE = RailcomEN_Pin;
+    static void hw_init()
+    {
+    }
+    static int openport()
+    {
+        struct termios railcomtermios;
+        int fd = open(RAILCOM_DATA_PORT,O_RDWR);
+        if (fd < 0) {
+            LOG(FATAL,"RailComHW: Could not open %s (%d)", RAILCOM_DATA_PORT, errno);
+            exit(errno);
+        }
+        tcgetattr(fd,&railcomtermios);
+        cfmakeraw(&railcomtermios);
+        cfsetspeed(&railcomtermios,RAILCOM_BAUD);
+        tcsetattr(fd,TCSANOW,&railcomtermios);
+        return fd;
+    }
+    static size_t data_avail(int fd)
+    {
+        int bytes = 0;
+        ioctl(fd,TIOCINQ,&bytes);
+        return bytes;
+    }
+    static uint8_t readbyte(int fd)
+    {
+        uint8_t buff;
+        /*size_t s =*/ read(fd,&buff,1);
+        return buff;
+    }
+  /// Number of microseconds to wait after the final packet bit completes
+  /// before disabling the ENABLE pin on the h-bridge.
+  static constexpr uint32_t RAILCOM_TRIGGER_DELAY_USEC = 1;
+
+  /// Number of microseconds to wait for railcom data on channel 1.
+  static constexpr uint32_t RAILCOM_MAX_READ_DELAY_CH_1 =
+    177 - RAILCOM_TRIGGER_DELAY_USEC;
+
+  /// Number of microseconds to wait for railcom data on channel 2.
+  static constexpr uint32_t RAILCOM_MAX_READ_DELAY_CH_2 =
+    454 - RAILCOM_MAX_READ_DELAY_CH_1;
+};
+
+BBRailComDriver<RailComHW> opsRailComDriver(RAILCOM_FEEDBACK_QUEUE);
 
 class FactoryResetHelper : public DefaultConfigUpdateListener {
 public:
