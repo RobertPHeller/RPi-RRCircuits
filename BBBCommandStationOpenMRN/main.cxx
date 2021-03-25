@@ -165,6 +165,14 @@ struct RailComHW
         /*size_t s =*/ read(fd,&buff,1);
         return buff;
     }
+    static size_t readbuff(int fd,uint8_t *buf, size_t max_len)
+    {
+        return read(fd,buf,max_len);
+    }
+    static int flush(int fd)
+    {
+        return tcflush(fd,TCIFLUSH);
+    }
   /// Number of microseconds to wait after the final packet bit completes
   /// before disabling the ENABLE pin on the h-bridge.
   static constexpr uint32_t RAILCOM_TRIGGER_DELAY_USEC = 1;
@@ -179,6 +187,9 @@ struct RailComHW
 };
 
 BBRailComDriver<RailComHW> opsRailComDriver(RAILCOM_FEEDBACK_QUEUE);
+
+static std::unique_ptr<dcc::RailcomHubFlow> railcom_hub;
+static std::unique_ptr<dcc::RailcomPrintfFlow> railcom_dumper;
 
 class FactoryResetHelper : public DefaultConfigUpdateListener {
 public:
@@ -325,6 +336,8 @@ int appl_main(int argc, char *argv[])
     stack.create_config_file_if_needed(cfg.seg().internal_config(), openlcb::CANONICAL_VERSION, openlcb::CONFIG_FILE_SIZE);
     mainDCC.StartPRU();
     progDCC.StartPRU();
+    opsRailComDriver.hw_init(railcom_hub.get());
+    railcom_dumper.reset(new dcc::RailcomPrintfFlow(railcom_hub.get()));
     
     // Connects to a TCP hub on the internet.
     //stack.connect_tcp_gridconnect_hub("28k.ch", 50007);
@@ -344,6 +357,8 @@ int appl_main(int argc, char *argv[])
 #if defined(USE_SOCKET_CAN_PORT)
     stack.add_socketcan_port_select(cansocket);
 #endif
+    
+    
         
     // This command donates the main thread to the operation of the
     // stack. Alternatively the stack could be started in a separate stack and
