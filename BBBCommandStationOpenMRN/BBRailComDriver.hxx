@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Mar 24 09:44:24 2021
-//  Last Modified : <210325.1225>
+//  Last Modified : <210325.1430>
 //
 //  Description	
 //
@@ -173,7 +173,6 @@ public:
     void advance_railcom_buffer()
     {
         railComFeedbackBuffer_->advance(1);
-        //railComFeedbackBuffer_->signal_condition_from_isr();
     }
     void timer_tick()
     {
