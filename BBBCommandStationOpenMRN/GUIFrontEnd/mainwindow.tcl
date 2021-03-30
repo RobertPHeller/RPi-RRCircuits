@@ -173,7 +173,7 @@ snit::widgetadaptor cmdmainwindow {
           #lappend args -helptext "$helptext" -helptype variable \
           #-helpvar [myvar status]
       }
-      pack [eval [list ttk::button $toolbar.$bname] $args] -side left
+      pack [eval [list ttk::button $toolbar.$bname -style Toolbutton] $args] -side left
   }
   method {toolbar buttonconfigure} {bname args} {
   ## Method to configure a button on a toolbar.
