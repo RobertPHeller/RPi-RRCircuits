@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sat Oct 26 10:09:51 2019
-#  Last Modified : <210317.1531>
+#  Last Modified : <210330.1051>
 #
 #  Description	
 #
@@ -786,7 +786,7 @@ snit::type CommandStationGUI {
         while {[gets $loadFp line] >= 0} {
             puts $socket_ $line
             update idle
-            puts stderr "*** $type _load: line is $line"
+            #puts stderr "*** $type _load: line is $line"
         }
         close $loadFp
     }
@@ -830,7 +830,7 @@ snit::type CommandStationGUI {
         }
     }
     typemethod save_loco {line} {
-        puts stderr "*** $type save_loco: line = $line"
+        #puts stderr "*** $type save_loco: line = $line"
         if {[llength $line] == 9} {
             lassign $line address_ steps_ name_ description_ \
                   direction_ speedmph_ fn controller_ consistlist_
