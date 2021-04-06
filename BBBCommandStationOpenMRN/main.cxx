@@ -54,6 +54,7 @@ OVERRIDE_CONST(local_nodes_count,50);
 #include "HBridgeControl.hxx"
 #include "FanControl.hxx"
 #include "BBRailComDriver.hxx"
+#include "dcc/RailcomPortDebug.hxx"
 #include "Hardware.hxx"
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -150,6 +151,10 @@ struct RailComHW
         tcgetattr(fd,&railcomtermios);
         cfmakeraw(&railcomtermios);
         cfsetspeed(&railcomtermios,RAILCOM_BAUD);
+        // 1 stop bit, 8 data bits
+        railcomtermios.c_cflag &= ~CSTOPB;
+        railcomtermios.c_cflag &= ~CSIZE;
+        railcomtermios.c_cflag |= CS8; 
         tcsetattr(fd,TCSANOW,&railcomtermios);
         return fd;
     }
