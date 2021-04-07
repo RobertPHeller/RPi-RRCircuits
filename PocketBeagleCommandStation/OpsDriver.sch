@@ -217,9 +217,9 @@ Wire Wire Line
 Wire Wire Line
 	4200 2700 5100 2700
 Wire Wire Line
-	4200 2700 4200 2200
+	4200 2200 4200 2700
 Wire Wire Line
-	4200 2200 3750 2200
+	3750 2200 4200 2200
 Wire Wire Line
 	4100 2750 5100 2750
 Wire Wire Line
@@ -381,4 +381,46 @@ Text HLabel 6250 3650 0    60   Output ~ 0
 B
 Wire Wire Line
 	6250 3650 6450 3650
+$Comp
+L TEST_1P J8
+U 1 1 606DC398
+P 4200 1250
+F 0 "J8" H 4200 1520 50  0000 C CNN
+F 1 "OpsDigTP" H 4200 1450 50  0000 C CNN
+F 2 "Measurement_Points:Measurement_Point_Round-TH_Small" H 4400 1250 50  0001 C CNN
+F 3 "" H 4400 1250 50  0001 C CNN
+	1    4200 1250
+	1    0    0    -1  
+$EndComp
+$Comp
+L TEST_1P J7
+U 1 1 606DC483
+P 4100 1500
+F 0 "J7" H 4100 1770 50  0000 C CNN
+F 1 "BrakeTP" H 4100 1700 50  0000 C CNN
+F 2 "Measurement_Points:Measurement_Point_Round-TH_Small" H 4300 1500 50  0001 C CNN
+F 3 "" H 4300 1500 50  0001 C CNN
+	1    4100 1500
+	1    0    0    -1  
+$EndComp
+$Comp
+L TEST_1P J6
+U 1 1 606DC4BA
+P 4000 1750
+F 0 "J6" H 4000 2020 50  0000 C CNN
+F 1 "OpsEnableTP" H 4000 1950 50  0000 C CNN
+F 2 "Measurement_Points:Measurement_Point_Round-TH_Small" H 4200 1750 50  0001 C CNN
+F 3 "" H 4200 1750 50  0001 C CNN
+	1    4000 1750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4000 1750 4000 2350
+Connection ~ 4000 2350
+Wire Wire Line
+	4100 1500 4100 2200
+Connection ~ 4100 2200
+Wire Wire Line
+	4200 1250 4200 2050
+Connection ~ 4200 2050
 $EndSCHEMATC
