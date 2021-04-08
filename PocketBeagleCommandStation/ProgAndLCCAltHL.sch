@@ -386,4 +386,32 @@ Wire Wire Line
 	7250 3250 7250 3650
 Wire Wire Line
 	6300 3150 6650 3150
+$Comp
+L TEST_1P TP8
+U 1 1 606F9B80
+P 3150 1950
+F 0 "TP8" H 3150 2220 50  0000 C CNN
+F 1 "Prog_Signal" H 3150 2150 50  0000 C CNN
+F 2 "Measurement_Points:Measurement_Point_Round-TH_Small" H 3350 1950 50  0001 C CNN
+F 3 "" H 3350 1950 50  0001 C CNN
+	1    3150 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L TEST_1P TP9
+U 1 1 606F9CBE
+P 4550 2350
+F 0 "TP9" H 4550 2620 50  0000 C CNN
+F 1 "Prog_Enable" H 4550 2550 50  0000 C CNN
+F 2 "Measurement_Points:Measurement_Point_Round-TH_Small" H 4750 2350 50  0001 C CNN
+F 3 "" H 4750 2350 50  0001 C CNN
+	1    4550 2350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3150 1950 3150 2150
+Connection ~ 3150 2150
+Wire Wire Line
+	4550 2350 4550 2600
+Connection ~ 4550 2600
 $EndSCHEMATC

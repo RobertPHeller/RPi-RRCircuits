@@ -388,4 +388,64 @@ Wire Wire Line
 Text HLabel 5650 1800 2    60   Output ~ 0
 Railcom-OLBC-VREF
 Connection ~ 5350 1800
+$Comp
+L TEST_1P TP2
+U 1 1 606F047C
+P 5450 1550
+F 0 "TP2" H 5450 1820 50  0000 C CNN
+F 1 "RailcomOLBCVRef" H 5450 1750 50  0000 C CNN
+F 2 "Measurement_Points:Measurement_Point_Round-TH_Small" H 5650 1550 50  0001 C CNN
+F 3 "" H 5650 1550 50  0001 C CNN
+	1    5450 1550
+	1    0    0    -1  
+$EndComp
+$Comp
+L TEST_1P TP1
+U 1 1 606F04D7
+P 4400 3050
+F 0 "TP1" H 4400 3320 50  0000 C CNN
+F 1 "5V" H 4400 3250 50  0000 C CNN
+F 2 "Measurement_Points:Measurement_Point_Round-TH_Small" H 4600 3050 50  0001 C CNN
+F 3 "" H 4600 3050 50  0001 C CNN
+	1    4400 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L TEST_1P TP3
+U 1 1 606F05D6
+P 8400 2400
+F 0 "TP3" H 8400 2670 50  0000 C CNN
+F 1 "RailcomVRef" H 8400 2600 50  0000 C CNN
+F 2 "Measurement_Points:Measurement_Point_Round-TH_Small" H 8600 2400 50  0001 C CNN
+F 3 "" H 8600 2400 50  0001 C CNN
+	1    8400 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L TEST_1P TP4
+U 1 1 606F073C
+P 8950 4600
+F 0 "TP4" H 8950 4870 50  0000 C CNN
+F 1 "PROGPower" H 8950 4800 50  0000 C CNN
+F 2 "Measurement_Points:Measurement_Point_Round-TH_Small" H 9150 4600 50  0001 C CNN
+F 3 "" H 9150 4600 50  0001 C CNN
+	1    8950 4600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8950 4600 8750 4600
+Wire Wire Line
+	8750 4600 8750 4900
+Connection ~ 8750 4900
+Wire Wire Line
+	8400 2400 8400 2650
+Connection ~ 8400 2650
+Wire Wire Line
+	5450 1550 5450 1800
+Wire Wire Line
+	5450 1800 5500 1800
+Connection ~ 5500 1800
+Wire Wire Line
+	4400 3050 4400 3250
+Connection ~ 4400 3250
 $EndSCHEMATC
