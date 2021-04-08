@@ -383,6 +383,117 @@ F 4 "75-1C10Z5U103M100B" H 4800 4150 60  0001 C CNN "Part Number"
 	1    4800 4150
 	1    0    0    -1  
 $EndComp
+Text Label 9150 1950 0    60   ~ 0
+PROG_DCC_VS
+Text Label 6750 4100 0    60   ~ 0
+PROG_DCC_VS
+Text Label 6750 4300 0    60   ~ 0
+PROG-SIG
+Text Label 6750 4500 0    60   ~ 0
+PROG-ENABLE
+Text Label 6750 4650 0    60   ~ 0
+PROG-SENSE
+Text Label 6750 4800 0    60   ~ 0
+OPS-SIG
+Text Label 6750 4950 0    60   ~ 0
+OPS-ENABLE
+Text Label 7550 5450 2    60   ~ 0
+DCC_VS
+Text Label 7550 5650 2    60   ~ 0
+FAN-CONTROL
+Text Label 7550 5900 2    60   ~ 0
+TEMP-SENSE
+Text Label 9150 2350 0    60   ~ 0
+RAILCOM_VREF
+Text Label 3850 6250 0    60   ~ 0
+RAILCOM_VREF
+Text Label 3550 4300 0    60   ~ 0
+OPS_B
+Text Label 3850 4450 0    60   ~ 0
+OPS_A
+Text Label 1650 6800 2    60   ~ 0
+OPS_A
+Text Label 1650 6950 2    60   ~ 0
+OPS_B
+Text Label 1650 6200 2    60   ~ 0
+DCC_VS
+Text Label 1650 6400 2    60   ~ 0
+RAILCOM-SHORT
+Text Label 1650 6600 2    60   ~ 0
+RAILCOM-ENABLE
+Text Label 3850 6500 0    60   ~ 0
+RAILCOM-DATA
+Text Label 3850 6750 0    60   ~ 0
+RAILCOM-DIR
+NoConn ~ 2400 1750
+NoConn ~ 2400 1850
+NoConn ~ 2400 1950
+NoConn ~ 2400 2050
+NoConn ~ 2400 2150
+NoConn ~ 2400 2250
+NoConn ~ 3300 1850
+NoConn ~ 3300 1950
+NoConn ~ 3300 2050
+NoConn ~ 3300 2150
+NoConn ~ 2400 2450
+NoConn ~ 3300 2450
+NoConn ~ 3300 2550
+NoConn ~ 3300 2750
+NoConn ~ 3300 2850
+NoConn ~ 3300 2950
+NoConn ~ 2400 2850
+NoConn ~ 2400 2950
+NoConn ~ 2400 3050
+NoConn ~ 2400 3150
+NoConn ~ 2400 3250
+NoConn ~ 3300 3350
+NoConn ~ 2400 3350
+NoConn ~ 4700 3150
+NoConn ~ 4700 3050
+NoConn ~ 5600 3350
+NoConn ~ 5600 3250
+NoConn ~ 5600 3150
+NoConn ~ 5600 3050
+NoConn ~ 5600 2950
+NoConn ~ 5600 2850
+NoConn ~ 4700 2550
+NoConn ~ 4700 2450
+NoConn ~ 5600 2550
+NoConn ~ 5600 2350
+NoConn ~ 5600 2250
+NoConn ~ 5600 2150
+NoConn ~ 5600 2050
+NoConn ~ 4700 2050
+NoConn ~ 4700 2150
+NoConn ~ 4700 2250
+NoConn ~ 4700 1950
+NoConn ~ 5600 1850
+NoConn ~ 4700 1650
+NoConn ~ 5600 1650
+NoConn ~ 5600 1750
+Text Label 1650 7150 2    60   ~ 0
+OLBC_A
+Text Label 1650 7300 2    60   ~ 0
+OLBC_B
+Text Label 3850 7150 0    60   ~ 0
+RAILCOM_OLBC_VREF
+Text Label 6900 5200 0    60   ~ 0
+OLBC_A
+Text Label 6850 5100 0    60   ~ 0
+OLBC_B
+Text Label 9150 1450 0    60   ~ 0
+RAILCOM_OLBC_VREF
+$Comp
+L Conn_01x06_Male J6
+U 1 1 606FD173
+P 3900 3100
+F 0 "J6" H 3900 3400 50  0000 C CNN
+F 1 "Console" H 3900 2700 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x06_Pitch2.54mm" H 3900 3100 50  0001 C CNN
+F 3 "" H 3900 3100 50  0001 C CNN
+	1    3900 3100
+	-1   0    0    -1  
+$EndComp
 Wire Wire Line
 	7550 1500 7350 1500
 Wire Wire Line
@@ -470,109 +581,25 @@ Wire Wire Line
 	7250 4000 7250 5100
 Wire Wire Line
 	7250 5100 6750 5100
-Text Label 9150 1950 0    60   ~ 0
-PROG_DCC_VS
-Text Label 6750 4100 0    60   ~ 0
-PROG_DCC_VS
-Text Label 6750 4300 0    60   ~ 0
-PROG-SIG
-Text Label 6750 4500 0    60   ~ 0
-PROG-ENABLE
-Text Label 6750 4650 0    60   ~ 0
-PROG-SENSE
-Text Label 6750 4800 0    60   ~ 0
-OPS-SIG
-Text Label 6750 4950 0    60   ~ 0
-OPS-ENABLE
 Wire Wire Line
 	4450 3950 4300 3950
 Connection ~ 4300 3950
-Text Label 7550 5450 2    60   ~ 0
-DCC_VS
-Text Label 7550 5650 2    60   ~ 0
-FAN-CONTROL
-Text Label 7550 5900 2    60   ~ 0
-TEMP-SENSE
-Text Label 9150 2350 0    60   ~ 0
-RAILCOM_VREF
-Text Label 3850 6250 0    60   ~ 0
-RAILCOM_VREF
-Text Label 3550 4300 0    60   ~ 0
-OPS_B
-Text Label 3850 4450 0    60   ~ 0
-OPS_A
-Text Label 1650 6800 2    60   ~ 0
-OPS_A
-Text Label 1650 6950 2    60   ~ 0
-OPS_B
-Text Label 1650 6200 2    60   ~ 0
-DCC_VS
-Text Label 1650 6400 2    60   ~ 0
-RAILCOM-SHORT
-Text Label 1650 6600 2    60   ~ 0
-RAILCOM-ENABLE
-Text Label 3850 6500 0    60   ~ 0
-RAILCOM-DATA
-Text Label 3850 6750 0    60   ~ 0
-RAILCOM-DIR
-NoConn ~ 2400 1750
-NoConn ~ 2400 1850
-NoConn ~ 2400 1950
-NoConn ~ 2400 2050
-NoConn ~ 2400 2150
-NoConn ~ 2400 2250
-NoConn ~ 3300 1850
-NoConn ~ 3300 1950
-NoConn ~ 3300 2050
-NoConn ~ 3300 2150
-NoConn ~ 2400 2450
-NoConn ~ 3300 2450
-NoConn ~ 3300 2550
-NoConn ~ 3300 2750
-NoConn ~ 3300 2850
-NoConn ~ 3300 2950
-NoConn ~ 3300 3050
-NoConn ~ 3300 3150
-NoConn ~ 2400 2850
-NoConn ~ 2400 2950
-NoConn ~ 2400 3050
-NoConn ~ 2400 3150
-NoConn ~ 2400 3250
-NoConn ~ 3300 3350
-NoConn ~ 2400 3350
-NoConn ~ 4700 3150
-NoConn ~ 4700 3050
-NoConn ~ 5600 3350
-NoConn ~ 5600 3250
-NoConn ~ 5600 3150
-NoConn ~ 5600 3050
-NoConn ~ 5600 2950
-NoConn ~ 5600 2850
-NoConn ~ 4700 2550
-NoConn ~ 4700 2450
-NoConn ~ 5600 2550
-NoConn ~ 5600 2350
-NoConn ~ 5600 2250
-NoConn ~ 5600 2150
-NoConn ~ 5600 2050
-NoConn ~ 4700 2050
-NoConn ~ 4700 2150
-NoConn ~ 4700 2250
-NoConn ~ 4700 1950
-NoConn ~ 5600 1850
-NoConn ~ 4700 1650
-NoConn ~ 5600 1650
-NoConn ~ 5600 1750
-Text Label 1650 7150 2    60   ~ 0
-OLBC_A
-Text Label 1650 7300 2    60   ~ 0
-OLBC_B
-Text Label 3850 7150 0    60   ~ 0
-RAILCOM_OLBC_VREF
-Text Label 6900 5200 0    60   ~ 0
-OLBC_A
-Text Label 6850 5100 0    60   ~ 0
-OLBC_B
-Text Label 9150 1450 0    60   ~ 0
-RAILCOM_OLBC_VREF
+Wire Wire Line
+	3700 2900 3350 2900
+Wire Wire Line
+	3350 2900 3350 2650
+Connection ~ 3350 2650
+Wire Wire Line
+	3700 3200 3300 3200
+Wire Wire Line
+	3300 3200 3300 3150
+Wire Wire Line
+	3700 3300 3450 3300
+Wire Wire Line
+	3450 3300 3450 3050
+Wire Wire Line
+	3450 3050 3300 3050
+NoConn ~ 3700 3000
+NoConn ~ 3700 3100
+NoConn ~ 3700 3400
 $EndSCHEMATC
