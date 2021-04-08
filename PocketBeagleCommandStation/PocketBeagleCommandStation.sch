@@ -290,7 +290,7 @@ Text Label 2400 2650 2    60   ~ 0
 PROG-SENSE
 Text Label 2400 2750 2    60   ~ 0
 TEMP-SENSE
-Text Label 3300 3250 0    60   ~ 0
+Text Label 3450 3650 0    60   ~ 0
 FAN-CONTROL
 Text Label 4700 1850 2    60   ~ 0
 RAILCOM-DATA
@@ -494,6 +494,9 @@ F 3 "" H 3900 3100 50  0001 C CNN
 	1    3900 3100
 	-1   0    0    -1  
 $EndComp
+NoConn ~ 3700 3000
+NoConn ~ 3700 3100
+NoConn ~ 3700 3400
 Wire Wire Line
 	7550 1500 7350 1500
 Wire Wire Line
@@ -505,7 +508,7 @@ Wire Wire Line
 Wire Wire Line
 	3400 2350 3300 2350
 Wire Wire Line
-	3400 2650 3300 2650
+	3300 2650 3400 2650
 Wire Wire Line
 	2300 2350 2400 2350
 Wire Wire Line
@@ -599,7 +602,10 @@ Wire Wire Line
 	3450 3300 3450 3050
 Wire Wire Line
 	3450 3050 3300 3050
-NoConn ~ 3700 3000
-NoConn ~ 3700 3100
-NoConn ~ 3700 3400
+Wire Wire Line
+	3300 3250 3400 3250
+Wire Wire Line
+	3400 3250 3400 3650
+Wire Wire Line
+	3400 3650 3450 3650
 $EndSCHEMATC
