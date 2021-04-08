@@ -319,7 +319,7 @@ L Screw_Terminal_01x04 J1
 U 1 1 603ED168
 P 4200 3700
 F 0 "J1" H 4200 3900 50  0000 C CNN
-F 1 "DCC Output to Tracks" H 4200 3400 50  0000 C CNN
+F 1 "DCC Output to Tracks" V 4350 3400 50  0000 C CNN
 F 2 "Connectors_Terminal_Blocks:TerminalBlock_Pheonix_PT-3.5mm_4pol" H 4200 3700 50  0001 C CNN
 F 3 "" H 4200 3700 50  0001 C CNN
 F 4 "651-5442264" H 4200 3700 60  0001 C CNN "Part Number"
