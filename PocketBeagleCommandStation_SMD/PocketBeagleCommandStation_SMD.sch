@@ -29,8 +29,9 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:pocketbeagle
+LIBS:DRV8873HPWPR
+LIBS:DRV8801PWP
 LIBS:PocketBeagleCommandStation_SMD-cache
-LIBS:PocketBeagleCommandStation-cache
 EELAYER 25 0
 EELAYER END
 $Descr USLetter 11000 8500
@@ -120,11 +121,9 @@ F1 "OpsDriver.sch" 60
 F2 "PowerIn" I R 3350 4150 60 
 F3 "A" O R 3350 4450 60 
 F4 "B" O R 3350 4300 60 
-F5 "THERM" O R 3350 4700 60 
-F6 "Current-Sense" O R 3350 4950 60 
-F7 "SIGNAL" I L 1700 4200 60 
-F8 "BRAKE" I L 1700 4400 60 
-F9 "ENABLE" I L 1700 4800 60 
+F5 "SIGNAL" I L 1700 4200 60 
+F6 "BRAKE" I L 1700 4400 60 
+F7 "ENABLE" I L 1700 4800 60 
 $EndSheet
 $Sheet
 S 4950 3850 1800 1500
@@ -320,10 +319,6 @@ Text Label 4700 1750 2    60   ~ 0
 RAILCOM-DIR
 Text Label 5600 1950 0    60   ~ 0
 OPS-BRAKE
-Text Label 3350 4950 0    60   ~ 0
-OPS-SENSE
-Text Label 3350 4700 0    60   ~ 0
-OPS-THERM
 Text Label 1700 4200 2    60   ~ 0
 OPS-SIG
 Text Label 1700 4400 2    60   ~ 0
