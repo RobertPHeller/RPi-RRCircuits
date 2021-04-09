@@ -39,11 +39,11 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 5 7
-Title ""
-Date ""
-Rev ""
-Comp ""
-Comment1 ""
+Title "Pocket Beagle DCC Command Station (SMD version)"
+Date "2021-04-09"
+Rev "A"
+Comp "Deepwoods Software"
+Comment1 "Prog and OpenLCB DCC drivers"
 Comment2 ""
 Comment3 ""
 Comment4 ""

@@ -39,8 +39,8 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 3 7
-Title "Pocket Beagle DCC Command Station"
-Date "3 mar 2019"
+Title "Pocket Beagle DCC Command Station (SMD version)"
+Date "2021-04-09"
 Rev "A"
 Comp "Deepwoods Software"
 Comment1 "CAN Transceiver"
