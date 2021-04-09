@@ -1,4 +1,4 @@
-update=Fri 09 Apr 2021 07:10:46 AM EDT
+update=Fri 09 Apr 2021 02:32:12 PM EDT
 version=1
 last_client=kicad
 [cvpcb]
@@ -84,3 +84,5 @@ LibName29=valves
 LibName30=pocketbeagle
 LibName31=DRV8873HPWPR
 LibName32=DRV8801PWP
+LibName33=74ahc1g08
+LibName34=mcp9701at
