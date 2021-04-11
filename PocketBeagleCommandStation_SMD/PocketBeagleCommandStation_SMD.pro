@@ -1,4 +1,4 @@
-update=Fri 09 Apr 2021 02:32:12 PM EDT
+update=Sun 11 Apr 2021 07:08:32 AM EDT
 version=1
 last_client=kicad
 [cvpcb]
@@ -86,3 +86,4 @@ LibName31=DRV8873HPWPR
 LibName32=DRV8801PWP
 LibName33=74ahc1g08
 LibName34=mcp9701at
+LibName35=INA2180A1IDGKR
