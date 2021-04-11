@@ -141,7 +141,7 @@ F 1 "TP0606" H 8600 4600 50  0000 L CNN
 F 2 "TO_SOT_Packages_THT:TO-92_Molded_Narrow" H 8600 4750 50  0001 C CNN
 F 3 "" H 8400 4650 50  0001 C CNN
 	1    8400 4650
-	1    0    0    -1  
+	1    0    0    1   
 $EndComp
 $Comp
 L R R6
