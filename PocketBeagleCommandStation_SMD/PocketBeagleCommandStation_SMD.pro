@@ -1,4 +1,4 @@
-update=Sun 11 Apr 2021 07:08:32 AM EDT
+update=Sun 11 Apr 2021 02:00:12 PM EDT
 version=1
 last_client=kicad
 [cvpcb]
@@ -50,7 +50,7 @@ LibName19=GPIOHeaders
 version=1
 [eeschema]
 version=1
-LibDir=
+LibDir=../../RRCircuits
 [eeschema/libraries]
 LibName1=power
 LibName2=device
@@ -87,3 +87,4 @@ LibName32=DRV8801PWP
 LibName33=74ahc1g08
 LibName34=mcp9701at
 LibName35=INA2180A1IDGKR
+LibName36=/home/heller/RRCircuits/lm2574n-5
