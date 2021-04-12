@@ -35,6 +35,12 @@ LIBS:74ahc1g08
 LIBS:mcp9701at
 LIBS:INA2180A1IDGKR
 LIBS:lm2574n-5
+LIBS:mechanical
+LIBS:references
+LIBS:motors
+LIBS:graphic_symbols
+LIBS:motor_drivers
+LIBS:irf7351pbf
 LIBS:PocketBeagleCommandStation_SMD-cache
 EELAYER 25 0
 EELAYER END
@@ -176,4 +182,15 @@ Wire Wire Line
 	5550 3500 6100 3500
 Wire Wire Line
 	6100 3500 6100 3450
+$Comp
+L Fan_IEC60617 M1
+U 1 1 60750662
+P 7950 2900
+F 0 "M1" H 8100 3050 50  0000 L CNN
+F 1 "Fan_IEC60617" H 8100 3000 50  0000 L TNN
+F 2 "FAN:25mmFanMount" H 8000 2760 50  0001 L CNN
+F 3 "" H 7950 2910 50  0001 C CNN
+	1    7950 2900
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

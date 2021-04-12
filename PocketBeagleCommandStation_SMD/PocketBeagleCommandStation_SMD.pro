@@ -1,4 +1,4 @@
-update=Mon 12 Apr 2021 01:06:43 PM EDT
+update=Mon 12 Apr 2021 05:53:41 PM EDT
 version=1
 last_client=kicad
 [cvpcb]
@@ -90,3 +90,7 @@ LibName35=INA2180A1IDGKR
 LibName36=/home/heller/RRCircuits/lm2574n-5
 LibName37=mechanical
 LibName38=references
+LibName39=motors
+LibName40=graphic_symbols
+LibName41=motor_drivers
+LibName42=irf7351pbf

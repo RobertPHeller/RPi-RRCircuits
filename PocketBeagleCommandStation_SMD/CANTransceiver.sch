@@ -35,6 +35,12 @@ LIBS:74ahc1g08
 LIBS:mcp9701at
 LIBS:INA2180A1IDGKR
 LIBS:lm2574n-5
+LIBS:mechanical
+LIBS:references
+LIBS:motors
+LIBS:graphic_symbols
+LIBS:motor_drivers
+LIBS:irf7351pbf
 LIBS:PocketBeagleCommandStation_SMD-cache
 EELAYER 25 0
 EELAYER END

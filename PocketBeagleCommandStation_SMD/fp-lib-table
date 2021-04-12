@@ -8,4 +8,5 @@
   (lib (name RJ45-8N-S)(type Legacy)(uri /home/heller/RRCircuits/RJ45-8N-S.mod)(options "")(descr ""))
   (lib (name SOIC_Wide)(type KiCad)(uri /home/heller/RRCircuits/SOIC_Wide.pretty)(options "")(descr ""))
   (lib (name SRN1060)(type Legacy)(uri /home/heller/RRCircuits/SRN1060.mod)(options "")(descr ""))
+  (lib (name FAN)(type KiCad)(uri "$(KIPRJMOD)/FAN.pretty")(options "")(descr ""))
 )
