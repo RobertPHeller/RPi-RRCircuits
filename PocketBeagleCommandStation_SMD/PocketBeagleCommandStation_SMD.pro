@@ -1,4 +1,4 @@
-update=Sun 11 Apr 2021 02:00:12 PM EDT
+update=Mon 12 Apr 2021 01:06:43 PM EDT
 version=1
 last_client=kicad
 [cvpcb]
@@ -88,3 +88,5 @@ LibName33=74ahc1g08
 LibName34=mcp9701at
 LibName35=INA2180A1IDGKR
 LibName36=/home/heller/RRCircuits/lm2574n-5
+LibName37=mechanical
+LibName38=references

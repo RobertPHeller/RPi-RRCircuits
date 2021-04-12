@@ -1,0 +1,11 @@
+(fp_lib_table
+  (lib (name INA2180A1IDGKR)(type Legacy)(uri "$(KIPRJMOD)/INA2180A1IDGKR.mod")(options "")(descr ""))
+  (lib (name RB080LAM-30TR)(type Legacy)(uri "$(KIPRJMOD)/RB080LAM-30TR.mod")(options "")(descr ""))
+  (lib (name DWSLogoBCU)(type Legacy)(uri /home/heller/RRCircuits/DWSLogoBCU.mod)(options "")(descr ""))
+  (lib (name MF-R500)(type Legacy)(uri "$(KIPRJMOD)/MF-R500.mod")(options "")(descr ""))
+  (lib (name 0ZCG0035AF2C)(type Legacy)(uri "$(KIPRJMOD)/0ZCG0035AF2C.mod")(options "")(descr ""))
+  (lib (name SOP65P640X120)(type KiCad)(uri "$(KIPRJMOD)/SOP65P640X120.pretty")(options "")(descr ""))
+  (lib (name RJ45-8N-S)(type Legacy)(uri /home/heller/RRCircuits/RJ45-8N-S.mod)(options "")(descr ""))
+  (lib (name SOIC_Wide)(type KiCad)(uri /home/heller/RRCircuits/SOIC_Wide.pretty)(options "")(descr ""))
+  (lib (name SRN1060)(type Legacy)(uri /home/heller/RRCircuits/SRN1060.mod)(options "")(descr ""))
+)
