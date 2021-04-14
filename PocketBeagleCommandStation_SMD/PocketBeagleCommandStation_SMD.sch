@@ -1001,11 +1001,6 @@ Wire Wire Line
 Wire Wire Line
 	6750 4650 6950 4650
 Wire Wire Line
-	6900 4650 6900 5450
-Wire Wire Line
-	6900 5450 7550 5450
-Connection ~ 6900 4650
-Wire Wire Line
 	3950 4250 3950 4800
 Connection ~ 3950 4300
 Wire Wire Line
@@ -1263,4 +1258,17 @@ F 3 "" H 4800 7850 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	5300 7300 5300 7350
+$Comp
+L +12V #PWR019
+U 1 1 60774528
+P 7400 5450
+F 0 "#PWR019" H 7400 5300 50  0001 C CNN
+F 1 "+12V" H 7400 5590 50  0000 C CNN
+F 2 "" H 7400 5450 50  0001 C CNN
+F 3 "" H 7400 5450 50  0001 C CNN
+	1    7400 5450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7550 5450 7400 5450
 $EndSCHEMATC

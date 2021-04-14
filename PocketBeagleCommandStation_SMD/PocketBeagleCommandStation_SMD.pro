@@ -1,4 +1,4 @@
-update=Mon 12 Apr 2021 05:53:41 PM EDT
+update=Wed 14 Apr 2021 03:38:54 PM EDT
 version=1
 last_client=kicad
 [cvpcb]
@@ -94,3 +94,13 @@ LibName39=motors
 LibName40=graphic_symbols
 LibName41=motor_drivers
 LibName42=irf7351pbf
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60
