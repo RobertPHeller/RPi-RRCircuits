@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Fri Apr 16 08:44:50 2021
-#  Last Modified : <210416.1524>
+#  Last Modified : <210417.0702>
 #
 #  Description	
 #
@@ -165,7 +165,8 @@ snit::type KiCadBOM2PCBWayBOM {
             return {}
         }
     }
-    typevariable thoughholeFPs {list Fiducial TerminalBlock Pin_Header RJ45_8N 25mmFanMount MountingHole  MFR500 USB_A}
+    typevariable thoughholeFPs {Fiducial TerminalBlock Pin_Header RJ45_8N 
+        25mmFanMount MountingHole  MFR500 8964300490000000}
     proc _nonSMDFootprint {foot} {
         foreach thoughholeFP $thoughholeFPs {
             if {[regexp "^$thoughholeFP" $foot] > 0} {return yes}
