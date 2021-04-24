@@ -1,6 +1,7 @@
 SUBDIRS = \
           bbb.linux.armv7a \
 	  pb.linux.armv7a \
+	  pbNTF.linux.armv7a \
 #          rpi.linux.armv7a \
 	  
 # broken

@@ -122,7 +122,11 @@ extern const char *const openlcb::SNIP_DYNAMIC_FILENAME =
 // the individual entries to the individual consumers. Each consumer gets its
 // own GPIO pin.
 
+#ifdef NO_THERMFAULT
+HBridgeControl mains(stack.node(), cfg.seg().maindcc(), CSenseMainAnalogChannel, MainEN_Pin::instance());
+#else
 HBridgeControl mains(stack.node(), cfg.seg().maindcc(), CSenseMainAnalogChannel, MainEN_Pin::instance(), MainTF_Pin::instance());
+#endif
 HBridgeControl progtrack(stack.node(), cfg.seg().progdcc(), CSenseProgAnalogChannel, ProgEN_Pin::instance() );
 FanControl     fan(stack.node(), cfg.seg().fancontrol(), TempsensorChannel,FanControl_Pin::instance());
 
@@ -341,6 +345,7 @@ int appl_main(int argc, char *argv[])
     stack.create_config_file_if_needed(cfg.seg().internal_config(), openlcb::CANONICAL_VERSION, openlcb::CONFIG_FILE_SIZE);
     mainDCC.StartPRU();
     progDCC.StartPRU();
+    railcom_hub.reset(new dcc::RailcomHubFlow(stack.service()));
     opsRailComDriver.hw_init(railcom_hub.get());
     railcom_dumper.reset(new dcc::RailcomPrintfFlow(railcom_hub.get()));
     
