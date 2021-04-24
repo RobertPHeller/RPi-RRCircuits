@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 20:21:25 2019
-//  Last Modified : <210318.1306>
+//  Last Modified : <210424.1011>
 //
 //  Description	
 //
@@ -46,9 +46,9 @@
 #include "executor/Executor.hxx"
 #include "executor/StateFlow.hxx"
 #include "dcc/Packet.hxx"
+#include <utils/Singleton.hxx>
 
-
-class CommandStationDCCMainTrack : public StateFlow<Buffer<dcc::Packet>, QList<1>>
+class CommandStationDCCMainTrack : public StateFlow<Buffer<dcc::Packet>, QList<1>>, public Singleton<CommandStationDCCMainTrack>
 {
 public:
     CommandStationDCCMainTrack(Service *service, int pool_size);

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 13:40:14 2019
-//  Last Modified : <210317.1429>
+//  Last Modified : <210424.0855>
 //
 //  Description	
 //
@@ -110,7 +110,9 @@ Console::CommandStatus CommandStationConsole::define_command(FILE *fp, int argc,
         TrainNodeImpl &n = trains_[address];
         if (!n.node)
         {
-#if 0
+#ifdef DEBUGTRAIN
+            n.impl.reset(new openlcb::LoggingTrain(address));
+#else
             if (steps == 28) {
                 if (address < 128) {
                     n.impl.reset(new dcc::Dcc28Train(dcc::DccShortAddress(address)));
@@ -124,8 +126,6 @@ Console::CommandStatus CommandStationConsole::define_command(FILE *fp, int argc,
                     n.impl.reset(new dcc::Dcc128Train(dcc::DccLongAddress(address)));
                 }
             }
-#else
-            n.impl.reset(new openlcb::LoggingTrain(address));
 #endif
             fprintf(stderr,"*** CommandStationConsole::define_command(): created train implementation\n");
             n.node.reset(

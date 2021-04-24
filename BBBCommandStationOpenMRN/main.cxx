@@ -54,7 +54,8 @@ OVERRIDE_CONST(local_nodes_count,50);
 #include "HBridgeControl.hxx"
 #include "FanControl.hxx"
 #include "BBRailComDriver.hxx"
-#include "dcc/RailcomPortDebug.hxx"
+#include <dcc/RailcomHub.hxx>
+#include <dcc/RailcomPortDebug.hxx>
 #include "Hardware.hxx"
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -311,8 +312,6 @@ void connect_callback(int fd, Notifiable *on_error)
 }
 #endif
 
-//dcc::UpdateLoopBase DccPacketLoop();
-
 #ifdef TERMINALCONSOLE
 CommandStationConsole commandProcessorConsole(stack.info_flow(),
                                               stack.traction_service(),
@@ -328,6 +327,10 @@ CommandStationConsole commandProcessorConsole(stack.info_flow(),
 
 CommandStationDCCMainTrack mainDCC(stack.traction_service(),2);
 CommandStationDCCProgTrack progDCC(stack.traction_service(),2);
+
+//dcc::SimpleUpdateLoop dccUpdateLoop(stack.service(), &mainDCC);
+
+DuplexUpdateLoop DccPacketLoop(stack.service(),&mainDCC,&progDCC);
 
 
 /** Entry point to application.
