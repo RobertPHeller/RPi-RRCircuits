@@ -36,6 +36,7 @@
 #include "nmranet_config.h"
 
 OVERRIDE_CONST(local_nodes_count,50);
+OVERRIDE_CONST(num_memory_spaces, 7);
 
 #include "openlcb/SimpleStack.hxx"
 #include "openlcb/ConfiguredConsumer.hxx"

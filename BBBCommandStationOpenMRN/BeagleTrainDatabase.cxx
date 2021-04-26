@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Apr 25 21:14:31 2021
-//  Last Modified : <210426.1359>
+//  Last Modified : <210426.1913>
 //
 //  Description	
 //
@@ -67,8 +67,8 @@ static std::string load(const std::string& filename)
         std::string str(size, '\0');
         is.seekg(0);
         if (is.read(&str[0], size)) {
-            LOG(INFO,"[load] str is '%s'",str.c_str());
-            LOG(INFO,"[load] str is %d bytes",str.size());
+            //LOG(INFO,"[load] str is '%s'",str.c_str());
+            //LOG(INFO,"[load] str is %d bytes",str.size());
             return str;
         } else {
             return "";
@@ -80,8 +80,8 @@ static std::string load(const std::string& filename)
 
 static void store(const char * filename, const std::string& buffer)
 {
-    LOG(INFO,"[store] buffer is '%s'",buffer.c_str());
-    LOG(INFO,"[store] buffer is %d bytes",buffer.size());
+    //LOG(INFO,"[store] buffer is '%s'",buffer.c_str());
+    //LOG(INFO,"[store] buffer is %d bytes",buffer.size());
     std::ofstream(filename) << buffer << std::endl;
 }
 
