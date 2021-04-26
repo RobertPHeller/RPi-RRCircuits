@@ -332,13 +332,13 @@ commandstation::AllTrainNodes trainNodes(&trainDb
 
 
 #ifdef TERMINALCONSOLE
-CommandStationConsole commandProcessorConsole(stack.info_flow(),
+CommandStationConsole commandProcessorConsole(&trainNodes,
                                               stack.traction_service(),
                                               stack.executor(),
                                               Console::FD_STDIN,
                                               Console::FD_STDOUT);
 #else
-CommandStationConsole commandProcessorConsole(stack.info_flow(),
+CommandStationConsole commandProcessorConsole(&trainNodes,
                                               stack.traction_service(),
                                               stack.executor(),
                                               CONSOLEPORT);
@@ -370,9 +370,13 @@ int appl_main(int argc, char *argv[])
     stack.create_config_file_if_needed(cfg.seg().internal_config(), openlcb::CANONICAL_VERSION, openlcb::CONFIG_FILE_SIZE);
     mainDCC.StartPRU();
     progDCC.StartPRU();
+    LOG(INFO, "[Main] PRUs started...");
     railcom_hub.reset(new dcc::RailcomHubFlow(stack.service()));
+    LOG(INFO, "[Main] RailcomHub started...");
     opsRailComDriver.hw_init(railcom_hub.get());
+    LOG(INFO, "[Main] RailComDriver initialized...");
     railcom_dumper.reset(new dcc::RailcomPrintfFlow(railcom_hub.get()));
+    LOG(INFO, "[Main] railcom_dumper started...");
     
     // Connects to a TCP hub on the internet.
     //stack.connect_tcp_gridconnect_hub("28k.ch", 50007);

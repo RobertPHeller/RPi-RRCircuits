@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 13:40:14 2019
-//  Last Modified : <210424.0855>
+//  Last Modified : <210426.1017>
 //
 //  Description	
 //
@@ -57,16 +57,17 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "openlcb/EventService.hxx"
 #include "executor/CallableFlow.hxx"
 #include "dcc/Loco.hxx"
+#include <AllTrainNodes.hxx>
+#include "BeagleTrainDatabase.hxx"
 #include "CommandStationStack.hxx"
-#include "TrainSNIP.hxx"
 #include "CommandStationConsole.hxx"
 #include "AnalogReadSysFS.h"
 #include "Hardware.hxx"
 
-CommandStationConsole::CommandStationConsole(openlcb::SimpleInfoFlow *infoFlow, openlcb::TrainService *tractionService, ExecutorBase *executor, uint16_t port)
+CommandStationConsole::CommandStationConsole(commandstation::AllTrainNodes *trainnodes, openlcb::TrainService *tractionService, ExecutorBase *executor, uint16_t port)
       : Console(executor,port)
 , traction_service_(tractionService)
-, info_flow_(infoFlow)
+, trainnodes_(trainnodes)
 {
     add_command("define",define_command,this);
     add_command("undefine",undefine_command,this);
@@ -76,10 +77,10 @@ CommandStationConsole::CommandStationConsole(openlcb::SimpleInfoFlow *infoFlow, 
 }
 
 
-CommandStationConsole::CommandStationConsole(openlcb::SimpleInfoFlow *infoFlow, openlcb::TrainService *tractionService, ExecutorBase *executor, int fd_in, int fd_out, int port)
+CommandStationConsole::CommandStationConsole(commandstation::AllTrainNodes *trainnodes, openlcb::TrainService *tractionService, ExecutorBase *executor, int fd_in, int fd_out, int port)
       : Console(executor,fd_in, fd_out, port)
 , traction_service_(tractionService)
-, info_flow_(infoFlow)
+, trainnodes_(trainnodes)
 {
     add_command("define",define_command,this);
     add_command("undefine",undefine_command,this);
@@ -107,51 +108,27 @@ Console::CommandStatus CommandStationConsole::define_command(FILE *fp, int argc,
         name = argv[5];
         description = argv[6];
         fprintf(stderr,"*** CommandStationConsole::define_command(): Defining loco address %d, steps %d, name %s, description %s\n",address,steps,name.c_str(),description.c_str());
-        TrainNodeImpl &n = trains_[address];
-        if (!n.node)
-        {
-#ifdef DEBUGTRAIN
-            n.impl.reset(new openlcb::LoggingTrain(address));
-#else
-            if (steps == 28) {
-                if (address < 128) {
-                    n.impl.reset(new dcc::Dcc28Train(dcc::DccShortAddress(address)));
-                } else {
-                    n.impl.reset(new dcc::Dcc28Train(dcc::DccLongAddress(address)));
-                }
+        commandstation::DccMode mode;
+        if (steps == 28) {
+            if (address < 128) {
+                mode = commandstation::DccMode::DCC_28;
             } else {
-                if (address < 128) {
-                    n.impl.reset(new dcc::Dcc128Train(dcc::DccShortAddress(address)));
-                } else {
-                    n.impl.reset(new dcc::Dcc128Train(dcc::DccLongAddress(address)));
-                }
+                mode = commandstation::DccMode::DCC_28_LONG_ADDRESS;
             }
-#endif
-            fprintf(stderr,"*** CommandStationConsole::define_command(): created train implementation\n");
-            n.node.reset(
-                         new openlcb::TrainNodeForProxy(traction_service_,n.impl.get()));
-            fprintf(stderr,"*** -: created train node\n");
-            n.is_train_event.reset(
-               new openlcb::FixedEventProducer<
-                                   openlcb::TractionDefs::IS_TRAIN_EVENT>(n.node.get()));
-            fprintf(stderr,"*** -: created FixedEventProducer\n");
-            n.pip_handler.reset(
-               new openlcb::ProtocolIdentificationHandler(
-                     n.node.get(),
-                     openlcb::Defs::EVENT_EXCHANGE | openlcb::Defs::TRACTION_CONTROL | openlcb::Defs::SIMPLE_NODE_INFORMATION));
-            fprintf(stderr,"*** -: created pip_handler\n");
-            n.snip_handler.reset(
-               new TrainSNIPHandler(n.node.get()->iface(),
-                                    n.node.get(),
-                                    info_flow_,
-                                    name,description));
-            fprintf(stderr,"*** -: created snip_handler\n");
-            n.steps = steps;
+        } else {
+            if (address < 128) {
+                mode = commandstation::DccMode::DCC_128;
+            } else {
+                mode = commandstation::DccMode::DCC_128_LONG_ADDRESS;
+            }
+        }
+        auto traindb = Singleton<BeagleCS::BeagleTrainDatabase>::instance();
+        if (traindb->create_if_not_found(address, name, description, mode)) {
             fprintf(fp,"#define# true\n");
         } else {
             fprintf(fp,"#define# false\n");
         }
-    }
+    } 
     return Console::COMMAND_OK;
 }
 
@@ -166,15 +143,9 @@ Console::CommandStatus CommandStationConsole::undefine_command(FILE *fp, int arg
             return Console::COMMAND_ERROR;
         }
         uint16_t address = atoi(argv[2]);
-        TrainNodeImpl &n = trains_[address];
-        if (n.node)
-        {
-            n.node.get()->iface()->delete_local_node(n.node.get());
-            trains_.erase(address);
-            fprintf(fp,"#undefine# true\n");
-        } else {
-            fprintf(fp,"#undefine# false\n");
-        }
+        auto traindb = Singleton<BeagleCS::BeagleTrainDatabase>::instance();
+        traindb->delete_entry(address);
+        fprintf(fp,"#undefine# true\n");
     }
     return Console::COMMAND_OK;
 }
@@ -188,16 +159,10 @@ Console::CommandStatus CommandStationConsole::list_command(FILE *fp, int argc, c
         if (strcmp(argv[1],"locomotives") != 0) {
             return Console::COMMAND_ERROR;
         }
-        bool needsp = false;
+        /*bool needsp = false;*/
         fprintf(fp,"#list# ");
-        for (TrainMap::const_iterator itrain = trains_.begin();
-             itrain != trains_.end();
-             itrain++) {
-            if (needsp) fputc(' ',fp);
-            fprintf(fp,"%d",itrain->first);
-            needsp = true;
-        }
-        fputc('\n',fp);
+        auto traindb = Singleton<BeagleCS::BeagleTrainDatabase>::instance();
+        fprintf(fp,"%s\n",traindb->get_all_entries_as_list().c_str());
     }
     return COMMAND_OK;
 }
@@ -212,52 +177,64 @@ Console::CommandStatus CommandStationConsole::describe_command(FILE *fp, int arg
             return Console::COMMAND_ERROR;
         }
         uint16_t address = atoi(argv[2]);
-        TrainNodeImpl &n = trains_[address];
-        if (n.node)
-        {
-            fprintf(fp,"#describe# %d %d ",address,n.steps);
-            TrainSNIPHandler *snip_handler = (TrainSNIPHandler *)n.snip_handler.get();
-            putTclBraceString(fp,snip_handler->UserName());
-            fputc(' ',fp);
-            putTclBraceString(fp,snip_handler->UserDescription());
-            fputc(' ',fp);            
-            openlcb::SpeedType speed = n.impl.get()->get_speed();
-            fprintf(fp,"%c %.0f ",(speed.direction() == speed.FORWARD)?'F':'R',speed.mph());
-            char sp = '{';
-            for (uint32_t f=0; f <= 28; f++) {
-                fprintf(fp,"%c%s",sp,n.impl.get()->get_fn(f)?"true":"false");
-                sp = ' ';
-            }
-            fputc('}',fp);
-            fputc(' ',fp);
-            openlcb::NodeHandle controller = n.node.get()->get_controller();
-            if (controller.id == 0)
-            {
-                if (controller.alias != 0)
-                {
-                    openlcb::NodeIdLookupFlow nodeIdLookup((openlcb::IfCan*)(n.node.get()->iface()));
-                    auto result = invoke_flow(&nodeIdLookup,n.node.get(),controller);
-                    if (result->data()->resultCode == 0) {
-                        controller.id = result->data()->handle.id;
-                    }
-                }
-            }
-            fprintf(fp,"%llu ",controller.id);
-            fputc('{',fp);
-            bool needsp = false;
-            for (int i=0; i < n.node.get()->query_consist_length(); i++)
-            {
-                if (needsp) fputc(' ',fp);
-                openlcb::NodeID cn = n.node.get()->query_consist(i,NULL);
-                fprintf(fp,"%llu", cn);
-                needsp = true;
-            }
-            fputc('}',fp);
-            fprintf(fp,"\n");
-        } else {
-            fprintf(fp,"#describe# %d false.\n",address);
+        auto traindb = Singleton<BeagleCS::BeagleTrainDatabase>::instance();
+        commandstation::DccMode mode = traindb->get_train_mode(address);
+        openlcb::TrainImpl* impl = trainnodes_->get_train_impl(mode,address);
+        if (impl == nullptr) {
+            fprintf(fp,"#describe# false\n");
             return COMMAND_OK;
         }
+        int steps;
+        if ((mode & commandstation::DccMode::DCC_28) == commandstation::DccMode::DCC_28)
+        {
+            steps = 28;
+        }
+        else
+        {
+            steps = 128;
+        }
+        fprintf(fp,"#describe# %d %d ",address,steps);
+        putTclBraceString(fp,traindb->get_train_name(address).c_str());
+        fputc(' ',fp);
+        putTclBraceString(fp,traindb->get_train_description(address).c_str());
+        fputc(' ',fp);
+        openlcb::SpeedType speed = impl->get_speed();
+        fprintf(fp,"%c %.0f ",(speed.direction() == speed.FORWARD)?'F':'R',speed.mph());
+        char sp = '{';
+        for (uint32_t f=0; f <= 28; f++) {
+            fprintf(fp,"%c%s",sp,impl->get_fn(f)?"true":"false");
+            sp = ' ';
+        }
+        fputc('}',fp);
+        fputc(' ',fp);
+#if 1
+        fprintf(fp,"%llu {}",0ULL); /* fake controlled and consist */
+#else
+        openlcb::NodeHandle controller = n.node.get()->get_controller();
+        if (controller.id == 0)
+        {
+            if (controller.alias != 0)
+            {
+                openlcb::NodeIdLookupFlow nodeIdLookup((openlcb::IfCan*)(n.node.get()->iface()));
+                auto result = invoke_flow(&nodeIdLookup,n.node.get(),controller);
+                if (result->data()->resultCode == 0) {
+                    controller.id = result->data()->handle.id;
+                }
+            }
+        }
+        fprintf(fp,"%llu ",controller.id);
+        fputc('{',fp);
+        bool needsp = false;
+        for (int i=0; i < n.node.get()->query_consist_length(); i++)
+        {
+            if (needsp) fputc(' ',fp);
+            openlcb::NodeID cn = n.node.get()->query_consist(i,NULL);
+            fprintf(fp,"%llu", cn);
+            needsp = true;
+        }
+        fputc('}',fp);
+#endif
+        fprintf(fp,"\n");
     }
     return COMMAND_OK;
 }

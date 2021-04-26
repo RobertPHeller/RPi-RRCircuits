@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Apr 25 21:14:31 2021
-//  Last Modified : <210425.2251>
+//  Last Modified : <210426.1022>
 //
 //  Description	
 //
@@ -477,7 +477,7 @@ unsigned BeagleTrainDatabase::add_dynamic_entry(uint16_t address, DccMode mode)
     // automatically persist.
     knownTrains_.emplace_back(
       new BeagleTrainDbEntry(
-        BeaglePersistentTrainData(address, std::to_string(address), mode)));
+        BeaglePersistentTrainData(address, std::to_string(address), "", mode)));
 #else
     LOG(VERBOSE
       , "[TrainDB] Adding temporary roster entry for locomotive %u."
@@ -617,11 +617,65 @@ string BeagleTrainDatabase::get_all_entries_as_json()
   return res;
 }
 
+string BeagleTrainDatabase::get_all_entries_as_list()
+{
+    OSMutexLock l(&knownTrainsLock_); 
+    string res = "";
+    for (auto entry : knownTrains_)
+    {
+        if (res.length() > 0)
+        {
+            res += " ";
+        }
+        res += std::to_string(entry->get_legacy_address());
+    }
+    return res;
+}
+
 string BeagleTrainDatabase::get_entry_as_json(unsigned address)
 {
   OSMutexLock l(&knownTrainsLock_);
   return get_entry_as_json_locked(address);
 }
+
+DccMode BeagleTrainDatabase::get_train_mode(unsigned address)
+{
+    OSMutexLock l(&knownTrainsLock_);
+    auto entry = FIND_TRAIN(address);
+    if (entry != knownTrains_.end())
+    {
+        auto train = (*entry);
+        return train->get_legacy_drive_mode();
+    } else {
+        return DccMode::DCCMODE_DEFAULT;
+    }
+}
+string BeagleTrainDatabase::get_train_name(unsigned address)
+{
+    OSMutexLock l(&knownTrainsLock_);
+    auto entry = FIND_TRAIN(address);
+    if (entry != knownTrains_.end())
+    {
+        auto train = (*entry);
+        return train->get_train_name();
+    } else {
+        return "";
+    }
+}
+
+string BeagleTrainDatabase::get_train_description(unsigned address)
+{
+    OSMutexLock l(&knownTrainsLock_);
+    auto entry = FIND_TRAIN(address);
+    if (entry != knownTrains_.end())
+    {
+        auto train = (*entry);
+        return train->get_train_description();
+    } else {
+        return "";
+    }
+}
+
 
 string BeagleTrainDatabase::get_entry_as_json_locked(unsigned address)
 {

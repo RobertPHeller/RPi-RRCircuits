@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 09:45:53 2019
-//  Last Modified : <191028.2134>
+//  Last Modified : <210426.0756>
 //
 //  Description	
 //
@@ -56,29 +56,19 @@
 #include "openlcb/TrainInterface.hxx"
 #include "openlcb/EventHandlerTemplates.hxx"
 #include "openlcb/EventService.hxx"
-
+#include <AllTrainNodes.hxx>
+#include "BeagleTrainDatabase.hxx"
 #include "CommandStationStack.hxx"
-#include "TrainSNIP.hxx"
 #include "HBridgeControl.hxx"
 #include "FanControl.hxx"
 
 extern HBridgeControl mains, progtrack;
 extern FanControl fan;
 
-struct TrainNodeImpl
-{
-    std::unique_ptr<openlcb::TrainImpl> impl;
-    std::unique_ptr<openlcb::TrainNode> node;
-    std::unique_ptr<openlcb::EventHandler> is_train_event;
-    std::unique_ptr<openlcb::IncomingMessageStateFlow> pip_handler;
-    std::unique_ptr<openlcb::IncomingMessageStateFlow> snip_handler;
-    uint8_t steps;
-};
-
 class CommandStationConsole : public Console {
 public:
-    CommandStationConsole(openlcb::SimpleInfoFlow *infoFlow, openlcb::TrainService *tractionService, ExecutorBase *executor, uint16_t port);
-    CommandStationConsole(openlcb::SimpleInfoFlow *infoFlow, openlcb::TrainService *tractionService, ExecutorBase *executor, int fd_in, int fd_out, int port = -1);
+    CommandStationConsole(commandstation::AllTrainNodes *trainnodes, openlcb::TrainService *tractionService, ExecutorBase *executor, uint16_t port);
+    CommandStationConsole(commandstation::AllTrainNodes *trainnodes, openlcb::TrainService *tractionService, ExecutorBase *executor, int fd_in, int fd_out, int port = -1);
 private:
     static CommandStatus define_command(FILE *fp, int argc, const char *argv[], void *context)
     {
@@ -107,9 +97,7 @@ private:
     }
     void putTclBraceString(FILE *fp, const char *s) const;
     openlcb::TrainService *traction_service_;
-    openlcb::SimpleInfoFlow *info_flow_;
-    typedef map<uint16_t, TrainNodeImpl> TrainMap;
-    TrainMap trains_;
+    commandstation::AllTrainNodes *trainnodes_;
 };
 
 #endif // __COMMANDSTATIONCONSOLE_HXX

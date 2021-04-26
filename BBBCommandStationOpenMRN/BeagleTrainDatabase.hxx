@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Apr 25 18:49:25 2021
-//  Last Modified : <210425.2248>
+//  Last Modified : <210426.0920>
 //
 //  Description	
 //
@@ -289,8 +289,12 @@ namespace BeagleCS
         void set_train_drive_mode(unsigned address, DccMode mode);
 
         std::string get_all_entries_as_json();
+        std::string get_all_entries_as_list();
         std::string get_entry_as_json(unsigned address);
-
+        DccMode get_train_mode(unsigned address);
+        std::string get_train_name(unsigned address);
+        std::string get_train_description(unsigned address);
+        
         openlcb::MemorySpace *get_train_cdi()
         {
             return trainCdiFile_.get();
@@ -317,7 +321,8 @@ namespace BeagleCS
 extern const char *const TRAIN_DB_JSON_FILE;
 #define CONFIG_ROSTER_PERSISTENCE_INTERVAL_SEC 10
 } // namespace BeagleCS
-        
+
+#define CONFIG_ROSTER_AUTO_CREATE_ENTRIES
 
 #endif // __BEAGLETRAINDATABASE_HXX
 
