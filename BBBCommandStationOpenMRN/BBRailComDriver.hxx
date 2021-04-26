@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Mar 24 09:44:24 2021
-//  Last Modified : <210325.1430>
+//  Last Modified : <210425.1323>
 //
 //  Description	
 //
@@ -142,6 +142,10 @@ public:
             }
             advance_railcom_buffer();
         }
+        HW::RC_ENABLE::set(false);
+    }
+    void no_cutout() override
+    {
         HW::RC_ENABLE::set(false);
     }
     void set_feedback_key(uint32_t key) override

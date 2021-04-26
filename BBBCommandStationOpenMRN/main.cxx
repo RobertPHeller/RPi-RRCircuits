@@ -54,6 +54,8 @@ OVERRIDE_CONST(local_nodes_count,50);
 #include "HBridgeControl.hxx"
 #include "FanControl.hxx"
 #include "BBRailComDriver.hxx"
+#include "BeagleTrainDatabase.hxx"
+#include <AllTrainNodes.hxx>
 #include <dcc/RailcomHub.hxx>
 #include <dcc/RailcomPortDebug.hxx>
 #include "Hardware.hxx"
@@ -112,6 +114,8 @@ extern const size_t openlcb::CONFIG_FILE_SIZE =
 extern const char *const openlcb::SNIP_DYNAMIC_FILENAME =
     openlcb::CONFIG_FILENAME;
 
+char persistenttrainfile[256];
+extern const char *const BeagleCS::TRAIN_DB_JSON_FILE = persistenttrainfile;
 
 // Instantiates the actual producer and consumer objects for the given GPIO
 // pins from above. The ConfiguredConsumer class takes care of most of the
@@ -242,7 +246,8 @@ void usage(const char *e)
     fprintf(stderr, "\n\n");    
     fprintf(stderr, "OpenMRN-Cxx-Node.\nManages a Beagle Bone Command Station Cape.\n");
     fprintf(stderr, "\nOptions:\n");
-    fprintf(stderr, "\t-e EEPROM_file_path is the path to use to the EEProm device.\n");
+    fprintf(stderr, "\t-e EEPROM_file_path is the path to use to implement the EEProm device.\n");
+    fprintf(stderr, "\t-t Persistent_Train_file_path is the path to use to the implement the train persistent data.\n");
 #if defined(USE_OPENLCB_TCP_HOST) || defined(USE_GRIDCONNECT_HOST)
     fprintf(stderr,"\t-u upstream_host   is the host name for an "
             "upstream hub.\n");
@@ -262,15 +267,15 @@ void parse_args(int argc, char *argv[])
     int opt;
 #if defined(USE_OPENLCB_TCP_HOST) || defined(USE_GRIDCONNECT_HOST)
 #ifdef USE_SOCKET_CAN_PORT
-#define OPTSTRING "he:u:q:c:"
+#define OPTSTRING "he:t:u:q:c:"
 #else
-#define OPTSTRING "he:u:q:"
+#define OPTSTRING "he:t:u:q:"
 #endif
 #else
 #ifdef USE_SOCKET_CAN_PORT
-#define OPTSTRING "he:c:"
+#define OPTSTRING "he:t:c:"
 #else
-#define OPTSTRING "he:"
+#define OPTSTRING "he:t:"
 #endif
 #endif
     while ((opt = getopt(argc, argv, OPTSTRING)) >= 0)
@@ -282,6 +287,9 @@ void parse_args(int argc, char *argv[])
             break;
         case 'e':
             strncpy(pathnamebuffer,optarg,sizeof(pathnamebuffer));
+            break;
+        case 't':
+            strncpy(persistenttrainfile,optarg,sizeof(persistenttrainfile));
             break;
 #if defined(USE_OPENLCB_TCP_HOST) || defined(USE_GRIDCONNECT_HOST)
         case 'u':
@@ -312,6 +320,17 @@ void connect_callback(int fd, Notifiable *on_error)
 }
 #endif
 
+BeagleCS::BeagleTrainDatabase trainDb(&stack);
+
+commandstation::AllTrainNodes trainNodes(&trainDb
+                                         , stack.traction_service()
+                                         , stack.info_flow()
+                                         , stack.memory_config_handler()
+                                         , trainDb.get_train_cdi()
+                                         , trainDb.get_temp_train_cdi());
+
+
+
 #ifdef TERMINALCONSOLE
 CommandStationConsole commandProcessorConsole(stack.info_flow(),
                                               stack.traction_service(),
@@ -325,8 +344,8 @@ CommandStationConsole commandProcessorConsole(stack.info_flow(),
                                               CONSOLEPORT);
 #endif
 
-CommandStationDCCMainTrack mainDCC(stack.traction_service(),2);
-CommandStationDCCProgTrack progDCC(stack.traction_service(),2);
+CommandStationDCCMainTrack mainDCC(stack.service(),2);
+CommandStationDCCProgTrack progDCC(stack.service(),2);
 
 //dcc::SimpleUpdateLoop dccUpdateLoop(stack.service(), &mainDCC);
 
@@ -342,7 +361,10 @@ int appl_main(int argc, char *argv[])
 {
     snprintf(pathnamebuffer,sizeof(pathnamebuffer),
              "/tmp/config_eeprom_%012llX",NODE_ID);
+    snprintf(persistenttrainfile,sizeof(persistenttrainfile),
+             "/tmp/persistent_train_file_%012llX",NODE_ID);
     parse_args(argc, argv);
+    trainDb.Begin();
     GpioInit::hw_init();
     
     stack.create_config_file_if_needed(cfg.seg().internal_config(), openlcb::CANONICAL_VERSION, openlcb::CONFIG_FILE_SIZE);

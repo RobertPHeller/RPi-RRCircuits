@@ -13,4 +13,8 @@ include ../../../CommonOpenMRNExtras/NodeIDBin.mk
 
 APP_PATH ?= $(realpath ../..)
 -include ../../config.mk
+INCLUDES += -I$(realpath ../../LCCTrainSearchProtocol/include)
+INCLUDES += -I/usr/include/nlohmann
+SUBDIRS = LCCTrainSearchProtocol  
 include $(OPENMRNPATH)/etc/prog.mk
+
