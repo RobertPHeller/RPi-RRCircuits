@@ -365,6 +365,9 @@ int appl_main(int argc, char *argv[])
              "/tmp/persistent_train_file_%012llX",NODE_ID);
     parse_args(argc, argv);
     trainDb.Begin();
+    //auto trainnodes = Singleton<commandstation::AllTrainNodes>::instance();
+    //auto traindb = Singleton<BeagleCS::BeagleTrainDatabase>::instance();
+
     GpioInit::hw_init();
     
     stack.create_config_file_if_needed(cfg.seg().internal_config(), openlcb::CANONICAL_VERSION, openlcb::CONFIG_FILE_SIZE);

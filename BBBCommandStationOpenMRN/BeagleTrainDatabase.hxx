@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Apr 25 18:49:25 2021
-//  Last Modified : <210426.0920>
+//  Last Modified : <210426.1350>
 //
 //  Description	
 //
@@ -90,6 +90,7 @@ namespace BeagleCS
             this->description = description;
             this->automatic_idle = CONFIG_ROSTER_AUTO_IDLE_NEW_LOCOS;
             this->show_on_limited_throttles = false;
+            this->mode = mode;
             // set some defaults
             if (this->mode & DccMode::DCC_ANY)
             {
@@ -283,6 +284,7 @@ namespace BeagleCS
         std::set<uint16_t> get_default_train_addresses(uint16_t limit);
         
         void set_train_name(unsigned address, std::string name);
+        void set_train_description(unsigned address, std::string description);
         void set_train_auto_idle(unsigned address, bool idle);
         void set_train_show_on_limited_throttle(unsigned address, bool show);
         void set_train_function_label(unsigned address, uint8_t fn_id, Symbols label);

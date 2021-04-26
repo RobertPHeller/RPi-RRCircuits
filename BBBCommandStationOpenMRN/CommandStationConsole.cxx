@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 13:40:14 2019
-//  Last Modified : <210426.1017>
+//  Last Modified : <210426.1211>
 //
 //  Description	
 //
@@ -122,12 +122,16 @@ Console::CommandStatus CommandStationConsole::define_command(FILE *fp, int argc,
                 mode = commandstation::DccMode::DCC_128_LONG_ADDRESS;
             }
         }
-        auto traindb = Singleton<BeagleCS::BeagleTrainDatabase>::instance();
-        if (traindb->create_if_not_found(address, name, description, mode)) {
-            fprintf(fp,"#define# true\n");
-        } else {
+        openlcb::NodeID id = trainnodes_->allocate_node(mode, address);
+        if (id == 0) {
             fprintf(fp,"#define# false\n");
+        } else {
+            auto traindb = Singleton<BeagleCS::BeagleTrainDatabase>::instance();
+            traindb->set_train_name(address,name);
+            traindb->set_train_description(address,description);
+            fprintf(fp,"#define# true\n");
         }
+    
     } 
     return Console::COMMAND_OK;
 }

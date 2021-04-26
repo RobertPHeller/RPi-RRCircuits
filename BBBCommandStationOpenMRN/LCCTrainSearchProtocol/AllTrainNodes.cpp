@@ -480,10 +480,14 @@ extern const size_t TRAINTMPCDI_SIZE;
 class AllTrainNodes::TrainCDISpace : public openlcb::MemorySpace
 {
  public:
-  TrainCDISpace(AllTrainNodes* parent) : parent_(parent) {}
+  TrainCDISpace(AllTrainNodes* parent) : parent_(parent) 
+  {
+      LOG(INFO,"[TrainCDISpace]: Constructor");
+  }
 
   bool set_node(openlcb::Node* node) override
   {
+    LOG(INFO,"[TrainCDISpace]: set_node");
     if (impl_ && impl_->node_ == node)
     {
       // same node.
@@ -513,12 +517,14 @@ class AllTrainNodes::TrainCDISpace : public openlcb::MemorySpace
 
   address_t max_address() override
   {
+    LOG(INFO,"[TrainCDISpace] max_address");
     return proxySpace_->max_address();
   }
 
   size_t read(address_t source, uint8_t* dst, size_t len, errorcode_t* error,
               Notifiable* again) override
   {
+    LOG(INFO,"[TrainCDISpace] read");
     return proxySpace_->read(source, dst, len, error, again);
   }
 

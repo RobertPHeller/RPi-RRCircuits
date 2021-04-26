@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Apr 25 21:14:31 2021
-//  Last Modified : <210426.1022>
+//  Last Modified : <210426.1359>
 //
 //  Description	
 //
@@ -61,12 +61,14 @@ static const char rcsid[] = "@(#) : $Id$";
 
 static std::string load(const std::string& filename)
 {
-    std::ifstream is(filename);
+    std::ifstream is(filename, std::ios::ate);
     if (is.is_open()) {
         auto size = is.tellg();
         std::string str(size, '\0');
         is.seekg(0);
         if (is.read(&str[0], size)) {
+            LOG(INFO,"[load] str is '%s'",str.c_str());
+            LOG(INFO,"[load] str is %d bytes",str.size());
             return str;
         } else {
             return "";
@@ -78,7 +80,9 @@ static std::string load(const std::string& filename)
 
 static void store(const char * filename, const std::string& buffer)
 {
-    std::ofstream(filename) << buffer;
+    LOG(INFO,"[store] buffer is '%s'",buffer.c_str());
+    LOG(INFO,"[store] buffer is %d bytes",buffer.size());
+    std::ofstream(filename) << buffer << std::endl;
 }
 
 
@@ -148,6 +152,7 @@ static constexpr uint64_t const OLCB_NODE_ID_USER = 0x050101010000ULL;
 // converts a BeaglePersistentTrainData to a json object
 void to_json(json& j, const BeaglePersistentTrainData& t)
 {
+    //LOG(INFO,"[to_json] Converting to JSON: t.mode is 0x%0x",(unsigned)t.mode);
     j = json({
          { JSON_NAME_NODE, t.name },
          { JSON_DESCRIPTION_NODE, t.description },
@@ -157,6 +162,7 @@ void to_json(json& j, const BeaglePersistentTrainData& t)
          { JSON_FUNCTIONS_NODE, t.functions },
          { JSON_MODE_NODE, t.mode },
          });
+    //LOG(INFO,"[to_json] Converted to JSON: j is '%s'",j.dump().c_str());
 }
 
 // converts a json payload to a BeaglePersistentTrainData object
@@ -529,6 +535,22 @@ void BeagleTrainDatabase::set_train_name(unsigned address, std::string name)
   else
   {
     LOG_ERROR("[TrainDB] train %u not found, unable to set the name!", address);
+  }
+}
+
+void BeagleTrainDatabase::set_train_description(unsigned address, std::string description)
+{
+  OSMutexLock l(&knownTrainsLock_);
+  LOG(VERBOSE, "[TrainDB] Searching for train with address %u", address);
+  auto entry = FIND_TRAIN(address);
+  if (entry != knownTrains_.end())
+  {
+    LOG(VERBOSE, "[TrainDB] Setting train(%u) description: %s", address, description.c_str());
+    (*entry)->set_train_description(description);
+  }
+  else
+  {
+    LOG_ERROR("[TrainDB] train %u not found, unable to set the description!", address);
   }
 }
 

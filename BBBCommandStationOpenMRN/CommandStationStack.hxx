@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Oct 17 16:18:01 2019
-//  Last Modified : <191020.1351>
+//  Last Modified : <210426.1659>
 //
 //  Description	
 //
@@ -46,6 +46,7 @@
 
 #include "executor/Executor.hxx"
 #include "nmranet_config.h"
+OVERRIDE_CONST(num_memory_spaces, 7);
 #include "openlcb/AliasAllocator.hxx"
 #include "openlcb/ConfigRepresentation.hxx"
 #include "openlcb/ConfigUpdateFlow.hxx"
