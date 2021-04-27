@@ -1,4 +1,4 @@
-update=Thu 01 Mar 2018 13:58:07 EST
+update=Tue 27 Apr 2021 10:48:49 AM EDT
 last_client=kicad
 [cvpcb]
 version=1
@@ -46,3 +46,8 @@ LibName17=valves
 LibName18=DWSLogoBCU
 [general]
 version=1
+[eeschema]
+version=1
+LibDir=
+[eeschema/libraries]
+LibName1=CANHat-rescue
