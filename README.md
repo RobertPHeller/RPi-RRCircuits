@@ -84,6 +84,16 @@ There is a README in each project dir.
 
 1. [MCP23017Hat](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/MCP23017Hat)
 
+1. [PBCommandStation](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/PBCommandStation)
+
+1. [PocketBeagleCommandStation](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/PocketBeagleCommandStation)
+
+1. [PocketBeagleCommandStation_SMD](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/PocketBeagleCommandStation_SMD)
+
+1. [PocketBeagleQuadOCDect](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/PocketBeagleQuadOCDect)
+
+1. [PocketBeagleQuadSMCSense](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/PocketBeagleQuadSMCSense)
+
 1. [QuadSMC](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/QuadSMC)
 
 1. [QuadUncoupler](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/QuadUncoupler)
