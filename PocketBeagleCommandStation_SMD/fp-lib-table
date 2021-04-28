@@ -10,4 +10,5 @@
   (lib (name SRN1060)(type Legacy)(uri /home/heller/RRCircuits/SRN1060.mod)(options "")(descr ""))
   (lib (name FAN)(type KiCad)(uri "$(KIPRJMOD)/FAN.pretty")(options "")(descr ""))
   (lib (name 896-43-004-90-000000)(type Legacy)(uri "$(KIPRJMOD)/896-43-004-90-000000.mod")(options "")(descr ""))
+  (lib (name LCC_LOGO)(type KiCad)(uri /home/heller/RRCircuits/LCC_LOGO.pretty)(options "")(descr ""))
 )
