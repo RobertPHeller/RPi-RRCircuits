@@ -9,7 +9,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed Apr 28 10:13:03 2021
-#  Last Modified : <210428.1035>
+#  Last Modified : <210428.1039>
 #
 #  Description	
 #
@@ -51,7 +51,7 @@ snit::type AddAllReadmes {
     
     typevariable _ExceptDirs {Adafruit-METRO-328-PCB hats-master 
         KiCad-Schematic-Symbol-Libraries max7219-master RPi_Hat.pretty 
-        RPi_Hat_Template CommonOpenMRNExtras ABSWithSiding}
+        RPi_Hat_Template CommonOpenMRNExtras ABSWithSiding DCCShield DCCTiva}
     typevariable LinkFormat {1. [%s](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/%s)}
     proc generateOneLink {dirname} {
         puts [format $LinkFormat $dirname $dirname]

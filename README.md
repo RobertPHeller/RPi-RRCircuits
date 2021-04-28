@@ -32,8 +32,6 @@ There is a README in each project dir.
 
 1. [16PWMLedDriverPocketBeagle](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/16PWMLedDriverPocketBeagle)
 
-1. [ABSWithSiding](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ABSWithSiding)
-
 1. [BBBCommandStation](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/BBBCommandStation)
 
 1. [BBBCommandStationOpenMRN](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/BBBCommandStationOpenMRN)
@@ -48,11 +46,13 @@ There is a README in each project dir.
 
 1. [CANHat3](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/CANHat3)
 
-1. [CommonOpenMRNExtras](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/CommonOpenMRNExtras)
+1. [DCCOD_SMD](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/DCCOD_SMD)
 
 1. [DualUncouplerHAT](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/DualUncouplerHAT)
 
 1. [DualUncouplerHAT1](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/DualUncouplerHAT1)
+
+1. [ESP32-16xDCCOD](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32-16xDCCOD)
 
 1. [MCP23017Hat](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/MCP23017Hat)
 
