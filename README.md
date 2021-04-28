@@ -104,6 +104,12 @@ There is a README in each project dir.
 
 1. [QuadSMC](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/QuadSMC)
 
+1. [QuadSMCSenseCape](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/QuadSMCSenseCape)
+
+1. [QuadSMCSenseHat](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/QuadSMCSenseHat)
+
+1. [QuadSMCSenseOpenMRN](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/QuadSMCSenseOpenMRN)
+
 1. [QuadUncoupler](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/QuadUncoupler)
 
 1. [SignalHAT](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/SignalHAT)
