@@ -16,4 +16,54 @@ There is a README in each project dir.
 ## Availble Projects:
 
 1. [16DriverOutputCape](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/16DriverOutputCape)
-                                    
+
+1. [16DriverOutputHAT](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/16DriverOutputHAT)
+
+1. [16DriverOutputOpenMRN](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/16DriverOutputOpenMRN)
+
+1. [16LEDDriver23017SMD](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/16LEDDriver23017SMD)
+
+1. [16PWMLedDriverCape](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/16PWMLedDriverCape)
+
+1. [16PWMLedDriverHat](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/16PWMLedDriverHat)
+
+1. [16PWMLedDriverOpenMRN](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/16PWMLedDriverOpenMRN)
+
+1. [16PWMLedDriverPocketBeagle](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/16PWMLedDriverPocketBeagle)
+
+1. [ABSWithSiding](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ABSWithSiding)
+
+1. [BBBCommandStation](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/BBBCommandStation)
+
+1. [BBBCommandStationOpenMRN](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/BBBCommandStationOpenMRN)
+
+1. [BBBHalfSiding](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/BBBHalfSiding)
+
+1. [ButtonHat](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ButtonHat)
+
+1. [CANHat](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/CANHat)
+
+1. [CANHat2](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/CANHat2)
+
+1. [CANHat3](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/CANHat3)
+
+1. [CommonOpenMRNExtras](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/CommonOpenMRNExtras)
+
+1. [DualUncouplerHAT](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/DualUncouplerHAT)
+
+1. [DualUncouplerHAT1](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/DualUncouplerHAT1)
+
+1. [MCP23017Hat](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/MCP23017Hat)
+
+1. [QuadSMC](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/QuadSMC)
+
+1. [QuadUncoupler](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/QuadUncoupler)
+
+1. [SignalHAT](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/SignalHAT)
+
+1. [SMCSenseHAT-EEProm](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/SMCSenseHAT-EEProm)
+
+1. [SMCSenseHAT](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/SMCSenseHAT)
+
+1. [SMCSenseHAT1](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/SMCSenseHAT1)
+
