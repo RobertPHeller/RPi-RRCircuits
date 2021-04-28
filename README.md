@@ -56,7 +56,27 @@ There is a README in each project dir.
 
 1. [DualUncouplerHAT1](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/DualUncouplerHAT1)
 
+1. [ESP32-16LedDriver](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32-16LedDriver)
+
+1. [ESP32-16PWMLedDriver](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32-16PWMLedDriver)
+
 1. [ESP32-16xDCCOD](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32-16xDCCOD)
+
+1. [ESP32-HalfSiding](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32-HalfSiding)
+
+1. [ESP32-PWMHalfSiding](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32-PWMHalfSiding)
+
+1. [ESP32-PWMHalfSidingSMD](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32-PWMHalfSidingSMD)
+
+1. [ESP32ABSBoard](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32ABSBoard)
+
+1. [ESP32BaseBoard](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32BaseBoard)
+
+1. [ESP32MRNSketches](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32MRNSketches)
+
+1. [ESP32QuadOCDect](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32QuadOCDect)
+
+1. [ESP32QuadSMCSense](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32QuadSMCSense)
 
 1. [MCP23017Hat](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/MCP23017Hat)
 
