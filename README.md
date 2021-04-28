@@ -82,6 +82,8 @@ There is a README in each project dir.
 
 1. [LEDDriverHat](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/LEDDriverHat)
 
+1. [MCP23008Hat](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/MCP23008Hat)
+
 1. [MCP23017Hat](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/MCP23017Hat)
 
 1. [PBCommandStation](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/PBCommandStation)
@@ -93,6 +95,12 @@ There is a README in each project dir.
 1. [PocketBeagleQuadOCDect](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/PocketBeagleQuadOCDect)
 
 1. [PocketBeagleQuadSMCSense](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/PocketBeagleQuadSMCSense)
+
+1. [QuadOCDectCape](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/QuadOCDectCape)
+
+1. [QuadOCDectHat](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/QuadOCDectHat)
+
+1. [QuadOCDectOpenMRN](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/QuadOCDectOpenMRN)
 
 1. [QuadSMC](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/QuadSMC)
 
