@@ -8,8 +8,9 @@ pins.
 These projects were created using Kicad 2013.06.11
 (https://launchpad.net/kicad) under CentOS 6 and Kicad 4.0.7 under Ubuntu
 18.04. Each subdirectory is one project, and contains a schematic and PCB
-design.  There is also software for the boards using OpenMRN (C++ library for 
-OpenLCB/LCC) for these projects.
+design or contains a program for one (or more) projects. There is also
+software for the boards using OpenMRN (C++ library for OpenLCB/LCC) for these
+projects.
 
 There is a README in each project dir.
 
