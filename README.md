@@ -48,6 +48,10 @@ There is a README in each project dir.
 
 1. [DCCOD_SMD](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/DCCOD_SMD)
 
+1. [DCCShield](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/DCCShield)
+
+1. [DCCTiva](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/DCCTiva)
+
 1. [DualUncouplerHAT](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/DualUncouplerHAT)
 
 1. [DualUncouplerHAT1](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/DualUncouplerHAT1)
