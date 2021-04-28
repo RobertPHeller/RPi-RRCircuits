@@ -78,6 +78,10 @@ There is a README in each project dir.
 
 1. [ESP32QuadSMCSense](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32QuadSMCSense)
 
+1. [LCCCANCape](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/LCCCANCape)
+
+1. [LEDDriverHat](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/LEDDriverHat)
+
 1. [MCP23017Hat](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/MCP23017Hat)
 
 1. [QuadSMC](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/QuadSMC)
