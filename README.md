@@ -66,8 +66,6 @@ There is a README in each project dir.
 
 1. [SignalHAT](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/SignalHAT)
 
-1. [SMCSenseHAT-EEProm](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/SMCSenseHAT-EEProm)
-
 1. [SMCSenseHAT](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/SMCSenseHAT)
 
 1. [SMCSenseHAT1](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/SMCSenseHAT1)
