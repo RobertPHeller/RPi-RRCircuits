@@ -9,7 +9,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed Apr 28 10:13:03 2021
-#  Last Modified : <210429.0825>
+#  Last Modified : <210429.0910>
 #
 #  Description	
 #
@@ -71,7 +71,8 @@ snit::type AddAllReadmes {
         close $fp
     }
     typevariable _HeaderPattern {^## Availble Projects:}
-    typevariable _SkipPattern {^1. \[[^\]]}
+    typevariable _SkipPattern1 {^1. \[[^\]]}
+    typevariable _SkipPattern2 {^[[:space:]]{4}>[[:space:]]}
     typemethod Main {} {
         while {[gets stdin line] >= 0} {
             puts stdout $line
@@ -81,7 +82,8 @@ snit::type AddAllReadmes {
         }
         while {[gets stdin line] >= 0} {
             if {[string trim $line] eq ""} {continue}
-            if {[regexp $_SkipPattern $line] > 0} {continue}
+            if {[regexp $_SkipPattern1 $line] > 0} {continue}
+            if {[regexp $_SkipPattern2 $line] > 0} {continue}
             break
         }
         foreach d [lsort -dictionary [glob -nocomplain "*/README.md"]] {
