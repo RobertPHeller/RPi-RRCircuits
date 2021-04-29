@@ -9,7 +9,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed Apr 28 10:13:03 2021
-#  Last Modified : <210429.0910>
+#  Last Modified : <210429.1138>
 #
 #  Description	
 #
@@ -52,9 +52,17 @@ snit::type AddAllReadmes {
     typevariable _ExceptDirs {Adafruit-METRO-328-PCB hats-master 
         KiCad-Schematic-Symbol-Libraries max7219-master RPi_Hat.pretty 
         RPi_Hat_Template CommonOpenMRNExtras ABSWithSiding SMCSenseHAT-EEProm}
-    typevariable LinkFormat {1. [%s](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/%s)}
+    typevariable _Subdir {}
+    typemethod SetSubdir {dir} {
+        if {$dir eq ""} {
+            set _Subdir {}
+        } else {
+            set _Subdir "$dir/"
+        }
+    }
+    typevariable LinkFormat {1. [%s](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/%s%s)}
     proc generateOneLink {dirname} {
-        puts stdout [format $LinkFormat $dirname $dirname]
+        puts stdout [format $LinkFormat $dirname $_Subdir $dirname]
     }
     proc blockquoteP1 {readmefile} {
         set fp [open $readmefile r]
@@ -71,9 +79,17 @@ snit::type AddAllReadmes {
         close $fp
     }
     typevariable _HeaderPattern {^## Availble Projects:}
+    typemethod SetHeader {header} {
+        set _HeaderPattern "^$header"
+    }
     typevariable _SkipPattern1 {^1. \[[^\]]}
     typevariable _SkipPattern2 {^[[:space:]]{4}>[[:space:]]}
     typemethod Main {} {
+        set header [from ::argv -header {## Availble Projects:}]
+        $type SetHeader $header
+        set subdir [from ::argv -subdir {}]
+        $type SetSubdir $subdir
+
         while {[gets stdin line] >= 0} {
             puts stdout $line
             if {[regexp $_HeaderPattern $line] > 0} {
