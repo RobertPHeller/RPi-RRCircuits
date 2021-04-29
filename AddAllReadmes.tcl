@@ -9,7 +9,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed Apr 28 10:13:03 2021
-#  Last Modified : <210429.0818>
+#  Last Modified : <210429.0825>
 #
 #  Description	
 #
@@ -74,7 +74,7 @@ snit::type AddAllReadmes {
     typevariable _SkipPattern {^1. \[[^\]]}
     typemethod Main {} {
         while {[gets stdin line] >= 0} {
-            puts $line
+            puts stdout $line
             if {[regexp $_HeaderPattern $line] > 0} {
                 break
             }
@@ -93,7 +93,7 @@ snit::type AddAllReadmes {
         }
         puts stdout ""
         while {[gets stdin line] >= 0} {
-            puts $line
+            puts stdout $line
         }
     }
 }
