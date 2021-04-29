@@ -40,7 +40,7 @@ cross over.
 ### Turnout Control
 
 The turnout control has two parts. There is an output section that contains
-four TC4428 chips. Each chip has a non-inverting and an inverting driver. The
+two TC4428 chips. Each chip has a non-inverting and an inverting driver. The
 inputs of both drivers are connected to one of the motor GPIO pins. The output
 are wired to the terminal block for a one of the motors. For any given logic
 state of the motor control output, one of the drivers is ``on'' and the other
@@ -50,7 +50,7 @@ motor in alternative directions.
 
 The other section is a pair of flip-flop debounce circuits, one for each of
 two SPDT switch contacts that report the position of the turnout points. The
-output of these flip-flops goes to a quartet of GPIO input pins.
+output of these flip-flops goes to a pair of GPIO input pins.
 
 ### CAN Transceiver
 
