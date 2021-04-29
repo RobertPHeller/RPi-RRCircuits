@@ -164,7 +164,11 @@ There is a README in each project dir.
 
 1. [ESP32-PWMHalfSiding](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32-PWMHalfSiding)
 
-    > PWM version of a ESP32 HalfSiding node. Through Hole parts.
+    > This is a circuit board that supports an ESP32 Dev Kit board or TTGO-T1 board 
+    > to manage one half (one end) of a siding.  This board can also be used to 
+    > manage two bi-directional single track ABS blocks or one bi-directional dual 
+    > track ABS block.  There are other trackwork cases this board can handle as 
+    > well.  
 
 1. [ESP32-PWMHalfSidingSMD](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32-PWMHalfSidingSMD)
 
