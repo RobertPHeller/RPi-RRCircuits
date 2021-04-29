@@ -81,13 +81,15 @@ There is a README in each project dir.
 
 1. [BBBCommandStationOpenMRN](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/BBBCommandStationOpenMRN)
 
-    > OpenMRN program for the various Beagle Board Command Station boards.  This 
-    > program should work for all of the Beagle Board Command Station boards.  Also 
-    > included is an X11-based (written in Tcl/Tk) GUI, typically run on a separate 
-    > system, typically on a RPi but could be run on a PC or Mac with an appropriate 
-    > Tclkit runtime, etc.  This program uses the PRUs in the Beagle Board's AM335x 
-    > processor to create the DCC signals.  One PRU for the OPS signal and the other 
-    > for the PROG signal.
+    > This is the program for the Beagle Board LCC/DCC/Railcom command 
+    > station.  It uses OpenMRN to interface with tha LCC/OpenLCB network
+    > to implement a LCC/OpenLCB aware command station node that can 
+    > operate DCC/Railcom locomotives.  It should work with any of the
+    > Beagle Board addon boards I have designed.  It uses the AM335X's
+    > PRUs to generate the DCC signals.  It ises the OpenMRN Console
+    > class to communicate over a Tcp/Ip channel with a Tcl/Tk coded
+    > GUI program to provide a user friendly point-and-click high level
+    > user interface.
 
 1. [BBBHalfSiding](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/BBBHalfSiding)
 
