@@ -1,9 +1,32 @@
 # BBBCommandStationOpenMRN
 
-OpenMRN program for the various Beagle Board Command Station boards.  This 
-program should work for all of the Beagle Board Command Station boards.  Also 
-included is an X11-based (written in Tcl/Tk) GUI, typically run on a separate 
-system, typically on a RPi but could be run on a PC or Mac with an appropriate 
-Tclkit runtime, etc.  This program uses the PRUs in the Beagle Board's AM335x 
-processor to create the DCC signals.  One PRU for the OPS signal and the other 
-for the PROG signal.
+This is the program for the Beagle Board LCC/DCC/Railcom command 
+station.  It uses OpenMRN to interface with tha LCC/OpenLCB network
+to implement a LCC/OpenLCB aware command station node that can 
+operate DCC/Railcom locomotives.  It should work with any of the
+Beagle Board addon boards I have designed.  It uses the AM335X's
+PRUs to generate the DCC signals.  It ises the OpenMRN Console
+class to communicate over a Tcp/Ip channel with a Tcl/Tk coded
+GUI program to provide a user friendly point-and-click high level
+user interface.
+
+## SYNOPSIS
+
+`BBBCommandStationOpenMRN [options]`
+
+## OPTIONS
+
+- -e EEPROM_file_path is the path to use to implement the EEProm 
+     device.
+- -t Persistent_Train_file_path is the path to use to the implement
+     the train persistent data.
+- -u upstream_host   is the host name for an upstream hub.
+- -q upstream_port   is the port number for the upstream hub
+- -c can_socketname   is the name of the CAN socket.
+
+The -u and -q options are only available if the program was built
+to support either a OpenLCB Tcp host or a GRIDCONNECT host.
+The -c option is only available if the program was built to
+support CAN Sockets.
+
+

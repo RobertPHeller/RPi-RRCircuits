@@ -26,10 +26,69 @@
  *
  * \file main.cxx
  *
- * Main file for the 
+ * Main file for the BBBCommandStationOpenMRN program.
  *
  * @author Robert Heller
  * @date 3 Feb 2019
+ * 
+ * @defgroup BBBCommandStationOpenMRN Beagle Board Command Station
+ * 
+ * @section SYNOPSIS SYNOPSIS
+ * 
+ * BBBCommandStationOpenMRN [options]
+ * 
+ * @section DESCRIPTION DESCRIPTION
+ * 
+ * This is the program for the Beagle Board LCC/DCC/Railcom command 
+ * station.  It uses OpenMRN to interface with tha LCC/OpenLCB network
+ * to implement a LCC/OpenLCB aware command station node that can 
+ * operate DCC/Railcom locomotives.  It should work with any of the
+ * Beagle Board addon boards I have designed.  It uses the AM335X's
+ * PRUs to generate the DCC signals.  It ises the OpenMRN Console
+ * class to communicate over a Tcp/Ip channel with a Tcl/Tk coded
+ * GUI program to provide a user friendly point-and-click high level
+ * user interface.
+ * 
+ * @section OPTIONS OPTIONS
+ * 
+ * @arg -e EEPROM_file_path is the path to use to implement the 
+ *         EEProm device.
+ * @arg -t Persistent_Train_file_path is the path to use to the 
+ *         implement the train persistent data.
+ * @arg -u upstream_host   is the host name for an upstream hub.
+ * @arg -q upstream_port   is the port number for the upstream hub.
+ * @arg -c can_socketname   is the name of the CAN socket.
+ * @par
+ * 
+ * The -u and -q options are only available if the program was built 
+ * to support either a OpenLCB Tcp host or a GRIDCONNECT host.
+ * The -c option is only available if the program was built to 
+ * support CAN Sockets.
+ * 
+ * @section PARAMETERS PARAMETERS
+ * 
+ * None.
+ * 
+ * @section FILES FILES
+ * @section AUTHOR AUTHOR
+ * @author Robert Heller
+ * @date 29 Apr 2021
+ * 
+ * @mainpage Introduction
+ * 
+ * This is the program for the Beagle Board LCC/DCC/Railcom command 
+ * station.  It uses OpenMRN to interface with tha LCC/OpenLCB network
+ * to implement a LCC/OpenLCB aware command station node that can 
+ * operate DCC/Railcom locomotives.  It should work with any of the
+ * Beagle Board addon boards I have designed.  It uses the AM335X's
+ * PRUs to generate the DCC signals.  It ises the OpenMRN Console
+ * class to communicate over a Tcp/Ip channel with a Tcl/Tk coded
+ * GUI program to provide a user friendly point-and-click high level
+ * user interface.
+ * 
+ * @page BUILD Building
+ * 
+ * 
  */
 
 #include "os/os.h"
@@ -237,7 +296,7 @@ const char *cansocket = DEFAULT_CAN_SOCKET;
 
 void usage(const char *e)
 {
-    fprintf(stderr, "Usage: %s [-e EEPROM_file_path]", e);
+    fprintf(stderr, "Usage: %s [-e EEPROM_file_path] [-t Persistent_Train_file_path]", e);
 #if defined(USE_OPENLCB_TCP_HOST) || defined(USE_GRIDCONNECT_HOST)
     fprintf(stderr, " [-u upstream_host] [-q upstream_port]");
 #endif
