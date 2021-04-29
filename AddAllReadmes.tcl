@@ -9,7 +9,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed Apr 28 10:13:03 2021
-#  Last Modified : <210428.1110>
+#  Last Modified : <210429.0818>
 #
 #  Description	
 #
@@ -54,7 +54,21 @@ snit::type AddAllReadmes {
         RPi_Hat_Template CommonOpenMRNExtras ABSWithSiding SMCSenseHAT-EEProm}
     typevariable LinkFormat {1. [%s](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/%s)}
     proc generateOneLink {dirname} {
-        puts [format $LinkFormat $dirname $dirname]
+        puts stdout [format $LinkFormat $dirname $dirname]
+    }
+    proc blockquoteP1 {readmefile} {
+        set fp [open $readmefile r]
+        gets $fp line
+        puts stdout {}
+        while {[gets $fp line] >= 0} {
+            if {[string trim $line] ne ""} {break}
+        }
+        puts stdout "    > $line"
+        while {[gets $fp line] >= 0} {
+            if {[string trim $line] eq ""} {break}
+            puts stdout "    > $line"
+        }
+        close $fp
     }
     typevariable _HeaderPattern {^## Availble Projects:}
     typevariable _SkipPattern {^1. \[[^\]]}
@@ -75,6 +89,7 @@ snit::type AddAllReadmes {
             if {[lsearch -exact $_ExceptDirs $dirname] >= 0} {continue}
             puts stdout ""
             generateOneLink $dirname
+            blockquoteP1 $d
         }
         puts stdout ""
         while {[gets stdin line] >= 0} {
