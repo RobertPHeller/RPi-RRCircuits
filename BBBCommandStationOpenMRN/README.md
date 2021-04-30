@@ -30,3 +30,20 @@ The -c option is only available if the program was built to
 support CAN Sockets.
 
 
+## Building
+
+This program needs the OpenMRN library installed in a "standard"
+place: /opt/openmrn or ~/openmrn or else in the location specified
+by the environment variable OPENMRNPATH.
+ 
+Also this program uses scripts in the ../CommonOpenMRNExtras 
+directory:
+ 
+GenerateNODEID.tcl -- generates and increments the node id
+NodeIDBin.mk       -- contains the Makefile includes to auto
+                      generate successive node ids.
+ 
+The NODEID.txt file contains the seed for the node id generation.
+It contains the node id of the most recent build.  The next build
+will have a node id one more than this.
+

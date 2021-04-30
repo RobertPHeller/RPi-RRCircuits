@@ -81,13 +81,58 @@
  * to implement a LCC/OpenLCB aware command station node that can 
  * operate DCC/Railcom locomotives.  It should work with any of the
  * Beagle Board addon boards I have designed.  It uses the AM335X's
- * PRUs to generate the DCC signals.  It ises the OpenMRN Console
+ * PRUs to generate the DCC signals.  It uses the OpenMRN Console
  * class to communicate over a Tcp/Ip channel with a Tcl/Tk coded
  * GUI program to provide a user friendly point-and-click high level
  * user interface.
  * 
  * @page BUILD Building
  * 
+ * This program needs the OpenMRN library installed in a "standard"
+ * place: /opt/openmrn or ~/openmrn or else in the location specified
+ * by the environment variable OPENMRNPATH.
+ * 
+ * Also this program uses scripts in the ../CommonOpenMRNExtras 
+ * directory:
+ * 
+ * GenerateNODEID.tcl -- generates and increments the node id
+ * NodeIDBin.mk       -- contains the Makefile includes to auto
+ *                       generate successive node ids.
+ * 
+ * The NODEID.txt file contains the seed for the node id generation.
+ * It contains the node id of the most recent build.  The next build
+ * will have a node id one more than this.
+ *
+ * @page Configuration
+ * 
+ * There are three configuration sections, one for each of the DCC
+ * outputs (Main and Programming) and one for the fan control.
+ * 
+ * The two DCC outputs have these configuration options:
+ * 
+ * @arg The overcurrent threshold, in milliamps.
+ * @arg The event to send when the current is exceded.
+ * @arg The event to disable the DCC output.
+ * @arg The event to enable the DCC output.
+ * @arg The event to send when the thermal flag goes on.
+ * @arg The event to send when the thermal flag goes off.
+ * @par
+ * 
+ * The fan control section has these configuration options:
+ * 
+ * @arg The alarm temperature threshold, in tenths of degree 
+ *      centitrade.
+ * @arg The event to send when the temperature excedes the alarm 
+ *      temperature threshold.
+ * @arg The event to send when the temperature drops below the alarm 
+ *      temperature threshold.
+ * @arg The fan temperature threshold, in tenths of degree
+ *      centitrade.
+ * @arg The event to send when the temperature excedes the fan
+ *      temperature threshold.
+ * @arg The event to send when the temperature drops below the fan
+ *      temperature threshold.
+ * @par
  * 
  */
 
