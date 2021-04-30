@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Fri Apr 16 08:44:50 2021
-#  Last Modified : <210417.0702>
+#  Last Modified : <210430.1234>
 #
 #  Description	
 #
@@ -69,12 +69,29 @@ snit::type KiCadBOM2PCBWayBOM {
         #puts stderr "*** $type create $self: line is '$line'"
         install matrix using csvmatrix %%AUTO%% -sourcechanel $fp -alternate yes
         close $fp
+        foreach c1 [array names KiCad2pcbwayMap] {
+            if {[$matrix headingcol $c1] < 0} {
+                $matrix addcol $c1
+            }
+        }
         $self configurelist $args
         set LibPart_index [$self headingcol "LibPart"]
         set Footprint_index [$self headingcol "Footprint"]
         set MouserPN_index [$self headingcol "Mouser Part Number"]
+        if {$MouserPN_index < 0} {
+            error "No Mouser Part Numbers in $options(-sourcefile), aborting"
+            return
+        }
         set Manufacturer_Name_index [$self headingcol "Manufacturer_Name"]
+        if {$Manufacturer_Name_index < 0} {
+            $self addcol "Manufacturer_Name"
+            set Manufacturer_Name_index [$self headingcol "Manufacturer_Name"]
+        }
         set Manufacturer_Part_Number_index [$self headingcol "Manufacturer_Part_Number"]
+        if {$Manufacturer_Part_Number_index < 0} {
+            $self addcol "Manufacturer_Part_Number"
+            set Manufacturer_Part_Number_index [$self headingcol "Manufacturer_Part_Number"]
+        }
         for {set i 0} {$i < [$matrix rows]} {incr i} {
             $matrix set cell $LibPart_index $i [_processLibPart [$matrix get cell $LibPart_index $i]]
             $matrix set cell $Footprint_index $i [_processFootprint [$matrix get cell $Footprint_index $i]]
@@ -157,6 +174,9 @@ snit::type KiCadBOM2PCBWayBOM {
         942 {Infineon / IR}
         512 {ON Semiconductor / Fairchild}
         579 {Microchip Technology}
+        750 {Comchip Technology}
+        771 {Nexperia}
+        
     }
     proc _lookupMan {mannum} {
         if {[info exists _MouserManufaturers($mannum)]} {
@@ -166,7 +186,8 @@ snit::type KiCadBOM2PCBWayBOM {
         }
     }
     typevariable thoughholeFPs {Fiducial TerminalBlock Pin_Header RJ45_8N 
-        25mmFanMount MountingHole  MFR500 8964300490000000}
+        25mmFanMount MountingHole  MFR500 8964300490000000 ESP32-Combo 
+        bornier2}
     proc _nonSMDFootprint {foot} {
         foreach thoughholeFP $thoughholeFPs {
             if {[regexp "^$thoughholeFP" $foot] > 0} {return yes}
@@ -199,12 +220,14 @@ snit::type KiCadBOM2PCBWayBOM {
         }
         $pcbwayBOM savetocsv $outfile
     }
-    
-            
+    typemethod main {} {
+        set source [from ::argv -sourcefile]
+        if {$source eq ""} {return}
+        set BOM [KiCadBOM2PCBWayBOM create %%AUTO%% -sourcefile $source]
+        set dest [from ::argv -destfile PCBWay.csv]
+        $BOM CreatePCBWayBOM $dest
+        puts stdout "$source => $dest"
+    }
 }
 
-
-set BOM [KiCadBOM2PCBWayBOM create %%AUTO%% -sourcefile PocketBeagleCommandStation_SMD.csv]
-
-puts [$BOM headings]
-$BOM CreatePCBWayBOM PocketBeagleCommandStation_SMD_PCBWay.csv
+KiCadBOM2PCBWayBOM main
