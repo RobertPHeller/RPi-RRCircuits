@@ -93,16 +93,17 @@
  * by the environment variable OPENMRNPATH.
  * 
  * Also this program uses scripts in the ../CommonOpenMRNExtras 
- * directory:
- * 
- * GenerateNODEID.tcl -- generates and increments the node id
- * NodeIDBin.mk       -- contains the Makefile includes to auto
- *                       generate successive node ids.
+ * directory.  These scripts relate to the NODEID.txt.
  * 
  * The NODEID.txt file contains the seed for the node id generation.
  * It contains the node id of the most recent build.  The next build
  * will have a node id one more than this.
+ * 
+ * The scripts used are:
  *
+ * @arg GenerateNODEID.tcl -- generates and increments the node id
+ * @arg NodeIDBin.mk -- contains the Makefile includes to auto
+ *                       generate successive node ids.
  * @page Configuration
  * 
  * There are three configuration sections, one for each of the DCC
