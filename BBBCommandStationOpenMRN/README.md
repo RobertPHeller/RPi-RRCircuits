@@ -36,6 +36,14 @@ This program needs the OpenMRN library installed in a "standard"
 place: /opt/openmrn or ~/openmrn or else in the location specified
 by the environment variable OPENMRNPATH.
  
+Various build options can be controlled in the Hardware.hxx header
+file in the target directory.  Specificly, the GPIO pin 
+assignments, whether to build a binary OpenLCB Tcp/Ip connected 
+node, a GridConnect connected node, or a LCC CAN connected node. 
+And if a network connected node the default port and host to 
+connect to, also the console port to or to use a terminal console 
+(for debugging).
+
 Also this program uses scripts in the ../CommonOpenMRNExtras 
 directory.  These scripts relate to the NODEID.txt.
 
