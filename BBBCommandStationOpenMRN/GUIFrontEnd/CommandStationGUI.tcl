@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sat Oct 26 10:09:51 2019
-#  Last Modified : <210330.1051>
+#  Last Modified : <210502.1619>
 #
 #  Description	
 #
@@ -302,6 +302,13 @@ snit::widget StatusLight {
         #puts stderr "*** -: $light cget -image: [$light cget -image]"
         #puts stderr "*** -: [$light cget -image] cget -foreground: [[$light cget -image] cget -foreground]"
     }
+    method get {} {
+        if {[$light cget -image] eq $onbm} {
+            return on
+        } else {
+            return off
+        }
+    }
     typevariable dot_ {#define dot9x9_width 9
 #define dot9x9_height 9
 static unsigned char dot9x9_bits[] = {
@@ -543,9 +550,9 @@ snit::widget ListOfLocos {
 snit::widget Status {
     option -commandstationsocket
     component mainCurrent 
-    variable mainCurrent_ 000.000
+    variable mainCurrent_ 0000
     component progCurrent
-    variable progCurrent_ 000.000
+    variable progCurrent_ 0000
     component temperature
     variable temperature_ 000.000
     component mainsenabled
@@ -570,7 +577,7 @@ snit::widget Status {
               -textvariable [myvar mainCurrent_] \
               -justify right -anchor e
         pack $mainCurrent -side left -expand yes -fill x
-        pack [ttk::label $mcFrame.a -text A] -side right
+        pack [ttk::label $mcFrame.a -text mA] -side right
         set statusFrame [ttk::frame $mc.status]
         pack $statusFrame -fill x
         install mainsenabled using StatusLight $statusFrame.en \
@@ -593,7 +600,7 @@ snit::widget Status {
               -textvariable [myvar progCurrent_] \
               -justify right -anchor e
         pack $progCurrent -side left -expand yes -fill x
-        pack [ttk::label $pcFrame.a -text A] -side right
+        pack [ttk::label $pcFrame.a -text mA] -side right
         set statusFrame [ttk::frame $pc.status]
         pack $statusFrame -fill x
         install progenabled using StatusLight $statusFrame.en \
@@ -646,6 +653,9 @@ snit::widget Status {
         $progovercurrent set $progOC
         $fanon set $fanOn
         $alarmon set $AlarmOn
+    }
+    method GetMainsEnabled {} {
+        return [$mainsenabled get]
     }
 }
 
@@ -736,6 +746,10 @@ snit::type CommandStationGUI {
               -text [_m "Label|Service"] \
               -image [IconImage image configuration] \
               -command [mytypemethod _serviceMode]
+        $Main_ toolbar addbutton poweron -compound top \
+              -text [_m "Label|On/Off"] \
+              -image [IconImage image system-shutdown] \
+              -command [mytypemethod _powerupdown]
         $Main_ toolbar addbutton help -compound top \
               -text [_m "Label|Help"] -image [IconImage image help] \
               -command {HTMLHelp help "GUI Front End Reference"}
@@ -822,6 +836,14 @@ snit::type CommandStationGUI {
         set saveFp_ {}
         $type unlockscreen
     }
+    typemethod _powerupdown {} {
+        if {[$status GetMainsEnabled]} {
+            catch {puts $socket_ {power off}}
+        } else {
+            catch {puts $socket_ {power on}}
+        }
+    }
+        
     proc quoteString {s} {
         if {[string first "\"" $s] >= 0} {
             return "'$s'"
@@ -872,11 +894,11 @@ snit::type CommandStationGUI {
                     }
                     servicemode {
                         if {![$servicemode AnswerCallback $result]} {
-                            $Main_ log insert end "$result
+                            $Main_ log insert end "$result\n"
                         }
                     }
                     default {
-                        $Main_ log insert end "$result
+                        $Main_ log insert end "$line\n"
                     }
                 }
             } else {
