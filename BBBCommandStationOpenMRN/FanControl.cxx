@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 28 13:33:53 2019
-//  Last Modified : <210319.1648>
+//  Last Modified : <210502.1715>
 //
 //  Description	
 //
@@ -55,6 +55,8 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "AnalogReadSysFS.h"
 #include "FanControl.hxx"
 #include "Hardware.hxx"
+#include <vector>
+#include <numeric>
 
 FanControl::FanControl(openlcb::Node *node,
                        const FanControlConfig &cfg,
@@ -64,15 +66,10 @@ FanControl::FanControl(openlcb::Node *node,
 , cfg_(cfg)
 , temperatureAIN_(temperatureAIN)
 , fanGpio_(fanGpio)
-, alarmon_event_(0)
-, alarmoff_event_(0)
-, fanon_event_(0)
-, fanoff_event_(0)
-, alarmthresh_(350)
-, fanthresh_(250)
-, registered_(false)
-, fanon_(false)
-, alarmon_(false)
+, alarmBit_(node, 0, 0, &alarmon_, 1)
+, fanBit_(node, 0, 0, &fanon_, 1)
+, alarmProducer_(&alarmBit_)
+, fanProducer_(&fanBit_)
 {
     ConfigUpdateService::instance()->register_update_listener(this);
 }
@@ -87,16 +84,10 @@ FanControl::FanControl(openlcb::Node *node,
 , cfg_(cfg)
 , temperatureAIN_(temperatureAIN)
 , fanGpio_(fanGpio)
-, alarmon_event_(0)
-, alarmoff_event_(0)
-, fanon_event_(0)
-, fanoff_event_(0)
-, alarmthresh_(350)
-, fanthresh_(250)
-, registered_(false)
-, fanon_(false)
-, alarmon_(false)
-, barrier_()
+, alarmBit_(node, 0, 0, &alarmon_, 1)
+, fanBit_(node, 0, 0, &fanon_, 1)
+, alarmProducer_(&alarmBit_)
+, fanProducer_(&fanBit_)
 {
     ConfigUpdateService::instance()->register_update_listener(this);
     //memset((void *)write_helper_,0,10*sizeof(openlcb::WriteHelper));
@@ -105,184 +96,91 @@ FanControl::FanControl(openlcb::Node *node,
 FanControl::~FanControl()
 {
     ConfigUpdateService::instance()->unregister_update_listener(this);
-    if (registered_) unregister_handler();
-}
-
-void FanControl::handle_identify_global(const openlcb::EventRegistryEntry &registry_entry,
-                                        openlcb::EventReport *event,
-                                        BarrierNotifiable *done)
-{
-    if (event->dst_node && event->dst_node != node_)
-    {
-        done->notify();
-        return;
-    }
-    SendAllProducersIdentified(event,done);
-    done->maybe_done();
-}
-
-void FanControl::handle_identify_producer(const openlcb::EventRegistryEntry &registry_entry,
-                                          openlcb::EventReport *event, BarrierNotifiable *done)
-{
-    SendProducerIdentified(event,done);
-    done->maybe_done();
 }
 
 void FanControl::poll_33hz(openlcb::WriteHelper *helper, Notifiable *done)
 {
-    //LOG(INFO,"*** FanControl::poll_33hz(): barrier_.is_done() is %d",barrier_.is_done());
-    if (!barrier_.is_done()) {
-        LOG(WARNING,"*** FanControl::poll_33hz(): barrier_ is not done!");
-    }
-    barrier_.reset(done);
+    vector<int> samples;
     
-    uint16_t hsTempTensC = (uint16_t)round(TempFromAIN(sysfs_adc_getvalue(temperatureAIN_))*10);
+    while (samples.size() < 32)
+    {
+        samples.push_back(sysfs_adc_getvalue(temperatureAIN_));
+        usleep(1);
+    }
+    
+    uint16_t hsTempTensC = (uint16_t)round(TempFromAIN(std::accumulate(samples.begin(), samples.end(), 0))*10);
     //LOG(INFO,"*** FanControl::poll_33hz(): hsTempTensC = %d",hsTempTensC);
     //LOG(INFO,"*** -: alarmthresh_ = %d, alarmon_ = %d",alarmthresh_,alarmon_);
-    if (hsTempTensC > alarmthresh_ && !alarmon_)
+    bool async_event_req = false;
+    if (hsTempTensC > alarmthresh_ && alarmon_ == 0)
     {
-        SendEventReport(6, alarmon_event_, &barrier_);
-        alarmon_ = true;
-    } else if (hsTempTensC <= alarmthresh_ && alarmon_)
+        alarmon_ = 1;
+        alarmProducer_.SendEventReport(helper, done);
+        async_event_req = true;
+    } else if (hsTempTensC <= alarmthresh_ && alarmon_ == 1)
     {
-        SendEventReport(7, alarmoff_event_, &barrier_);
-        alarmon_ = false;
+        alarmon_ = 0;
+        alarmProducer_.SendEventReport(helper, done);
+        async_event_req = true;
     }
     //LOG(INFO,"*** -: fanthresh_ = %d, fanon_ = %d",fanthresh_,fanon_);
-    if (hsTempTensC > fanthresh_ && !fanon_)
+    if (hsTempTensC > fanthresh_ && fanon_ == 0)
     {
-        SendEventReport(8, fanon_event_, &barrier_);
+        fanon_ = 1;
+        fanProducer_.SendEventReport(helper, done);
+        async_event_req = true;
         fanon_ = true;
         fanGpio_->set();
-    } else if (hsTempTensC <= fanthresh_ && fanon_)
+    } else if (hsTempTensC <= fanthresh_ && fanon_ == 1)
     {
-        SendEventReport(9, fanoff_event_, &barrier_);
-        fanon_ = false;
+        fanon_ = 0;
+        fanProducer_.SendEventReport(helper, done);
+        async_event_req = true;
         fanGpio_->clr();
     }
-    barrier_.maybe_done();
+    if (!async_event_req)
+    {
+        done->notify();
+    }
 }
-
-void FanControl::SendEventReport(int helperIndex, openlcb::EventId event, BarrierNotifiable *done)
-{
-    event_write_helper(helperIndex)->WriteAsync(node_, 
-                                         openlcb::Defs::MTI_EVENT_REPORT,
-                                         openlcb::WriteHelper::global(),
-                                         openlcb::eventid_to_buffer(event),
-                                         done->new_child());
-                                               
-}
-
-
 
 ConfigUpdateListener::UpdateAction FanControl::apply_configuration(int fd, bool initial_load,
                                                                    BarrierNotifiable *done)
 {
     AutoNotify n(done);
+    UpdateAction res = initial_load ? REINIT_NEEDED : UPDATED;
     alarmthresh_ = cfg_.alarmtemperaturethresh().read(fd);
     fanthresh_ = cfg_.fantemperaturethresh().read(fd);
-    openlcb::EventId cfg_alarmon_event_ = cfg_.alarmon().read(fd);
-    openlcb::EventId cfg_alarmoff_event_ = cfg_.alarmoff().read(fd);
-    openlcb::EventId cfg_fanon_event_ = cfg_.fanon().read(fd);
-    openlcb::EventId cfg_fanoff_event_ = cfg_.fanoff().read(fd);
-    if (cfg_alarmon_event_ != alarmon_event_ ||
-        cfg_alarmoff_event_ != alarmoff_event_ ||
-        cfg_fanon_event_ != fanon_event_ ||
-        cfg_fanoff_event_ != fanoff_event_) 
+    openlcb::EventId alarmon = cfg_.alarmon().read(fd);
+    openlcb::EventId alarmoff = cfg_.alarmoff().read(fd);
+    openlcb::EventId fanon = cfg_.fanon().read(fd);
+    openlcb::EventId fanoff = cfg_.fanoff().read(fd);
+    auto saved_node = alarmBit_.node();
+    if (alarmon != alarmBit_.event_on() ||
+        alarmoff != alarmBit_.event_off())
     {
-        if (registered_) unregister_handler();
-        alarmon_event_ = cfg_alarmon_event_;
-        alarmoff_event_ = cfg_alarmoff_event_;
-        fanon_event_ = cfg_fanon_event_;
-        fanoff_event_ = cfg_fanoff_event_;
-        register_handler();
-        return REINIT_NEEDED;
+        alarmBit_.openlcb::MemoryBit<uint8_t>::~MemoryBit();
+        new (&alarmBit_)openlcb::MemoryBit<uint8_t>(saved_node, alarmon, alarmoff, &alarmon_, 1);
+        alarmProducer_.openlcb::BitEventProducer::~BitEventProducer();
+        new (&alarmProducer_)openlcb::BitEventProducer(&alarmBit_);
+        res = REINIT_NEEDED;
     }
-    return UPDATED;
+    if (fanon != fanBit_.event_on() ||
+        fanoff != fanBit_.event_off())
+    {
+        fanBit_.openlcb::MemoryBit<uint8_t>::~MemoryBit();
+        new (&fanBit_)openlcb::MemoryBit<uint8_t>(saved_node, fanon, fanoff, &fanon_, 1);
+        fanProducer_.openlcb::BitEventProducer::~BitEventProducer();
+        new (&fanProducer_)openlcb::BitEventProducer(&fanBit_);
+        res = REINIT_NEEDED;
+    }
+    
+    return res;
 }
 
 void FanControl::factory_reset(int fd)
 {
     CDI_FACTORY_RESET(cfg_.alarmtemperaturethresh);
     CDI_FACTORY_RESET(cfg_.fantemperaturethresh);
-}
-
-void FanControl::register_handler()
-{
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this,alarmon_event_), 0);
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this,alarmoff_event_), 0);
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this,fanon_event_), 0);
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this,fanoff_event_), 0);
-    registered_ = true;
-}
-
-void FanControl::unregister_handler()
-{
-    openlcb::EventRegistry::instance()->unregister_handler(this);
-    registered_ = false;
-}
-
-
-void FanControl::SendProducerIdentified(openlcb::EventReport *event, BarrierNotifiable *done)
-{
-    openlcb::Defs::MTI mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_UNKNOWN;
-    if (event->event == alarmon_event_) {
-        if (alarmon_) mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-        else mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
-    } else if (event->event == alarmoff_event_) {
-        if (alarmon_) mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
-        else mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-    } else if (event->event == fanon_event_) {
-        if (fanon_) 
-            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-        else mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
-    } else if (event->event == fanoff_event_) {
-        if (fanon_)
-            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
-        else mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-    }
-
-    event_write_helper<1>()->WriteAsync(node_, mti,
-                                openlcb::WriteHelper::global(),
-                                openlcb::eventid_to_buffer(event->event),
-                                done->new_child());
-}
-
-void FanControl::SendAllProducersIdentified(openlcb::EventReport *event,BarrierNotifiable *done)
-{
-    openlcb::Defs::MTI mti_alarmon = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID,
-          mti_alarmoff = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID,
-          mti_fanon = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID,
-          mti_fanoff = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
-    if (alarmon_) {
-        mti_alarmon = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-    } else {
-        mti_alarmoff = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-    }
-    if (fanon_) {
-        mti_fanon = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-    } else {
-        mti_fanoff = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-    }
-    event_write_helper<2>()->WriteAsync(node_, mti_alarmon,
-                               openlcb::WriteHelper::global(),
-                               openlcb::eventid_to_buffer(alarmon_event_),
-                               done->new_child());
-    event_write_helper<3>()->WriteAsync(node_, mti_alarmoff,
-                               openlcb::WriteHelper::global(),
-                               openlcb::eventid_to_buffer(alarmoff_event_),
-                               done->new_child());
-    event_write_helper<4>()->WriteAsync(node_, mti_fanon,
-                               openlcb::WriteHelper::global(),
-                               openlcb::eventid_to_buffer(fanon_event_),
-                               done->new_child());
-    event_write_helper<5>()->WriteAsync(node_, mti_fanoff,
-                               openlcb::WriteHelper::global(),
-                               openlcb::eventid_to_buffer(fanoff_event_),
-                               done->new_child());
 }
 

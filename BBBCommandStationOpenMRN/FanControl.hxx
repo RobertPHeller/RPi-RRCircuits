@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 28 13:33:43 2019
-//  Last Modified : <210319.1609>
+//  Last Modified : <210502.1653>
 //
 //  Description	
 //
@@ -49,6 +49,10 @@
 #include "utils/ConfigUpdateListener.hxx"
 #include "utils/ConfigUpdateService.hxx"
 #include "openlcb/RefreshLoop.hxx"
+#include <os/Gpio.hxx>
+#include <os/OS.hxx>
+#include <utils/ConfigUpdateListener.hxx>
+#include <utils/Debouncer.hxx>
 
 /// CDI Configuration for a @ref FanControl.
 CDI_GROUP(FanControlConfig);
@@ -76,7 +80,7 @@ CDI_GROUP_ENTRY(fanoff,
                 Name("Fan Off Event"));
 CDI_GROUP_END();
 
-class FanControl : public ConfigUpdateListener, public openlcb::SimpleEventHandler, public openlcb::Polling {
+class FanControl : public ConfigUpdateListener, public openlcb::Polling {
 public:
     FanControl(openlcb::Node *node,
                const FanControlConfig &cfg,
@@ -89,61 +93,27 @@ public:
                      const FAN&,
                      const Gpio *fanGpio = FAN::instance());
     ~FanControl();
-    virtual void handle_identify_global(const openlcb::EventRegistryEntry &registry_entry,
-                                        openlcb::EventReport *event,
-                                        BarrierNotifiable *done);
-    virtual void handle_identify_producer(const openlcb::EventRegistryEntry &registry_entry,
-                                          openlcb::EventReport *event, BarrierNotifiable *done);
     virtual void poll_33hz(openlcb::WriteHelper *helper, Notifiable *done);
     virtual UpdateAction apply_configuration(int fd, bool initial_load,
                                              BarrierNotifiable *done);
 
     virtual void factory_reset(int fd);
-    bool FanOn() const {return fanon_;}
-    bool AlarmOn() const {return alarmon_;}
+    bool FanOn() const {return fanon_ == 1;}
+    bool AlarmOn() const {return alarmon_ == 1;}
     openlcb::Polling *polling() {return this;}
 private:
     openlcb::Node *node_;
     const FanControlConfig cfg_;
     uint8_t temperatureAIN_;
     const Gpio *fanGpio_;
-    openlcb::EventId alarmon_event_;
-    openlcb::EventId alarmoff_event_;
-    openlcb::EventId fanon_event_;
-    openlcb::EventId fanoff_event_;
-    uint16_t alarmthresh_;
-    uint16_t fanthresh_;
-    bool registered_;
-    bool fanon_;
-    bool alarmon_;
-    /// Requests the event associated with the current value of the bit to be
-    /// produced (unconditionally): sends an event report packet ot the bus.
-    ///
-    /// @param writer is the output flow to be used.
-    ///
-    /// @param done is the notification callback. If it is NULL, the writer will
-    /// be invoked inline and potentially block the calling thread.
-    void SendEventReport(int helperIndex, openlcb::EventId event, BarrierNotifiable *done);
-    /// Registers this event handler with the global event manager. Call this
-    /// from the constructor of the derived class.
-    void register_handler();
-    /// Removes this event handler from the global event manager. Call this
-    /// from the destructor of the derived class.
-    void unregister_handler();
-    void SendProducerIdentified(openlcb::EventReport *event, BarrierNotifiable *done);
-    void SendAllProducersIdentified(openlcb::EventReport *event,BarrierNotifiable *done);
-    openlcb::WriteHelper write_helper_[10];
-    template <int N> openlcb::WriteHelper *event_write_helper()
-    {
-        static_assert(1 <= N && N <= 10, "WriteHelper out of range.");
-        return write_helper_ + (N - 1);
-    }
-    openlcb::WriteHelper *event_write_helper(int N)
-    {
-        HASSERT(1 <= N && N <= 10);
-        return write_helper_ + (N - 1);
-    }
-    BarrierNotifiable barrier_;
+    uint16_t alarmthresh_{350};
+    uint16_t fanthresh_{250};
+    openlcb::MemoryBit<uint8_t> alarmBit_;
+    openlcb::MemoryBit<uint8_t> fanBit_;
+    openlcb::BitEventProducer alarmProducer_;
+    openlcb::BitEventProducer fanProducer_;
+    uint8_t fanon_{0};
+    uint8_t alarmon_{0};
 };            
 
 #endif // __FANCONTROL_HXX
