@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 28 13:33:31 2019
-//  Last Modified : <210319.1617>
+//  Last Modified : <210502.1406>
 //
 //  Description	
 //
@@ -51,14 +51,21 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "utils/ConfigUpdateService.hxx"
 #include "openlcb/RefreshLoop.hxx"
 #include "utils/logging.h"
+#include "utils/Singleton.hxx"
+#include <dcc/ProgrammingTrackBackend.hxx>
 
 #include "AnalogReadSysFS.h"
 #include "HBridgeControl.hxx"
 #include "Hardware.hxx"
 
+#include <vector>
+#include <numeric>
+
 HBridgeControl::HBridgeControl(openlcb::Node *node, 
                                const HBridgeControlConfig &cfg, 
                                uint8_t currentAIN, 
+                               const uint32_t limitMilliAmps,
+                               const uint32_t maxMilliAmps,
                                const Gpio *enableGpio, 
                                const Gpio *thermFlagGpio)
       : node_(node)
@@ -66,240 +73,187 @@ HBridgeControl::HBridgeControl(openlcb::Node *node,
 , currentAIN_(currentAIN)
 , enableGpio_(enableGpio)
 , thermFlagGpio_(thermFlagGpio)
-, overcurrent_event_(0)
-, disable_event_(0)
-, enable_event_(0)
-, thermflagon_event_(0)
-, thermflagoff_event_(0)
-, currentthresh_(3000)
-, registered_(false)
-, isEnabled_(true)
-, isOverCurrent_(false)
-, barrier_()
+, maxMilliAmps_(maxMilliAmps)
+, overCurrentLimit_((uint32_t)round(limitMilliAmps*.9)) // ~90% max value
+, shutdownLimit_((uint32_t)round(limitMilliAmps*.99))
+, isProgTrack_(false)
+, progAckLimit_(0)
+, shortBit_(node, 0, 0, &state_, STATE_OVERCURRENT)
+, shutdownBit_(node, 0, 0, &state_, STATE_SHUTDOWN)
+, thermalFlagBit_(node, 0, 0, &thermalFlag_, 1)
+, shortProducer_(&shortBit_)
+, shutdownProducer_(&shortBit_)
+, thermalFlagProducer_(&thermalFlagBit_)
 {
     ConfigUpdateService::instance()->register_update_listener(this);
-    //memset((void *)write_helper_,0,10*sizeof(openlcb::WriteHelper));
+}
+
+HBridgeControl::HBridgeControl(openlcb::Node *node, 
+                               const HBridgeControlConfig &cfg, 
+                               uint8_t currentAIN, 
+                               const uint32_t maxMilliAmps,
+                               const Gpio *enableGpio, 
+                               const Gpio *thermFlagGpio)
+      : node_(node)
+, cfg_(cfg)
+, currentAIN_(currentAIN)
+, enableGpio_(enableGpio)
+, thermFlagGpio_(thermFlagGpio)
+, maxMilliAmps_(maxMilliAmps)
+, overCurrentLimit_(250) // ~250 mA
+, shutdownLimit_(500)
+, isProgTrack_(true)
+, progAckLimit_(60) // ~60 mA
+, shortBit_(node, 0, 0, &state_, STATE_OVERCURRENT)
+, shutdownBit_(node, 0, 0, &state_, STATE_SHUTDOWN)
+, thermalFlagBit_(node, 0, 0, &thermalFlag_, 1)
+, shortProducer_(&shortBit_)
+, shutdownProducer_(&shortBit_)
+, thermalFlagProducer_(&thermalFlagBit_)
+{
+    ConfigUpdateService::instance()->register_update_listener(this);
 }
 
 HBridgeControl::~HBridgeControl()
 {
     ConfigUpdateService::instance()->unregister_update_listener(this);
-    if (registered_) unregister_handler();
-}
-
-void HBridgeControl::handle_identify_global(const openlcb::EventRegistryEntry &registry_entry,
-                                            openlcb::EventReport *event,
-                                            BarrierNotifiable *done)
-{
-    if (event->dst_node && event->dst_node != node_)
-    {
-        done->notify();
-        return;
-    }
-    SendAllConsumersIdentified(event,done);
-    SendAllProducersIdentified(event,done);
-    done->maybe_done();
-}
-
-void HBridgeControl::handle_identify_consumer(const openlcb::EventRegistryEntry &registry_entry,
-                                              openlcb::EventReport *event, BarrierNotifiable *done)
-{
-    SendConsumerIdentified(event,done);
-    done->maybe_done();
-}
-
-void HBridgeControl::handle_identify_producer(const openlcb::EventRegistryEntry &registry_entry,
-                                              openlcb::EventReport *event, BarrierNotifiable *done)
-{
-    barrier_.reset(done);
-    SendProducerIdentified(event,&barrier_);
-    barrier_.maybe_done();
-}
-
-void HBridgeControl::handle_event_report(const openlcb::EventRegistryEntry &registry_entry,
-                                         openlcb::EventReport *event,
-                                         BarrierNotifiable *done)
-{
-    if (event->event == disable_event_)
-    {
-        enableGpio_->clr();
-        isEnabled_ = false;
-    } else if (event->event == enable_event_)
-    {
-        enableGpio_->set();
-        isEnabled_ = true;
-    } 
-    done->maybe_done();
 }
 
 void HBridgeControl::poll_33hz(openlcb::WriteHelper *helper, Notifiable *done)
 {
-    //LOG(INFO, "*** HBridgeControl::poll_33hz(): barrier_.is_done() is %d",barrier_.is_done());
-    if (!barrier_.is_done()) {
-        LOG(WARNING, "*** HBridgeControl::poll_33hz(): barrier_ is not done!");
+    vector<int> samples;
+    
+    while (samples.size() < adcSampleCount_)
+    {
+        samples.push_back(sysfs_adc_getvalue(currentAIN_));
+        usleep(1);
     }
-    barrier_.reset(done);
-    uint16_t currentMA = (uint16_t)round(CurrentFromAIN(sysfs_adc_getvalue(currentAIN_))*1000);
-    //LOG(INFO, "*** HBridgeControl::poll_33hz(): currentMA = %d",currentMA);
-    if (currentMA > currentthresh_ && !isOverCurrent_) {
-        SendEventReport(8, overcurrent_event_, &barrier_);
-        isOverCurrent_ = true;
-    } else if (currentMA <= currentthresh_) {
-        isOverCurrent_ = false;
-    }
-    if (thermFlagGpio_ != NULL) {
-        if (thermFlagGpio_->read() != thermflagState_) {
-            thermflagState_ = thermFlagGpio_->read();
-            if (thermflagState_) 
-                SendEventReport(9, thermflagon_event_, &barrier_);
-            else
-                SendEventReport(10, thermflagoff_event_, &barrier_);
+    
+    lastReading_ = (uint32_t)round(CurrentFromAIN(std::accumulate(samples.begin(), samples.end(), 0)));
+    
+    if (isProgTrack_ && progEnable_)
+    {
+        auto backend = Singleton<ProgrammingTrackBackend>::instance();
+        if (lastReading_ >= overCurrentLimit_)
+        {
+            backend->notify_service_mode_short();
+        }
+        else if (lastReading_ >= progAckLimit_)
+        {
+            backend->notify_service_mode_ack();
         }
     }
-    barrier_.maybe_done();
+    
+    uint8_t previous_state = state_;
+    
+    if (lastReading_ >= shutdownLimit_)
+    {
+        enableGpio_->clr();
+        state_ = STATE_SHUTDOWN;
+    }
+    else if (lastReading_ >= overCurrentLimit_)
+    {
+        if (overCurrentCheckCount_++ >= overCurrentRetryCount_)
+        {
+            enableGpio_->clr();
+            state_ = STATE_OVERCURRENT;
+        }
+    }
+    else
+    {
+        if (enableGpio_->is_set())
+        {
+            overCurrentCheckCount_ = 0;
+            state_ = STATE_ON;
+        }
+        else
+        {
+            state_ = STATE_OFF;
+        }
+    }
+    bool async_event_req = false;
+    if (previous_state != state_)
+    {
+        if (previous_state == STATE_SHUTDOWN || state_ == STATE_SHUTDOWN)
+        {
+            shutdownProducer_.SendEventReport(helper, done);
+            async_event_req = true;
+        }
+        else if (previous_state == STATE_OVERCURRENT || state_ == STATE_OVERCURRENT)
+        {
+            shortProducer_.SendEventReport(helper, done);
+            async_event_req = true;
+        }
+    }
+    if (thermFlagGpio_ != NULL)
+    {
+        uint8_t previous_thermalFlag = thermalFlag_;
+        if (thermFlagGpio_->is_set())
+        {
+            thermalFlag_ = 1;
+        }
+        else
+        {
+            thermalFlag_ = 0;
+        }
+        if (previous_thermalFlag != thermalFlag_) {
+            thermalFlagProducer_.SendEventReport(helper, done);
+            async_event_req = true;
+        }
+    }
+    if (!async_event_req)
+    {
+        done->notify();
+    }
 }
 
 ConfigUpdateListener::UpdateAction HBridgeControl::apply_configuration(int fd, bool initial_load,
                                                                        BarrierNotifiable *done)
 {
     AutoNotify n(done);
-    if (initial_load) if (thermFlagGpio_ != NULL) thermflagState_ = thermFlagGpio_->read();
-    currentthresh_ = cfg_.currentthresh().read(fd);
-    openlcb::EventId cfg_overcurrent_event_  = cfg_.overcurrent().read(fd);
-    openlcb::EventId cfg_disable_event_      = cfg_.disable().read(fd);
-    openlcb::EventId cfg_enable_event_       = cfg_.enable().read(fd);
-    openlcb::EventId cfg_thermflagon_event_  = cfg_.thermflagon().read(fd);
-    openlcb::EventId cfg_thermflagoff_event_ = cfg_.thermflagoff().read(fd);
-    if (cfg_overcurrent_event_  != overcurrent_event_ ||
-        cfg_disable_event_      != disable_event_     ||
-        cfg_enable_event_       != enable_event_      ||
-        cfg_thermflagon_event_  != thermflagon_event_ ||
-        cfg_thermflagoff_event_ != thermflagoff_event_)
+    UpdateAction res = initial_load ? REINIT_NEEDED : UPDATED;
+    openlcb::EventId short_detected = cfg_.event_short().read(fd);
+    openlcb::EventId short_cleared = cfg_.event_short_cleared().read(fd);
+    openlcb::EventId shutdown = cfg_.event_shutdown().read(fd);
+    openlcb::EventId shutdown_cleared = cfg_.event_shutdown_cleared().read(fd);
+    openlcb::EventId thermalflagon = cfg_.event_thermflagon().read(fd);
+    openlcb::EventId thermalflagoff = cfg_.event_thermflagoff().read(fd);
+    
+    auto saved_node = shortBit_.node();
+    if (short_detected != shortBit_.event_on() ||
+        short_cleared != shortBit_.event_off())
     {
-        if (registered_) unregister_handler();
-        overcurrent_event_  = cfg_overcurrent_event_;
-        disable_event_      = cfg_disable_event_;
-        enable_event_       = cfg_enable_event_;
-        thermflagon_event_  = cfg_thermflagon_event_;
-        thermflagoff_event_ = cfg_thermflagoff_event_;
-        register_handler();
-        return REINIT_NEEDED;
+        shortBit_.openlcb::MemoryBit<uint8_t>::~MemoryBit();
+        new (&shortBit_)openlcb::MemoryBit<uint8_t>(saved_node, short_detected, short_cleared, &state_, STATE_OVERCURRENT);
+        shortProducer_.openlcb::BitEventProducer::~BitEventProducer();
+        new (&shortProducer_)openlcb::BitEventProducer(&shortBit_);
+        res = REINIT_NEEDED;
     }
-    return UPDATED;
+    if (shutdown != shutdownBit_.event_on() ||
+        shutdown_cleared != shutdownBit_.event_off())
+    {
+      saved_node = shutdownBit_.node();
+      shutdownBit_.openlcb::MemoryBit<uint8_t>::~MemoryBit();
+      new (&shutdownBit_)openlcb::MemoryBit<uint8_t>(saved_node, shutdown, shutdown_cleared, &state_, STATE_SHUTDOWN);
+      shutdownProducer_.openlcb::BitEventProducer::~BitEventProducer();
+      new (&shutdownProducer_)openlcb::BitEventProducer(&shutdownBit_);
+      res = REINIT_NEEDED;
+    }
+    if (thermalflagon != thermalFlagBit_.event_on() ||
+        thermalflagoff != thermalFlagBit_.event_off())
+    {
+      saved_node = thermalFlagBit_.node();
+      thermalFlagBit_.openlcb::MemoryBit<uint8_t>::~MemoryBit();
+      new (&thermalFlagBit_)openlcb::MemoryBit<uint8_t>(saved_node, thermalflagon, thermalflagoff, &thermalFlag_, 1);
+      thermalFlagProducer_.openlcb::BitEventProducer::~BitEventProducer();
+      new (&thermalFlagProducer_)openlcb::BitEventProducer(&thermalFlagBit_);
+      res = REINIT_NEEDED;
+    }
+    
+    return res;
 }
 
 void HBridgeControl::factory_reset(int fd)
 {
-    CDI_FACTORY_RESET(cfg_.currentthresh);
 }
 
-void HBridgeControl::register_handler()
-{
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this,overcurrent_event_), 0);
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this,disable_event_), 0);
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this,enable_event_), 0);
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this,thermflagon_event_), 0);
-    openlcb::EventRegistry::instance()->register_handler(
-        openlcb::EventRegistryEntry(this,thermflagoff_event_), 0);
-    registered_ = true;
-}
-
-void HBridgeControl::unregister_handler()
-{
-    openlcb::EventRegistry::instance()->unregister_handler(this);
-    registered_ = false;
-}
-
-void HBridgeControl::SendProducerIdentified(openlcb::EventReport *event, BarrierNotifiable *done)
-{
-    openlcb::Defs::MTI mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_UNKNOWN;
-    if (event->event == thermflagon_event_) {
-        if (thermflagState_) mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-        else mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
-    } else if (event->event == thermflagoff_event_) {
-        if (thermflagState_) mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
-        else mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-    } else if (event->event == overcurrent_event_) {
-        if (isOverCurrent_) 
-            mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-        else mti = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
-    }
-    
-    event_write_helper<1>()->WriteAsync(node_, mti,
-                                openlcb::WriteHelper::global(),
-                                openlcb::eventid_to_buffer(event->event),
-                                done->new_child());
-}
-
-void HBridgeControl::SendAllProducersIdentified(openlcb::EventReport *event,BarrierNotifiable *done)
-{
-    openlcb::Defs::MTI mti_on = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID,
-          mti_off = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID,
-          mti_currover = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_INVALID;
-    if (thermflagState_) {
-        mti_on = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-    } else {
-        mti_off = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-    }
-    if (isOverCurrent_) {
-        mti_currover = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
-    }
-    event_write_helper<2>()->WriteAsync(node_, mti_on,
-                                               openlcb::WriteHelper::global(),
-                                               openlcb::eventid_to_buffer(thermflagon_event_),
-                                               done->new_child());
-    event_write_helper<3>()->WriteAsync(node_, mti_off,
-                                               openlcb::WriteHelper::global(),
-                                               openlcb::eventid_to_buffer(thermflagoff_event_),
-                                               done->new_child());
-    event_write_helper<4>()->WriteAsync(node_, mti_currover,
-                                               openlcb::WriteHelper::global(),
-                                               openlcb::eventid_to_buffer(overcurrent_event_),
-                                               done->new_child());
-}
-
-void HBridgeControl::SendConsumerIdentified(openlcb::EventReport *event, BarrierNotifiable *done)
-{
-    openlcb::Defs::MTI mti = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_UNKNOWN;
-    if (event->event == enable_event_) {
-        if (isEnabled_) mti = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_VALID;
-        else mti = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_INVALID;
-    } else if (event->event == disable_event_) {
-        if (!isEnabled_) mti = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_VALID;
-        else mti = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_INVALID;
-    }
-    event_write_helper<5>()->WriteAsync(node_, mti,
-                                               openlcb::WriteHelper::global(),
-                                               openlcb::eventid_to_buffer(event->event),
-                                               done->new_child());
-}
-
-void HBridgeControl::SendAllConsumersIdentified(openlcb::EventReport *event,BarrierNotifiable *done)
-{
-    openlcb::Defs::MTI mti_enabled = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_INVALID,
-          mti_disabled = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_INVALID;
-    if (isEnabled_) mti_enabled = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_VALID;
-    else mti_disabled = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_VALID;
-    event_write_helper<6>()->WriteAsync(node_, mti_enabled,
-                                               openlcb::WriteHelper::global(),
-                                               openlcb::eventid_to_buffer(enable_event_),
-                                               done->new_child());
-    event_write_helper<7>()->WriteAsync(node_, mti_disabled,
-                                               openlcb::WriteHelper::global(),
-                                               openlcb::eventid_to_buffer(disable_event_),
-                                               done->new_child());
-}
-
-void HBridgeControl::SendEventReport(int helperIndex, openlcb::EventId event, BarrierNotifiable *done)
-{
-    event_write_helper(helperIndex)->WriteAsync(node_, 
-                                         openlcb::Defs::MTI_EVENT_REPORT,
-                                         openlcb::WriteHelper::global(),
-                                         openlcb::eventid_to_buffer(event),
-                                         done->new_child());
-                                               
-}

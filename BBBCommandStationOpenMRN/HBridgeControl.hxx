@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 28 13:33:15 2019
-//  Last Modified : <210319.1609>
+//  Last Modified : <210502.1351>
 //
 //  Description	
 //
@@ -43,110 +43,115 @@
 #ifndef __HBRIDGECONTROL_HXX
 #define __HBRIDGECONTROL_HXX
 
+#include <executor/StateFlow.hxx>
 #include "openlcb/PolledProducer.hxx"
 #include "openlcb/EventHandlerTemplates.hxx"
 #include "openlcb/ConfigRepresentation.hxx"
+#include <openlcb/Node.hxx>
 #include "utils/ConfigUpdateListener.hxx"
 #include "utils/ConfigUpdateService.hxx"
 #include "openlcb/RefreshLoop.hxx"
+#include <os/Gpio.hxx>
+#include <os/OS.hxx>
+#include <utils/ConfigUpdateListener.hxx>
+#include <utils/Debouncer.hxx>
+
+#define BIT(n) (1 << n)
 
 /// CDI Configuration for a @ref HBridgeControl.
 CDI_GROUP(HBridgeControlConfig);
-CDI_GROUP_ENTRY(currentthresh,
-                openlcb::Uint16ConfigEntry,
-                Name("Current threshold, in milliamps."),
-                Default(3000),Min(250),Max(3000),
-                Description("This is the current level to issue an event."));
-CDI_GROUP_ENTRY(overcurrent,
+CDI_GROUP_ENTRY(event_short,
                 openlcb::EventConfigEntry,
-                Name("Over Current Event"));
-CDI_GROUP_ENTRY(disable,
+                Name("Short Detected"),
+                Description("This event will be produced when a short has "
+                            "been detected on the track output."));
+CDI_GROUP_ENTRY(event_short_cleared,
                 openlcb::EventConfigEntry,
-                Name("Disable DCC"));
-CDI_GROUP_ENTRY(enable,
+                Name("Short Cleared"),
+                Description("This event will be produced when a short has "
+                            "been cleared on the track output."));
+CDI_GROUP_ENTRY(event_shutdown,
                 openlcb::EventConfigEntry,
-                Name("Enable DCC"));
-CDI_GROUP_ENTRY(thermflagon,
+                Name("H-Bridge Shutdown"),
+                Description("This event will be produced when the track "
+                            "output power has exceeded the safety threshold "
+                            "of the H-Bridge."));
+CDI_GROUP_ENTRY(event_shutdown_cleared,
+                openlcb::EventConfigEntry,
+                Name("H-Bridge Shutdown Cleared"),
+                Description("This event will be produced when the track "
+                            "output power has returned to safe levels."));
+CDI_GROUP_ENTRY(event_thermflagon,
                 openlcb::EventConfigEntry,
                 Name("Thermal Flag on"));
-CDI_GROUP_ENTRY(thermflagoff,
+CDI_GROUP_ENTRY(event_thermflagoff,
                 openlcb::EventConfigEntry,
                 Name("Thermal Flag off"));
 CDI_GROUP_END();
 
-class HBridgeControl : public ConfigUpdateListener, public openlcb::SimpleEventHandler, public openlcb::Polling {
+class HBridgeControl : public ConfigUpdateListener, public openlcb::Polling {
 public:
     HBridgeControl(openlcb::Node *node, 
                    const HBridgeControlConfig &cfg, 
                    uint8_t currentAIN, 
+                   const uint32_t limitMilliAmps,
+                   const uint32_t maxMilliAmps,
                    const Gpio *enableGpio, 
                    const Gpio *thermFlagGpio = NULL);
+    HBridgeControl(openlcb::Node *node, 
+                   const HBridgeControlConfig &cfg, 
+                   uint8_t currentAIN, 
+                   const uint32_t maxMilliAmps,
+                   const Gpio *enableGpio, 
+                   const Gpio *thermFlagGpio = NULL);
+    enum STATE : uint8_t
+    {
+        STATE_OVERCURRENT = BIT(0),
+        STATE_SHUTDOWN    = BIT(1),
+        STATE_ON          = BIT(2),
+        STATE_OFF         = BIT(3)
+    };
     ~HBridgeControl();
-    virtual void handle_identify_global(const openlcb::EventRegistryEntry &registry_entry,
-                                        openlcb::EventReport *event,
-                                        BarrierNotifiable *done);
-    virtual void handle_identify_consumer(const openlcb::EventRegistryEntry &registry_entry,
-                                          openlcb::EventReport *event, BarrierNotifiable *done);
-    virtual void handle_identify_producer(const openlcb::EventRegistryEntry &registry_entry,
-                                          openlcb::EventReport *event, BarrierNotifiable *done);
-    virtual void handle_event_report(const openlcb::EventRegistryEntry &registry_entry,
-                                     openlcb::EventReport *event,
-                                     BarrierNotifiable *done);
     virtual void poll_33hz(openlcb::WriteHelper *helper, Notifiable *done);
     virtual UpdateAction apply_configuration(int fd, bool initial_load,
                                              BarrierNotifiable *done);
 
     virtual void factory_reset(int fd);
-    bool EnabledP() const {return isEnabled_;}
-    bool ThermalFlagP() const {return thermflagState_;}
-    bool OverCurrentP() const {return isOverCurrent_;}
+    bool EnabledP() const {return state_ != STATE_OFF;}
+    bool ThermalFlagP() const {return thermalFlag_ == 1;}
+    bool OverCurrentP() const {return (state_ & STATE_OVERCURRENT) != 0;}
     openlcb::Polling *polling() {return this;}
+    uint32_t getMaxMilliAmps() {return maxMilliAmps_;}
+    uint32_t getLastReading() {return lastReading_;}
+    bool isProgrammingTrack() {return isProgTrack_;}
+    void enable_prog_response(bool enable)
+    {
+        progEnable_ = enable;
+    }
 private:
     openlcb::Node *node_;
     const HBridgeControlConfig cfg_;
-    uint8_t currentAIN_;
+    const uint8_t currentAIN_;
+    const uint8_t adcSampleCount_{32};
+    const uint8_t overCurrentRetryCount_{3};
     const Gpio *enableGpio_;
     const Gpio *thermFlagGpio_;
-    openlcb::EventId overcurrent_event_;
-    openlcb::EventId disable_event_;
-    openlcb::EventId enable_event_;
-    openlcb::EventId thermflagon_event_;
-    openlcb::EventId thermflagoff_event_;
-    uint16_t currentthresh_;
-    bool registered_;
-    bool isEnabled_;
-    bool thermflagState_;
-    bool isOverCurrent_;
-    /// Requests the event associated with the current value of the bit to be
-    /// produced (unconditionally): sends an event report packet ot the bus.
-    ///
-    /// @param writer is the output flow to be used.
-    ///
-    /// @param done is the notification callback. If it is NULL, the writer will
-    /// be invoked inline and potentially block the calling thread.
-    void SendEventReport(int helperIndex, openlcb::EventId event, BarrierNotifiable *done);
-    /// Registers this event handler with the global event manager. Call this
-    /// from the constructor of the derived class.
-    void register_handler();
-    /// Removes this event handler from the global event manager. Call this
-    /// from the destructor of the derived class.
-    void unregister_handler();
-    void SendProducerIdentified(openlcb::EventReport *event, BarrierNotifiable *done);
-    void SendAllProducersIdentified(openlcb::EventReport *event,BarrierNotifiable *done);
-    void SendConsumerIdentified(openlcb::EventReport *event, BarrierNotifiable *done);
-    void SendAllConsumersIdentified(openlcb::EventReport *event,BarrierNotifiable *done);
-    openlcb::WriteHelper write_helper_[10];
-    template <int N> openlcb::WriteHelper *event_write_helper()
-    {
-        static_assert(1 <= N && N <= 10, "WriteHelper out of range.");
-        return write_helper_ + (N - 1);
-    }
-    openlcb::WriteHelper *event_write_helper(int N)
-    {
-        HASSERT(1 <= N && N <= 10);
-        return write_helper_ + (N - 1);
-    }
-    BarrierNotifiable barrier_;
+    const uint32_t maxMilliAmps_;
+    const uint32_t overCurrentLimit_;
+    const uint32_t shutdownLimit_;
+    bool isProgTrack_;
+    const uint32_t progAckLimit_;
+    openlcb::MemoryBit<uint8_t> shortBit_;
+    openlcb::MemoryBit<uint8_t> shutdownBit_;
+    openlcb::MemoryBit<uint8_t> thermalFlagBit_;
+    openlcb::BitEventProducer shortProducer_;
+    openlcb::BitEventProducer shutdownProducer_;
+    openlcb::BitEventProducer thermalFlagProducer_;
+    bool progEnable_{false};
+    uint8_t state_{STATE_OFF};
+    uint8_t overCurrentCheckCount_{0};
+    uint32_t lastReading_{0};
+    uint8_t thermalFlag_{0};
 };            
 
 #endif // __HBRIDGECONTROL_HXX

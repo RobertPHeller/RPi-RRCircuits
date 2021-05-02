@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 09:45:53 2019
-//  Last Modified : <210426.0756>
+//  Last Modified : <210502.1503>
 //
 //  Description	
 //
@@ -61,15 +61,75 @@
 #include "CommandStationStack.hxx"
 #include "HBridgeControl.hxx"
 #include "FanControl.hxx"
-
-extern HBridgeControl mains, progtrack;
-extern FanControl fan;
+#include "CommandStationDCCMainTrack.hxx"
+#include "CommandStationDCCProgTrack.hxx"
+#include <dcc/ProgrammingTrackBackend.hxx>
+#include "DuplexUpdateLoop.hxx" 
+#include "openlcb/SimpleStack.hxx"
+#include "os/LinuxGpio.hxx"
+#include "freertos_drivers/common/DummyGPIO.hxx"
+#include "freertos_drivers/common/LoggingGPIO.hxx"
+#include "BBRailComDriver.hxx"
+#include "BeagleTrainDatabase.hxx"
+#include <AllTrainNodes.hxx>
+#include <dcc/RailcomHub.hxx>
+#include <dcc/RailcomPortDebug.hxx>
+#include "Hardware.hxx"
 
 class CommandStationConsole : public Console {
 public:
-    CommandStationConsole(commandstation::AllTrainNodes *trainnodes, openlcb::TrainService *tractionService, ExecutorBase *executor, uint16_t port);
-    CommandStationConsole(commandstation::AllTrainNodes *trainnodes, openlcb::TrainService *tractionService, ExecutorBase *executor, int fd_in, int fd_out, int port = -1);
+    CommandStationConsole(openlcb::SimpleStackBase *stack, openlcb::TrainService *tractionService, ExecutorBase *executor, uint16_t port);
+    CommandStationConsole(openlcb::SimpleStackBase *stack, openlcb::TrainService *tractionService, ExecutorBase *executor, int fd_in, int fd_out, int port = -1);
+    static void Begin(openlcb::SimpleStackBase *stack, 
+                      openlcb::TrainService *tractionService,
+                      const HBridgeControlConfig &maincfg,
+                      const HBridgeControlConfig &progcfg,
+                      const FanControlConfig &fancfg);
 private:
+    static std::unique_ptr<HBridgeControl> mains;
+    static std::unique_ptr<HBridgeControl> progtrack;
+    static std::unique_ptr<FanControl> fan;
+    static std::unique_ptr<openlcb::RefreshLoop> cs_poller;
+    static std::unique_ptr<dcc::RailcomHubFlow> railcom_hub; 
+    static std::unique_ptr<dcc::RailcomPrintfFlow> railcom_dumper;
+    static std::unique_ptr<BeagleCS::BeagleTrainDatabase> trainDb;
+    static std::unique_ptr<commandstation::AllTrainNodes> trainNodes;
+    static std::unique_ptr<CommandStationDCCMainTrack> mainDCC;
+    static std::unique_ptr<CommandStationDCCProgTrack> progDCC;
+    static std::unique_ptr<DuplexUpdateLoop> DccPacketLoop;
+    static std::unique_ptr<ProgrammingTrackBackend> prog_track_backend;
+    static void initiate_estop();
+    static bool is_ops_track_output_enabled()
+    {
+        return MainEN_Pin::get();
+    }
+    static void enable_ops_track_output()
+    {
+        if (!is_ops_track_output_enabled())
+        {
+            MainEN_Pin::set(true);
+        }
+    }
+    static void disable_ops_track_output()
+    {
+        MainEN_Pin::set(false);
+    }
+    static void disable_track_outputs()
+    {
+        disable_ops_track_output();
+        disable_prog_track_output();
+    }
+    static void enable_prog_track_output()
+    {
+        if (!ProgEN_Pin::get())
+        {
+            ProgEN_Pin::set(true);
+        }
+    }
+    static void disable_prog_track_output()
+    {
+        ProgEN_Pin::set(false);
+    }    
     static CommandStatus define_command(FILE *fp, int argc, const char *argv[], void *context)
     {
         return static_cast<CommandStationConsole*>(context)->define_command(fp,argc,argv);
@@ -95,9 +155,11 @@ private:
     {
         return static_cast<CommandStationConsole*>(context)->status_command(fp,argc,argv);
     }
+    static CommandStatus power_command(FILE *fp, int argc, const char *argv[], void *context);
     void putTclBraceString(FILE *fp, const char *s) const;
+    openlcb::SimpleStackBase *stack_;
     openlcb::TrainService *traction_service_;
-    commandstation::AllTrainNodes *trainnodes_;
+    
 };
 
 #endif // __COMMANDSTATIONCONSOLE_HXX

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Apr 25 21:14:31 2021
-//  Last Modified : <210426.1913>
+//  Last Modified : <210502.1100>
 //
 //  Description	
 //
@@ -284,10 +284,6 @@ BeagleTrainDatabase::BeagleTrainDatabase(openlcb::SimpleStackBase *stack)
     persistFlow_.emplace(stack->service()
                          , SEC_TO_NSEC(CONFIG_ROSTER_PERSISTENCE_INTERVAL_SEC)
                          , std::bind(&BeagleTrainDatabase::persist, this));
-}
-
-void BeagleTrainDatabase::Begin()
-{
     LOG(INFO, "[TrainDB] Initializing...");
     if (exists(TRAIN_DB_JSON_FILE))
     {

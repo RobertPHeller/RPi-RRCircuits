@@ -30,6 +30,8 @@
 //                           PocketBeagle: P2_8
 
 #define CSenseMainAnalogChannel 0
+#define MAIN_MAX_MILLIAMPS 2800
+#define MAIN_LIMIT_MILLIAMPS 2800
 GPIO_PIN(MainEN, EnablePin, 86);
 #define NO_THERMFAULT 1
 GPIO_PIN(MainBRAKE, EnablePin, 60);
@@ -46,6 +48,7 @@ GPIO_PIN(MainBRAKE, EnablePin, 60);
 //                           Pocketbeagle: P1_21
 
 #define CSenseProgAnalogChannel 1
+#define PROG_MAX_MILLIAMPS 2800
 GPIO_PIN(ProgEN, EnablePin, 46);
 
 // Tempsensor:

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Apr 25 18:49:25 2021
-//  Last Modified : <210426.1350>
+//  Last Modified : <210502.1100>
 //
 //  Description	
 //
@@ -241,8 +241,6 @@ namespace BeagleCS
     {
     public:
         BeagleTrainDatabase(openlcb::SimpleStackBase *stack);
-        
-        void Begin();
         
         void stop()
         {

@@ -119,10 +119,11 @@
  * 
  * The two DCC outputs have these configuration options:
  * 
- * @arg The overcurrent threshold, in milliamps.
- * @arg The event to send when the current is exceded.
- * @arg The event to disable the DCC output.
- * @arg The event to enable the DCC output.
+ * @arg The event to send when there is a short.
+ * @arg The event to send when short is cleared.
+ * @arg The event to send when the command station is shutdown
+ *      due to over current.
+ * @arg The event to send when the shutdown is cleared.
  * @arg The event to send when the thermal flag goes on.
  * @arg The event to send when the thermal flag goes off.
  * @par
@@ -241,83 +242,6 @@ extern const char *const BeagleCS::TRAIN_DB_JSON_FILE = persistenttrainfile;
 // the individual entries to the individual consumers. Each consumer gets its
 // own GPIO pin.
 
-#ifdef NO_THERMFAULT
-HBridgeControl mains(stack.node(), cfg.seg().maindcc(), CSenseMainAnalogChannel, MainEN_Pin::instance());
-#else
-HBridgeControl mains(stack.node(), cfg.seg().maindcc(), CSenseMainAnalogChannel, MainEN_Pin::instance(), MainTF_Pin::instance());
-#endif
-HBridgeControl progtrack(stack.node(), cfg.seg().progdcc(), CSenseProgAnalogChannel, ProgEN_Pin::instance() );
-FanControl     fan(stack.node(), cfg.seg().fancontrol(), TempsensorChannel,FanControl_Pin::instance());
-
-openlcb::RefreshLoop loop(stack.node(),
-                      {mains.polling(), 
-                          progtrack.polling(), 
-                          fan.polling()});
-
-#define RAILCOM_BAUD B230400
-struct RailComHW
-{
-    using HB_BRAKE = MainBRAKE_Pin;
-    using HB_ENABLE = ProgEN_Pin;
-    using RC_ENABLE = RailcomEN_Pin;
-    static void hw_init()
-    {
-    }
-    static int openport()
-    {
-        struct termios railcomtermios;
-        int fd = open(RAILCOM_DATA_PORT,O_RDWR);
-        if (fd < 0) {
-            LOG(FATAL,"RailComHW: Could not open %s (%d)", RAILCOM_DATA_PORT, errno);
-            exit(errno);
-        }
-        tcgetattr(fd,&railcomtermios);
-        cfmakeraw(&railcomtermios);
-        cfsetspeed(&railcomtermios,RAILCOM_BAUD);
-        // 1 stop bit, 8 data bits
-        railcomtermios.c_cflag &= ~CSTOPB;
-        railcomtermios.c_cflag &= ~CSIZE;
-        railcomtermios.c_cflag |= CS8; 
-        tcsetattr(fd,TCSANOW,&railcomtermios);
-        return fd;
-    }
-    static size_t data_avail(int fd)
-    {
-        int bytes = 0;
-        ioctl(fd,TIOCINQ,&bytes);
-        return bytes;
-    }
-    static uint8_t readbyte(int fd)
-    {
-        uint8_t buff;
-        /*size_t s =*/ read(fd,&buff,1);
-        return buff;
-    }
-    static size_t readbuff(int fd,uint8_t *buf, size_t max_len)
-    {
-        return read(fd,buf,max_len);
-    }
-    static int flush(int fd)
-    {
-        return tcflush(fd,TCIFLUSH);
-    }
-  /// Number of microseconds to wait after the final packet bit completes
-  /// before disabling the ENABLE pin on the h-bridge.
-  static constexpr uint32_t RAILCOM_TRIGGER_DELAY_USEC = 1;
-
-  /// Number of microseconds to wait for railcom data on channel 1.
-  static constexpr uint32_t RAILCOM_MAX_READ_DELAY_CH_1 =
-    177 - RAILCOM_TRIGGER_DELAY_USEC;
-
-  /// Number of microseconds to wait for railcom data on channel 2.
-  static constexpr uint32_t RAILCOM_MAX_READ_DELAY_CH_2 =
-    454 - RAILCOM_MAX_READ_DELAY_CH_1;
-};
-
-BBRailComDriver<RailComHW> opsRailComDriver(RAILCOM_FEEDBACK_QUEUE);
-
-static std::unique_ptr<dcc::RailcomHubFlow> railcom_hub;
-static std::unique_ptr<dcc::RailcomPrintfFlow> railcom_dumper;
 
 class FactoryResetHelper : public DefaultConfigUpdateListener {
 public:
@@ -434,37 +358,18 @@ void connect_callback(int fd, Notifiable *on_error)
 }
 #endif
 
-BeagleCS::BeagleTrainDatabase trainDb(&stack);
-
-commandstation::AllTrainNodes trainNodes(&trainDb
-                                         , stack.traction_service()
-                                         , stack.info_flow()
-                                         , stack.memory_config_handler()
-                                         , trainDb.get_train_cdi()
-                                         , trainDb.get_temp_train_cdi());
-
-
-
 #ifdef TERMINALCONSOLE
-CommandStationConsole commandProcessorConsole(&trainNodes,
+CommandStationConsole commandProcessorConsole(&stack,
                                               stack.traction_service(),
                                               stack.executor(),
                                               Console::FD_STDIN,
                                               Console::FD_STDOUT);
 #else
-CommandStationConsole commandProcessorConsole(&trainNodes,
+CommandStationConsole commandProcessorConsole(&stack,
                                               stack.traction_service(),
                                               stack.executor(),
                                               CONSOLEPORT);
 #endif
-
-CommandStationDCCMainTrack mainDCC(stack.service(),2);
-CommandStationDCCProgTrack progDCC(stack.service(),2);
-
-//dcc::SimpleUpdateLoop dccUpdateLoop(stack.service(), &mainDCC);
-
-DuplexUpdateLoop DccPacketLoop(stack.service(),&mainDCC,&progDCC);
-
 
 /** Entry point to application.
  * @param argc number of command line arguments
@@ -478,22 +383,16 @@ int appl_main(int argc, char *argv[])
     snprintf(persistenttrainfile,sizeof(persistenttrainfile),
              "/tmp/persistent_train_file_%012llX",NODE_ID);
     parse_args(argc, argv);
-    trainDb.Begin();
     //auto trainnodes = Singleton<commandstation::AllTrainNodes>::instance();
     //auto traindb = Singleton<BeagleCS::BeagleTrainDatabase>::instance();
 
     GpioInit::hw_init();
     
     stack.create_config_file_if_needed(cfg.seg().internal_config(), openlcb::CANONICAL_VERSION, openlcb::CONFIG_FILE_SIZE);
-    mainDCC.StartPRU();
-    progDCC.StartPRU();
-    LOG(INFO, "[Main] PRUs started...");
-    railcom_hub.reset(new dcc::RailcomHubFlow(stack.service()));
-    LOG(INFO, "[Main] RailcomHub started...");
-    opsRailComDriver.hw_init(railcom_hub.get());
-    LOG(INFO, "[Main] RailComDriver initialized...");
-    railcom_dumper.reset(new dcc::RailcomPrintfFlow(railcom_hub.get()));
-    LOG(INFO, "[Main] railcom_dumper started...");
+    CommandStationConsole::Begin(&stack,stack.traction_service(),
+                                 cfg.seg().maindcc(),
+                                 cfg.seg().progdcc(),
+                                 cfg.seg().fancontrol());
     
     // Connects to a TCP hub on the internet.
     //stack.connect_tcp_gridconnect_hub("28k.ch", 50007);
