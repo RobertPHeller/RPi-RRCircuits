@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 09:45:53 2019
-//  Last Modified : <210503.1404>
+//  Last Modified : <210503.1916>
 //
 //  Description	
 //
@@ -168,7 +168,31 @@ private:
     static CommandStatus power_command(FILE *fp, int argc, const char *argv[], void *context);
     static CommandStatus estop_command(FILE *fp, int argc, const char *argv[], void *context);
     static CommandStatus shutdown_command(FILE *fp, int argc, const char *argv[], void *context);
-    //static CommandStatus power_command(FILE *fp, int argc, const char *argv[], void *context);
+    CommandStatus readcv_command(FILE *fp, int argc, const char *argv[]);
+    static CommandStatus readcv_command(FILE *fp, int argc, const char *argv[], void *context)
+    {
+        return static_cast<CommandStationConsole*>(context)->readcv_command(fp,argc,argv);
+    }
+    CommandStatus writeprogcvbyte_command(FILE *fp, int argc, const char *argv[]);
+    static CommandStatus writeprogcvbyte_command(FILE *fp, int argc, const char *argv[], void *context)
+    {
+        return static_cast<CommandStationConsole*>(context)->writeprogcvbyte_command(fp, argc, argv);
+    }
+    CommandStatus writeprogcvbit_command(FILE *fp, int argc, const char *argv[]);
+    static CommandStatus writeprogcvbit_command(FILE *fp, int argc, const char *argv[], void *context)
+    {
+        return static_cast<CommandStationConsole*>(context)->writeprogcvbit_command(fp, argc, argv);
+    }
+    CommandStatus writeopscvbyte_command(FILE *fp, int argc, const char *argv[]);
+    static CommandStatus writeopscvbyte_command(FILE *fp, int argc, const char *argv[], void *context)
+    {
+        return static_cast<CommandStationConsole*>(context)->writeopscvbyte_command(fp, argc, argv);
+    }
+    CommandStatus writeopscvbit_command(FILE *fp, int argc, const char *argv[]);
+    static CommandStatus writeopscvbit_command(FILE *fp, int argc, const char *argv[], void *context)
+    {
+        return static_cast<CommandStationConsole*>(context)->writeopscvbit_command(fp, argc, argv);
+    }
     void putTclBraceString(FILE *fp, const char *s) const;
     openlcb::SimpleStackBase *stack_;
     openlcb::TrainService *traction_service_;

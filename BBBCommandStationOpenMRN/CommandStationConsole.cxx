@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 13:40:14 2019
-//  Last Modified : <210503.1425>
+//  Last Modified : <210503.1926>
 //
 //  Description	
 //
@@ -178,6 +178,11 @@ CommandStationConsole::CommandStationConsole(openlcb::SimpleStackBase *stack, op
     add_command("power",power_command,this);
     add_command("estop",estop_command,this);
     add_command("shutdown",shutdown_command,this);
+    add_command("readcv",readcv_command,this);
+    add_command("writeprogcvbyte",writeprogcvbyte_command,this);
+    add_command("writeprogcvbit",writeprogcvbit_command,this);
+    add_command("writeopscvbyte",writeopscvbyte_command,this);
+    add_command("writeopscvbit",writeopscvbit_command,this);
 }
 
 
@@ -194,6 +199,11 @@ CommandStationConsole::CommandStationConsole(openlcb::SimpleStackBase *stack, op
     add_command("power",power_command,this);
     add_command("estop",estop_command,this);
     add_command("shutdown",shutdown_command,this);
+    add_command("readcv",readcv_command,this);
+    add_command("writeprogcvbyte",writeprogcvbyte_command,this);
+    add_command("writeprogcvbit",writeprogcvbit_command,this);
+    add_command("writeopscvbyte",writeopscvbyte_command,this);
+    add_command("writeopscvbit",writeopscvbit_command,this);
 }
 
 void CommandStationConsole::Begin(openlcb::SimpleStackBase *stack, 
@@ -486,6 +496,69 @@ Console::CommandStatus CommandStationConsole::shutdown_command(FILE *fp, int arg
     return COMMAND_OK;
 }
 
+Console::CommandStatus CommandStationConsole::readcv_command(FILE *fp, int argc, const char *argv[])
+{
+    if (argc == 0) {
+        fprintf(fp, "readcv cvaddress\n");
+    } else {
+        uint16_t addrCV = atoi(argv[1]);
+        int16_t value = readCV(addrCV); 
+        fprintf(fp,"#readcv# %u %d\n",addrCV,value);
+    }
+    return COMMAND_OK;
+}
+Console::CommandStatus CommandStationConsole::writeprogcvbyte_command(FILE *fp, int argc, const char *argv[])
+{
+    if (argc < 3) {
+        fprintf(fp, "writeprogcvbyte cvaddress value\n");
+    } else {
+        uint16_t addrCV = atoi(argv[1]);
+        uint8_t  value  = atoi(argv[2]);
+        bool status = writeProgCVByte(addrCV,value);
+        fprintf(fp, "#writeprogcvbyte# %u %d %1d\n", addrCV, value, status);
+    }
+    return COMMAND_OK;
+}
+Console::CommandStatus CommandStationConsole::writeprogcvbit_command(FILE *fp, int argc, const char *argv[])
+{
+    if (argc < 4) {
+        fprintf(fp, "writeprogcvbit addrCV, bitno, value\n");
+    } else {
+        uint16_t addrCV = atoi(argv[1]);
+        uint8_t bitno   = atoi(argv[2]);
+        bool bit = (strncmp("true",argv[3],4) == 0);
+        bool status = writeProgCVBit(addrCV,bitno,bit);
+        fprintf(fp, "#writeprogcvbit# %u %d %1d %1d\n", addrCV, bitno, bit, status);
+    }
+    return COMMAND_OK;
+}
+Console::CommandStatus CommandStationConsole::writeopscvbyte_command(FILE *fp, int argc, const char *argv[])
+{
+    if (argc < 4) {
+        fprintf(fp, "writeopscvbyte locoAddress cv cvValue\n");
+    } else {
+        uint16_t locoAddress = atoi(argv[1]);
+        uint16_t addrCV = atoi(argv[2]);
+        uint8_t value = atoi(argv[3]);
+        writeOpsCVByte(locoAddress,addrCV,value);
+        fprintf(fp, "#writeprogcvbit# %u %u %d\n",locoAddress,addrCV,value);
+    }
+    return COMMAND_OK;
+}
+Console::CommandStatus CommandStationConsole::writeopscvbit_command(FILE *fp, int argc, const char *argv[])
+{
+    if (argc < 5) {
+        fprintf(fp, "writeopscvbit locoAddress cv bit value\n");
+    } else {
+        uint16_t locoAddress = atoi(argv[1]);
+        uint16_t addrCV = atoi(argv[2]);
+        uint8_t bit  = atoi(argv[3]);
+        bool value = (strncmp("true",argv[4],4) == 0);
+        writeOpsCVBit(locoAddress,addrCV,bit,value);
+        fprintf(fp, "#writeopscvbit# %u %u %d %1d\n",locoAddress,addrCV,bit,value);
+    }
+    return COMMAND_OK;
+}
 
 
 
