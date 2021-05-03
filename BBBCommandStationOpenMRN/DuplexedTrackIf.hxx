@@ -7,8 +7,8 @@
 //  Date          : $Date$
 //  Author        : $Author$
 //  Created By    : Robert Heller
-//  Created       : Sun Oct 20 20:21:40 2019
-//  Last Modified : <210503.0916>
+//  Created       : Mon May 3 08:56:43 2021
+//  Last Modified : <210503.0940>
 //
 //  Description	
 //
@@ -18,7 +18,7 @@
 //	
 /////////////////////////////////////////////////////////////////////////////
 //
-//    Copyright (C) 2019  Robert Heller D/B/A Deepwoods Software
+//    Copyright (C) 2021  Robert Heller D/B/A Deepwoods Software
 //			51 Locke Hill Road
 //			Wendell, MA 01379-9728
 //
@@ -40,47 +40,44 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef __COMMANDSTATIONDCCPROGTRACK_HXX
-#define __COMMANDSTATIONDCCPROGTRACK_HXX
+#ifndef __DUPLEXEDTRACKIF_HXX
+#define __DUPLEXEDTRACKIF_HXX
 
-#include "executor/Executor.hxx"
-#include "executor/StateFlow.hxx"
+#include <executor/Executor.hxx>
+#include <executor/StateFlow.hxx>
+#include <dcc/Packet.hxx>
 #include <utils/Singleton.hxx>
-#include "dcc/Packet.hxx"
+#include <CommandStationDCCMainTrack.hxx>
+#include <CommandStationDCCProgTrack.hxx>
 
-
-class CommandStationDCCProgTrack : public StateFlow<Buffer<dcc::Packet>, QList<1>>, public Singleton<CommandStationDCCProgTrack>
+namespace BeagleCS
+{
+class DuplexedTrackIf : public StateFlow<Buffer<dcc::Packet>
+, QList<1>>
+, public Singleton<DuplexedTrackIf>
 {
 public:
-    CommandStationDCCProgTrack(Service *service, int pool_size);
-    FixedPool *pool() OVERRIDE
+    DuplexedTrackIf(Service *service, int pool_size, 
+                    CommandStationDCCMainTrack *ops, 
+                    CommandStationDCCProgTrack *prog);
+    FixedPool *pool() override
     {
         return &pool_;
     }
-    void StartPRU();
 protected:
-    Action entry() OVERRIDE;
-    
-    /// @return next action.
+    Action entry() override;
     Action finish()
     {
         return release_and_exit();
     }
-    /// Packet pool from which to allocate packets.
+    CommandStationDCCMainTrack *ops_;
+    CommandStationDCCProgTrack *prog_;
     FixedPool pool_;
-private:
-    static constexpr char const *pruFirmware = "/lib/firmware/am335x-pru1-fw";
-    static constexpr char const *firmwareName = "ProgTrackDCC.out";
-    static constexpr char const *pruState = "/dev/remoteproc/pruss-core1/state";
-    static constexpr char const *pruMessageDevice = "/dev/rpmsg_pru31";
-    
-    //static constexpr int PRU_NUM = 1;
-    //static constexpr char const *PRU_Prog = "ProgTrackDCC.bin";
-    //static constexpr int PRU_DATARAM = PRUSS0_PRU1_DATARAM;
-    //static constexpr int PRUEVENT = PRU_EVTOUT_1;
 };
 
+}
+    
+    
 
-
-#endif // __COMMANDSTATIONDCCPROGTRACK_HXX
+#endif // __DUPLEXEDTRACKIF_HXX
 

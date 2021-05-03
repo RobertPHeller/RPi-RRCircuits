@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 13:40:14 2019
-//  Last Modified : <210502.1601>
+//  Last Modified : <210503.0937>
 //
 //  Description	
 //
@@ -68,7 +68,7 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "CommandStationStack.hxx"
 #include "HBridgeControl.hxx"
 #include "FanControl.hxx"
-#include "DuplexUpdateLoop.hxx" 
+#include <dcc/SimpleUpdateLoop.hxx>
 #include "openlcb/SimpleStack.hxx"
 #include "os/LinuxGpio.hxx"
 #include "freertos_drivers/common/DummyGPIO.hxx"
@@ -159,7 +159,8 @@ std::unique_ptr<BeagleCS::BeagleTrainDatabase> CommandStationConsole::trainDb;
 std::unique_ptr<commandstation::AllTrainNodes> CommandStationConsole::trainNodes;
 std::unique_ptr<CommandStationDCCMainTrack> CommandStationConsole::mainDCC;
 std::unique_ptr<CommandStationDCCProgTrack> CommandStationConsole::progDCC;
-std::unique_ptr<DuplexUpdateLoop> CommandStationConsole::DccPacketLoop;
+std::unique_ptr<BeagleCS::DuplexedTrackIf> CommandStationConsole::track;
+std::unique_ptr<dcc::SimpleUpdateLoop> CommandStationConsole::dccUpdateLoop;
 std::unique_ptr<ProgrammingTrackBackend> CommandStationConsole::prog_track_backend;
 
 CommandStationConsole::CommandStationConsole(openlcb::SimpleStackBase *stack, openlcb::TrainService *tractionService, ExecutorBase *executor, uint16_t port)
@@ -231,9 +232,12 @@ void CommandStationConsole::Begin(openlcb::SimpleStackBase *stack,
     LOG(INFO, "[CommandStationConsole] Ops track setup...");
     progDCC.reset(new CommandStationDCCProgTrack(stack->service(),2));
     LOG(INFO, "[CommandStationConsole] Prog track setup...");
-    DccPacketLoop.reset(new DuplexUpdateLoop(stack->service(),
-                                             mainDCC.get(),
-                                             progDCC.get()));
+    track.reset(new BeagleCS::DuplexedTrackIf(stack->service(),4,
+                                              mainDCC.get(),
+                                              progDCC.get()));
+    LOG(INFO, "[CommandStationConsole] DuplexedTrackIf setup...");
+    dccUpdateLoop.reset(new dcc::SimpleUpdateLoop(stack->service(),
+                                              track.get()));
     LOG(INFO, "[CommandStationConsole] DCC UpdateLoop setup...");
     prog_track_backend.reset(new ProgrammingTrackBackend(stack->service(),
                                                          &CommandStationConsole::enable_prog_track_output,
