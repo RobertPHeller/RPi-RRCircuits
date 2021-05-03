@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 09:45:53 2019
-//  Last Modified : <210502.1503>
+//  Last Modified : <210503.0934>
 //
 //  Description	
 //
@@ -64,7 +64,8 @@
 #include "CommandStationDCCMainTrack.hxx"
 #include "CommandStationDCCProgTrack.hxx"
 #include <dcc/ProgrammingTrackBackend.hxx>
-#include "DuplexUpdateLoop.hxx" 
+#include "DuplexedTrackIf.hxx" 
+#include <dcc/SimpleUpdateLoop.hxx>
 #include "openlcb/SimpleStack.hxx"
 #include "os/LinuxGpio.hxx"
 #include "freertos_drivers/common/DummyGPIO.hxx"
@@ -96,7 +97,8 @@ private:
     static std::unique_ptr<commandstation::AllTrainNodes> trainNodes;
     static std::unique_ptr<CommandStationDCCMainTrack> mainDCC;
     static std::unique_ptr<CommandStationDCCProgTrack> progDCC;
-    static std::unique_ptr<DuplexUpdateLoop> DccPacketLoop;
+    static std::unique_ptr<BeagleCS::DuplexedTrackIf> track;
+    static std::unique_ptr<dcc::SimpleUpdateLoop> dccUpdateLoop;
     static std::unique_ptr<ProgrammingTrackBackend> prog_track_backend;
     static void initiate_estop();
     static bool is_ops_track_output_enabled()

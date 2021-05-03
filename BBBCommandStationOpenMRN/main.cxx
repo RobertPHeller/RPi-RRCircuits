@@ -163,16 +163,6 @@ OVERRIDE_CONST(num_memory_spaces, 7);
 #include "utils/GpioInitializer.hxx"
 #include "CommandStationStack.hxx"
 #include "CommandStationConsole.hxx"
-#include "DuplexUpdateLoop.hxx"
-#include "CommandStationDCCMainTrack.hxx"
-#include "CommandStationDCCProgTrack.hxx"
-#include "HBridgeControl.hxx"
-#include "FanControl.hxx"
-#include "BBRailComDriver.hxx"
-#include "BeagleTrainDatabase.hxx"
-#include <AllTrainNodes.hxx>
-#include <dcc/RailcomHub.hxx>
-#include <dcc/RailcomPortDebug.hxx>
 #include "Hardware.hxx"
 #include <sys/types.h>
 #include <sys/stat.h>
