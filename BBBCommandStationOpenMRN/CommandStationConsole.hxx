@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 09:45:53 2019
-//  Last Modified : <210503.0934>
+//  Last Modified : <210503.1404>
 //
 //  Description	
 //
@@ -56,6 +56,7 @@
 #include "openlcb/TrainInterface.hxx"
 #include "openlcb/EventHandlerTemplates.hxx"
 #include "openlcb/EventService.hxx"
+#include "utils/Singleton.hxx"
 #include <AllTrainNodes.hxx>
 #include "BeagleTrainDatabase.hxx"
 #include "CommandStationStack.hxx"
@@ -75,9 +76,12 @@
 #include <AllTrainNodes.hxx>
 #include <dcc/RailcomHub.hxx>
 #include <dcc/RailcomPortDebug.hxx>
+#include "DCCProgrammer.hxx"
+#include "EStopHandler.hxx"
 #include "Hardware.hxx"
 
-class CommandStationConsole : public Console {
+
+class CommandStationConsole : public Console, public BeagleCS::DCCProgrammer, public Singleton<CommandStationConsole> {
 public:
     CommandStationConsole(openlcb::SimpleStackBase *stack, openlcb::TrainService *tractionService, ExecutorBase *executor, uint16_t port);
     CommandStationConsole(openlcb::SimpleStackBase *stack, openlcb::TrainService *tractionService, ExecutorBase *executor, int fd_in, int fd_out, int port = -1);
@@ -86,6 +90,10 @@ public:
                       const HBridgeControlConfig &maincfg,
                       const HBridgeControlConfig &progcfg,
                       const FanControlConfig &fancfg);
+    static void initiate_estop()
+    {
+        estop_handler->set_state(true);
+    }
 private:
     static std::unique_ptr<HBridgeControl> mains;
     static std::unique_ptr<HBridgeControl> progtrack;
@@ -100,7 +108,7 @@ private:
     static std::unique_ptr<BeagleCS::DuplexedTrackIf> track;
     static std::unique_ptr<dcc::SimpleUpdateLoop> dccUpdateLoop;
     static std::unique_ptr<ProgrammingTrackBackend> prog_track_backend;
-    static void initiate_estop();
+    static std::unique_ptr<BeagleCS::EStopHandler> estop_handler;
     static bool is_ops_track_output_enabled()
     {
         return MainEN_Pin::get();
@@ -158,6 +166,9 @@ private:
         return static_cast<CommandStationConsole*>(context)->status_command(fp,argc,argv);
     }
     static CommandStatus power_command(FILE *fp, int argc, const char *argv[], void *context);
+    static CommandStatus estop_command(FILE *fp, int argc, const char *argv[], void *context);
+    static CommandStatus shutdown_command(FILE *fp, int argc, const char *argv[], void *context);
+    //static CommandStatus power_command(FILE *fp, int argc, const char *argv[], void *context);
     void putTclBraceString(FILE *fp, const char *s) const;
     openlcb::SimpleStackBase *stack_;
     openlcb::TrainService *traction_service_;

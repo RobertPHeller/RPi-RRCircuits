@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 28 13:33:53 2019
-//  Last Modified : <210502.1715>
+//  Last Modified : <210503.1139>
 //
 //  Description	
 //
@@ -108,30 +108,30 @@ void FanControl::poll_33hz(openlcb::WriteHelper *helper, Notifiable *done)
         usleep(1);
     }
     
-    uint16_t hsTempTensC = (uint16_t)round(TempFromAIN(std::accumulate(samples.begin(), samples.end(), 0))*10);
+    lastReading_ = (uint16_t)round(TempFromAIN(std::accumulate(samples.begin(), samples.end(), 0))*10);
     //LOG(INFO,"*** FanControl::poll_33hz(): hsTempTensC = %d",hsTempTensC);
     //LOG(INFO,"*** -: alarmthresh_ = %d, alarmon_ = %d",alarmthresh_,alarmon_);
     bool async_event_req = false;
-    if (hsTempTensC > alarmthresh_ && alarmon_ == 0)
+    if (lastReading_ > alarmthresh_ && alarmon_ == 0)
     {
         alarmon_ = 1;
         alarmProducer_.SendEventReport(helper, done);
         async_event_req = true;
-    } else if (hsTempTensC <= alarmthresh_ && alarmon_ == 1)
+    } else if (lastReading_ <= alarmthresh_ && alarmon_ == 1)
     {
         alarmon_ = 0;
         alarmProducer_.SendEventReport(helper, done);
         async_event_req = true;
     }
     //LOG(INFO,"*** -: fanthresh_ = %d, fanon_ = %d",fanthresh_,fanon_);
-    if (hsTempTensC > fanthresh_ && fanon_ == 0)
+    if (lastReading_ > fanthresh_ && fanon_ == 0)
     {
         fanon_ = 1;
         fanProducer_.SendEventReport(helper, done);
         async_event_req = true;
         fanon_ = true;
         fanGpio_->set();
-    } else if (hsTempTensC <= fanthresh_ && fanon_ == 1)
+    } else if (lastReading_ <= fanthresh_ && fanon_ == 1)
     {
         fanon_ = 0;
         fanProducer_.SendEventReport(helper, done);

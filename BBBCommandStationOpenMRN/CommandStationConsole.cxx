@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 13:40:14 2019
-//  Last Modified : <210503.0937>
+//  Last Modified : <210503.1425>
 //
 //  Description	
 //
@@ -78,6 +78,7 @@ static const char rcsid[] = "@(#) : $Id$";
 #include <AllTrainNodes.hxx>
 #include <dcc/RailcomHub.hxx>
 #include <dcc/RailcomPortDebug.hxx>
+#include "EStopHandler.hxx"
 #include "Hardware.hxx"
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -162,6 +163,7 @@ std::unique_ptr<CommandStationDCCProgTrack> CommandStationConsole::progDCC;
 std::unique_ptr<BeagleCS::DuplexedTrackIf> CommandStationConsole::track;
 std::unique_ptr<dcc::SimpleUpdateLoop> CommandStationConsole::dccUpdateLoop;
 std::unique_ptr<ProgrammingTrackBackend> CommandStationConsole::prog_track_backend;
+std::unique_ptr<BeagleCS::EStopHandler> CommandStationConsole::estop_handler;
 
 CommandStationConsole::CommandStationConsole(openlcb::SimpleStackBase *stack, openlcb::TrainService *tractionService, ExecutorBase *executor, uint16_t port)
       : Console(executor,port)
@@ -174,6 +176,8 @@ CommandStationConsole::CommandStationConsole(openlcb::SimpleStackBase *stack, op
     add_command("describe",describe_command,this);
     add_command("status",status_command,this);
     add_command("power",power_command,this);
+    add_command("estop",estop_command,this);
+    add_command("shutdown",shutdown_command,this);
 }
 
 
@@ -184,6 +188,12 @@ CommandStationConsole::CommandStationConsole(openlcb::SimpleStackBase *stack, op
 {
     add_command("define",define_command,this);
     add_command("undefine",undefine_command,this);
+    add_command("list",list_command,this);
+    add_command("describe",describe_command,this);
+    add_command("status",status_command,this);
+    add_command("power",power_command,this);
+    add_command("estop",estop_command,this);
+    add_command("shutdown",shutdown_command,this);
 }
 
 void CommandStationConsole::Begin(openlcb::SimpleStackBase *stack, 
@@ -237,7 +247,7 @@ void CommandStationConsole::Begin(openlcb::SimpleStackBase *stack,
                                               progDCC.get()));
     LOG(INFO, "[CommandStationConsole] DuplexedTrackIf setup...");
     dccUpdateLoop.reset(new dcc::SimpleUpdateLoop(stack->service(),
-                                              track.get()));
+                                                  track.get()));
     LOG(INFO, "[CommandStationConsole] DCC UpdateLoop setup...");
     prog_track_backend.reset(new ProgrammingTrackBackend(stack->service(),
                                                          &CommandStationConsole::enable_prog_track_output,
@@ -258,6 +268,8 @@ void CommandStationConsole::Begin(openlcb::SimpleStackBase *stack,
     LOG(INFO, "[CommandStationConsole] RailComDriver initialized...");
     railcom_dumper.reset(new dcc::RailcomPrintfFlow(railcom_hub.get()));
     LOG(INFO, "[CommandStationConsole] railcom_dumper started...");
+    estop_handler.reset(new BeagleCS::EStopHandler(stack->node()));
+    LOG(INFO, "[CommandStationConsole] emergency stop handler started...");
 }    
     
 
@@ -432,7 +444,7 @@ Console::CommandStatus CommandStationConsole::status_command(FILE *fp, int argc,
     } else {
         uint32_t CSenseMain = mains->getLastReading();
         uint32_t CSenseProg = progtrack->getLastReading();
-        double TempCent   = TempFromAIN(sysfs_adc_getvalue(TempsensorChannel));
+        double TempCent   = fan->getLastReading()/10.0;
         fprintf(fp, "#status# %7d %7d %7.3f %1d %1d %1d %1d %1d %1d %1d %1d\n",
                 CSenseMain,CSenseProg,TempCent,
                 mains->EnabledP(), mains->ThermalFlagP(), mains->OverCurrentP(),
@@ -456,6 +468,26 @@ Console::CommandStatus CommandStationConsole::power_command(FILE *fp, int argc, 
     }
     return COMMAND_OK;
 }
+
+
+Console::CommandStatus CommandStationConsole::estop_command(FILE *fp, int argc, const char *argv[], void *context)
+{
+    CommandStationConsole::initiate_estop();
+    return COMMAND_OK;
+}
+
+Console::CommandStatus CommandStationConsole::shutdown_command(FILE *fp, int argc, const char *argv[], void *context)
+{
+    CommandStationConsole::initiate_estop();
+    sleep(60);
+    CommandStationConsole::disable_track_outputs();
+    sleep(10);
+    exit(0);
+    return COMMAND_OK;
+}
+
+
+
 
 DccOutput *get_dcc_output(DccOutput::Type type)
 {

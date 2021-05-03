@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 28 13:33:43 2019
-//  Last Modified : <210502.1653>
+//  Last Modified : <210503.1140>
 //
 //  Description	
 //
@@ -101,6 +101,7 @@ public:
     bool FanOn() const {return fanon_ == 1;}
     bool AlarmOn() const {return alarmon_ == 1;}
     openlcb::Polling *polling() {return this;}
+    uint32_t getLastReading() {return lastReading_;}
 private:
     openlcb::Node *node_;
     const FanControlConfig cfg_;
@@ -114,6 +115,7 @@ private:
     openlcb::BitEventProducer fanProducer_;
     uint8_t fanon_{0};
     uint8_t alarmon_{0};
+    uint16_t lastReading_{0};
 };            
 
 #endif // __FANCONTROL_HXX
