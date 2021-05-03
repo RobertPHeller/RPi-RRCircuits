@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sat Oct 26 10:09:51 2019
-#  Last Modified : <210502.1619>
+#  Last Modified : <210503.1640>
 #
 #  Description	
 #
@@ -750,6 +750,10 @@ snit::type CommandStationGUI {
               -text [_m "Label|On/Off"] \
               -image [IconImage image system-shutdown] \
               -command [mytypemethod _powerupdown]
+        $Main_ toolbar addbutton estop -compound top \
+              -text [_m "Label|E Stop"] \
+              -image [IconImage image stop] \
+              -command [mytypemethod _estop]
         $Main_ toolbar addbutton help -compound top \
               -text [_m "Label|Help"] -image [IconImage image help] \
               -command {HTMLHelp help "GUI Front End Reference"}
@@ -778,6 +782,11 @@ snit::type CommandStationGUI {
             set answer [tk_messageBox -type yesno -icon question \
                         -message [_ "Do you really want to quit?"]]
             if {!$answer} {return}
+            set answer [tk_messageBox -type yesno -icon question \
+                        -message [_ "Shutdown the CS?"]]
+            if {$answer} {
+                puts $socket_ shutdown
+            }
         }
         ::exit
     }
@@ -838,12 +847,14 @@ snit::type CommandStationGUI {
     }
     typemethod _powerupdown {} {
         if {[$status GetMainsEnabled]} {
-            catch {puts $socket_ {power off}}
+            puts $socket_ {power off}
         } else {
-            catch {puts $socket_ {power on}}
+            puts $socket_ {power on}
         }
     }
-        
+    typemethod _estop {} {
+        puts $socket_ estop
+    }
     proc quoteString {s} {
         if {[string first "\"" $s] >= 0} {
             return "'$s'"
