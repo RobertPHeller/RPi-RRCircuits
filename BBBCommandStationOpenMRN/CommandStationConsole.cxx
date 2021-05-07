@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 13:40:14 2019
-//  Last Modified : <210503.1926>
+//  Last Modified : <210507.0934>
 //
 //  Description	
 //
@@ -179,6 +179,7 @@ CommandStationConsole::CommandStationConsole(openlcb::SimpleStackBase *stack, op
     add_command("estop",estop_command,this);
     add_command("shutdown",shutdown_command,this);
     add_command("readcv",readcv_command,this);
+    add_command("readcvword",readcvword_command,this);
     add_command("writeprogcvbyte",writeprogcvbyte_command,this);
     add_command("writeprogcvbit",writeprogcvbit_command,this);
     add_command("writeopscvbyte",writeopscvbyte_command,this);
@@ -200,6 +201,7 @@ CommandStationConsole::CommandStationConsole(openlcb::SimpleStackBase *stack, op
     add_command("estop",estop_command,this);
     add_command("shutdown",shutdown_command,this);
     add_command("readcv",readcv_command,this);
+    add_command("readcvword",readcvword_command,this);
     add_command("writeprogcvbyte",writeprogcvbyte_command,this);
     add_command("writeprogcvbit",writeprogcvbit_command,this);
     add_command("writeopscvbyte",writeopscvbyte_command,this);
@@ -503,7 +505,28 @@ Console::CommandStatus CommandStationConsole::readcv_command(FILE *fp, int argc,
     } else {
         uint16_t addrCV = atoi(argv[1]);
         int16_t value = readCV(addrCV); 
-        fprintf(fp,"#readcv# %u %d\n",addrCV,value);
+        fprintf(fp,"#servicemode# load %u %d\n",addrCV,value);
+    }
+    return COMMAND_OK;
+}
+Console::CommandStatus CommandStationConsole::readcvword_command(FILE *fp, int argc, const char *argv[])
+{
+    if (argc == 0) {
+        fprintf(fp, "readcvword cvaddress\n");
+    } else {
+        uint16_t addrCV = atoi(argv[1]);
+        int16_t value_b1 = readCV(addrCV); 
+        if (value_b1 < 0) {
+            fprintf(fp,"#servicemode# load %u %d\n",addrCV,value_b1);
+            return COMMAND_OK;
+        }
+        int16_t value_b2 = readCV(addrCV+1);
+        if (value_b2 < 0) {
+            fprintf(fp,"#servicemode# load %u %d\n",addrCV,value_b2);
+            return COMMAND_OK;
+        }
+        uint16_t value = (((uint16_t)value_b1) << 8) & ((uint16_t)value_b2);
+        fprintf(fp,"#servicemode# load %u %u\n",addrCV,value);
     }
     return COMMAND_OK;
 }
@@ -515,7 +538,21 @@ Console::CommandStatus CommandStationConsole::writeprogcvbyte_command(FILE *fp, 
         uint16_t addrCV = atoi(argv[1]);
         uint8_t  value  = atoi(argv[2]);
         bool status = writeProgCVByte(addrCV,value);
-        fprintf(fp, "#writeprogcvbyte# %u %d %1d\n", addrCV, value, status);
+        fprintf(fp, "#servicemode# updatebyte %u %d %1d\n", addrCV, value, status);
+    }
+    return COMMAND_OK;
+}
+Console::CommandStatus CommandStationConsole::writeprogcvword_command(FILE *fp, int argc, const char *argv[])
+{
+    if (argc < 3) {
+        fprintf(fp, "writeprogcvword cvaddress value\n");
+    } else {
+        uint16_t addrCV = atoi(argv[1]);
+        uint16_t  value  = atoi(argv[2]);
+        uint8_t   b1 = (value >> 8);
+        uint8_t   b2 = value & 0x0ff;
+        bool status = writeProgCVByte(addrCV,b1) && writeProgCVByte(addrCV+1,b2);
+        fprintf(fp, "#servicemode# updateword %u %d %1d\n", addrCV, value, status);
     }
     return COMMAND_OK;
 }
@@ -528,7 +565,7 @@ Console::CommandStatus CommandStationConsole::writeprogcvbit_command(FILE *fp, i
         uint8_t bitno   = atoi(argv[2]);
         bool bit = (strncmp("true",argv[3],4) == 0);
         bool status = writeProgCVBit(addrCV,bitno,bit);
-        fprintf(fp, "#writeprogcvbit# %u %d %1d %1d\n", addrCV, bitno, bit, status);
+        fprintf(fp, "#servicemode# updatebit %u %d %1d %1d\n", addrCV, bitno, bit, status);
     }
     return COMMAND_OK;
 }
@@ -541,7 +578,7 @@ Console::CommandStatus CommandStationConsole::writeopscvbyte_command(FILE *fp, i
         uint16_t addrCV = atoi(argv[2]);
         uint8_t value = atoi(argv[3]);
         writeOpsCVByte(locoAddress,addrCV,value);
-        fprintf(fp, "#writeprogcvbit# %u %u %d\n",locoAddress,addrCV,value);
+        fprintf(fp, "#writeopscvbyte# %u %u %d\n",locoAddress,addrCV,value);
     }
     return COMMAND_OK;
 }

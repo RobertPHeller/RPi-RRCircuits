@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 09:45:53 2019
-//  Last Modified : <210503.1916>
+//  Last Modified : <210507.0919>
 //
 //  Description	
 //
@@ -173,10 +173,20 @@ private:
     {
         return static_cast<CommandStationConsole*>(context)->readcv_command(fp,argc,argv);
     }
+    CommandStatus readcvword_command(FILE *fp, int argc, const char *argv[]);
+    static CommandStatus readcvword_command(FILE *fp, int argc, const char *argv[], void *context)
+    {
+        return static_cast<CommandStationConsole*>(context)->readcvword_command(fp,argc,argv);
+    }
     CommandStatus writeprogcvbyte_command(FILE *fp, int argc, const char *argv[]);
     static CommandStatus writeprogcvbyte_command(FILE *fp, int argc, const char *argv[], void *context)
     {
         return static_cast<CommandStationConsole*>(context)->writeprogcvbyte_command(fp, argc, argv);
+    }
+    CommandStatus writeprogcvword_command(FILE *fp, int argc, const char *argv[]);
+    static CommandStatus writeprogcvword_command(FILE *fp, int argc, const char *argv[], void *context)
+    {
+        return static_cast<CommandStationConsole*>(context)->writeprogcvword_command(fp, argc, argv);
     }
     CommandStatus writeprogcvbit_command(FILE *fp, int argc, const char *argv[]);
     static CommandStatus writeprogcvbit_command(FILE *fp, int argc, const char *argv[], void *context)
