@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 09:45:53 2019
-//  Last Modified : <210509.0728>
+//  Last Modified : <210509.1628>
 //
 //  Description	
 //
@@ -133,19 +133,19 @@ private:
     }
     static void enable_prog_track_output()
     {
-        LOG(INFO,"[enable_prog_track_output] ProgEN_Pin::get() is %d",ProgEN_Pin::get());
+        //LOG(INFO,"[enable_prog_track_output] ProgEN_Pin::get() is %d",ProgEN_Pin::get());
         if (!ProgEN_Pin::get())
         {
-            LOG(INFO,"[enable_prog_track_output] Setting ProgEN_Pin.");
+            //LOG(INFO,"[enable_prog_track_output] Setting ProgEN_Pin.");
             ProgEN_Pin::set(true);
         }
-        LOG(INFO,"[enable_prog_track_output] ProgEN_Pin::get() is now %d",ProgEN_Pin::get());
+        //LOG(INFO,"[enable_prog_track_output] ProgEN_Pin::get() is now %d",ProgEN_Pin::get());
     }
     static void disable_prog_track_output()
     {
-        LOG(INFO,"[disable_prog_track_output] ProgEN_Pin::get() is %d",ProgEN_Pin::get());
+        //LOG(INFO,"[disable_prog_track_output] ProgEN_Pin::get() is %d",ProgEN_Pin::get());
         ProgEN_Pin::set(false);
-        LOG(INFO,"[disable_prog_track_output] ProgEN_Pin::get() is now %d",ProgEN_Pin::get());
+        //LOG(INFO,"[disable_prog_track_output] ProgEN_Pin::get() is now %d",ProgEN_Pin::get());
     }    
     static CommandStatus define_command(FILE *fp, int argc, const char *argv[], void *context)
     {

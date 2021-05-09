@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 13:40:14 2019
-//  Last Modified : <210509.0807>
+//  Last Modified : <210509.1615>
 //
 //  Description	
 //
@@ -298,7 +298,7 @@ Console::CommandStatus CommandStationConsole::define_command(FILE *fp, int argc,
         fprintf(fp, "Define a new locomotive\n");
         return COMMAND_OK;
     } else {
-        if (argc < 7) return COMMAND_ERROR;
+        if (argc != 7) return COMMAND_ERROR;
         if (strcmp(argv[1],"locomotive") != 0) {
             return Console::COMMAND_ERROR;
         }
@@ -344,7 +344,7 @@ Console::CommandStatus CommandStationConsole::undefine_command(FILE *fp, int arg
         fprintf(fp, "Undefine a new locomotive\n");
         return COMMAND_OK;
     } else {
-        if (argc < 3) return COMMAND_ERROR; 
+        if (argc != 3) return COMMAND_ERROR; 
         if (strcmp(argv[1],"locomotive") != 0) {
             return Console::COMMAND_ERROR;
         }
@@ -360,7 +360,7 @@ Console::CommandStatus CommandStationConsole::list_command(FILE *fp, int argc, c
     if (argc == 0) {
         fprintf(fp, "List locomotives\n");
     } else {
-        if (argc < 2) return COMMAND_ERROR;
+        if (argc != 2) return COMMAND_ERROR;
         if (strcmp(argv[1],"locomotives") != 0) {
             return Console::COMMAND_ERROR;
         }
@@ -376,7 +376,7 @@ Console::CommandStatus CommandStationConsole::describe_command(FILE *fp, int arg
     if (argc == 0) {
         fprintf(fp, "Describe locomotive\n");
     } else {
-        if (argc < 3) return COMMAND_ERROR;
+        if (argc != 3) return COMMAND_ERROR;
         if (strcmp(argv[1],"locomotive") != 0) {
             return Console::COMMAND_ERROR;
         }
@@ -504,47 +504,53 @@ Console::CommandStatus CommandStationConsole::shutdown_command(FILE *fp, int arg
 
 Console::CommandStatus CommandStationConsole::readcv_command(FILE *fp, int argc, const char *argv[])
 {
-    LOG(INFO,"[readcv_command] argc = %d",argc);
-    if (argc == 0) {
+    //LOG(INFO,"[readcv_command] argc = %d",argc);
+    if (argc != 2) {
         fprintf(fp, "readcv cvaddress\n");
     } else {
+        //LOG(INFO,"[readcv_command] argv[1] = '%s'",argv[1]);
+        //if (argc > 2) {
+        //    for (int i = 2; i < argc; i++) {
+        //        //LOG(INFO,"[readcv_command] argv[%d] = '%s'",i,argv[i]);
+        //    }
+        //}
         uint16_t addrCV = atoi(argv[1]);
-        LOG(INFO,"[readcv_command] addrCV = %u",addrCV);
+        //LOG(INFO,"[readcv_command] addrCV = %u",addrCV);
         int16_t value = readCV(addrCV); 
-        LOG(INFO,"[readcv_command] value = %d",value);
+        //LOG(INFO,"[readcv_command] value = %d",value);
         fprintf(fp,"#servicemode# load %u %d\n",addrCV,value);
     }
     return COMMAND_OK;
 }
 Console::CommandStatus CommandStationConsole::readcvword_command(FILE *fp, int argc, const char *argv[])
 {
-    LOG(INFO,"[readcvword_command] argc = %d",argc);
-    if (argc == 0) {
+    //LOG(INFO,"[readcvword_command] argc = %d",argc);
+    if (argc != 2) {
         fprintf(fp, "readcvword cvaddress\n");
     } else {
         uint16_t addrCV = atoi(argv[1]);
-        LOG(INFO,"[readcvword_command] addrCV = %u",addrCV);
+        //LOG(INFO,"[readcvword_command] addrCV = %u",addrCV);
         int16_t value_b1 = readCV(addrCV); 
-        LOG(INFO,"[readcvword_command] value_b1 = %d",value_b1);
+        //LOG(INFO,"[readcvword_command] value_b1 = %d",value_b1);
         if (value_b1 < 0) {
             fprintf(fp,"#servicemode# load %u %d\n",addrCV,value_b1);
             return COMMAND_OK;
         }
         int16_t value_b2 = readCV(addrCV+1);
-        LOG(INFO,"[readcvword_command] value_b2 = %d",value_b2);
+        //LOG(INFO,"[readcvword_command] value_b2 = %d",value_b2);
         if (value_b2 < 0) {
             fprintf(fp,"#servicemode# load %u %d\n",addrCV,value_b2);
             return COMMAND_OK;
         }
         uint16_t value = (((uint16_t)value_b1) << 8) & ((uint16_t)value_b2);
-        LOG(INFO,"[readcvword_command] value = %u",value);
+        //LOG(INFO,"[readcvword_command] value = %u",value);
         fprintf(fp,"#servicemode# load %u %u\n",addrCV,value);
     }
     return COMMAND_OK;
 }
 Console::CommandStatus CommandStationConsole::writeprogcvbyte_command(FILE *fp, int argc, const char *argv[])
 {
-    if (argc < 3) {
+    if (argc != 3) {
         fprintf(fp, "writeprogcvbyte cvaddress value\n");
     } else {
         uint16_t addrCV = atoi(argv[1]);
@@ -556,7 +562,7 @@ Console::CommandStatus CommandStationConsole::writeprogcvbyte_command(FILE *fp, 
 }
 Console::CommandStatus CommandStationConsole::writeprogcvword_command(FILE *fp, int argc, const char *argv[])
 {
-    if (argc < 3) {
+    if (argc != 3) {
         fprintf(fp, "writeprogcvword cvaddress value\n");
     } else {
         uint16_t addrCV = atoi(argv[1]);
@@ -570,7 +576,7 @@ Console::CommandStatus CommandStationConsole::writeprogcvword_command(FILE *fp, 
 }
 Console::CommandStatus CommandStationConsole::writeprogcvbit_command(FILE *fp, int argc, const char *argv[])
 {
-    if (argc < 4) {
+    if (argc != 4) {
         fprintf(fp, "writeprogcvbit addrCV, bitno, value\n");
     } else {
         uint16_t addrCV = atoi(argv[1]);
@@ -583,7 +589,7 @@ Console::CommandStatus CommandStationConsole::writeprogcvbit_command(FILE *fp, i
 }
 Console::CommandStatus CommandStationConsole::writeopscvbyte_command(FILE *fp, int argc, const char *argv[])
 {
-    if (argc < 4) {
+    if (argc != 4) {
         fprintf(fp, "writeopscvbyte locoAddress cv cvValue\n");
     } else {
         uint16_t locoAddress = atoi(argv[1]);
