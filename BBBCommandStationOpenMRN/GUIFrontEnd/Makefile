@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sat Oct 26 09:48:55 2019
-#  Last Modified : <210316.1003>
+#  Last Modified : <210509.1032>
 #
 #  Description	
 #
@@ -58,6 +58,7 @@ target:=$(shell uname -m)-$(shell uname -s | tr 'A-Z' 'a-z')
 TCLKIT=/usr/local/bin/tclkit
 SDX=/usr/local/bin/sdx
 SNITLIB=$(TCLLIB)/snit
+STRUCTLIB=$(TCLLIB)/struct
 MRRSCRIPTLIB=/home/heller/Deepwoods/ModelRRSystem/trunk/Scripts/Common
 MRRBUILDSCRIPTS=/home/heller/Deepwoods/ModelRRSystem/trunk/BuildScripts
 ADDKITDIR=$(MRRBUILDSCRIPTS)/AddKitDir.kit
@@ -117,6 +118,7 @@ $(PROG)$(EXEEXT): $(SOURCE) $(SCRIPTS) $(IMAGES) html/index.html Makefile
 	$(TCLKIT) $(SDX) unwrap $(PROG).kit
 	rm -f $(PROG).kit
 	$(TCLKIT) $(ADDKITDIR) $(PROG) lib $(SNITLIB)
+	$(TCLKIT) $(ADDKITDIR) $(PROG) lib $(STRUCTLIB)
 	$(TCLKIT) $(ADDKITDIR) $(PROG) lib $(IMGLIB)
 	$(TCLKIT) $(ADDKITFILE) $(PROG) lib/Scripts \
 			$(SCRIPTS) $(IMAGES)

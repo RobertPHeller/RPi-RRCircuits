@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Thu Oct 31 10:11:53 2019
-#  Last Modified : <210509.0745>
+#  Last Modified : <210509.1626>
 #
 #  Description	
 #
@@ -447,7 +447,6 @@ snit::widget SpeedTable {
 
 snit::widget ServiceMode {
     hulltype tk::toplevel
-    option -commandstationsocket
     typevariable CV_Labels -array {}
     typevariable CV_WidgetConstructors -array {}
     typevariable CV_Tab -array {}
@@ -931,7 +930,7 @@ snit::widget ServiceMode {
         #wm geometry $win [format {=%dx%d} $minwidth \
         #                  [winfo reqheight $win]]
         #wm minsize  $win $minwidth [winfo reqheight $win]
-        $self configurelist $args
+        #$self configurelist $args
     }
     method show {} {
         $self _loadReq 
@@ -941,13 +940,13 @@ snit::widget ServiceMode {
         wm withdraw $win
     }
     method _updateIndexPage {} {
-        puts $options(-commandstationsocket) [format {writeprogcvword %d %d} 31 $pageindex_]
-        puts $options(-commandstationsocket) [format {writeprogcvbyte %d %d} [expr {256 + $pageoffset_}] $pagecv_]
+        CommandStationGUI SendMessageToCS  [format {writeprogcvword %d %d} 31 $pageindex_]
+        CommandStationGUI SendMessageToCS  [format {writeprogcvbyte %d %d} [expr {256 + $pageoffset_}] $pagecv_]
     }
     method _loadIndexPage {} {
-        puts $options(-commandstationsocket) [format {writeprogcvword %d %d} 31 $pageindex_]
+        CommandStationGUI SendMessageToCS [format {writeprogcvword %d %d} 31 $pageindex_]
         set _pendingLoads([expr {256 + $pageoffset_}]) $indexpage.pagecv
-        puts $options(-commandstationsocket) [format {readcv %d} [expr {256 + $pageoffset_}]]
+        CommandStationGUI SendMessageToCS [format {readcv %d} [expr {256 + $pageoffset_}]]
     }
     method _loadReq {} {
         foreach cv [lsort -integer [array names CV_WidgetConstructors]] {
@@ -968,46 +967,49 @@ snit::widget ServiceMode {
     }
     variable _pendingLoads -array {}
     method _CVcallback {mode size W} {
-        puts stderr "*** $self _CVcallback: $mode $size [$W cget -bytenumber] [$W get]"
+        #puts stderr "*** $self _CVcallback: $mode $size [$W cget -bytenumber] [$W get]"
         switch $mode {
             load {
                 switch $size {
                     1 {
                         set _pendingLoads([$W cget -bytenumber]) $W
-                        puts $options(-commandstationsocket) [format {readcv %d} [$W cget -bytenumber]]
+                        CommandStationGUI SendMessageToCS [format {readcv %d} [$W cget -bytenumber]]
                     }
                     2 {
                         set _pendingLoads([$W cget -bytenumber]) $W
-                        puts $options(-commandstationsocket) [format {readcvword %d} [$W cget -bytenumber]]
+                        CommandStationGUI SendMessageToCS [format {readcvword %d} [$W cget -bytenumber]]
                     }
                 }
             }
             update {
                 switch $size {
                     1 {
-                        puts $options(-commandstationsocket) [format {writeprogcvbyte %d %d} [$W cget -bytenumber] [$W get]]
+                        CommandStationGUI SendMessageToCS [format {writeprogcvbyte %d %d} [$W cget -bytenumber] [$W get]]
                     }
                     2 {
-                        puts $options(-commandstationsocket) [format {writeprogcvword %d %d} [$W cget -bytenumber] [$W get]]
+                        CommandStationGUI SendMessageToCS [format {writeprogcvword %d %d} [$W cget -bytenumber] [$W get]]
                     }
                 }
             }
         }
+        update idle
     }
     method AnswerCallback {result} {
-        puts stderr "*** $self AnswerCallback $result"
+        #puts stderr "*** $self AnswerCallback $result"
+        set res false
         lassign $result mode bytenum value
-        puts stderr "*** $self AnswerCallback: mode is $mode, bytenum is $bytenum, value is $value"
+        #puts stderr "*** $self AnswerCallback: mode is $mode, bytenum is $bytenum, value is $value"
         if {$mode eq "load"} {
             if {[info exists _pendingLoads($bytenum)]} {
                 if {$value >= 0} {
                     $_pendingLoads($bytenum) set $value
                 } 
                 unset _pendingLoads($bytenum)
-                return true
+                set res true
             }
         }
-        return false
+        update idle
+        return $res
     }
     method _createCustomCVDialog {} {
         if {[info exists customCVDialog] && [winfo exists $customCVDialog]} {

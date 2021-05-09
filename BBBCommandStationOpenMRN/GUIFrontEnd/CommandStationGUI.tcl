@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sat Oct 26 10:09:51 2019
-#  Last Modified : <210507.0944>
+#  Last Modified : <210509.1625>
 #
 #  Description	
 #
@@ -166,6 +166,7 @@ set argv0 [file join [file dirname [info nameofexecutable]] [file rootname [file
 package require Tk
 package require tile
 package require snit
+package require struct::queue
 package require CMDMainWindow
 package require ScrollWindow
 package require ROText
@@ -344,7 +345,6 @@ static unsigned char dot9x9_bits[] = {
 
 
 snit::widget DescribeLoco {
-    option -commandstationsocket
     component address
     variable address_
     component steps
@@ -414,7 +414,7 @@ snit::widget DescribeLoco {
               -textvariable [myvar consistlist_]
         pack $consistlist -fill x
         pack [frame $win.filler] -expand yes -fill both
-        $self configurelist $args
+        #$self configurelist $args
     }
     method AnswerCallback {line} {
         #puts stderr "*** $self AnswerCallback $line"
@@ -435,10 +435,9 @@ snit::widget DescribeLoco {
 }
 
 snit::widget ListOfLocos {
-    option -commandstationsocket
     component listbox
     component buttons
-    
+   
     component addlocodialog
     component   address 
     variable    address_ 3
@@ -495,7 +494,7 @@ snit::widget ListOfLocos {
               -command [mymethod _delete]
         $buttons add ttk::button add -text [_m "Label|Add"] \
               -command [mymethod _add]
-        $self configurelist $args
+        #$self configurelist $args
         $self Refresh
     }
     method AnswerCallback {line} {
@@ -506,12 +505,12 @@ snit::widget ListOfLocos {
         return {}
     }
     method Refresh {} {
-        catch {puts $options(-commandstationsocket) "list locomotives"}
+        CommandStationGUI SendMessageToCS "list locomotives"
     }
     method _describe {} {
         set selected [$listbox selection]
         if {[llength $selected] == 0} {return}
-        catch {puts $options(-commandstationsocket) [format {describe locomotive %d} [lindex $selected 0]]}
+        CommandStationGUI SendMessageToCS [format {describe locomotive %d} [lindex $selected 0]]
     }
     method _add {} {
         [$self _createAddLocoDialog] draw
@@ -525,12 +524,10 @@ snit::widget ListOfLocos {
     }
     method _Add {} {
         $addlocodialog withdraw
-        catch {
-            puts $options(-commandstationsocket) \
-                  [format {define locomotive %d steps %d %s %s} \
-                   $address_ $steps_ [quoteString $name_] \
-                   [quoteString $description_]]
-        }
+        CommandStationGUI SendMessageToCS \
+              [format {define locomotive %d steps %d %s %s} \
+               $address_ $steps_ [quoteString $name_] \
+               [quoteString $description_]]
         $addlocodialog enddialog {}
     }
     method _Cancel {} {
@@ -540,7 +537,7 @@ snit::widget ListOfLocos {
     method _delete {} {
         set selected [$listbox selection]
         if {[llength $selected] == 0} {return}
-        catch {puts $options(-commandstationsocket) [format {undefine locomotive %d} [lindex $selected 0]]}
+        CommandStationGUI SendMessageToCS [format {undefine locomotive %d} [lindex $selected 0]]
     }
     method AllLocomotives {} {
         return [$listbox children {}]
@@ -548,7 +545,6 @@ snit::widget ListOfLocos {
 }
 
 snit::widget Status {
-    option -commandstationsocket
     component mainCurrent 
     variable mainCurrent_ 0000
     component progCurrent
@@ -565,7 +561,7 @@ snit::widget Status {
     component alarmon
     
     constructor {args} {
-        $self configurelist $args
+        #$self configurelist $args
         set mc [ttk::labelframe $win.mc \
                 -text [_m "Label|Mains: "] \
                 -labelanchor nw]
@@ -636,7 +632,9 @@ snit::widget Status {
         $self _refresh
     }
     method _refresh {} {
-        catch {puts $options(-commandstationsocket) {status dummy}}
+        if {[CommandStationGUI CSQueueSize] == 0} {
+            CommandStationGUI SendMessageToCS {status dummy}
+        }
         after 1000 [mymethod _refresh]
     }
     method AnswerCallback {line} {
@@ -670,8 +668,22 @@ snit::type CommandStationGUI {
     typecomponent status
     typecomponent nowhere
     typecomponent servicemode
-    
     typevariable socket_
+    typecomponent csQueue
+    typevariable  queueFlag_ false
+    typemethod SendMessageToCS {message} {
+        #puts stderr "*** $type SendMessageToCS \{$message\}"
+        #puts stderr "*** $type SendMessageToCS: queueFlag_ is $queueFlag_"
+        #puts stderr "*** $type SendMessageToCS: [$csQueue size] items already in the queue"
+        if {$queueFlag_} {
+            $csQueue put $message
+        } else {
+            puts $socket_ $message
+            flush $socket_
+            set queueFlag_ true
+        }
+    }
+    typemethod CSQueueSize {} {return [$csQueue size]}
     typevariable saveFp_ {}
     typevariable locoCount_ 0
     typevariable menu_ {
@@ -724,6 +736,8 @@ snit::type CommandStationGUI {
             $type usage $argv0
             ::exit 99
         }
+        set csQueue [struct::queue]
+        set queueFlag_ false
         set socket_ [socket $host $port]
         #set socket_ stdout
         fconfigure $socket_ -blocking 0 -buffering line -translation lf
@@ -758,16 +772,15 @@ snit::type CommandStationGUI {
               -text [_m "Label|Help"] -image [IconImage image help] \
               -command {HTMLHelp help "GUI Front End Reference"}
         set upper [$Main_ getframe]
-        set describe [DescribeLoco $upper.describe -commandstationsocket $socket_]
+        set describe [DescribeLoco $upper.describe]
         $upper add $describe -weight 1
-        set list [ListOfLocos $upper.list -commandstationsocket $socket_]
+        set list [ListOfLocos $upper.list]
         $upper add $list -weight 1
-        set status [Status $upper.status -commandstationsocket $socket_]
+        set status [Status $upper.status]
         $upper add $status -weight 1
         HTMLHelp setDefaults "$::HelpDir" "index.html#toc"
         set nowhere [frame .nowhere]
-        set servicemode [ServiceMode $Main_.servicemode \
-                         -commandstationsocket $socket_]
+        set servicemode [ServiceMode $Main_.servicemode]
         $Main_ showit
     }
     typemethod lockscreen {} {
@@ -785,7 +798,7 @@ snit::type CommandStationGUI {
             set answer [tk_messageBox -type yesno -icon question \
                         -message [_ "Shutdown the CS?"]]
             if {$answer} {
-                puts $socket_ shutdown
+                $type SendMessageToCS shutdown
             }
         }
         ::exit
@@ -807,7 +820,7 @@ snit::type CommandStationGUI {
             return
         }
         while {[gets $loadFp line] >= 0} {
-            puts $socket_ $line
+            $type SendMessageToCS $line
             update idle
             #puts stderr "*** $type _load: line is $line"
         }
@@ -837,8 +850,8 @@ snit::type CommandStationGUI {
         #puts stderr "*** $type _save: locoCount_ = $locoCount_"
         foreach l $locos {
             #puts stderr "*** $type _save: l = $l"
-            puts $socket_ [format {describe locomotive %d} $l]
-            tkwait variable [mytypevar locoCount_]
+            $type SendMessageToCS [format {describe locomotive %d} $l]
+            #tkwait variable [mytypevar locoCount_]
             #puts stderr "*** $type _save: locoCount_ = $locoCount_"
         }
         close $saveFp_
@@ -847,13 +860,13 @@ snit::type CommandStationGUI {
     }
     typemethod _powerupdown {} {
         if {[$status GetMainsEnabled]} {
-            puts $socket_ {power off}
+            $type SendMessageToCS {power off}
         } else {
-            puts $socket_ {power on}
+            $type SendMessageToCS{power on}
         }
     }
     typemethod _estop {} {
-        puts $socket_ estop
+        $type SendMessageToCS  estop
     }
     proc quoteString {s} {
         if {[string first "\"" $s] >= 0} {
@@ -883,6 +896,15 @@ snit::type CommandStationGUI {
         } else {
             set line [regsub {^> } $line {}]
             if {$line eq ""} {return}
+            #puts stderr "*** $type _readSocket: [$csQueue size] in the queue"
+            if {[$csQueue size] > 0} {
+                set line [$csQueue get]
+                #puts stderr "*** $type _readSocket: line is '$line'"
+                puts $socket_ $line
+                flush $socket_
+            } else {
+                set queueFlag_ false
+            }
             #puts stderr "*** $type _readSocket: line is $line"
             if {[regexp {^#([^#]+)#[[:space:]]+(.*)$} $line => key result] > 0} {
                 switch $key {
