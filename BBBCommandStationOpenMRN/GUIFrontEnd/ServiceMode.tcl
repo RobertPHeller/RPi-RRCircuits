@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Thu Oct 31 10:11:53 2019
-#  Last Modified : <191109.1606>
+#  Last Modified : <210509.0745>
 #
 #  Description	
 #
@@ -941,13 +941,13 @@ snit::widget ServiceMode {
         wm withdraw $win
     }
     method _updateIndexPage {} {
-        puts $options(-commandstationsocket) [format {writecvword %d %d} 31 $pageindex_]
-        puts $options(-commandstationsocket) [format {writecvbyte %d %d} [expr {256 + $pageoffset_}] $pagecv_]
+        puts $options(-commandstationsocket) [format {writeprogcvword %d %d} 31 $pageindex_]
+        puts $options(-commandstationsocket) [format {writeprogcvbyte %d %d} [expr {256 + $pageoffset_}] $pagecv_]
     }
     method _loadIndexPage {} {
-        puts $options(-commandstationsocket) [format {writecvword %d %d} 31 $pageindex_]
+        puts $options(-commandstationsocket) [format {writeprogcvword %d %d} 31 $pageindex_]
         set _pendingLoads([expr {256 + $pageoffset_}]) $indexpage.pagecv
-        puts $options(-commandstationsocket) [format {verifycvbyte %d} [expr {256 + $pageoffset_}]]
+        puts $options(-commandstationsocket) [format {readcv %d} [expr {256 + $pageoffset_}]]
     }
     method _loadReq {} {
         foreach cv [lsort -integer [array names CV_WidgetConstructors]] {
@@ -974,31 +974,35 @@ snit::widget ServiceMode {
                 switch $size {
                     1 {
                         set _pendingLoads([$W cget -bytenumber]) $W
-                        puts $options(-commandstationsocket) [format {verifycvbyte %d} [$W cget -bytenumber]]
+                        puts $options(-commandstationsocket) [format {readcv %d} [$W cget -bytenumber]]
                     }
                     2 {
                         set _pendingLoads([$W cget -bytenumber]) $W
-                        puts $options(-commandstationsocket) [format {verifycvword %d} [$W cget -bytenumber]]
+                        puts $options(-commandstationsocket) [format {readcvword %d} [$W cget -bytenumber]]
                     }
                 }
             }
             update {
                 switch $size {
                     1 {
-                        puts $options(-commandstationsocket) [format {writecvbyte %d %d} [$W cget -bytenumber] [$W get]]
+                        puts $options(-commandstationsocket) [format {writeprogcvbyte %d %d} [$W cget -bytenumber] [$W get]]
                     }
                     2 {
-                        puts $options(-commandstationsocket) [format {writecvword %d %d} [$W cget -bytenumber] [$W get]]
+                        puts $options(-commandstationsocket) [format {writeprogcvword %d %d} [$W cget -bytenumber] [$W get]]
                     }
                 }
             }
         }
     }
     method AnswerCallback {result} {
+        puts stderr "*** $self AnswerCallback $result"
         lassign $result mode bytenum value
+        puts stderr "*** $self AnswerCallback: mode is $mode, bytenum is $bytenum, value is $value"
         if {$mode eq "load"} {
             if {[info exists _pendingLoads($bytenum)]} {
-                $_pendingLoads($bytenum) set $value
+                if {$value >= 0} {
+                    $_pendingLoads($bytenum) set $value
+                } 
                 unset _pendingLoads($bytenum)
                 return true
             }
