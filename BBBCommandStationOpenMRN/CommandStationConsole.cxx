@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 13:40:14 2019
-//  Last Modified : <210507.0934>
+//  Last Modified : <210509.0807>
 //
 //  Description	
 //
@@ -56,6 +56,7 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "openlcb/EventHandlerTemplates.hxx"
 #include "openlcb/EventService.hxx"
 #include "executor/CallableFlow.hxx"
+#include "executor/PoolToQueueFlow.hxx"
 #include "dcc/Loco.hxx"
 #include "dcc/DccOutput.hxx"
 #include <AllTrainNodes.hxx>
@@ -162,6 +163,7 @@ std::unique_ptr<CommandStationDCCMainTrack> CommandStationConsole::mainDCC;
 std::unique_ptr<CommandStationDCCProgTrack> CommandStationConsole::progDCC;
 std::unique_ptr<BeagleCS::DuplexedTrackIf> CommandStationConsole::track;
 std::unique_ptr<dcc::SimpleUpdateLoop> CommandStationConsole::dccUpdateLoop;
+std::unique_ptr<PoolToQueueFlow<Buffer<dcc::Packet>>> CommandStationConsole::pool_translator;
 std::unique_ptr<ProgrammingTrackBackend> CommandStationConsole::prog_track_backend;
 std::unique_ptr<BeagleCS::EStopHandler> CommandStationConsole::estop_handler;
 
@@ -254,6 +256,9 @@ void CommandStationConsole::Begin(openlcb::SimpleStackBase *stack,
     LOG(INFO, "[CommandStationConsole] Ops track setup...");
     progDCC.reset(new CommandStationDCCProgTrack(stack->service(),2));
     LOG(INFO, "[CommandStationConsole] Prog track setup...");
+    mainDCC->StartPRU();
+    progDCC->StartPRU();
+    LOG(INFO, "[CommandStationConsole] PRUs started...");
     track.reset(new BeagleCS::DuplexedTrackIf(stack->service(),4,
                                               mainDCC.get(),
                                               progDCC.get()));
@@ -261,6 +266,8 @@ void CommandStationConsole::Begin(openlcb::SimpleStackBase *stack,
     dccUpdateLoop.reset(new dcc::SimpleUpdateLoop(stack->service(),
                                                   track.get()));
     LOG(INFO, "[CommandStationConsole] DCC UpdateLoop setup...");
+    pool_translator.reset(new PoolToQueueFlow<Buffer<dcc::Packet>>(stack->service(),track->pool(),dccUpdateLoop.get()));
+    LOG(INFO, "[CommandStationConsole] pool_translator setup...");
     prog_track_backend.reset(new ProgrammingTrackBackend(stack->service(),
                                                          &CommandStationConsole::enable_prog_track_output,
                                                          &CommandStationConsole::disable_prog_track_output));
@@ -271,9 +278,6 @@ void CommandStationConsole::Begin(openlcb::SimpleStackBase *stack,
                                              fan->polling()}));
     LOG(INFO, "[CommandStationConsole] HBridge and Fan polling setup...");
     
-    mainDCC->StartPRU();
-    progDCC->StartPRU();
-    LOG(INFO, "[CommandStationConsole] PRUs started...");
     railcom_hub.reset(new dcc::RailcomHubFlow(stack->service()));
     LOG(INFO, "[CommandStationConsole] RailcomHub started...");
     opsRailComDriver.hw_init(railcom_hub.get());
@@ -500,32 +504,40 @@ Console::CommandStatus CommandStationConsole::shutdown_command(FILE *fp, int arg
 
 Console::CommandStatus CommandStationConsole::readcv_command(FILE *fp, int argc, const char *argv[])
 {
+    LOG(INFO,"[readcv_command] argc = %d",argc);
     if (argc == 0) {
         fprintf(fp, "readcv cvaddress\n");
     } else {
         uint16_t addrCV = atoi(argv[1]);
+        LOG(INFO,"[readcv_command] addrCV = %u",addrCV);
         int16_t value = readCV(addrCV); 
+        LOG(INFO,"[readcv_command] value = %d",value);
         fprintf(fp,"#servicemode# load %u %d\n",addrCV,value);
     }
     return COMMAND_OK;
 }
 Console::CommandStatus CommandStationConsole::readcvword_command(FILE *fp, int argc, const char *argv[])
 {
+    LOG(INFO,"[readcvword_command] argc = %d",argc);
     if (argc == 0) {
         fprintf(fp, "readcvword cvaddress\n");
     } else {
         uint16_t addrCV = atoi(argv[1]);
+        LOG(INFO,"[readcvword_command] addrCV = %u",addrCV);
         int16_t value_b1 = readCV(addrCV); 
+        LOG(INFO,"[readcvword_command] value_b1 = %d",value_b1);
         if (value_b1 < 0) {
             fprintf(fp,"#servicemode# load %u %d\n",addrCV,value_b1);
             return COMMAND_OK;
         }
         int16_t value_b2 = readCV(addrCV+1);
+        LOG(INFO,"[readcvword_command] value_b2 = %d",value_b2);
         if (value_b2 < 0) {
             fprintf(fp,"#servicemode# load %u %d\n",addrCV,value_b2);
             return COMMAND_OK;
         }
         uint16_t value = (((uint16_t)value_b1) << 8) & ((uint16_t)value_b2);
+        LOG(INFO,"[readcvword_command] value = %u",value);
         fprintf(fp,"#servicemode# load %u %u\n",addrCV,value);
     }
     return COMMAND_OK;

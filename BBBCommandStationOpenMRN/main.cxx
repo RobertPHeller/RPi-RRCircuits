@@ -348,16 +348,18 @@ void connect_callback(int fd, Notifiable *on_error)
 }
 #endif
 
+Executor<1> console_executor("console_executor", 0, 2048);
+
 #ifdef TERMINALCONSOLE
 CommandStationConsole commandProcessorConsole(&stack,
                                               stack.traction_service(),
-                                              stack.executor(),
+                                              &console_executor,
                                               Console::FD_STDIN,
                                               Console::FD_STDOUT);
 #else
 CommandStationConsole commandProcessorConsole(&stack,
                                               stack.traction_service(),
-                                              stack.executor(),
+                                              &console_executor,
                                               CONSOLEPORT);
 #endif
 

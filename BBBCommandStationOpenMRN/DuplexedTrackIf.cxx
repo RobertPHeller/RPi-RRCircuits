@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon May 3 09:02:58 2021
-//  Last Modified : <210503.0939>
+//  Last Modified : <210509.0800>
 //
 //  Description	
 //
@@ -52,7 +52,7 @@ static const char rcsid[] = "@(#) : $Id$";
 #include <utils/Queue.hxx>
 #include <CommandStationDCCMainTrack.hxx>
 #include <CommandStationDCCProgTrack.hxx>
-
+#include <dcc/DccDebug.hxx>
 
 namespace BeagleCS
 {
@@ -69,6 +69,7 @@ DuplexedTrackIf::DuplexedTrackIf(Service *service, int pool_size,
 StateFlowBase::Action DuplexedTrackIf::entry()
 {
     auto *p = message()->data();
+    //LOG(INFO,"[DuplexedTrackIf::entry] packet is %s",dcc::packet_to_string(*p,true).c_str());
     if (p->packet_header.send_long_preamble) {
         prog_->send(message());
     } else {

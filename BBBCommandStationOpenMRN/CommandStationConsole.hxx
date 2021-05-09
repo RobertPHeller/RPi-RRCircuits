@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 09:45:53 2019
-//  Last Modified : <210507.0919>
+//  Last Modified : <210509.0728>
 //
 //  Description	
 //
@@ -56,6 +56,7 @@
 #include "openlcb/TrainInterface.hxx"
 #include "openlcb/EventHandlerTemplates.hxx"
 #include "openlcb/EventService.hxx"
+#include "executor/PoolToQueueFlow.hxx"
 #include "utils/Singleton.hxx"
 #include <AllTrainNodes.hxx>
 #include "BeagleTrainDatabase.hxx"
@@ -107,6 +108,7 @@ private:
     static std::unique_ptr<CommandStationDCCProgTrack> progDCC;
     static std::unique_ptr<BeagleCS::DuplexedTrackIf> track;
     static std::unique_ptr<dcc::SimpleUpdateLoop> dccUpdateLoop;
+    static std::unique_ptr<PoolToQueueFlow<Buffer<dcc::Packet>>> pool_translator;
     static std::unique_ptr<ProgrammingTrackBackend> prog_track_backend;
     static std::unique_ptr<BeagleCS::EStopHandler> estop_handler;
     static bool is_ops_track_output_enabled()
@@ -131,14 +133,19 @@ private:
     }
     static void enable_prog_track_output()
     {
+        LOG(INFO,"[enable_prog_track_output] ProgEN_Pin::get() is %d",ProgEN_Pin::get());
         if (!ProgEN_Pin::get())
         {
+            LOG(INFO,"[enable_prog_track_output] Setting ProgEN_Pin.");
             ProgEN_Pin::set(true);
         }
+        LOG(INFO,"[enable_prog_track_output] ProgEN_Pin::get() is now %d",ProgEN_Pin::get());
     }
     static void disable_prog_track_output()
     {
+        LOG(INFO,"[disable_prog_track_output] ProgEN_Pin::get() is %d",ProgEN_Pin::get());
         ProgEN_Pin::set(false);
+        LOG(INFO,"[disable_prog_track_output] ProgEN_Pin::get() is now %d",ProgEN_Pin::get());
     }    
     static CommandStatus define_command(FILE *fp, int argc, const char *argv[], void *context)
     {

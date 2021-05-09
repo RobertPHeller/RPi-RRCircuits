@@ -38,18 +38,18 @@ GPIO_PIN(MainBRAKE, EnablePin, 60);
 //
 // Prog Track:
 //
-// DCC P8-21 (PRU 1, R30.11) [config-pin P8_30 pruout] [disable video!]
+// DCC P8-30 (PRU 1, R30.11) [config-pin P8_30 pruout] [disable video!]
 //                           BeagleBone: P8_30, PocketBeagle: P1_4,
 //                           GPIO_89/2.25
-// EN  P8-16 GPIO_46 (1.14)  [config-pin P8_16 gpio]
-//                           Beaglebone: P8_16
+// EN  P8-29 GPIO_87 (2.23)  [config-pin P8_29 gpio]
+//                           Beaglebone: P8_29
 // CSense P9-40 AIN1         [/sys/bus/iio/devices/iio:device0/in_voltage1_raw]
 //                           Beaglebone: P9_40
 
 
 #define CSenseProgAnalogChannel 1
 #define PROG_MAX_MILLIAMPS 3000
-GPIO_PIN(ProgEN, EnablePin, 46);
+GPIO_PIN(ProgEN, EnablePin, 87);
 
 // Tempsensor:
 //

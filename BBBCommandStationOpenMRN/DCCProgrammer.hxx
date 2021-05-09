@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon May 3 10:50:44 2021
-//  Last Modified : <210503.1113>
+//  Last Modified : <210507.1327>
 //
 //  Description	
 //
@@ -116,9 +116,11 @@ private:
     static constexpr uint8_t PROG_TRACK_CV_ATTEMPTS = 3;
     bool enterServiceMode()
     {
+        LOG(INFO,"[enterServiceMode] Entering Service Mode");
         BufferPtr<ProgrammingTrackRequest> req =
               invoke_flow(Singleton<ProgrammingTrackBackend>::instance()
                           , ProgrammingTrackRequest::ENTER_SERVICE_MODE);
+        LOG(INFO,"[enterServiceMode] resultCode is %d",req->data()->resultCode);
         return req->data()->resultCode == 0;
     }
     

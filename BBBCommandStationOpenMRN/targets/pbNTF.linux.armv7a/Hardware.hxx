@@ -49,7 +49,7 @@ GPIO_PIN(MainBRAKE, EnablePin, 60);
 
 #define CSenseProgAnalogChannel 1
 #define PROG_MAX_MILLIAMPS 2800
-GPIO_PIN(ProgEN, EnablePin, 46);
+GPIO_PIN(ProgEN, EnablePin, 87);
 
 // Tempsensor:
 //
