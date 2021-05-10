@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon May 3 09:02:58 2021
-//  Last Modified : <210509.0800>
+//  Last Modified : <210510.1527>
 //
 //  Description	
 //
@@ -50,9 +50,12 @@ static const char rcsid[] = "@(#) : $Id$";
 #include <sys/ioctl.h>
 #include <utils/Buffer.hxx>
 #include <utils/Queue.hxx>
-#include <CommandStationDCCMainTrack.hxx>
-#include <CommandStationDCCProgTrack.hxx>
+#include <CommandStationDCCPRUTrack.hxx>
 #include <dcc/DccDebug.hxx>
+
+using CommandStationDCCMainTrack = CommandStationDCCPRUTrack<0>;
+using CommandStationDCCProgTrack = CommandStationDCCPRUTrack<1>;
+
 
 namespace BeagleCS
 {

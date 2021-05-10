@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon May 3 08:56:43 2021
-//  Last Modified : <210503.0940>
+//  Last Modified : <210510.1526>
 //
 //  Description	
 //
@@ -47,8 +47,10 @@
 #include <executor/StateFlow.hxx>
 #include <dcc/Packet.hxx>
 #include <utils/Singleton.hxx>
-#include <CommandStationDCCMainTrack.hxx>
-#include <CommandStationDCCProgTrack.hxx>
+#include <CommandStationDCCPRUTrack.hxx>
+
+using CommandStationDCCMainTrack = CommandStationDCCPRUTrack<0>;
+using CommandStationDCCProgTrack = CommandStationDCCPRUTrack<1>;
 
 namespace BeagleCS
 {

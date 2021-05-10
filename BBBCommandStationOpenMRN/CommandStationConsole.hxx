@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 09:45:53 2019
-//  Last Modified : <210509.1628>
+//  Last Modified : <210510.1438>
 //
 //  Description	
 //
@@ -63,8 +63,7 @@
 #include "CommandStationStack.hxx"
 #include "HBridgeControl.hxx"
 #include "FanControl.hxx"
-#include "CommandStationDCCMainTrack.hxx"
-#include "CommandStationDCCProgTrack.hxx"
+#include "CommandStationDCCPRUTrack.hxx"
 #include <dcc/ProgrammingTrackBackend.hxx>
 #include "DuplexedTrackIf.hxx" 
 #include <dcc/SimpleUpdateLoop.hxx>
@@ -90,7 +89,9 @@ public:
                       openlcb::TrainService *tractionService,
                       const HBridgeControlConfig &maincfg,
                       const HBridgeControlConfig &progcfg,
-                      const FanControlConfig &fancfg);
+                      const FanControlConfig &fancfg,
+                      const char *mainPRUfirmware = "MainTrackDCC.out",
+                      const char *progPRUfirmware = "ProgTrackDCC.out");
     static void initiate_estop()
     {
         estop_handler->set_state(true);
@@ -104,8 +105,8 @@ private:
     static std::unique_ptr<dcc::RailcomPrintfFlow> railcom_dumper;
     static std::unique_ptr<BeagleCS::BeagleTrainDatabase> trainDb;
     static std::unique_ptr<commandstation::AllTrainNodes> trainNodes;
-    static std::unique_ptr<CommandStationDCCMainTrack> mainDCC;
-    static std::unique_ptr<CommandStationDCCProgTrack> progDCC;
+    static std::unique_ptr<CommandStationDCCPRUTrack<0>> mainDCC;
+    static std::unique_ptr<CommandStationDCCPRUTrack<1>> progDCC;
     static std::unique_ptr<BeagleCS::DuplexedTrackIf> track;
     static std::unique_ptr<dcc::SimpleUpdateLoop> dccUpdateLoop;
     static std::unique_ptr<PoolToQueueFlow<Buffer<dcc::Packet>>> pool_translator;

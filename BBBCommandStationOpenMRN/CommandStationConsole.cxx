@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 13:40:14 2019
-//  Last Modified : <210509.1615>
+//  Last Modified : <210510.1523>
 //
 //  Description	
 //
@@ -63,6 +63,7 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "BeagleTrainDatabase.hxx"
 #include "CommandStationStack.hxx"
 #include "CommandStationConsole.hxx"
+#include "CommandStationDCCPRUTrack.hxx"
 #include "AnalogReadSysFS.h"
 #include <AllTrainNodes.hxx>
 #include "BeagleTrainDatabase.hxx"
@@ -159,8 +160,8 @@ std::unique_ptr<dcc::RailcomHubFlow> CommandStationConsole::railcom_hub;
 std::unique_ptr<dcc::RailcomPrintfFlow> CommandStationConsole::railcom_dumper;
 std::unique_ptr<BeagleCS::BeagleTrainDatabase> CommandStationConsole::trainDb;
 std::unique_ptr<commandstation::AllTrainNodes> CommandStationConsole::trainNodes;
-std::unique_ptr<CommandStationDCCMainTrack> CommandStationConsole::mainDCC;
-std::unique_ptr<CommandStationDCCProgTrack> CommandStationConsole::progDCC;
+std::unique_ptr<CommandStationDCCPRUTrack<0>> CommandStationConsole::mainDCC;
+std::unique_ptr<CommandStationDCCPRUTrack<1>> CommandStationConsole::progDCC;
 std::unique_ptr<BeagleCS::DuplexedTrackIf> CommandStationConsole::track;
 std::unique_ptr<dcc::SimpleUpdateLoop> CommandStationConsole::dccUpdateLoop;
 std::unique_ptr<PoolToQueueFlow<Buffer<dcc::Packet>>> CommandStationConsole::pool_translator;
@@ -214,7 +215,9 @@ void CommandStationConsole::Begin(openlcb::SimpleStackBase *stack,
                                   openlcb::TrainService *tractionService,
                                   const HBridgeControlConfig &maincfg,
                                   const HBridgeControlConfig &progcfg,
-                                  const FanControlConfig &fancfg)
+                                  const FanControlConfig &fancfg,
+                                  const char *mainPRUfirmware,
+                                  const char *progPRUfirmware)
 {
 #ifdef NO_THERMFAULT
     mains.reset(new HBridgeControl(stack->node(), 
@@ -252,13 +255,10 @@ void CommandStationConsole::Begin(openlcb::SimpleStackBase *stack,
                                                        trainDb->get_train_cdi(),
                                                        trainDb->get_temp_train_cdi()));
     LOG(INFO, "[CommandStationConsole] train nodes setup...");
-    mainDCC.reset(new CommandStationDCCMainTrack(stack->service(),2));
+    mainDCC.reset(new CommandStationDCCPRUTrack<0>(stack->service(),2,mainPRUfirmware));
     LOG(INFO, "[CommandStationConsole] Ops track setup...");
-    progDCC.reset(new CommandStationDCCProgTrack(stack->service(),2));
+    progDCC.reset(new CommandStationDCCPRUTrack<1>(stack->service(),2,progPRUfirmware));
     LOG(INFO, "[CommandStationConsole] Prog track setup...");
-    mainDCC->StartPRU();
-    progDCC->StartPRU();
-    LOG(INFO, "[CommandStationConsole] PRUs started...");
     track.reset(new BeagleCS::DuplexedTrackIf(stack->service(),4,
                                               mainDCC.get(),
                                               progDCC.get()));

@@ -58,6 +58,8 @@
  * @arg -u upstream_host   is the host name for an upstream hub.
  * @arg -q upstream_port   is the port number for the upstream hub.
  * @arg -c can_socketname   is the name of the CAN socket.
+ * @arg -M mainPRUfirmware  is the path to the Main (PRU0) firmware
+ * @arg -P progPRUfirmware  is the path to the Prog (PRU1) firmware
  * @par
  * 
  * The -u and -q options are only available if the program was built 
@@ -265,6 +267,7 @@ const char *cansocket = DEFAULT_CAN_SOCKET;
 void usage(const char *e)
 {
     fprintf(stderr, "Usage: %s [-e EEPROM_file_path] [-t Persistent_Train_file_path]", e);
+    fprintf(stderr, " [-M mainPRUfirmware] [-P progPRUfirmware]");
 #if defined(USE_OPENLCB_TCP_HOST) || defined(USE_GRIDCONNECT_HOST)
     fprintf(stderr, " [-u upstream_host] [-q upstream_port]");
 #endif
@@ -276,6 +279,8 @@ void usage(const char *e)
     fprintf(stderr, "\nOptions:\n");
     fprintf(stderr, "\t-e EEPROM_file_path is the path to use to implement the EEProm device.\n");
     fprintf(stderr, "\t-t Persistent_Train_file_path is the path to use to the implement the train persistent data.\n");
+    fprintf(stderr, "\t-M mainPRUfirmware is the path to the mains PRU (PRU0) firmware\n");
+    fprintf(stderr, "\t-P progPRUfirmware is the path to the prog PRU (PRU1) firmware\n");
 #if defined(USE_OPENLCB_TCP_HOST) || defined(USE_GRIDCONNECT_HOST)
     fprintf(stderr,"\t-u upstream_host   is the host name for an "
             "upstream hub.\n");
@@ -290,20 +295,23 @@ void usage(const char *e)
     exit(1);
 }
 
+static char mainPRUfirmware[256] = "MainTrackDCC.out", 
+            progPRUfirmware[256] = "ProgTrackDCC.out";
+
 void parse_args(int argc, char *argv[])
 {
     int opt;
 #if defined(USE_OPENLCB_TCP_HOST) || defined(USE_GRIDCONNECT_HOST)
 #ifdef USE_SOCKET_CAN_PORT
-#define OPTSTRING "he:t:u:q:c:"
+#define OPTSTRING "he:t:M:P:u:q:c:"
 #else
-#define OPTSTRING "he:t:u:q:"
+#define OPTSTRING "he:t:M:P:u:q:"
 #endif
 #else
 #ifdef USE_SOCKET_CAN_PORT
-#define OPTSTRING "he:t:c:"
+#define OPTSTRING "he:t:M:P:c:"
 #else
-#define OPTSTRING "he:t:"
+#define OPTSTRING "he:t:M:P:"
 #endif
 #endif
     while ((opt = getopt(argc, argv, OPTSTRING)) >= 0)
@@ -318,6 +326,12 @@ void parse_args(int argc, char *argv[])
             break;
         case 't':
             strncpy(persistenttrainfile,optarg,sizeof(persistenttrainfile));
+            break;
+        case 'M':
+            strncpy(mainPRUfirmware,optarg,sizeof(mainPRUfirmware));
+            break;
+        case 'P':
+            strncpy(progPRUfirmware,optarg,sizeof(progPRUfirmware));
             break;
 #if defined(USE_OPENLCB_TCP_HOST) || defined(USE_GRIDCONNECT_HOST)
         case 'u':
@@ -384,7 +398,9 @@ int appl_main(int argc, char *argv[])
     CommandStationConsole::Begin(&stack,stack.traction_service(),
                                  cfg.seg().maindcc(),
                                  cfg.seg().progdcc(),
-                                 cfg.seg().fancontrol());
+                                 cfg.seg().fancontrol(),
+                                 mainPRUfirmware,
+                                 progPRUfirmware);
     
     // Connects to a TCP hub on the internet.
     //stack.connect_tcp_gridconnect_hub("28k.ch", 50007);
