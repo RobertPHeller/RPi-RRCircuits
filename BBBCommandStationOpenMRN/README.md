@@ -60,6 +60,9 @@ The scripts used are:
                   generate successive node ids.
  
 
+There are separate Makefiles for the GUI Front End and the PRU firmware 
+programs.
+
 ## Configuration
  
 There are three configuration sections, one for each of the DCC
@@ -94,8 +97,19 @@ The fan control section has these configuration options:
 
 ### GUIFrontEnd
 
-This subsirectory contains the Tcl/Tk coded GUI Front end.
+This subsirectory contains the Tcl/Tk coded GUI Front end.  The GUI front end 
+is optional -- the Command Station will run without it.  GUI front end 
+provides a way to monitor the Command Station and to provide an interface to 
+to access the programming track.
 
 ### PRUProgs
 
-This subsirectory contains the PRU firmware programs.
+This subdirectory contains the PRU firmware programs.  There is one main 
+program for both PRUs.  The main program has compiler preprocessor macros to 
+control compile time options to generate separate versions for the two PRUs.  
+The firmware is just a loop generating a DCC packet waveform on a PRU GPIO 
+pin.  The firmware creates a remote process message FIFO device which the 
+Track IF objects (see CommandStationDCCPRUTrack.hxx in the main Command 
+Station code) write packets to. The firmware peels off these packets to its 
+local packet buffer and then sends the packet over and over again until a new 
+packet is sent down the FIFO.
