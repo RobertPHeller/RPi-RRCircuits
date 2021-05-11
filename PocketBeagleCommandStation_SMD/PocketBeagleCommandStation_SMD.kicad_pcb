@@ -1,7 +1,7 @@
 (kicad_pcb (version 4) (host pcbnew 4.0.7+dfsg1-1ubuntu2)
 
   (general
-    (links 0)
+    (links 409)
     (no_connects 0)
     (area 83.345238 45.56 227.56 177.960001)
     (thickness 1.6)
@@ -5989,14 +5989,14 @@
     )
   )
 
-  (module Connectors_Terminal_Blocks:TerminalBlock_Pheonix_PT-3.5mm_3pol (layer F.Cu) (tedit 56301605) (tstamp 6075C2BF)
+  (module Connectors_Terminal_Blocks:TerminalBlock_Pheonix_PT-3.5mm_3pol (layer F.Cu) (tedit 6099271C) (tstamp 6075C2BF)
     (at 182.555 157.48)
     (descr "3-way 3.5mm pitch terminal block, Phoenix PT series")
     (path /6070B3DD)
-    (fp_text reference T1 (at 3.5 -4.3) (layer F.SilkS)
+    (fp_text reference T1 (at 3.5 -4.3) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value "DCC Power In" (at 3.5 6) (layer F.Fab)
+    (fp_text value "DCC Power In" (at 3.5 5.08) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_line (start -2 -3.3) (end 9 -3.3) (layer F.CrtYd) (width 0.05))
