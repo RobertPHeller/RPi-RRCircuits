@@ -8,7 +8,7 @@ Beagle Board addon boards I have designed.  It uses the AM335X's
 PRUs to generate the DCC signals.  It ises the OpenMRN Console
 class to communicate over a Tcp/Ip channel with a Tcl/Tk coded
 GUI program to provide a user friendly point-and-click high level
-user interface.
+user interface.  
 
 ## SYNOPSIS
 
@@ -20,6 +20,8 @@ user interface.
      device.
 - -t Persistent_Train_file_path is the path to use to the implement
      the train persistent data.
+- -M The path to the Main (PRU0) firmware.
+- -P The path to the Prog (PRU1) firmware.
 - -u upstream_host   is the host name for an upstream hub.
 - -q upstream_port   is the port number for the upstream hub
 - -c can_socketname   is the name of the CAN socket.
@@ -58,3 +60,42 @@ The scripts used are:
                   generate successive node ids.
  
 
+## Configuration
+ 
+There are three configuration sections, one for each of the DCC
+outputs (Main and Programming) and one for the fan control.
+ 
+The two DCC outputs have these configuration options:
+ 
+- The event to send when there is a short.
+- The event to send when short is cleared.
+- The event to send when the command station is shutdown
+  due to over current.
+- The event to send when the shutdown is cleared.
+- The event to send when the thermal flag goes on.
+- The event to send when the thermal flag goes off.
+ 
+The fan control section has these configuration options:
+
+- The alarm temperature threshold, in tenths of degree 
+  centitrade.
+- The event to send when the temperature excedes the alarm 
+  temperature threshold.
+- The event to send when the temperature drops below the alarm 
+  temperature threshold.
+- The fan temperature threshold, in tenths of degree
+  centitrade.
+- The event to send when the temperature excedes the fan
+  temperature threshold.
+- The event to send when the temperature drops below the fan
+  temperature threshold.
+
+## Subdirectories
+
+### GUIFrontEnd
+
+This subsirectory contains the Tcl/Tk coded GUI Front end.
+
+### PRUProgs
+
+This subsirectory contains the PRU firmware programs.
