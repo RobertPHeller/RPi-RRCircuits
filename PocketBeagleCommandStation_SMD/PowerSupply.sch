@@ -41,6 +41,7 @@ LIBS:motors
 LIBS:graphic_symbols
 LIBS:motor_drivers
 LIBS:irf7351pbf
+LIBS:MCP9700T-E_LT
 LIBS:PocketBeagleCommandStation_SMD-cache
 EELAYER 25 0
 EELAYER END

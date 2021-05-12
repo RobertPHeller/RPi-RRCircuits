@@ -1,4 +1,4 @@
-update=Wed 14 Apr 2021 03:38:54 PM EDT
+update=Wed 12 May 2021 01:26:52 PM EDT
 version=1
 last_client=kicad
 [cvpcb]
@@ -48,6 +48,16 @@ LibName18=w_conn_strip
 LibName19=GPIOHeaders
 [general]
 version=1
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60
 [eeschema]
 version=1
 LibDir=../../RRCircuits
@@ -94,13 +104,4 @@ LibName39=motors
 LibName40=graphic_symbols
 LibName41=motor_drivers
 LibName42=irf7351pbf
-[schematic_editor]
-version=1
-PageLayoutDescrFile=
-PlotDirectoryName=
-SubpartIdSeparator=0
-SubpartFirstId=65
-NetFmtName=
-SpiceForceRefPrefix=0
-SpiceUseNetNumbers=0
-LabSize=60
+LibName43=MCP9700T-E_LT

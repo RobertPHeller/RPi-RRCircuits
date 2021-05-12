@@ -41,6 +41,7 @@ LIBS:motors
 LIBS:graphic_symbols
 LIBS:motor_drivers
 LIBS:irf7351pbf
+LIBS:MCP9700T-E_LT
 LIBS:PocketBeagleCommandStation_SMD-cache
 EELAYER 25 0
 EELAYER END
@@ -116,20 +117,8 @@ Text HLabel 5350 1900 0    60   Input ~ 0
 FAN_POWER
 Text HLabel 4250 3300 0    60   Input ~ 0
 FAN_CONTROL
-Text HLabel 3950 4400 2    60   Output ~ 0
+Text HLabel 4650 4500 2    60   Output ~ 0
 TEMP_SENSE
-$Comp
-L MCP9701AT U9
-U 1 1 60715777
-P 3450 4400
-F 0 "U9" H 3450 4400 60  0000 C CNN
-F 1 "MCP9701AT" H 2800 4400 60  0000 C CNN
-F 2 "TO_SOT_Packages_SMD:SOT-23" H 3450 4400 60  0001 C CNN
-F 3 "" H 3450 4400 60  0001 C CNN
-F 4 "579-MCP9701AT-E/TT" H 3450 4400 60  0001 C CNN "Mouser Part Number"
-	1    3450 4400
-	1    0    0    -1  
-$EndComp
 $Comp
 L Q_NPN_Darlington_BCEC Q3
 U 1 1 60715B68
@@ -171,11 +160,7 @@ Wire Wire Line
 Wire Wire Line
 	5350 1900 5550 1900
 Wire Wire Line
-	3950 4400 3850 4400
-Wire Wire Line
 	3450 3850 3450 4100
-Wire Wire Line
-	3450 4900 3450 4750
 Wire Wire Line
 	5550 3100 6100 3100
 Wire Wire Line
@@ -216,6 +201,37 @@ Connection ~ 3450 4000
 Wire Wire Line
 	2300 4450 2300 4800
 Wire Wire Line
-	2300 4800 3450 4800
+	2300 4800 4450 4800
 Connection ~ 3450 4800
+$Comp
+L MCP9700T-E_LT U9
+U 1 1 609C16C9
+P 4350 4300
+F 0 "U9" H 4900 4250 50  0000 L CNN
+F 1 "MCP9700T-E_LT" H 5050 3950 50  0000 L CNN
+F 2 "SOT65P210X110-5N" H 5300 4400 50  0001 L CNN
+F 3 "" H 5300 4300 50  0001 L CNN
+F 4 "Temperature sensor, -40 to +125 degC Microchip MCP9700T-E/LT Temperature Sensor 5-Pin SC-70, -40 ??? +125 degC" H 5300 4200 50  0001 L CNN "Description"
+F 5 "1.1" H 5300 4100 50  0001 L CNN "Height"
+F 6 "579-MCP9700T-E/LT" H 5300 4000 50  0001 L CNN "Mouser Part Number"
+F 7 "https://www.mouser.co.uk/ProductDetail/Microchip-Technology/MCP9700T-E-LT?qs=RnzODY3cU8tW7jSxAPzBuw%3D%3D" H 5300 3900 50  0001 L CNN "Mouser Price/Stock"
+F 8 "Microchip" H 5300 3800 50  0001 L CNN "Manufacturer_Name"
+F 9 "MCP9700T-E/LT" H 5300 3700 50  0001 L CNN "Manufacturer_Part_Number"
+	1    4350 4300
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3450 4100 3250 4100
+Wire Wire Line
+	3250 4100 3250 4300
+Wire Wire Line
+	3450 4900 3450 4800
+Wire Wire Line
+	4350 4400 4450 4400
+Wire Wire Line
+	4450 4400 4450 4800
+NoConn ~ 4350 4300
+NoConn ~ 3250 4400
+Wire Wire Line
+	4650 4500 4350 4500
 $EndSCHEMATC
