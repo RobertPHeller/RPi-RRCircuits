@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon May 10 14:12:56 2021
-//  Last Modified : <210512.1037>
+//  Last Modified : <210512.1125>
 //
 //  Description	
 //
@@ -35,6 +35,17 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program; if not, write to the Free Software
 //    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+// Defines a class that interfaces with the PRU firmware using the 
+// RPMsg virtual I/O device.  The constructor generates the file
+// pathnames for the partitular PRU (0 or 1) and then loads the 
+// PRU firmware into the PRU.  Both PRUs run the same program, with
+// some compile-time differences -- RPMsg channel, GPIO bits, and
+// preamble length, etc.  The basic DCC waveform is the same for both
+// the main and prog tracks.
+//
+// The PRU firmware just loops sending the last DCC packet over and
+// over again.  This class sends new packets as they become available.
 //
 // 
 //
@@ -71,7 +82,6 @@ template <uint8_t PRU_NUM>
 class CommandStationDCCPRUTrack : 
 public StateFlow<Buffer<dcc::Packet>
 , QList<1>>
-//, Singleton<CommandStationDCCPRUTrack<uint8_t PRU_NUM>>
 {
 public:
     // Force compile error if PRU_NUM is not 0 or 1.
@@ -82,6 +92,8 @@ public:
                 : StateFlow<Buffer<dcc::Packet>, QList<1>>(service)
           , pool_(sizeof(Buffer<dcc::Packet>), pool_size)
     {
+        // Raise an error and halt, if more than one instance is
+        // created.
         HASSERT(! hasInstance_);
         hasInstance_ = true;
         snprintf(pruFirmware,sizeof(pruFirmware),pruFirmwareFMT,PRU);

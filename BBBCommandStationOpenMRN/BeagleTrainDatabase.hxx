@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Apr 25 18:49:25 2021
-//  Last Modified : <210502.1100>
+//  Last Modified : <210512.1149>
 //
 //  Description	
 //
@@ -53,7 +53,7 @@
 
 #include <TrainDb.hxx>
 
-#include <AutoPersistCallbackFlow.h>
+#include <AutoPersistCallbackFlow.hxx>
 
 #ifndef CONFIG_ROSTER_AUTO_IDLE_NEW_LOCOS
 #define CONFIG_ROSTER_AUTO_IDLE_NEW_LOCOS false
