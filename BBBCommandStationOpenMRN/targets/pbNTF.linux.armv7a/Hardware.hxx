@@ -11,7 +11,9 @@
 #define ThermFlagPin GpioInputActiveLow
 #define Railcom
 #define CurrentFromAIN(val) ((val)*.0007326007)
-#define TempFromAIN(val) ((((val)*.0004395604)/.01)+(-50))
+// MCP9700T-E/LT: .5V == 0C, .01V/Degree C, 125C == 1.75V, 1.9V Vref,
+// 12bit ADC (0 <= val <= 4095).
+#define TempFromAIN(val) ((((val)*.0004639448)/.01)+(-50))
 
 // On chip GPIO:
 //
