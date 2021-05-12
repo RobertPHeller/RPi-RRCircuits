@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 13:40:14 2019
-//  Last Modified : <210510.1523>
+//  Last Modified : <210511.1353>
 //
 //  Description	
 //
@@ -36,7 +36,7 @@
 //    along with this program; if not, write to the Free Software
 //    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
-// 
+// Implements a CLI Console for the Command Station
 //
 //////////////////////////////////////////////////////////////////////////////
 
@@ -88,6 +88,9 @@ static const char rcsid[] = "@(#) : $Id$";
 #include <unistd.h>
 #include <termios.h>
 #include <sys/ioctl.h>
+
+
+// Railcom driver -- uses a hardware UART
 
 #define RAILCOM_BAUD B230400
 struct RailComHW
@@ -168,6 +171,8 @@ std::unique_ptr<PoolToQueueFlow<Buffer<dcc::Packet>>> CommandStationConsole::poo
 std::unique_ptr<ProgrammingTrackBackend> CommandStationConsole::prog_track_backend;
 std::unique_ptr<BeagleCS::EStopHandler> CommandStationConsole::estop_handler;
 
+// Constructor for Tcp/Ip: connect to Tcp/Ip socket and define all 
+// commands
 CommandStationConsole::CommandStationConsole(openlcb::SimpleStackBase *stack, openlcb::TrainService *tractionService, ExecutorBase *executor, uint16_t port)
       : Console(executor,port)
 , stack_(stack)
@@ -190,6 +195,8 @@ CommandStationConsole::CommandStationConsole(openlcb::SimpleStackBase *stack, op
 }
 
 
+// Constructor for termina: connect to terminal and define all 
+// commands
 CommandStationConsole::CommandStationConsole(openlcb::SimpleStackBase *stack, openlcb::TrainService *tractionService, ExecutorBase *executor, int fd_in, int fd_out, int port)
       : Console(executor,fd_in, fd_out, port)
 , stack_(stack)
@@ -211,6 +218,8 @@ CommandStationConsole::CommandStationConsole(openlcb::SimpleStackBase *stack, op
     add_command("writeopscvbit",writeopscvbit_command,this);
 }
 
+
+// Initialize all unique pointers.
 void CommandStationConsole::Begin(openlcb::SimpleStackBase *stack, 
                                   openlcb::TrainService *tractionService,
                                   const HBridgeControlConfig &maincfg,

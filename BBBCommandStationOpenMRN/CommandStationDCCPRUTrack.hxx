@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon May 10 14:12:56 2021
-//  Last Modified : <210510.1534>
+//  Last Modified : <210512.1037>
 //
 //  Description	
 //
@@ -63,14 +63,18 @@
 #include <utils/logging.h>
 
 
+// Interface to a PRU to generate DCC pulse waveforms.
+// PRU_NUM is 0 or 1 and identifies the PRU number to initialize and
+// interface with.
 
 template <uint8_t PRU_NUM>
 class CommandStationDCCPRUTrack : 
 public StateFlow<Buffer<dcc::Packet>
 , QList<1>>
-//, Singleton<CommandStationDCCPRUTrack<PRU_NUM>>
+//, Singleton<CommandStationDCCPRUTrack<uint8_t PRU_NUM>>
 {
 public:
+    // Force compile error if PRU_NUM is not 0 or 1.
     static_assert(PRU_NUM < 2, "Only 2 PRUs, 0 and 1!");
     static constexpr const uint8_t PRU = PRU_NUM;
     CommandStationDCCPRUTrack(Service *service, int pool_size, 
@@ -78,10 +82,22 @@ public:
                 : StateFlow<Buffer<dcc::Packet>, QList<1>>(service)
           , pool_(sizeof(Buffer<dcc::Packet>), pool_size)
     {
+        HASSERT(! hasInstance_);
+        hasInstance_ = true;
         snprintf(pruFirmware,sizeof(pruFirmware),pruFirmwareFMT,PRU);
         snprintf(pruState,sizeof(pruState),pruStateFMT,PRU);
         snprintf(pruMessageDevice,sizeof(pruMessageDevice),pruMessageDeviceFMT,PRU);
         StartPRU(firmwareName);
+    }
+    ~CommandStationDCCPRUTrack()
+    {
+        hasInstance_ = false;
+        FILE *sysfs_node = fopen(pruState,"r+");
+        if (sysfs_node == NULL) {
+            LOG(FATAL, "CommandStationDCCPRUTrack::StartPRU(): Cannot open firmware sysfs_node %s (%d)", pruState, errno);
+        }
+        fprintf(sysfs_node,"stop\n");
+        fclose(sysfs_node);
     }
     FixedPool *pool() OVERRIDE
     {
@@ -122,6 +138,9 @@ private:
         int len;
         FILE *sysfs_node, *firmfd;
         sysfs_node = fopen(pruState,"r+");
+        if (sysfs_node == NULL) {
+            LOG(FATAL, "CommandStationDCCPRUTrack::StartPRU(): Cannot open firmware sysfs_node %s (%d)", pruState, errno);
+        }
         fprintf(sysfs_node,"stop\n");
         fclose(sysfs_node);
         sysfs_node = fopen(pruFirmware, "w");
@@ -158,6 +177,7 @@ private:
     char pruFirmware[30];
     char pruState[36];
     char pruMessageDevice[20];
+    static bool hasInstance_;
 };
 
 #endif // __COMMANDSTATIONDCCPRUTRACK_HXX

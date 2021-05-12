@@ -29,7 +29,7 @@
  * Main file for the BBBCommandStationOpenMRN program.
  *
  * @author Robert Heller
- * @date 3 Feb 2019
+ * @date 3 Feb 2019 -- 11 May 2021
  * 
  * @defgroup BBBCommandStationOpenMRN Beagle Board Command Station
  * 
@@ -114,6 +114,10 @@
  * @arg GenerateNODEID.tcl -- generates and increments the node id
  * @arg NodeIDBin.mk -- contains the Makefile includes to auto
  *                       generate successive node ids.
+ * 
+ * There is separate Makefiles for the GUI Frontend (in GUIFrontEnd)
+ * and for the PRU Firmware (in PRUProgs).
+ * 
  * @page Configuration
  * 
  * There are three configuration sections, one for each of the DCC
@@ -151,7 +155,10 @@
 #include "os/os.h"
 #include "nmranet_config.h"
 
+// Override local_nodes_count -- allow for many virtual train nodes.
 OVERRIDE_CONST(local_nodes_count,50);
+// Override num_memory_spaces -- allow for additional memory spaces 
+// for train mode memory. 
 OVERRIDE_CONST(num_memory_spaces, 7);
 
 #include "openlcb/SimpleStack.hxx"
@@ -221,6 +228,7 @@ extern const size_t openlcb::CONFIG_FILE_SIZE =
 extern const char *const openlcb::SNIP_DYNAMIC_FILENAME =
     openlcb::CONFIG_FILENAME;
 
+// Persistant train DB file.
 char persistenttrainfile[256];
 extern const char *const BeagleCS::TRAIN_DB_JSON_FILE = persistenttrainfile;
 
@@ -250,7 +258,12 @@ public:
             fd, HARDWARE_IMPL);
     }
 } factory_reset_helper;
-                                           
+
+
+
+// Set up the connection mode: either over Tcp/Ip (GridConnect or
+// OpenLCB) or over the CAN netork.
+
 #ifdef USE_OPENLCB_TCP_HOST
 int upstream_port = DEFAULT_OPENLCB_TCP_PORT;
 const char *upstream_host = DEFAULT_OPENLCB_TCP_HOST;
@@ -263,6 +276,8 @@ const char *upstream_host = DEFAULT_TCP_GRIDCONNECT_HOST;
 const char *cansocket = DEFAULT_CAN_SOCKET;
 #endif
 #endif
+
+// CLI Usage output.
 
 void usage(const char *e)
 {
@@ -295,8 +310,12 @@ void usage(const char *e)
     exit(1);
 }
 
+// Files containing the PRU Firmware programs.
+
 static char mainPRUfirmware[256] = "MainTrackDCC.out", 
             progPRUfirmware[256] = "ProgTrackDCC.out";
+
+// Parse CLI options.
 
 void parse_args(int argc, char *argv[])
 {
@@ -353,6 +372,9 @@ void parse_args(int argc, char *argv[])
     }
 }
 
+
+// OpenLCB connection callback.
+
 #ifdef USE_OPENLCB_TCP_HOST
 void connect_callback(int fd, Notifiable *on_error)
 {
@@ -362,8 +384,11 @@ void connect_callback(int fd, Notifiable *on_error)
 }
 #endif
 
+
+// Console executor.
 Executor<1> console_executor("console_executor", 0, 2048);
 
+// Console
 #ifdef TERMINALCONSOLE
 CommandStationConsole commandProcessorConsole(&stack,
                                               stack.traction_service(),
@@ -384,17 +409,20 @@ CommandStationConsole commandProcessorConsole(&stack,
  */
 int appl_main(int argc, char *argv[])
 {
+    // Compute default EEProm and persistant train file pathnames.
     snprintf(pathnamebuffer,sizeof(pathnamebuffer),
              "/tmp/config_eeprom_%012llX",NODE_ID);
     snprintf(persistenttrainfile,sizeof(persistenttrainfile),
              "/tmp/persistent_train_file_%012llX",NODE_ID);
+    // Parse command line.
     parse_args(argc, argv);
-    //auto trainnodes = Singleton<commandstation::AllTrainNodes>::instance();
-    //auto traindb = Singleton<BeagleCS::BeagleTrainDatabase>::instance();
-
+    
+    // Initialize GPIO
     GpioInit::hw_init();
     
+    // Create the config file
     stack.create_config_file_if_needed(cfg.seg().internal_config(), openlcb::CANONICAL_VERSION, openlcb::CONFIG_FILE_SIZE);
+    // Start things up in the Console.
     CommandStationConsole::Begin(&stack,stack.traction_service(),
                                  cfg.seg().maindcc(),
                                  cfg.seg().progdcc(),
@@ -420,8 +448,6 @@ int appl_main(int argc, char *argv[])
 #if defined(USE_SOCKET_CAN_PORT)
     stack.add_socketcan_port_select(cansocket);
 #endif
-    
-    
         
     // This command donates the main thread to the operation of the
     // stack. Alternatively the stack could be started in a separate stack and
