@@ -63,6 +63,7 @@ F 0 "U0" H 3100 2000 60  0000 C CNN
 F 1 "ESP32_DEVKIT_C or TTGO-T1" H 3100 2550 60  0000 C CNN
 F 2 "ESP32-Boards:ESP32-Combo" H 3100 2000 60  0001 C CNN
 F 3 "~" H 3100 2000 60  0000 C CNN
+F 4 "2x 517-929974-01-19-RK, 1x 517-929850-01-18-10" H 3100 2000 60  0001 C CNN "Mouser Part Number"
 	1    3100 2000
 	1    0    0    -1  
 $EndComp
@@ -123,19 +124,19 @@ $EndComp
 Wire Wire Line
 	2650 1450 2650 1550
 NoConn ~ 3550 2450
-Text Label 3550 2150 0    25   ~ 0
+Text Label 3550 2150 0    50   ~ 0
 CAN_RX
-Text Label 3550 2000 0    25   ~ 0
+Text Label 3550 2000 0    50   ~ 0
 CAN_TX
-Text Label 3550 1650 0    25   ~ 0
+Text Label 3550 1650 0    50   ~ 0
 SCL
-Text Label 3550 1800 0    25   ~ 0
+Text Label 3550 1800 0    50   ~ 0
 SDA
-Text Label 3550 2300 0    25   ~ 0
+Text Label 3550 2300 0    50   ~ 0
 MOSI
-Text Label 3550 2250 0    25   ~ 0
+Text Label 3550 2250 0    50   ~ 0
 MISO
-Text Label 2650 2100 2    25   ~ 0
+Text Label 2650 2100 2    50   ~ 0
 CLK
 $Sheet
 S 4300 1650 950  850 
@@ -159,13 +160,13 @@ Text Label 7250 3200 2    100  ~ 0
 SDA
 Text Label 7250 3400 2    100  ~ 0
 SCL
-Text Label 3550 2200 0    25   ~ 0
+Text Label 3550 2200 0    50   ~ 0
 Motor 1
-Text Label 2650 2150 2    25   ~ 0
+Text Label 2650 2150 2    50   ~ 0
 Motor 2
-Text Label 2650 1750 2    25   ~ 0
+Text Label 2650 1750 2    50   ~ 0
 Sense 1
-Text Label 2650 1800 2    25   ~ 0
+Text Label 2650 1800 2    50   ~ 0
 Sense 2
 $Comp
 L TC4428 U7
@@ -219,9 +220,9 @@ Wire Wire Line
 	6400 1100 6400 1850
 Wire Wire Line
 	8400 1100 8400 1850
-Text Label 6400 1100 2    25   ~ 0
+Text Label 6400 1100 2    50   ~ 0
 Motor 1
-Text Label 8400 1100 2    25   ~ 0
+Text Label 8400 1100 2    50   ~ 0
 Motor 2
 Wire Wire Line
 	7050 900  6600 900 
@@ -255,13 +256,13 @@ Wire Wire Line
 Wire Wire Line
 	6900 2050 6600 2050
 Connection ~ 7400 2150
-Text Label 7050 1100 0    25   ~ 0
+Text Label 7050 1100 0    50   ~ 0
 Motor1A
-Text Label 7050 1850 0    25   ~ 0
+Text Label 7050 1850 0    50   ~ 0
 Motor1B
-Text Label 9050 1100 0    25   ~ 0
+Text Label 9050 1100 0    50   ~ 0
 Motor2A
-Text Label 9050 1850 0    25   ~ 0
+Text Label 9050 1850 0    50   ~ 0
 Motor2B
 $Comp
 L 74HCT00 U9
@@ -337,11 +338,11 @@ Wire Wire Line
 	1300 5800 1300 3600
 Wire Wire Line
 	1300 3600 1650 3600
-Text Label 1250 3500 2    25   ~ 0
+Text Label 1250 3500 2    50   ~ 0
 Sense1A
-Text Label 1300 3600 2    25   ~ 0
+Text Label 1300 3600 2    50   ~ 0
 Sense1B
-Text Label 3000 4800 0    25   ~ 0
+Text Label 3000 4800 0    50   ~ 0
 Sense 1
 $Comp
 L 74HCT00 U9
@@ -385,7 +386,7 @@ Wire Wire Line
 	4300 4700 3750 4700
 Wire Wire Line
 	4300 5800 3800 5800
-Text Label 5500 4800 0    25   ~ 0
+Text Label 5500 4800 0    50   ~ 0
 Sense 2
 $Comp
 L GND-RESCUE-ESP32-PWMHalfSidingSMD #PWR08
@@ -416,9 +417,9 @@ Wire Wire Line
 	1400 6200 3800 6200
 Wire Wire Line
 	3800 6200 3800 5800
-Text Label 1350 3700 2    25   ~ 0
+Text Label 1350 3700 2    50   ~ 0
 Sense2A
-Text Label 1400 3800 2    25   ~ 0
+Text Label 1400 3800 2    50   ~ 0
 Sense2B
 $Comp
 L C-RESCUE-ESP32-PWMHalfSidingSMD C7
@@ -442,7 +443,7 @@ Wire Wire Line
 Wire Wire Line
 	3650 6000 4700 6000
 Connection ~ 4700 6000
-Text Label 2650 2000 2    25   ~ 0
+Text Label 2650 2000 2    50   ~ 0
 OD1
 $Sheet
 S 6950 5750 1700 1100
@@ -451,7 +452,7 @@ F0 "Occupency Detector 1" 50
 F1 "OD1.sch" 50
 F2 "OD1" I L 6950 6100 60 
 $EndSheet
-Text Label 6950 6100 2    25   ~ 0
+Text Label 6950 6100 2    50   ~ 0
 OD1
 $Comp
 L CONN_5 T4
@@ -477,21 +478,21 @@ F 4 "651-1725685" H 10950 2050 60  0001 C CNN "Mouser Part Number"
 	1    10950 2050
 	1    0    0    -1  
 $EndComp
-Text Label 10550 850  2    25   ~ 0
+Text Label 10550 850  2    50   ~ 0
 Motor1A
-Text Label 10550 950  2    25   ~ 0
+Text Label 10550 950  2    50   ~ 0
 Motor1B
-Text Label 10550 1050 2    25   ~ 0
+Text Label 10550 1050 2    50   ~ 0
 Sense1A
-Text Label 10550 1250 2    25   ~ 0
+Text Label 10550 1250 2    50   ~ 0
 Sense1B
-Text Label 10550 1850 2    25   ~ 0
+Text Label 10550 1850 2    50   ~ 0
 Motor2A
-Text Label 10550 1950 2    25   ~ 0
+Text Label 10550 1950 2    50   ~ 0
 Motor2B
-Text Label 10550 2050 2    25   ~ 0
+Text Label 10550 2050 2    50   ~ 0
 Sense2A
-Text Label 10550 2250 2    25   ~ 0
+Text Label 10550 2250 2    50   ~ 0
 Sense2B
 Wire Wire Line
 	10550 1150 10150 1150
@@ -518,9 +519,9 @@ F0 "Occupency Detector 2" 50
 F1 "OD2.sch" 50
 F2 "OD2" I L 9150 6150 60 
 $EndSheet
-Text Label 9150 6150 2    25   ~ 0
+Text Label 9150 6150 2    50   ~ 0
 OD2
-Text Label 2650 2050 2    25   ~ 0
+Text Label 2650 2050 2    50   ~ 0
 OD2
 $Sheet
 S 7250 2850 2400 2350
@@ -533,9 +534,9 @@ F4 "OE" I L 7250 3650 60
 $EndSheet
 Text Label 7250 3650 2    100  ~ 0
 OE
-Text Label 3550 2100 0    25   ~ 0
+Text Label 3550 2100 0    50   ~ 0
 OE
-Text GLabel 7050 650  0    100  Input ~ 0
+Text Label 7050 650  0    100  Input ~ 0
 CAN +12V
 Connection ~ 7050 850 
 $Comp

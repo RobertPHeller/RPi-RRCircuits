@@ -1,4 +1,4 @@
-update=Fri 30 Apr 2021 10:30:34 AM EDT
+update=Thu 20 May 2021 09:11:18 AM EDT
 version=1
 last_client=kicad
 [general]
@@ -114,3 +114,13 @@ LibName38=../MetroMiniABSBiDir-noCANSlave/mct6h
 LibName39=../MetroMiniABSBiDir-noCANSlave/bridge
 LibName40=../16PWMLedDriverHat/pca9685
 LibName41=../4814p-2
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60
