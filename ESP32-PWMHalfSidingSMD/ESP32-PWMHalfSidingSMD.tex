@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Thu May 20 07:35:55 2021
-%  Last Modified : <210525.0948>
+%  Last Modified : <210526.1333>
 %
 %  Description 
 %
@@ -180,20 +180,28 @@ Index&Qty&Refs&Mouser Part Number&Description\\
 \includegraphics[width=5in]{ESP32-PWMHalfSidingSMD-brd.png}
 \caption{Fabrication image of the ESP32-PWMHalfSiding board}
 \end{centering}\end{figure}
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{ESP32-PWMHalfSidingSMD-top3D.png}
+\caption{3D image of the ESP32-PWMHalfSiding board}
+\end{centering}\end{figure}
 
 \subsection{Notes on Building the board}
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=5in]{ESP32HalfSidingWiringSMD.png}
+\caption{Placement of terminal blocks, connectors, and jumper blocks.}
+\end{centering}\end{figure}
 
 The board comes with all the surface mount devices soldered to the board.  All 
 you need to do is solder the through-hole parts, which consists of:
 
 \begin{description}
 \item[Screw Terminals] 3 2-position 2.54 pitch terminals (LCC power in and
-out, signal power in), 2 5-position 2.54 pitch terminals (motor 1 and motor
+out, lamp power in), 2 5-position 2.54 pitch terminals (motor 1 and motor
 2), 2 9-position 2.54 pitch terminals (signal lamp outputs), and 2 2-position
-5.08 pitch terminals (track 1 and track 2). 
+5.08 pitch terminals (Occ. Det. 1 and Occ. Det. 2). 
 \item[Pin Header] 1 2x2 pin header (termination jumpers).
 \item[Connectors] 2 RJ45 connectors (LCC Network).
-\item[Pin Socket Headers] 2 19x1 and 1 18x1.
+\item[Pin Socket Headers] 2 19x1 and 1 18x1, for the MCU module.
 \end{description}
 
 For most of these parts you should solder one pin and then while pressing the
@@ -265,10 +273,6 @@ in the node.
 
 \section{General Wiring Notes}
 
-\begin{figure}[hbpt]\begin{centering}%
-\includegraphics[width=5in]{ESP32HalfSidingWiring.png}
-\caption{Placement of terminal blocks, connectors, and jumper blocks.}
-\end{centering}\end{figure}
 There are various terminal blocks, connectors, and jumper blocks on this
 board. At the top end of the board are a pair of two position terminal blocks, 
 one for injecting power into the LCC bus and one for extracting power from the 

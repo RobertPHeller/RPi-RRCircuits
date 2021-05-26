@@ -333,7 +333,7 @@ L CONN_2 T2
 U 1 1 5C829479
 P 6800 2050
 F 0 "T2" V 6750 2050 40  0000 C CNN
-F 1 "+ 15 out -" V 6850 2050 40  0000 C CNN
+F 1 "- 15 out +" V 6850 2050 40  0000 C CNN
 F 2 "Connectors_Terminal_Blocks:TerminalBlock_Pheonix_MPT-2.54mm_2pol" H 6800 2050 60  0001 C CNN
 F 3 "" H 6800 2050 60  0000 C CNN
 F 4 "651-1725656" H 6800 2050 60  0001 C CNN "Mouser Part Number"
@@ -389,7 +389,7 @@ L CONN_2 T1
 U 1 1 5C82965E
 P 5850 1050
 F 0 "T1" V 5800 1050 40  0000 C CNN
-F 1 "+ 15 in -" V 5900 1050 40  0000 C CNN
+F 1 "- 15 in +" V 5900 1050 40  0000 C CNN
 F 2 "Connectors_Terminal_Blocks:TerminalBlock_Pheonix_MPT-2.54mm_2pol" H 5850 1050 60  0001 C CNN
 F 3 "" H 5850 1050 60  0000 C CNN
 F 4 "651-1725656" H 5850 1050 60  0001 C CNN "Mouser Part Number"

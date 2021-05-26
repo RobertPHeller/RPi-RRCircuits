@@ -536,7 +536,7 @@ Text Label 7250 3650 2    100  ~ 0
 OE
 Text Label 3550 2100 0    50   ~ 0
 OE
-Text Label 7050 650  0    100  Input ~ 0
+Text Label 7050 650  0    100  ~ 0
 CAN +12V
 Connection ~ 7050 850 
 $Comp
