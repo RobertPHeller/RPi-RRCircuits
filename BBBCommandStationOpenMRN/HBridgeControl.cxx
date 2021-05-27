@@ -1,4 +1,4 @@
-// -!- C++ -!- //////////////////////////////////////////////////////////////
+//// -!- C++ -!- //////////////////////////////////////////////////////////////
 //
 //  System        : 
 //  Module        : 
@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 28 13:33:31 2019
-//  Last Modified : <210526.1945>
+//  Last Modified : <210527.0746>
 //
 //  Description	
 //
@@ -129,7 +129,7 @@ void HBridgeControl::poll_33hz(openlcb::WriteHelper *helper, Notifiable *done)
         usleep(1);
     }
     
-    lastReading_ = (uint32_t)round(CurrentFromAIN(std::accumulate(samples.begin(), samples.end(), 0)/adcSampleCount_));
+    lastReading_ = (uint32_t)round(CurrentFromAIN(std::accumulate(samples.begin(), samples.end(), 0)/adcSampleCount_)*1000);
     
     if (isProgTrack_ && progEnable_)
     {
