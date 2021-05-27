@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 28 13:33:53 2019
-//  Last Modified : <210503.1139>
+//  Last Modified : <210526.1945>
 //
 //  Description	
 //
@@ -108,7 +108,7 @@ void FanControl::poll_33hz(openlcb::WriteHelper *helper, Notifiable *done)
         usleep(1);
     }
     
-    lastReading_ = (uint16_t)round(TempFromAIN(std::accumulate(samples.begin(), samples.end(), 0))*10);
+    lastReading_ = (uint16_t)round(TempFromAIN(std::accumulate(samples.begin(), samples.end(), 0)/32)*10);
     //LOG(INFO,"*** FanControl::poll_33hz(): hsTempTensC = %d",hsTempTensC);
     //LOG(INFO,"*** -: alarmthresh_ = %d, alarmon_ = %d",alarmthresh_,alarmon_);
     bool async_event_req = false;
