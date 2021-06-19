@@ -1,5 +1,5 @@
-update=Tue 27 Apr 2021 10:18:51 AM EDT
-last_client=kicad
+update=Sat 19 Jun 2021 11:18:38 AM EDT
+last_client=eeschema
 [general]
 version=1
 [pcbnew]
