@@ -48,12 +48,12 @@ EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 8
+Sheet 7 7
 Title "ESP32 Multifunction board"
 Date ""
 Rev ""
 Comp "Deepwoods Software"
-Comment1 ""
+Comment1 "Generic Buttons and LEDs"
 Comment2 ""
 Comment3 ""
 Comment4 ""

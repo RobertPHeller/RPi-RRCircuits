@@ -48,7 +48,7 @@ EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 8
+Sheet 1 7
 Title "ESP32 Multifunction board"
 Date ""
 Rev ""
@@ -134,13 +134,13 @@ Text Label 3800 2250 0    30   ~ 0
 SDA
 NoConn ~ 3800 2900
 Text Label 2900 2100 2    30   ~ 0
-GPIO36_IN
+GPIO36
 Text Label 2900 2150 2    30   ~ 0
-GPIO39_IN
+GPIO39
 Text Label 2900 2200 2    30   ~ 0
-GPIO34_IN
+GPIO34
 Text Label 2900 2250 2    30   ~ 0
-GPIO35_IN
+GPIO35
 Text Label 2900 2300 2    30   ~ 0
 GPIO32
 Text Label 2900 2350 2    30   ~ 0
@@ -234,18 +234,20 @@ S 1150 3800 2350 1300
 U 60CD422F
 F0 "Stall Motors" 60
 F1 "StallMotors4.sch" 60
+F2 "Points1" O R 3500 3900 60 
+F3 "Points2" O R 3500 4050 60 
+F4 "Points3" O R 3500 4200 60 
+F5 "Points4" O R 3500 4350 60 
+F6 "Motor1" I R 3500 4500 60 
+F7 "Motor2" I R 3500 4650 60 
+F8 "Motor3" I R 3500 4800 60 
+F9 "Motor4" I R 3500 4950 60 
 $EndSheet
 $Sheet
 S 1100 5750 2500 1400
 U 60CD423F
-F0 "Buttons" 60
-F1 "Buttons4.sch" 60
-$EndSheet
-$Sheet
-S 4250 5750 2000 1400
-U 60CD424F
-F0 "LEDS" 60
-F1 "LEDS4.sch" 60
+F0 "Buttons And LEDs" 60
+F1 "Buttons4LEDs4.sch" 60
 $EndSheet
 $Comp
 L Mounting_Hole MK1
@@ -337,4 +339,20 @@ F 3 "" H 9450 2350 50  0001 C CNN
 	1    9450 2350
 	1    0    0    -1  
 $EndComp
+Text Label 3500 3900 0    60   ~ 0
+GPIO12
+Text Label 3500 4050 0    60   ~ 0
+GPIO13
+Text Label 3500 4200 0    60   ~ 0
+GPIO14
+Text Label 3500 4350 0    60   ~ 0
+GPIO27
+Text Label 3500 4500 0    60   ~ 0
+GPIO25
+Text Label 3500 4650 0    60   ~ 0
+GPIO26
+Text Label 3500 4800 0    60   ~ 0
+GPIO32
+Text Label 3500 4950 0    60   ~ 0
+GPIO33
 $EndSCHEMATC

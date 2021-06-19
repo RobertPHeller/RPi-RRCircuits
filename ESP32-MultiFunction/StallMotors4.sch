@@ -48,7 +48,7 @@ EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 8
+Sheet 6 7
 Title "ESP32 Multifunction board"
 Date ""
 Rev ""
@@ -673,39 +673,6 @@ Wire Wire Line
 Wire Wire Line
 	4500 2100 4500 2150
 $Comp
-L Screw_Terminal_01x02 Term5
-U 1 1 60CDEFA9
-P 10000 4300
-F 0 "Term5" H 10000 4400 50  0000 C CNN
-F 1 "+ 12V -" H 10000 4100 50  0000 C CNN
-F 2 "" H 10000 4300 50  0001 C CNN
-F 3 "" H 10000 4300 50  0001 C CNN
-	1    10000 4300
-	1    0    0    -1  
-$EndComp
-$Comp
-L +12V #PWR45
-U 1 1 60CDEFFA
-P 9800 4200
-F 0 "#PWR45" H 9800 4050 50  0001 C CNN
-F 1 "+12V" H 9800 4340 50  0000 C CNN
-F 2 "" H 9800 4200 50  0001 C CNN
-F 3 "" H 9800 4200 50  0001 C CNN
-	1    9800 4200
-	1    0    0    -1  
-$EndComp
-$Comp
-L GND #PWR46
-U 1 1 60CDF03E
-P 9800 4650
-F 0 "#PWR46" H 9800 4400 50  0001 C CNN
-F 1 "GND" H 9800 4500 50  0000 C CNN
-F 2 "" H 9800 4650 50  0001 C CNN
-F 3 "" H 9800 4650 50  0001 C CNN
-	1    9800 4650
-	1    0    0    -1  
-$EndComp
-$Comp
 L GND #PWR42
 U 1 1 60CDF082
 P 9650 3700
@@ -757,10 +724,6 @@ Wire Wire Line
 	9800 2750 9650 2750
 Wire Wire Line
 	9800 3700 9650 3700
-Wire Wire Line
-	9800 4200 9800 4300
-Wire Wire Line
-	9800 4400 9800 4650
 Text Label 9800 800  2    59   ~ 0
 M1A
 Text Label 9800 900  2    59   ~ 0

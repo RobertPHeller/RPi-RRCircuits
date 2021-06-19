@@ -1,4 +1,5 @@
 (fp_lib_table
   (lib (name ESP32-Boards)(type KiCad)(uri /home/heller/RRCircuits/ESP32-Boards.pretty)(options "")(descr ""))
   (lib (name 48xxP)(type Legacy)(uri /home/heller/RRCircuits/48xxP.mod)(options "")(descr ""))
+  (lib (name 3361P-1-253GLF)(type KiCad)(uri "$(KIPRJMOD)/3361P-1-253GLF.pretty")(options "")(descr ""))
 )
