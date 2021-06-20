@@ -1,5 +1,4 @@
 EESchema Schematic File Version 2
-LIBS:ESP32-PWMHalfSidingSMD-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -446,11 +445,11 @@ Connection ~ 4700 6000
 Text Label 2650 2000 2    50   ~ 0
 OD1
 $Sheet
-S 6950 5750 1700 1100
+S 2150 6550 1700 1100
 U 5CA26382
 F0 "Occupency Detector 1" 50
 F1 "OD1.sch" 50
-F2 "OD1" I L 6950 6100 60 
+F2 "OD1" I L 2150 6900 60 
 $EndSheet
 Text Label 6950 6100 2    50   ~ 0
 OD1
@@ -513,11 +512,11 @@ F 3 "" H 10150 2400 60  0000 C CNN
 $EndComp
 Connection ~ 10150 2150
 $Sheet
-S 9150 5800 1700 1100
+S 4300 2750 1700 1100
 U 5CA368DE
 F0 "Occupency Detector 2" 50
 F1 "OD2.sch" 50
-F2 "OD2" I L 9150 6150 60 
+F2 "OD2" I L 4300 3100 60 
 $EndSheet
 Text Label 9150 6150 2    50   ~ 0
 OD2
