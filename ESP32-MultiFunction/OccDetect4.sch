@@ -630,6 +630,14 @@ F 4 "710-150060SS55040" H 5000 1550 60  0001 C CNN "Mouser Part Number"
 	1    5000 1550
 	0    -1   -1   0   
 $EndComp
+Text HLabel 5000 1700 2    60   Output ~ 0
+OD1
+Text HLabel 5000 3000 2    60   Output ~ 0
+OD2
+Text HLabel 5000 4200 2    60   Output ~ 0
+OD3
+Text HLabel 5000 5600 2    60   Output ~ 0
+OD4
 Wire Wire Line
 	1350 3850 1350 5900
 Wire Wire Line
@@ -752,7 +760,7 @@ Wire Wire Line
 Wire Wire Line
 	3200 4950 3200 5200
 Wire Wire Line
-	2800 6050 3850 6050
+	2800 6050 4400 6050
 Wire Wire Line
 	3200 6050 3200 5800
 Wire Wire Line
@@ -854,12 +862,10 @@ Wire Wire Line
 	5000 3000 4800 3000
 Wire Wire Line
 	5000 1700 4750 1700
-Text HLabel 5000 1700 2    60   Output ~ 0
-OD1
-Text HLabel 5000 3000 2    60   Output ~ 0
-OD2
-Text HLabel 5000 4200 2    60   Output ~ 0
-OD3
-Text HLabel 5000 5600 2    60   Output ~ 0
-OD4
+Wire Wire Line
+	4350 1400 4350 950 
+Connection ~ 4350 950 
+Wire Wire Line
+	4400 6050 4400 5900
+Connection ~ 3850 6050
 $EndSCHEMATC
