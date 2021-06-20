@@ -1,4 +1,4 @@
-update=Fri 18 Jun 2021 03:17:29 PM EDT
+update=Sun 20 Jun 2021 02:55:34 PM EDT
 version=1
 last_client=kicad
 [pcbnew]
@@ -73,3 +73,13 @@ LibName41=../4814p-2
 LibName42=mechanical
 LibName43=graphic_symbols
 LibName44=references
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60
