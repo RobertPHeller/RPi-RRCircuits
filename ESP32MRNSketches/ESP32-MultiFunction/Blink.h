@@ -7,8 +7,8 @@
 //  Date          : $Date$
 //  Author        : $Author$
 //  Created By    : Robert Heller
-//  Created       : Wed Mar 13 10:36:11 2019
-//  Last Modified : <210621.0949>
+//  Created       : Tue Feb 26 21:02:01 2019
+//  Last Modified : <190226.2214>
 //
 //  Description	
 //
@@ -40,10 +40,53 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef __NODEID_H
-#define __NODEID_H
-static constexpr uint64_t NODE_ID = UINT64_C(0x050101012260); // 05 01 01 01 22 60
+#ifndef __BLINK_HXX
+#define __BLINK_HXX
 
+#include <vector>
+//#include "os/os.h"
+//#include "nmranet_config.h"
 
-#endif // __NODEID_H
+#include "openlcb/SimpleStack.hxx"
+#include "executor/Timer.hxx"
+
+class Blinking
+{
+public:
+    virtual void blink(bool AFast, bool AMedium, bool ASlow) = 0;
+};
+
+class BlinkTimer : public Timer {
+public:
+    BlinkTimer(ActiveTimers *timers) 
+                : Timer(timers)
+                , count_(0)
+    {
+    }
+    long long timeout() override
+    {
+        bool af = (count_ & 0x01) == 0;
+        bool am = (count_ & 0x03) == 0;
+        bool as = (count_ & 0x07) == 0;
+        count_++;
+        count_ &= 0x07;
+        for (blinkers_type::iterator m = blinkers_.begin();
+             m != blinkers_.end();
+             m++) {
+            (*m)->blink(af,am,as);
+        }
+        return RESTART;
+    }
+    void AddMe(Blinking * blinker) {
+        blinkers_.push_back(blinker);
+    }
+private:
+    int count_;
+    typedef vector<Blinking *> blinkers_type;
+    blinkers_type blinkers_;
+};
+
+extern BlinkTimer blinker;
+
+#endif // __BLINK_HXX
 

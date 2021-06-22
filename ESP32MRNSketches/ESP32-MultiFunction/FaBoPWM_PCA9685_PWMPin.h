@@ -7,8 +7,8 @@
 //  Date          : $Date$
 //  Author        : $Author$
 //  Created By    : Robert Heller
-//  Created       : Wed Mar 13 10:36:11 2019
-//  Last Modified : <210621.0949>
+//  Created       : Fri Jan 31 09:31:13 2020
+//  Last Modified : <200131.1418>
 //
 //  Description	
 //
@@ -18,7 +18,7 @@
 //	
 /////////////////////////////////////////////////////////////////////////////
 //
-//    Copyright (C) 2019  Robert Heller D/B/A Deepwoods Software
+//    Copyright (C) 2020  Robert Heller D/B/A Deepwoods Software
 //			51 Locke Hill Road
 //			Wendell, MA 01379-9728
 //
@@ -40,10 +40,60 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef __NODEID_H
-#define __NODEID_H
-static constexpr uint64_t NODE_ID = UINT64_C(0x050101012260); // 05 01 01 01 22 60
+#ifndef __FABOPWM_PCA9685_PWMPIN_H
+#define __FABOPWM_PCA9685_PWMPIN_H
 
+#include <Arduino.h>
+#include "PWM.h"
 
-#endif // __NODEID_H
+template <class EXTENDER> class FaBoPWM_PCA9685_PWMChannel : public PWM
+{
+public:
+    FaBoPWM_PCA9685_PWMChannel(
+                          EXTENDER *const extender,
+                          const unsigned channel)
+                : PWM()
+          , extender_(extender)
+          , channel_(channel)
+    {
+        HASSERT(channel < 16);
+    }
+    void hw_init()
+    {
+        set_period(4096);
+        set_duty(0);
+    }
+    void set_period(uint32_t counts)
+    {
+        HASSERT(counts == 4096);
+    }
+    uint32_t get_period()
+    {
+        return 4096;
+    }
+    void set_duty(uint32_t counts)
+    {
+        extender_->set_channel_value(channel_,counts);
+    }
+    uint32_t get_duty()
+    {
+        return extender_->get_channel_value(channel_);
+    }
+    uint32_t get_period_max()
+    {
+        return 4096;
+    }
+    uint32_t get_period_min()
+    {
+        return 4096;
+    }
+private:
+    EXTENDER *const extender_;
+    const unsigned channel_;
+};
+
+        
+            
+
+#endif // __FABOPWM_PCA9685_PWMPIN_H
 

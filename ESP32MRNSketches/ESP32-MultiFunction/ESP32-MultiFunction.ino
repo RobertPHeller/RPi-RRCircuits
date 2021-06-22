@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Mar 13 10:22:45 2019
-//  Last Modified : <210621.0941>
+//  Last Modified : <210622.1109>
 //
 //  Description	
 //
@@ -118,23 +118,49 @@ PWM* const Lamp::pinlookup_[17] = {
 #define MotorPin GpioOutputSafeLow
 #define SensePin GpioInputNP
 
-GPIO_PIN(Motor1, MotorPin, 0);
-GPIO_PIN(Motor2, MotorPin, 12);
+GPIO_PIN(Motor1, MotorPin, 25);
+GPIO_PIN(Motor2, MotorPin, 26);
+GPIO_PIN(Motor3, MotorPin, 32);
+GPIO_PIN(Motor4, MotorPin, 33);
 
-GPIO_PIN(Points1, SensePin, 34);
-GPIO_PIN(Points2, SensePin, 35);
+GPIO_PIN(Points1, SensePin, 12);
+GPIO_PIN(Points2, SensePin, 13);
+GPIO_PIN(Points3, SensePin, 14);
+GPIO_PIN(Points4, SensePin, 27);
 
 #include "OccupancyDetector.h"
 
 #define ODPin  GpioInputNP
 
-GPIO_PIN(OD1, ODPin, 26);
-GPIO_PIN(OD2, ODPin, 27);
+GPIO_PIN(OD1, ODPin, 34);
+GPIO_PIN(OD2, ODPin, 34);
+GPIO_PIN(OD3, ODPin, 36);
+GPIO_PIN(OD4, ODPin, 39);
 
+#include "Button.h"
+
+#define ButtonPin GpioInputNP
+
+GPIO_PIN(Button1, ButtonPin, 0);
+GPIO_PIN(Button2, ButtonPin, 2);
+GPIO_PIN(Button3, ButtonPin, 15);
+GPIO_PIN(Button4, ButtonPin, 16);
+
+#include "LED.h"
+
+#define LEDPin GpioOutputSafeLow
+
+GPIO_PIN(LED1, LEDPin, 17);
+GPIO_PIN(LED2, LEDPin, 18);
+GPIO_PIN(LED3, LEDPin, 19);
+GPIO_PIN(LED4, LEDPin, 23);
 
 // Create an initializer that can initialize all the GPIO pins in one shot
-typedef GpioInitializer<Motor1_Pin, Motor2_Pin, Points1_Pin, 
-                        Points2_Pin, OD1_Pin, OD2_Pin> GpioInit;
+typedef GpioInitializer<Motor1_Pin, Motor2_Pin, Motor3_Pin, 
+Motor4_Pin, Points1_Pin, Points2_Pin, Points3_Pin, Points4_Pin,
+OD1_Pin, OD2_Pin, OD3_Pin, OD4_Pin, Button1_Pin, Button2_Pin,
+Button3_Pin, Button4_Pin, LED1_Pin, LED2_Pin, LED3_Pin, LED4_Pin> 
+GpioInit;
 
 constexpr gpio_num_t CAN_RX_PIN = GPIO_NUM_4;
 constexpr gpio_num_t CAN_TX_PIN = GPIO_NUM_5;
@@ -210,12 +236,28 @@ Logic l1(openmrn.stack()->node(),cfg.seg().logics().entry<0>(),openmrn.stack()->
 
 Turnout turnout1(openmrn.stack()->node(), cfg.seg().turnouts().entry<0>(),Motor1_Pin());
 Turnout turnout2(openmrn.stack()->node(), cfg.seg().turnouts().entry<1>(),Motor2_Pin());
+Turnout turnout3(openmrn.stack()->node(), cfg.seg().turnouts().entry<2>(),Motor3_Pin());
+Turnout turnout4(openmrn.stack()->node(), cfg.seg().turnouts().entry<3>(),Motor4_Pin());
 
 Points  points1(openmrn.stack()->node(), cfg.seg().points().entry<0>(),Points1_Pin());
 Points  points2(openmrn.stack()->node(), cfg.seg().points().entry<1>(),Points2_Pin());
+Points  points3(openmrn.stack()->node(), cfg.seg().points().entry<2>(),Points3_Pin());
+Points  points4(openmrn.stack()->node(), cfg.seg().points().entry<3>(),Points4_Pin());
 
 OccupancyDetector oc1(openmrn.stack()->node(), cfg.seg().ocs().entry<0>(),OD1_Pin());
 OccupancyDetector oc2(openmrn.stack()->node(), cfg.seg().ocs().entry<1>(),OD2_Pin());
+OccupancyDetector oc3(openmrn.stack()->node(), cfg.seg().ocs().entry<2>(),OD3_Pin());
+OccupancyDetector oc4(openmrn.stack()->node(), cfg.seg().ocs().entry<3>(),OD4_Pin());
+
+Button button1(openmrn.stack()->node(), cfg.seg().buttons().entry<0>(),Button1_Pin());
+Button button2(openmrn.stack()->node(), cfg.seg().buttons().entry<1>(),Button2_Pin());
+Button button3(openmrn.stack()->node(), cfg.seg().buttons().entry<2>(),Button3_Pin());
+Button button4(openmrn.stack()->node(), cfg.seg().buttons().entry<3>(),Button4_Pin());
+
+LED led1(openmrn.stack()->node(), cfg.seg().leds().entry<0>(),LED1_Pin());
+LED led2(openmrn.stack()->node(), cfg.seg().leds().entry<1>(),LED2_Pin());
+LED led3(openmrn.stack()->node(), cfg.seg().leds().entry<2>(),LED3_Pin());
+LED led4(openmrn.stack()->node(), cfg.seg().leds().entry<3>(),LED4_Pin());
 
 // The producers need to be polled repeatedly for changes and to execute the
 // debouncing algorithm. This class instantiates a refreshloop and adds the two
@@ -223,8 +265,16 @@ OccupancyDetector oc2(openmrn.stack()->node(), cfg.seg().ocs().entry<1>(),OD2_Pi
 openlcb::RefreshLoop points_refresh_loop(openmrn.stack()->node(),{
     points1.polling()
           , points2.polling()
+          , points3.polling()
+          , points4.polling()
           , oc1.polling()
           , oc2.polling()
+          , oc3.polling()
+          , oc4.polling()
+          , button1.polling()
+          , button2.polling()
+          , button3.polling()
+          , button4.polling()
 });
 
 class FactoryResetHelper : public DefaultConfigUpdateListener {
