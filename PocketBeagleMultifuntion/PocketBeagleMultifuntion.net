@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/heller/RRCircuits/PocketBeagleMultifuntion/PocketBeagleMultifuntion.sch)
-    (date "Tue 22 Jun 2021 04:41:24 PM EDT")
+    (date "Wed 23 Jun 2021 01:48:04 PM EDT")
     (tool "Eeschema 4.0.7+dfsg1-1ubuntu2")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -440,7 +440,7 @@
       (sheetpath (names "/PWM Driver/") (tstamps /60CD053F/))
       (tstamp 608BA083))
     (comp (ref Term5)
-      (value "4B 4A 3B 3A 2B 2A 1B 1A")
+      (value "1A 1B 2A 2B 3A 3B 4A 4B")
       (footprint Connectors_Terminal_Blocks:TerminalBlock_Pheonix_MPT-2.54mm_8pol)
       (fields
         (field (name "Mouser Part Number") " 651-1725711"))
@@ -1613,10 +1613,14 @@
         (pin (num 4) (name GND) (type power_in))
         (pin (num 5) (name Shield) (type passive)))))
   (libraries
-    (library (logical device)
-      (uri /usr/share/kicad/library/device.lib))
     (library (logical conn)
       (uri /usr/share/kicad/library/conn.lib))
+    (library (logical linear)
+      (uri /usr/share/kicad/library/linear.lib))
+    (library (logical device)
+      (uri /usr/share/kicad/library/device.lib))
+    (library (logical 74xx)
+      (uri /usr/share/kicad/library/74xx.lib))
     (library (logical pocketbeagle)
       (uri /home/heller/RRCircuits/PocketBeagleMultifuntion/pocketbeagle.lib))
     (library (logical sn65hvd233-ht)
@@ -1632,11 +1636,7 @@
     (library (logical 4814p-2)
       (uri /home/heller/RRCircuits/PocketBeagleMultifuntion/../4814p-2.lib))
     (library (logical mechanical)
-      (uri /usr/share/kicad/library/mechanical.lib))
-    (library (logical linear)
-      (uri /usr/share/kicad/library/linear.lib))
-    (library (logical 74xx)
-      (uri /usr/share/kicad/library/74xx.lib)))
+      (uri /usr/share/kicad/library/mechanical.lib)))
   (nets
     (net (code 1) (name /GPIO86)
       (node (ref U12) (pin 2))
