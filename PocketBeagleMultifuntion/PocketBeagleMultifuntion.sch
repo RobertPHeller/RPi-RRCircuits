@@ -401,7 +401,7 @@ GPIO115
 Text Notes 6800 1500 0    60   ~ 0
 OD:       7,  19,  20,  23,\nMotor:   26,  27,  45,  46,\nPoints:  47,  48,  50,  52,\nButtons: 57,  58,  59   60,\nLEDs:    64,  65,  86   87,\nSignals: I2C1\nGPIO Header: 110, 111, 112, 113,\n              114, 115, 116, 117
 Text Label 9050 4050 0    60   ~ 0
-GOIO7
+GPIO7
 Text Label 9050 4200 0    60   ~ 0
 GPIO19
 Text Label 9050 4350 0    60   ~ 0
