@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 11:37:34 2019
-//  Last Modified : <190309.2209>
+//  Last Modified : <210626.1004>
 //
 //  Description	
 //
@@ -48,6 +48,7 @@
 #include "utils/ConfigUpdateListener.hxx"
 #include "utils/ConfigUpdateService.hxx"
 #include "openlcb/RefreshLoop.hxx"
+#include "os/LinuxPWM.hxx"
 #include <freertos_drivers/common/PWM.hxx>
 #include <stdio.h>
 
@@ -106,7 +107,6 @@ CDI_GROUP_ENTRY(period, openlcb::Uint32ConfigEntry,
                 Name("PWM Period, in nanoseconds"),
                 Default(1000000));
 CDI_GROUP_END();
-
 
 using LampGroup = openlcb::RepeatedGroup<LampConfig, LAMPCOUNT>;
 

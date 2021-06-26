@@ -3,8 +3,22 @@
 
 #include "openlcb/ConfiguredConsumer.hxx"
 #include "openlcb/ConfiguredProducer.hxx"
+#include "openlcb/MultiConfiguredPC.hxx"
 #include "openlcb/ConfigRepresentation.hxx"
 #include "openlcb/MemoryConfig.hxx"
+
+#include "Hardware.hxx"
+#include "Mast.hxx"
+#include "Blink.hxx"
+#include "TrackCircuit.hxx"
+#include "Logic.hxx"
+#include "Turnout.hxx"
+#include "Points.hxx"
+#include "OccupancyDetector.hxx"
+#include "Button.hxx"
+#include "LED.hxx"
+#include "Revision.hxxout"
+
 
 namespace openlcb
 {
@@ -32,12 +46,42 @@ extern const SimpleNodeStaticValues SNIP_STATIC_DATA = {
 /// the config eeprom file's layout changes.
 static constexpr uint16_t CANONICAL_VERSION = 0x9000;
 
+constexpr uint8_t NUM_TURNOUTS = 4;
+constexpr uint8_t NUM_POINTSS = 4;
+constexpr uint8_t NUM_OCS = 4;
+constexpr uint8_t NUM_BUTTONS = 4;
+constexpr uint8_t NUM_LEDS = 4;
+constexpr uint8_t NUM_GPIO = 8;
+
+using LogicGroup = openlcb::RepeatedGroup<LogicConfig, LOGICCOUNT>;
+using MastGroup = openlcb::RepeatedGroup<MastConfig, MASTCOUNT>;
+using TrackCircuitGroup = openlcb::RepeatedGroup<TrackCircuitConfig, TRACKCIRCUITCOUNT>;
+
+using TurnoutGroup = RepeatedGroup<TurnoutConfig, NUM_TURNOUTS>;
+using PointsGroup = RepeatedGroup<PointsConfig, NUM_POINTSS>;
+using OCGroup = RepeatedGroup<OccupancyDetectorConfig, NUM_OCS>;
+using ButtonGroup = RepeatedGroup<ButtonConfig, NUM_BUTTONS>;
+using LEDGroup = RepeatedGroup<LEDConfig, NUM_LEDS>;
+
+using GPIOHeaderGroup = RepeatedGroup<PCConfig, NUM_GPIO>;
+
+
 /// Defines the main segment in the configuration CDI. This is laid out at
 /// origin 128 to give space for the ACDI user data at the beginning.
 CDI_GROUP(IoBoardSegment, Name(HARDWARE_IMPL), Segment(MemoryConfigDefs::SPACE_CONFIG), Offset(128));
 /// Each entry declares the name of the current entry, then the type and then
 /// optional arguments list.
 CDI_GROUP_ENTRY(internal_config, InternalConfigData);
+CDI_GROUP_ENTRY(ocs, OCGroup, Name("OccupancyDetectors"), RepName("OC"));
+CDI_GROUP_ENTRY(turnouts, TurnoutGroup, Name("Turnouts"), RepName("Turnout"));
+CDI_GROUP_ENTRY(points, PointsGroup, Name("Points"), RepName("Points"));
+CDI_GROUP_ENTRY(buttons, ButtonGroup, Name("Buttons"), RepName("Button"));
+CDI_GROUP_ENTRY(leds,LEDGroup, Name("LEDS"), RepName("LED"));
+CDI_GROUP_ENTRY(gpios,GPIOHeaderGroup, Name("GPIOLines"), RepName("GPIOLine"));
+CDI_GROUP_ENTRY(logics, LogicGroup, Name("LOGIC"), RepName("Logic"));
+CDI_GROUP_ENTRY(masts, MastGroup, Name("Rule to aspect"),RepName("Mast"));
+CDI_GROUP_ENTRY(circuits, TrackCircuitGroup, Name("TRACK CIRCUITS"), RepName("Circuit"));
+
 CDI_GROUP_END();
 
 /// This segment is only needed temporarily until there is program code to set
