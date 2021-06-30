@@ -1,0 +1,1 @@
+../PocketBeaglePWMHalfSidingOpenMRN/Lamp.hxx
