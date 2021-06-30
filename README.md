@@ -1,9 +1,30 @@
 # RPi-RRCircuits
 
-These are a collection of model railroad circuits I designed for the Raspberry 
-Pi.  All but two use the "HAT" footprint and are meant to be stacked onto a 
-RPi.  The other two are "generic" and expect to be connected to 3.3V GPIO 
-pins.
+This is a collection of Model Railroad open hardware and open source projects,
+using LCC, OpenMRN, and OpenMRN-lite, for the following MCUs and SBCs:
+
+
+Raspberry Pi, generally as HATs for the "B" flavors (RPi2B, RPi3B and RPi4B).
+  (Directories with "HAT" at the end are for these boards.)
+
+Beagle boards, including capes for BeagleBone Black and baseboards for
+  PocketBeagles.
+  (Directories with "CAPE" at the end are for BeagleBone Blacks,
+   directories starting with "BBB" are also boards for the BeagleBone Black,
+   directories starting with "PB" or "PocketBeagle" are for the PocketBeagles -
+   these boards assume male header pins soldered to the bottom of the 
+   PocketBeagle that insert into female header sockets on the base board.)
+
+ESP32 (mostly meant for the Lilygo TTGO-T1 board)
+  (Directories starting with "ESP32" are for this board.)
+
+There are a few projects for other boards, including MetroMini (an Adafruit 
+mini board that is a Arduino UNO clone), Tiva, and STM's Nucleo board.  The 
+directory names will include the name of the board.
+
+Directories ending in OpenMRN contain the Raspberry Pi and Beagle board
+software for the various boards.  
+
 
 These projects were created using Kicad 2013.06.11
 (https://launchpad.net/kicad) under CentOS 6 and Kicad 4.0.7 under Ubuntu
@@ -89,7 +110,7 @@ There is a README in each project dir.
     > PRUs to generate the DCC signals.  It ises the OpenMRN Console
     > class to communicate over a Tcp/Ip channel with a Tcl/Tk coded
     > GUI program to provide a user friendly point-and-click high level
-    > user interface.
+    > user interface.  
 
 1. [BBBHalfSiding](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/BBBHalfSiding)
 
@@ -164,6 +185,14 @@ There is a README in each project dir.
 
     > First draft of a ESP32 HalfSiding node using a MCP23017 on/off signal lamps.
 
+1. [ESP32-MultiFunction](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32-MultiFunction)
+
+    > This is a circuit board that supports an ESP32 Dev Kit board or TTGO-T1 board
+    > to manage a range of possible interlocking plants or other model railroad
+    > situations. It contains four stall motor drivers with point sense, four CT
+    > Coil type occupancy detectors, four Schmitt-Trigger inputs (for push buttons),
+    > four driver outputs, and 16 PWM LED drivers.
+
 1. [ESP32-PWMHalfSiding](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32-PWMHalfSiding)
 
     > This is a circuit board that supports an ESP32 Dev Kit board or TTGO-T1 board 
@@ -174,7 +203,11 @@ There is a README in each project dir.
 
 1. [ESP32-PWMHalfSidingSMD](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32-PWMHalfSidingSMD)
 
-    > SMD version of the ESP32 PWMHalfSiding node.
+    > This is a circuit board that supports an ESP32 Dev Kit board or TTGO-T1 board 
+    > to manage one half (one end) of a siding.  This board can also be used to 
+    > manage two bi-directional single track ABS blocks or one bi-directional dual 
+    > track ABS block.  There are other trackwork cases this board can handle as 
+    > well.  
 
 1. [ESP32ABSBoard](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32ABSBoard)
 
@@ -223,6 +256,14 @@ There is a README in each project dir.
 1. [PocketBeagleCommandStation_SMD](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/PocketBeagleCommandStation_SMD)
 
     > SMD version of the PocketBeagle LCC/DCC Command Station.
+
+1. [PocketBeagleMultifuntion](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/PocketBeagleMultifuntion)
+
+    > This is a circuit board that supports a PocketBeagle board to manage a range
+    > of possible interlocking plants or other model railroad situations. It
+    > contains four stall motor drivers with point sense, four CT Coil type
+    > occupancy detectors, four Schmitt-Trigger inputs (for push buttons), four
+    > driver outputs, 8 GPIO pins in a 5x2 header, and 16 PWM LED drivers. 
 
 1. [PocketBeagleQuadOCDect](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/PocketBeagleQuadOCDect)
 
