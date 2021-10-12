@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Tue Feb 26 21:02:01 2019
-//  Last Modified : <190226.2214>
+//  Last Modified : <211011.2104>
 //
 //  Description	
 //
@@ -49,6 +49,7 @@
 
 #include "openlcb/SimpleStack.hxx"
 #include "executor/Timer.hxx"
+#include "utils/Singleton.hxx"
 
 class Blinking
 {
@@ -56,15 +57,17 @@ public:
     virtual void blink(bool AFast, bool AMedium, bool ASlow) = 0;
 };
 
-class BlinkTimer : public Timer {
+class BlinkTimer : public Timer, public Singleton<BlinkTimer> {
 public:
     BlinkTimer(ActiveTimers *timers) 
                 : Timer(timers)
                 , count_(0)
     {
+        LOG(VERBOSE, "*** BlinkTimer::BlinkTimer()");
     }
     long long timeout() override
     {
+        LOG(VERBOSE, "*** BlinkTimer::timeout(): count_  = %d",count_);
         bool af = (count_ & 0x01) == 0;
         bool am = (count_ & 0x03) == 0;
         bool as = (count_ & 0x07) == 0;
@@ -78,6 +81,7 @@ public:
         return RESTART;
     }
     void AddMe(Blinking * blinker) {
+        LOG(VERBOSE, "*** BlinkTimer::AddMe(%p)",blinker);
         blinkers_.push_back(blinker);
     }
 private:
