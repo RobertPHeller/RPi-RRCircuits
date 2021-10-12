@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 20:06:13 2019
-//  Last Modified : <190314.2023>
+//  Last Modified : <211011.1917>
 //
 //  Description	
 //
@@ -126,8 +126,9 @@ void Rule::handle_event_report(const EventRegistryEntry &entry,
                                BarrierNotifiable *done)
 {
     if (event->event == eventsets_) {
+        LOG(VERBOSE, "*** Rule::handle_event_report(): event->event is %llu",event->event);
         if (parent_ != nullptr) {
-            parent_->ClearCurrentRule(done);
+            //parent_->ClearCurrentRule(done);
 #ifdef EFFECTS
             /* Effects before set go here: effects_, effectsLamp_ */
 #endif
@@ -137,8 +138,8 @@ void Rule::handle_event_report(const EventRegistryEntry &entry,
             write_helpers[1].WriteAsync(node_,openlcb::Defs::MTI_EVENT_REPORT,
                                     openlcb::WriteHelper::global(),
                                     openlcb::eventid_to_buffer(eventset_),
-                                    done);
-            parent_->SetCurrentRuleAndSpeed(this,speed_,done);
+                                    done->new_child());
+            //parent_->SetCurrentRuleAndSpeed(this,speed_,done);
             isSet_ = true;
         }
     }
@@ -156,7 +157,7 @@ void Rule::ClearRule(BarrierNotifiable *done)
     write_helpers[2].WriteAsync(node_,openlcb::Defs::MTI_EVENT_REPORT,
                             openlcb::WriteHelper::global(),
                             openlcb::eventid_to_buffer(eventclear_),
-                               done);
+                               done->new_child());
     isSet_ = false;
 }
 

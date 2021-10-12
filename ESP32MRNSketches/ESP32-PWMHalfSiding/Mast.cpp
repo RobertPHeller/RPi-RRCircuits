@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 20:26:38 2019
-//  Last Modified : <190314.2021>
+//  Last Modified : <211011.1839>
 //
 //  Description	
 //
@@ -183,7 +183,7 @@ void Mast::SetCurrentRuleAndSpeed(Rule *r, TrackCircuit::TrackSpeed s,
         write_helper[(int)s].WriteAsync(node_,openlcb::Defs::MTI_EVENT_REPORT,
                                 openlcb::WriteHelper::global(),
                                 openlcb::eventid_to_buffer(linkevent_+(int)s),
-                                done);
+                                done->new_child());
     }
     done->maybe_done();
 }

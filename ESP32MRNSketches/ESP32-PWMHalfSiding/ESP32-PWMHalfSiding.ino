@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Mar 13 10:22:45 2019
-//  Last Modified : <210621.0941>
+//  Last Modified : <211011.2118>
 //
 //  Description	
 //
@@ -60,12 +60,14 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "FaBoPWM_PCA9685_PWMPin.h"
 #include "config.h"
 #include "NODEID.h" // Get nodeid from an externally generated header file
-#include <utils/GpioInitializer.hxx>                                   
+#include <utils/GpioInitializer.hxx>
+#include <utils/Singleton.hxx>
 #include "Lamp.h"
-#include "Mast.h"                                                    
-#include "Blink.h"                                                   
-#include "TrackCircuit.h"                                            
-#include "Logic.h"                                                   
+#include "Mast.h"
+#include "Blink.h"
+#include "TrackCircuit.h"
+#include "Logic.h"
+
 
 using FaBo_PWMPin = FaBoPWM_PCA9685_PWMChannel<FaBoPWM>;
 
@@ -154,6 +156,8 @@ static constexpr openlcb::ConfigDef cfg(0);
 
 
 BlinkTimer blinker(openmrn.stack()->executor()->active_timers());
+
+DEFINE_SINGLETON_INSTANCE(BlinkTimer);
 
 Mast m1(openmrn.stack()->node(),cfg.seg().masts().entry<0>(),nullptr);
 Mast m2(openmrn.stack()->node(),cfg.seg().masts().entry<1>(),&m1);

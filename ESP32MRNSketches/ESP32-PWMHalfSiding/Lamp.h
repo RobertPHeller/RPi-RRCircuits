@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 11:37:34 2019
-//  Last Modified : <200131.0938>
+//  Last Modified : <211011.2116>
 //
 //  Description	
 //
@@ -127,7 +127,7 @@ public:
         brightness_ = 5000;
         // 1Khz
         period_ = 1000000;
-        blinker.AddMe(this);
+        BlinkTimer::instance()->AddMe(this);
         ConfigUpdateService::instance()->register_update_listener(this);
     }
     void factory_reset(int fd) OVERRIDE
@@ -156,17 +156,23 @@ public:
     void Off() {isOn_ = false;}
     virtual void blink(bool AFast, bool AMedium, bool ASlow)
     {
-        //fprintf(stderr,"*** Lamp::blink(%d,%d,%d)\n",AFast,AMedium,ASlow);
-        //return;
         if (lampid_ == Unused) return;
+        LOG(VERBOSE, "*** Lamp::blink(): lampid_ = %d, AFast = %d, AMedium = %d, ASlow = %d",
+            lampid_,AFast,AMedium,ASlow);
         PWM * p = Pin();
+        LOG(VERBOSE, "*** Lamp::blink(): p = %p",p);
         if (p == nullptr) return;
+        LOG(VERBOSE, "*** Lamp::blink(): isOn_ = %d",isOn_);
         if (!isOn_) {
             p->set_duty(0); 
+#ifndef __FABOPWM_PCA9685_PWMPIN_H 
             p->set_period(0);
+#endif
             return;
         } else {
+#ifndef __FABOPWM_PCA9685_PWMPIN_H
             p->set_period(period_);
+#endif
         }
         switch (phase_) {
         case Steady: p->set_duty((uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period())); break;
