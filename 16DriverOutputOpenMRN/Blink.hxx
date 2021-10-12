@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Tue Feb 26 21:02:01 2019
-//  Last Modified : <211011.2221>
+//  Last Modified : <211012.0822>
 //
 //  Description	
 //
@@ -50,6 +50,7 @@
 #include "openlcb/SimpleStack.hxx"
 #include "executor/Timer.hxx"
 #include "utils/Singleton.hxx"
+#include "utils/logging.h"
 
 class Blinking
 {
@@ -63,14 +64,14 @@ public:
                 : Timer(timers)
                 , count_(0)
     {
-        LOG(VERBOSE, "*** BlinkTimer::BlinkTimer()");
+        //LOG(ALWAYS, "*** BlinkTimer::BlinkTimer()");
     }
     long long timeout() override
     {
-        LOG(VERBOSE, "*** BlinkTimer::timeout(): count_  = %d",count_);
         bool af = (count_ & 0x01) == 0;
         bool am = (count_ & 0x03) == 0;
         bool as = (count_ & 0x07) == 0;
+        if (as) LOG(ALWAYS, "*** BlinkTimer::timeout(): count_  = %d",count_);
         count_++;
         count_ &= 0x07;
         for (blinkers_type::iterator m = blinkers_.begin();
@@ -81,7 +82,7 @@ public:
         return RESTART;
     }
     void AddMe(Blinking * blinker) {
-        LOG(VERBOSE, "*** BlinkTimer::AddMe(%p)",blinker);
+        //LOG(ALWAYS, "*** BlinkTimer::AddMe(%p)",blinker);
         blinkers_.push_back(blinker);
     }
 private:
@@ -90,7 +91,7 @@ private:
     blinkers_type blinkers_;
 };
 
-#define blinker (*BlinkTimer::instance())
+#define blinker (*(BlinkTimer::instance()))
 
 #endif // __BLINK_HXX
 

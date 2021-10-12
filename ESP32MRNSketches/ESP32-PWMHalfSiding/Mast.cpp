@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 20:26:38 2019
-//  Last Modified : <211011.1839>
+//  Last Modified : <211012.1030>
 //
 //  Description	
 //
@@ -185,7 +185,7 @@ void Mast::SetCurrentRuleAndSpeed(Rule *r, TrackCircuit::TrackSpeed s,
                                 openlcb::eventid_to_buffer(linkevent_+(int)s),
                                 done->new_child());
     }
-    done->maybe_done();
+    //done->maybe_done();
 }
 
 

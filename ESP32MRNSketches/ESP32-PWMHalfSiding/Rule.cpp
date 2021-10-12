@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 20:06:13 2019
-//  Last Modified : <211011.1917>
+//  Last Modified : <211012.1020>
 //
 //  Description	
 //
@@ -128,7 +128,7 @@ void Rule::handle_event_report(const EventRegistryEntry &entry,
     if (event->event == eventsets_) {
         LOG(VERBOSE, "*** Rule::handle_event_report(): event->event is %llu",event->event);
         if (parent_ != nullptr) {
-            //parent_->ClearCurrentRule(done);
+            parent_->ClearCurrentRule(done);
 #ifdef EFFECTS
             /* Effects before set go here: effects_, effectsLamp_ */
 #endif
@@ -139,7 +139,7 @@ void Rule::handle_event_report(const EventRegistryEntry &entry,
                                     openlcb::WriteHelper::global(),
                                     openlcb::eventid_to_buffer(eventset_),
                                     done->new_child());
-            //parent_->SetCurrentRuleAndSpeed(this,speed_,done);
+            parent_->SetCurrentRuleAndSpeed(this,speed_,done);
             isSet_ = true;
         }
     }
