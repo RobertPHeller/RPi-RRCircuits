@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 11:37:34 2019
-//  Last Modified : <211011.2116>
+//  Last Modified : <211011.2222>
 //
 //  Description	
 //
@@ -127,7 +127,7 @@ public:
         brightness_ = 5000;
         // 1Khz
         period_ = 1000000;
-        BlinkTimer::instance()->AddMe(this);
+        blinker.AddMe(this);
         ConfigUpdateService::instance()->register_update_listener(this);
     }
     void factory_reset(int fd) OVERRIDE

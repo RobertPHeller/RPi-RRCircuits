@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Tue Feb 26 21:02:01 2019
-//  Last Modified : <211011.2104>
+//  Last Modified : <211011.2221>
 //
 //  Description	
 //
@@ -90,7 +90,7 @@ private:
     blinkers_type blinkers_;
 };
 
-extern BlinkTimer blinker;
+#define blinker (*BlinkTimer::instance())
 
 #endif // __BLINK_HXX
 
