@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Mar 13 10:34:17 2019
-//  Last Modified : <201123.0741>
+//  Last Modified : <211012.0858>
 //
 //  Description	
 //
@@ -105,7 +105,7 @@ static constexpr uint16_t CANONICAL_VERSION = 0x100;
 
 /// Defines the main segment in the configuration CDI. This is laid out at
 /// origin 128 to give space for the ACDI user data at the beginning.
-CDI_GROUP(IoBoardSegment, Segment(MemoryConfigDefs::SPACE_CONFIG), Offset(128));
+CDI_GROUP(IoBoardSegment, Name("I/O Segment"), Segment(MemoryConfigDefs::SPACE_CONFIG), Offset(128));
 /// Each entry declares the name of the current entry, then the type and then
 /// optional arguments list.
 CDI_GROUP_ENTRY(internal_config, InternalConfigData);

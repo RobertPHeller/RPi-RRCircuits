@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 11:37:34 2019
-//  Last Modified : <211011.2222>
+//  Last Modified : <211012.0820>
 //
 //  Description	
 //
@@ -157,12 +157,12 @@ public:
     virtual void blink(bool AFast, bool AMedium, bool ASlow)
     {
         if (lampid_ == Unused) return;
-        LOG(VERBOSE, "*** Lamp::blink(): lampid_ = %d, AFast = %d, AMedium = %d, ASlow = %d",
-            lampid_,AFast,AMedium,ASlow);
+        //LOG(ALWAYS, "*** Lamp::blink(): lampid_ = %d, AFast = %d, AMedium = %d, ASlow = %d",
+        //    lampid_,AFast,AMedium,ASlow);
         PWM * p = Pin();
-        LOG(VERBOSE, "*** Lamp::blink(): p = %p",p);
+        //LOG(ALWAYS, "*** Lamp::blink(): p = %p",p);
         if (p == nullptr) return;
-        LOG(VERBOSE, "*** Lamp::blink(): isOn_ = %d",isOn_);
+        //LOG(ALWAYS, "*** Lamp::blink(): isOn_ = %d",isOn_);
         if (!isOn_) {
             p->set_duty(0); 
 #ifndef __FABOPWM_PCA9685_PWMPIN_H 

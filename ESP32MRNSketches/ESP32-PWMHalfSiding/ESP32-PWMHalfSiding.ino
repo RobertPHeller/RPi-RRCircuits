@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Mar 13 10:22:45 2019
-//  Last Modified : <211011.2118>
+//  Last Modified : <211012.0952>
 //
 //  Description	
 //
@@ -155,7 +155,7 @@ string dummystring("abcdef");
 static constexpr openlcb::ConfigDef cfg(0);
 
 
-BlinkTimer blinker(openmrn.stack()->executor()->active_timers());
+BlinkTimer blinker_(openmrn.stack()->executor()->active_timers());
 
 DEFINE_SINGLETON_INSTANCE(BlinkTimer);
 
@@ -346,7 +346,10 @@ void setup() {
     // initialize all declared GPIO pins
     GpioInit::hw_init();
     
-    pwmchip.begin();
+    if (pwmchip.begin()) {
+        Serial.println("Found PCA9685");
+        pwmchip.init(0);
+    }
     A0_Pin.hw_init();
     A1_Pin.hw_init();
     A2_Pin.hw_init();
