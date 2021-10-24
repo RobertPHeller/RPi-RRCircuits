@@ -1,50 +1,6 @@
-EESchema Schematic File Version 2
-LIBS:power
-LIBS:device
-LIBS:switches
-LIBS:relays
-LIBS:motors
-LIBS:transistors
-LIBS:conn
-LIBS:linear
-LIBS:regul
-LIBS:74xx
-LIBS:cmos4000
-LIBS:adc-dac
-LIBS:memory
-LIBS:xilinx
-LIBS:microcontrollers
-LIBS:dsp
-LIBS:microchip
-LIBS:analog_switches
-LIBS:motorola
-LIBS:texas
-LIBS:intel
-LIBS:audio
-LIBS:interface
-LIBS:digital-audio
-LIBS:philips
-LIBS:display
-LIBS:cypress
-LIBS:siliconi
-LIBS:opto
-LIBS:atmel
-LIBS:contrib
-LIBS:esp32_devboards
-LIBS:sn65hvd233-ht
-LIBS:lm2574n-5
-LIBS:MCP23xxx
-LIBS:tbd62x83a
-LIBS:tc442x
-LIBS:mct6h
-LIBS:bridge
-LIBS:pca9685
-LIBS:4814p-2
-LIBS:mechanical
-LIBS:graphic_symbols
-LIBS:references
+EESchema Schematic File Version 4
 LIBS:ESP32-MultiFunction-cache
-EELAYER 25 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -59,7 +15,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L TC4426 U12
+L ESP32-MultiFunction-rescue:TC4426 U12
 U 1 1 60CEAD92
 P 2600 3750
 F 0 "U12" H 2600 3450 60  0000 C CNN
@@ -70,7 +26,7 @@ F 3 "" H 2600 3750 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L TC4426 U12
+L ESP32-MultiFunction-rescue:TC4426 U12
 U 2 1 60CEADC7
 P 2600 4700
 F 0 "U12" H 2600 4400 60  0000 C CNN
@@ -81,7 +37,7 @@ F 3 "" H 2600 4700 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R16
+L ESP32-MultiFunction-rescue:R R16
 U 1 1 60CEAF42
 P 3550 2050
 F 0 "R16" V 3630 2050 50  0000 C CNN
@@ -93,7 +49,7 @@ F 4 "71-CRCW06031K50JNEAC" V 3550 2050 60  0001 C CNN "Mouser Part Number"
 	0    1    1    0   
 $EndComp
 $Comp
-L R R15
+L ESP32-MultiFunction-rescue:R R15
 U 1 1 60CEAFD6
 P 3550 1900
 F 0 "R15" V 3630 1900 50  0000 C CNN
@@ -104,7 +60,7 @@ F 3 "" H 3550 1900 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R18
+L ESP32-MultiFunction-rescue:R R18
 U 1 1 60CEB104
 P 3550 2950
 F 0 "R18" V 3630 2950 50  0000 C CNN
@@ -116,7 +72,7 @@ F 4 "71-CRCW06031K50JNEAC" V 3550 2950 60  0001 C CNN "Mouser Part Number"
 	0    1    1    0   
 $EndComp
 $Comp
-L R R17
+L ESP32-MultiFunction-rescue:R R17
 U 1 1 60CEB10A
 P 3550 2800
 F 0 "R17" V 3630 2800 50  0000 C CNN
@@ -127,7 +83,7 @@ F 3 "" H 3550 2800 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R20
+L ESP32-MultiFunction-rescue:R R20
 U 1 1 60CEB343
 P 3550 3750
 F 0 "R20" V 3630 3750 50  0000 C CNN
@@ -139,7 +95,7 @@ F 4 "71-CRCW06031K50JNEAC" V 3550 3750 60  0001 C CNN "Mouser Part Number"
 	0    1    1    0   
 $EndComp
 $Comp
-L R R19
+L ESP32-MultiFunction-rescue:R R19
 U 1 1 60CEB349
 P 3550 3600
 F 0 "R19" V 3630 3600 50  0000 C CNN
@@ -150,7 +106,7 @@ F 3 "" H 3550 3600 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R22
+L ESP32-MultiFunction-rescue:R R22
 U 1 1 60CEB4BC
 P 3550 4700
 F 0 "R22" V 3630 4700 50  0000 C CNN
@@ -162,7 +118,7 @@ F 4 "71-CRCW06031K50JNEAC" V 3550 4700 60  0001 C CNN "Mouser Part Number"
 	0    1    1    0   
 $EndComp
 $Comp
-L R R21
+L ESP32-MultiFunction-rescue:R R21
 U 1 1 60CEB4C2
 P 3550 4550
 F 0 "R21" V 3630 4550 50  0000 C CNN
@@ -173,7 +129,7 @@ F 3 "" H 3550 4550 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L GND #PWR053
+L ESP32-MultiFunction-rescue:GND #PWR053
 U 1 1 60CEB8BC
 P 2550 2450
 F 0 "#PWR053" H 2550 2200 50  0001 C CNN
@@ -184,7 +140,7 @@ F 3 "" H 2550 2450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR054
+L ESP32-MultiFunction-rescue:GND #PWR054
 U 1 1 60CEB954
 P 2550 5150
 F 0 "#PWR054" H 2550 4900 50  0001 C CNN
@@ -195,7 +151,7 @@ F 3 "" H 2550 5150 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Screw_Terminal_01x06 Term6
+L ESP32-MultiFunction-rescue:Screw_Terminal_01x06 Term6
 U 1 1 60CEBB28
 P 5100 3300
 F 0 "Term6" H 5100 3600 50  0000 C CNN
@@ -207,7 +163,7 @@ F 4 "651-1725698" H 5100 3300 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR055
+L ESP32-MultiFunction-rescue:GND #PWR055
 U 1 1 60CEBBCA
 P 4750 3850
 F 0 "#PWR055" H 4750 3600 50  0001 C CNN
@@ -226,7 +182,7 @@ LED3
 Text HLabel 2350 4700 0    60   Input ~ 0
 LED4
 $Comp
-L 74HC14 U13
+L ESP32-MultiFunction-rescue:74HC14 U13
 U 3 1 60CEC245
 P 7300 1850
 F 0 "U13" H 7450 1950 50  0000 C CNN
@@ -238,7 +194,7 @@ F 4 "595-CD74HC14M " H 7300 1850 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L 74HC14 U13
+L ESP32-MultiFunction-rescue:74HC14 U13
 U 4 1 60CEC284
 P 7300 2700
 F 0 "U13" H 7450 2800 50  0000 C CNN
@@ -249,7 +205,7 @@ F 3 "" H 7300 2700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L 74HC14 U13
+L ESP32-MultiFunction-rescue:74HC14 U13
 U 5 1 60CEC2CD
 P 7300 3600
 F 0 "U13" H 7450 3700 50  0000 C CNN
@@ -260,7 +216,7 @@ F 3 "" H 7300 3600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L 74HC14 U13
+L ESP32-MultiFunction-rescue:74HC14 U13
 U 6 1 60CEC32A
 P 7300 4600
 F 0 "U13" H 7450 4700 50  0000 C CNN
@@ -271,7 +227,7 @@ F 3 "" H 7300 4600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L 74HC14 U13
+L ESP32-MultiFunction-rescue:74HC14 U13
 U 1 1 60CEC395
 P 4450 5550
 F 0 "U13" H 4600 5650 50  0000 C CNN
@@ -282,7 +238,7 @@ F 3 "" H 4450 5550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L 74HC14 U13
+L ESP32-MultiFunction-rescue:74HC14 U13
 U 2 1 60CEC3D4
 P 4450 5950
 F 0 "U13" H 4600 6050 50  0000 C CNN
@@ -293,7 +249,7 @@ F 3 "" H 4450 5950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR056
+L ESP32-MultiFunction-rescue:GND #PWR056
 U 1 1 60CEC8C9
 P 4000 6250
 F 0 "#PWR056" H 4000 6000 50  0001 C CNN
@@ -306,7 +262,7 @@ $EndComp
 NoConn ~ 4900 5550
 NoConn ~ 4900 5950
 $Comp
-L +3V3 #PWR057
+L ESP32-MultiFunction-rescue:+3V3 #PWR057
 U 1 1 60CECA8D
 P 4400 5350
 F 0 "#PWR057" H 4400 5200 50  0001 C CNN
@@ -317,7 +273,7 @@ F 3 "" H 4400 5350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C12
+L ESP32-MultiFunction-rescue:C C12
 U 1 1 60CECB02
 P 5250 5750
 F 0 "C12" H 5275 5850 50  0000 L CNN
@@ -328,7 +284,7 @@ F 3 "" H 5250 5750 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Screw_Terminal_01x05 Term7
+L ESP32-MultiFunction-rescue:Screw_Terminal_01x05 Term7
 U 1 1 60CD6A0E
 P 6250 3350
 F 0 "Term7" H 6250 3650 50  0000 C CNN
@@ -340,7 +296,7 @@ F 4 "651-1725685" H 6250 3350 60  0001 C CNN "Mouser Part Number"
 	-1   0    0    -1  
 $EndComp
 $Comp
-L GND #PWR058
+L ESP32-MultiFunction-rescue:GND #PWR058
 U 1 1 60CEE082
 P 6450 3800
 F 0 "#PWR058" H 6450 3550 50  0001 C CNN
@@ -351,7 +307,7 @@ F 3 "" H 6450 3800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R23
+L ESP32-MultiFunction-rescue:R R23
 U 1 1 60CEF5E6
 P 6700 1500
 F 0 "R23" V 6780 1500 50  0000 C CNN
@@ -363,7 +319,7 @@ F 4 "71-CRCW060310K0JNEBC" V 6700 1500 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L C_Small C13
+L ESP32-MultiFunction-rescue:C_Small C13
 U 1 1 60CEF627
 P 6700 2050
 F 0 "C13" H 6710 2120 50  0000 L CNN
@@ -375,7 +331,7 @@ F 4 "710-885382206002" H 6700 2050 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R24
+L ESP32-MultiFunction-rescue:R R24
 U 1 1 60CEFBD0
 P 6700 2450
 F 0 "R24" V 6780 2450 50  0000 C CNN
@@ -387,7 +343,7 @@ F 4 "71-CRCW060310K0JNEBC" V 6700 2450 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R26
+L ESP32-MultiFunction-rescue:R R26
 U 1 1 60CEFECE
 P 6850 3300
 F 0 "R26" V 6930 3300 50  0000 C CNN
@@ -399,7 +355,7 @@ F 4 "71-CRCW060310K0JNEBC" V 6850 3300 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R25
+L ESP32-MultiFunction-rescue:R R25
 U 1 1 60CF0051
 P 6750 4300
 F 0 "R25" V 6830 4300 50  0000 C CNN
@@ -411,7 +367,7 @@ F 4 "71-CRCW060310K0JNEBC" V 6750 4300 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L C_Small C14
+L ESP32-MultiFunction-rescue:C_Small C14
 U 1 1 60CF0189
 P 6700 2850
 F 0 "C14" H 6710 2920 50  0000 L CNN
@@ -423,7 +379,7 @@ F 4 "710-885382206002" H 6700 2850 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L C_Small C16
+L ESP32-MultiFunction-rescue:C_Small C16
 U 1 1 60CF03C3
 P 6850 3800
 F 0 "C16" H 6860 3870 50  0000 L CNN
@@ -435,7 +391,7 @@ F 4 "710-885382206002" H 6850 3800 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L C_Small C15
+L ESP32-MultiFunction-rescue:C_Small C15
 U 1 1 60CF04F7
 P 6750 4800
 F 0 "C15" H 6760 4870 50  0000 L CNN
@@ -447,7 +403,7 @@ F 4 "710-885382206002" H 6750 4800 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3V3 #PWR059
+L ESP32-MultiFunction-rescue:+3V3 #PWR059
 U 1 1 60CF063B
 P 6700 1200
 F 0 "#PWR059" H 6700 1050 50  0001 C CNN
@@ -458,7 +414,7 @@ F 3 "" H 6700 1200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3V3 #PWR060
+L ESP32-MultiFunction-rescue:+3V3 #PWR060
 U 1 1 60CF0689
 P 6950 2250
 F 0 "#PWR060" H 6950 2100 50  0001 C CNN
@@ -469,7 +425,7 @@ F 3 "" H 6950 2250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3V3 #PWR061
+L ESP32-MultiFunction-rescue:+3V3 #PWR061
 U 1 1 60CF0833
 P 6850 3100
 F 0 "#PWR061" H 6850 2950 50  0001 C CNN
@@ -480,7 +436,7 @@ F 3 "" H 6850 3100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3V3 #PWR062
+L ESP32-MultiFunction-rescue:+3V3 #PWR062
 U 1 1 60CF0A78
 P 6750 4050
 F 0 "#PWR062" H 6750 3900 50  0001 C CNN
@@ -491,7 +447,7 @@ F 3 "" H 6750 4050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR063
+L ESP32-MultiFunction-rescue:GND #PWR063
 U 1 1 60CF0DB8
 P 6550 2250
 F 0 "#PWR063" H 6550 2000 50  0001 C CNN
@@ -502,7 +458,7 @@ F 3 "" H 6550 2250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR064
+L ESP32-MultiFunction-rescue:GND #PWR064
 U 1 1 60CF0EEE
 P 6700 3050
 F 0 "#PWR064" H 6700 2800 50  0001 C CNN
@@ -513,7 +469,7 @@ F 3 "" H 6700 3050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR065
+L ESP32-MultiFunction-rescue:GND #PWR065
 U 1 1 60CF1041
 P 6850 4000
 F 0 "#PWR065" H 6850 3750 50  0001 C CNN
@@ -524,7 +480,7 @@ F 3 "" H 6850 4000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR066
+L ESP32-MultiFunction-rescue:GND #PWR066
 U 1 1 60CF113D
 P 6750 5050
 F 0 "#PWR066" H 6750 4800 50  0001 C CNN
@@ -599,10 +555,10 @@ Wire Wire Line
 Wire Wire Line
 	4350 3500 4900 3500
 Wire Wire Line
-	4000 5550 4000 6250
+	4000 5550 4000 5950
 Connection ~ 4000 5950
 Wire Wire Line
-	4000 6200 5250 6200
+	4000 6200 4400 6200
 Wire Wire Line
 	4400 6200 4400 6050
 Connection ~ 4000 6200
@@ -620,13 +576,13 @@ Wire Wire Line
 Wire Wire Line
 	6450 3150 6450 1850
 Wire Wire Line
-	6450 1850 6850 1850
+	6450 1850 6700 1850
 Wire Wire Line
 	6450 3250 6600 3250
 Wire Wire Line
 	6600 3250 6600 2700
 Wire Wire Line
-	6600 2700 6850 2700
+	6600 2700 6700 2700
 Wire Wire Line
 	6450 3350 6750 3350
 Wire Wire Line
@@ -638,25 +594,25 @@ Wire Wire Line
 Wire Wire Line
 	6650 3450 6650 4600
 Wire Wire Line
-	6650 4600 6850 4600
+	6650 4600 6750 4600
 Wire Wire Line
 	6750 5050 6750 4900
 Wire Wire Line
-	6750 4450 6750 4700
+	6750 4450 6750 4600
 Connection ~ 6750 4600
 Wire Wire Line
 	6750 4050 6750 4150
 Wire Wire Line
 	6850 3900 6850 4000
 Wire Wire Line
-	6850 3450 6850 3700
+	6850 3450 6850 3600
 Connection ~ 6850 3600
 Wire Wire Line
 	6850 3150 6850 3100
 Wire Wire Line
 	6700 3050 6700 2950
 Wire Wire Line
-	6700 2600 6700 2750
+	6700 2600 6700 2700
 Connection ~ 6700 2700
 Wire Wire Line
 	6700 2250 6700 2300
@@ -669,12 +625,12 @@ Wire Wire Line
 Wire Wire Line
 	6550 2200 6550 2250
 Wire Wire Line
-	6700 1650 6700 1950
+	6700 1650 6700 1850
 Connection ~ 6700 1850
 Wire Wire Line
 	6700 1200 6700 1350
 $Comp
-L TC4426 U11
+L ESP32-MultiFunction-rescue:TC4426 U11
 U 1 1 60CEAD0E
 P 2600 2050
 F 0 "U11" H 2600 1750 60  0000 C CNN
@@ -685,7 +641,7 @@ F 3 "" H 2600 2050 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L TC4426 U11
+L ESP32-MultiFunction-rescue:TC4426 U11
 U 2 1 60CEAD49
 P 2600 2950
 F 0 "U11" H 2600 2650 60  0000 C CNN
@@ -695,4 +651,24 @@ F 3 "" H 2600 2950 60  0000 C CNN
 	2    2600 2950
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	4000 5950 4000 6200
+Wire Wire Line
+	4000 6200 4000 6250
+Wire Wire Line
+	4400 6200 5250 6200
+Wire Wire Line
+	6750 4600 6850 4600
+Wire Wire Line
+	6750 4600 6750 4700
+Wire Wire Line
+	6850 3600 6850 3700
+Wire Wire Line
+	6700 2700 6850 2700
+Wire Wire Line
+	6700 2700 6700 2750
+Wire Wire Line
+	6700 1850 6850 1850
+Wire Wire Line
+	6700 1850 6700 1950
 $EndSCHEMATC

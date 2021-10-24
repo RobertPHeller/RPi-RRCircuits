@@ -1,50 +1,6 @@
-EESchema Schematic File Version 2
-LIBS:power
-LIBS:device
-LIBS:switches
-LIBS:relays
-LIBS:motors
-LIBS:transistors
-LIBS:conn
-LIBS:linear
-LIBS:regul
-LIBS:74xx
-LIBS:cmos4000
-LIBS:adc-dac
-LIBS:memory
-LIBS:xilinx
-LIBS:microcontrollers
-LIBS:dsp
-LIBS:microchip
-LIBS:analog_switches
-LIBS:motorola
-LIBS:texas
-LIBS:intel
-LIBS:audio
-LIBS:interface
-LIBS:digital-audio
-LIBS:philips
-LIBS:display
-LIBS:cypress
-LIBS:siliconi
-LIBS:opto
-LIBS:atmel
-LIBS:contrib
-LIBS:esp32_devboards
-LIBS:sn65hvd233-ht
-LIBS:lm2574n-5
-LIBS:MCP23xxx
-LIBS:tbd62x83a
-LIBS:tc442x
-LIBS:mct6h
-LIBS:bridge
-LIBS:pca9685
-LIBS:4814p-2
-LIBS:mechanical
-LIBS:graphic_symbols
-LIBS:references
+EESchema Schematic File Version 4
 LIBS:ESP32-MultiFunction-cache
-EELAYER 25 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -59,7 +15,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L LM2574HVM-5.0 U3
+L ESP32-MultiFunction-rescue:LM2574HVM-5.0 U3
 U 1 1 5C829CEE
 P 5200 2800
 F 0 "U3" H 5200 2850 60  0000 C CNN
@@ -71,7 +27,7 @@ F 4 "926-LM2574N-5.0/NOPB" H 5200 2800 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L CP1 C5
+L ESP32-MultiFunction-rescue:CP1 C5
 U 1 1 5C829D01
 P 5950 2900
 F 0 "C5" H 6000 3000 50  0000 L CNN
@@ -83,7 +39,7 @@ F 4 "647-UUX2A220MNL6GS" H 5950 2900 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L CP1 C4
+L ESP32-MultiFunction-rescue:CP1 C4
 U 1 1 5C829D34
 P 3700 2800
 F 0 "C4" H 3750 2900 50  0000 L CNN
@@ -95,7 +51,7 @@ F 4 "647-UWT1E221MNL1GS" H 3700 2800 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L L_Small L1
+L ESP32-MultiFunction-rescue:L_Small L1
 U 1 1 5C829D66
 P 4550 2900
 F 0 "L1" H 4550 3000 50  0000 C CNN
@@ -107,7 +63,7 @@ F 4 "652-SRN1060-331M" H 4550 2900 60  0001 C CNN "Mouser Part Number"
 	0    1    1    0   
 $EndComp
 $Comp
-L D_Schottky D3
+L ESP32-MultiFunction-rescue:D_Schottky D3
 U 1 1 5C829D75
 P 4850 3100
 F 0 "D3" H 4850 3200 40  0000 C CNN
@@ -142,7 +98,7 @@ Wire Wire Line
 	3700 3300 3700 2950
 Connection ~ 4850 3300
 $Comp
-L GND #PWR012
+L ESP32-MultiFunction-rescue:GND #PWR012
 U 1 1 5C829DEF
 P 4850 3400
 F 0 "#PWR012" H 4850 3400 30  0001 C CNN
@@ -153,7 +109,7 @@ F 3 "" H 4850 3400 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +5V #PWR013
+L ESP32-MultiFunction-rescue:+5V #PWR013
 U 1 1 5C829E17
 P 3700 2450
 F 0 "#PWR013" H 3700 2540 20  0001 C CNN
