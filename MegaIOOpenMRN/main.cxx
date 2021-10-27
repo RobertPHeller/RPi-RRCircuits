@@ -196,6 +196,7 @@ constexpr const Gpio *const kGPIO6_Header[] = {
     GPIO6_3_Pin::instance(), GPIO6_4_Pin::instance(),
     GPIO6_7_Pin::instance(), GPIO6_8_Pin::instance(),
     GPIO6_9_Pin::instance(), GPIO6_10_Pin::instance()};
+
 constexpr const Gpio *const kGPIO7_Header[] = {
     GPIO7_1_Pin::instance(), GPIO7_2_Pin::instance(),
     GPIO7_3_Pin::instance(), GPIO7_4_Pin::instance(),
@@ -241,12 +242,13 @@ openlcb::MultiConfiguredPC gpio5(stack.node(),
 openlcb::MultiConfiguredPC gpio6(stack.node(),
    kGPIO6_Header, ARRAYSIZE(kGPIO6_Header),
    cfg.seg().headers().entry<5>().gpio());
+
 openlcb::MultiConfiguredPC gpio7(stack.node(),
-   kGPIO5_Header, ARRAYSIZE(kGPIO5_Header),
+   kGPIO7_Header, ARRAYSIZE(kGPIO7_Header),
    cfg.seg().headers().entry<6>().gpio());
 
 openlcb::MultiConfiguredPC gpio8(stack.node(),
-   kGPIO6_Header, ARRAYSIZE(kGPIO6_Header),
+   kGPIO8_Header, ARRAYSIZE(kGPIO8_Header),
    cfg.seg().headers().entry<7>().gpio());
 #endif
 

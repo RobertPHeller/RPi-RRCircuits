@@ -46,23 +46,23 @@
 
 #define MCP23017_4_16DriverOutputBase ((GPIO_BASE)-16)
 
-GPIO_PIN(GPIO7_1, GpioOutputSafeLow, MCP23017_4_16DriverOutputBase+(8*0)+7);
-GPIO_PIN(GPIO7_2, GpioOutputSafeLow, MCP23017_4_16DriverOutputBase+(8*0)+6);
-GPIO_PIN(GPIO7_3, GpioOutputSafeLow, MCP23017_4_16DriverOutputBase+(8*0)+5);
-GPIO_PIN(GPIO7_4, GpioOutputSafeLow, MCP23017_4_16DriverOutputBase+(8*0)+4);
-GPIO_PIN(GPIO7_7, GpioOutputSafeLow, MCP23017_4_16DriverOutputBase+(8*0)+3);
-GPIO_PIN(GPIO7_8, GpioOutputSafeLow, MCP23017_4_16DriverOutputBase+(8*0)+2);
-GPIO_PIN(GPIO7_9, GpioOutputSafeLow, MCP23017_4_16DriverOutputBase+(8*0)+1);
-GPIO_PIN(GPIO7_10, GpioOutputSafeLow, MCP23017_4_16DriverOutputBase+(8*0)+0);
+GPIO_PIN(GPIO7_1, GpioInputActiveLow, MCP23017_4_16DriverOutputBase+(8*0)+7);
+GPIO_PIN(GPIO7_2, GpioInputActiveLow, MCP23017_4_16DriverOutputBase+(8*0)+6);
+GPIO_PIN(GPIO7_3, GpioInputActiveLow, MCP23017_4_16DriverOutputBase+(8*0)+5);
+GPIO_PIN(GPIO7_4, GpioInputActiveLow, MCP23017_4_16DriverOutputBase+(8*0)+4);
+GPIO_PIN(GPIO7_7, GpioInputActiveLow, MCP23017_4_16DriverOutputBase+(8*0)+3);
+GPIO_PIN(GPIO7_8, GpioInputActiveLow, MCP23017_4_16DriverOutputBase+(8*0)+2);
+GPIO_PIN(GPIO7_9, GpioInputActiveLow, MCP23017_4_16DriverOutputBase+(8*0)+1);
+GPIO_PIN(GPIO7_10, GpioInputActiveLow, MCP23017_4_16DriverOutputBase+(8*0)+0);
 
-GPIO_PIN(GPIO8_1, GpioOutputSafeLow, MCP23017_4_16DriverOutputBase+(8*1)+7);
-GPIO_PIN(GPIO8_2, GpioOutputSafeLow, MCP23017_4_16DriverOutputBase+(8*1)+6);
-GPIO_PIN(GPIO8_3, GpioOutputSafeLow, MCP23017_4_16DriverOutputBase+(8*1)+5);
-GPIO_PIN(GPIO8_4, GpioOutputSafeLow, MCP23017_4_16DriverOutputBase+(8*1)+4);
-GPIO_PIN(GPIO8_7, GpioOutputSafeLow, MCP23017_4_16DriverOutputBase+(8*1)+3);
-GPIO_PIN(GPIO8_8, GpioOutputSafeLow, MCP23017_4_16DriverOutputBase+(8*1)+2);
-GPIO_PIN(GPIO8_9, GpioOutputSafeLow, MCP23017_4_16DriverOutputBase+(8*1)+1);
-GPIO_PIN(GPIO8_10, GpioOutputSafeLow, MCP23017_4_16DriverOutputBase+(8*1)+0);
+GPIO_PIN(GPIO8_1, GpioInputActiveLow, MCP23017_4_16DriverOutputBase+(8*1)+7);
+GPIO_PIN(GPIO8_2, GpioInputActiveLow, MCP23017_4_16DriverOutputBase+(8*1)+6);
+GPIO_PIN(GPIO8_3, GpioInputActiveLow, MCP23017_4_16DriverOutputBase+(8*1)+5);
+GPIO_PIN(GPIO8_4, GpioInputActiveLow, MCP23017_4_16DriverOutputBase+(8*1)+4);
+GPIO_PIN(GPIO8_7, GpioInputActiveLow, MCP23017_4_16DriverOutputBase+(8*1)+3);
+GPIO_PIN(GPIO8_8, GpioInputActiveLow, MCP23017_4_16DriverOutputBase+(8*1)+2);
+GPIO_PIN(GPIO8_9, GpioInputActiveLow, MCP23017_4_16DriverOutputBase+(8*1)+1);
+GPIO_PIN(GPIO8_10, GpioInputActiveLow, MCP23017_4_16DriverOutputBase+(8*1)+0);
 
 //
 //   GPIO 5 Header:
@@ -91,23 +91,23 @@ GPIO_PIN(GPIO8_10, GpioOutputSafeLow, MCP23017_4_16DriverOutputBase+(8*1)+0);
 
 #define MCP23017_3_16DriverOutputBase ((MCP23017_4_16DriverOutputBase)-16)
 
-GPIO_PIN(GPIO5_1, GpioOutputSafeLow, MCP23017_3_16DriverOutputBase+(8*0)+7);
-GPIO_PIN(GPIO5_2, GpioOutputSafeLow, MCP23017_3_16DriverOutputBase+(8*0)+6);
-GPIO_PIN(GPIO5_3, GpioOutputSafeLow, MCP23017_3_16DriverOutputBase+(8*0)+5);
-GPIO_PIN(GPIO5_4, GpioOutputSafeLow, MCP23017_3_16DriverOutputBase+(8*0)+4);
-GPIO_PIN(GPIO5_7, GpioOutputSafeLow, MCP23017_3_16DriverOutputBase+(8*0)+3);
-GPIO_PIN(GPIO5_8, GpioOutputSafeLow, MCP23017_3_16DriverOutputBase+(8*0)+2);
-GPIO_PIN(GPIO5_9, GpioOutputSafeLow, MCP23017_3_16DriverOutputBase+(8*0)+1);
-GPIO_PIN(GPIO5_10, GpioOutputSafeLow, MCP23017_3_16DriverOutputBase+(8*0)+0);
+GPIO_PIN(GPIO5_1, GpioInputActiveLow, MCP23017_3_16DriverOutputBase+(8*0)+7);
+GPIO_PIN(GPIO5_2, GpioInputActiveLow, MCP23017_3_16DriverOutputBase+(8*0)+6);
+GPIO_PIN(GPIO5_3, GpioInputActiveLow, MCP23017_3_16DriverOutputBase+(8*0)+5);
+GPIO_PIN(GPIO5_4, GpioInputActiveLow, MCP23017_3_16DriverOutputBase+(8*0)+4);
+GPIO_PIN(GPIO5_7, GpioInputActiveLow, MCP23017_3_16DriverOutputBase+(8*0)+3);
+GPIO_PIN(GPIO5_8, GpioInputActiveLow, MCP23017_3_16DriverOutputBase+(8*0)+2);
+GPIO_PIN(GPIO5_9, GpioInputActiveLow, MCP23017_3_16DriverOutputBase+(8*0)+1);
+GPIO_PIN(GPIO5_10, GpioInputActiveLow, MCP23017_3_16DriverOutputBase+(8*0)+0);
 
-GPIO_PIN(GPIO6_1, GpioOutputSafeLow, MCP23017_3_16DriverOutputBase+(8*1)+7);
-GPIO_PIN(GPIO6_2, GpioOutputSafeLow, MCP23017_3_16DriverOutputBase+(8*1)+6);
-GPIO_PIN(GPIO6_3, GpioOutputSafeLow, MCP23017_3_16DriverOutputBase+(8*1)+5);
-GPIO_PIN(GPIO6_4, GpioOutputSafeLow, MCP23017_3_16DriverOutputBase+(8*1)+4);
-GPIO_PIN(GPIO6_7, GpioOutputSafeLow, MCP23017_3_16DriverOutputBase+(8*1)+3);
-GPIO_PIN(GPIO6_8, GpioOutputSafeLow, MCP23017_3_16DriverOutputBase+(8*1)+2);
-GPIO_PIN(GPIO6_9, GpioOutputSafeLow, MCP23017_3_16DriverOutputBase+(8*1)+1);
-GPIO_PIN(GPIO6_10, GpioOutputSafeLow, MCP23017_3_16DriverOutputBase+(8*1)+0);
+GPIO_PIN(GPIO6_1, GpioInputActiveLow, MCP23017_3_16DriverOutputBase+(8*1)+7);
+GPIO_PIN(GPIO6_2, GpioInputActiveLow, MCP23017_3_16DriverOutputBase+(8*1)+6);
+GPIO_PIN(GPIO6_3, GpioInputActiveLow, MCP23017_3_16DriverOutputBase+(8*1)+5);
+GPIO_PIN(GPIO6_4, GpioInputActiveLow, MCP23017_3_16DriverOutputBase+(8*1)+4);
+GPIO_PIN(GPIO6_7, GpioInputActiveLow, MCP23017_3_16DriverOutputBase+(8*1)+3);
+GPIO_PIN(GPIO6_8, GpioInputActiveLow, MCP23017_3_16DriverOutputBase+(8*1)+2);
+GPIO_PIN(GPIO6_9, GpioInputActiveLow, MCP23017_3_16DriverOutputBase+(8*1)+1);
+GPIO_PIN(GPIO6_10, GpioInputActiveLow, MCP23017_3_16DriverOutputBase+(8*1)+0);
 
 //
 //   GPIO 3 Header:
@@ -136,23 +136,23 @@ GPIO_PIN(GPIO6_10, GpioOutputSafeLow, MCP23017_3_16DriverOutputBase+(8*1)+0);
 
 #define MCP23017_2_16DriverOutputBase ((MCP23017_3_16DriverOutputBase)-16)
 
-GPIO_PIN(GPIO3_1, GpioOutputSafeLow, MCP23017_2_16DriverOutputBase+(8*0)+7);
-GPIO_PIN(GPIO3_2, GpioOutputSafeLow, MCP23017_2_16DriverOutputBase+(8*0)+6);
-GPIO_PIN(GPIO3_3, GpioOutputSafeLow, MCP23017_2_16DriverOutputBase+(8*0)+5);
-GPIO_PIN(GPIO3_4, GpioOutputSafeLow, MCP23017_2_16DriverOutputBase+(8*0)+4);
-GPIO_PIN(GPIO3_7, GpioOutputSafeLow, MCP23017_2_16DriverOutputBase+(8*0)+3);
-GPIO_PIN(GPIO3_8, GpioOutputSafeLow, MCP23017_2_16DriverOutputBase+(8*0)+2);
-GPIO_PIN(GPIO3_9, GpioOutputSafeLow, MCP23017_2_16DriverOutputBase+(8*0)+1);
-GPIO_PIN(GPIO3_10, GpioOutputSafeLow, MCP23017_2_16DriverOutputBase+(8*0)+0);
+GPIO_PIN(GPIO3_1, GpioInputActiveLow, MCP23017_2_16DriverOutputBase+(8*0)+7);
+GPIO_PIN(GPIO3_2, GpioInputActiveLow, MCP23017_2_16DriverOutputBase+(8*0)+6);
+GPIO_PIN(GPIO3_3, GpioInputActiveLow, MCP23017_2_16DriverOutputBase+(8*0)+5);
+GPIO_PIN(GPIO3_4, GpioInputActiveLow, MCP23017_2_16DriverOutputBase+(8*0)+4);
+GPIO_PIN(GPIO3_7, GpioInputActiveLow, MCP23017_2_16DriverOutputBase+(8*0)+3);
+GPIO_PIN(GPIO3_8, GpioInputActiveLow, MCP23017_2_16DriverOutputBase+(8*0)+2);
+GPIO_PIN(GPIO3_9, GpioInputActiveLow, MCP23017_2_16DriverOutputBase+(8*0)+1);
+GPIO_PIN(GPIO3_10, GpioInputActiveLow, MCP23017_2_16DriverOutputBase+(8*0)+0);
 
-GPIO_PIN(GPIO4_1, GpioOutputSafeLow, MCP23017_2_16DriverOutputBase+(8*1)+7);
-GPIO_PIN(GPIO4_2, GpioOutputSafeLow, MCP23017_2_16DriverOutputBase+(8*1)+6);
-GPIO_PIN(GPIO4_3, GpioOutputSafeLow, MCP23017_2_16DriverOutputBase+(8*1)+5);
-GPIO_PIN(GPIO4_4, GpioOutputSafeLow, MCP23017_2_16DriverOutputBase+(8*1)+4);
-GPIO_PIN(GPIO4_7, GpioOutputSafeLow, MCP23017_2_16DriverOutputBase+(8*1)+3);
-GPIO_PIN(GPIO4_8, GpioOutputSafeLow, MCP23017_2_16DriverOutputBase+(8*1)+2);
-GPIO_PIN(GPIO4_9, GpioOutputSafeLow, MCP23017_2_16DriverOutputBase+(8*1)+1);
-GPIO_PIN(GPIO4_10, GpioOutputSafeLow, MCP23017_2_16DriverOutputBase+(8*1)+0);
+GPIO_PIN(GPIO4_1, GpioInputActiveLow, MCP23017_2_16DriverOutputBase+(8*1)+7);
+GPIO_PIN(GPIO4_2, GpioInputActiveLow, MCP23017_2_16DriverOutputBase+(8*1)+6);
+GPIO_PIN(GPIO4_3, GpioInputActiveLow, MCP23017_2_16DriverOutputBase+(8*1)+5);
+GPIO_PIN(GPIO4_4, GpioInputActiveLow, MCP23017_2_16DriverOutputBase+(8*1)+4);
+GPIO_PIN(GPIO4_7, GpioInputActiveLow, MCP23017_2_16DriverOutputBase+(8*1)+3);
+GPIO_PIN(GPIO4_8, GpioInputActiveLow, MCP23017_2_16DriverOutputBase+(8*1)+2);
+GPIO_PIN(GPIO4_9, GpioInputActiveLow, MCP23017_2_16DriverOutputBase+(8*1)+1);
+GPIO_PIN(GPIO4_10, GpioInputActiveLow, MCP23017_2_16DriverOutputBase+(8*1)+0);
 
 //
 //   GPIO 1 Header:
@@ -181,23 +181,23 @@ GPIO_PIN(GPIO4_10, GpioOutputSafeLow, MCP23017_2_16DriverOutputBase+(8*1)+0);
 
 #define MCP23017_1_16DriverOutputBase ((MCP23017_2_16DriverOutputBase)-16)
 
-GPIO_PIN(GPIO1_1, GpioOutputSafeLow, MCP23017_1_16DriverOutputBase+(8*0)+7);
-GPIO_PIN(GPIO1_2, GpioOutputSafeLow, MCP23017_1_16DriverOutputBase+(8*0)+6);
-GPIO_PIN(GPIO1_3, GpioOutputSafeLow, MCP23017_1_16DriverOutputBase+(8*0)+5);
-GPIO_PIN(GPIO1_4, GpioOutputSafeLow, MCP23017_1_16DriverOutputBase+(8*0)+4);
-GPIO_PIN(GPIO1_7, GpioOutputSafeLow, MCP23017_1_16DriverOutputBase+(8*0)+3);
-GPIO_PIN(GPIO1_8, GpioOutputSafeLow, MCP23017_1_16DriverOutputBase+(8*0)+2);
-GPIO_PIN(GPIO1_9, GpioOutputSafeLow, MCP23017_1_16DriverOutputBase+(8*0)+1);
-GPIO_PIN(GPIO1_10, GpioOutputSafeLow, MCP23017_1_16DriverOutputBase+(8*0)+0);
+GPIO_PIN(GPIO1_1, GpioInputActiveLow, MCP23017_1_16DriverOutputBase+(8*0)+7);
+GPIO_PIN(GPIO1_2, GpioInputActiveLow, MCP23017_1_16DriverOutputBase+(8*0)+6);
+GPIO_PIN(GPIO1_3, GpioInputActiveLow, MCP23017_1_16DriverOutputBase+(8*0)+5);
+GPIO_PIN(GPIO1_4, GpioInputActiveLow, MCP23017_1_16DriverOutputBase+(8*0)+4);
+GPIO_PIN(GPIO1_7, GpioInputActiveLow, MCP23017_1_16DriverOutputBase+(8*0)+3);
+GPIO_PIN(GPIO1_8, GpioInputActiveLow, MCP23017_1_16DriverOutputBase+(8*0)+2);
+GPIO_PIN(GPIO1_9, GpioInputActiveLow, MCP23017_1_16DriverOutputBase+(8*0)+1);
+GPIO_PIN(GPIO1_10, GpioInputActiveLow, MCP23017_1_16DriverOutputBase+(8*0)+0);
 
-GPIO_PIN(GPIO2_1, GpioOutputSafeLow, MCP23017_1_16DriverOutputBase+(8*1)+7);
-GPIO_PIN(GPIO2_2, GpioOutputSafeLow, MCP23017_1_16DriverOutputBase+(8*1)+6);
-GPIO_PIN(GPIO2_3, GpioOutputSafeLow, MCP23017_1_16DriverOutputBase+(8*1)+5);
-GPIO_PIN(GPIO2_4, GpioOutputSafeLow, MCP23017_1_16DriverOutputBase+(8*1)+4);
-GPIO_PIN(GPIO2_7, GpioOutputSafeLow, MCP23017_1_16DriverOutputBase+(8*1)+3);
-GPIO_PIN(GPIO2_8, GpioOutputSafeLow, MCP23017_1_16DriverOutputBase+(8*1)+2);
-GPIO_PIN(GPIO2_9, GpioOutputSafeLow, MCP23017_1_16DriverOutputBase+(8*1)+1);
-GPIO_PIN(GPIO2_10, GpioOutputSafeLow, MCP23017_1_16DriverOutputBase+(8*1)+0);
+GPIO_PIN(GPIO2_1, GpioInputActiveLow, MCP23017_1_16DriverOutputBase+(8*1)+7);
+GPIO_PIN(GPIO2_2, GpioInputActiveLow, MCP23017_1_16DriverOutputBase+(8*1)+6);
+GPIO_PIN(GPIO2_3, GpioInputActiveLow, MCP23017_1_16DriverOutputBase+(8*1)+5);
+GPIO_PIN(GPIO2_4, GpioInputActiveLow, MCP23017_1_16DriverOutputBase+(8*1)+4);
+GPIO_PIN(GPIO2_7, GpioInputActiveLow, MCP23017_1_16DriverOutputBase+(8*1)+3);
+GPIO_PIN(GPIO2_8, GpioInputActiveLow, MCP23017_1_16DriverOutputBase+(8*1)+2);
+GPIO_PIN(GPIO2_9, GpioInputActiveLow, MCP23017_1_16DriverOutputBase+(8*1)+1);
+GPIO_PIN(GPIO2_10, GpioInputActiveLow, MCP23017_1_16DriverOutputBase+(8*1)+0);
 
 typedef GpioInitializer<
 GPIO1_1_Pin,GPIO1_2_Pin,GPIO1_3_Pin,GPIO1_4_Pin,
