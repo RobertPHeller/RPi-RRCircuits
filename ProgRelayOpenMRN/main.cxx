@@ -110,9 +110,9 @@ extern const char *const openlcb::SNIP_DYNAMIC_FILENAME =
 // the individual entries to the individual consumers. Each consumer gets its
 // own GPIO pin.
 
-openlcb::ConfiguredConsumer relay(stack.node(), cfg.seg().relay(), Relay_Pin());
-openlcb::ConfiguredConsumer blueleds(stack.node(), cfg.seg().blueleds(), BlueLEDS_Pin());
-openlcb::ConfiguredProducer programselect(stack.node(), cfg.seg().progselect(), ProgSelect_Pin());
+openlcb::ConfiguredConsumer relay(stack.node(), cfg.seg().relay(), Relay_Pin::instance());
+openlcb::ConfiguredConsumer blueleds(stack.node(), cfg.seg().blueleds(), BlueLEDS_Pin::instance());
+openlcb::ConfiguredProducer programselect(stack.node(), cfg.seg().progselect(), ProgSelect_Pin::instance());
 
 openlcb::RefreshLoop loop(stack.node(),{programselect.polling()});
 
