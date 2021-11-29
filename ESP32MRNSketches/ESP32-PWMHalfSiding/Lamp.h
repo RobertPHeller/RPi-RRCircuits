@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 11:37:34 2019
-//  Last Modified : <211012.0820>
+//  Last Modified : <211123.1543>
 //
 //  Description	
 //
@@ -123,6 +123,7 @@ public:
         lampid_ = Unused;
         phase_  = Steady;
         isOn_   = false;
+        hasChanged_ = false;
         // Default: 50%
         brightness_ = 5000;
         // 1Khz
@@ -152,8 +153,8 @@ public:
     static const PWM* PinLookup(LampID id) {
         return pinlookup_[(int)id];
     }
-    void On() {isOn_ = true;}
-    void Off() {isOn_ = false;}
+    void On() {isOn_ = true;hasChanged_ = true;}
+    void Off() {isOn_ = false;hasChanged_ = true;}
     virtual void blink(bool AFast, bool AMedium, bool ASlow)
     {
         if (lampid_ == Unused) return;
@@ -163,27 +164,27 @@ public:
         //LOG(ALWAYS, "*** Lamp::blink(): p = %p",p);
         if (p == nullptr) return;
         //LOG(ALWAYS, "*** Lamp::blink(): isOn_ = %d",isOn_);
-        if (!isOn_) {
+#if 1
+        if (hasChanged_) {
+            LOG(ALWAYS, "*** Lamp::blink(): lampid_ = %d, isOn_ = %d, phase_ is %d, p is %p",\
+                lampid_,isOn_,phase_,p);
+        }
+#endif
+        if (!isOn_ && hasChanged_) {
             p->set_duty(0); 
-#ifndef __FABOPWM_PCA9685_PWMPIN_H 
-            p->set_period(0);
-#endif
-            return;
         } else {
-#ifndef __FABOPWM_PCA9685_PWMPIN_H
-            p->set_period(period_);
-#endif
+            switch (phase_) {
+            case Steady: if (hasChanged_) p->set_duty((uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period())); break;
+            case A_Slow: p->set_duty(ASlow?(uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period()):0);break;
+            case A_Medium: p->set_duty(AMedium?(uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period()):0); break;
+            case A_Fast: p->set_duty(AFast?(uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period()):0); break;
+            case None: if (hasChanged_) p->set_duty(0); break;
+            case B_Slow: p->set_duty(ASlow?0:(uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period())); break;
+            case B_Medium: p->set_duty(AMedium?0:(uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period())); break;
+            case B_Fast: p->set_duty(AFast?0:(uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period())); break;
+            }
         }
-        switch (phase_) {
-        case Steady: p->set_duty((uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period())); break;
-        case A_Slow: p->set_duty(ASlow?(uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period()):0);break;
-        case A_Medium: p->set_duty(AMedium?(uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period()):0); break;
-        case A_Fast: p->set_duty(AFast?(uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period()):0); break;
-        case None: p->set_duty(0); break;
-        case B_Slow: p->set_duty(ASlow?0:(uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period())); break;
-        case B_Medium: p->set_duty(AMedium?0:(uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period())); break;
-        case B_Fast: p->set_duty(AFast?0:(uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period())); break;
-        }
+        //hasChanged_ = false;
     }
     void Setbrightness(uint16_t brightness) {
         brightness_ = brightness;
@@ -197,6 +198,7 @@ private:
     LampPhase  phase_;
     const LampConfig cfg_;
     bool isOn_;
+    bool hasChanged_;
     uint16_t brightness_;
     uint32_t period_;    
 };

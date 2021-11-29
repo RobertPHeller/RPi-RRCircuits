@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 17:12:10 2019
-//  Last Modified : <190314.2023>
+//  Last Modified : <211116.2120>
 //
 //  Description	
 //
@@ -184,7 +184,7 @@ private:
     Lamp::LampID effectsLamp_;
 #endif
     Lamp *lamps_[LAMPCOUNT];
-    openlcb::EventId eventsets_,eventset_,eventclear_;
+    openlcb::EventId eventsets_{0},eventset_{0},eventclear_{0};
     Mast *parent_;
     bool isSet_;
     void register_handler();

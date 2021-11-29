@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:08:16 2019
-//  Last Modified : <190314.2019>
+//  Last Modified : <211125.1738>
 //
 //  Description	
 //
@@ -52,7 +52,8 @@
 #include "executor/Timer.hxx"
 #include "executor/Notifiable.hxx"
 #include <stdio.h>
-
+#include "utils/logging.h"
+#include <string>
 #include "TrackCircuit.h"
 
 #define LOGICCOUNT 32
@@ -62,7 +63,7 @@ static const char GroupFunctionMap[] =
 "<relation><property>1</property><value>Group</value></relation>"
 "<relation><property>2</property><value>Last (Single)</value></relation>";
 
-static const char LoginFunctionMap[] = 
+static const char LogicFunctionMap[] = 
 "<relation><property>0</property><value>V1 AND V2</value></relation>"
 "<relation><property>1</property><value>V1 OR V2</value></relation>"
 "<relation><property>2</property><value>V1 XOR V2</value></relation>"
@@ -134,7 +135,8 @@ CDI_GROUP_END();
 class LogicCallback {
 public:
     enum Which {V1, V2, Unknown};
-    virtual bool Evaluate(Which v,BarrierNotifiable *done) = 0;
+    virtual void Evaluate(Which v,BarrierNotifiable *done) = 0;
+    virtual const std::string Description() const = 0;
 };
 
 class Variable : public TrackCircuitCallback, public ConfigUpdateListener, public openlcb::SimpleEventHandler {
@@ -171,17 +173,17 @@ private:
     Source  source_;
     openlcb::EventId event_true_, event_false_;
     TrackCircuit::TrackSpeed speed_;
-    bool value_;
     void register_handler();
     void unregister_handler();
     void SendAllConsumersIdentified(EventReport *event,BarrierNotifiable *done);
     void SendConsumerIdentified(EventReport *event,BarrierNotifiable *done);
+    bool value_;
 };
 
 CDI_GROUP(LogicOperatorConfig);
 CDI_GROUP_ENTRY(logicFunction,openlcb::Uint8ConfigEntry,
                 Name("Logic function"),Default(0),
-                MapValues(LoginFunctionMap));
+                MapValues(LogicFunctionMap));
 CDI_GROUP_END();
 
 
@@ -301,10 +303,34 @@ public:
                                              BarrierNotifiable *done) override;
     virtual void factory_reset(int fd);
     void handle_identify_global(const openlcb::EventRegistryEntry &registry_entry, 
-                                EventReport *event, BarrierNotifiable *done) override;
+                                EventReport *event, BarrierNotifiable *done) override
+    {
+        if (event->dst_node && event->dst_node != node_)
+        {
+            return done->notify();
+        }
+        event->event_write_helper<1>()->WriteAsync(node_,
+           openlcb::Defs::MTI_PRODUCER_IDENTIFIED_UNKNOWN,
+           openlcb::WriteHelper::global(), openlcb::eventid_to_buffer(action_event_), done);
+    }
     void handle_identify_producer(const EventRegistryEntry &registry_entry,
                                   EventReport *event,
-                                  BarrierNotifiable *done) override;
+                                  BarrierNotifiable *done) override
+    {
+        if (event->dst_node && event->dst_node != node_)
+        {
+            return done->notify();
+        }
+        if (event->event == action_event_)
+        {
+            event->event_write_helper<1>()->WriteAsync(node_,
+               openlcb::Defs::MTI_PRODUCER_IDENTIFIED_UNKNOWN,
+               openlcb::WriteHelper::global(), openlcb::eventid_to_buffer(action_event_), done);
+        }
+        else {
+            return done->notify();
+        }
+    }
 private:
     openlcb::Node *node_;
     const ActionConfig cfg_;
@@ -312,10 +338,6 @@ private:
     bool lastLogicValue_;
     openlcb::EventId action_event_;
     Timing *timer_;
-    void register_handler();
-    void unregister_handler();
-    void SendAllProducersIdentified(EventReport *event,BarrierNotifiable *done);
-    void SendProducerIdentified(EventReport *event,BarrierNotifiable *done);
     void SendEventReport(BarrierNotifiable *done);
     openlcb::WriteHelper write_helper;
 };
@@ -367,14 +389,21 @@ public:
                                              bool initial_load,
                                              BarrierNotifiable *done) override;
     virtual void factory_reset(int fd);
-    virtual bool Evaluate(Which v,BarrierNotifiable *done);
+    virtual void Evaluate(Which v,BarrierNotifiable *done);
+    virtual const std::string Description() const {return description_;}
+    bool Value();
 private:
+    bool eval_(Which v);
+    void _processAction(BarrierNotifiable *done);
     void _setPrevious(Logic *p) {previous_ = p;}
     Logic *_topOfGroup() {
+        LOG(ALWAYS,"***Logic::_topOfGroup() [%p]",this);
         Logic *top = this;
+        LOG(ALWAYS,"***Logic::_topOfGroup(): top is %p",top);
         while (top->previous_ != nullptr && 
                top->previous_->groupFunction_ == Group) {
             top = top->previous_;
+            LOG(ALWAYS,"***Logic::_topOfGroup() in while: top is %p",top);
         }
         return top;
     }
@@ -388,6 +417,7 @@ private:
     ActionType trueAction_, falseAction_;
     Timing *timer_;
     Action *actions_[4];
+    std::string description_{""};
 };
 
 #endif // __LOGIC_HXX

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Mar 13 10:22:45 2019
-//  Last Modified : <211012.0952>
+//  Last Modified : <211117.1240>
 //
 //  Description	
 //
@@ -62,6 +62,7 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "NODEID.h" // Get nodeid from an externally generated header file
 #include <utils/GpioInitializer.hxx>
 #include <utils/Singleton.hxx>
+#include <utils/logging.h>
 #include "Lamp.h"
 #include "Mast.h"
 #include "Blink.h"
@@ -230,7 +231,6 @@ openlcb::RefreshLoop points_refresh_loop(openmrn.stack()->node(),{
           , oc1.polling()
           , oc2.polling()
 });
-
 class FactoryResetHelper : public DefaultConfigUpdateListener {
 public:
     UpdateAction apply_configuration(int fd, bool initial_load,
@@ -346,10 +346,21 @@ void setup() {
     // initialize all declared GPIO pins
     GpioInit::hw_init();
     
-    if (pwmchip.begin()) {
+    int tries = 10;
+    while (!pwmchip.begin() && tries-- > 0) {
+        Serial.println("PCA9685 not found...");
+        delay(100);
+    }
+    if (tries > 0) {
         Serial.println("Found PCA9685");
         pwmchip.init(0);
+    } else {
+        Serial.println("PCA9685 not found after 10 tries!");
+        while (1) {
+        }
     }
+                       
+    
     A0_Pin.hw_init();
     A1_Pin.hw_init();
     A2_Pin.hw_init();

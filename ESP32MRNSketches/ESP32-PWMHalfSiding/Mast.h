@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 15:59:18 2019
-//  Last Modified : <190314.2021>
+//  Last Modified : <211124.2336>
 //
 //  Description	
 //
@@ -79,6 +79,7 @@ CDI_GROUP_ENTRY(mastid, openlcb::StringConfigEntry<8>,
                 Name("Mast ID"));
 CDI_GROUP_ENTRY(linkevent,openlcb::EventConfigEntry,
                 Name("(P) Track Circuit Link Address. Copy and Paste into linked Track Circuit. (Read Only)"));
+#define TRACKCIRCUITBASE 2048 // Leave lots of room
 #ifdef HAVEPWM
 CDI_GROUP_ENTRY(fade,openlcb::Uint8ConfigEntry,
                 Name("Lamp Fade"),Default(0),
@@ -124,6 +125,7 @@ public:
      void ClearCurrentRule(BarrierNotifiable *done);
      void SetCurrentRuleAndSpeed(Rule *r, TrackCircuit::TrackSpeed s, 
                                  BarrierNotifiable *done);
+     const std::string Mastid() const {return mastid_;}
 private:
     openlcb::Node *node_;
     const MastConfig cfg_;
@@ -132,6 +134,7 @@ private:
     LampFade fade_;
 #endif
     openlcb::EventId linkevent_;
+    static uint16_t baseLinkEvent_;
     Rule *rules_[RULESCOUNT];
     Rule *currentRule_;
     TrackCircuit::TrackSpeed currentSpeed_;
@@ -141,6 +144,7 @@ private:
     void SendAllProducersIdentified(EventReport *event,BarrierNotifiable *done);
     void SendProducerIdentified(EventReport *event,BarrierNotifiable *done);
     openlcb::WriteHelper write_helper[8];
+    std::string mastid_{""};
 };
 
 

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Mar 1 10:46:51 2019
-//  Last Modified : <190314.2019>
+//  Last Modified : <211128.1517>
 //
 //  Description	
 //
@@ -56,6 +56,7 @@ static const char rcsid[] = "@(#) : $Id$";
 
 void Variable::trigger(const TrackCircuit *caller,BarrierNotifiable *done)
 {
+    LOG(ALWAYS,"***Variable::trigger(%p,%p)",caller,done);
     bool changed = false;
     if (caller->CurrentSpeed() == speed_) // true
     {
@@ -65,6 +66,7 @@ void Variable::trigger(const TrackCircuit *caller,BarrierNotifiable *done)
         if (value_ != false) changed = true;
         value_ = false;
     }
+    LOG(ALWAYS,"***Variable::trigger(): value_ is %d, trigger_ is %d, parent_ is %s",value_,trigger_,parent_->Description().c_str());
     switch (trigger_) {
     case Change:
         if (changed) parent_->Evaluate(which_,done);
@@ -87,9 +89,13 @@ ConfigUpdateListener::UpdateAction Variable::apply_configuration(int fd,
     speed_ = (TrackCircuit::TrackSpeed) cfg_.trackspeed().read(fd);
     openlcb::EventId event_true_cfg = cfg_.eventtrue().read(fd);
     openlcb::EventId event_false_cfg = cfg_.eventfalse().read(fd);
+    LOG(ALWAYS,"*** Variable::apply_configuration(): initial_load is %d",initial_load);
+    LOG(ALWAYS,"*** Variable::apply_configuration(): source_cfg = %d, source_ = %d",source_cfg,source_);
+    LOG(ALWAYS,"*** Variable::apply_configuration(): event_true_cfg is %llx, event_true_ is %llx",event_true_cfg,event_true_);
+    LOG(ALWAYS,"*** Variable::apply_configuration(): event_false_cfg is %llx, event_false_ is %llx",event_false_cfg,event_false_);
     if (source_cfg != source_ ||
         event_true_cfg != event_true_ ||
-        event_false_cfg != event_false_) {
+        event_false_cfg != event_false_ || initial_load) {
         if (!initial_load && source_ == Events) {
             unregister_handler();
         }
@@ -100,6 +106,7 @@ ConfigUpdateListener::UpdateAction Variable::apply_configuration(int fd,
         source_ = source_cfg;
         event_true_ = event_true_cfg;
         event_false_ = event_false_cfg;
+        LOG(ALWAYS,"*** Variable::apply_configuration(): source_ == Events is %d",source_ == Events);
         if (source_ == Events) {
             register_handler();
             return REINIT_NEEDED; // Causes events identify.
@@ -146,6 +153,7 @@ void Variable::handle_event_report(const EventRegistryEntry &entry,
         maybetrigger = true;
     }
     if (maybetrigger) {
+        LOG(ALWAYS,"***Variable::handle_event_report(): value_ is %d, parent_ is %s",value_,parent_->Description().c_str());
         switch (trigger_) {
         case Change:
             if (changed) parent_->Evaluate(which_,done);
@@ -171,6 +179,7 @@ void Variable::handle_identify_consumer(const EventRegistryEntry &registry_entry
 
 void Variable::register_handler()
 {
+    LOG(ALWAYS,"*** Variable::register_handler(): parent_ is %s, which_ is %d, event_true_ is %llx, event_false_ is %llx",parent_->Description().c_str(),which_,event_true_,event_false_);
     openlcb::EventRegistry::instance()->register_handler(
         openlcb::EventRegistryEntry(this, event_true_), 0);
     openlcb::EventRegistry::instance()->register_handler(
@@ -278,10 +287,7 @@ ConfigUpdateListener::UpdateAction Action::apply_configuration(int fd,
     Trigger actionTrigger_cfg = (Trigger) cfg_.actiontrigger().read(fd);
     openlcb::EventId action_event_cfg = cfg_.actionevent().read(fd);
     if (actionTrigger_cfg != actionTrigger_ ||
-        action_event_cfg != action_event_) {
-        if (!initial_load && actionTrigger_ != None) {
-            unregister_handler();
-        }
+        action_event_cfg != action_event_ ) {
         switch (actionTrigger_) {
         case AfterDelay:
         case DelayedTrue:
@@ -299,7 +305,6 @@ ConfigUpdateListener::UpdateAction Action::apply_configuration(int fd,
         case DelayedFalse:
             timer_->AddDelayedAction(this);
         default: 
-            register_handler();
             return REINIT_NEEDED; // Causes events identify.
         }
     }
@@ -311,40 +316,12 @@ void Action::factory_reset(int fd)
     CDI_FACTORY_RESET(cfg_.actiontrigger);
 }
 
-void Action::handle_identify_global(const openlcb::EventRegistryEntry &registry_entry, 
-                                    EventReport *event, BarrierNotifiable *done)
-{
-}
-
-void Action::handle_identify_producer(const EventRegistryEntry &registry_entry,
-                                      EventReport *event,
-                                      BarrierNotifiable *done)
-{
-}
-
-void Action::register_handler()
-{
-}
-
-void Action::unregister_handler()
-{
-}
-
-void Action::SendAllProducersIdentified(EventReport *event,BarrierNotifiable *done)
-{
-}
-
-void Action::SendProducerIdentified(EventReport *event,BarrierNotifiable *done)
-{
-}
-
-
 void Action::SendEventReport(BarrierNotifiable *done)
 {
     write_helper.WriteAsync(node_,openlcb::Defs::MTI_EVENT_REPORT,
                             openlcb::WriteHelper::global(),
                             openlcb::eventid_to_buffer(action_event_),
-                            done);
+                            done->new_child());
 }
 
 ConfigUpdateListener::UpdateAction Logic::apply_configuration(int fd, 
@@ -356,6 +333,7 @@ ConfigUpdateListener::UpdateAction Logic::apply_configuration(int fd,
     logicFunction_ = (LogicFunction) cfg_.logic().logicFunction().read(fd);
     trueAction_    = (ActionType)    cfg_.trueAction().read(fd);
     falseAction_   = (ActionType)    cfg_.falseAction().read(fd);
+    description_ = cfg_.description().read(fd);
     return UPDATED;
 }
 
@@ -368,14 +346,15 @@ void Logic::factory_reset(int fd)
     CDI_FACTORY_RESET(cfg_.falseAction);
 }
 
-bool Logic::Evaluate(Which v,BarrierNotifiable *done)
+bool Logic::Value()
 {
-    if (groupFunction_ == Blocked) return false;
-    if (groupFunction_ == Group) {
-        bool prev = _topOfGroup()->Evaluate(LogicCallback::Unknown,done);
-        if (prev) return prev;
-    }
-    bool result = false;
+    return eval_(LogicCallback::Unknown);
+}
+
+bool Logic::eval_(Which v)
+{
+    LOG(ALWAYS,"*** Logic[%s]::eval_(%d)",Description().c_str(),v);
+    bool result;
     bool newresult;
     switch (logicFunction_) {
     case AND:
@@ -398,7 +377,15 @@ bool Logic::Evaluate(Which v,BarrierNotifiable *done)
         oldValue_ = newresult;
         break;
     case ANDthenV2:
-        result = (v1_->Value() && v2_->Value() && v == LogicCallback::V2);
+        if (oldValue_ && v1_->Value()) 
+        { 
+            result = oldValue_;
+        }
+        else
+        {
+            result = (v1_->Value() && v2_->Value() && v == LogicCallback::V2);
+            oldValue_ = result;
+        }
         break;
     case V1:
         result = (v1_->Value() != 0);
@@ -409,12 +396,31 @@ bool Logic::Evaluate(Which v,BarrierNotifiable *done)
         result = true;
         break;
     }
+    return result;
+}
+
+void Logic::Evaluate(Which v,BarrierNotifiable *done)
+{
+    LOG(ALWAYS,"***Logic::Evaluate() [%s] logicFunction_ = %d, v1_->Value() is %d, v2_->Value() is %d",Description().c_str(),logicFunction_,v1_->Value(),v2_->Value());
+    if (groupFunction_ == Blocked) return;
+    eval_(v);
+    if (groupFunction_ == Group) {
+        _topOfGroup()->_processAction(done);
+    } else {
+        _processAction(done);
+    }
+}
+
+void Logic::_processAction(BarrierNotifiable *done)
+{
     ActionType action_;
+    bool result = Value();
     if (result) {
         action_ = trueAction_;
     } else {
         action_ = falseAction_;
     }
+    LOG(ALWAYS,"***Logic::_processAction(): result is %d, action_ is %d",result,action_);
     bool delayStarted = false;
     int i;
     switch (action_) {
@@ -425,7 +431,7 @@ bool Logic::Evaluate(Which v,BarrierNotifiable *done)
                 delayStarted = true;
             }
         }
-        return true;
+        break;
     case SendEvaluateNext:
         for (i = 0; i < 4; i++) {
             if (actions_[i]->DoAction(result,done) && !delayStarted) {
@@ -433,26 +439,17 @@ bool Logic::Evaluate(Which v,BarrierNotifiable *done)
                 delayStarted = true;
             }
         }
-        if (v == LogicCallback::Unknown) {
-            if (groupFunction_ == Group && next_ != nullptr) {
-                return next_->Evaluate(LogicCallback::Unknown,done);
-            } else {
-                return false;
-            }
+        if (groupFunction_ == Group && next_ != nullptr) {
+            next_->_processAction(done);
         }
         break;
     case ExitGroup:
-        return true;
+        break;
     case EvaluateNext:
-        if (v == LogicCallback::Unknown) {
-            if (groupFunction_ == Group && next_ != nullptr) {
-                return next_->Evaluate(LogicCallback::Unknown,done);
-            } else {
-                return false;
-            }
+        if (groupFunction_ == Group && next_ != nullptr) {
+            next_->_processAction(done);
         }
         break;
     }
-    return result;
 }
 
