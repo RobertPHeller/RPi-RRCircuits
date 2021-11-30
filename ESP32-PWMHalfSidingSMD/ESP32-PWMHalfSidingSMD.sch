@@ -66,12 +66,6 @@ F 4 "2x 517-929974-01-19-RK, 1x 517-929850-01-18-10" H 3100 2000 60  0001 C CNN 
 	1    3100 2000
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	3850 1750 3850 2600
-Wire Wire Line
-	3850 2600 2650 2600
-Wire Wire Line
-	2650 2600 2650 2450
 $Comp
 L GND-RESCUE-ESP32-PWMHalfSidingSMD #PWR01
 U 1 1 5C81D000
@@ -83,32 +77,28 @@ F 3 "" H 2500 2200 60  0000 C CNN
 	1    2500 2200
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	2650 2200 2500 2200
 $Comp
 L +5V #PWR02
 U 1 1 5C81D01A
-P 3850 1750
-F 0 "#PWR02" H 3850 1840 20  0001 C CNN
-F 1 "+5V" H 3850 1840 30  0000 C CNN
-F 2 "" H 3850 1750 60  0000 C CNN
-F 3 "" H 3850 1750 60  0000 C CNN
-	1    3850 1750
+P 3850 2400
+F 0 "#PWR02" H 3850 2490 20  0001 C CNN
+F 1 "+5V" H 3850 2490 30  0000 C CNN
+F 2 "" H 3850 2400 60  0000 C CNN
+F 3 "" H 3850 2400 60  0000 C CNN
+	1    3850 2400
 	1    0    0    -1  
 $EndComp
 $Comp
 L GND-RESCUE-ESP32-PWMHalfSidingSMD #PWR03
 U 1 1 5C81D02F
-P 3700 1550
-F 0 "#PWR03" H 3700 1550 30  0001 C CNN
-F 1 "GND" H 3700 1480 30  0001 C CNN
-F 2 "" H 3700 1550 60  0000 C CNN
-F 3 "" H 3700 1550 60  0000 C CNN
-	1    3700 1550
+P 3650 1550
+F 0 "#PWR03" H 3650 1550 30  0001 C CNN
+F 1 "GND" H 3650 1480 30  0001 C CNN
+F 2 "" H 3650 1550 60  0000 C CNN
+F 3 "" H 3650 1550 60  0000 C CNN
+	1    3650 1550
 	0    -1   -1   0   
 $EndComp
-Wire Wire Line
-	3700 1550 3550 1550
 $Comp
 L 3V3 #PWR04
 U 1 1 5C81D08D
@@ -120,14 +110,12 @@ F 3 "" H 2650 1450 60  0000 C CNN
 	1    2650 1450
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	2650 1450 2650 1550
 NoConn ~ 3550 2450
 Text Label 3550 2150 0    50   ~ 0
 CAN_RX
 Text Label 3550 2000 0    50   ~ 0
 CAN_TX
-Text Label 3550 1650 0    50   ~ 0
+Text Label 3950 1350 0    50   ~ 0
 SCL
 Text Label 3550 1800 0    50   ~ 0
 SDA
@@ -151,10 +139,6 @@ U 5C828B13
 F0 "Power Supply" 50
 F1 "PowerSupply.sch" 50
 $EndSheet
-Wire Wire Line
-	4300 2000 3550 2000
-Wire Wire Line
-	4300 2150 3550 2150
 Text Label 7250 3200 2    100  ~ 0
 SDA
 Text Label 7250 3400 2    100  ~ 0
@@ -215,24 +199,10 @@ F 4 "579-TC4428VOA" H 8650 1850 60  0001 C CNN "Mouser Part Number"
 	2    8650 1850
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	6400 1100 6400 1850
-Wire Wire Line
-	8400 1100 8400 1850
 Text Label 6400 1100 2    50   ~ 0
 Motor 1
 Text Label 8400 1100 2    50   ~ 0
 Motor 2
-Wire Wire Line
-	7050 900  6600 900 
-Wire Wire Line
-	6600 900  6600 950 
-Wire Wire Line
-	7050 650  7050 900 
-Wire Wire Line
-	7050 850  8600 850 
-Wire Wire Line
-	8600 850  8600 950 
 $Comp
 L GND-RESCUE-ESP32-PWMHalfSidingSMD #PWR05
 U 1 1 5CA24864
@@ -244,17 +214,6 @@ F 3 "" H 7400 2200 60  0000 C CNN
 	1    7400 2200
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	8600 2150 8600 2050
-Wire Wire Line
-	6900 2150 8600 2150
-Wire Wire Line
-	7400 2150 7400 2200
-Wire Wire Line
-	6900 2150 6900 2050
-Wire Wire Line
-	6900 2050 6600 2050
-Connection ~ 7400 2150
 Text Label 7050 1100 0    50   ~ 0
 Motor1A
 Text Label 7050 1850 0    50   ~ 0
@@ -281,26 +240,12 @@ U 2 1 5CA24A1B
 P 2400 5700
 F 0 "U9" H 2400 5750 60  0000 C CNN
 F 1 "74HCT00" H 2400 5600 60  0000 C CNN
-F 2 "" H 2400 5700 60  0001 C CNN
+F 2 "Housings_SOIC:SOIC-14_3.9x8.7mm_Pitch1.27mm" H 2400 5700 60  0001 C CNN
 F 3 "~" H 2400 5700 60  0000 C CNN
 F 4 "595-SN74AHC00D" H 2400 5700 60  0001 C CNN "Mouser Part Number"
 	2    2400 5700
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	1800 4900 1800 5250
-Wire Wire Line
-	1800 5250 3000 5250
-Wire Wire Line
-	3000 5250 3000 5700
-Wire Wire Line
-	3000 4800 3000 5150
-Wire Wire Line
-	3000 5150 1650 5150
-Wire Wire Line
-	1650 5150 1650 5600
-Wire Wire Line
-	1650 5600 1800 5600
 $Comp
 L 3V3 #PWR06
 U 1 1 5CA24B9C
@@ -323,20 +268,6 @@ F 3 "" H 2200 4300 60  0000 C CNN
 	1    2200 4300
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	2200 4300 2200 4600
-Wire Wire Line
-	1800 4700 1250 4700
-Wire Wire Line
-	1250 4700 1250 3500
-Wire Wire Line
-	1250 3500 1650 3500
-Wire Wire Line
-	1800 5800 1300 5800
-Wire Wire Line
-	1300 5800 1300 3600
-Wire Wire Line
-	1300 3600 1650 3600
 Text Label 1250 3500 2    50   ~ 0
 Sense1A
 Text Label 1300 3600 2    50   ~ 0
@@ -361,30 +292,12 @@ U 4 1 5CA253B6
 P 4900 5700
 F 0 "U9" H 4900 5750 60  0000 C CNN
 F 1 "74HCT00" H 4900 5600 60  0000 C CNN
-F 2 "" H 4900 5700 60  0001 C CNN
+F 2 "Housings_SOIC:SOIC-14_3.9x8.7mm_Pitch1.27mm" H 4900 5700 60  0001 C CNN
 F 3 "~" H 4900 5700 60  0000 C CNN
 F 4 "595-SN74AHC00D" H 4900 5700 60  0001 C CNN "Mouser Part Number"
 	4    4900 5700
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	4300 4900 4300 5250
-Wire Wire Line
-	4300 5250 5500 5250
-Wire Wire Line
-	5500 5250 5500 5700
-Wire Wire Line
-	5500 4800 5500 5150
-Wire Wire Line
-	5500 5150 4150 5150
-Wire Wire Line
-	4150 5150 4150 5600
-Wire Wire Line
-	4150 5600 4300 5600
-Wire Wire Line
-	4300 4700 3750 4700
-Wire Wire Line
-	4300 5800 3800 5800
 Text Label 5500 4800 0    50   ~ 0
 Sense 2
 $Comp
@@ -398,24 +311,6 @@ F 3 "" H 4700 6100 60  0000 C CNN
 	1    4700 6100
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	4700 5900 4700 6100
-Wire Wire Line
-	1650 3700 1350 3700
-Wire Wire Line
-	1350 3700 1350 4100
-Wire Wire Line
-	1350 4100 3750 4100
-Wire Wire Line
-	3750 4100 3750 4700
-Wire Wire Line
-	1650 3800 1400 3800
-Wire Wire Line
-	1400 3800 1400 6200
-Wire Wire Line
-	1400 6200 3800 6200
-Wire Wire Line
-	3800 6200 3800 5800
 Text Label 1350 3700 2    50   ~ 0
 Sense2A
 Text Label 1400 3800 2    50   ~ 0
@@ -432,16 +327,6 @@ F 4 "710-885012206095" H 3650 5100 60  0001 C CNN "Mouser Part Number"
 	1    3650 5100
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	3650 4900 3650 4450
-Wire Wire Line
-	3650 4450 2200 4450
-Connection ~ 2200 4450
-Wire Wire Line
-	3650 5300 3650 6000
-Wire Wire Line
-	3650 6000 4700 6000
-Connection ~ 4700 6000
 Text Label 2650 2000 2    50   ~ 0
 OD1
 $Sheet
@@ -493,12 +378,6 @@ Text Label 10550 2050 2    50   ~ 0
 Sense2A
 Text Label 10550 2250 2    50   ~ 0
 Sense2B
-Wire Wire Line
-	10550 1150 10150 1150
-Wire Wire Line
-	10150 1150 10150 2400
-Wire Wire Line
-	10150 2150 10550 2150
 $Comp
 L GND-RESCUE-ESP32-PWMHalfSidingSMD #PWR09
 U 1 1 5CA23630
@@ -510,7 +389,6 @@ F 3 "" H 10150 2400 60  0000 C CNN
 	1    10150 2400
 	1    0    0    -1  
 $EndComp
-Connection ~ 10150 2150
 $Sheet
 S 4300 2750 1700 1100
 U 5CA368DE
@@ -535,9 +413,6 @@ Text Label 7250 3650 2    100  ~ 0
 OE
 Text Label 3550 2100 0    50   ~ 0
 OE
-Text Label 7050 650  0    100  ~ 0
-CAN +12V
-Connection ~ 7050 850 
 $Comp
 L 4814P-2 RR101
 U 1 1 5E4B4904
@@ -550,10 +425,6 @@ F 4 "652-4814P-T2LF-10K" H 1950 3750 60  0001 C CNN "Mouser Part Number"
 	1    1950 3750
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	1950 3350 1650 3350
-Wire Wire Line
-	1650 3350 1650 3200
 NoConn ~ 1650 3900
 NoConn ~ 1650 4000
 NoConn ~ 1950 4150
@@ -563,4 +434,211 @@ NoConn ~ 2250 3800
 NoConn ~ 2250 3700
 NoConn ~ 2250 3600
 NoConn ~ 2250 3500
+$Comp
+L R R7
+U 1 1 61A11151
+P 3950 1000
+F 0 "R7" V 4030 1000 50  0000 C CNN
+F 1 "2.4K" V 3950 1000 50  0000 C CNN
+F 2 "Resistors_SMD:R_0603" V 3880 1000 50  0001 C CNN
+F 3 "" H 3950 1000 50  0001 C CNN
+F 4 "71-CRCW06032K40JNEAC " V 3950 1000 60  0001 C CNN "Mouser Part Number"
+	1    3950 1000
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R8
+U 1 1 61A111B0
+P 4150 1000
+F 0 "R8" V 4230 1000 50  0000 C CNN
+F 1 "2.4K" V 4150 1000 50  0000 C CNN
+F 2 "Resistors_SMD:R_0603" V 4080 1000 50  0001 C CNN
+F 3 "" H 4150 1000 50  0001 C CNN
+F 4 "71-CRCW06032K40JNEAC " V 4150 1000 60  0001 C CNN "Mouser Part Number"
+	1    4150 1000
+	1    0    0    -1  
+$EndComp
+Text GLabel 7050 650  0    60   Input ~ 0
+CAN +12V
+Text Label 2100 6900 2    60   ~ 0
+OD1
+Text Label 4250 3100 2    60   ~ 0
+OD2
+$Comp
+L 3V3 #PWR010
+U 1 1 61A153A8
+P 3950 800
+F 0 "#PWR010" H 3950 900 40  0001 C CNN
+F 1 "3V3" H 3950 925 40  0000 C CNN
+F 2 "" H 3950 800 60  0000 C CNN
+F 3 "" H 3950 800 60  0000 C CNN
+	1    3950 800 
+	1    0    0    -1  
+$EndComp
+$Comp
+L Conn_01x03 J3
+U 1 1 61A159C3
+P 4700 1400
+F 0 "J3" H 4700 1600 50  0000 C CNN
+F 1 "22 SCL 23" V 4950 1450 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x03_Pitch2.54mm" H 4700 1400 50  0001 C CNN
+F 3 "" H 4700 1400 50  0001 C CNN
+	1    4700 1400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3850 2400 3850 2600
+Wire Wire Line
+	3850 2600 2650 2600
+Wire Wire Line
+	2650 2600 2650 2450
+Wire Wire Line
+	2650 2200 2500 2200
+Wire Wire Line
+	3650 1550 3550 1550
+Wire Wire Line
+	2650 1450 2650 1550
+Wire Wire Line
+	4300 2000 3550 2000
+Wire Wire Line
+	4300 2150 3550 2150
+Wire Wire Line
+	6400 1100 6400 1850
+Wire Wire Line
+	8400 1100 8400 1850
+Wire Wire Line
+	7050 900  6600 900 
+Wire Wire Line
+	6600 900  6600 950 
+Wire Wire Line
+	7050 650  7050 900 
+Wire Wire Line
+	8600 2150 8600 2050
+Wire Wire Line
+	6900 2150 8600 2150
+Wire Wire Line
+	7400 2150 7400 2200
+Wire Wire Line
+	6900 2150 6900 2050
+Wire Wire Line
+	6900 2050 6600 2050
+Connection ~ 7400 2150
+Wire Wire Line
+	1800 4900 1800 5250
+Wire Wire Line
+	1800 5250 3000 5250
+Wire Wire Line
+	3000 5250 3000 5700
+Wire Wire Line
+	3000 4800 3000 5150
+Wire Wire Line
+	3000 5150 1650 5150
+Wire Wire Line
+	1650 5150 1650 5600
+Wire Wire Line
+	1650 5600 1800 5600
+Wire Wire Line
+	2200 4300 2200 4600
+Wire Wire Line
+	1800 4700 1250 4700
+Wire Wire Line
+	1250 4700 1250 3500
+Wire Wire Line
+	1250 3500 1650 3500
+Wire Wire Line
+	1800 5800 1300 5800
+Wire Wire Line
+	1300 5800 1300 3600
+Wire Wire Line
+	1300 3600 1650 3600
+Wire Wire Line
+	4300 4900 4300 5250
+Wire Wire Line
+	4300 5250 5500 5250
+Wire Wire Line
+	5500 5250 5500 5700
+Wire Wire Line
+	5500 4800 5500 5150
+Wire Wire Line
+	5500 5150 4150 5150
+Wire Wire Line
+	4150 5150 4150 5600
+Wire Wire Line
+	4150 5600 4300 5600
+Wire Wire Line
+	4300 4700 3750 4700
+Wire Wire Line
+	4300 5800 3800 5800
+Wire Wire Line
+	4700 5900 4700 6100
+Wire Wire Line
+	1650 3700 1350 3700
+Wire Wire Line
+	1350 3700 1350 4100
+Wire Wire Line
+	1350 4100 3750 4100
+Wire Wire Line
+	3750 4100 3750 4700
+Wire Wire Line
+	1650 3800 1400 3800
+Wire Wire Line
+	1400 3800 1400 6200
+Wire Wire Line
+	1400 6200 3800 6200
+Wire Wire Line
+	3800 6200 3800 5800
+Wire Wire Line
+	3650 4900 3650 4450
+Wire Wire Line
+	3650 4450 2200 4450
+Connection ~ 2200 4450
+Wire Wire Line
+	3650 5300 3650 6000
+Wire Wire Line
+	3650 6000 4700 6000
+Connection ~ 4700 6000
+Wire Wire Line
+	10550 1150 10150 1150
+Wire Wire Line
+	10150 1150 10150 2400
+Wire Wire Line
+	10150 2150 10550 2150
+Connection ~ 10150 2150
+Wire Wire Line
+	1950 3350 1650 3350
+Wire Wire Line
+	1650 3350 1650 3200
+Wire Wire Line
+	3950 1150 3950 1400
+Wire Wire Line
+	3550 1800 4150 1800
+Wire Wire Line
+	4150 1800 4150 1150
+Wire Wire Line
+	8600 850  8600 950 
+Wire Wire Line
+	7050 850  8600 850 
+Connection ~ 7050 850 
+Wire Wire Line
+	4300 3100 4250 3100
+Wire Wire Line
+	2150 6900 2100 6900
+Wire Wire Line
+	4150 850  3950 850 
+Wire Wire Line
+	3950 850  3950 800 
+Wire Wire Line
+	3950 1400 4500 1400
+Wire Wire Line
+	4500 1300 3850 1300
+Wire Wire Line
+	3850 1300 3850 1600
+Wire Wire Line
+	3850 1600 3550 1600
+Wire Wire Line
+	4500 1500 4000 1500
+Wire Wire Line
+	4000 1500 4000 1650
+Wire Wire Line
+	4000 1650 3550 1650
 $EndSCHEMATC
