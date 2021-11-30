@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:08:16 2019
-//  Last Modified : <211125.1738>
+//  Last Modified : <211130.0036>
 //
 //  Description	
 //
@@ -132,6 +132,54 @@ CDI_GROUP_ENTRY(eventfalse,openlcb::EventConfigEntry,
                 Name("(C) Event to set variable false."));
 CDI_GROUP_END();
 
+
+class BitEventConsumerOrTrackCircuit 
+      : public openlcb::BitEventHandler, public TrackCircuitCallback
+{
+public:
+    enum Source {Events,TrackCircuit1,TrackCircuit2,TrackCircuit3,TrackCircuit4,TrackCircuit5,TrackCircuit6,TrackCircuit7,TrackCircuit8};
+    BitEventConsumerOrTrackCircuit(openlcb::BitEventInterface *bit,  
+                                   Source source, 
+                                   TrackCircuit::TrackSpeed speed) 
+                : BitEventHandler(bit)
+          , source_(source)
+          , speed_(speed)
+    {
+        int tc = ((int) source_) -1;
+        if (source_ == Events) register_handler(bit->event_on(), bit->event_off());
+        else circuits[tc]->RegisterCallback(this);
+    }
+    ~BitEventConsumerOrTrackCircuit()
+    {
+        int tc = ((int) source_) -1;
+        if (source_ == Events) unregister_handler();
+        else circuits[tc]->UnregisterCallback(this);
+    }
+
+    /// Queries producers and acquires the current state of the bit.
+    void SendQuery(openlcb::WriteHelper *writer, BarrierNotifiable *done);
+
+    void handle_event_report(const openlcb::EventRegistryEntry &entry, EventReport *event,
+                           BarrierNotifiable *done) override;
+    void handle_identify_global(const openlcb::EventRegistryEntry &entry,
+                              openlcb::EventReport *event,
+                              BarrierNotifiable *done) override;
+    void handle_identify_consumer(const openlcb::EventRegistryEntry &entry,
+                                openlcb::EventReport *event,
+                                BarrierNotifiable *done) override;
+    void handle_producer_identified(const openlcb::EventRegistryEntry &entry,
+                                  openlcb::EventReport *event,
+                                    BarrierNotifiable *done) override;
+    void trigger(const TrackCircuit *caller,BarrierNotifiable *done);
+    Source TheSource () const  {return source_;}
+    TrackCircuit::TrackSpeed Speed () const {return speed_;}
+private:
+    Source source_;
+    TrackCircuit::TrackSpeed speed_;
+    openlcb::WriteHelper queryWriter_;
+};
+
+
 class LogicCallback {
 public:
     enum Which {V1, V2, Unknown};
@@ -139,45 +187,36 @@ public:
     virtual const std::string Description() const = 0;
 };
 
-class Variable : public TrackCircuitCallback, public ConfigUpdateListener, public openlcb::SimpleEventHandler {
+class Variable : public ConfigUpdateListener {
 public:
+    using Impl = openlcb::CallbackNetworkInitializedBit;
+    
     enum Trigger {Change, Event, None};
-    enum Source {Events,TrackCircuit1,TrackCircuit2,TrackCircuit3,TrackCircuit4,TrackCircuit5,TrackCircuit6,TrackCircuit7,TrackCircuit8};
     Variable(openlcb::Node *n,const VariableConfig &cfg, LogicCallback *p, const LogicCallback::Which which)
                 : node_(n), cfg_(cfg), parent_(p), which_(which)
+          , impl_(node_, 0, 0, false)
+          , consumer_(&impl_, 
+                      BitEventConsumerOrTrackCircuit::Source::Events, 
+                      TrackCircuit::TrackSpeed::Stop_)
     {
-        value_ = false;
-        source_ = Events;
         ConfigUpdateService::instance()->register_update_listener(this);
     }
-    void trigger(const TrackCircuit *caller,BarrierNotifiable *done);
     virtual UpdateAction apply_configuration(int fd, 
                                              bool initial_load,
                                              BarrierNotifiable *done) override;
     virtual void factory_reset(int fd);
-    void handle_identify_global(const openlcb::EventRegistryEntry &registry_entry, 
-                                EventReport *event, BarrierNotifiable *done) override;
-    void handle_event_report(const EventRegistryEntry &entry, 
-                             EventReport *event,
-                             BarrierNotifiable *done) override;
-    void handle_identify_consumer(const EventRegistryEntry &registry_entry,
-                                  EventReport *event,
-                                  BarrierNotifiable *done) override;
-    bool Value() const {return value_;}
+    bool Value() {
+        return impl_.get_local_state();
+    }
 private:
     openlcb::Node *node_;
     const VariableConfig cfg_;
     LogicCallback *parent_;
     const LogicCallback::Which which_;
     Trigger trigger_;
-    Source  source_;
-    openlcb::EventId event_true_, event_false_;
-    TrackCircuit::TrackSpeed speed_;
-    void register_handler();
-    void unregister_handler();
-    void SendAllConsumersIdentified(EventReport *event,BarrierNotifiable *done);
-    void SendConsumerIdentified(EventReport *event,BarrierNotifiable *done);
-    bool value_;
+    Impl impl_;
+    BitEventConsumerOrTrackCircuit consumer_;
+    void valuechange_();
 };
 
 CDI_GROUP(LogicOperatorConfig);
