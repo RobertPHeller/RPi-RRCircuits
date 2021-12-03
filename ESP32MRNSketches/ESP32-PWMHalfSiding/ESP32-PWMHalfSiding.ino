@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Mar 13 10:22:45 2019
-//  Last Modified : <211117.1240>
+//  Last Modified : <211203.1612>
 //
 //  Description	
 //
@@ -390,6 +390,38 @@ void setup() {
     openmrn.add_can_port(
            new Esp32HardwareCan("esp32can", CAN_RX_PIN, CAN_TX_PIN));
     Serial.println("Added the hardware CAN device as a bridge...");
+    l1.InitVariables();
+    l2.InitVariables();
+    l3.InitVariables();
+    l4.InitVariables();
+    l5.InitVariables();
+    l6.InitVariables();
+    l7.InitVariables();
+    l8.InitVariables();
+    l9.InitVariables();
+    l10.InitVariables();
+    l11.InitVariables();
+    l12.InitVariables();
+    l13.InitVariables();
+    l14.InitVariables();
+    l15.InitVariables();
+    l16.InitVariables();
+    l17.InitVariables();
+    l18.InitVariables();
+    l19.InitVariables();
+    l20.InitVariables();
+    l21.InitVariables();
+    l22.InitVariables();
+    l23.InitVariables();
+    l24.InitVariables();
+    l25.InitVariables();
+    l26.InitVariables();
+    l27.InitVariables();
+    l28.InitVariables();
+    l29.InitVariables();
+    l30.InitVariables();
+    l31.InitVariables();
+    l32.InitVariables();
 }
                 
 void loop() {

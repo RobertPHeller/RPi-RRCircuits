@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:08:16 2019
-//  Last Modified : <211130.0036>
+//  Last Modified : <211203.1624>
 //
 //  Description	
 //
@@ -51,6 +51,8 @@
 #include "openlcb/SimpleStack.hxx"
 #include "executor/Timer.hxx"
 #include "executor/Notifiable.hxx"
+#include "executor/CallableFlow.hxx"
+#include "utils/Singleton.hxx"
 #include <stdio.h>
 #include "utils/logging.h"
 #include <string>
@@ -176,7 +178,6 @@ public:
 private:
     Source source_;
     TrackCircuit::TrackSpeed speed_;
-    openlcb::WriteHelper queryWriter_;
 };
 
 
@@ -193,7 +194,10 @@ public:
     
     enum Trigger {Change, Event, None};
     Variable(openlcb::Node *n,const VariableConfig &cfg, LogicCallback *p, const LogicCallback::Which which)
-                : node_(n), cfg_(cfg), parent_(p), which_(which)
+                : node_(n)
+          , cfg_(cfg)
+          , parent_(p)
+          , which_(which)
           , impl_(node_, 0, 0, false)
           , consumer_(&impl_, 
                       BitEventConsumerOrTrackCircuit::Source::Events, 
@@ -206,7 +210,28 @@ public:
                                              BarrierNotifiable *done) override;
     virtual void factory_reset(int fd);
     bool Value() {
+        if (!impl_.is_network_state_known())
+        {
+            //initFlow_.start();
+        }
         return impl_.get_local_state();
+    }
+    void Apply(BarrierNotifiable *done)
+    {
+        parent_->Evaluate(which_,done);
+    }
+    void SendQuery(openlcb::WriteHelper *writer, 
+                   BarrierNotifiable *done)
+    {
+        consumer_.SendQuery(writer,done);
+    }
+    void set_change_callback(std::function<void()> cb)
+    {
+        impl_.set_change_callback(cb);
+    }
+    BitEventConsumerOrTrackCircuit::Source TheSource()
+    {
+        consumer_.TheSource();
     }
 private:
     openlcb::Node *node_;
@@ -216,7 +241,60 @@ private:
     Trigger trigger_;
     Impl impl_;
     BitEventConsumerOrTrackCircuit consumer_;
-    void valuechange_();
+};
+
+struct VariableValueInitInput : public CallableFlowRequestBase
+{
+    void reset(Variable *v)
+    {
+        v_ = v;
+    }
+    Variable *v_;
+};
+
+class VariableValueInitFlow 
+      : public CallableFlow<VariableValueInitInput>
+, public Singleton<VariableValueInitFlow>
+{
+public:
+    VariableValueInitFlow(openlcb::Node *node) 
+                :  CallableFlow<VariableValueInitInput>(node->iface())
+          , n_()
+          , writer_()
+    {
+    }
+    ~VariableValueInitFlow()
+    {
+    }
+    
+private:
+    Action entry() override
+    {
+        HASSERT(input()->v_ != nullptr);
+        Variable *v = input()->v_;
+        if (v->TheSource() == BitEventConsumerOrTrackCircuit::Events) {
+            v->SendQuery(&writer_,n_.reset(this));
+            v->set_change_callback([this](){change_callback();});
+        }
+        return wait_and_call(STATE(changed));
+    }
+    Action changed()
+    {
+        return_ok();
+    }
+    void change_callback()
+    {
+        Variable *v = input()->v_;
+        v->Apply(n_.reset(this));
+        return_ok();
+    }
+    VariableValueInitInput *input()
+    {
+        return message()->data();
+    }
+    friend class Variable;
+    BarrierNotifiable n_;
+    openlcb::WriteHelper writer_; 
 };
 
 CDI_GROUP(LogicOperatorConfig);
@@ -431,6 +509,17 @@ public:
     virtual void Evaluate(Which v,BarrierNotifiable *done);
     virtual const std::string Description() const {return description_;}
     bool Value();
+    void InitVariables()
+    {
+        if (groupFunction_ == Blocked) {return;}
+        Buffer<VariableValueInitInput> *viBuffer;
+        viBuffer = VariableValueInitFlow::instance()->alloc();
+        viBuffer->data()->reset(v1_);
+        VariableValueInitFlow::instance()->send(viBuffer);
+        viBuffer = VariableValueInitFlow::instance()->alloc();
+        viBuffer->data()->reset(v2_);
+        VariableValueInitFlow::instance()->send(viBuffer);
+    }
 private:
     bool eval_(Which v);
     void _processAction(BarrierNotifiable *done);

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Feb 24 14:51:54 2019
-//  Last Modified : <190224.1515>
+//  Last Modified : <211125.1735>
 //
 //  Description	
 //
@@ -129,9 +129,15 @@ public:
             // Need to reinitialize the producer. We do this with in-place
             // destruction and construction.
             producer_.ProducerClass::~ProducerClass();
+#ifdef ARDUINO
             new (&producer_) ProducerClass(
                 QuiesceDebouncer::Options(debounce_arg), saved_node,
-                cfg_event_occupied, cfg_event_clear, saved_gpio);
+                                           cfg_event_clear, cfg_event_occupied, saved_gpio);
+#else
+            new (&producer_) ProducerClass(
+                QuiesceDebouncer::Options(debounce_arg), saved_node,
+                                           cfg_event_occupied, cfg_event_clear, saved_gpio);
+#endif
             return REINIT_NEEDED; // Causes events identify.
         }
         return UPDATED;

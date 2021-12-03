@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Mar 1 10:46:51 2019
-//  Last Modified : <211130.0041>
+//  Last Modified : <211203.1535>
 //
 //  Description	
 //
@@ -138,6 +138,8 @@ void BitEventConsumerOrTrackCircuit::trigger(const TrackCircuit *caller,BarrierN
     done->notify();
 }
 
+DEFINE_SINGLETON_INSTANCE(VariableValueInitFlow);
+
 ConfigUpdateListener::UpdateAction Variable::apply_configuration(int fd, 
                                                                  bool initial_load,
                                                                  BarrierNotifiable *done)
@@ -166,18 +168,16 @@ ConfigUpdateListener::UpdateAction Variable::apply_configuration(int fd,
         new (&consumer_) BitEventConsumerOrTrackCircuit(&impl_,
                                                         source_cfg, 
                                                         speed_cfg);
-        impl_.set_change_callback([this](){valuechange_();});
-        consumer_.SendQuery(&queryWriter,done);
         return REINIT_NEEDED; // Causes events identify.
     }
     return UPDATED;
 }
 
-void Variable::valuechange_()
-{
-    LOG(ALWAYS,"*** Variable::valuechange_()");
-    //parent_->Evaluate(which_,/* need a BarrierNotifiable */);
-}
+//void Variable::valuechange_()
+//{
+//   LOG(ALWAYS,"*** Variable::valuechange_()");
+//    //parent_->Evaluate(which_,/* need a BarrierNotifiable */);
+//}
 
 void Variable::factory_reset(int fd)
 {

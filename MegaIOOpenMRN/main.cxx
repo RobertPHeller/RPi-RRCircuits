@@ -409,8 +409,8 @@ int appl_main(int argc, char *argv[])
     
     // Connects to a TCP hub on the internet.
     //stack.connect_tcp_gridconnect_hub("28k.ch", 50007);
-#ifdef HAVE_TCP_GRIDCONNECT_HOST
-    stack.connect_tcp_gridconnect_hub(TCP_GRIDCONNECT_HOST, TCP_GRIDCONNECT_PORT);
+#ifdef USE_GRIDCONNECT_HOST
+    stack.connect_tcp_gridconnect_hub(upstream_host, upstream_port);
 #endif
 #ifdef PRINT_ALL_PACKETS
     // Causes all packets to be dumped to stdout.
