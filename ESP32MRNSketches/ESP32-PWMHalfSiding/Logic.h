@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:08:16 2019
-//  Last Modified : <211204.0844>
+//  Last Modified : <211204.0846>
 //
 //  Description	
 //
@@ -528,7 +528,7 @@ public:
             if (!v2_->IsKnown())
             {
                 viBuffer = VariableValueInitFlow::instance()->alloc();
-                viBuffer->data()Logic.h->reset(v2_);
+                viBuffer->data()->reset(v2_);
                 VariableValueInitFlow::instance()->send(viBuffer);
             }
             break;
@@ -544,7 +544,7 @@ public:
             if (!v2_->IsKnown())
             {
                 viBuffer = VariableValueInitFlow::instance()->alloc();
-                viBuffer->data()Logic.h->reset(v2_);
+                viBuffer->data()->reset(v2_);
                 VariableValueInitFlow::instance()->send(viBuffer);
             }
             break;
