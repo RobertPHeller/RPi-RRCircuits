@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:08:16 2019
-//  Last Modified : <211203.1624>
+//  Last Modified : <211204.0844>
 //
 //  Description	
 //
@@ -209,11 +209,10 @@ public:
                                              bool initial_load,
                                              BarrierNotifiable *done) override;
     virtual void factory_reset(int fd);
+    bool IsKnown() {
+        return impl_.is_network_state_known();
+    }
     bool Value() {
-        if (!impl_.is_network_state_known())
-        {
-            //initFlow_.start();
-        }
         return impl_.get_local_state();
     }
     void Apply(BarrierNotifiable *done)
@@ -513,12 +512,45 @@ public:
     {
         if (groupFunction_ == Blocked) {return;}
         Buffer<VariableValueInitInput> *viBuffer;
-        viBuffer = VariableValueInitFlow::instance()->alloc();
-        viBuffer->data()->reset(v1_);
-        VariableValueInitFlow::instance()->send(viBuffer);
-        viBuffer = VariableValueInitFlow::instance()->alloc();
-        viBuffer->data()->reset(v2_);
-        VariableValueInitFlow::instance()->send(viBuffer);
+        switch (logicFunction_) {
+        case AND:
+        case OR:
+        case XOR:
+        case ANDChange:
+        case ORChange:
+        case ANDthenV2:
+            if (!v1_->IsKnown()) 
+            {
+                viBuffer = VariableValueInitFlow::instance()->alloc();
+                viBuffer->data()->reset(v1_);
+                VariableValueInitFlow::instance()->send(viBuffer);
+            }
+            if (!v2_->IsKnown())
+            {
+                viBuffer = VariableValueInitFlow::instance()->alloc();
+                viBuffer->data()Logic.h->reset(v2_);
+                VariableValueInitFlow::instance()->send(viBuffer);
+            }
+            break;
+        case V1:
+            if (!v1_->IsKnown())
+            {
+                viBuffer = VariableValueInitFlow::instance()->alloc();
+                viBuffer->data()->reset(v1_);
+                VariableValueInitFlow::instance()->send(viBuffer);
+            }
+            break;
+        case V2:
+            if (!v2_->IsKnown())
+            {
+                viBuffer = VariableValueInitFlow::instance()->alloc();
+                viBuffer->data()Logic.h->reset(v2_);
+                VariableValueInitFlow::instance()->send(viBuffer);
+            }
+            break;
+        case True:
+            break;
+        }
     }
 private:
     bool eval_(Which v);
