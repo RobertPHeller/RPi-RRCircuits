@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jan 31 09:31:13 2020
-//  Last Modified : <200131.1418>
+//  Last Modified : <211117.1514>
 //
 //  Description	
 //
@@ -45,6 +45,7 @@
 
 #include <Arduino.h>
 #include "PWM.h"
+#include "utils/logging.h"
 
 template <class EXTENDER> class FaBoPWM_PCA9685_PWMChannel : public PWM
 {
@@ -73,10 +74,13 @@ public:
     }
     void set_duty(uint32_t counts)
     {
+        //LOG(ALWAYS,"*** FaBoPWM_PCA9685_PWMChannel[%d]::set_duty(%d), this is %p",channel_,counts,this);
         extender_->set_channel_value(channel_,counts);
+        //LOG(ALWAYS,"*** FaBoPWM_PCA9685_PWMChannel[%d]::set_duty(): duty is %d",channel_,get_duty());
     }
     uint32_t get_duty()
     {
+        //LOG(ALWAYS,"*** FaBoPWM_PCA9685_PWMChannel[%d]::get_duty()",channel_);
         return extender_->get_channel_value(channel_);
     }
     uint32_t get_period_max()

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 20:26:38 2019
-//  Last Modified : <211012.1030>
+//  Last Modified : <211125.1732>
 //
 //  Description	
 //
@@ -47,6 +47,7 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "utils/ConfigUpdateListener.hxx"
 #include "utils/ConfigUpdateService.hxx"
 #include "openlcb/RefreshLoop.hxx"
+#include "utils/logging.h"
 #include <os/Gpio.hxx>
 #include <stdio.h>
 
@@ -61,7 +62,7 @@ ConfigUpdateListener::UpdateAction Mast::apply_configuration(int fd,
 {
     AutoNotify n(done);
     MastProcessing processing_cfg = (MastProcessing) cfg_.processing().read(fd);
-    if (processing_cfg != processing_) {
+    if (processing_cfg != processing_ || initial_load) {
         if (previous_ == nullptr && processing_cfg == Linked) {
             processing_cfg = processing_;
             cfg_.processing().write(fd,(uint8_t)processing_);
@@ -75,14 +76,17 @@ ConfigUpdateListener::UpdateAction Mast::apply_configuration(int fd,
     fade_ = (LampFade) cfg_.fade().read(fd);
 #endif
     openlcb::EventId linkevent_cfg = cfg_.linkevent().read(fd);
-    if (linkevent_cfg != linkevent_ && processing_ == Normal) {
+    if (linkevent_cfg != linkevent_ && processing_ == Normal || initial_load) {
         if (!initial_load) unregister_handler();
         linkevent_ = linkevent_cfg;
         register_handler();
         return REINIT_NEEDED; // Causes events identify.
     }
+    mastid_ = cfg_.mastid().read(fd);
     return UPDATED;
 }
+
+uint16_t Mast::baseLinkEvent_(TRACKCIRCUITBASE);
 
 void Mast::factory_reset(int fd)
 {
@@ -95,6 +99,11 @@ void Mast::factory_reset(int fd)
 #ifdef HAVEPWM
     CDI_FACTORY_RESET(cfg_.fade);
 #endif
+    EventId id = node_->node_id();
+    id <<= 16;
+    id |= baseLinkEvent_;
+    baseLinkEvent_ += 8;
+    cfg_.linkevent().write(fd,id);
 }
 
 void Mast::handle_identify_global(const openlcb::EventRegistryEntry &registry_entry, 
@@ -162,12 +171,13 @@ void Mast::SendProducerIdentified(EventReport *event,BarrierNotifiable *done)
 
 void Mast::ClearCurrentRule(BarrierNotifiable *done)
 {
+    LOG(ALWAYS, "*** Mast[%s]::ClearCurrentRule(): currentRule_ = %p", Mastid().c_str(),currentRule_);
     if (currentRule_ != nullptr)
     {
         currentRule_->ClearRule(done);
         currentRule_ = nullptr;
         return;
-    } else if (processing_ == Linked) {
+    } else if (processing_ == Linked && previous_ != nullptr) {
         previous_->ClearCurrentRule(done);
     }
 }
@@ -175,7 +185,9 @@ void Mast::ClearCurrentRule(BarrierNotifiable *done)
 void Mast::SetCurrentRuleAndSpeed(Rule *r, TrackCircuit::TrackSpeed s, 
                                   BarrierNotifiable *done)
 {
-    if (processing_ == Linked) {
+    LOG(ALWAYS, "*** Mast[%s]::SetCurrentRuleAndSpeed(): previous_ = %p",Mastid().c_str(),previous_);
+    LOG(ALWAYS, "*** Mast::SetCurrentRuleAndSpeed(): r = %p", r);
+    if (processing_ == Linked && previous_ != nullptr) {
         previous_->SetCurrentRuleAndSpeed(r,s,done);
     } else {
         currentRule_ = r;

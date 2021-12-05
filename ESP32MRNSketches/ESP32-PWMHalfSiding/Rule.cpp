@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 20:06:13 2019
-//  Last Modified : <211012.1020>
+//  Last Modified : <211125.1724>
 //
 //  Description	
 //
@@ -47,6 +47,7 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "utils/ConfigUpdateListener.hxx"
 #include "utils/ConfigUpdateService.hxx"
 #include "openlcb/RefreshLoop.hxx"
+#include "utils/logging.h"
 #include <os/Gpio.hxx>
 
 
@@ -69,9 +70,18 @@ ConfigUpdateListener::UpdateAction Rule::apply_configuration(int fd,
     effects_ = (Effects) cfg_.effects().read(fd);
     effectsLamp_ = (Lamp::LampID) cfg_.effectslamp().read(fd);
 #endif
+#if 0
+    LOG(ALWAYS,"*** Rule::apply_configuration(): "
+        "eventsets_cfg is %llx, eventsets_ is %llx, "
+        "eventset_cfg is %llx, eventset_ is %llx, "
+        "eventclear_cfg is %llx, eventclear_ is %llx, "
+        "initial_load is %d", eventsets_cfg, eventsets_,
+        eventset_cfg, eventset_, eventclear_cfg, eventclear_, 
+        initial_load);
+#endif
     if (eventsets_cfg != eventsets_ ||
         eventset_cfg  != eventset_ ||
-        eventclear_cfg != eventclear_) {
+        eventclear_cfg != eventclear_ || initial_load) {
         if (!initial_load) unregister_handler();
         eventsets_ = eventsets_cfg;
         eventset_  = eventset_cfg;
@@ -125,14 +135,15 @@ void Rule::handle_event_report(const EventRegistryEntry &entry,
                                EventReport *event,
                                BarrierNotifiable *done)
 {
+    LOG(ALWAYS, "*** Rule::handle_event_report(): event->event is %llx, eventsets_ is %llx, parent_ is %s",event->event,eventsets_,parent_->Mastid().c_str());
     if (event->event == eventsets_) {
-        LOG(VERBOSE, "*** Rule::handle_event_report(): event->event is %llu",event->event);
         if (parent_ != nullptr) {
             parent_->ClearCurrentRule(done);
 #ifdef EFFECTS
             /* Effects before set go here: effects_, effectsLamp_ */
 #endif
             for (int i=0; i < LAMPCOUNT; i++) {
+                LOG(ALWAYS, "*** Rule::handle_event_report(): lamps_[%d] (%p) on",i,lamps_[i]->Pin());
                 lamps_[i]->On();
             }
             write_helpers[1].WriteAsync(node_,openlcb::Defs::MTI_EVENT_REPORT,
@@ -148,6 +159,7 @@ void Rule::handle_event_report(const EventRegistryEntry &entry,
 
 void Rule::ClearRule(BarrierNotifiable *done)
 {
+    LOG(ALWAYS, "*** Rule::ClearRule()");
     for (int i=0; i < LAMPCOUNT; i++) {
         lamps_[i]->Off();
     }
@@ -190,6 +202,7 @@ void Rule::SendConsumerIdentified(EventReport *event,BarrierNotifiable *done)
 {
     openlcb::Defs::MTI mti = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_UNKNOWN;
     if (event->event == eventsets_) {
+        LOG(ALWAYS, "*** Rule::SendConsumerIdentified(): event->event is %llu",event->event);
         if (isSet_) mti = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_VALID;
         else mti = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_INVALID;
     }
