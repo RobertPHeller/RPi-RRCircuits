@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Mar 1 10:46:51 2019
-//  Last Modified : <190302.1427>
+//  Last Modified : <190314.2019>
 //
 //  Description	
 //
@@ -51,8 +51,8 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "executor/Timer.hxx"
 #include <stdio.h>
 
-#include "TrackCircuit.hxx"
-#include "Logic.hxx"
+#include "TrackCircuit.h"
+#include "Logic.h"
 
 void Variable::trigger(const TrackCircuit *caller,BarrierNotifiable *done)
 {
