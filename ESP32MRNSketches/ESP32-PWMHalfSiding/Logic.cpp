@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Mar 1 10:46:51 2019
-//  Last Modified : <211203.1535>
+//  Last Modified : <211205.0949>
 //
 //  Description	
 //
@@ -85,11 +85,18 @@ void BitEventConsumerOrTrackCircuit::handle_producer_identified(const EventRegis
     }
 }
 
-void BitEventConsumerOrTrackCircuit::SendQuery(openlcb::WriteHelper *writer, BarrierNotifiable *done)
+void BitEventConsumerOrTrackCircuit::SendQuery(openlcb::WriteHelper *writer1,
+                                               openlcb::WriteHelper *writer2,
+                                               BarrierNotifiable *done)
 {
-    writer->WriteAsync(bit_->node(), openlcb::Defs::MTI_PRODUCER_IDENTIFY,
+    writer1->WriteAsync(bit_->node(), openlcb::Defs::MTI_PRODUCER_IDENTIFY,
                        openlcb::WriteHelper::global(),
-                       openlcb::eventid_to_buffer(bit_->event_on()), done);
+                       openlcb::eventid_to_buffer(bit_->event_on()), 
+                       done->new_child());
+    writer2->WriteAsync(bit_->node(), openlcb::Defs::MTI_PRODUCER_IDENTIFY,
+                       openlcb::WriteHelper::global(),
+                       openlcb::eventid_to_buffer(bit_->event_off()), 
+                       done->new_child());
 }
 
 void BitEventConsumerOrTrackCircuit::handle_event_report(const openlcb::EventRegistryEntry& entry, openlcb::EventReport *event,

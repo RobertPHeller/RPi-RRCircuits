@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:08:16 2019
-//  Last Modified : <211204.0846>
+//  Last Modified : <211205.0948>
 //
 //  Description	
 //
@@ -159,7 +159,9 @@ public:
     }
 
     /// Queries producers and acquires the current state of the bit.
-    void SendQuery(openlcb::WriteHelper *writer, BarrierNotifiable *done);
+    void SendQuery(openlcb::WriteHelper *writer1, 
+                   openlcb::WriteHelper *writer2, 
+                   BarrierNotifiable *done);
 
     void handle_event_report(const openlcb::EventRegistryEntry &entry, EventReport *event,
                            BarrierNotifiable *done) override;
@@ -219,10 +221,11 @@ public:
     {
         parent_->Evaluate(which_,done);
     }
-    void SendQuery(openlcb::WriteHelper *writer, 
+    void SendQuery(openlcb::WriteHelper *writer1,
+                   openlcb::WriteHelper *writer2,
                    BarrierNotifiable *done)
     {
-        consumer_.SendQuery(writer,done);
+        consumer_.SendQuery(writer1,writer2,done);
     }
     void set_change_callback(std::function<void()> cb)
     {
@@ -259,7 +262,8 @@ public:
     VariableValueInitFlow(openlcb::Node *node) 
                 :  CallableFlow<VariableValueInitInput>(node->iface())
           , n_()
-          , writer_()
+          , writer1_()
+          , writer2_()
     {
     }
     ~VariableValueInitFlow()
@@ -272,7 +276,7 @@ private:
         HASSERT(input()->v_ != nullptr);
         Variable *v = input()->v_;
         if (v->TheSource() == BitEventConsumerOrTrackCircuit::Events) {
-            v->SendQuery(&writer_,n_.reset(this));
+            v->SendQuery(&writer1_,&writer2_,n_.reset(this));
             v->set_change_callback([this](){change_callback();});
         }
         return wait_and_call(STATE(changed));
@@ -293,7 +297,7 @@ private:
     }
     friend class Variable;
     BarrierNotifiable n_;
-    openlcb::WriteHelper writer_; 
+    openlcb::WriteHelper writer1_,writer2_; 
 };
 
 CDI_GROUP(LogicOperatorConfig);
