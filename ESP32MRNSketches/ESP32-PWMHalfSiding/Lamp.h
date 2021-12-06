@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 11:37:34 2019
-//  Last Modified : <211123.1543>
+//  Last Modified : <211206.1321>
 //
 //  Description	
 //
@@ -166,7 +166,7 @@ public:
         //LOG(ALWAYS, "*** Lamp::blink(): isOn_ = %d",isOn_);
 #if 1
         if (hasChanged_) {
-            LOG(ALWAYS, "*** Lamp::blink(): lampid_ = %d, isOn_ = %d, phase_ is %d, p is %p",\
+            //LOG(ALWAYS, "*** Lamp::blink(): lampid_ = %d, isOn_ = %d, phase_ is %d, p is %p",\
                 lampid_,isOn_,phase_,p);
         }
 #endif

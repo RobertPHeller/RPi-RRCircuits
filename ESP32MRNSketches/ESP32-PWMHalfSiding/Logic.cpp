@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Mar 1 10:46:51 2019
-//  Last Modified : <211205.0949>
+//  Last Modified : <211206.1324>
 //
 //  Description	
 //
@@ -57,7 +57,7 @@ static const char rcsid[] = "@(#) : $Id$";
 void BitEventConsumerOrTrackCircuit::handle_producer_identified(const EventRegistryEntry& entry, EventReport *event,
                                                 BarrierNotifiable *done)
 {
-    done->notify();
+    //LOG(ALWAYS,"*** BitEventConsumerOrTrackCircuit::handle_producer_identified()");
     bool value;
     if (event->state == openlcb::EventState::VALID)
     {
@@ -69,26 +69,38 @@ void BitEventConsumerOrTrackCircuit::handle_producer_identified(const EventRegis
     }
     else
     {
+        done->notify();
         return; // nothing to learn from this message.
     }
     if (event->event == bit_->event_on())
     {
         bit_->set_state(value);
+        if (parent_)
+        {
+            parent_->Apply(done);
+        }
     }
     else if (event->event == bit_->event_off())
     {
         bit_->set_state(!value);
+        if (parent_)
+        {
+            parent_->Apply(done);
+        }
     }
     else
     {
+        done->notify();
         return; // uninteresting event id.
     }
+    done->notify();
 }
 
 void BitEventConsumerOrTrackCircuit::SendQuery(openlcb::WriteHelper *writer1,
                                                openlcb::WriteHelper *writer2,
                                                BarrierNotifiable *done)
 {
+    //LOG(ALWAYS,"*** BitEventConsumerOrTrackCircuit::SendQuery()");
     writer1->WriteAsync(bit_->node(), openlcb::Defs::MTI_PRODUCER_IDENTIFY,
                        openlcb::WriteHelper::global(),
                        openlcb::eventid_to_buffer(bit_->event_on()), 
@@ -102,13 +114,22 @@ void BitEventConsumerOrTrackCircuit::SendQuery(openlcb::WriteHelper *writer1,
 void BitEventConsumerOrTrackCircuit::handle_event_report(const openlcb::EventRegistryEntry& entry, openlcb::EventReport *event,
                                          BarrierNotifiable *done)
 {
+    //LOG(ALWAYS,"*** BitEventConsumerOrTrackCircuit::handle_event_report()");
     if (event->event == bit_->event_on())
     {
         bit_->set_state(true);
+        if (parent_)
+        {
+            parent_->Apply(done);
+        }
     }
     else if (event->event == bit_->event_off())
     {
         bit_->set_state(false);
+        if (parent_)
+        {
+            parent_->Apply(done);
+        }
     }
     done->notify();
 }
@@ -116,12 +137,14 @@ void BitEventConsumerOrTrackCircuit::handle_event_report(const openlcb::EventReg
 void BitEventConsumerOrTrackCircuit::handle_identify_consumer(const openlcb::EventRegistryEntry& entry, openlcb::EventReport *event,
                                               BarrierNotifiable *done)
 {
+    //LOG(ALWAYS,"*** BitEventConsumerOrTrackCircuit::handle_identify_consumer()");
     HandlePCIdentify(openlcb::Defs::MTI_CONSUMER_IDENTIFIED_VALID, event, done);
 }
 
 void BitEventConsumerOrTrackCircuit::handle_identify_global(const openlcb::EventRegistryEntry& entry, openlcb::EventReport *event,
                                             BarrierNotifiable *done)
 {
+    //LOG(ALWAYS,"*** BitEventConsumerOrTrackCircuit::handle_identify_global()");
     if (event->dst_node && event->dst_node != bit_->node())
     {
         return done->notify();
@@ -134,18 +157,25 @@ void BitEventConsumerOrTrackCircuit::handle_identify_global(const openlcb::Event
 
 void BitEventConsumerOrTrackCircuit::trigger(const TrackCircuit *caller,BarrierNotifiable *done)
 {
-    LOG(ALWAYS,"*** BitEventConsumerOrTrackCircuit::trigger(%p,%p)",caller,done);
-    bool changed = false;
+    //LOG(ALWAYS,"*** BitEventConsumerOrTrackCircuit::trigger(%p,%p)",caller,done);
     if (caller->CurrentSpeed() == speed_) // true
     {
         bit_->set_state(true);
+        if (parent_)
+        {
+            parent_->Apply(done);
+        }
     } else {
         bit_->set_state(false);
+        if (parent_)
+        {
+            parent_->Apply(done);
+        }
     }
-    done->notify();
+    //LOG(ALWAYS,"*** BitEventConsumerOrTrackCircuit::trigger(): bit was set");
+    done->maybe_done();
+    //LOG(ALWAYS,"*** BitEventConsumerOrTrackCircuit::trigger(): done was notified");
 }
-
-DEFINE_SINGLETON_INSTANCE(VariableValueInitFlow);
 
 ConfigUpdateListener::UpdateAction Variable::apply_configuration(int fd, 
                                                                  bool initial_load,
@@ -157,10 +187,10 @@ ConfigUpdateListener::UpdateAction Variable::apply_configuration(int fd,
     TrackCircuit::TrackSpeed speed_cfg = (TrackCircuit::TrackSpeed) cfg_.trackspeed().read(fd);
     openlcb::EventId event_true_cfg = cfg_.eventtrue().read(fd);
     openlcb::EventId event_false_cfg = cfg_.eventfalse().read(fd);
-    LOG(ALWAYS,"*** Variable::apply_configuration(): initial_load is %d",initial_load);
-    LOG(ALWAYS,"*** Variable::apply_configuration(): source_cfg = %d, source_ = %d",source_cfg,consumer_.TheSource());
-    LOG(ALWAYS,"*** Variable::apply_configuration(): event_true_cfg is %llx, event_true_ is %llx",event_true_cfg,impl_.event_on());
-    LOG(ALWAYS,"*** Variable::apply_configuration(): event_false_cfg is %llx, event_false_ is %llx",event_false_cfg,impl_.event_off());
+    //LOG(ALWAYS,"*** Variable::apply_configuration(): initial_load is %d",initial_load);
+    //LOG(ALWAYS,"*** Variable::apply_configuration(): source_cfg = %d, source_ = %d",source_cfg,consumer_.TheSource());
+    //LOG(ALWAYS,"*** Variable::apply_configuration(): event_true_cfg is %llx, event_true_ is %llx",event_true_cfg,impl_.event_on());
+    //LOG(ALWAYS,"*** Variable::apply_configuration(): event_false_cfg is %llx, event_false_ is %llx",event_false_cfg,impl_.event_off());
     
     if (source_cfg != consumer_.TheSource() ||
         speed_cfg != consumer_.Speed() ||
@@ -174,17 +204,13 @@ ConfigUpdateListener::UpdateAction Variable::apply_configuration(int fd,
               Impl(saved_node, event_true_cfg, event_false_cfg, false);
         new (&consumer_) BitEventConsumerOrTrackCircuit(&impl_,
                                                         source_cfg, 
-                                                        speed_cfg);
+                                                        speed_cfg,
+                                                        this);
+        
         return REINIT_NEEDED; // Causes events identify.
     }
     return UPDATED;
 }
-
-//void Variable::valuechange_()
-//{
-//   LOG(ALWAYS,"*** Variable::valuechange_()");
-//    //parent_->Evaluate(which_,/* need a BarrierNotifiable */);
-//}
 
 void Variable::factory_reset(int fd)
 {
@@ -316,7 +342,7 @@ bool Logic::Value()
 
 bool Logic::eval_(Which v)
 {
-    LOG(ALWAYS,"*** Logic[%s]::eval_(%d)",Description().c_str(),v);
+    //LOG(ALWAYS,"*** Logic[%s]::eval_(%d)",Description().c_str(),v);
     bool result;
     bool newresult;
     switch (logicFunction_) {
@@ -364,7 +390,7 @@ bool Logic::eval_(Which v)
 
 void Logic::Evaluate(Which v,BarrierNotifiable *done)
 {
-    LOG(ALWAYS,"***Logic::Evaluate() [%s] logicFunction_ = %d, v1_->Value() is %d, v2_->Value() is %d",Description().c_str(),logicFunction_,v1_->Value(),v2_->Value());
+    //LOG(ALWAYS,"***Logic::Evaluate() [%s] logicFunction_ = %d, v1_->Value() is %d, v2_->Value() is %d",Description().c_str(),logicFunction_,v1_->Value(),v2_->Value());
     if (groupFunction_ == Blocked) return;
     eval_(v);
     if (groupFunction_ == Group) {
@@ -383,7 +409,7 @@ void Logic::_processAction(BarrierNotifiable *done)
     } else {
         action_ = falseAction_;
     }
-    LOG(ALWAYS,"***Logic::_processAction(): result is %d, action_ is %d",result,action_);
+    //LOG(ALWAYS,"***Logic::_processAction(): result is %d, action_ is %d",result,action_);
     bool delayStarted = false;
     int i;
     switch (action_) {

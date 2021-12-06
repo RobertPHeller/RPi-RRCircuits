@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Feb 28 20:24:32 2019
-//  Last Modified : <211125.1733>
+//  Last Modified : <211206.1128>
 //
 //  Description	
 //
@@ -89,7 +89,7 @@ void TrackCircuit::handle_event_report(const EventRegistryEntry &entry, EventRep
             speed_ = (TrackSpeed) i;
             for (callback_type_iterator i = callbacks_.begin();
                  i != callbacks_.end(); i++) {
-                (*i)->trigger(this,done);
+                (*i)->trigger(this,done->new_child());
             }
             break;
         }

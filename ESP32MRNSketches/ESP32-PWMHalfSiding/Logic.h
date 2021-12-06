@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:08:16 2019
-//  Last Modified : <211205.0948>
+//  Last Modified : <211206.1321>
 //
 //  Description	
 //
@@ -51,8 +51,6 @@
 #include "openlcb/SimpleStack.hxx"
 #include "executor/Timer.hxx"
 #include "executor/Notifiable.hxx"
-#include "executor/CallableFlow.hxx"
-#include "utils/Singleton.hxx"
 #include <stdio.h>
 #include "utils/logging.h"
 #include <string>
@@ -134,6 +132,7 @@ CDI_GROUP_ENTRY(eventfalse,openlcb::EventConfigEntry,
                 Name("(C) Event to set variable false."));
 CDI_GROUP_END();
 
+class Variable;
 
 class BitEventConsumerOrTrackCircuit 
       : public openlcb::BitEventHandler, public TrackCircuitCallback
@@ -142,17 +141,21 @@ public:
     enum Source {Events,TrackCircuit1,TrackCircuit2,TrackCircuit3,TrackCircuit4,TrackCircuit5,TrackCircuit6,TrackCircuit7,TrackCircuit8};
     BitEventConsumerOrTrackCircuit(openlcb::BitEventInterface *bit,  
                                    Source source, 
-                                   TrackCircuit::TrackSpeed speed) 
+                                   TrackCircuit::TrackSpeed speed,
+                                   Variable *parent) 
                 : BitEventHandler(bit)
           , source_(source)
           , speed_(speed)
+          , parent_(parent)
     {
+        //LOG(ALWAYS,"*** BitEventConsumerOrTrackCircuit::BitEventConsumerOrTrackCircuit(%p,%d,%d)",bit,source,speed);
         int tc = ((int) source_) -1;
         if (source_ == Events) register_handler(bit->event_on(), bit->event_off());
         else circuits[tc]->RegisterCallback(this);
     }
     ~BitEventConsumerOrTrackCircuit()
     {
+        //LOG(ALWAYS,"*** BitEventConsumerOrTrackCircuit::~BitEventConsumerOrTrackCircuit()");
         int tc = ((int) source_) -1;
         if (source_ == Events) unregister_handler();
         else circuits[tc]->UnregisterCallback(this);
@@ -180,8 +183,8 @@ public:
 private:
     Source source_;
     TrackCircuit::TrackSpeed speed_;
+    Variable *parent_;
 };
-
 
 class LogicCallback {
 public:
@@ -192,7 +195,7 @@ public:
 
 class Variable : public ConfigUpdateListener {
 public:
-    using Impl = openlcb::CallbackNetworkInitializedBit;
+    using Impl = openlcb::NetworkInitializedBit;
     
     enum Trigger {Change, Event, None};
     Variable(openlcb::Node *n,const VariableConfig &cfg, LogicCallback *p, const LogicCallback::Which which)
@@ -203,7 +206,8 @@ public:
           , impl_(node_, 0, 0, false)
           , consumer_(&impl_, 
                       BitEventConsumerOrTrackCircuit::Source::Events, 
-                      TrackCircuit::TrackSpeed::Stop_)
+                      TrackCircuit::TrackSpeed::Stop_,
+                      nullptr)
     {
         ConfigUpdateService::instance()->register_update_listener(this);
     }
@@ -212,13 +216,16 @@ public:
                                              BarrierNotifiable *done) override;
     virtual void factory_reset(int fd);
     bool IsKnown() {
+        //LOG(ALWAYS,"*** Variable::IsKnown()");
         return impl_.is_network_state_known();
     }
     bool Value() {
+        //LOG(ALWAYS,"*** Variable::Value()");
         return impl_.get_local_state();
     }
     void Apply(BarrierNotifiable *done)
     {
+        //LOG(ALWAYS,"*** Variable::Apply(%p)",done);
         parent_->Evaluate(which_,done);
     }
     void SendQuery(openlcb::WriteHelper *writer1,
@@ -227,13 +234,9 @@ public:
     {
         consumer_.SendQuery(writer1,writer2,done);
     }
-    void set_change_callback(std::function<void()> cb)
-    {
-        impl_.set_change_callback(cb);
-    }
     BitEventConsumerOrTrackCircuit::Source TheSource()
     {
-        consumer_.TheSource();
+        return consumer_.TheSource();
     }
 private:
     openlcb::Node *node_;
@@ -245,60 +248,6 @@ private:
     BitEventConsumerOrTrackCircuit consumer_;
 };
 
-struct VariableValueInitInput : public CallableFlowRequestBase
-{
-    void reset(Variable *v)
-    {
-        v_ = v;
-    }
-    Variable *v_;
-};
-
-class VariableValueInitFlow 
-      : public CallableFlow<VariableValueInitInput>
-, public Singleton<VariableValueInitFlow>
-{
-public:
-    VariableValueInitFlow(openlcb::Node *node) 
-                :  CallableFlow<VariableValueInitInput>(node->iface())
-          , n_()
-          , writer1_()
-          , writer2_()
-    {
-    }
-    ~VariableValueInitFlow()
-    {
-    }
-    
-private:
-    Action entry() override
-    {
-        HASSERT(input()->v_ != nullptr);
-        Variable *v = input()->v_;
-        if (v->TheSource() == BitEventConsumerOrTrackCircuit::Events) {
-            v->SendQuery(&writer1_,&writer2_,n_.reset(this));
-            v->set_change_callback([this](){change_callback();});
-        }
-        return wait_and_call(STATE(changed));
-    }
-    Action changed()
-    {
-        return_ok();
-    }
-    void change_callback()
-    {
-        Variable *v = input()->v_;
-        v->Apply(n_.reset(this));
-        return_ok();
-    }
-    VariableValueInitInput *input()
-    {
-        return message()->data();
-    }
-    friend class Variable;
-    BarrierNotifiable n_;
-    openlcb::WriteHelper writer1_,writer2_; 
-};
 
 CDI_GROUP(LogicOperatorConfig);
 CDI_GROUP_ENTRY(logicFunction,openlcb::Uint8ConfigEntry,
@@ -512,62 +461,18 @@ public:
     virtual void Evaluate(Which v,BarrierNotifiable *done);
     virtual const std::string Description() const {return description_;}
     bool Value();
-    void InitVariables()
-    {
-        if (groupFunction_ == Blocked) {return;}
-        Buffer<VariableValueInitInput> *viBuffer;
-        switch (logicFunction_) {
-        case AND:
-        case OR:
-        case XOR:
-        case ANDChange:
-        case ORChange:
-        case ANDthenV2:
-            if (!v1_->IsKnown()) 
-            {
-                viBuffer = VariableValueInitFlow::instance()->alloc();
-                viBuffer->data()->reset(v1_);
-                VariableValueInitFlow::instance()->send(viBuffer);
-            }
-            if (!v2_->IsKnown())
-            {
-                viBuffer = VariableValueInitFlow::instance()->alloc();
-                viBuffer->data()->reset(v2_);
-                VariableValueInitFlow::instance()->send(viBuffer);
-            }
-            break;
-        case V1:
-            if (!v1_->IsKnown())
-            {
-                viBuffer = VariableValueInitFlow::instance()->alloc();
-                viBuffer->data()->reset(v1_);
-                VariableValueInitFlow::instance()->send(viBuffer);
-            }
-            break;
-        case V2:
-            if (!v2_->IsKnown())
-            {
-                viBuffer = VariableValueInitFlow::instance()->alloc();
-                viBuffer->data()->reset(v2_);
-                VariableValueInitFlow::instance()->send(viBuffer);
-            }
-            break;
-        case True:
-            break;
-        }
-    }
 private:
     bool eval_(Which v);
     void _processAction(BarrierNotifiable *done);
     void _setPrevious(Logic *p) {previous_ = p;}
     Logic *_topOfGroup() {
-        LOG(ALWAYS,"***Logic::_topOfGroup() [%p]",this);
+        //LOG(ALWAYS,"***Logic::_topOfGroup() [%p]",this);
         Logic *top = this;
-        LOG(ALWAYS,"***Logic::_topOfGroup(): top is %p",top);
+        //LOG(ALWAYS,"***Logic::_topOfGroup(): top is %p",top);
         while (top->previous_ != nullptr && 
                top->previous_->groupFunction_ == Group) {
             top = top->previous_;
-            LOG(ALWAYS,"***Logic::_topOfGroup() in while: top is %p",top);
+            //LOG(ALWAYS,"***Logic::_topOfGroup() in while: top is %p",top);
         }
         return top;
     }

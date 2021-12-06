@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 20:26:38 2019
-//  Last Modified : <211125.1732>
+//  Last Modified : <211206.1325>
 //
 //  Description	
 //
@@ -171,7 +171,7 @@ void Mast::SendProducerIdentified(EventReport *event,BarrierNotifiable *done)
 
 void Mast::ClearCurrentRule(BarrierNotifiable *done)
 {
-    LOG(ALWAYS, "*** Mast[%s]::ClearCurrentRule(): currentRule_ = %p", Mastid().c_str(),currentRule_);
+    //LOG(ALWAYS, "*** Mast[%s]::ClearCurrentRule(): currentRule_ = %p", Mastid().c_str(),currentRule_);
     if (currentRule_ != nullptr)
     {
         currentRule_->ClearRule(done);
@@ -185,8 +185,8 @@ void Mast::ClearCurrentRule(BarrierNotifiable *done)
 void Mast::SetCurrentRuleAndSpeed(Rule *r, TrackCircuit::TrackSpeed s, 
                                   BarrierNotifiable *done)
 {
-    LOG(ALWAYS, "*** Mast[%s]::SetCurrentRuleAndSpeed(): previous_ = %p",Mastid().c_str(),previous_);
-    LOG(ALWAYS, "*** Mast::SetCurrentRuleAndSpeed(): r = %p", r);
+    //LOG(ALWAYS, "*** Mast[%s]::SetCurrentRuleAndSpeed(): previous_ = %p",Mastid().c_str(),previous_);
+    //LOG(ALWAYS, "*** Mast::SetCurrentRuleAndSpeed(): r = %p", r);
     if (processing_ == Linked && previous_ != nullptr) {
         previous_->SetCurrentRuleAndSpeed(r,s,done);
     } else {

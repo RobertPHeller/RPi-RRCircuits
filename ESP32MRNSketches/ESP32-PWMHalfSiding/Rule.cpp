@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 20:06:13 2019
-//  Last Modified : <211125.1724>
+//  Last Modified : <211206.1323>
 //
 //  Description	
 //
@@ -135,7 +135,7 @@ void Rule::handle_event_report(const EventRegistryEntry &entry,
                                EventReport *event,
                                BarrierNotifiable *done)
 {
-    LOG(ALWAYS, "*** Rule::handle_event_report(): event->event is %llx, eventsets_ is %llx, parent_ is %s",event->event,eventsets_,parent_->Mastid().c_str());
+    //LOG(ALWAYS, "*** Rule::handle_event_report(): event->event is %llx, eventsets_ is %llx, parent_ is %s",event->event,eventsets_,parent_->Mastid().c_str());
     if (event->event == eventsets_) {
         if (parent_ != nullptr) {
             parent_->ClearCurrentRule(done);
@@ -143,7 +143,7 @@ void Rule::handle_event_report(const EventRegistryEntry &entry,
             /* Effects before set go here: effects_, effectsLamp_ */
 #endif
             for (int i=0; i < LAMPCOUNT; i++) {
-                LOG(ALWAYS, "*** Rule::handle_event_report(): lamps_[%d] (%p) on",i,lamps_[i]->Pin());
+                //LOG(ALWAYS, "*** Rule::handle_event_report(): lamps_[%d] (%p) on",i,lamps_[i]->Pin());
                 lamps_[i]->On();
             }
             write_helpers[1].WriteAsync(node_,openlcb::Defs::MTI_EVENT_REPORT,
@@ -159,7 +159,7 @@ void Rule::handle_event_report(const EventRegistryEntry &entry,
 
 void Rule::ClearRule(BarrierNotifiable *done)
 {
-    LOG(ALWAYS, "*** Rule::ClearRule()");
+    //LOG(ALWAYS, "*** Rule::ClearRule()");
     for (int i=0; i < LAMPCOUNT; i++) {
         lamps_[i]->Off();
     }
@@ -202,7 +202,7 @@ void Rule::SendConsumerIdentified(EventReport *event,BarrierNotifiable *done)
 {
     openlcb::Defs::MTI mti = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_UNKNOWN;
     if (event->event == eventsets_) {
-        LOG(ALWAYS, "*** Rule::SendConsumerIdentified(): event->event is %llu",event->event);
+        //LOG(ALWAYS, "*** Rule::SendConsumerIdentified(): event->event is %llu",event->event);
         if (isSet_) mti = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_VALID;
         else mti = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_INVALID;
     }
