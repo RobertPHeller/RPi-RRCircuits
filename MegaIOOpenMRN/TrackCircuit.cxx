@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Feb 28 20:24:32 2019
-//  Last Modified : <190302.1036>
+//  Last Modified : <211206.1520>
 //
 //  Description	
 //
@@ -57,7 +57,7 @@ ConfigUpdateListener::UpdateAction TrackCircuit::apply_configuration(int fd, boo
 {
     AutoNotify n(done);
     openlcb::EventId remotemastlink_cfg = cfg_.remotemastlink().read(fd);
-    if (remotemastlink_cfg != remotemastlink_) {
+    if (remotemastlink_cfg != remotemastlink_ || initial_load) {
         if (!initial_load) unregister_handler();
         remotemastlink_ = remotemastlink_cfg;
         register_handler();
@@ -89,7 +89,7 @@ void TrackCircuit::handle_event_report(const EventRegistryEntry &entry, EventRep
             speed_ = (TrackSpeed) i;
             for (callback_type_iterator i = callbacks_.begin();
                  i != callbacks_.end(); i++) {
-                (*i)->trigger(this,done);
+                (*i)->trigger(this,done->new_child());
             }
             break;
         }

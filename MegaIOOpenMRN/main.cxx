@@ -147,63 +147,63 @@ Logic l3(stack.node(),cfg.seg().logics().entry<2>(),stack.executor()->active_tim
 Logic l2(stack.node(),cfg.seg().logics().entry<1>(),stack.executor()->active_timers(),&l3);
 Logic l1(stack.node(),cfg.seg().logics().entry<0>(),stack.executor()->active_timers(),&l2);
 
-constexpr const Gpio *const kGPIO1_Header[] = {
+const Gpio *const kGPIO1_Header[] = {
     GPIO1_1_Pin::instance(), GPIO1_2_Pin::instance(),
     GPIO1_3_Pin::instance(), GPIO1_4_Pin::instance(),
     GPIO1_7_Pin::instance(), GPIO1_8_Pin::instance(),
     GPIO1_9_Pin::instance(), GPIO1_10_Pin::instance()};
 
-constexpr const Gpio *const kGPIO2_Header[] = {
+const Gpio *const kGPIO2_Header[] = {
     GPIO2_1_Pin::instance(), GPIO2_2_Pin::instance(),
     GPIO2_3_Pin::instance(), GPIO2_4_Pin::instance(),
     GPIO2_7_Pin::instance(), GPIO2_8_Pin::instance(),
     GPIO2_9_Pin::instance(), GPIO2_10_Pin::instance()};
 
-constexpr const Gpio *const kGPIO3_Header[] = {
+const Gpio *const kGPIO3_Header[] = {
     GPIO3_1_Pin::instance(), GPIO3_2_Pin::instance(),
     GPIO3_3_Pin::instance(), GPIO3_4_Pin::instance(),
     GPIO3_7_Pin::instance(), GPIO3_8_Pin::instance(),
     GPIO3_9_Pin::instance(), GPIO3_10_Pin::instance()};
 
-constexpr const Gpio *const kGPIO4_Header[] = {
+const Gpio *const kGPIO4_Header[] = {
     GPIO4_1_Pin::instance(), GPIO4_2_Pin::instance(),
     GPIO4_3_Pin::instance(), GPIO4_4_Pin::instance(),
     GPIO4_7_Pin::instance(), GPIO4_8_Pin::instance(),
     GPIO4_9_Pin::instance(), GPIO4_10_Pin::instance()};
 
 #ifdef EXTRAHEADERS
-constexpr const Gpio *const kGPIO5_Header[] = {
+const Gpio *const kGPIO5_Header[] = {
     GPIO5_1_Pin::instance(), GPIO5_2_Pin::instance(),
     GPIO5_3_Pin::instance(), GPIO5_4_Pin::instance(),
     GPIO5_7_Pin::instance(), GPIO5_8_Pin::instance(),
     GPIO5_9_Pin::instance(), GPIO5_10_Pin::instance()};
 
-constexpr const Gpio *const kGPIO6_Header[] = {
+const Gpio *const kGPIO6_Header[] = {
     GPIO6_1_Pin::instance(), GPIO6_2_Pin::instance(),
     GPIO6_3_Pin::instance(), GPIO6_4_Pin::instance(),
     GPIO6_7_Pin::instance(), GPIO6_8_Pin::instance(),
     GPIO6_9_Pin::instance(), GPIO6_10_Pin::instance()};
 #endif
 #ifdef HAVEQUADMCP23017
-constexpr const Gpio *const kGPIO5_Header[] = {
+const Gpio *const kGPIO5_Header[] = {
     GPIO5_1_Pin::instance(), GPIO5_2_Pin::instance(),
     GPIO5_3_Pin::instance(), GPIO5_4_Pin::instance(),
     GPIO5_7_Pin::instance(), GPIO5_8_Pin::instance(),
     GPIO5_9_Pin::instance(), GPIO5_10_Pin::instance()};
 
-constexpr const Gpio *const kGPIO6_Header[] = {
+const Gpio *const kGPIO6_Header[] = {
     GPIO6_1_Pin::instance(), GPIO6_2_Pin::instance(),
     GPIO6_3_Pin::instance(), GPIO6_4_Pin::instance(),
     GPIO6_7_Pin::instance(), GPIO6_8_Pin::instance(),
     GPIO6_9_Pin::instance(), GPIO6_10_Pin::instance()};
 
-constexpr const Gpio *const kGPIO7_Header[] = {
+const Gpio *const kGPIO7_Header[] = {
     GPIO7_1_Pin::instance(), GPIO7_2_Pin::instance(),
     GPIO7_3_Pin::instance(), GPIO7_4_Pin::instance(),
     GPIO7_7_Pin::instance(), GPIO7_8_Pin::instance(),
     GPIO7_9_Pin::instance(), GPIO7_10_Pin::instance()};
 
-constexpr const Gpio *const kGPIO8_Header[] = {
+const Gpio *const kGPIO8_Header[] = {
     GPIO8_1_Pin::instance(), GPIO8_2_Pin::instance(),
     GPIO8_3_Pin::instance(), GPIO8_4_Pin::instance(),
     GPIO8_7_Pin::instance(), GPIO8_8_Pin::instance(),
@@ -425,7 +425,8 @@ int appl_main(int argc, char *argv[])
 #if defined(HAVE_SOCKET_CAN_PORT)
     stack.add_socketcan_port_select(cansocket);
 #endif
-// This command donates the main thread to the operation of the
+    
+    // This command donates the main thread to the operation of the
     // stack. Alternatively the stack could be started in a separate stack and
     // then application-specific business logic could be executed ion a busy
     // loop in the main thread.
