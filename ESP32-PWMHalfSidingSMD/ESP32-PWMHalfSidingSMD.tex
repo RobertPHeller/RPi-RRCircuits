@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Thu May 20 07:35:55 2021
-%  Last Modified : <210526.1333>
+%  Last Modified : <211226.2013>
 %
 %  Description 
 %
@@ -161,17 +161,19 @@ Index&Qty&Refs&Mouser Part Number&Description\\
 \hline
 2&1&JP1&649-67997-404HLF&Termination Jumper -- 2x2 pin header\\
 \hline
-3&2&P601, P602&651-1725724&Signal Lamp Terminals -- 9-pos 2.54 pitch screw terminals\\
+3&1&J3&649-1012937890304BLF&I2C SCL Select Jumper -- 3-pos 2.54 pitch pin header\\
 \hline
-4&3&T1, T2, T601&651-1725656&LCC and Signal power -- 2-pos 2.54 pitch screw terminals\\
+4&2&P601, P602&651-1725724&Signal Lamp Terminals -- 9-pos 2.54 pitch screw terminals\\
 \hline
-5&2&T3, T6&490-TB007-508-02BE&Occupancy Terminals -- 2-pos 5.08 pitch screw terminals\\
+5&3&T1, T2, T601&651-1725656&LCC and Signal power -- 2-pos 2.54 pitch screw terminals\\
 \hline
-6&2&T4, T5&651-1725685&Turnout terminals -- 5-pos 2.54 pitch screw terminals\\
+6&2&T3, T6&490-TB007-508-02BE&Occupancy Terminals -- 2-pos 5.08 pitch screw terminals\\
 \hline
-7&2&U0&517-929974-01-19-RK&MCU Headers -- 19x1 pin socket headers\\
+7&2&T4, T5&651-1725685&Turnout terminals -- 5-pos 2.54 pitch screw terminals\\
 \hline
-8&1&U0&517-929850-01-18-10&MCU Headers -- 18x1 pin socket headers\\
+8&2&U0&517-929974-01-19-RK&MCU Headers -- 19x1 pin socket headers\\
+\hline
+9&1&U0&517-929850-01-18-10&MCU Headers -- 18x1 pin socket headers\\
 \hline
 \end{tabular}\end{centering}
 
@@ -199,7 +201,8 @@ you need to do is solder the through-hole parts, which consists of:
 out, lamp power in), 2 5-position 2.54 pitch terminals (motor 1 and motor
 2), 2 9-position 2.54 pitch terminals (signal lamp outputs), and 2 2-position
 5.08 pitch terminals (Occ. Det. 1 and Occ. Det. 2). 
-\item[Pin Header] 1 2x2 pin header (termination jumpers).
+\item[Pin Headers] 1 2x2 pin header (termination jumpers) and 1 1x3 pin header
+(I2C SCL GPIO selection).
 \item[Connectors] 2 RJ45 connectors (LCC Network).
 \item[Pin Socket Headers] 2 19x1 and 1 18x1, for the MCU module.
 \end{description}
@@ -291,6 +294,8 @@ power for the signal lamp LEDs.
 Power can be optionally injected into the LCC bus or extracted from the LCC 
 bus. Power can be injected to into the LCC bus to power this and other boards. 
 Power can also be extracted to power local devices.
+
+\subsection{I2C SCL GPIO Selection}
 
 \subsection{LCC Bus connections and termination}
 
