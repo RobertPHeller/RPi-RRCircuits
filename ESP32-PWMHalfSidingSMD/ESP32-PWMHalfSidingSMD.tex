@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Thu May 20 07:35:55 2021
-%  Last Modified : <211226.2013>
+%  Last Modified : <211227.1554>
 %
 %  Description 
 %
@@ -296,6 +296,20 @@ bus. Power can be injected to into the LCC bus to power this and other boards.
 Power can also be extracted to power local devices.
 
 \subsection{I2C SCL GPIO Selection}
+
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics{I2C-SCL-Jumper_edited.png}
+\caption{I2C SCL Jumper Options}
+\label{fig:ESP32-PWMHalfSidingI2CSCLJumper}
+\end{centering}\end{figure}
+There is a jumper to selecting the GPIO pin to use for I2C SCL line.  If you 
+are using an ESP32 DevKit you would use GPIO 22.  If you are using a Lily Go 
+TTGO-T1, you might want to use GPIO 23 since GPIO 22 on the TTGO-T1 is wired 
+to its on-board LED and this has been known to cause issues with the I2C 
+interface.  If you select Arduino IDE's board type ``TTGO-T1'', SCL is mapped 
+to GPIO 23 -- it is possible to select the generic ESP32 DevKit as the board 
+type to compile for the ``TTGO-T1'', in which case SCL is mapped to GPIO 22.  
+You should install a shunt jumper that matches how you compiled the firmware.
 
 \subsection{LCC Bus connections and termination}
 
