@@ -1,4 +1,4 @@
-update=Sat 15 Jan 2022 10:24:23 AM EST
+update=Tue 18 Jan 2022 12:05:22 PM EST
 version=1
 last_client=kicad
 [general]
@@ -10,7 +10,7 @@ NetIExt=net
 EquName1=devcms
 [pcbnew]
 version=1
-LastNetListRead=ESP32-PWMHalfSidingSMD.net
+LastNetListRead=ESP32-PWMHalfSidingSMD-T7.net
 UseCmpFile=1
 PadDrill="    0.000000"
 PadDrillOvalY="    0.000000"

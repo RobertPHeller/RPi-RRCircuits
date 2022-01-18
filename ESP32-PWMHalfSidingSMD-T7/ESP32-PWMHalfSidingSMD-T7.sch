@@ -1,0 +1,599 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:esp32_devboards
+LIBS:smalljumper
+LIBS:sn65hvd233-ht
+LIBS:lm2574n-5
+LIBS:MCP23xxx
+LIBS:tbd62x83a
+LIBS:tc442x
+LIBS:mct6h
+LIBS:bridge
+LIBS:pca9685
+LIBS:4814p-2
+LIBS:ESP32_mini
+LIBS:ESP32-PWMHalfSidingSMD-T7-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 6
+Title ""
+Date "18 feb 2020"
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L +5V #PWR01
+U 1 1 5C81D01A
+P 2400 600
+F 0 "#PWR01" H 2400 690 20  0001 C CNN
+F 1 "+5V" H 2400 690 30  0000 C CNN
+F 2 "" H 2400 600 60  0000 C CNN
+F 3 "" H 2400 600 60  0000 C CNN
+	1    2400 600 
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND-RESCUE-ESP32-PWMHalfSidingSMD #PWR02
+U 1 1 5C81D02F
+P 2300 800
+F 0 "#PWR02" H 2300 800 30  0001 C CNN
+F 1 "GND" H 2300 730 30  0001 C CNN
+F 2 "" H 2300 800 60  0000 C CNN
+F 3 "" H 2300 800 60  0000 C CNN
+	1    2300 800 
+	0    -1   -1   0   
+$EndComp
+$Comp
+L 3V3 #PWR03
+U 1 1 5C81D08D
+P 2550 650
+F 0 "#PWR03" H 2550 750 40  0001 C CNN
+F 1 "3V3" H 2550 775 40  0000 C CNN
+F 2 "" H 2550 650 60  0000 C CNN
+F 3 "" H 2550 650 60  0000 C CNN
+	1    2550 650 
+	1    0    0    -1  
+$EndComp
+Text Label 1150 800  2    50   ~ 0
+CAN_RX
+Text Label 1150 900  2    50   ~ 0
+CAN_TX
+Text Label 1150 2600 2    50   ~ 0
+SCL
+Text Label 1150 2500 2    50   ~ 0
+SDA
+$Sheet
+S 4300 1650 950  850 
+U 5C828AE5
+F0 "CAN Transceiver" 50
+F1 "CAN_Transeiver.sch" 50
+F2 "CAN_TX" I L 4300 2000 60 
+F3 "CAN_RX" I L 4300 2150 60 
+$EndSheet
+$Sheet
+S 2700 2800 1250 1050
+U 5C828B13
+F0 "Power Supply" 50
+F1 "PowerSupply.sch" 50
+$EndSheet
+Text Label 7250 3200 2    100  ~ 0
+SDA
+Text Label 7250 3400 2    100  ~ 0
+SCL
+Text Label 1150 600  2    50   ~ 0
+Motor 1
+Text Label 1150 1200 2    50   ~ 0
+Motor 2
+Text Label 1150 2100 2    50   ~ 0
+Sense 1
+Text Label 1150 2200 2    50   ~ 0
+Sense 2
+$Comp
+L TC4428 U7
+U 1 1 5CA233CA
+P 6650 1100
+F 0 "U7" H 6650 800 60  0000 C CNN
+F 1 "TC4428" H 6650 1400 60  0000 C CNN
+F 2 "Housings_SOIC:SOIC-8_3.9x4.9mm_Pitch1.27mm" H 6650 1100 60  0001 C CNN
+F 3 "~" H 6650 1100 60  0000 C CNN
+F 4 "579-TC4428VOA" H 6650 1100 60  0001 C CNN "Mouser Part Number"
+	1    6650 1100
+	1    0    0    -1  
+$EndComp
+$Comp
+L TC4428 U7
+U 2 1 5CA233E5
+P 6650 1850
+F 0 "U7" H 6650 1550 60  0000 C CNN
+F 1 "TC4428" H 6650 2150 60  0000 C CNN
+F 2 "Housings_SOIC:SOIC-8_3.9x4.9mm_Pitch1.27mm" H 6650 1850 60  0001 C CNN
+F 3 "~" H 6650 1850 60  0000 C CNN
+F 4 "579-TC4428VOA" H 6650 1850 60  0001 C CNN "Mouser Part Number"
+	2    6650 1850
+	1    0    0    -1  
+$EndComp
+$Comp
+L TC4428 U8
+U 1 1 5CA23692
+P 8650 1100
+F 0 "U8" H 8650 800 60  0000 C CNN
+F 1 "TC4428" H 8650 1400 60  0000 C CNN
+F 2 "Housings_SOIC:SOIC-8_3.9x4.9mm_Pitch1.27mm" H 8650 1100 60  0001 C CNN
+F 3 "~" H 8650 1100 60  0000 C CNN
+F 4 "579-TC4428VOA" H 8650 1100 60  0001 C CNN "Mouser Part Number"
+	1    8650 1100
+	1    0    0    -1  
+$EndComp
+$Comp
+L TC4428 U8
+U 2 1 5CA23698
+P 8650 1850
+F 0 "U8" H 8650 1550 60  0000 C CNN
+F 1 "TC4428" H 8650 2150 60  0000 C CNN
+F 2 "Housings_SOIC:SOIC-8_3.9x4.9mm_Pitch1.27mm" H 8650 1850 60  0001 C CNN
+F 3 "~" H 8650 1850 60  0000 C CNN
+F 4 "579-TC4428VOA" H 8650 1850 60  0001 C CNN "Mouser Part Number"
+	2    8650 1850
+	1    0    0    -1  
+$EndComp
+Text Label 6400 1100 2    50   ~ 0
+Motor 1
+Text Label 8400 1100 2    50   ~ 0
+Motor 2
+$Comp
+L GND-RESCUE-ESP32-PWMHalfSidingSMD #PWR04
+U 1 1 5CA24864
+P 7400 2200
+F 0 "#PWR04" H 7400 2200 30  0001 C CNN
+F 1 "GND" H 7400 2130 30  0001 C CNN
+F 2 "" H 7400 2200 60  0000 C CNN
+F 3 "" H 7400 2200 60  0000 C CNN
+	1    7400 2200
+	1    0    0    -1  
+$EndComp
+Text Label 7050 1100 0    50   ~ 0
+Motor1A
+Text Label 7050 1850 0    50   ~ 0
+Motor1B
+Text Label 9050 1100 0    50   ~ 0
+Motor2A
+Text Label 9050 1850 0    50   ~ 0
+Motor2B
+$Comp
+L 74HCT00 U9
+U 1 1 5CA24A00
+P 2400 4800
+F 0 "U9" H 2400 4850 60  0000 C CNN
+F 1 "74HCT00" H 2400 4700 60  0000 C CNN
+F 2 "Housings_SOIC:SOIC-14_3.9x8.7mm_Pitch1.27mm" H 2400 4800 60  0001 C CNN
+F 3 "~" H 2400 4800 60  0000 C CNN
+F 4 "595-SN74AHC00D" H 2400 4800 60  0001 C CNN "Mouser Part Number"
+	1    2400 4800
+	1    0    0    -1  
+$EndComp
+$Comp
+L 74HCT00 U9
+U 2 1 5CA24A1B
+P 2400 5700
+F 0 "U9" H 2400 5750 60  0000 C CNN
+F 1 "74HCT00" H 2400 5600 60  0000 C CNN
+F 2 "Housings_SOIC:SOIC-14_3.9x8.7mm_Pitch1.27mm" H 2400 5700 60  0001 C CNN
+F 3 "~" H 2400 5700 60  0000 C CNN
+F 4 "595-SN74AHC00D" H 2400 5700 60  0001 C CNN "Mouser Part Number"
+	2    2400 5700
+	1    0    0    -1  
+$EndComp
+$Comp
+L 3V3 #PWR05
+U 1 1 5CA24B9C
+P 1650 3200
+F 0 "#PWR05" H 1650 3160 30  0001 C CNN
+F 1 "3V3" H 1650 3310 30  0000 C CNN
+F 2 "" H 1650 3200 60  0000 C CNN
+F 3 "" H 1650 3200 60  0000 C CNN
+	1    1650 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L 3V3 #PWR06
+U 1 1 5CA24E3E
+P 2200 4300
+F 0 "#PWR06" H 2200 4400 40  0001 C CNN
+F 1 "3V3" H 2200 4425 40  0000 C CNN
+F 2 "" H 2200 4300 60  0000 C CNN
+F 3 "" H 2200 4300 60  0000 C CNN
+	1    2200 4300
+	1    0    0    -1  
+$EndComp
+Text Label 1250 3500 2    50   ~ 0
+Sense1A
+Text Label 1300 3600 2    50   ~ 0
+Sense1B
+Text Label 3000 4800 0    50   ~ 0
+Sense 1
+$Comp
+L 74HCT00 U9
+U 3 1 5CA253B0
+P 4900 4800
+F 0 "U9" H 4900 4850 60  0000 C CNN
+F 1 "74HCT00" H 4900 4700 60  0000 C CNN
+F 2 "Housings_SOIC:SOIC-14_3.9x8.7mm_Pitch1.27mm" H 4900 4800 60  0001 C CNN
+F 3 "~" H 4900 4800 60  0000 C CNN
+F 4 "595-SN74AHC00D" H 4900 4800 60  0001 C CNN "Mouser Part Number"
+	3    4900 4800
+	1    0    0    -1  
+$EndComp
+$Comp
+L 74HCT00 U9
+U 4 1 5CA253B6
+P 4900 5700
+F 0 "U9" H 4900 5750 60  0000 C CNN
+F 1 "74HCT00" H 4900 5600 60  0000 C CNN
+F 2 "Housings_SOIC:SOIC-14_3.9x8.7mm_Pitch1.27mm" H 4900 5700 60  0001 C CNN
+F 3 "~" H 4900 5700 60  0000 C CNN
+F 4 "595-SN74AHC00D" H 4900 5700 60  0001 C CNN "Mouser Part Number"
+	4    4900 5700
+	1    0    0    -1  
+$EndComp
+Text Label 5500 4800 0    50   ~ 0
+Sense 2
+$Comp
+L GND-RESCUE-ESP32-PWMHalfSidingSMD #PWR07
+U 1 1 5CA2542A
+P 4700 6100
+F 0 "#PWR07" H 4700 6100 30  0001 C CNN
+F 1 "GND" H 4700 6030 30  0001 C CNN
+F 2 "" H 4700 6100 60  0000 C CNN
+F 3 "" H 4700 6100 60  0000 C CNN
+	1    4700 6100
+	1    0    0    -1  
+$EndComp
+Text Label 1350 3700 2    50   ~ 0
+Sense2A
+Text Label 1400 3800 2    50   ~ 0
+Sense2B
+$Comp
+L C-RESCUE-ESP32-PWMHalfSidingSMD C7
+U 1 1 5CA25DF1
+P 3650 5100
+F 0 "C7" H 3650 5200 40  0000 L CNN
+F 1 ".1 uf" H 3656 5015 40  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 3688 4950 30  0001 C CNN
+F 3 "~" H 3650 5100 60  0000 C CNN
+F 4 "710-885012206095" H 3650 5100 60  0001 C CNN "Mouser Part Number"
+	1    3650 5100
+	1    0    0    -1  
+$EndComp
+Text Label 1150 2900 2    50   ~ 0
+OD1
+$Sheet
+S 2150 6550 1700 1100
+U 5CA26382
+F0 "Occupency Detector 1" 50
+F1 "OD1.sch" 50
+F2 "OD1" I L 2150 6900 60 
+$EndSheet
+Text Label 6950 6100 2    50   ~ 0
+OD1
+$Comp
+L CONN_5 T4
+U 1 1 5CA23486
+P 10950 1050
+F 0 "T4" V 10900 1050 50  0000 C CNN
+F 1 "Motor 1" V 11000 1050 50  0000 C CNN
+F 2 "Connectors_Terminal_Blocks:TerminalBlock_Pheonix_MPT-2.54mm_5pol" H 10950 1050 60  0001 C CNN
+F 3 "" H 10950 1050 60  0000 C CNN
+F 4 "651-1725685" H 10950 1050 60  0001 C CNN "Mouser Part Number"
+	1    10950 1050
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_5 T5
+U 1 1 5CA234A4
+P 10950 2050
+F 0 "T5" V 10900 2050 50  0000 C CNN
+F 1 "Motor 2" V 11000 2050 50  0000 C CNN
+F 2 "Connectors_Terminal_Blocks:TerminalBlock_Pheonix_MPT-2.54mm_5pol" H 10950 2050 60  0001 C CNN
+F 3 "" H 10950 2050 60  0000 C CNN
+F 4 "651-1725685" H 10950 2050 60  0001 C CNN "Mouser Part Number"
+	1    10950 2050
+	1    0    0    -1  
+$EndComp
+Text Label 10550 850  2    50   ~ 0
+Motor1A
+Text Label 10550 950  2    50   ~ 0
+Motor1B
+Text Label 10550 1050 2    50   ~ 0
+Sense1A
+Text Label 10550 1250 2    50   ~ 0
+Sense1B
+Text Label 10550 1850 2    50   ~ 0
+Motor2A
+Text Label 10550 1950 2    50   ~ 0
+Motor2B
+Text Label 10550 2050 2    50   ~ 0
+Sense2A
+Text Label 10550 2250 2    50   ~ 0
+Sense2B
+$Comp
+L GND-RESCUE-ESP32-PWMHalfSidingSMD #PWR08
+U 1 1 5CA23630
+P 10150 2400
+F 0 "#PWR08" H 10150 2400 30  0001 C CNN
+F 1 "GND" H 10150 2330 30  0001 C CNN
+F 2 "" H 10150 2400 60  0000 C CNN
+F 3 "" H 10150 2400 60  0000 C CNN
+	1    10150 2400
+	1    0    0    -1  
+$EndComp
+$Sheet
+S 4300 2750 1700 1100
+U 5CA368DE
+F0 "Occupency Detector 2" 50
+F1 "OD2.sch" 50
+F2 "OD2" I L 4300 3100 60 
+$EndSheet
+Text Label 9150 6150 2    50   ~ 0
+OD2
+Text Label 1150 3000 2    50   ~ 0
+OD2
+$Sheet
+S 7250 2850 2400 2350
+U 5E35C594
+F0 "PCA9685 PWM Led Driver" 50
+F1 "PCA9685Driver.sch" 50
+F2 "SCL" I L 7250 3400 60 
+F3 "SDA" B L 7250 3200 60 
+F4 "OE" I L 7250 3650 60 
+$EndSheet
+Text Label 7250 3650 2    100  ~ 0
+OE
+Text Label 1150 1500 2    50   ~ 0
+OE
+$Comp
+L 4814P-2 RR101
+U 1 1 5E4B4904
+P 1950 3750
+F 0 "RR101" H 1950 3850 30  0000 C CNN
+F 1 "10K Ohms" V 1950 3700 30  0000 C CNN
+F 2 "48xxP:4814P" H 1950 3750 60  0001 C CNN
+F 3 "~" H 1950 3750 60  0000 C CNN
+F 4 "652-4814P-T2LF-10K" H 1950 3750 60  0001 C CNN "Mouser Part Number"
+	1    1950 3750
+	1    0    0    -1  
+$EndComp
+NoConn ~ 1650 3900
+NoConn ~ 1650 4000
+NoConn ~ 1950 4150
+NoConn ~ 2250 4000
+NoConn ~ 2250 3900
+NoConn ~ 2250 3800
+NoConn ~ 2250 3700
+NoConn ~ 2250 3600
+NoConn ~ 2250 3500
+$Comp
+L R R7
+U 1 1 61A11151
+P 850 2600
+F 0 "R7" V 930 2600 50  0000 C CNN
+F 1 "2.4K" V 850 2600 50  0000 C CNN
+F 2 "Resistors_SMD:R_0603" V 780 2600 50  0001 C CNN
+F 3 "" H 850 2600 50  0001 C CNN
+F 4 "71-CRCW06032K40JNEAC " V 850 2600 60  0001 C CNN "Mouser Part Number"
+	1    850  2600
+	0    -1   -1   0   
+$EndComp
+$Comp
+L R R8
+U 1 1 61A111B0
+P 850 2500
+F 0 "R8" V 930 2500 50  0000 C CNN
+F 1 "2.4K" V 850 2500 50  0000 C CNN
+F 2 "Resistors_SMD:R_0603" V 780 2500 50  0001 C CNN
+F 3 "" H 850 2500 50  0001 C CNN
+F 4 "71-CRCW06032K40JNEAC " V 850 2500 60  0001 C CNN "Mouser Part Number"
+	1    850  2500
+	0    -1   -1   0   
+$EndComp
+Text GLabel 7050 650  0    60   Input ~ 0
+CAN +12V
+Text Label 2100 6900 2    60   ~ 0
+OD1
+Text Label 4250 3100 2    60   ~ 0
+OD2
+$Comp
+L 3V3 #PWR09
+U 1 1 61A153A8
+P 650 2350
+F 0 "#PWR09" H 650 2450 40  0001 C CNN
+F 1 "3V3" H 650 2475 40  0000 C CNN
+F 2 "" H 650 2350 60  0000 C CNN
+F 3 "" H 650 2350 60  0000 C CNN
+	1    650  2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L TTGO-T7-v13 U0
+U 1 1 61E6F886
+P 1650 500
+F 0 "U0" H 1350 -1500 50  0000 C CNN
+F 1 "TTGO-T7-v13" H 1850 -1850 50  0000 C CNN
+F 2 "ESP32_mini:ESP32_mini" H 1800 600 50  0001 C CNN
+F 3 "" H 1800 600 50  0001 C CNN
+	1    1650 500 
+	1    0    0    -1  
+$EndComp
+Text Label 4300 2000 2    50   ~ 0
+CAN_TX
+Text Label 4300 2150 2    50   ~ 0
+CAN_RX
+Wire Wire Line
+	6400 1100 6400 1850
+Wire Wire Line
+	8400 1100 8400 1850
+Wire Wire Line
+	7050 900  6600 900 
+Wire Wire Line
+	6600 900  6600 950 
+Wire Wire Line
+	7050 650  7050 900 
+Wire Wire Line
+	8600 2150 8600 2050
+Wire Wire Line
+	6900 2150 8600 2150
+Wire Wire Line
+	7400 2150 7400 2200
+Wire Wire Line
+	6900 2150 6900 2050
+Wire Wire Line
+	6900 2050 6600 2050
+Connection ~ 7400 2150
+Wire Wire Line
+	1800 4900 1800 5250
+Wire Wire Line
+	1800 5250 3000 5250
+Wire Wire Line
+	3000 5250 3000 5700
+Wire Wire Line
+	3000 4800 3000 5150
+Wire Wire Line
+	3000 5150 1650 5150
+Wire Wire Line
+	1650 5150 1650 5600
+Wire Wire Line
+	1650 5600 1800 5600
+Wire Wire Line
+	2200 4300 2200 4600
+Wire Wire Line
+	1800 4700 1250 4700
+Wire Wire Line
+	1250 4700 1250 3500
+Wire Wire Line
+	1250 3500 1650 3500
+Wire Wire Line
+	1800 5800 1300 5800
+Wire Wire Line
+	1300 5800 1300 3600
+Wire Wire Line
+	1300 3600 1650 3600
+Wire Wire Line
+	4300 4900 4300 5250
+Wire Wire Line
+	4300 5250 5500 5250
+Wire Wire Line
+	5500 5250 5500 5700
+Wire Wire Line
+	5500 4800 5500 5150
+Wire Wire Line
+	5500 5150 4150 5150
+Wire Wire Line
+	4150 5150 4150 5600
+Wire Wire Line
+	4150 5600 4300 5600
+Wire Wire Line
+	4300 4700 3750 4700
+Wire Wire Line
+	4300 5800 3800 5800
+Wire Wire Line
+	4700 5900 4700 6100
+Wire Wire Line
+	1650 3700 1350 3700
+Wire Wire Line
+	1350 3700 1350 4100
+Wire Wire Line
+	1350 4100 3750 4100
+Wire Wire Line
+	3750 4100 3750 4700
+Wire Wire Line
+	1650 3800 1400 3800
+Wire Wire Line
+	1400 3800 1400 6200
+Wire Wire Line
+	1400 6200 3800 6200
+Wire Wire Line
+	3800 6200 3800 5800
+Wire Wire Line
+	3650 4900 3650 4450
+Wire Wire Line
+	3650 4450 2200 4450
+Connection ~ 2200 4450
+Wire Wire Line
+	3650 5300 3650 6000
+Wire Wire Line
+	3650 6000 4700 6000
+Connection ~ 4700 6000
+Wire Wire Line
+	10550 1150 10150 1150
+Wire Wire Line
+	10150 1150 10150 2400
+Wire Wire Line
+	10150 2150 10550 2150
+Connection ~ 10150 2150
+Wire Wire Line
+	1950 3350 1650 3350
+Wire Wire Line
+	1650 3350 1650 3200
+Wire Wire Line
+	8600 850  8600 950 
+Wire Wire Line
+	7050 850  8600 850 
+Connection ~ 7050 850 
+Wire Wire Line
+	4300 3100 4250 3100
+Wire Wire Line
+	2150 6900 2100 6900
+Wire Wire Line
+	1000 2600 1150 2600
+Wire Wire Line
+	1000 2500 1150 2500
+Wire Wire Line
+	700  2350 700  2600
+Wire Wire Line
+	700  2350 650  2350
+Connection ~ 700  2500
+Wire Wire Line
+	2200 800  2300 800 
+Wire Wire Line
+	2200 800  2200 1000
+Connection ~ 2200 900 
+Wire Wire Line
+	2400 600  2200 600 
+Wire Wire Line
+	2200 700  2550 700 
+Wire Wire Line
+	2550 700  2550 650 
+$EndSCHEMATC
