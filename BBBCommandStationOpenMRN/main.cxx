@@ -268,13 +268,16 @@ public:
 int upstream_port = DEFAULT_OPENLCB_TCP_PORT;
 const char *upstream_host = DEFAULT_OPENLCB_TCP_HOST;
 #else
-#ifdef USE_GRIDCONNECT_HOST
+#  ifdef USE_GRIDCONNECT_HOST
 int upstream_port = DEFAULT_TCP_GRIDCONNECT_PORT;
 const char *upstream_host = DEFAULT_TCP_GRIDCONNECT_HOST;
-#endif
-#ifdef USE_SOCKET_CAN_PORT
+#  endif
+#  ifdef USE_SOCKET_CAN_PORT
 const char *cansocket = DEFAULT_CAN_SOCKET;
-#endif
+#    ifdef START_GCTCP_HUB
+int gctcp_hub_port = DEFAULT_GRIDCONNECT_HUB_PORT;
+#    endif
+#  endif
 #endif
 
 // CLI Usage output.
@@ -321,17 +324,25 @@ void parse_args(int argc, char *argv[])
 {
     int opt;
 #if defined(USE_OPENLCB_TCP_HOST) || defined(USE_GRIDCONNECT_HOST)
-#ifdef USE_SOCKET_CAN_PORT
-#define OPTSTRING "he:t:M:P:u:q:c:"
+#  ifdef USE_SOCKET_CAN_PORT
+#    ifdef START_GCTCP_HUB
+#      define OPTSTRING "he:t:M:P:u:q:c:p:"
+#    else
+#      define OPTSTRING "he:t:M:P:u:q:c:"
+#    endif
+#  else
+#    define OPTSTRING "he:t:M:P:u:q:"
+#  endif
 #else
-#define OPTSTRING "he:t:M:P:u:q:"
-#endif
-#else
-#ifdef USE_SOCKET_CAN_PORT
-#define OPTSTRING "he:t:M:P:c:"
-#else
-#define OPTSTRING "he:t:M:P:"
-#endif
+#  ifdef USE_SOCKET_CAN_PORT
+#    ifdef START_GCTCP_HUB
+#      define OPTSTRING "he:t:M:P:c:p:"
+#    else
+#      define OPTSTRING "he:t:M:P:c:"
+#    endif
+#  else
+#    define OPTSTRING "he:t:M:P:"
+#  endif
 #endif
     while ((opt = getopt(argc, argv, OPTSTRING)) >= 0)
     {
@@ -363,6 +374,11 @@ void parse_args(int argc, char *argv[])
 #ifdef USE_SOCKET_CAN_PORT
         case 'c':
             cansocket = optarg;
+            break;
+#endif
+#ifdef START_GCTCP_HUB
+        case 'p':
+            gctcp_hub_port = atoi(optarg);
             break;
 #endif
         default:
@@ -447,6 +463,9 @@ int appl_main(int argc, char *argv[])
 #endif
 #if defined(USE_SOCKET_CAN_PORT)
     stack.add_socketcan_port_select(cansocket);
+#endif
+#if defined(START_GCTCP_HUB)
+    stack.start_tcp_hub_server(gctcp_port);
 #endif
         
     // This command donates the main thread to the operation of the

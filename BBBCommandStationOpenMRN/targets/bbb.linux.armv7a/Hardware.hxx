@@ -102,6 +102,9 @@ typedef GpioInitializer<MainEN_Pin, MainTF_Pin, ProgEN_Pin,
 #define USE_SOCKET_CAN_PORT
 #define DEFAULT_CAN_SOCKET "can1"
 
+// #define START_GCTCP_HUB
+// #define DEFAULT_GRIDCONNECT_HUB_PORT 12021
+
 //#define TERMINALCONSOLE
 #define CONSOLEPORT 9900
 
