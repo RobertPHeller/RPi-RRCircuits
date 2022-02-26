@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Thu May 20 07:35:55 2021
-%  Last Modified : <220111.1306>
+%  Last Modified : <220203.1215>
 %
 %  Description 
 %
@@ -49,7 +49,7 @@ track ABS block.  There are other trackwork cases this board can handle as
 well.  The board contains these I/O sections:
 
 \begin{itemize}
-\item Two occupancy detectors.  These are optoisolator based, so they will 
+\item Two occupancy detectors.  These are opto-isolator based, so they will 
 work for both DC and DCC systems.
 \item Two stall-motor with point sense.
 \item Sixteen PWM Led drivers.  These are meant to light lamps in signal 
@@ -277,17 +277,18 @@ in the node.
 \section{General Wiring Notes}
 
 There are various terminal blocks, connectors, and jumper blocks on this
-board. At the top end of the board are a pair of two position terminal blocks, 
-one for injecting power into the LCC bus and one for extracting power from the 
-LCC bus.  Between these terminal blocks is the termination jumper block for 
-the LCC bus.  Below the LCC  power terminal blocks is a pair of RJ45 
-connectors. These are for connecting the board to the LCC bus.  These 
-connectors are wired in parallel.  Down along the left side are the two stall 
-motor terminal blocks (small 5 position terminal blocks) and the occupancy 
-detector terminal blocks (large 2 position terminal blocks).  On the right 
-side are two 9 position terminal blocks for the signal lamp LEDs.  Finally, at 
-the bottom right is a two position terminal block to (optionally) provide 
-power for the signal lamp LEDs.
+board. At the top right corner of the board are a pair of two position
+terminal blocks, one for injecting power into the LCC bus and one for
+extracting power from the LCC bus. Between these terminal blocks is the
+termination jumper block for the LCC bus. Below the LCC power terminal blocks
+is a pair of RJ45 connectors. These are for connecting the board to the LCC
+bus. These connectors are wired in parallel. Down along the left side are the
+two stall motor terminal blocks (small 5 position terminal blocks) and the
+occupancy detector terminal blocks (large 2 position terminal blocks). On the
+right side are two 9 position terminal blocks for the signal lamp LEDs.
+Finally, between the terminal blocks for the signal lamp LEDs is a two
+position terminal block to (optionally) provide power for the signal lamp
+LEDs.
 
 \subsection{LCC Power}
 
@@ -369,9 +370,9 @@ shown Figure~\ref{fig:ESP32-PWMHalfSidingLampDivers}.
 \clearpage
 \section{Application Notes}
 
-Three applications will presented, a typical siding using two boards, an 
-implementation of a section of Automatic Block Signals, and Crossing with 
-Interchange.  Other trackwork arrangements are possible as well.
+Two applications will presented, a typical siding using two boards and an
+implementation of a section of Automatic Block Signals. Other trackwork
+arrangements are possible as well.
 
 
 \subsection{Typical Siding}
@@ -581,7 +582,12 @@ restrictive aspect) of signal CP1ME, as shown in Figures
 \ref{fig:CP1ME-Clear-Logic-Config2}. This is an unconditional logic and is the 
 last in this chain.
 
-
+The other two signal masts are similarly configured.  There are three rules 
+(stop, approach, and clear) and three logic cells for each mast.  The logic 
+cell for stop is the OR of the OS section (variable 1) being occupied and the 
+point state (variable 2).  The approach logic depends on the track circuit for 
+the block in front of the points (a dummy mast can be set up for this, using 
+an off node occupancy detector).
  
 
 \clearpage
@@ -602,4 +608,7 @@ Figure~\ref{fig:ABSTrack} and Figure~\ref{fig:ABSTrack_Wiring} shows how two
 of the blocks would be wired to a ESP32 HalfSiding board. Additional boards 
 would be used for additional pairs of blocks.
 
-
+Configuring the masts and logic cells is similar to the masts and logic cells: 
+the stop logic uses the occupancy detector, the approach logic uses the track 
+circuit for the block beyond the current, and the clear logic is the null/true 
+logic mode. 
