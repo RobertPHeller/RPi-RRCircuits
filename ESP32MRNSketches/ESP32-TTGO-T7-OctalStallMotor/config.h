@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Mar 13 10:34:17 2019
-//  Last Modified : <220226.1839>
+//  Last Modified : <220301.1125>
 //
 //  Description	
 //
@@ -49,6 +49,8 @@
 #include "openlcb/MemoryConfig.hxx"
 #include "Turnout.h"
 #include "Points.h"
+#include "Logic.h"
+#include "TrackCircuit.h"
 
 namespace openlcb
 {
@@ -69,7 +71,7 @@ namespace openlcb
 extern const SimpleNodeStaticValues SNIP_STATIC_DATA = {
     4,
     "OpenMRN",
-    "Deepwoods Software ESP32 Octal Stall Motor (CAN)",
+    "DWS ESP32 Octal Stall Motor (CAN)",
     ARDUINO_VARIANT,
     "1.00"};
 
@@ -80,6 +82,9 @@ constexpr uint8_t NUM_POINTSS = 8;
 /// ProducerConfig and ConsumerConfig groups represent the configuration layout
 /// needed by the ConfiguredProducer and ConfiguredConsumer classes, and come
 /// from their respective hxx file.
+using LogicGroup = openlcb::RepeatedGroup<LogicConfig, LOGICCOUNT>;
+using TrackCircuitGroup = openlcb::RepeatedGroup<TrackCircuitConfig, TRACKCIRCUITCOUNT>;
+
 using TurnoutGroup = RepeatedGroup<TurnoutConfig, NUM_TURNOUTS>;
 using PointsGroup = RepeatedGroup<PointsConfig, NUM_POINTSS>;
 
@@ -95,6 +100,8 @@ CDI_GROUP(IoBoardSegment, Segment(MemoryConfigDefs::SPACE_CONFIG), Offset(128));
 CDI_GROUP_ENTRY(internal_config, InternalConfigData);
 CDI_GROUP_ENTRY(turnouts, TurnoutGroup, Name("Turnouts"), RepName("Turnout"));
 CDI_GROUP_ENTRY(points, PointsGroup, Name("Points"), RepName("Points"));
+CDI_GROUP_ENTRY(logics, LogicGroup, Name("LOGIC"), RepName("Logic"));
+CDI_GROUP_ENTRY(circuits, TrackCircuitGroup, Name("TRACK CIRCUITS"), RepName("Circuit"));
 CDI_GROUP_END();
 
 /// This segment is only needed temporarily until there is program code to set

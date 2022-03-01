@@ -9,6 +9,7 @@
 #include "utils/ConfigUpdateListener.hxx"
 #include "utils/ConfigUpdateService.hxx"
 #include "openlcb/RefreshLoop.hxx"
+#include "VetoBitEventInterface.h"
 
 /// CDI Configuration for a @ref ConfiguredConsumer.
 CDI_GROUP(TurnoutConfig);
@@ -25,6 +26,16 @@ CDI_GROUP_ENTRY(
     reversed, openlcb::EventConfigEntry, //
     Name("Reversed"),
     Description("Receiving this event ID will align the turnout to reversed."));
+/// Specifies the event ID to set the veto to ON.
+CDI_GROUP_ENTRY(
+    veto_on, openlcb::EventConfigEntry, //
+    Name("Veto On"),
+    Description("Receiving this event ID will lock the turnout."));
+/// Specifies the event ID to set the output to OFF.
+CDI_GROUP_ENTRY(
+    veto_off, openlcb::EventConfigEntry, //
+    Name("Veto Off"),
+    Description("Receiving this event ID will unlock the turnout."));
 CDI_GROUP_END();
 
 /// OpenLCB Consumer class integrating a simple CDI-based configuration for two
@@ -34,10 +45,10 @@ CDI_GROUP_END();
 class Turnout : public ConfigUpdateListener
 {
 public:
-    using Impl = openlcb::GPIOBit;
+    using Impl = VetoGPIOBit;
 
     Turnout(openlcb::Node *node, const TurnoutConfig &cfg, const Gpio *gpio)
-        : impl_(node, 0, 0, gpio)
+        : impl_(node, 0, 0, 0, 0, gpio)
         , consumer_(&impl_)
         , cfg_(cfg)
     {
@@ -46,7 +57,7 @@ public:
 
     template <class HW>
     Turnout(openlcb::Node *node, const TurnoutConfig &cfg, const HW &, const Gpio* g = HW::instance())
-        : impl_(node, 0, 0, g)
+        : impl_(node, 0, 0, 0, 0, g)
         , consumer_(&impl_)
         , cfg_(cfg)
     {
@@ -59,18 +70,22 @@ public:
         AutoNotify n(done);
         openlcb::EventId cfg_event_on = cfg_.normal().read(fd);
         openlcb::EventId cfg_event_off = cfg_.reversed().read(fd);
+        openlcb::EventId cfg_veto_on = cfg_.veto_on().read(fd);
+        openlcb::EventId cfg_veto_off = cfg_.veto_off().read(fd);
         if (cfg_event_off != impl_.event_off() ||
-            cfg_event_on != impl_.event_on())
+            cfg_event_on != impl_.event_on() ||
+            cfg_veto_on != impl_.veto_on() ||
+            cfg_veto_off != impl_.veto_off())
         {
             auto saved_gpio = impl_.gpio_;
             auto saved_node = impl_.node();
             // Need to reinitialize the consumer. We do this with in-place
             // destruction and construction.
-            consumer_.~BitEventConsumer();
+            consumer_.~VetoBitEventConsumer();
             impl_.Impl::~Impl();
             new (&impl_)
-                Impl(saved_node, cfg_event_on, cfg_event_off, saved_gpio);
-            new (&consumer_) openlcb::BitEventConsumer(&impl_);
+                Impl(saved_node, cfg_event_on, cfg_event_off, cfg_veto_on, cfg_veto_off, saved_gpio);
+            new (&consumer_) VetoBitEventConsumer(&impl_);
             return REINIT_NEEDED; // Causes events identify.
         }
         return UPDATED;
@@ -83,7 +98,7 @@ public:
 
 private:
     Impl impl_;
-    openlcb::BitEventConsumer consumer_;
+    VetoBitEventConsumer consumer_;
     const TurnoutConfig cfg_;
 };
 

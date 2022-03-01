@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Mar 13 10:22:45 2019
-//  Last Modified : <220226.1848>
+//  Last Modified : <220301.0949>
 //
 //  Description	
 //
@@ -65,6 +65,8 @@ static const char rcsid[] = "@(#) : $Id$";
 #include <freertos_drivers/arduino/ArduinoGpio.hxx>
 #include "Turnout.h"
 #include "Points.h"
+#include "TrackCircuit.h"
+#include "Logic.h"
 
 
 #define MotorPin GpioOutputSafeLow
@@ -121,6 +123,50 @@ static constexpr openlcb::ConfigDef cfg(0);
 // segment 'seg', in which there is a repeated group 'consumers', and we assign
 // the individual entries to the individual consumers. Each consumer gets its
 // own GPIO pin.
+
+TrackCircuit c1(openmrn.stack()->node(),cfg.seg().circuits().entry<0>());
+TrackCircuit c2(openmrn.stack()->node(),cfg.seg().circuits().entry<1>());
+TrackCircuit c3(openmrn.stack()->node(),cfg.seg().circuits().entry<2>());
+TrackCircuit c4(openmrn.stack()->node(),cfg.seg().circuits().entry<3>());
+TrackCircuit c5(openmrn.stack()->node(),cfg.seg().circuits().entry<4>());
+TrackCircuit c6(openmrn.stack()->node(),cfg.seg().circuits().entry<5>());
+TrackCircuit c7(openmrn.stack()->node(),cfg.seg().circuits().entry<6>());
+TrackCircuit c8(openmrn.stack()->node(),cfg.seg().circuits().entry<7>());
+
+TrackCircuit *circuits[8] = {&c1, &c2, &c3, &c4, &c5, &c6, &c7, &c8};
+
+Logic l32(openmrn.stack()->node(),cfg.seg().logics().entry<31>(),openmrn.stack()->executor()->active_timers(),nullptr);
+Logic l31(openmrn.stack()->node(),cfg.seg().logics().entry<30>(),openmrn.stack()->executor()->active_timers(),&l32);
+Logic l30(openmrn.stack()->node(),cfg.seg().logics().entry<29>(),openmrn.stack()->executor()->active_timers(),&l31);
+Logic l29(openmrn.stack()->node(),cfg.seg().logics().entry<28>(),openmrn.stack()->executor()->active_timers(),&l30);
+Logic l28(openmrn.stack()->node(),cfg.seg().logics().entry<27>(),openmrn.stack()->executor()->active_timers(),&l29);
+Logic l27(openmrn.stack()->node(),cfg.seg().logics().entry<26>(),openmrn.stack()->executor()->active_timers(),&l28);
+Logic l26(openmrn.stack()->node(),cfg.seg().logics().entry<25>(),openmrn.stack()->executor()->active_timers(),&l27);
+Logic l25(openmrn.stack()->node(),cfg.seg().logics().entry<24>(),openmrn.stack()->executor()->active_timers(),&l26);
+Logic l24(openmrn.stack()->node(),cfg.seg().logics().entry<23>(),openmrn.stack()->executor()->active_timers(),&l25);
+Logic l23(openmrn.stack()->node(),cfg.seg().logics().entry<22>(),openmrn.stack()->executor()->active_timers(),&l24);
+Logic l22(openmrn.stack()->node(),cfg.seg().logics().entry<21>(),openmrn.stack()->executor()->active_timers(),&l23);
+Logic l21(openmrn.stack()->node(),cfg.seg().logics().entry<20>(),openmrn.stack()->executor()->active_timers(),&l22);
+Logic l20(openmrn.stack()->node(),cfg.seg().logics().entry<19>(),openmrn.stack()->executor()->active_timers(),&l21);
+Logic l19(openmrn.stack()->node(),cfg.seg().logics().entry<18>(),openmrn.stack()->executor()->active_timers(),&l20);
+Logic l18(openmrn.stack()->node(),cfg.seg().logics().entry<17>(),openmrn.stack()->executor()->active_timers(),&l19);
+Logic l17(openmrn.stack()->node(),cfg.seg().logics().entry<16>(),openmrn.stack()->executor()->active_timers(),&l18);
+Logic l16(openmrn.stack()->node(),cfg.seg().logics().entry<15>(),openmrn.stack()->executor()->active_timers(),&l17);
+Logic l15(openmrn.stack()->node(),cfg.seg().logics().entry<14>(),openmrn.stack()->executor()->active_timers(),&l16);
+Logic l14(openmrn.stack()->node(),cfg.seg().logics().entry<13>(),openmrn.stack()->executor()->active_timers(),&l15);
+Logic l13(openmrn.stack()->node(),cfg.seg().logics().entry<12>(),openmrn.stack()->executor()->active_timers(),&l14);
+Logic l12(openmrn.stack()->node(),cfg.seg().logics().entry<11>(),openmrn.stack()->executor()->active_timers(),&l13);
+Logic l11(openmrn.stack()->node(),cfg.seg().logics().entry<10>(),openmrn.stack()->executor()->active_timers(),&l12);
+Logic l10(openmrn.stack()->node(),cfg.seg().logics().entry<9>(),openmrn.stack()->executor()->active_timers(),&l11);
+Logic l9(openmrn.stack()->node(),cfg.seg().logics().entry<8>(),openmrn.stack()->executor()->active_timers(),&l10);
+Logic l8(openmrn.stack()->node(),cfg.seg().logics().entry<7>(),openmrn.stack()->executor()->active_timers(),&l9);
+Logic l7(openmrn.stack()->node(),cfg.seg().logics().entry<6>(),openmrn.stack()->executor()->active_timers(),&l8);
+Logic l6(openmrn.stack()->node(),cfg.seg().logics().entry<5>(),openmrn.stack()->executor()->active_timers(),&l7);
+Logic l5(openmrn.stack()->node(),cfg.seg().logics().entry<4>(),openmrn.stack()->executor()->active_timers(),&l6);
+Logic l4(openmrn.stack()->node(),cfg.seg().logics().entry<3>(),openmrn.stack()->executor()->active_timers(),&l5);
+Logic l3(openmrn.stack()->node(),cfg.seg().logics().entry<2>(),openmrn.stack()->executor()->active_timers(),&l4);
+Logic l2(openmrn.stack()->node(),cfg.seg().logics().entry<1>(),openmrn.stack()->executor()->active_timers(),&l3);
+Logic l1(openmrn.stack()->node(),cfg.seg().logics().entry<0>(),openmrn.stack()->executor()->active_timers(),&l2);
 
 Turnout turnout1(openmrn.stack()->node(), cfg.seg().turnouts().entry<0>(),Motor1_Pin());
 Turnout turnout2(openmrn.stack()->node(), cfg.seg().turnouts().entry<1>(),Motor2_Pin());
