@@ -1,4 +1,4 @@
-update=Sat 26 Feb 2022 10:12:47 AM EST
+update=Thu 03 Mar 2022 01:15:12 PM EST
 version=1
 last_client=kicad
 [pcbnew]
@@ -108,4 +108,7 @@ LibName34=../sn65hvd233-ht
 LibName35=../lm2574n-5
 LibName36=../tc442x
 LibName37=../4814p-2
+LibName38=mechanical
+LibName39=references
+LibName40=graphic_symbols
 
