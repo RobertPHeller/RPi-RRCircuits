@@ -1,0 +1,22 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#
+# TC4426-RESCUE-TivaMultiFunctionBoard
+#
+DEF TC4426-RESCUE-TivaMultiFunctionBoard U 0 40 Y Y 2 F N
+F0 "U" 0 -300 60 H V C CNN
+F1 "TC4426-RESCUE-TivaMultiFunctionBoard" 0 300 60 H V C CNN
+F2 "" 0 0 60 H V C CNN
+F3 "" 0 0 60 H V C CNN
+DRAW
+P 4 0 1 0 200 0 -150 200 -150 -250 200 0 N
+X GND 3 -50 -200 0 U 25 25 0 1 W N
+X Vxx 6 -50 150 0 D 25 25 0 1 W N
+X IN 2 -250 0 100 R 25 25 1 1 I
+X Out 7 400 0 200 L 25 25 1 1 O I
+X IN 4 -250 0 100 R 25 25 2 1 I
+X Out 5 400 0 200 L 25 25 2 1 O I
+ENDDRAW
+ENDDEF
+#
+#End Library
