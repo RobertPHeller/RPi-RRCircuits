@@ -48,11 +48,11 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 2 7
-Title "ESP32 Multifunction board"
-Date ""
+Title "Tive Multifunction Board"
+Date "19 oct 2012"
 Rev ""
 Comp "Deepwoods Software"
-Comment1 "CAN Transceiver"
+Comment1 "CAN Tranceiver"
 Comment2 ""
 Comment3 ""
 Comment4 ""

@@ -327,3 +327,12 @@ There is a README in each project dir.
 
     > This is the same as SMCSenseHAT, except uses GPIO 4, 5, 6, and 7.
 
+1. [TivaMultiFunctionBoard](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/TivaMultiFunctionBoard)
+
+    > This is a circuit board that supports a Tiva LaunchPad MCU to manage a range
+    > of possible interlocking plants or other model railroad situations. It
+    > contains four stall motor drivers with point sense, four CT Coil type
+    > occupancy detectors, four Schmitt-Trigger inputs (for push buttons), four
+    > driver outputs, 8 GPIO pins in a 5x2 header, and 16 PWM LED drivers. 
+                                                  
+

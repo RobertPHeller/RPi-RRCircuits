@@ -48,11 +48,11 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 7
-Title ""
+Title "Tive Multifunction Board"
 Date "19 oct 2012"
 Rev ""
-Comp ""
-Comment1 ""
+Comp "Deepwoods Software"
+Comment1 "Main Page: Tiva Headers, GPIO Header"
 Comment2 ""
 Comment3 ""
 Comment4 ""
@@ -367,7 +367,7 @@ Wire Wire Line
 	8800 750  9150 750 
 NoConn ~ 9150 950 
 NoConn ~ 9150 1050
-NoConn ~ 9950 2800
+NoConn ~ 9150 2700
 $Comp
 L Mounting_Hole MK1
 U 1 1 62893518
@@ -473,14 +473,6 @@ Wire Wire Line
 Wire Wire Line
 	8200 2650 8000 2650
 Wire Wire Line
-	8000 2650 8000 2250
-Wire Wire Line
-	8000 2250 8900 2250
-Wire Wire Line
-	8900 2250 8900 2700
-Wire Wire Line
-	8900 2700 9150 2700
-Wire Wire Line
 	8700 2650 9050 2650
 Wire Wire Line
 	9050 2650 9050 2800
@@ -513,5 +505,8 @@ Wire Wire Line
 Wire Wire Line
 	8700 3200 9150 3200
 NoConn ~ 9150 850 
-NoConn ~ 9150 1350
+Wire Wire Line
+	8000 2650 8000 1350
+Wire Wire Line
+	8000 1350 9150 1350
 $EndSCHEMATC
