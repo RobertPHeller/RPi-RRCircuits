@@ -1,4 +1,4 @@
-update=Fri 17 Jun 2022 05:03:49 PM EDT
+update=Sat 18 Jun 2022 03:19:26 PM EDT
 version=1
 last_client=kicad
 [pcbnew]
@@ -63,3 +63,10 @@ LibName31=contrib
 LibName32=valves
 LibName33=/home/heller/RRCircuits/ESP32-D0WD-V3/KiCad/ESP32-D0WD-V3
 LibName34=/home/heller/RRCircuits/W25Q32JVSSIQ
+LibName35=/home/heller/RRCircuits/umh3n
+LibName36=/home/heller/RRCircuits/lm2574n-5
+LibName37=/home/heller/RRCircuits/tc442x
+LibName38=/home/heller/RRCircuits/4814p-2
+LibName39=/home/heller/RRCircuits/16PWMLedDriverHat/pca9685
+LibName40=/home/heller/RRCircuits/tbd62x83a
+LibName41=/home/heller/RRCircuits/sn65hvd233-ht
