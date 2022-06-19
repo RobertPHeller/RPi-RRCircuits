@@ -1,0 +1,11 @@
+(fp_lib_table
+  (lib (name FA_20H)(type KiCad)(uri /home/heller/RRCircuits/FA_20H.pretty)(options "")(descr ""))
+  (lib (name PTS647SN70SMTR2LFS)(type KiCad)(uri /home/heller/RRCircuits/PTS647SN70SMTR2LFS.pretty)(options "")(descr ""))
+  (lib (name ESP32-D0WD-V3)(type KiCad)(uri /home/heller/RRCircuits/ESP32-D0WD-V3.pretty)(options "")(descr ""))
+  (lib (name 3361P-1-253GLF)(type KiCad)(uri /home/heller/RRCircuits/ESP32-MultiFunction/3361P-1-253GLF.pretty)(options "")(descr ""))
+  (lib (name 48xxP)(type Legacy)(uri /home/heller/RRCircuits/48xxP.mod)(options "")(descr ""))
+  (lib (name SRN1060)(type Legacy)(uri /home/heller/RRCircuits/SRN1060.mod)(options "")(descr ""))
+  (lib (name RJ45-8N-S)(type Legacy)(uri /home/heller/RRCircuits/RJ45-8N-S.mod)(options "")(descr ""))
+  (lib (name DWSLogoBCU)(type Legacy)(uri /home/heller/RRCircuits/DWSLogoBCU.mod)(options "")(descr ""))
+  (lib (name LCC_LOGO)(type KiCad)(uri /home/heller/RRCircuits/LCC_LOGO.pretty)(options "")(descr ""))
+)

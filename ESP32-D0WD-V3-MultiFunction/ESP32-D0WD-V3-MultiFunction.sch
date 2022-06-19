@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:ESP32-D0WD-V3-MultiFunction-rescue
 LIBS:power
 LIBS:device
 LIBS:switches
@@ -40,6 +41,8 @@ LIBS:4814p-2
 LIBS:pca9685
 LIBS:tbd62x83a
 LIBS:sn65hvd233-ht
+LIBS:mechanical
+LIBS:graphic_symbols
 LIBS:ESP32-D0WD-V3-MultiFunction-cache
 EELAYER 25 0
 EELAYER END
@@ -193,4 +196,94 @@ Wire Wire Line
 	5150 1550 4300 1550
 Wire Wire Line
 	5150 1700 4300 1700
+$Comp
+L Mounting_Hole MK101
+U 1 1 62AFDBC7
+P 3300 5550
+F 0 "MK101" H 3300 5750 50  0000 C CNN
+F 1 "Mounting_Hole" H 3300 5675 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.7mm" H 3300 5550 50  0001 C CNN
+F 3 "" H 3300 5550 50  0001 C CNN
+	1    3300 5550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole MK102
+U 1 1 62AFDD12
+P 3750 5600
+F 0 "MK102" H 3750 5800 50  0000 C CNN
+F 1 "Mounting_Hole" H 3750 5725 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.7mm" H 3750 5600 50  0001 C CNN
+F 3 "" H 3750 5600 50  0001 C CNN
+	1    3750 5600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole MK103
+U 1 1 62AFDE4B
+P 4200 5550
+F 0 "MK103" H 4200 5750 50  0000 C CNN
+F 1 "Mounting_Hole" H 4200 5675 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.7mm" H 4200 5550 50  0001 C CNN
+F 3 "" H 4200 5550 50  0001 C CNN
+	1    4200 5550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole_PAD MK104
+U 1 1 62AFDF86
+P 4650 5550
+F 0 "MK104" H 4650 5800 50  0000 C CNN
+F 1 "Mounting_Hole_PAD" H 4650 5725 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.7mm_Pad" H 4650 5550 50  0001 C CNN
+F 3 "" H 4650 5550 50  0001 C CNN
+	1    4650 5550
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR01
+U 1 1 62AFE0C3
+P 4650 5850
+F 0 "#PWR01" H 4650 5600 50  0001 C CNN
+F 1 "GND" H 4650 5700 50  0000 C CNN
+F 2 "" H 4650 5850 50  0001 C CNN
+F 3 "" H 4650 5850 50  0001 C CNN
+	1    4650 5850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4650 5650 4650 5850
+$Comp
+L Mounting_Hole FD101
+U 1 1 62AFE875
+P 5000 5650
+F 0 "FD101" H 5000 5850 50  0000 C CNN
+F 1 "FidMark" H 5000 5775 50  0000 C CNN
+F 2 "Fiducials:Fiducial_1mm_Dia_2.54mm_Outer_CopperTop" H 5000 5650 50  0001 C CNN
+F 3 "" H 5000 5650 50  0001 C CNN
+	1    5000 5650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole FD102
+U 1 1 62AFEAF8
+P 5400 5650
+F 0 "FD102" H 5400 5850 50  0000 C CNN
+F 1 "FidMark" H 5400 5775 50  0000 C CNN
+F 2 "Fiducials:Fiducial_1mm_Dia_2.54mm_Outer_CopperTop" H 5400 5650 50  0001 C CNN
+F 3 "" H 5400 5650 50  0001 C CNN
+	1    5400 5650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole FD103
+U 1 1 62AFED78
+P 5900 5700
+F 0 "FD103" H 5900 5900 50  0000 C CNN
+F 1 "FidMark" H 5900 5825 50  0000 C CNN
+F 2 "Fiducials:Fiducial_1mm_Dia_2.54mm_Outer_CopperTop" H 5900 5700 50  0001 C CNN
+F 3 "" H 5900 5700 50  0001 C CNN
+	1    5900 5700
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
