@@ -1,0 +1,313 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:switches
+LIBS:relays
+LIBS:motors
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:FT231XS-R
+LIBS:ssm3j117tu
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L USB_OTG J?
+U 1 1 62B0CE14
+P 2000 2050
+F 0 "J?" H 1800 2500 50  0000 L CNN
+F 1 "USB_OTG" H 1800 2400 50  0000 L CNN
+F 2 "" H 2150 2000 50  0001 C CNN
+F 3 "" H 2150 2000 50  0001 C CNN
+	1    2000 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L FT231XS-R IC?
+U 1 1 62B0D37F
+P 4400 1750
+F 0 "IC?" H 5550 2050 50  0000 L CNN
+F 1 "FT231XS-R" H 5550 1950 50  0000 L CNN
+F 2 "SOP64P599X175-20N" H 5550 1850 50  0001 L CNN
+F 3 "https://datasheet.lcsc.com/szlcsc/Future-Designs-FT231XS-R_C132160.pdf" H 5550 1750 50  0001 L CNN
+F 4 "USB SSOP-20 RoHS" H 5550 1650 50  0001 L CNN "Description"
+F 5 "1.753" H 5550 1550 50  0001 L CNN "Height"
+F 6 "" H 5550 1450 50  0001 L CNN "Mouser Part Number"
+F 7 "" H 5550 1350 50  0001 L CNN "Mouser Price/Stock"
+F 8 "Future Designs" H 5550 1250 50  0001 L CNN "Manufacturer_Name"
+F 9 "FT231XS-R" H 5550 1150 50  0001 L CNN "Manufacturer_Part_Number"
+	1    4400 1750
+	-1   0    0    -1  
+$EndComp
+$Comp
+L SSM3J117TU Q?
+U 1 1 62B0D8E3
+P 3300 900
+F 0 "Q?" H 3500 975 50  0000 L CNN
+F 1 "SSM3J117TU" H 3500 900 50  0000 L CNN
+F 2 "TO_SOT_Packages_THT:TO-92_Molded_Narrow" H 3500 825 50  0001 L CIN
+F 3 "" H 3300 900 50  0001 L CNN
+	1    3300 900 
+	0    1    -1   0   
+$EndComp
+$Comp
+L Ferrite_Bead_Small L?
+U 1 1 62B0DA0C
+P 2450 1850
+F 0 "L?" H 2525 1900 50  0000 L CNN
+F 1 "Ferrite_Bead_Small" H 2525 1800 50  0000 L CNN
+F 2 "" V 2380 1850 50  0001 C CNN
+F 3 "" H 2450 1850 50  0001 C CNN
+	1    2450 1850
+	0    1    1    0   
+$EndComp
+$Comp
+L R R?
+U 1 1 62B0DBDE
+P 2750 2550
+F 0 "R?" V 2830 2550 50  0000 C CNN
+F 1 "R" V 2750 2550 50  0000 C CNN
+F 2 "" V 2680 2550 50  0001 C CNN
+F 3 "" H 2750 2550 50  0001 C CNN
+	1    2750 2550
+	0    1    1    0   
+$EndComp
+$Comp
+L R R?
+U 1 1 62B0DC21
+P 2750 2650
+F 0 "R?" V 2830 2650 50  0000 C CNN
+F 1 "R" V 2750 2650 50  0000 C CNN
+F 2 "" V 2680 2650 50  0001 C CNN
+F 3 "" H 2750 2650 50  0001 C CNN
+	1    2750 2650
+	0    1    1    0   
+$EndComp
+$Comp
+L C_Small C?
+U 1 1 62B0DCCA
+P 2500 2900
+F 0 "C?" H 2510 2970 50  0000 L CNN
+F 1 "C_Small" H 2510 2820 50  0000 L CNN
+F 2 "" H 2500 2900 50  0001 C CNN
+F 3 "" H 2500 2900 50  0001 C CNN
+	1    2500 2900
+	1    0    0    -1  
+$EndComp
+$Comp
+L C_Small C?
+U 1 1 62B0DD86
+P 2350 2900
+F 0 "C?" H 2360 2970 50  0000 L CNN
+F 1 "C_Small" H 2360 2820 50  0000 L CNN
+F 2 "" H 2350 2900 50  0001 C CNN
+F 3 "" H 2350 2900 50  0001 C CNN
+	1    2350 2900
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 62B0DDFB
+P 2500 3200
+F 0 "#PWR?" H 2500 2950 50  0001 C CNN
+F 1 "GND" H 2500 3050 50  0000 C CNN
+F 2 "" H 2500 3200 50  0001 C CNN
+F 3 "" H 2500 3200 50  0001 C CNN
+	1    2500 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 62B0DE4B
+P 2000 2600
+F 0 "#PWR?" H 2000 2350 50  0001 C CNN
+F 1 "GND" H 2000 2450 50  0000 C CNN
+F 2 "" H 2000 2600 50  0001 C CNN
+F 3 "" H 2000 2600 50  0001 C CNN
+	1    2000 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L C_Small C?
+U 1 1 62B0DEAA
+P 2300 1600
+F 0 "C?" H 2310 1670 50  0000 L CNN
+F 1 "C_Small" H 2310 1520 50  0000 L CNN
+F 2 "" H 2300 1600 50  0001 C CNN
+F 3 "" H 2300 1600 50  0001 C CNN
+	1    2300 1600
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 62B0DF2C
+P 2300 1400
+F 0 "#PWR?" H 2300 1150 50  0001 C CNN
+F 1 "GND" H 2300 1250 50  0000 C CNN
+F 2 "" H 2300 1400 50  0001 C CNN
+F 3 "" H 2300 1400 50  0001 C CNN
+	1    2300 1400
+	-1   0    0    1   
+$EndComp
+$Comp
+L R R?
+U 1 1 62B0E093
+P 2900 1050
+F 0 "R?" V 2980 1050 50  0000 C CNN
+F 1 "R" V 2900 1050 50  0000 C CNN
+F 2 "" V 2830 1050 50  0001 C CNN
+F 3 "" H 2900 1050 50  0001 C CNN
+	1    2900 1050
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R?
+U 1 1 62B0E128
+P 2900 1500
+F 0 "R?" V 2980 1500 50  0000 C CNN
+F 1 "R" V 2900 1500 50  0000 C CNN
+F 2 "" V 2830 1500 50  0001 C CNN
+F 3 "" H 2900 1500 50  0001 C CNN
+	1    2900 1500
+	-1   0    0    1   
+$EndComp
+$Comp
+L C_Small C?
+U 1 1 62B0E1D5
+P 3600 1000
+F 0 "C?" H 3610 1070 50  0000 L CNN
+F 1 "C_Small" H 3610 920 50  0000 L CNN
+F 2 "" H 3600 1000 50  0001 C CNN
+F 3 "" H 3600 1000 50  0001 C CNN
+	1    3600 1000
+	1    0    0    -1  
+$EndComp
+$Comp
+L C_Small C?
+U 1 1 62B0E20C
+P 3950 1000
+F 0 "C?" H 3960 1070 50  0000 L CNN
+F 1 "C_Small" H 3960 920 50  0000 L CNN
+F 2 "" H 3950 1000 50  0001 C CNN
+F 3 "" H 3950 1000 50  0001 C CNN
+	1    3950 1000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2300 1850 2350 1850
+Wire Wire Line
+	2550 1850 2800 1850
+Wire Wire Line
+	2800 800  2800 2250
+Wire Wire Line
+	2800 800  3100 800 
+Wire Wire Line
+	2800 2250 3100 2250
+Connection ~ 2800 1850
+Wire Wire Line
+	3100 2550 2900 2550
+Wire Wire Line
+	3100 2650 2900 2650
+Wire Wire Line
+	2350 2550 2600 2550
+Wire Wire Line
+	2450 2550 2450 2150
+Wire Wire Line
+	2450 2150 2300 2150
+Wire Wire Line
+	2600 2650 2500 2650
+Wire Wire Line
+	2500 2050 2500 2800
+Wire Wire Line
+	2500 2050 2300 2050
+Connection ~ 2500 2650
+Wire Wire Line
+	2350 2800 2350 2550
+Connection ~ 2450 2550
+Wire Wire Line
+	2350 3000 2500 3000
+Wire Wire Line
+	2500 3000 2500 3200
+Wire Wire Line
+	1900 2450 2000 2450
+Wire Wire Line
+	2000 2450 2000 2600
+Wire Wire Line
+	2300 1700 2300 1850
+Wire Wire Line
+	2300 1400 2300 1500
+Wire Wire Line
+	2900 900  2900 800 
+Connection ~ 2900 800 
+Wire Wire Line
+	2900 1200 3600 1200
+Connection ~ 3300 1200
+Wire Wire Line
+	3500 800  3950 800 
+Wire Wire Line
+	3600 800  3600 900 
+Wire Wire Line
+	3600 1200 3600 1100
+Wire Wire Line
+	3300 1100 3300 1300
+Wire Wire Line
+	3300 1300 2900 1300
+Wire Wire Line
+	2900 1300 2900 1350
+Wire Wire Line
+	2900 1650 2900 1850
+Wire Wire Line
+	2900 1850 3100 1850
+Wire Wire Line
+	3950 800  3950 900 
+Connection ~ 3600 800 
+$Comp
+L GND #PWR?
+U 1 1 62B0E549
+P 3950 1200
+F 0 "#PWR?" H 3950 950 50  0001 C CNN
+F 1 "GND" H 3950 1050 50  0000 C CNN
+F 2 "" H 3950 1200 50  0001 C CNN
+F 3 "" H 3950 1200 50  0001 C CNN
+	1    3950 1200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3950 1100 3950 1200
+$EndSCHEMATC
