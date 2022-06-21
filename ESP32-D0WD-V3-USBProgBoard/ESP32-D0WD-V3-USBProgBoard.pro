@@ -1,4 +1,4 @@
-update=Mon 20 Jun 2022 04:29:00 PM EDT
+update=Tue 21 Jun 2022 09:33:57 AM EDT
 version=1
 last_client=kicad
 [pcbnew]
@@ -63,3 +63,5 @@ LibName31=contrib
 LibName32=valves
 LibName33=/home/heller/RRCircuits/FT231XS-R
 LibName34=/home/heller/RRCircuits/ssm3j117tu
+LibName35=/home/heller/RRCircuits/TC1263-3.3VOATR
+LibName36=/home/heller/RRCircuits/umh3n
