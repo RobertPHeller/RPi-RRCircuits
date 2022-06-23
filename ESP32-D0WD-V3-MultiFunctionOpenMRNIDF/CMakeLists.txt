@@ -57,11 +57,11 @@ if (NOT CONFIG_FREERTOS_HZ EQUAL 1000)
     message(FATAL_ERROR "FreeRTOS tick rate (hz) is required to be 1000.")
 endif()
 
-if (NOT CONFIG_PARTITION_TABLE_FILENAME STREQUAL "esp32io-partitions.csv")
+if (NOT CONFIG_PARTITION_TABLE_FILENAME STREQUAL "esp32multifunction-partitions.csv")
     message(FATAL_ERROR "The custom partition table option is not enabled in menuconfig and is required for compilation.")
 endif()
 
-if (NOT CONFIG_PARTITION_TABLE_CUSTOM_FILENAME STREQUAL "esp32io-partitions.csv")
+if (NOT CONFIG_PARTITION_TABLE_CUSTOM_FILENAME STREQUAL "esp32multifunction-partitions.csv")
     message(FATAL_ERROR "The custom partition table option is not enabled in menuconfig and is required for compilation.")
 endif()
 
@@ -69,6 +69,3 @@ if (NOT CONFIG_PARTITION_TABLE_CUSTOM)
     message(FATAL_ERROR "The custom partition table option is not enabled in menuconfig and is required for compilation.")
 endif()
 
-if (NOT CONFIG_LWIP_SO_RCVBUF)
-    message(FATAL_ERROR "LwIP SO_RCVBUF is a required option in menuconfig.")
-endif()
