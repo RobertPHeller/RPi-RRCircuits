@@ -1,0 +1,3 @@
+[submodule "ESP32-D0WD-V3-MultiFunctionOpenMRNIDF/components/OpenMRNIDF"]
+	path = ESP32-D0WD-V3-MultiFunctionOpenMRNIDF/components/OpenMRNIDF
+	url = git@github.com:atanisoft/OpenMRNIDF.git
