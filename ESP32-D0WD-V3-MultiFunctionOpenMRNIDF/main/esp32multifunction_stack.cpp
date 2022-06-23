@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 14:11:33 2022
-//  Last Modified : <220623.1516>
+//  Last Modified : <220623.1520>
 //
 //  Description	
 //
@@ -146,8 +146,7 @@ uninitialized<HealthMonitor> health_mon;
 uninitialized<NodeRebootHelper> node_reboot_helper;
 uninitialized<BlinkTimer> blinker;
 uninitialized<Mast> masts[8];
-uninitialized<TrackCircuit> c[8];
-TrackCircuit *circuits[8];
+uninitialized<TrackCircuit> circuits[8];
 uninitialized<Logic> logics[32];
 uninitialized<Turnout> turnouts[4];
 uninitialized<Points> points[4];
@@ -286,16 +285,15 @@ void start_openlcb_stack(node_config_t *config, bool reset_events
     blinker.emplace(stack->executor()->active_timers());
     int i = 0;
     Mast *prevMast = nullptr;
-    for (i = 0; i < 8; i++) {
+    for (i = 0; i < MASTCOUNT; i++) {
         masts[i].emplace(stack->node(),cfg.seg().masts().entry(i),prevMast);
         prevMast = masts[i];
     }
-    for (i = 0; i < 8; i++) {
-        c[i].emplace(stack->node(),cfg.seg().circuits().entry(i));
-        circuits[i] = c[i];
+    for (i = 0; i < TRACKCIRCUITCOUNT; i++) {
+        circuits[i].emplace(stack->node(),cfg.seg().circuits().entry(i));
     }
     Logic *prevLogic = nullptr;
-    for (i = 31; i >= 0; i--) {
+    for (i = LOGICCOUNT-1; i >= 0; i--) {
         logics[i].emplace(stack->node(), cfg.seg().logics().entry(i),stack->executor()->active_timers(),prevLogic);
         prevLogic = logics[i];
     }
