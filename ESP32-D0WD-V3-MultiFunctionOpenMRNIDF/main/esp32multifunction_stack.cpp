@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 14:11:33 2022
-//  Last Modified : <220623.1458>
+//  Last Modified : <220623.1516>
 //
 //  Description	
 //
@@ -211,7 +211,54 @@ void FactoryResetHelper::factory_reset(int fd)
     // set the node description to the node id in expanded hex format.
     cfg.userinfo().description().write(fd, node_id.c_str());
     
-    // TDB: factory reset things...
+    for(int i = 0; i < openlcb::NUM_TURNOUTS; i++)
+    {
+        cfg.seg().turnouts().entry(i).description().write(fd, "");
+    }
+    for(int i = 0; i < openlcb::NUM_POINTSS; i++)
+    {
+        cfg.seg().points().entry(i).description().write(fd, "");
+    }
+    for(int i = 0; i < openlcb::NUM_OCS; i++)
+    {
+        cfg.seg().ocs().entry(i).description().write(fd, "");
+        CDI_FACTORY_RESET(cfg.seg().ocs().entry(i).debounce);
+    }
+#if 0
+        for(int i = 0; i < LOGICCOUNT; i++)
+        {
+            cfg.seg().logics().entry(i).description().write(fd, "");
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).groupFunction);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).logic().logicFunction);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).trueAction);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).falseAction);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).timing().timedelay);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).timing().interval);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).timing().retriggerable);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v1().trigger);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v1().source);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v1().trackspeed);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v2().trigger);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v2().source);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v2().trackspeed);
+            for (int j = 0; j < 4 ; j++)
+            {
+                CDI_FACTORY_RESET(cfg.seg().logics().entry(i).actions().entry(j).actiontrigger);
+            }
+        }
+        for(int i = 0; i < MASTCOUNT; i++)
+        {
+            CDI_FACTORY_RESET(cfg.seg().masts().entry(i).processing);
+            cfg.seg().masts().entry(i).mastid().write(fd,"");
+#ifdef HAVEPWM
+            CDI_FACTORY_RESET(cfg.seg().masts().entry(i).fade);
+#endif
+        }
+        for(int i = 0; i < TRACKCIRCUITCOUNT; i++)
+        {
+            cfg.seg().circuits().entry(i).description().write(fd,"");
+        }
+#endif
 }
 
 void start_openlcb_stack(node_config_t *config, bool reset_events
