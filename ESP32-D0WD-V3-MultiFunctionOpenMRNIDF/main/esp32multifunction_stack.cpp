@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 14:11:33 2022
-//  Last Modified : <220623.1520>
+//  Last Modified : <220623.1531>
 //
 //  Description	
 //
@@ -68,7 +68,7 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "Logic.hxx"
 #include "Turnout.hxx"
 #include "Points.hxx"
-#include "OccupancyDetector.h"
+#include "OccupancyDetector.hxx"
 #include "Button.hxx"
 #include "LED.hxx"
 
