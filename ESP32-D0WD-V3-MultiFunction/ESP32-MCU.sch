@@ -792,8 +792,8 @@ Text HLabel 6650 4500 2    60   Input ~ 0
 GPIO16(Buttons4)
 Text HLabel 6050 5400 3    60   Input ~ 0
 GPIO0(Buttons1)
-Text HLabel 5950 5400 3    60   Input ~ 0
-GPIO2(Buttons2)
+Text HLabel 4850 3800 0    60   Input ~ 0
+GPIO38(Buttons2)
 Text HLabel 5350 5400 3    60   Input ~ 0
 GPIO27(Points4)
 Text HLabel 5250 5400 3    60   Output ~ 0
@@ -818,8 +818,8 @@ Text HLabel 5750 5400 3    60   Input ~ 0
 GPIO13(Points2)
 Text HLabel 5450 5400 3    60   Input ~ 0
 GPIO14(Points3)
-Text HLabel 5850 5400 3    60   Input ~ 0
-GPIO15(Buttons3)
+Text HLabel 4850 3700 0    60   Input ~ 0
+GPIO37(Buttons3)
 Wire Wire Line
 	3650 4350 3150 4350
 $Comp
@@ -864,10 +864,10 @@ $EndComp
 Wire Wire Line
 	6250 1750 6250 1600
 NoConn ~ 4850 3300
-Text Label 4850 3700 2    60   ~ 0
-GPIO37(Act1)
-Text Label 4850 3800 2    60   ~ 0
-GPIO38(Act2)
+Text Label 3850 3150 0    60   ~ 0
+GPIO15(Act1)
+Text Label 3450 3150 2    60   ~ 0
+GPIO2(Act2)
 $Comp
 L LED D2
 U 1 1 62B4BF99
@@ -936,16 +936,8 @@ Wire Wire Line
 	3850 2800 3850 2850
 Wire Wire Line
 	3450 2800 3450 2850
-Wire Wire Line
-	3850 3150 3850 3700
-Wire Wire Line
-	3850 3700 4850 3700
-Wire Wire Line
-	3450 3150 3450 3350
-Wire Wire Line
-	3450 3350 4000 3350
-Wire Wire Line
-	4000 3350 4000 3800
-Wire Wire Line
-	4000 3800 4850 3800
+Text Label 5950 5400 3    60   ~ 0
+GPIO2(Act2)
+Text Label 5850 5400 3    60   ~ 0
+GPIO15(Act1)
 $EndSCHEMATC
