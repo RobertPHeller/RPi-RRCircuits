@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 14:11:33 2022
-//  Last Modified : <220623.1531>
+//  Last Modified : <220624.1731>
 //
 //  Description	
 //
@@ -71,6 +71,7 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "OccupancyDetector.hxx"
 #include "Button.hxx"
 #include "LED.hxx"
+#include "Esp32PCA9685PWM.hxx"
 
 namespace esp32multifunction
 {
@@ -153,6 +154,8 @@ uninitialized<Points> points[4];
 uninitialized<OccupancyDetector> ocs[4];
 uninitialized<Button> buttons[4];
 uninitialized<LED> leds[4];
+PWM* const Lamp::pinlookup_[17];
+openmrn_arduino::Esp32PCA9685PWM pwmchip;
 std::unique_ptr<openlcb::RefreshLoop> refresh_loop;
 #if CONFIG_OLCB_ENABLE_TWAI
 Esp32HardwareTwai twai(CONFIG_TWAI_RX_PIN, CONFIG_TWAI_TX_PIN);
@@ -338,7 +341,13 @@ void start_openlcb_stack(node_config_t *config, bool reset_events
                                  , buttons[2]->polling()
                                  , buttons[3]->polling()
                              }));
-
+    pwmchip.hw_init(PCA9685_SLAVE_ADDRESS);
+    Lamp::PinLookupInit(0,nullptr);
+    for (i = 0; i < openmrn_arduino::Esp32PCA9685PWM::NUM_CHANNELS; i++)
+    {
+        Lamp::PinLookupInit(i+1,pwmchip.get_channel(i));
+    }
+    
     // Create / update CDI, if the CDI is out of date a factory reset will be
     // forced.
     bool reset_cdi = CDIXMLGenerator::create_config_descriptor_xml(
@@ -381,4 +390,4 @@ void start_openlcb_stack(node_config_t *config, bool reset_events
     stack->loop_executor();
 }
 
-} // namespace esp32io
+} // namespace esp32multifunction

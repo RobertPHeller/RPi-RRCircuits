@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 11:37:34 2019
-//  Last Modified : <220623.1530>
+//  Last Modified : <220624.1729>
 //
 //  Description	
 //
@@ -148,7 +148,7 @@ public:
         period_ = cfg_.period().read(fd);
         return UPDATED;
     }
-    PWM* Pin() const       {return pinlookup_[(int)lampid_];}
+    const PWM* Pin() const       {return pinlookup_[(int)lampid_];}
     const LampPhase Phase() const {return phase_;}
     static const PWM* PinLookup(LampID id) {
         return pinlookup_[(int)id];
@@ -160,14 +160,14 @@ public:
         if (lampid_ == Unused) return;
         //LOG(ALWAYS, "*** Lamp::blink(): lampid_ = %d, AFast = %d, AMedium = %d, ASlow = %d",
         //    lampid_,AFast,AMedium,ASlow);
-        PWM * p = Pin();
+        const PWM * p = Pin();
         //LOG(ALWAYS, "*** Lamp::blink(): p = %p",p);
         if (p == nullptr) return;
         //LOG(ALWAYS, "*** Lamp::blink(): isOn_ = %d",isOn_);
 #if 1
         if (hasChanged_) {
             //LOG(ALWAYS, "*** Lamp::blink(): lampid_ = %d, isOn_ = %d, phase_ is %d, p is %p",\
-                lampid_,isOn_,phase_,p);
+            //lampid_,isOn_,phase_,p);
         }
 #endif
         if (!isOn_ && hasChanged_) {
@@ -192,8 +192,12 @@ public:
     void SetPeriod(uint32_t period) {
         period_ = period;
     }
+    static void PinLookupInit(unsigned index,const PWM* pin)
+    {
+        pinlookup_[index] = pin;
+    }
 private:
-    static PWM* const pinlookup_[17];
+    static const PWM* pinlookup_[17];
     LampID lampid_;
     LampPhase  phase_;
     const LampConfig cfg_;
