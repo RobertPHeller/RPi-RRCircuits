@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Tue Feb 26 21:02:01 2019
-//  Last Modified : <211012.0822>
+//  Last Modified : <220625.1557>
 //
 //  Description	
 //
@@ -58,7 +58,7 @@ public:
     virtual void blink(bool AFast, bool AMedium, bool ASlow) = 0;
 };
 
-class BlinkTimer : public Timer, public Singleton<BlinkTimer> {
+class BlinkTimer : public Timer {
 public:
     BlinkTimer(ActiveTimers *timers) 
                 : Timer(timers)
@@ -91,7 +91,14 @@ private:
     blinkers_type blinkers_;
 };
 
-#define blinker (*(BlinkTimer::instance()))
+#include <utils/Uninitialized.hxx>
+
+namespace esp32multifunction
+{
+
+extern uninitialized<BlinkTimer> blinker;
+
+}
 
 #endif // __BLINK_HXX
 

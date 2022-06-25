@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:08:16 2019
-//  Last Modified : <220623.1531>
+//  Last Modified : <220625.1505>
 //
 //  Description	
 //
@@ -321,7 +321,7 @@ public:
             if (retriggerable_) restart();
             return;
         }
-        long long p;
+        long long p = 0LL;
         switch (interval_) {
         case Milliseconds: 
             p = timedelay_ * 1000000ULL;

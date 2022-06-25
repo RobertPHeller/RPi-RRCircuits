@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Jun 24 13:40:15 2022
-//  Last Modified : <220624.1725>
+//  Last Modified : <220625.1635>
 //
 //  Description	
 //
@@ -55,14 +55,17 @@
 #include <esp_system.h>
 #include <esp_task_wdt.h>
 #include <esp32/rom/rtc.h>
+#include <hal/gpio_types.h>
 #include <freertos_includes.h>   
 
 #include "freertos_drivers/arduino/PWM.hxx"
 #include "utils/logging.h"
 #include "utils/macros.h"
 
-#define I2C_MASTER_SCL_IO           CONFIG_I2C_MASTER_SCL      /*!< GPIO number used for I2C master clock */
-#define I2C_MASTER_SDA_IO           CONFIG_I2C_MASTER_SDA      /*!< GPIO number used for I2C master data  */
+#include "hardware.hxx"
+
+#define I2C_MASTER_SCL_IO           CONFIG_SCL_PIN             /*!< GPIO number used for I2C master clock */
+#define I2C_MASTER_SDA_IO           CONFIG_SDA_PIN             /*!< GPIO number used for I2C master data  */
 #define I2C_MASTER_NUM              0                          /*!< I2C master i2c port number, the number of i2c peripheral interfaces available will depend on the chip */
 #define I2C_MASTER_FREQ_HZ          400000                     /*!< I2C master clock frequency */
 #define I2C_MASTER_TX_BUF_DISABLE   0                          /*!< I2C master doesn't need buffer */
@@ -110,7 +113,8 @@ public:
             .scl_io_num = I2C_MASTER_SCL_IO,
             .sda_pullup_en = GPIO_PULLUP_ENABLE,
             .scl_pullup_en = GPIO_PULLUP_ENABLE,
-            .master.clk_speed = I2C_MASTER_FREQ_HZ,
+            .master = {.clk_speed = I2C_MASTER_FREQ_HZ},
+            .clk_flags = 0
         };
         
         i2c_param_config(i2c_master_port, &conf);
@@ -144,7 +148,7 @@ public:
         register_write(MODE2, mode2.byte);
         for (uint8_t index = 0; index < Esp32PCA9685PWM::NUM_CHANNELS; index++)
         {
-            channels_[count].emplace(this, index);
+            channels_[index].emplace(this, index);
         }
     }
     /// Destructor.
@@ -153,7 +157,7 @@ public:
     }
     /// @return one PWM channel.
     /// @param index is the channel index.
-    const PWM *get_channel(unsigned index)
+    PWM *get_channel(unsigned index)
     {
         HASSERT(index < Esp32PCA9685PWM::NUM_CHANNELS);
         return &*channels_[index];
@@ -257,7 +261,7 @@ private:
     ///             overwritten, bits where mask is zero will be kept
     void bit_modify(Registers address, uint8_t data, uint8_t mask)
     {
-        uint8_t addr = address;
+        //uint8_t addr = address;
         uint8_t rd_data;
 
         rd_data &= ~mask;
@@ -351,7 +355,7 @@ private:
         /// @param index channel index on the chip (0 through 15)
         Channel(Esp32PCA9685PWM *parent, unsigned index)
                     : PWM()
-              , instance_(instance)
+              , instance_(parent)
               , index_(index)
         {
             HASSERT(index < Esp32PCA9685PWM::NUM_CHANNELS);

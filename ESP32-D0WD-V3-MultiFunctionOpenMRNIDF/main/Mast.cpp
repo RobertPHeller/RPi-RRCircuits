@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 20:26:38 2019
-//  Last Modified : <220623.1533>
+//  Last Modified : <220625.1508>
 //
 //  Description	
 //
@@ -76,7 +76,7 @@ ConfigUpdateListener::UpdateAction Mast::apply_configuration(int fd,
     fade_ = (LampFade) cfg_.fade().read(fd);
 #endif
     openlcb::EventId linkevent_cfg = cfg_.linkevent().read(fd);
-    if (linkevent_cfg != linkevent_ && processing_ == Normal || initial_load) {
+    if ((linkevent_cfg != linkevent_) && (processing_ == Normal || initial_load)) {
         if (!initial_load) unregister_handler();
         linkevent_ = linkevent_cfg;
         register_handler();

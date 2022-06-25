@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sat Jun 25 09:33:40 2022
-//  Last Modified : <220625.0942>
+//  Last Modified : <220625.1530>
 //
 //  Description	
 //
@@ -49,18 +49,18 @@
 #include "openlcb/ConfiguredProducer.hxx"
 #include "openlcb/MemoryConfig.hxx"
 
-#include "Logic.h"
-#include "Mast.h"
-#include "TrackCircuit.h"
+#include "Logic.hxx"
+#include "Mast.hxx"
+#include "TrackCircuit.hxx"
 
-#include "Turnout.h"
-#include "Points.h"
+#include "Turnout.hxx"
+#include "Points.hxx"
 
-#include "OccupancyDetector.h" 
+#include "OccupancyDetector.hxx" 
 
-#include "Button.h"
+#include "Button.hxx"
 
-#include "LED.h"
+#include "LED.hxx"
 
 namespace esp32multifunction
 {
@@ -74,11 +74,11 @@ using LogicGroup = openlcb::RepeatedGroup<LogicConfig, LOGICCOUNT>;
 using MastGroup = openlcb::RepeatedGroup<MastConfig, MASTCOUNT>;
 using TrackCircuitGroup = openlcb::RepeatedGroup<TrackCircuitConfig, TRACKCIRCUITCOUNT>;
 
-using TurnoutGroup = RepeatedGroup<TurnoutConfig, NUM_TURNOUTS>;
-using PointsGroup = RepeatedGroup<PointsConfig, NUM_POINTSS>;
-using OCGroup = RepeatedGroup<OccupancyDetectorConfig, NUM_OCS>;
-using ButtonGroup = RepeatedGroup<ButtonConfig, NUM_BUTTONS>;
-using LEDGroup = RepeatedGroup<LEDConfig, NUM_LEDS>;
+using TurnoutGroup = openlcb::RepeatedGroup<TurnoutConfig, NUM_TURNOUTS>;
+using PointsGroup = openlcb::RepeatedGroup<PointsConfig, NUM_POINTSS>;
+using OCGroup = openlcb::RepeatedGroup<OccupancyDetectorConfig, NUM_OCS>;
+using ButtonGroup = openlcb::RepeatedGroup<ButtonConfig, NUM_BUTTONS>;
+using LEDGroup = openlcb::RepeatedGroup<LEDConfig, NUM_LEDS>;
 
 /// Defines the main segment in the configuration CDI. This is laid out at
 /// origin 128 to give space for the ACDI user data at the beginning.

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 14:11:33 2022
-//  Last Modified : <220625.0949>
+//  Last Modified : <220625.1605>
 //
 //  Description	
 //
@@ -134,6 +134,8 @@ extern "C" void enter_bootloader()
     reboot();
 }
 
+PWM* Lamp::pinlookup_[17];
+
 
 namespace esp32multifunction
 {
@@ -154,7 +156,6 @@ uninitialized<Points> points[4];
 uninitialized<OccupancyDetector> ocs[4];
 uninitialized<Button> buttons[4];
 uninitialized<LED> leds[4];
-PWM* const Lamp::pinlookup_[17];
 openmrn_arduino::Esp32PCA9685PWM pwmchip;
 std::unique_ptr<openlcb::RefreshLoop> refresh_loop;
 Esp32HardwareTwai twai(CONFIG_TWAI_RX_PIN, CONFIG_TWAI_TX_PIN);
@@ -211,15 +212,15 @@ void FactoryResetHelper::factory_reset(int fd)
     // set the node description to the node id in expanded hex format.
     cfg.userinfo().description().write(fd, node_id.c_str());
     
-    for(int i = 0; i < openlcb::NUM_TURNOUTS; i++)
+    for(int i = 0; i < NUM_TURNOUTS; i++)
     {
         cfg.seg().turnouts().entry(i).description().write(fd, "");
     }
-    for(int i = 0; i < openlcb::NUM_POINTSS; i++)
+    for(int i = 0; i < NUM_POINTSS; i++)
     {
         cfg.seg().points().entry(i).description().write(fd, "");
     }
-    for(int i = 0; i < openlcb::NUM_OCS; i++)
+    for(int i = 0; i < NUM_OCS; i++)
     {
         cfg.seg().ocs().entry(i).description().write(fd, "");
         CDI_FACTORY_RESET(cfg.seg().ocs().entry(i).debounce);
@@ -288,7 +289,7 @@ void start_openlcb_stack(node_config_t *config, bool reset_events
     Mast *prevMast = nullptr;
     for (i = 0; i < MASTCOUNT; i++) {
         masts[i].emplace(stack->node(),cfg.seg().masts().entry(i),prevMast);
-        prevMast = masts[i];
+        prevMast = masts[i].get_mutable();
     }
     for (i = 0; i < TRACKCIRCUITCOUNT; i++) {
         circuits[i].emplace(stack->node(),cfg.seg().circuits().entry(i));
@@ -296,7 +297,7 @@ void start_openlcb_stack(node_config_t *config, bool reset_events
     Logic *prevLogic = nullptr;
     for (i = LOGICCOUNT-1; i >= 0; i--) {
         logics[i].emplace(stack->node(), cfg.seg().logics().entry(i),stack->executor()->active_timers(),prevLogic);
-        prevLogic = logics[i];
+        prevLogic = logics[i].get_mutable();
     }
     turnouts[0].emplace(stack->node(), cfg.seg().turnouts().entry<0>(),Motor1_Pin());
     turnouts[1].emplace(stack->node(), cfg.seg().turnouts().entry<1>(),Motor2_Pin());

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 11:37:34 2019
-//  Last Modified : <220624.1729>
+//  Last Modified : <220625.1555>
 //
 //  Description	
 //
@@ -48,7 +48,7 @@
 #include "utils/ConfigUpdateListener.hxx"
 #include "utils/ConfigUpdateService.hxx"
 #include "openlcb/RefreshLoop.hxx"
-#include "PWM.hxx"
+#include "freertos_drivers/arduino/PWM.hxx"
 #include <stdio.h>
 
 #include "Blink.hxx"
@@ -128,7 +128,7 @@ public:
         brightness_ = 5000;
         // 1Khz
         period_ = 1000000;
-        blinker.AddMe(this);
+        esp32multifunction::blinker->AddMe(this);
         ConfigUpdateService::instance()->register_update_listener(this);
     }
     void factory_reset(int fd) OVERRIDE
@@ -148,9 +148,9 @@ public:
         period_ = cfg_.period().read(fd);
         return UPDATED;
     }
-    const PWM* Pin() const       {return pinlookup_[(int)lampid_];}
+    PWM* Pin() const       {return pinlookup_[(int)lampid_];}
     const LampPhase Phase() const {return phase_;}
-    static const PWM* PinLookup(LampID id) {
+    static PWM* PinLookup(LampID id) {
         return pinlookup_[(int)id];
     }
     void On() {isOn_ = true;hasChanged_ = true;}
@@ -160,14 +160,13 @@ public:
         if (lampid_ == Unused) return;
         //LOG(ALWAYS, "*** Lamp::blink(): lampid_ = %d, AFast = %d, AMedium = %d, ASlow = %d",
         //    lampid_,AFast,AMedium,ASlow);
-        const PWM * p = Pin();
+        PWM * p = Pin();
         //LOG(ALWAYS, "*** Lamp::blink(): p = %p",p);
         if (p == nullptr) return;
         //LOG(ALWAYS, "*** Lamp::blink(): isOn_ = %d",isOn_);
 #if 1
         if (hasChanged_) {
-            //LOG(ALWAYS, "*** Lamp::blink(): lampid_ = %d, isOn_ = %d, phase_ is %d, p is %p",\
-            //lampid_,isOn_,phase_,p);
+            //LOG(ALWAYS, "*** Lamp::blink(): lampid_ = %d, isOn_ = %d, phase_ is %d, p is %p",lampid_,isOn_,phase_,p);
         }
 #endif
         if (!isOn_ && hasChanged_) {
@@ -192,12 +191,12 @@ public:
     void SetPeriod(uint32_t period) {
         period_ = period;
     }
-    static void PinLookupInit(unsigned index,const PWM* pin)
+    static void PinLookupInit(unsigned index,PWM* pin)
     {
         pinlookup_[index] = pin;
     }
 private:
-    static const PWM* pinlookup_[17];
+    static PWM* pinlookup_[17];
     LampID lampid_;
     LampPhase  phase_;
     const LampConfig cfg_;

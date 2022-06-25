@@ -43,7 +43,7 @@ typedef struct
 {
     bool force_reset;
     bool bootloader_req;
-    bool reset_events_req
+    bool reset_events_req;
     uint64_t node_id;
     uint8_t reserved[18];
 } node_config_t;

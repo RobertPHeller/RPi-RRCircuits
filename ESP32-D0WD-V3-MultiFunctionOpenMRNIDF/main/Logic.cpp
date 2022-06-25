@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Mar 1 10:46:51 2019
-//  Last Modified : <220623.1532>
+//  Last Modified : <220625.1444>
 //
 //  Description	
 //
@@ -343,8 +343,8 @@ bool Logic::Value()
 bool Logic::eval_(Which v)
 {
     //LOG(ALWAYS,"*** Logic[%s]::eval_(%d)",Description().c_str(),v);
-    bool result;
-    bool newresult;
+    bool result = false;
+    bool newresult = false;
     switch (logicFunction_) {
     case AND:
         result = v1_->Value() && v2_->Value();
