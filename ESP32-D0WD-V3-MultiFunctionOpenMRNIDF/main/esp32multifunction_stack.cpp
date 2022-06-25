@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 14:11:33 2022
-//  Last Modified : <220624.1731>
+//  Last Modified : <220625.0949>
 //
 //  Description	
 //
@@ -157,9 +157,7 @@ uninitialized<LED> leds[4];
 PWM* const Lamp::pinlookup_[17];
 openmrn_arduino::Esp32PCA9685PWM pwmchip;
 std::unique_ptr<openlcb::RefreshLoop> refresh_loop;
-#if CONFIG_OLCB_ENABLE_TWAI
 Esp32HardwareTwai twai(CONFIG_TWAI_RX_PIN, CONFIG_TWAI_TX_PIN);
-#endif // CONFIG_OLCB_ENABLE_TWAI
 
 void factory_reset_events()
 {
@@ -371,13 +369,11 @@ void start_openlcb_stack(node_config_t *config, bool reset_events
     }
 
 
-#if CONFIG_OLCB_ENABLE_TWAI
     // Initialize the TWAI driver.
     twai.hw_init();
 
     // Add the TWAI port to the stack.
     stack->add_can_port_select("/dev/twai/twai0");
-#endif // CONFIG_OLCB_ENABLE_TWAI
 
     if (brownout_detected)
     {
