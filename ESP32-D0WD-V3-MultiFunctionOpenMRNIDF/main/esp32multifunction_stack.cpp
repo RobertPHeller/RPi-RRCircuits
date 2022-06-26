@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 14:11:33 2022
-//  Last Modified : <220625.1605>
+//  Last Modified : <220626.1518>
 //
 //  Description	
 //
@@ -263,7 +263,7 @@ void FactoryResetHelper::factory_reset(int fd)
 }
 
 void start_openlcb_stack(node_config_t *config, bool reset_events
-                       , bool brownout_detected, bool wifi_verbose)
+                       , bool brownout_detected)
 {
     LOG(INFO, "[SNIP] version:%d, manufacturer:%s, model:%s, hw-v:%s, sw-v:%s"
       , openlcb::SNIP_STATIC_DATA.version
