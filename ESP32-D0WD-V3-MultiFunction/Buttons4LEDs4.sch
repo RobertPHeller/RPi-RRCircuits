@@ -49,9 +49,9 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 4 8
-Title "ESP32 Multifunction board"
+Title "ESP32 Multifunction Board"
 Date ""
-Rev ""
+Rev "1.0"
 Comp "Deepwoods Software"
 Comment1 "Generic Buttons and LEDs"
 Comment2 ""
@@ -68,6 +68,7 @@ F 0 "U402" H 2500 3100 60  0000 C CNN
 F 1 "TC4426" H 2500 3700 60  0000 C CNN
 F 2 "Housings_SOIC:SOIC-8_3.9x4.9mm_Pitch1.27mm" H 2500 3400 60  0001 C CNN
 F 3 "" H 2500 3400 60  0000 C CNN
+F 4 "579-TC1426COA713" H 2500 3400 60  0001 C CNN "Mouser Part Number"
 	1    2500 3400
 	1    0    0    -1  
 $EndComp
@@ -81,6 +82,7 @@ F 0 "U402" H 2500 3950 60  0000 C CNN
 F 1 "TC4426" H 2500 4550 60  0000 C CNN
 F 2 "Housings_SOIC:SOIC-8_3.9x4.9mm_Pitch1.27mm" H 2500 4250 60  0001 C CNN
 F 3 "" H 2500 4250 60  0000 C CNN
+F 4 "579-TC1426COA713" H 2500 4250 60  0001 C CNN "Mouser Part Number"
 	2    2500 4250
 	1    0    0    -1  
 $EndComp
@@ -534,6 +536,7 @@ F 0 "U401" H 2450 1500 60  0000 C CNN
 F 1 "TC4426" H 2450 2100 60  0000 C CNN
 F 2 "Housings_SOIC:SOIC-8_3.9x4.9mm_Pitch1.27mm" H 2450 1800 60  0001 C CNN
 F 3 "" H 2450 1800 60  0000 C CNN
+F 4 "579-TC1426COA713" H 2450 1800 60  0001 C CNN "Mouser Part Number"
 	1    2450 1800
 	1    0    0    -1  
 $EndComp
@@ -547,6 +550,7 @@ F 0 "U401" H 2450 2300 60  0000 C CNN
 F 1 "TC4426" H 2450 2900 60  0000 C CNN
 F 2 "Housings_SOIC:SOIC-8_3.9x4.9mm_Pitch1.27mm" H 2450 2600 60  0001 C CNN
 F 3 "" H 2450 2600 60  0000 C CNN
+F 4 "579-TC1426COA713" H 2450 2600 60  0001 C CNN "Mouser Part Number"
 	2    2450 2600
 	1    0    0    -1  
 $EndComp

@@ -49,11 +49,11 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 8
-Title ""
+Title "ESP32 Multifunction Board"
 Date ""
-Rev ""
-Comp ""
-Comment1 ""
+Rev "1.0"
+Comp "Deepwoods Software"
+Comment1 "Main Sheet"
 Comment2 ""
 Comment3 ""
 Comment4 ""

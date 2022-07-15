@@ -49,9 +49,9 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 6 8
-Title "ESP32 Multifunction board"
+Title "ESP32 Multifunction Board"
 Date ""
-Rev ""
+Rev "1.0"
 Comp "Deepwoods Software"
 Comment1 "Occupancy Detectors"
 Comment2 ""
@@ -78,6 +78,7 @@ F 0 "U601" H 3300 1800 50  0000 L CNN
 F 1 "LM339" H 3300 1400 50  0000 L CNN
 F 2 "Housings_SOIC:SOIC-14_3.9x8.7mm_Pitch1.27mm" H 3250 1700 50  0001 C CNN
 F 3 "" H 3350 1800 50  0001 C CNN
+F 4 "595-LM339DR" H 3300 1600 60  0001 C CNN "Mouser Part Number"
 	1    3300 1600
 	1    0    0    -1  
 $EndComp
@@ -89,6 +90,7 @@ F 0 "U602" H 4450 1900 50  0000 L CNN
 F 1 "LM339" H 4450 1500 50  0000 L CNN
 F 2 "Housings_SOIC:SOIC-14_3.9x8.7mm_Pitch1.27mm" H 4400 1800 50  0001 C CNN
 F 3 "" H 4500 1900 50  0001 C CNN
+F 4 "595-LM339DR" H 4450 1700 60  0001 C CNN "Mouser Part Number"
 	1    4450 1700
 	1    0    0    -1  
 $EndComp

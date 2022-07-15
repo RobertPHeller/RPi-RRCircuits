@@ -49,9 +49,9 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 5 8
-Title "ESP32 Multifunction board"
+Title "ESP32 Multifunction Board"
 Date ""
-Rev ""
+Rev "1.0"
 Comp "Deepwoods Software"
 Comment1 "Stall Motor Drivers and point sense."
 Comment2 ""
