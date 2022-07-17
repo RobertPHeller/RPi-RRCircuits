@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Fri Apr 16 08:44:50 2021
-#  Last Modified : <220715.1225>
+#  Last Modified : <220717.1016>
 #
 #  Description	
 #
@@ -187,6 +187,7 @@ snit::type KiCadBOM2PCBWayBOM {
         754 {Susumu}
         611 {C&K Switches}
         732 {Epson}
+        538 {Molex}
     }
     proc _lookupMan {mannum} {
         if {[info exists _MouserManufaturers($mannum)]} {
@@ -197,7 +198,7 @@ snit::type KiCadBOM2PCBWayBOM {
     }
     typevariable thoughholeFPs {Fiducial TerminalBlock Pin_Header RJ45_8N 
         25mmFanMount MountingHole  MFR500 8964300490000000 ESP32-Combo 
-        bornier2 Axial_DIN0207}
+        bornier2 Axial_DIN0207 Socket_Strip}
     proc _nonSMDFootprint {foot} {
         foreach thoughholeFP $thoughholeFPs {
             if {[regexp "^$thoughholeFP" $foot] > 0} {return yes}
