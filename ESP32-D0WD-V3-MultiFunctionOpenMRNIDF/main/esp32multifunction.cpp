@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 12:17:40 2022
-//  Last Modified : <220718.1246>
+//  Last Modified : <220718.1349>
 //
 //  Description	
 //
@@ -74,6 +74,7 @@ static const char rcsid[] = "@(#) : $Id$";
 #include <utils/constants.hxx>
 #include <utils/format_utils.hxx>
 
+#include "BootPauseHelper.hxx"
 #include "Lamp.hxx"
 #include "Mast.hxx"
 #include "Blink.hxx"
@@ -267,6 +268,16 @@ void app_main()
         cleanup_config_tree = true;
     }
     bool run_bootloader = false;
+    
+    // Ensure the LEDs are both ON for PauseCheck
+    LED_ACT1_Pin::instance()->set();
+    LED_ACT2_Pin::instance()->set();
+    
+    BootPauseHelper pause(&config);
+    
+    pause.CheckPause();
+    
+    load_config(&config);// Reload config -- CheckPause() might update things.
     
     // Ensure the LEDs are both OFF when we startup.
     LED_ACT1_Pin::instance()->clr();
