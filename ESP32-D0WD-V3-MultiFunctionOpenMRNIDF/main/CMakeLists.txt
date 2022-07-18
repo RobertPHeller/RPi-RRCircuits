@@ -10,9 +10,7 @@ set(deps
 )
 
 idf_component_register(SRCS Logic.cpp Mast.cpp Rule.cpp 
-                        TrackCircuit.cpp esp32multifunction.cpp 
-                        esp32multifunction_bootloader.cpp 
-                        esp32multifunction_stack.cpp fs.cpp 
+                        TrackCircuit.cpp esp32multifunction.cpp fs.cpp 
                         nvs_config.cpp
                        REQUIRES "${deps}")
 
@@ -27,13 +25,11 @@ set(SNIP_HW_VERSION "1.0.0")
 set(SNIP_PROJECT_PAGE "https://www.deepsoft.com/")
 set(CDI_VERSION "0x0100")
 
-set_source_files_properties(esp32multifunction_stack.cpp PROPERTIES COMPILE_DEFINITIONS "SNIP_PROJECT_PAGE=\"${SNIP_PROJECT_PAGE}\"; SNIP_HW_VERSION=\"${SNIP_HW_VERSION}\"; SNIP_SW_VERSION=\"${SNIP_SW_VERSION}\"; SNIP_PROJECT_NAME=\"${SNIP_PROJECT_NAME}\"; CDI_VERSION=${CDI_VERSION}")
 set_source_files_properties(Logic.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers ")
 set_source_files_properties(Mast.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")
 set_source_files_properties(Rule.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")
 set_source_files_properties(TrackCircuit.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")
 set_source_files_properties(esp32multifunction.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")
-set_source_files_properties(esp32multifunction_bootloader.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")
-set_source_files_properties(esp32multifunction_stack.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")
+set_source_files_properties(esp32multifunction.cpp PROPERTIES COMPILE_DEFINITIONS "SNIP_PROJECT_PAGE=\"${SNIP_PROJECT_PAGE}\"; SNIP_HW_VERSION=\"${SNIP_HW_VERSION}\"; SNIP_SW_VERSION=\"${SNIP_SW_VERSION}\"; SNIP_PROJECT_NAME=\"${SNIP_PROJECT_NAME}\"; CDI_VERSION=${CDI_VERSION}")
 set_source_files_properties(fs.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")
 set_source_files_properties(nvs_config.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")

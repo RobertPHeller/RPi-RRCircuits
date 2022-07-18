@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 12:17:40 2022
-//  Last Modified : <220623.1345>
+//  Last Modified : <220718.1246>
 //
 //  Description	
 //
@@ -43,6 +43,11 @@
 static const char rcsid[] = "@(#) : $Id$";
 
 #include "sdkconfig.h"
+#include "cdi.hxx"
+#include "DelayRebootHelper.hxx"
+#include "EventBroadcastHelper.hxx"
+#include "FactoryResetHelper.hxx"
+#include "HealthMonitor.hxx"
 #include "fs.hxx"
 #include "hardware.hxx"
 #include "NodeRebootHelper.hxx"
@@ -59,6 +64,28 @@ static const char rcsid[] = "@(#) : $Id$";
 #include <esp32/rom/rtc.h>
 #include <freertos_includes.h>   
 #include <openlcb/SimpleStack.hxx>
+#include <CDIXMLGenerator.hxx>
+#include <freertos_drivers/esp32/Esp32HardwareTwai.hxx>
+#include <freertos_drivers/esp32/Esp32BootloaderHal.hxx>
+#include <freertos_drivers/esp32/Esp32SocInfo.hxx>
+#include <openlcb/MemoryConfigClient.hxx>
+#include <openlcb/RefreshLoop.hxx>
+#include <openlcb/SimpleStack.hxx>
+#include <utils/constants.hxx>
+#include <utils/format_utils.hxx>
+
+#include "Lamp.hxx"
+#include "Mast.hxx"
+#include "Blink.hxx"
+#include "TrackCircuit.hxx"
+#include "Logic.hxx"
+#include "Turnout.hxx"
+#include "Points.hxx"
+#include "OccupancyDetector.hxx"
+#include "Button.hxx"
+#include "LED.hxx"
+#include "Esp32PCA9685PWM.hxx"
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // Increase the CAN RX frame buffer size to reduce overruns when there is high
@@ -66,15 +93,53 @@ static const char rcsid[] = "@(#) : $Id$";
 ///////////////////////////////////////////////////////////////////////////////
 OVERRIDE_CONST(can_rx_buffer_size, 64);
 
-namespace esp32multifunction
+TrackCircuit *circuits[TRACKCIRCUITCOUNT];
+
+esp32multifunction::ConfigDef cfg(0);
+openmrn_arduino::Esp32PCA9685PWM pwmchip;
+Esp32HardwareTwai twai(CONFIG_TWAI_RX_PIN, CONFIG_TWAI_TX_PIN);
+
+namespace openlcb
 {
+    /// Name of CDI.xml to generate dynamically.
+    const char CDI_FILENAME[] = "/fs/cdi.xml";
 
-void start_openlcb_stack(node_config_t *config, bool reset_events
-                       , bool brownout_detected);
+    // Path to where OpenMRN should persist general configuration data.
+    const char *const CONFIG_FILENAME = "/fs/config";
 
-} // namespace esp32multifunction
+    // The size of the memory space to export over the above device.
+    const size_t CONFIG_FILE_SIZE =
+        cfg.seg().size() + cfg.seg().offset();
 
-void start_bootloader_stack(uint64_t node_id);
+    // Default to store the dynamic SNIP data is stored in the same persistant
+    // data file as general configuration data.
+    const char *const SNIP_DYNAMIC_FILENAME = "/fs/config";
+
+    /// Defines the identification information for the node. The arguments are:
+    ///
+    /// - 4 (version info, always 4 by the standard
+    /// - Manufacturer name
+    /// - Model name
+    /// - Hardware version
+    /// - Software version
+    ///
+    /// This data will be used for all purposes of the identification:
+    ///
+    /// - the generated cdi.xml will include this data
+    /// - the Simple Node Ident Info Protocol will return this data
+    /// - the ACDI memory space will contain this data.
+    const SimpleNodeStaticValues SNIP_STATIC_DATA =
+    {
+        4,
+        SNIP_PROJECT_PAGE,
+        SNIP_PROJECT_NAME,
+        SNIP_HW_VERSION,
+        SNIP_SW_VERSION
+    };
+    const char CDI_DATA[] = "";
+
+} // namespace openlcb
+
 
 /// Halts execution with a specific blink pattern for the two LEDs that are on
 /// the IO base board.
@@ -101,6 +166,9 @@ void die_with(bool activity1, bool activity2, unsigned period = 1000
     }
 }
 
+DEFINE_SINGLETON_INSTANCE(BlinkTimer);
+PWM* Lamp::pinlookup_[17];
+
 
 extern "C"
 {
@@ -122,71 +190,72 @@ ssize_t os_get_free_heap()
     return heap_caps_get_free_size(MALLOC_CAP_8BIT);
 }
 
-static const char * const reset_reasons[] =
+/// Verifies that the bootloader has been requested.
+///
+/// @return true if bootloader_request is set to one, otherwise false.
+bool request_bootloader(void)
 {
-    "unknown",                  // NO_MEAN                  0
-    "power on reset",           // POWERON_RESET            1
-    "unknown",                  // no key                   2
-    "software reset",           // SW_RESET                 3
-    "watchdog reset (legacy)",  // OWDT_RESET               4
-    "deep sleep reset",         // DEEPSLEEP_RESET          5
-    "reset (SLC)",              // SDIO_RESET               6
-    "watchdog reset (group0)",  // TG0WDT_SYS_RESET         7
-    "watchdog reset (group1)",  // TG1WDT_SYS_RESET         8
-    "RTC system reset",         // RTCWDT_SYS_RESET         9
-    "Intrusion test reset",     // INTRUSION_RESET          10
-    "WDT Timer group reset",    // TGWDT_CPU_RESET          11
-    "software reset (CPU)",     // SW_CPU_RESET             12
-    "RTC WDT reset",            // RTCWDT_CPU_RESET         13
-    "software reset (CPU)",     // EXT_CPU_RESET            14
-    "Brownout reset",           // RTCWDT_BROWN_OUT_RESET   15
-    "RTC Reset (Normal)",       // RTCWDT_RTC_RESET         16
-};
+    LOG(VERBOSE, "[Bootloader] request_bootloader");
+    return bootloader_request;
+}
+
+/// Updates the state of a status LED.
+///
+/// @param led is the LED to update.
+/// @param value is the new state of the LED.
+///
+/// NOTE: Currently the following mapping is being used for the LEDs:
+/// LED_ACTIVE -> Bootloader LED
+/// LED_WRITING -> Bootloader Write LED
+/// LED_REQUEST -> Used only as a hook for printing bootloader startup.
+void bootloader_led(enum BootloaderLed led, bool value)
+{
+    LOG(VERBOSE, "[Bootloader] bootloader_led(%d, %d)", led, value);
+    if (led == LED_ACTIVE)
+    {
+        LED_ACT1_Pin::instance()->write(value);
+    }
+    else if (led == LED_WRITING)
+    {
+        LED_ACT2_Pin::instance()->write(value);
+    }
+    else if (led == LED_REQUEST)
+    {
+        //LOG(INFO, "[Bootloader] Preparing to receive firmware");
+        //LOG(INFO, "[Bootloader] Current partition: %s", current->label);
+        //LOG(INFO, "[Bootloader] Target partition: %s", target->label);
+    }
+}
+
+/// Initializes the node specific bootloader hardware (LEDs)
+void bootloader_hw_set_to_safe(void)
+{
+    LOG(VERBOSE, "[Bootloader] bootloader_hw_set_to_safe");
+    LED_ACT1_Pin::hw_init();
+    LED_ACT2_Pin::hw_init();
+}
 
 
 void app_main()
 {
     // capture the reason for the CPU reset
-    uint8_t reset_reason = rtc_get_reset_reason(PRO_CPU_NUM);
-    uint8_t orig_reset_reason = reset_reason;
-    // Ensure the reset reason it within bounds.
-    if (reset_reason > ARRAYSIZE(reset_reasons))
+    uint8_t reset_reason = Esp32SocInfo::print_soc_info();
+    // If this is the first power up of the node we need to reset the flag
+    // since it will not be initialized automatically.
+    if (reset_reason == POWERON_RESET)
     {
-        reset_reason = 0;
+        bootloader_request = 0;
     }
-    // silence all but error messages by default
-    esp_log_level_set("*", ESP_LOG_ERROR);
+    LOG(INFO, "[SNIP] version:%d, manufacturer:%s, model:%s, hw-v:%s, sw-v:%s"
+      , openlcb::SNIP_STATIC_DATA.version
+      , openlcb::SNIP_STATIC_DATA.manufacturer_name
+      , openlcb::SNIP_STATIC_DATA.model_name
+      , openlcb::SNIP_STATIC_DATA.hardware_version
+      , openlcb::SNIP_STATIC_DATA.software_version);
+    bool reset_events = false;
 
     GpioInit::hw_init();
 
-    const esp_app_desc_t *app_data = esp_ota_get_app_description();
-    esp_chip_info_t chip_info;
-    esp_chip_info(&chip_info);
-    LOG(INFO, "\n\n%s %s starting up (%d:%s)...", app_data->project_name
-      , app_data->version, reset_reason, reset_reasons[reset_reason]);
-    LOG(INFO
-      , "[SoC] model:%s, rev:%d, cores:%d, flash:%s, WiFi:%s, BLE:%s, BT:%s"
-      , chip_info.model == CHIP_ESP32 ? "ESP32" :
-        chip_info.model == CHIP_ESP32S2 ? "ESP32-S2" : "unknown"
-      , chip_info.revision, chip_info.cores
-      , chip_info.features & CHIP_FEATURE_EMB_FLASH ? "Yes" : "No"
-      , chip_info.features & CHIP_FEATURE_WIFI_BGN ? "Yes" : "No"
-      , chip_info.features & CHIP_FEATURE_BLE ? "Yes" : "No"
-      , chip_info.features & CHIP_FEATURE_BT ? "Yes" : "No");
-    LOG(INFO, "[SoC] Heap: %.2fkB / %.2fKb"
-      , heap_caps_get_free_size(MALLOC_CAP_INTERNAL) / 1024.0f
-      , heap_caps_get_total_size(MALLOC_CAP_INTERNAL) / 1024.0f);
-    LOG(INFO, "Compiled on %s %s using ESP-IDF %s", app_data->date
-      , app_data->time, app_data->idf_ver);
-    LOG(INFO, "Running from: %s", esp_ota_get_running_partition()->label);
-    LOG(INFO, "%s uses the OpenMRN library\n"
-              "Copyright (c) 2019-2020, OpenMRN\n"
-              "All rights reserved.", app_data->project_name);
-    if (reset_reason != orig_reset_reason)
-    {
-        LOG(WARNING, "Reset reason mismatch: %d vs %d", reset_reason
-          , orig_reset_reason);
-    }
     nvs_init();
 
     // load non-CDI based config from NVS.
@@ -197,7 +266,6 @@ void app_main()
         default_config(&config);
         cleanup_config_tree = true;
     }
-    bool reset_events = false;
     bool run_bootloader = false;
     
     // Ensure the LEDs are both OFF when we startup.
@@ -228,24 +296,106 @@ void app_main()
         save_config(&config);
     }
 
-    dump_config(&config);
 
     if (run_bootloader)
     {
-        start_bootloader_stack(config.node_id);
+        LOG(VERBOSE, "[Bootloader] bootloader_hw_set_to_safe");                     
+        LED_ACT1_Pin::hw_init();                                                    
+        LED_ACT2_Pin::hw_init();
+        esp32_bootloader_run(config.node_id, CONFIG_TWAI_TX_PIN, CONFIG_TWAI_RX_PIN, true);
+        esp_restart();
     }
     else
     {
+        dump_config(&config);
         mount_fs(cleanup_config_tree);
-        esp32multifunction::start_openlcb_stack(&config, reset_events
-                                                , reset_reason == RTCWDT_BROWN_OUT_RESET
-                                                );
+        openlcb::SimpleCanStack stack(config.node_id);
+        stack.set_tx_activity_led(LED_ACT1_Pin::instance());
+#if CONFIG_OLCB_PRINT_ALL_PACKETS
+        stack.print_all_packets();
+#endif
+        openlcb::MemoryConfigClient memory_client(stack.node(), stack.memory_config_handler());
+        esp32multifunction::FactoryResetHelper factory_reset_helper();
+        esp32multifunction::EventBroadcastHelper event_helper();
+        esp32multifunction::DelayRebootHelper delayed_reboot(stack.service());
+        esp32multifunction::HealthMonitor health_mon(stack.service());
+        BlinkTimer blinker(stack.executor()->active_timers());
+        int i = 0;
+        Mast *masts[MASTCOUNT];
+        Mast *prevMast = nullptr;
+        for (i = 0; i < MASTCOUNT; i++) {
+            masts[i] = new Mast(stack.node(),cfg.seg().masts().entry(i),prevMast);
+            prevMast = masts[i];
+        }
+        for (i = 0; i < TRACKCIRCUITCOUNT; i++) {
+            circuits[i] = new TrackCircuit(stack.node(),cfg.seg().circuits().entry(i));
+        }
+        Logic *prevLogic = nullptr;
+        Logic *logics[LOGICCOUNT];
+        for (i = LOGICCOUNT-1; i >= 0; i--) {
+            logics[i] = new Logic(stack.node(), cfg.seg().logics().entry(i),stack.executor()->active_timers(),prevLogic);
+            prevLogic = logics[i];
+        }
+        Turnout turnout1(stack.node(), cfg.seg().turnouts().entry<0>(),Motor1_Pin());
+        Turnout turnout2(stack.node(), cfg.seg().turnouts().entry<1>(),Motor2_Pin());
+        Turnout turnout3(stack.node(), cfg.seg().turnouts().entry<2>(),Motor3_Pin());
+        Turnout turnout4(stack.node(), cfg.seg().turnouts().entry<3>(),Motor4_Pin());
+        
+        pwmchip.hw_init(PCA9685_SLAVE_ADDRESS);
+        Lamp::PinLookupInit(0,nullptr);
+        for (i = 0; i < openmrn_arduino::Esp32PCA9685PWM::NUM_CHANNELS; i++)
+        {
+            Lamp::PinLookupInit(i+1,pwmchip.get_channel(i));
+        }
+        
+        // Create / update CDI, if the CDI is out of date a factory reset will be
+        // forced.
+        bool reset_cdi = CDIXMLGenerator::create_config_descriptor_xml(
+                          cfg, openlcb::CDI_FILENAME, &stack);
+        if (reset_cdi)
+        {
+            LOG(WARNING, "[CDI] Forcing factory reset due to CDI update");
+            unlink(openlcb::CONFIG_FILENAME);
+        }
+        
+        // Create config file and initiate factory reset if it doesn't exist or is
+        // otherwise corrupted.
+        int config_fd =
+              stack.create_config_file_if_needed(cfg.seg().internal_config(),
+                                                  CDI_VERSION,
+                                                  openlcb::CONFIG_FILE_SIZE);
+        esp32multifunction::NodeRebootHelper node_reboot_helper(&stack, config_fd);
+        
+        if (reset_events)
+        {
+            LOG(WARNING, "[CDI] Resetting event IDs");
+            stack.factory_reset_all_events(
+                    cfg.seg().internal_config(), config.node_id, config_fd);
+            fsync(config_fd);
+        }
+        
+        
+        // Initialize the TWAI driver.
+        twai.hw_init();
+        
+        // Add the TWAI port to the stack.
+        stack.add_can_port_select("/dev/twai/twai0");
+        
+        // if a brownout was detected send an event as part of node startup.
+        if (reset_reason == RTCWDT_BROWN_OUT_RESET)
+        {
+            //event_helper.send_event(openlcb::Defs::NODE_POWER_BROWNOUT_EVENT);
+        }
+        
+        // Start the stack in the background using it's own task.
+        stack.loop_executor();
     }
-
+    
     // At this point the OpenMRN stack is running in it's own task and we can
     // safely exit from this one. We do not need to cleanup as that will be
     // handled automatically by ESP-IDF.
 }
+
 
 } // extern "C"
     

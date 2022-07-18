@@ -42,13 +42,34 @@ class NodeRebootHelper : public Singleton<NodeRebootHelper>
 {
 public:
     /// Constructor.
-    NodeRebootHelper()
+    NodeRebootHelper(openlcb::SimpleCanStack *stack, int fd)
+          : stack_(stack), fd_(fd)
     {
     }
 
     /// Initiates an orderly shutdown of all components before restarting the
     /// ESP32.
-    void reboot();
+    void reboot()
+    {
+        // make sure we are not called from the executor thread otherwise there
+        // will be a deadlock
+        HASSERT(os_thread_self() != stack_->executor()->thread_handle());
+        LOG(INFO, "[Reboot] Shutting down LCC executor...");
+        stack_->executor()->sync_run([&]()
+        {
+            close(fd_);
+            unmount_fs();
+            // restart the node
+            LOG(INFO, "[Reboot] Restarting!");
+            esp_restart();
+        });
+    }
+private:
+    /// @ref SimpleCanStack to be shutdown.
+    openlcb::SimpleCanStack *stack_;
+
+    /// Configuration file descriptor to be closed prior to shutdown.
+    int fd_;
 };
 
 } // namespace esp32s2io

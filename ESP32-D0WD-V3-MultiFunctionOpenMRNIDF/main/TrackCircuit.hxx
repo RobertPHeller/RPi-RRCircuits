@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:11:23 2019
-//  Last Modified : <220626.1550>
+//  Last Modified : <220718.1041>
 //
 //  Description	
 //
@@ -131,12 +131,7 @@ private:
     void SendConsumerIdentified(EventReport *event,BarrierNotifiable *done);
 };
 
-namespace esp32multifunction
-{
-
-extern uninitialized<TrackCircuit> circuits[8];
-
-}
+extern TrackCircuit *circuits[TRACKCIRCUITCOUNT];
 
 
 

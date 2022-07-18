@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sat Jun 25 08:52:20 2022
-//  Last Modified : <220625.1516>
+//  Last Modified : <220718.1034>
 //
 //  Description	
 //
@@ -107,6 +107,6 @@ void bootloader_led(enum BootloaderLed led, bool value)
 /// @param id is the node identifier to use.
 void start_bootloader_stack(uint64_t id)
 {
-    esp32_bootloader_run(id, CONFIG_TWAI_TX_PIN, CONFIG_TWAI_RX_PIN, true);
+    esp32_bootloader_run(config.node_id, CONFIG_TWAI_TX_PIN, CONFIG_TWAI_RX_PIN, true);
 }
 

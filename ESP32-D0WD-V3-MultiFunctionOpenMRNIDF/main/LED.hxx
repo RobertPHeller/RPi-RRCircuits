@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 21 22:27:50 2021
-//  Last Modified : <220625.1556>
+//  Last Modified : <220717.1357>
 //
 //  Description	
 //
@@ -108,7 +108,7 @@ public:
           , phase_(SteadyHighside)
     {
         ConfigUpdateService::instance()->register_update_listener(this);
-        esp32multifunction::blinker->AddMe(this);
+        BlinkTimer::instance()->AddMe(this);
     }
     template <class HW>
     LED(openlcb::Node *node, const LEDConfig &cfg, const HW &, const Gpio* g = HW::instance())
@@ -119,7 +119,7 @@ public:
           , phase_(SteadyHighside)
     {
         ConfigUpdateService::instance()->register_update_listener(this);
-        esp32multifunction::blinker->AddMe(this);
+        BlinkTimer::instance()->AddMe(this);
     }
     UpdateAction apply_configuration(int fd, bool initial_load,
                                      BarrierNotifiable *done) OVERRIDE

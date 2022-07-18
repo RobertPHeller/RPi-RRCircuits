@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:08:16 2019
-//  Last Modified : <220626.1548>
+//  Last Modified : <220718.1042>
 //
 //  Description	
 //
@@ -151,14 +151,14 @@ public:
         //LOG(ALWAYS,"*** BitEventConsumerOrTrackCircuit::BitEventConsumerOrTrackCircuit(%p,%d,%d)",bit,source,speed);
         int tc = ((int) source_) -1;
         if (source_ == Events) register_handler(bit->event_on(), bit->event_off());
-        else esp32multifunction::circuits[tc]->RegisterCallback(this);
+        else circuits[tc]->RegisterCallback(this);
     }
     ~BitEventConsumerOrTrackCircuit()
     {
         //LOG(ALWAYS,"*** BitEventConsumerOrTrackCircuit::~BitEventConsumerOrTrackCircuit()");
         int tc = ((int) source_) -1;
         if (source_ == Events) unregister_handler();
-        else esp32multifunction::circuits[tc]->UnregisterCallback(this);
+        else circuits[tc]->UnregisterCallback(this);
     }
 
     /// Queries producers and acquires the current state of the bit.
