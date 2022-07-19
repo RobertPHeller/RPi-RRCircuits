@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jul 18 13:17:23 2022
-//  Last Modified : <220718.1334>
+//  Last Modified : <220719.1139>
 //
 //  Description	
 //
@@ -58,12 +58,27 @@
 
 class BootPauseHelper {
 public:
+    enum {
+        PauseLoopCount = 100,
+        PauseLoopDelay_us = 100*1000,
+        RXBufferLength = 256,
+        TXBufferLength = 256,
+        EOL = '\r',
+        SETNODE = 'N',
+        BOOTLOADER = 'B',
+        EVENTRESET = 'E',
+        FACTORYRESET = 'F',
+        RESUME = 'R'
+    };
     BootPauseHelper(node_config_t *config) : config_(config)
     {
     }
     
     void CheckPause();
 private:
+    void PauseConsole();
+    uint64_t ParseNode(char *buffer,size_t bufferlen);
+    size_t ReadLine(uart_port_t uart_num,char *buffer, size_t bufferlen);
     node_config_t *config_;
 };
     
