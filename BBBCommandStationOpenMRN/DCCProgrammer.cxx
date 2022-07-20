@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon May 3 11:20:10 2021
-//  Last Modified : <210503.1132>
+//  Last Modified : <220720.1212>
 //
 //  Description	
 //
@@ -49,6 +49,13 @@ static const char rcsid[] = "@(#) : $Id$";
 #include <dcc/DccDebug.hxx>
 #include <DuplexedTrackIf.hxx>
 #include <utils/Uninitialized.hxx>
+
+namespace dcc {
+
+/// Interface for flows and ports receiving a sequence of DCC (track) packets.
+typedef FlowInterface<Buffer<dcc::Packet>> PacketFlowInterface;
+
+}  // namespace dcc
 
 
 namespace BeagleCS
@@ -165,6 +172,8 @@ bool DCCProgrammer::writeProgCVBit(const uint16_t cv, const uint8_t bit, const b
   }
   return writeVerified;
 }
+
+
 
 void DCCProgrammer::writeOpsCVByte(const uint16_t locoAddress, const uint16_t cv
                   , const uint8_t cvValue)

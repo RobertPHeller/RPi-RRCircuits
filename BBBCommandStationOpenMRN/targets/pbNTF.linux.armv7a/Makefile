@@ -9,8 +9,6 @@ sh -c "if [ \"X`printenv OPENMRNPATH`\" != \"X\" ]; then printenv OPENMRNPATH; \
      else echo OPENMRNPATH not found; fi" \
 )
 
-include ../../../CommonOpenMRNExtras/NodeIDBin.mk
-
 APP_PATH ?= $(realpath ../..)
 -include ../../config.mk
 INCLUDES += -I$(realpath ../../LCCTrainSearchProtocol/include)

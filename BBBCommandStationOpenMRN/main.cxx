@@ -152,6 +152,7 @@
  * 
  */
 
+#include <ctype.h>
 #include "os/os.h"
 #include "nmranet_config.h"
 
@@ -187,26 +188,11 @@ OVERRIDE_CONST(gc_generate_newlines, 1);
 // thread. Useful tuning parameter in case the application runs out of memory.
 OVERRIDE_CONST(main_thread_stack_size, 2500);
 
-// Specifies the 48-bit OpenLCB node identifier. This must be unique for every
+// Specifies the default 48-bit OpenLCB node identifier. This must be unique for every
 // hardware manufactured, so in production this should be replaced by some
 // easily incrementable method.
-#include "NODEID.hxx"
-//extern const openlcb::NodeID NODE_ID = MyAddress;
-
-// Sets up a comprehensive OpenLCB stack for a single virtual node. This stack
-// contains everything needed for a usual peripheral node -- all
-// CAN-bus-specific components, a virtual node, PIP, SNIP, Memory configuration
-// protocol, ACDI, CDI, a bunch of memory spaces, etc.
-//openlcb::SimpleCanStack stack(NODE_ID);
-#if defined(USE_GRIDCONNECT_HOST) || defined(USE_SOCKET_CAN_PORT)
-openlcb::SimpleCommandStationCanStack stack(NODE_ID);
-#else
-#ifdef USE_OPENLCB_TCP_HOST
-Executor<1> g_connect_executor("connect_executor", 0, 2048);
-openlcb::SimpleCommandStationTcpStack stack(NODE_ID);
-#endif
-#endif
-
+#define DefaultNODEID 0x050101012200ULL // 05 01 01 01 22 00
+static openlcb::NodeID NODE_ID = DefaultNODEID;
 // ConfigDef comes from config.hxx and is specific to the particular device and
 // target. It defines the layout of the configuration memory space and is also
 // used to generate the cdi.xml file. Here we instantiate the configuration
@@ -257,7 +243,7 @@ public:
         cfg.userinfo().description().write(
             fd, HARDWARE_IMPL);
     }
-} factory_reset_helper;
+};
 
 
 
@@ -285,6 +271,7 @@ int gctcp_hub_port = DEFAULT_GRIDCONNECT_HUB_PORT;
 void usage(const char *e)
 {
     fprintf(stderr, "Usage: %s [-e EEPROM_file_path] [-t Persistent_Train_file_path]", e);
+    fprintf(stderr, " [-n nodeid]");
     fprintf(stderr, " [-M mainPRUfirmware] [-P progPRUfirmware]");
 #if defined(USE_OPENLCB_TCP_HOST) || defined(USE_GRIDCONNECT_HOST)
     fprintf(stderr, " [-u upstream_host] [-q upstream_port]");
@@ -295,6 +282,7 @@ void usage(const char *e)
     fprintf(stderr, "\n\n");    
     fprintf(stderr, "OpenMRN-Cxx-Node.\nManages a Beagle Bone Command Station Cape.\n");
     fprintf(stderr, "\nOptions:\n");
+    fprintf(stderr, "\t-n nodeid is the node id, as a 12 hex digit number (optionally with colons between pairs of hex digits.\n");
     fprintf(stderr, "\t-e EEPROM_file_path is the path to use to implement the EEProm device.\n");
     fprintf(stderr, "\t-t Persistent_Train_file_path is the path to use to the implement the train persistent data.\n");
     fprintf(stderr, "\t-M mainPRUfirmware is the path to the mains PRU (PRU0) firmware\n");
@@ -320,28 +308,77 @@ static char mainPRUfirmware[256] = "MainTrackDCC.out",
 
 // Parse CLI options.
 
+openlcb::NodeID parseNodeID(const char *nidstring)
+{
+    uint64_t result = 0ULL;
+    int nibcount = 0, coloncount = 0;
+    const char *p = NULL;
+    for (p = nidstring; *p != '\0'; p++)
+    {
+        if (isxdigit(*p))
+        {
+            nibcount++;
+            if (isdigit(*p))
+            {
+                result = (result<<4)+(*p-'0');
+            }
+            else if (islower(*p))
+            {
+                result = (result<<4)+(*p-'a'+10);
+            }
+            else
+            {
+                result = (result<<4)+(*p-'A'+10);
+            }
+        }
+        else if (*p == ':')
+        {
+            coloncount++;
+        }
+        else
+        {
+            // not a hex digit or colon
+            fprintf(stderr, "Syntax error: Illformed node id: %s\n",nidstring);
+            return (openlcb::NodeID) -1;
+        }
+    }
+    if (nibcount != 12)
+    {
+        // Wrong number of digits
+        fprintf(stderr, "Syntax error: Illformed node id: %s\n",nidstring);
+        return (openlcb::NodeID) -1;
+    }
+    if (coloncount != 0 && coloncount != 5)
+    {
+        // Wrong number of colons (some number other than 0 or 5)
+        fprintf(stderr, "Syntax error: Illformed node id: %s\n",nidstring);
+        return (openlcb::NodeID) -1;
+    }
+    return (openlcb::NodeID) result;
+}
+
 void parse_args(int argc, char *argv[])
 {
     int opt;
 #if defined(USE_OPENLCB_TCP_HOST) || defined(USE_GRIDCONNECT_HOST)
 #  ifdef USE_SOCKET_CAN_PORT
 #    ifdef START_GCTCP_HUB
-#      define OPTSTRING "he:t:M:P:u:q:c:p:"
+#      define OPTSTRING "hn:e:t:M:P:u:q:c:p:"
 #    else
-#      define OPTSTRING "he:t:M:P:u:q:c:"
+#      define OPTSTRING "hn:e:t:M:P:u:q:c:"
 #    endif
 #  else
-#    define OPTSTRING "he:t:M:P:u:q:"
+#    define OPTSTRING "hn:e:t:M:P:u:q:"
 #  endif
 #else
 #  ifdef USE_SOCKET_CAN_PORT
 #    ifdef START_GCTCP_HUB
-#      define OPTSTRING "he:t:M:P:c:p:"
+#      define OPTSTRING "hn:e:t:M:P:c:p:"
 #    else
-#      define OPTSTRING "he:t:M:P:c:"
+#      define OPTSTRING "hn:e:t:M:P:c:"
 #    endif
 #  else
-#    define OPTSTRING "he:t:M:P:"
+#    define OPTSTRING "hn:e:t:M:P:"
 #  endif
 #endif
     while ((opt = getopt(argc, argv, OPTSTRING)) >= 0)
@@ -350,6 +387,19 @@ void parse_args(int argc, char *argv[])
         {
         case 'h':
             usage(argv[0]);
+            break;
+        case 'n':
+            {
+                openlcb::NodeID nid = parseNodeID(optarg);
+                if (((int64_t)nid) == -1) 
+                {
+                    usage(argv[0]);
+                }
+                else
+                {
+                    NODE_ID = nid;
+                }
+            }
             break;
         case 'e':
             strncpy(pathnamebuffer,optarg,sizeof(pathnamebuffer));
@@ -389,33 +439,7 @@ void parse_args(int argc, char *argv[])
 }
 
 
-// OpenLCB connection callback.
-
 #ifdef USE_OPENLCB_TCP_HOST
-void connect_callback(int fd, Notifiable *on_error)
-{
-    LOG(INFO, "Connected to hub.");
-    stack.add_tcp_port_select(fd, on_error);
-    stack.restart_stack();
-}
-#endif
-
-
-// Console executor.
-Executor<1> console_executor("console_executor", 0, 2048);
-
-// Console
-#ifdef TERMINALCONSOLE
-CommandStationConsole commandProcessorConsole(&stack,
-                                              stack.traction_service(),
-                                              &console_executor,
-                                              Console::FD_STDIN,
-                                              Console::FD_STDOUT);
-#else
-CommandStationConsole commandProcessorConsole(&stack,
-                                              stack.traction_service(),
-                                              &console_executor,
-                                              CONSOLEPORT);
 #endif
 
 /** Entry point to application.
@@ -436,6 +460,46 @@ int appl_main(int argc, char *argv[])
     // Initialize GPIO
     GpioInit::hw_init();
     
+    // Sets up a comprehensive OpenLCB stack for a single virtual node. This stack
+    // contains everything needed for a usual peripheral node -- all
+    // CAN-bus-specific components, a virtual node, PIP, SNIP, Memory configuration
+    // protocol, ACDI, CDI, a bunch of memory spaces, etc.
+    //openlcb::SimpleCanStack stack(NODE_ID);
+#if defined(USE_GRIDCONNECT_HOST) || defined(USE_SOCKET_CAN_PORT) || defined(START_GRIDCONNECT_SERVER)
+    openlcb::SimpleCommandStationCanStack stack(NODE_ID);
+#else
+#ifdef USE_OPENLCB_TCP_HOST
+    Executor<1> g_connect_executor("connect_executor", 0, 2048);
+    openlcb::SimpleCommandStationTcpStack stack(NODE_ID);
+    // OpenLCB connection callback.
+    auto connect_callback = [&stack] (int fd, Notifiable *on_error)
+    {
+        LOG(INFO, "Connected to hub.");
+        stack.add_tcp_port_select(fd, on_error);
+        stack.restart_stack();
+    }
+#endif
+#endif
+
+    // Console executor.
+    Executor<1> console_executor("console_executor", 0, 2048);
+    
+    // Console
+#ifdef TERMINALCONSOLE
+    CommandStationConsole commandProcessorConsole(&stack,
+                                                  stack.traction_service(),
+                                                  &console_executor,
+                                                  Console::FD_STDIN,
+                                                  Console::FD_STDOUT);
+#else
+    CommandStationConsole commandProcessorConsole(&stack,
+                                                  stack.traction_service(),
+                                                  &console_executor,
+                                                  CONSOLEPORT);
+#endif
+    
+    FactoryResetHelper  factory_reset_helper;
+    
     // Create the config file
     stack.create_config_file_if_needed(cfg.seg().internal_config(), openlcb::CANONICAL_VERSION, openlcb::CONFIG_FILE_SIZE);
     // Start things up in the Console.
@@ -450,6 +514,9 @@ int appl_main(int argc, char *argv[])
     //stack.connect_tcp_gridconnect_hub("28k.ch", 50007);
 #ifdef USE_TCP_GRIDCONNECT_HOST
     stack.connect_tcp_gridconnect_hub(upstream_host, upstream_port);
+#endif
+#ifdef START_GRIDCONNECT_SERVER
+    stack.start_tcp_hub_server();
 #endif
 #ifdef USE_OPENLCB_TCP_HOST
     SocketClient socket_client(stack.service(), &g_connect_executor,

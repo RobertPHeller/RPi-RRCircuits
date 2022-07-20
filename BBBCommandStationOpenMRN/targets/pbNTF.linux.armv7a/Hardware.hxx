@@ -99,6 +99,8 @@ typedef GpioInitializer<MainEN_Pin, ProgEN_Pin,
 //#define DEFAULT_TCP_GRIDCONNECT_HOST "localhost"
 //#define DEFAULT_TCP_GRIDCONNECT_PORT 12021
 
+#define START_GRIDCONNECT_SERVER
+
 //#define PRINT_ALL_PACKETS
 
 #define USE_SOCKET_CAN_PORT

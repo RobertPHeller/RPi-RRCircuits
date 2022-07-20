@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon May 3 13:52:39 2021
-//  Last Modified : <210503.1356>
+//  Last Modified : <220720.1217>
 //
 //  Description	
 //
@@ -49,6 +49,7 @@
 #include <openlcb/EventHandlerTemplates.hxx>
 #include <utils/Atomic.hxx>
 #include <utils/logging.h>
+#include <utils/format_utils.hxx>
 
 namespace BeagleCS
 {
