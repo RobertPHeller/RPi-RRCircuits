@@ -47,6 +47,6 @@ Item #,Designator,Qty,Manufacturer,Mfg Part #,Description,Value,Package/Footprin
 46,"U503, U504, U505, U506",4,Microchip Technology,TC4428VOA,,TC4428,SOIC-8_3.9x4.9mm_Pitch1.27mm,SMD,
 47,"U601, U602",2,Texas Instruments,LM339DR,,LM339,SOIC-14_3.9x8.7mm_Pitch1.27mm,SMD,
 48,U701,1,Nexperia,"PCA9685PW,118",,PCA9685,TSSOP-28_4.4x9.7mm_Pitch0.65mm,SMD,
-49,"U702, U703",2,Toshiba,TBD62083AFG or 757-TBD62783AFG,,TBD62X83A,SOIC-18W_7.5x11.6mm_Pitch1.27mm,SMD,
+49,"U702, U703",2,Toshiba,TBD62083AFG or TBD62783AFG,,TBD62X83A,SOIC-18W_7.5x11.6mm_Pitch1.27mm,SMD,
 50,U801,1,Texas Instruments,TCAN332DR,,TCAN332DR,SOIC-8_3.9x4.9mm_Pitch1.27mm,SMD,
 51,Y201,1,Epson,FA-20H40MF10Z-W3 ,,40 Mhz +/- 10 ppm,FA20_H,SMD,

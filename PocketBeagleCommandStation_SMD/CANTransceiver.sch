@@ -77,6 +77,7 @@ F 0 "J5" H 8100 4450 50  0000 C CNN
 F 1 "RJ45" H 7750 4450 50  0000 C CNN
 F 2 "RJ45-8N-S:RJ45_8N-S" H 7900 3950 50  0001 C CNN
 F 3 "" H 7900 3950 50  0001 C CNN
+F 4 "710-615008144221" H 7900 3950 60  0001 C CNN "Mouser Part Number"
 	1    7900 3950
 	0    1    1    0   
 $EndComp
@@ -88,6 +89,7 @@ F 0 "J4" H 8100 3000 50  0000 C CNN
 F 1 "RJ45" H 7750 3000 50  0000 C CNN
 F 2 "RJ45-8N-S:RJ45_8N-S" H 7900 2500 50  0001 C CNN
 F 3 "" H 7900 2500 50  0001 C CNN
+F 4 "710-615008144221" H 7900 2500 60  0001 C CNN "Mouser Part Number"
 	1    7900 2500
 	0    1    1    0   
 $EndComp
@@ -160,6 +162,7 @@ F 0 "J3" H 5550 3950 50  0000 C CNN
 F 1 "Termination" H 5550 3650 50  0000 C CNN
 F 2 "Pin_Headers:Pin_Header_Straight_2x02_Pitch2.54mm" H 5500 3850 50  0001 C CNN
 F 3 "" H 5500 3850 50  0001 C CNN
+F 4 "538-90131-0122 " H 5500 3850 60  0001 C CNN "Mouser Part Number"
 	1    5500 3850
 	1    0    0    -1  
 $EndComp
@@ -244,6 +247,7 @@ F 0 "T2" H 5750 1300 50  0000 C CNN
 F 1 "LCC Power Out" H 5750 1000 50  0000 C CNN
 F 2 "Connectors_Terminal_Blocks:TerminalBlock_Pheonix_MPT-2.54mm_2pol" H 5750 1200 50  0001 C CNN
 F 3 "" H 5750 1200 50  0001 C CNN
+F 4 "651-1725656" H 5750 1200 60  0001 C CNN "Mouser Part Number"
 	1    5750 1200
 	0    -1   -1   0   
 $EndComp
@@ -255,6 +259,7 @@ F 0 "T3" H 6800 1300 50  0000 C CNN
 F 1 "LCC Power In" H 6800 1000 50  0000 C CNN
 F 2 "Connectors_Terminal_Blocks:TerminalBlock_Pheonix_MPT-2.54mm_2pol" H 6800 1200 50  0001 C CNN
 F 3 "" H 6800 1200 50  0001 C CNN
+F 4 "651-1725656" H 6800 1200 60  0001 C CNN "Mouser Part Number"
 	1    6800 1200
 	0    -1   -1   0   
 $EndComp

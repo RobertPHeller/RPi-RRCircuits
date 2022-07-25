@@ -65,6 +65,7 @@ F 0 "P1" H 2850 2550 60  0000 C CNN
 F 1 "POCKETBEAGLE-P1" H 2850 3650 60  0000 C CNN
 F 2 "Socket_Strips:Socket_Strip_Straight_2x18_Pitch2.54mm" H 2850 2550 60  0001 C CNN
 F 3 "" H 2850 2550 60  0000 C CNN
+F 4 "517-929975-01-18-RK " H 2850 2550 60  0001 C CNN "Mouser Part Number"
 	1    2850 2550
 	1    0    0    -1  
 $EndComp
@@ -76,6 +77,7 @@ F 0 "P2" H 5150 2550 60  0000 C CNN
 F 1 "POCKETBEAGLE-P2" H 5150 3650 60  0000 C CNN
 F 2 "Socket_Strips:Socket_Strip_Straight_2x18_Pitch2.54mm" H 5150 2550 60  0001 C CNN
 F 3 "" H 5150 2550 60  0000 C CNN
+F 4 "517-929975-01-18-RK " H 5150 2550 60  0001 C CNN "Mouser Part Number"
 	1    5150 2550
 	1    0    0    -1  
 $EndComp
@@ -484,6 +486,7 @@ F 0 "J1" H 3900 3400 50  0000 C CNN
 F 1 "Console" H 3900 2700 50  0000 C CNN
 F 2 "Pin_Headers:Pin_Header_Straight_1x06_Pitch2.54mm" H 3900 3100 50  0001 C CNN
 F 3 "" H 3900 3100 50  0001 C CNN
+F 4 "649-75160-156-06LF" H 3900 3100 60  0001 C CNN "Mouser Part Number"
 	1    3900 3100
 	-1   0    0    -1  
 $EndComp

@@ -65,6 +65,7 @@ F 0 "J6" H 5800 2700 50  0000 C CNN
 F 1 "Fan" H 5800 2400 50  0000 C CNN
 F 2 "Connectors_Terminal_Blocks:TerminalBlock_Pheonix_MPT-2.54mm_2pol" H 5800 2600 50  0001 C CNN
 F 3 "" H 5800 2600 50  0001 C CNN
+F 4 "651-1725656" H 5800 2600 60  0001 C CNN "Mouser Part Number"
 	1    5800 2600
 	1    0    0    -1  
 $EndComp
