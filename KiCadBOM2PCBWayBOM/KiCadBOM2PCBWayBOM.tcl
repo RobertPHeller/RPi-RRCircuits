@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Fri Apr 16 08:44:50 2021
-#  Last Modified : <220717.1016>
+#  Last Modified : <220725.0945>
 #
 #  Description	
 #
@@ -48,11 +48,12 @@ snit::type KiCadBOM2PCBWayBOM {
     component matrix
     delegate method * to matrix
     option -sourcefile -readonly yes -default project.csv
+    option -smdonly -readonly yes -default true -type snit::boolean
     delegate option * to matrix except -sourcechanel
     typevariable CollatedComponentsPattern {^"Collated Components:"}
     constructor {args} {
         puts stderr "*** $type create $self $args"
-        set options(-sourcefile) [from args -sourcefile project.csv]
+        $self configurelist $args
         puts stderr "*** $type create $self: options(-sourcefile) is '$options(-sourcefile)'"
         if {[catch {open $options(-sourcefile) r} fp]} {
             error "Could not open source file: $options(-sourcefile), because $fp"
@@ -105,7 +106,10 @@ snit::type KiCadBOM2PCBWayBOM {
         }
         for {set i [expr {[$matrix rows]-1}]} {$i >= 0} {incr i -1} {
             set footprint [$matrix get cell $Footprint_index $i]
-            if {[_nonSMDFootprint $footprint]} {
+            if {[_nonFootprint $footprint]} {
+                $matrix delete row $i
+            }
+            if {$options(-smdonly) && [_nonSMDFootprint $footprint]} {
                 $matrix delete row $i
             }
         }
@@ -188,6 +192,7 @@ snit::type KiCadBOM2PCBWayBOM {
         611 {C&K Switches}
         732 {Epson}
         538 {Molex}
+        517 {3M Electronic Solutions Division}
     }
     proc _lookupMan {mannum} {
         if {[info exists _MouserManufaturers($mannum)]} {
@@ -196,12 +201,19 @@ snit::type KiCadBOM2PCBWayBOM {
             return {}
         }
     }
-    typevariable thoughholeFPs {Fiducial TerminalBlock Pin_Header RJ45_8N 
-        25mmFanMount MountingHole  MFR500 8964300490000000 ESP32-Combo 
+    typevariable nonComponentFPs {Fiducial 25mmFanMount MountingHole}
+    typevariable thoughholeFPs {TerminalBlock Pin_Header RJ45_8N 
+        MFR500 8964300490000000 ESP32-Combo 
         bornier2 Axial_DIN0207 Socket_Strip}
     proc _nonSMDFootprint {foot} {
         foreach thoughholeFP $thoughholeFPs {
             if {[regexp "^$thoughholeFP" $foot] > 0} {return yes}
+        }
+        return no
+    }
+    proc _nonFootprint {foot} {
+        foreach nonFP $nonComponentFPs {
+            if {[regexp "^$nonFP" $foot] > 0} {return yes}
         }
         return no
     }
@@ -221,12 +233,17 @@ snit::type KiCadBOM2PCBWayBOM {
         
     method CreatePCBWayBOM {outfile} {
         set pcbwayBOM [csvmatrix %%AUTO%% -headings $pcbwayHeadings]
+        set Footprint_index [$self headingcol "Footprint"]
         for {set i 0} {$i < [$matrix rows]} {incr i} {
             $pcbwayBOM add row
             foreach c1 [array names KiCad2pcbwayMap] {
                 $pcbwayBOM set cell [$pcbwayBOM headingcol $KiCad2pcbwayMap($c1)] $i \
                       [$matrix get cell [$matrix headingcol $c1] $i]
-                $pcbwayBOM set cell [$pcbwayBOM headingcol Type] $i SMD
+                if {[_nonSMDFootprint [$matrix get cell $Footprint_index $i]]} {
+                    $pcbwayBOM set cell [$pcbwayBOM headingcol Type] $i thru-hole
+                } else {
+                    $pcbwayBOM set cell [$pcbwayBOM headingcol Type] $i SMD
+                }
             }
         }
         $pcbwayBOM savetocsv $outfile
@@ -234,7 +251,9 @@ snit::type KiCadBOM2PCBWayBOM {
     typemethod main {} {
         set source [from ::argv -sourcefile]
         if {$source eq ""} {return}
-        set BOM [KiCadBOM2PCBWayBOM create %%AUTO%% -sourcefile $source]
+        set smdonly [from ::argv -smdonly true]
+        set BOM [KiCadBOM2PCBWayBOM create %%AUTO%% -sourcefile $source \
+                 -smdonly $smdonly]
         set dest [from ::argv -destfile PCBWay.csv]
         $BOM CreatePCBWayBOM $dest
         puts stdout "$source => $dest"
