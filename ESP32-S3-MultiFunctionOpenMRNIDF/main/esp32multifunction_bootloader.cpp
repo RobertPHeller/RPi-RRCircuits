@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sat Jun 25 08:52:20 2022
-//  Last Modified : <220823.1141>
+//  Last Modified : <220823.1356>
 //
 //  Description	
 //
@@ -55,7 +55,7 @@ void bootloader_hw_set_to_safe(void)
 {
     LOG(VERBOSE, "[Bootloader] bootloader_hw_set_to_safe");
     LED_ACT1_Pin::hw_init();
-    //LED_ACT2_Pin::hw_init();
+    LED_ACT2_Pin::hw_init();
 }
 
 /// Verifies that the bootloader has been requested.
@@ -90,7 +90,7 @@ void bootloader_led(enum BootloaderLed led, bool value)
     }
     else if (led == LED_WRITING)
     {
-        //LED_ACT2_Pin::instance()->write(value);
+        LED_ACT2_Pin::instance()->write(value);
     }
     else if (led == LED_REQUEST)
     {

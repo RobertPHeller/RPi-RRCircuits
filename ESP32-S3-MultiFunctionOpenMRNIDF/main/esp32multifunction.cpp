@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 12:17:40 2022
-//  Last Modified : <220823.1157>
+//  Last Modified : <220823.1357>
 //
 //  Description	
 //
@@ -154,7 +154,7 @@ void die_with(bool activity1, bool activity2, unsigned period = 1000
             , bool toggle_both = false)
 {
     LED_ACT1_Pin::set(activity1);
-    //LED_ACT2_Pin::set(activity2);
+    LED_ACT2_Pin::set(activity2);
 
     while(true)
     {
@@ -162,7 +162,7 @@ void die_with(bool activity1, bool activity2, unsigned period = 1000
         {
             LED_ACT1_Pin::toggle();
         }
-        //LED_ACT2_Pin::toggle();
+        LED_ACT2_Pin::toggle();
         usleep(period);
     }
 }
@@ -218,7 +218,7 @@ void bootloader_led(enum BootloaderLed led, bool value)
     }
     else if (led == LED_WRITING)
     {
-        //LED_ACT2_Pin::instance()->write(value);
+        LED_ACT2_Pin::instance()->write(value);
     }
     else if (led == LED_REQUEST)
     {
@@ -233,7 +233,7 @@ void bootloader_hw_set_to_safe(void)
 {
     LOG(VERBOSE, "[Bootloader] bootloader_hw_set_to_safe");
     LED_ACT1_Pin::hw_init();
-    //LED_ACT2_Pin::hw_init();
+    LED_ACT2_Pin::hw_init();
 }
 
 
@@ -271,7 +271,7 @@ void app_main()
     
     // Ensure the LEDs are both ON for PauseCheck
     LED_ACT1_Pin::instance()->set();
-    //LED_ACT2_Pin::instance()->set();
+    LED_ACT2_Pin::instance()->set();
     
     BootPauseHelper pause(&config);
     
@@ -281,7 +281,7 @@ void app_main()
     
     // Ensure the LEDs are both OFF when we startup.
     LED_ACT1_Pin::instance()->clr();
-    //LED_ACT2_Pin::instance()->clr();
+    LED_ACT2_Pin::instance()->clr();
     
     // Check for and reset factory reset flag.
     if (config.force_reset)
@@ -312,7 +312,7 @@ void app_main()
     {
         LOG(VERBOSE, "[Bootloader] bootloader_hw_set_to_safe");                     
         LED_ACT1_Pin::hw_init();                                                    
-        //LED_ACT2_Pin::hw_init();
+        LED_ACT2_Pin::hw_init();
         esp32_bootloader_run(config.node_id, CONFIG_TWAI_TX_PIN, CONFIG_TWAI_RX_PIN, true);
         esp_restart();
     }
