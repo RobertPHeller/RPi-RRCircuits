@@ -491,15 +491,13 @@ L ESP32-S3R2 IC1
 U 1 1 63017C0B
 P 4850 3300
 F 0 "IC1" H 6700 4200 50  0000 L CNN
-F 1 "ESP32-S3R2" H 6700 4100 50  0000 L CNN
+F 1 "ESP32-S3FN8" H 6700 4100 50  0000 L CNN
 F 2 "Housings_DFN_QFN:QFN-56-1EP_7x7mm_Pitch0.4mm" H 6700 4000 50  0001 L CNN
 F 3 "" H 6700 3900 50  0001 L CNN
 F 4 "WiFi Modules - 802.11 [Engineering Samples] SMD IC, Dual-Core MCU, Wi-Fi 2.4G & BLE 5.0 Combo, 2 MB PSRAM, QFN 56-pin, 7*7 mm" H 6700 3800 50  0001 L CNN "Description"
 F 5 "0.9" H 6700 3700 50  0001 L CNN "Height"
-F 6 "" H 6700 3600 50  0001 L CNN "Mouser2 Part Number"
-F 7 "" H 6700 3500 50  0001 L CNN "Mouser2 Price/Stock"
-F 8 "Espressif Systems" H 6700 3400 50  0001 L CNN "Manufacturer_Name"
-F 9 "ESP32-S3R2" H 6700 3300 50  0001 L CNN "Manufacturer_Part_Number"
+F 6 "Espressif Systems" H 6700 3400 50  0001 L CNN "Manufacturer_Name"
+F 7 "ESP32-S3FN8" H 6700 3300 50  0001 L CNN "Manufacturer_Part_Number"
 	1    4850 3300
 	1    0    0    -1  
 $EndComp
