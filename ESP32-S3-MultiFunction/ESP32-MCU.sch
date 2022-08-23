@@ -447,7 +447,7 @@ F 4 "71-CRCW06032K40JNEAC" V 3600 3850 60  0001 C CNN "Mouser Part Number"
 	-1   0    0    1   
 $EndComp
 NoConn ~ 4850 3300
-Text Label 3850 3150 0    60   ~ 0
+Text Label 3850 3150 3    60   ~ 0
 GPIO15(Act1)
 $Comp
 L LED D2
@@ -654,7 +654,7 @@ Wire Wire Line
 Connection ~ 4050 3900
 Connection ~ 3600 4000
 Wire Wire Line
-	3650 2500 3850 2500
+	3650 2500 4150 2500
 Wire Wire Line
 	3150 3450 4700 3450
 Wire Wire Line
@@ -746,4 +746,35 @@ Wire Wire Line
 Connection ~ 2750 3800
 Wire Wire Line
 	6850 4600 7000 4600
+$Comp
+L R R3
+U 1 1 63051DF1
+P 4150 2650
+F 0 "R3" V 4230 2650 50  0000 C CNN
+F 1 "270" V 4150 2650 50  0000 C CNN
+F 2 "Resistors_SMD:R_0402" V 4080 2650 50  0001 C CNN
+F 3 "" H 4150 2650 50  0001 C CNN
+F 4 "754-RR0510P-271D" V 4150 2650 60  0001 C CNN "Mouser Part Number"
+	1    4150 2650
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED D4
+U 1 1 63051FA7
+P 4150 3000
+F 0 "D4" H 4150 3100 50  0000 C CNN
+F 1 "ACT2" H 4150 2900 50  0000 C CNN
+F 2 "LEDs:LED_0402" H 4150 3000 50  0001 C CNN
+F 3 "" H 4150 3000 50  0001 C CNN
+F 4 "710-150040SS73220" H 4150 3000 60  0001 C CNN "Mouser Part Number"
+	1    4150 3000
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	4150 2800 4150 2850
+Text Label 4150 3150 3    60   ~ 0
+GPIO0(Act2)
+Text Label 4800 3700 0    60   ~ 0
+GPIO0(Act2)
+Connection ~ 3850 2500
 $EndSCHEMATC
