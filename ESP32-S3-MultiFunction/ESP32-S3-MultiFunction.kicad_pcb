@@ -2692,7 +2692,7 @@
       (net 7 "CAN +12V"))
     (pad "" thru_hole circle (at -8.128 3.048 90) (size 1.9304 1.9304) (drill 1.9304) (layers *.Cu *.Mask F.SilkS))
     (pad "" thru_hole circle (at 8.128 3.048 90) (size 1.9304 1.9304) (drill 1.9304) (layers *.Cu *.Mask F.SilkS))
-    (model connectors/RJ45_8.wrl
+    (model Connectors.3dshapes/RJ45_8.wrl
       (at (xyz 0 0 0))
       (scale (xyz 0.4 0.4 0.4))
       (rotate (xyz 0 0 0))
@@ -2739,7 +2739,7 @@
       (net 7 "CAN +12V"))
     (pad "" thru_hole circle (at -8.128 3.048 270) (size 1.9304 1.9304) (drill 1.9304) (layers *.Cu *.Mask F.SilkS))
     (pad "" thru_hole circle (at 8.128 3.048 270) (size 1.9304 1.9304) (drill 1.9304) (layers *.Cu *.Mask F.SilkS))
-    (model connectors/RJ45_8.wrl
+    (model Connectors.3dshapes/RJ45_8.wrl
       (at (xyz 0 0 0))
       (scale (xyz 0.4 0.4 0.4))
       (rotate (xyz 0 0 0))
@@ -3133,6 +3133,11 @@
       (net 19 "Net-(D301-Pad1)"))
     (pad 2 smd rect (at 3.3 0 90) (size 3.5 10.2) (layers F.Cu F.Paste F.Mask)
       (net 3 +3V3))
+    (model Inductors_SMD.3dshapes/L_12x12mm_h6mm.wrl
+      (at (xyz 0 0 0))
+      (scale (xyz 3.25 3.25 3.25))
+      (rotate (xyz 0 0 0))
+    )
   )
 
   (module Mounting_Holes:MountingHole_3.7mm (layer F.Cu) (tedit 56D1B4CB) (tstamp 63028D2C)
@@ -3521,11 +3526,6 @@
       (net 108 "Net-(R401-Pad1)"))
     (pad 2 thru_hole oval (at 7.62 0 90) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 109 "Net-(R401-Pad2)"))
-    (model ${KISYS3DMOD}/Resistors_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal.wrl
-      (at (xyz 0 0 0))
-      (scale (xyz 0.393701 0.393701 0.393701))
-      (rotate (xyz 0 0 0))
-    )
   )
 
   (module Resistors_SMD:R_0603 (layer F.Cu) (tedit 630521B6) (tstamp 63028DC1)
@@ -3595,11 +3595,6 @@
       (net 110 "Net-(R403-Pad1)"))
     (pad 2 thru_hole oval (at 7.62 0 90) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 111 "Net-(R403-Pad2)"))
-    (model ${KISYS3DMOD}/Resistors_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal.wrl
-      (at (xyz 0 0 0))
-      (scale (xyz 0.393701 0.393701 0.393701))
-      (rotate (xyz 0 0 0))
-    )
   )
 
   (module Resistors_SMD:R_0603 (layer F.Cu) (tedit 63052219) (tstamp 63028DD8)
@@ -3669,11 +3664,6 @@
       (net 112 "Net-(R405-Pad1)"))
     (pad 2 thru_hole oval (at 7.62 0 90) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 113 "Net-(R405-Pad2)"))
-    (model ${KISYS3DMOD}/Resistors_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal.wrl
-      (at (xyz 0 0 0))
-      (scale (xyz 0.393701 0.393701 0.393701))
-      (rotate (xyz 0 0 0))
-    )
   )
 
   (module Resistors_SMD:R_0603 (layer F.Cu) (tedit 63052241) (tstamp 63028DEF)
@@ -3743,11 +3733,6 @@
       (net 114 "Net-(R407-Pad1)"))
     (pad 2 thru_hole oval (at 7.62 0 90) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask)
       (net 115 "Net-(R407-Pad2)"))
-    (model ${KISYS3DMOD}/Resistors_THT.3dshapes/R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal.wrl
-      (at (xyz 0 0 0))
-      (scale (xyz 0.393701 0.393701 0.393701))
-      (rotate (xyz 0 0 0))
-    )
   )
 
   (module Resistors_SMD:R_0603 (layer F.Cu) (tedit 6305226C) (tstamp 63028E06)
@@ -4479,6 +4464,11 @@
       (net 94 "Net-(P701-Pad2)"))
     (pad 16 smd rect (at -4.445 -3.45 180) (size 0.63 2) (layers F.Cu F.Paste F.Mask)
       (net 93 "Net-(P701-Pad1)"))
+    (model Housings_SOIC.3dshapes/SOIC-16W_7.5x10.3mm_Pitch1.27mm.wrl
+      (at (xyz 0 0 0))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 270))
+    )
   )
 
   (module 48xxP:4816P (layer F.Cu) (tedit 5E4B375E) (tstamp 63028F60)
@@ -4526,6 +4516,11 @@
       (net 102 "Net-(P702-Pad2)"))
     (pad 16 smd rect (at -4.445 -3.45) (size 0.63 2) (layers F.Cu F.Paste F.Mask)
       (net 101 "Net-(P702-Pad1)"))
+    (model Housings_SOIC.3dshapes/SOIC-16W_7.5x10.3mm_Pitch1.27mm.wrl
+      (at (xyz 0 0 0))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 270))
+    )
   )
 
   (module 48xxP:4814P (layer F.Cu) (tedit 5E4B486B) (tstamp 63028F72)
@@ -4569,6 +4564,11 @@
       (net 148 "/Stall Motors/P3A"))
     (pad 14 smd rect (at -3.81 -3.45 180) (size 0.63 2) (layers F.Cu F.Paste F.Mask)
       (net 3 +3V3))
+    (model Housings_SOIC.3dshapes/SOIC-14_3.9x8.7mm_Pitch1.27mm.wrl
+      (at (xyz 0 0 0))
+      (scale (xyz 1.25 1 1))
+      (rotate (xyz 0 0 90))
+    )
   )
 
   (module Potentiometers:Potentiometer_Trimmer_Bourns_3214J (layer F.Cu) (tedit 58826B0B) (tstamp 63028F79)
@@ -4612,10 +4612,10 @@
       (net 21 "Net-(D601-Pad2)"))
     (pad 3 smd rect (at 2 1.15) (size 2 1.3) (layers F.Cu F.Mask)
       (net 116 "Net-(R601-Pad2)"))
-    (model Potentiometers.3dshapes/Potentiometer_Trimmer_Bourns_3214J.wrl
-      (at (xyz 0.03 0 0))
-      (scale (xyz 0.39 0.39 0.39))
-      (rotate (xyz 0 0 0))
+    (model ../../../../../home/heller/RRCircuits/Potentiometer_SMD.3dshapes/Potentiometer_Bourns_3314J_Vertical.wrl
+      (at (xyz 0 0 0))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 90))
     )
   )
 
@@ -4660,10 +4660,10 @@
       (net 23 "Net-(D602-Pad2)"))
     (pad 3 smd rect (at 2 1.15) (size 2 1.3) (layers F.Cu F.Mask)
       (net 117 "Net-(R602-Pad2)"))
-    (model Potentiometers.3dshapes/Potentiometer_Trimmer_Bourns_3214J.wrl
-      (at (xyz 0.03 0 0))
-      (scale (xyz 0.39 0.39 0.39))
-      (rotate (xyz 0 0 0))
+    (model ../../../../../home/heller/RRCircuits/Potentiometer_SMD.3dshapes/Potentiometer_Bourns_3314J_Vertical.wrl
+      (at (xyz 0 0 0))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 90))
     )
   )
 
@@ -4708,14 +4708,14 @@
       (net 25 "Net-(D603-Pad2)"))
     (pad 3 smd rect (at 2 1.15) (size 2 1.3) (layers F.Cu F.Mask)
       (net 118 "Net-(R603-Pad2)"))
-    (model Potentiometers.3dshapes/Potentiometer_Trimmer_Bourns_3214J.wrl
-      (at (xyz 0.03 0 0))
-      (scale (xyz 0.39 0.39 0.39))
-      (rotate (xyz 0 0 0))
+    (model ../../../../../home/heller/RRCircuits/Potentiometer_SMD.3dshapes/Potentiometer_Bourns_3314J_Vertical.wrl
+      (at (xyz 0 0 0))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 90))
     )
   )
 
-  (module Potentiometers:Potentiometer_Trimmer_Bourns_3214J (layer F.Cu) (tedit 58826B0B) (tstamp 63028F8E)
+  (module Potentiometers:Potentiometer_Trimmer_Bourns_3214J (layer F.Cu) (tedit 63056CFF) (tstamp 63028F8E)
     (at 97.568 119.26)
     (descr "Spindle Trimmer Potentiometer, Bourns 3214J, https://www.bourns.com/pdfs/3214.pdf")
     (tags "Spindle Trimmer Potentiometer   Bourns 3214J")
@@ -4756,10 +4756,10 @@
       (net 27 "Net-(D604-Pad2)"))
     (pad 3 smd rect (at 2 1.15) (size 2 1.3) (layers F.Cu F.Mask)
       (net 119 "Net-(R604-Pad2)"))
-    (model Potentiometers.3dshapes/Potentiometer_Trimmer_Bourns_3214J.wrl
-      (at (xyz 0.03 0 0))
-      (scale (xyz 0.39 0.39 0.39))
-      (rotate (xyz 0 0 0))
+    (model ../../../../../home/heller/RRCircuits/Potentiometer_SMD.3dshapes/Potentiometer_Bourns_3314J_Vertical.wrl
+      (at (xyz 0 0 0))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 90))
     )
   )
 
@@ -4800,7 +4800,7 @@
       (net 4 "/ESP32 MCU/RESET"))
     (pad 3 smd rect (at -2.625 1.6 180) (size 1 1.55) (layers F.Cu F.Paste F.Mask))
     (pad 4 smd rect (at 2.625 1.6 180) (size 1 1.55) (layers F.Cu F.Paste F.Mask))
-    (model PTS647SN70SMTR2LFS.stp
+    (model Buttons_Switches_SMD.3dshapes/SW_SPST_EVQQ2_01W.wrl
       (at (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -6395,7 +6395,7 @@
       (net 193 "/ESP32 MCU/GPIO0(Act2)"))
     (pad 3 smd rect (at -2.625 1.6 180) (size 1 1.55) (layers F.Cu F.Paste F.Mask))
     (pad 4 smd rect (at 2.625 1.6 180) (size 1 1.55) (layers F.Cu F.Paste F.Mask))
-    (model PTS647SN70SMTR2LFS.stp
+    (model Buttons_Switches_SMD.3dshapes/SW_SPST_EVQQ2_01W.wrl
       (at (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
