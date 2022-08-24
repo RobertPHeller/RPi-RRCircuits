@@ -1,4 +1,4 @@
-update=Wed 12 May 2021 01:26:52 PM EDT
+update=Wed 24 Aug 2022 08:18:13 AM EDT
 version=1
 last_client=kicad
 [cvpcb]
@@ -105,3 +105,4 @@ LibName40=graphic_symbols
 LibName41=motor_drivers
 LibName42=irf7351pbf
 LibName43=MCP9700T-E_LT
+LibName44=ESP32-S3-MultiFunction/USBLC6-2SC6
