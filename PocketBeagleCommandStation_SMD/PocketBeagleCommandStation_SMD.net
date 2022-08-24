@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/heller/RRCircuits/PocketBeagleCommandStation_SMD/PocketBeagleCommandStation_SMD.sch)
-    (date "Wed 24 Aug 2022 08:33:59 AM EDT")
+    (date "Wed 24 Aug 2022 12:31:08 PM EDT")
     (tool "Eeschema 4.0.7+dfsg1-1ubuntu2")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -1380,7 +1380,7 @@
       (sheetpath (names "/Railcomm Interface/") (tstamps /6070B3D4/))
       (tstamp 6075953E))
     (comp (ref J6)
-      (value Fan)
+      (value "- Fan +")
       (footprint Connectors_Terminal_Blocks:TerminalBlock_Pheonix_MPT-2.54mm_2pol)
       (fields
         (field (name "Mouser Part Number") 651-1725656))
