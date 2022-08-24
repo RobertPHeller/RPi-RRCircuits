@@ -499,6 +499,7 @@ F 4 "WiFi Modules - 802.11 [Engineering Samples] SMD IC, Dual-Core MCU, Wi-Fi 2.
 F 5 "0.9" H 6700 3700 50  0001 L CNN "Height"
 F 6 "Espressif Systems" H 6700 3400 50  0001 L CNN "Manufacturer_Name"
 F 7 "ESP32-S3FN8" H 6700 3300 50  0001 L CNN "Manufacturer_Part_Number"
+F 8 "356-ESP32-S3FN8" H 4850 3300 60  0001 C CNN "Mouser Part Number"
 	1    4850 3300
 	1    0    0    -1  
 $EndComp
@@ -514,6 +515,7 @@ F 0 "R1" V 5530 2150 50  0000 C CNN
 F 1 "0" V 5450 2150 50  0000 C CNN
 F 2 "Resistors_SMD:R_0402" V 5380 2150 50  0001 C CNN
 F 3 "" H 5450 2150 50  0001 C CNN
+F 4 "71-CRCW04020000Z0EDC" V 5450 2150 60  0001 C CNN "Mouser Part Number"
 	1    5450 2150
 	1    0    0    -1  
 $EndComp
@@ -575,6 +577,7 @@ F 0 "J1" H 9350 6500 50  0000 L CNN
 F 1 "USB_OTG" H 9350 6400 50  0000 L CNN
 F 2 "Connectors_USB:USB_Micro-B_Molex-105017-0001" H 9700 6000 50  0001 C CNN
 F 3 "" H 9700 6000 50  0001 C CNN
+F 4 "538-105017-0001 " H 9550 6050 60  0001 C CNN "Mouser Part Number"
 	1    9550 6050
 	-1   0    0    1   
 $EndComp

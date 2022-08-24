@@ -67,7 +67,7 @@ F 0 "Term601" H 800 3850 50  0000 C CNN
 F 1 "4B 4A 3B 3A 2B 2A 1B 1A" H 800 2950 50  0000 C CNN
 F 2 "Connectors_Terminal_Blocks:TerminalBlock_Pheonix_MPT-2.54mm_8pol" H 800 3450 50  0001 C CNN
 F 3 "" H 800 3450 50  0001 C CNN
-F 4 " 651-1725711" H 800 3450 60  0001 C CNN "Mouser Part Number"
+F 4 "651-1725711" H 800 3450 60  0001 C CNN "Mouser Part Number"
 	1    800  3450
 	-1   0    0    -1  
 $EndComp
