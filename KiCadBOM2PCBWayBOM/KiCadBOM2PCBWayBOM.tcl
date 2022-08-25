@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Fri Apr 16 08:44:50 2021
-#  Last Modified : <220725.0945>
+#  Last Modified : <220825.1125>
 #
 #  Description	
 #
@@ -201,7 +201,7 @@ snit::type KiCadBOM2PCBWayBOM {
             return {}
         }
     }
-    typevariable nonComponentFPs {Fiducial 25mmFanMount MountingHole}
+    typevariable nonComponentFPs {Fiducial 25mmFanMount MountingHole Axial_DIN}
     typevariable thoughholeFPs {TerminalBlock Pin_Header RJ45_8N 
         MFR500 8964300490000000 ESP32-Combo 
         bornier2 Axial_DIN0207 Socket_Strip}
