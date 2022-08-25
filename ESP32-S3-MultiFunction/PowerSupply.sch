@@ -47,10 +47,10 @@ LIBS:ESP32-S3-MultiFunction-rescue
 LIBS:USBLC6-2SC6
 EELAYER 25 0
 EELAYER END
-$Descr A4 11693 8268
+$Descr USLetter 11000 8500
 encoding utf-8
 Sheet 3 8
-Title "ESP32 Multifunction Board"
+Title "ESP32 S3 Multifunction Board"
 Date ""
 Rev "1.0"
 Comp "Deepwoods Software"

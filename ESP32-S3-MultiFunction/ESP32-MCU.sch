@@ -50,7 +50,7 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 2 8
-Title "ESP32 Multifunction Board"
+Title "ESP32 S3 Multifunction Board"
 Date ""
 Rev "1.0"
 Comp "Deepwoods Software"
