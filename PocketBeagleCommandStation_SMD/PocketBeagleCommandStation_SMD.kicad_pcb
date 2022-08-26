@@ -3,7 +3,7 @@
   (general
     (links 417)
     (no_connects 0)
-    (area 85.039999 58.369999 203.250001 163.880001)
+    (area 83.345238 45.56 227.56 177.960001)
     (thickness 1.6)
     (drawings 20)
     (tracks 1583)
@@ -36,7 +36,7 @@
   )
 
   (setup
-    (last_trace_width 1)
+    (last_trace_width 0.25)
     (user_trace_width 0.45)
     (user_trace_width 0.5)
     (user_trace_width 1)
@@ -3379,6 +3379,7 @@
   (module SRN1060:SRN1060 (layer F.Cu) (tedit 5E4B6925) (tstamp 6075C0D8)
     (at 126.49 67.437)
     (path /6070B3D0/6070B8B1)
+    (attr smd)
     (fp_text reference L1 (at -0.01524 -3.1623) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
     )
