@@ -70,12 +70,12 @@ public:
     if (event && event->dst_node)
     {
       // Identify addressed
-      if (!service()->is_known_train_node(event->dst_node))
-      {
-        LOG(VERBOSE, "ignoring unknown train node: %s"
-          , uint64_to_string_hex(event->dst_node->node_id()).c_str());
-        return;
-      }
+      //if (!service()->is_known_train_node(event->dst_node))
+      //{
+      //  LOG(VERBOSE, "ignoring unknown train node: %s"
+      //    , uint64_to_string_hex(event->dst_node->node_id()).c_str());
+      //  return;
+      //}
       static_assert(((FindProtocolDefs::TRAIN_FIND_BASE >>
                       FindProtocolDefs::TRAIN_FIND_MASK) &
                      1) == 1,

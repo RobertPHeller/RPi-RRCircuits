@@ -271,6 +271,9 @@ int gctcp_hub_port = DEFAULT_GRIDCONNECT_HUB_PORT;
 void usage(const char *e)
 {
     fprintf(stderr, "Usage: %s [-e EEPROM_file_path] [-t Persistent_Train_file_path]", e);
+    fprintf(stderr, "\n\n");    
+    fprintf(stderr, "OpenMRN-Cxx-Node.\nManages a Beagle Bone Command Station Cape.\n");
+    fprintf(stderr, "\nOptions:\n");
     fprintf(stderr, " [-n nodeid]");
     fprintf(stderr, " [-M mainPRUfirmware] [-P progPRUfirmware]");
 #if defined(USE_OPENLCB_TCP_HOST) || defined(USE_GRIDCONNECT_HOST)
@@ -279,9 +282,6 @@ void usage(const char *e)
 #ifdef USE_SOCKET_CAN_PORT
     fprintf(stderr, " [-c can_socketname]");
 #endif
-    fprintf(stderr, "\n\n");    
-    fprintf(stderr, "OpenMRN-Cxx-Node.\nManages a Beagle Bone Command Station Cape.\n");
-    fprintf(stderr, "\nOptions:\n");
     fprintf(stderr, "\t-n nodeid is the node id, as a 12 hex digit number (optionally with colons between pairs of hex digits.\n");
     fprintf(stderr, "\t-e EEPROM_file_path is the path to use to implement the EEProm device.\n");
     fprintf(stderr, "\t-t Persistent_Train_file_path is the path to use to the implement the train persistent data.\n");

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Apr 25 18:49:25 2021
-//  Last Modified : <210512.1149>
+//  Last Modified : <220822.0957>
 //
 //  Description	
 //
@@ -49,6 +49,7 @@
 #include <openlcb/MemoryConfig.hxx>
 #include <openlcb/SimpleInfoProtocol.hxx>
 #include <openlcb/TractionTrain.hxx>
+#include <utils/Uninitialized.hxx>
 #include <os/OS.hxx>
 
 #include <TrainDb.hxx>

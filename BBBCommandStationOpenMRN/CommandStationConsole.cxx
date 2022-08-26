@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 20 13:40:14 2019
-//  Last Modified : <210511.1353>
+//  Last Modified : <220822.1135>
 //
 //  Description	
 //
@@ -57,8 +57,9 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "openlcb/EventService.hxx"
 #include "executor/CallableFlow.hxx"
 #include "executor/PoolToQueueFlow.hxx"
+#include "utils/Uninitialized.hxx"
 #include "dcc/Loco.hxx"
-#include "dcc/DccOutput.hxx"
+//#include "dcc/DccOutput.hxx"
 #include <AllTrainNodes.hxx>
 #include "BeagleTrainDatabase.hxx"
 #include "CommandStationStack.hxx"
@@ -498,6 +499,7 @@ Console::CommandStatus CommandStationConsole::power_command(FILE *fp, int argc, 
 Console::CommandStatus CommandStationConsole::estop_command(FILE *fp, int argc, const char *argv[], void *context)
 {
     CommandStationConsole::initiate_estop();
+    fprintf(fp, "#estop#\n");
     return COMMAND_OK;
 }
 
@@ -626,19 +628,19 @@ Console::CommandStatus CommandStationConsole::writeopscvbit_command(FILE *fp, in
 
 
 
-DccOutput *get_dcc_output(DccOutput::Type type)
-{
-#ifdef DccOutputDefined
-    switch (type)
-    {
-    case DccOutput::Type::TRACK:
-        return DccOutputImpl<BeagleCS::DccHardware::OPSDccOutput>::instance();
-    case DccOutput::Type::PGM:
-        return DccOutputImpl<BeagleCS::DccHardware::PROGDccOutput>::instance();
-    case DccOutput::Type::LCC:
-        return DccOutputImpl<BeagleCS::DccHardware::LCCDccOutput>::instance();
-    }
-#endif
-    return nullptr;
-}
+//DccOutput *get_dcc_output(DccOutput::Type type)
+//{
+//#ifdef DccOutputDefined
+//    switch (type)
+//    {
+//    case DccOutput::Type::TRACK:
+//        return DccOutputImpl<BeagleCS::DccHardware::OPSDccOutput>::instance();
+//    case DccOutput::Type::PGM:
+//        return DccOutputImpl<BeagleCS::DccHardware::PROGDccOutput>::instance();
+//    case DccOutput::Type::LCC:
+//        return DccOutputImpl<BeagleCS::DccHardware::LCCDccOutput>::instance();
+//    }
+//#endif
+//    return nullptr;
+//}
 

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Mar 24 09:44:24 2021
-//  Last Modified : <210425.1323>
+//  Last Modified : <220822.0952>
 //
 //  Description	
 //
@@ -144,7 +144,7 @@ public:
         }
         HW::RC_ENABLE::set(false);
     }
-    void no_cutout() override
+    void no_cutout()/* override*/
     {
         HW::RC_ENABLE::set(false);
     }
