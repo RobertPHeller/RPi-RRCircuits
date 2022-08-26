@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Fri Aug 26 09:05:12 2022
-#  Last Modified : <220826.1246>
+#  Last Modified : <220826.1342>
 #
 #  Description	
 #
@@ -107,7 +107,7 @@ snit::type ThruHolePos {
                 $type processModule $e
             }
         }
-        puts stderr "*** ThruHolePos: footprints_ is $footprints_"
+        #puts stderr "*** ThruHolePos: footprints_ is $footprints_"
         if {$outputfile eq "-"} {
             set out stdout
         } else {
