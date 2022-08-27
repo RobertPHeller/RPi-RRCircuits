@@ -1,4 +1,4 @@
-update=Sat 27 Aug 2022 12:00:08 PM EDT
+update=Sat 27 Aug 2022 12:41:14 PM EDT
 version=1
 last_client=kicad
 [pcbnew]
@@ -23,8 +23,6 @@ ModuleOutlineThickness=0.150000000000
 [cvpcb]
 version=1
 NetIExt=net
-[general]
-version=1
 [eeschema]
 version=1
 LibDir=
@@ -68,3 +66,5 @@ LibName36=/home/heller/RRCircuits/lm2574n-5
 LibName37=/home/heller/RRCircuits/PocketBeagleCommandStation_SMD/DRV8873HPWPR
 LibName38=/home/heller/RRCircuits/PocketBeagleCommandStation_SMD/mcp9701at
 LibName39=/home/heller/RRCircuits/PocketBeagleCommandStation_SMD/MCP9700T-E_LT
+[general]
+version=1

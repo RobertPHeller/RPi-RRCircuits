@@ -90,7 +90,7 @@ F 4 "647-UWT1E221MNL1GS" H 6550 3550 60  0001 C CNN "Mouser Part Number"
 $EndComp
 Text HLabel 4300 3250 0    60   Output ~ 0
 3.3V Out
-Text HLabel 6850 3350 2    60   Input ~ 0
+Text HLabel 8350 2800 2    60   Input ~ 0
 Power Input
 $Comp
 L L L401
@@ -176,10 +176,10 @@ F 4 "710-865230542002" H 10200 3450 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR402
+L GND #PWR403
 U 1 1 630A5C24
 P 9750 3800
-F 0 "#PWR402" H 9750 3550 50  0001 C CNN
+F 0 "#PWR403" H 9750 3550 50  0001 C CNN
 F 1 "GND" H 9750 3650 50  0000 C CNN
 F 2 "" H 9750 3800 50  0001 C CNN
 F 3 "" H 9750 3800 50  0001 C CNN
@@ -196,7 +196,7 @@ Wire Wire Line
 Connection ~ 5900 3800
 Connection ~ 5800 3800
 Wire Wire Line
-	6150 3350 6850 3350
+	6150 3350 7150 3350
 Wire Wire Line
 	6550 3800 6550 3700
 Connection ~ 6000 3800
@@ -223,12 +223,8 @@ Wire Wire Line
 Wire Wire Line
 	5500 3600 5500 3550
 Wire Wire Line
-	6850 3350 6850 3700
-Wire Wire Line
 	4400 3050 4400 3250
 Connection ~ 4400 3250
-Wire Wire Line
-	7100 3300 9450 3300
 Wire Wire Line
 	9250 3300 9250 3400
 Wire Wire Line
@@ -242,8 +238,6 @@ Wire Wire Line
 Connection ~ 9750 3600
 Wire Wire Line
 	9750 3800 9750 3600
-Wire Wire Line
-	7100 3300 7100 3700
 Connection ~ 9250 3300
 Text HLabel 10400 3300 2    60   Output ~ 0
 12V
@@ -257,5 +251,49 @@ NoConn ~ 6000 3100
 NoConn ~ 6150 3450
 NoConn ~ 6150 3550
 Wire Wire Line
-	7100 3700 6850 3700
+	7450 3300 9450 3300
+Wire Wire Line
+	8350 2800 8350 3300
+$Comp
+L D_Shockley D403
+U 1 1 630AA312
+P 7300 3350
+F 0 "D403" H 7300 3450 50  0000 C CNN
+F 1 "DFLS240" H 7300 3250 50  0000 C CNN
+F 2 "Diodes_SMD:D_PowerDI-123" H 7300 3350 50  0001 C CNN
+F 3 "" H 7300 3350 50  0001 C CNN
+F 4 "621-DFLS240-7" H 7300 3350 60  0001 C CNN "Mouser Part Number"
+	1    7300 3350
+	1    0    0    -1  
+$EndComp
+$Comp
+L D_Shockley D402
+U 1 1 630AA381
+P 7300 3050
+F 0 "D402" H 7300 3150 50  0000 C CNN
+F 1 "DFLS240" H 7300 2950 50  0000 C CNN
+F 2 "Diodes_SMD:D_PowerDI-123" H 7300 3050 50  0001 C CNN
+F 3 "" H 7300 3050 50  0001 C CNN
+F 4 "621-DFLS240-7" H 7300 3050 60  0001 C CNN "Mouser Part Number"
+	1    7300 3050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7450 3300 7450 3350
+Connection ~ 8350 3300
+Wire Wire Line
+	7150 3350 7150 3050
+$Comp
+L VBUS #PWR402
+U 1 1 630AA49C
+P 7450 2750
+F 0 "#PWR402" H 7450 2600 50  0001 C CNN
+F 1 "VBUS" H 7450 2900 50  0000 C CNN
+F 2 "" H 7450 2750 50  0001 C CNN
+F 3 "" H 7450 2750 50  0001 C CNN
+	1    7450 2750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7450 2750 7450 3050
 $EndSCHEMATC
