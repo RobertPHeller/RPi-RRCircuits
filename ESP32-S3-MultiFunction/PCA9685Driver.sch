@@ -446,13 +446,9 @@ F 3 "" H 700 3600 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2300 3450 2300 3550
+	2300 3450 2300 3600
 Wire Wire Line
-	2300 3550 2300 3600
-Wire Wire Line
-	2300 2250 2300 2300
-Wire Wire Line
-	2300 2300 2300 2350
+	2300 2250 2300 2350
 Wire Wire Line
 	2700 2300 2700 1900
 Wire Wire Line
@@ -579,13 +575,9 @@ Wire Wire Line
 Wire Wire Line
 	3550 2950 2650 2950
 Wire Wire Line
-	4300 1200 4300 1350
+	4300 1200 4300 1500
 Wire Wire Line
-	4300 1350 4300 1500
-Wire Wire Line
-	6800 1200 6800 1350
-Wire Wire Line
-	6800 1350 6800 1450
+	6800 1200 6800 1450
 Wire Wire Line
 	6800 5150 6800 5600
 Wire Wire Line
@@ -785,7 +777,7 @@ Wire Wire Line
 Wire Wire Line
 	1900 3100 1900 3050
 Wire Wire Line
-	1900 3050 700  3050
+	700  3050 1900 3050
 Wire Wire Line
 	1950 3250 1900 3250
 Wire Wire Line
@@ -795,19 +787,7 @@ Wire Wire Line
 Wire Wire Line
 	700  3150 1950 3150
 Wire Wire Line
-	700  2750 700  2950
-Wire Wire Line
-	700  2950 700  3050
-Wire Wire Line
-	700  3050 700  3150
-Wire Wire Line
-	700  3150 700  3250
-Wire Wire Line
-	700  3250 700  3350
-Wire Wire Line
-	700  3350 700  3450
-Wire Wire Line
-	700  3450 700  3600
+	700  2750 700  3600
 Connection ~ 700  3050
 Connection ~ 700  3150
 Connection ~ 700  3250
@@ -864,9 +844,7 @@ F 4 "651-1725656" H 2150 5550 60  0001 C CNN "Mouser Part Number"
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	2350 5550 2800 5550
-Wire Wire Line
-	2800 5550 2850 5550
+	2350 5550 2850 5550
 $Comp
 L GND #PWR072
 U 1 1 62B01C61
@@ -909,9 +887,7 @@ $EndComp
 Wire Wire Line
 	3900 1100 3900 1200
 Wire Wire Line
-	4200 1200 4300 1200
-Wire Wire Line
-	4300 1200 4350 1200
+	4200 1200 4350 1200
 Connection ~ 4300 1200
 Wire Wire Line
 	4700 1250 4700 1200
@@ -946,9 +922,7 @@ F 4 "71-CRCW12060000Z0EBC" V 4550 5650 60  0001 C CNN "Mouser Part Number"
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	4250 5650 4300 5650
-Wire Wire Line
-	4300 5650 4400 5650
+	4250 5650 4400 5650
 Connection ~ 4300 5650
 Wire Wire Line
 	4750 5400 4750 5650
@@ -983,9 +957,7 @@ Wire Wire Line
 Wire Wire Line
 	6400 1200 6450 1200
 Wire Wire Line
-	6750 1200 6800 1200
-Wire Wire Line
-	6800 1200 6850 1200
+	6750 1200 6850 1200
 Connection ~ 6800 1200
 Wire Wire Line
 	7150 1200 7200 1200
@@ -1018,9 +990,7 @@ $EndComp
 Wire Wire Line
 	7200 5400 7200 5600
 Wire Wire Line
-	6900 5600 6800 5600
-Wire Wire Line
-	6800 5600 6750 5600
+	6750 5600 6900 5600
 Connection ~ 6800 5600
 Wire Wire Line
 	6450 5600 6450 5800
