@@ -1,4 +1,4 @@
-update=Sat 27 Aug 2022 09:17:54 AM EDT
+update=Sat 27 Aug 2022 12:00:08 PM EDT
 version=1
 last_client=kicad
 [pcbnew]
@@ -23,6 +23,8 @@ ModuleOutlineThickness=0.150000000000
 [cvpcb]
 version=1
 NetIExt=net
+[general]
+version=1
 [eeschema]
 version=1
 LibDir=
@@ -59,5 +61,10 @@ LibName29=opto
 LibName30=atmel
 LibName31=contrib
 LibName32=valves
-[general]
-version=1
+LibName33=ESP32-C3FN4
+LibName34=/home/heller/RRCircuits/ESP32-S3-MultiFunction/USBLC6-2SC6
+LibName35=/home/heller/RRCircuits/sn65hvd233-ht
+LibName36=/home/heller/RRCircuits/lm2574n-5
+LibName37=/home/heller/RRCircuits/PocketBeagleCommandStation_SMD/DRV8873HPWPR
+LibName38=/home/heller/RRCircuits/PocketBeagleCommandStation_SMD/mcp9701at
+LibName39=/home/heller/RRCircuits/PocketBeagleCommandStation_SMD/MCP9700T-E_LT

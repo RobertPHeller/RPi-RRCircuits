@@ -1,0 +1,223 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:switches
+LIBS:relays
+LIBS:motors
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:ESP32-C3FN4
+LIBS:USBLC6-2SC6
+LIBS:sn65hvd233-ht
+LIBS:lm2574n-5
+LIBS:DRV8873HPWPR
+LIBS:mcp9701at
+LIBS:MCP9700T-E_LT
+LIBS:ESP32-C3-Booster-cache
+EELAYER 25 0
+EELAYER END
+$Descr USLetter 11000 8500
+encoding utf-8
+Sheet 2 6
+Title "ESP32-C3 Booster"
+Date ""
+Rev "1.0"
+Comp "Deepwoods Software"
+Comment1 "ESP32-C3 MCU"
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L ESP32-C3FN4 IC201
+U 1 1 630A2B4E
+P 5200 3500
+F 0 "IC201" H 6850 4200 50  0000 L CNN
+F 1 "ESP32-C3FN4" H 6850 4100 50  0000 L CNN
+F 2 "Housings_DFN_QFN:QFN-32-1EP_5x5mm_Pitch0.5mm" H 6850 4000 50  0001 L CNN
+F 3 "https://www.mouser.co.uk/datasheet/2/891/esp32_c3_datasheet_en-1989865.pdf" H 6850 3900 50  0001 L CNN
+F 4 "RF System on a Chip - SoC SMD IC ESP32-C3FN4, single-core MCU, 2.4G Wi-Fi & BLE 5.0 combo, QFN 32-pin, 5*5 mm, 4 MB flash inside, -40C +85C" H 6850 3800 50  0001 L CNN "Description"
+F 5 "0.9" H 6850 3700 50  0001 L CNN "Height"
+F 6 "356-ESP32-C3FN4" H 6850 3600 50  0001 L CNN "Mouser Part Number"
+F 7 "Espressif Systems" H 6850 3400 50  0001 L CNN "Manufacturer_Name"
+F 8 "ESP32-C3FN4" H 6850 3300 50  0001 L CNN "Manufacturer_Part_Number"
+	1    5200 3500
+	1    0    0    -1  
+$EndComp
+$Comp
+L USBLC6-2SC6 IC202
+U 1 1 630A2C56
+P 7200 1650
+F 0 "IC202" H 8350 1950 50  0000 L CNN
+F 1 "USBLC6-2SC6" H 8350 1850 50  0000 L CNN
+F 2 "TO_SOT_Packages_SMD:SOT-23-6" H 8350 1750 50  0001 L CNN
+F 3 "https://componentsearchengine.com//USBLC6-2SC6.pdf" H 8350 1650 50  0001 L CNN
+F 4 "TVS Diode Array Uni-Directional USBLC6-2SC6 17V, SOT-23 6-Pin" H 8350 1550 50  0001 L CNN "Description"
+F 5 "1.45" H 8350 1450 50  0001 L CNN "Height"
+F 6 "511-USBLC6-2SC6" H 8350 1350 50  0001 L CNN "Mouser Part Number"
+F 7 "https://www.mouser.com/Search/Refine.aspx?Keyword=511-USBLC6-2SC6" H 8350 1250 50  0001 L CNN "Mouser2 Price/Stock"
+F 8 "STMicroelectronics" H 8350 1150 50  0001 L CNN "Manufacturer_Name"
+F 9 "USBLC6-2SC6" H 8350 1050 50  0001 L CNN "Manufacturer_Part_Number"
+	1    7200 1650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6500 2800 6500 1850
+Wire Wire Line
+	6500 1850 7200 1850
+Wire Wire Line
+	6400 2800 6400 1650
+Wire Wire Line
+	6400 1650 7200 1650
+$Comp
+L GND #PWR203
+U 1 1 630A2E8F
+P 7050 1750
+F 0 "#PWR203" H 7050 1500 50  0001 C CNN
+F 1 "GND" H 7050 1600 50  0000 C CNN
+F 2 "" H 7050 1750 50  0001 C CNN
+F 3 "" H 7050 1750 50  0001 C CNN
+	1    7050 1750
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7200 1750 7050 1750
+$Comp
+L USB_OTG J201
+U 1 1 630A2ECD
+P 9600 1650
+F 0 "J201" H 9400 2100 50  0000 L CNN
+F 1 "USB_OTG" H 9400 2000 50  0000 L CNN
+F 2 "Connectors_USB:USB_Micro-B_Molex_47346-0001" H 9750 1600 50  0001 C CNN
+F 3 "" H 9750 1600 50  0001 C CNN
+F 4 "538-47346-0001" H 9600 1650 60  0001 C CNN "Mouser Part Number"
+	1    9600 1650
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	8500 1650 9300 1650
+Wire Wire Line
+	9300 1750 9000 1750
+Wire Wire Line
+	9000 1750 9000 1850
+Wire Wire Line
+	9000 1850 8500 1850
+Wire Wire Line
+	8800 1750 8500 1750
+Wire Wire Line
+	8800 1450 8800 1750
+Wire Wire Line
+	9300 1450 8800 1450
+$Comp
+L VBUS #PWR204
+U 1 1 630A2F74
+P 9050 1300
+F 0 "#PWR204" H 9050 1150 50  0001 C CNN
+F 1 "VBUS" H 9050 1450 50  0000 C CNN
+F 2 "" H 9050 1300 50  0001 C CNN
+F 3 "" H 9050 1300 50  0001 C CNN
+	1    9050 1300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9050 1300 9050 1450
+Wire Wire Line
+	9050 1450 9000 1450
+Connection ~ 9000 1450
+Wire Wire Line
+	9600 2050 9700 2050
+$Comp
+L GND #PWR205
+U 1 1 630A2FB4
+P 9700 2200
+F 0 "#PWR205" H 9700 1950 50  0001 C CNN
+F 1 "GND" H 9700 2050 50  0000 C CNN
+F 2 "" H 9700 2200 50  0001 C CNN
+F 3 "" H 9700 2200 50  0001 C CNN
+	1    9700 2200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9700 2050 9700 2200
+$Comp
+L C_Small C202
+U 1 1 630A2FE3
+P 6900 2000
+F 0 "C202" H 6910 2070 50  0000 L CNN
+F 1 "22pf" H 6910 1920 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0402" H 6900 2000 50  0001 C CNN
+F 3 "" H 6900 2000 50  0001 C CNN
+F 4 "187-CL05C220JB5NNND" H 6900 2000 60  0001 C CNN "Mouser Part Number"
+	1    6900 2000
+	1    0    0    -1  
+$EndComp
+$Comp
+L C_Small C201
+U 1 1 630A3006
+P 6900 1500
+F 0 "C201" H 6910 1570 50  0000 L CNN
+F 1 "22pf" H 6910 1420 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0402" H 6900 1500 50  0001 C CNN
+F 3 "" H 6900 1500 50  0001 C CNN
+F 4 "187-CL05C220JB5NNND" H 6900 1500 60  0001 C CNN "Mouser Part Number"
+	1    6900 1500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6900 1900 6900 1850
+Connection ~ 6900 1850
+Wire Wire Line
+	6900 1600 6900 1650
+Connection ~ 6900 1650
+$Comp
+L GND #PWR201
+U 1 1 630A3059
+P 6900 1300
+F 0 "#PWR201" H 6900 1050 50  0001 C CNN
+F 1 "GND" H 6900 1150 50  0000 C CNN
+F 2 "" H 6900 1300 50  0001 C CNN
+F 3 "" H 6900 1300 50  0001 C CNN
+	1    6900 1300
+	-1   0    0    1   
+$EndComp
+$Comp
+L GND #PWR202
+U 1 1 630A3077
+P 6900 2250
+F 0 "#PWR202" H 6900 2000 50  0001 C CNN
+F 1 "GND" H 6900 2100 50  0000 C CNN
+F 2 "" H 6900 2250 50  0001 C CNN
+F 3 "" H 6900 2250 50  0001 C CNN
+	1    6900 2250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6900 1300 6900 1400
+Wire Wire Line
+	6900 2100 6900 2250
+$EndSCHEMATC
