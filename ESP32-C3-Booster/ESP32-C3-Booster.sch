@@ -155,4 +155,35 @@ Wire Wire Line
 	7950 2000 7250 2000
 Wire Wire Line
 	7950 2250 7250 2250
+$Comp
+L Screw_Terminal_01x03 J?
+U 1 1 630B79E1
+P 4100 5200
+F 0 "J?" H 4100 5400 50  0000 C CNN
+F 1 "Screw_Terminal_01x03" H 4100 5000 50  0000 C CNN
+F 2 "" H 4100 5200 50  0001 C CNN
+F 3 "" H 4100 5200 50  0001 C CNN
+	1    4100 5200
+	0    1    1    0   
+$EndComp
+$Comp
+L D_Schottky D?
+U 1 1 630B7F8A
+P 4100 4800
+F 0 "D?" H 4100 4900 50  0000 C CNN
+F 1 "D_Schottky" H 4100 4700 50  0000 C CNN
+F 2 "" H 4100 4800 50  0001 C CNN
+F 3 "" H 4100 4800 50  0001 C CNN
+	1    4100 4800
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4100 5000 4100 4950
+Wire Wire Line
+	4100 4350 4100 4650
+Wire Wire Line
+	4100 4500 5000 4500
+Wire Wire Line
+	3500 4350 4100 4350
+Connection ~ 4100 4500
 $EndSCHEMATC

@@ -260,7 +260,7 @@ F 4 "651-1725656" H 6800 1200 60  0001 C CNN "Mouser Part Number"
 	0    -1   -1   0   
 $EndComp
 $Comp
-L D_Shockley D303
+L D_Schottky D303
 U 1 1 630A50B6
 P 5900 1650
 F 0 "D303" H 5900 1750 50  0000 C CNN
@@ -272,7 +272,7 @@ F 4 "621-DFLS240-7" H 5900 1650 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L D_Shockley D304
+L D_Schottky D304
 U 1 1 630A50B7
 P 6650 1650
 F 0 "D304" H 6650 1750 50  0000 C CNN

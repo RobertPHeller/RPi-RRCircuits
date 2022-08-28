@@ -262,7 +262,7 @@ F 4 "651-5442251" H 6950 1750 60  0001 C CNN "Mouser Part Number"
 	-1   0    0    -1  
 $EndComp
 $Comp
-L D_Shockley D1
+L D_Schottky D1
 U 1 1 6070B3DE
 P 7350 1750
 F 0 "D1" H 7350 1850 50  0000 C CNN

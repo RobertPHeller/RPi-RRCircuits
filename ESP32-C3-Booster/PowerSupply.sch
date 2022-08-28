@@ -105,7 +105,7 @@ F 4 "652-SRN1060-331M" V 5150 3550 60  0001 C CNN "Mouser Part Number"
 	0    1    1    0   
 $EndComp
 $Comp
-L D_Shockley D401
+L D_Schottky D401
 U 1 1 630A5C0D
 P 5500 3750
 F 0 "D401" H 5500 3850 50  0000 C CNN
@@ -255,7 +255,7 @@ Wire Wire Line
 Wire Wire Line
 	8350 2800 8350 3300
 $Comp
-L D_Shockley D403
+L D_Schottky D403
 U 1 1 630AA312
 P 7300 3350
 F 0 "D403" H 7300 3450 50  0000 C CNN
@@ -267,7 +267,7 @@ F 4 "621-DFLS240-7" H 7300 3350 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L D_Shockley D402
+L D_Schottky D402
 U 1 1 630AA381
 P 7300 3050
 F 0 "D402" H 7300 3150 50  0000 C CNN

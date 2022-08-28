@@ -707,7 +707,7 @@ F 4 "279-CRGCQ0603F10K" V 7000 5350 60  0001 C CNN "Mouser Part Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L D_Shockley D7
+L D_Schottky D7
 U 1 1 6070AF68
 P 7000 5850
 F 0 "D7" H 7000 5950 50  0000 C CNN
@@ -719,7 +719,7 @@ F 4 "833-B5819WS-TP" H 7000 5850 60  0001 C CNN "Mouser Part Number"
 	0    -1   -1   0   
 $EndComp
 $Comp
-L D_Shockley D8
+L D_Schottky D8
 U 1 1 6070BA0F
 P 10100 4650
 F 0 "D8" H 10100 4750 50  0000 C CNN

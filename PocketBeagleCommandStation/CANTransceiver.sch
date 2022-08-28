@@ -245,7 +245,7 @@ F 3 "" H 6800 1200 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L D_Shockley D3
+L D_Schottky D3
 U 1 1 603EA1D1
 P 5900 1650
 F 0 "D3" H 5900 1750 50  0000 C CNN
@@ -256,7 +256,7 @@ F 3 "" H 5900 1650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L D_Shockley D4
+L D_Schottky D4
 U 1 1 603EA214
 P 6650 1650
 F 0 "D4" H 6650 1750 50  0000 C CNN

@@ -111,7 +111,7 @@ F 3 "" H 5150 3550 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L D_Shockley D2
+L D_Schottky D2
 U 1 1 603E7173
 P 5500 3750
 F 0 "D2" H 5500 3850 50  0000 C CNN

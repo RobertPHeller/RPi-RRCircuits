@@ -263,7 +263,7 @@ DATA
 Text HLabel 5350 4900 2    60   Output ~ 0
 DIR
 $Comp
-L D_Shockley D7
+L D_Schottky D7
 U 1 1 603FBAFB
 P 4550 4450
 F 0 "D7" H 4550 4550 50  0000 C CNN

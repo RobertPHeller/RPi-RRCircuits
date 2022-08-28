@@ -206,7 +206,7 @@ F8 "Button3" O R 3600 6700 60
 F9 "Button4" O R 3600 6800 60 
 $EndSheet
 $Comp
-L D_Shockley D16
+L D_Schottky D16
 U 1 1 6287E9F7
 P 8750 3850
 F 0 "D16" H 8750 3950 50  0000 C CNN
