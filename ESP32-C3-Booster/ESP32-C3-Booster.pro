@@ -1,4 +1,4 @@
-update=Sun 28 Aug 2022 12:58:15 PM EDT
+update=Mon 29 Aug 2022 08:30:19 AM EDT
 version=1
 last_client=kicad
 [pcbnew]
@@ -69,3 +69,4 @@ LibName37=/home/heller/RRCircuits/PocketBeagleCommandStation_SMD/DRV8873HPWPR
 LibName38=/home/heller/RRCircuits/PocketBeagleCommandStation_SMD/mcp9701at
 LibName39=/home/heller/RRCircuits/PocketBeagleCommandStation_SMD/MCP9700T-E_LT
 LibName40=ina180b
+LibName41=mechanical

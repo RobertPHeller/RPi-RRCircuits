@@ -39,6 +39,7 @@ LIBS:DRV8873HPWPR
 LIBS:mcp9701at
 LIBS:MCP9700T-E_LT
 LIBS:ina180b
+LIBS:mechanical
 LIBS:ESP32-C3-Booster-cache
 EELAYER 25 0
 EELAYER END
@@ -437,4 +438,70 @@ Wire Wire Line
 Wire Wire Line
 	4200 5650 4200 5475
 Connection ~ 4200 5475
+$Comp
+L Mounting_Hole MK101
+U 1 1 630CC312
+P 1575 6650
+F 0 "MK101" H 1575 6850 50  0000 C CNN
+F 1 "Mounting_Hole" H 1575 6775 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.5mm" H 1575 6650 50  0001 C CNN
+F 3 "" H 1575 6650 50  0001 C CNN
+	1    1575 6650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole MK102
+U 1 1 630CC3D3
+P 2000 6625
+F 0 "MK102" H 2000 6825 50  0000 C CNN
+F 1 "Mounting_Hole" H 2000 6750 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.5mm" H 2000 6625 50  0001 C CNN
+F 3 "" H 2000 6625 50  0001 C CNN
+	1    2000 6625
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole_PAD MK104
+U 1 1 630CC557
+P 2925 6625
+F 0 "MK104" H 2925 6875 50  0000 C CNN
+F 1 "Mounting_Hole_PAD" H 2925 6800 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.5mm_Pad" H 2925 6625 50  0001 C CNN
+F 3 "" H 2925 6625 50  0001 C CNN
+	1    2925 6625
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole FD101
+U 1 1 630CC61E
+P 3525 6500
+F 0 "FD101" H 3525 6700 50  0000 C CNN
+F 1 "Fiducial" H 3525 6625 50  0000 C CNN
+F 2 "Fiducials:Fiducial_classic_Small_SilkscreenTop_Type1" H 3525 6500 50  0001 C CNN
+F 3 "" H 3525 6500 50  0001 C CNN
+	1    3525 6500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole FD102
+U 1 1 630CD5D2
+P 3825 6450
+F 0 "FD102" H 3825 6650 50  0000 C CNN
+F 1 "Fiducial" H 3825 6575 50  0000 C CNN
+F 2 "Fiducials:Fiducial_classic_Small_SilkscreenTop_Type1" H 3825 6450 50  0001 C CNN
+F 3 "" H 3825 6450 50  0001 C CNN
+	1    3825 6450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole FD103
+U 1 1 630CD6BE
+P 4100 6450
+F 0 "FD103" H 4100 6650 50  0000 C CNN
+F 1 "Fiducial" H 4100 6575 50  0000 C CNN
+F 2 "Fiducials:Fiducial_classic_Small_SilkscreenTop_Type1" H 4100 6450 50  0001 C CNN
+F 3 "" H 4100 6450 50  0001 C CNN
+	1    4100 6450
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
