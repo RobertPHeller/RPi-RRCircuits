@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Mon Aug 29 11:04:14 2022
-%  Last Modified : <220829.1616>
+%  Last Modified : <220830.1618>
 %
 %  Description 
 %
@@ -256,6 +256,48 @@ installed the bus is not terminated, with jumpers installed horizontally
 across the CAN bus), with jumpers installed vertically, you will have 
 center-tap termination (with a 47pf cap to ground).
 
+\subsection{Stall Motors connections}
+
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics{ESP32-S3-MultiFunctionTurnoutMotorsFig.png}
+\caption{Stall Motor terminal block connections}
+\label{fig:ESP32-S3-MultiFunctionTurnoutMotorsFig}
+\end{centering}\end{figure}
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[height=2in]{ESP32-S3-MultiFunctionTotoiseWiring.png}
+\caption{Wiring a Tortoise to the ESP32-S3-MultiFunction Turnout Motors terminals}
+\label{fig:ESP32-S3-MultiFunctionTotoiseWiring}
+\end{centering}\end{figure}
+
+The five position Stall Motor terminal blocks, shown in 
+Figure~\ref{fig:ESP32-S3-MultiFunctionTurnoutMotorsFig}, connect to the 
+turnout stall motors, the Motor A and Motor B connections go to the motor 
+(pins 1 and 8 of a tortoise), the other three connections go to a single pole 
+double throw switch contacts to sense the position of the stall motor / 
+points. There are contacts available on tortoise stall motor that can be used 
+for this purpose, as shown in 
+Figure~\ref{fig:ESP32-S3-MultiFunctionTotoiseWiring}\footnote{Depending on how 
+the motor is positioned and the ``sense'' of the position, the A/B connections 
+can be swapped to suit.}.
+
+\subsection{Occupancy Detector connections}
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics{ESP32-S3-MultiFunctionOccupancyDetectorsTermBlock.png}
+\caption{Occupancy Detectors Terminal Block}
+\label{fig:ESP32-S3-MultiFunctionOccupancyDetectorsTermBlock}
+\end{centering}\end{figure} 
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[height=1.5in]{ESP32-S3-MultiFunctionOccupancyDetectorsCTCoilWiring.png}
+\label{fig:ESP32-S3-MultiFunctionOccupancyDetectorsCTCoilWiring}
+\caption{Wiring a CT Coil to the Occupancy Detectors Terminal Block}
+\end{centering}\end{figure}
+
+The eight position Occupancy Detector terminal block, shown in 
+Figure~\ref{fig:ESP32-S3-MultiFunctionOccupancyDetectorsTermBlock}, connect to 
+the CT Coils, as shown in 
+Figure~\ref{fig:ESP32-S3-MultiFunctionOccupancyDetectorsCTCoilWiring}.  Using 
+twisted pair wires is recogmended.  A good source of twisted pairs is Ethernet 
+cable (Cat5).
 
 
 
