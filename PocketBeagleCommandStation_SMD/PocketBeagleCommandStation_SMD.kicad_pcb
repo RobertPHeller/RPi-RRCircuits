@@ -8,7 +8,7 @@
     (drawings 20)
     (tracks 1583)
     (zones 0)
-    (modules 176)
+    (modules 177)
     (nets 169)
   )
 
@@ -7780,7 +7780,7 @@
   )
 
   (module LCC_LOGO:LCC_LOGO_4.5x4.5 (layer F.Cu) (tedit 0) (tstamp 6089C92C)
-    (at 153.9367 70.0786)
+    (at 166.0144 127.508)
     (fp_text reference G*** (at -2.8321 -2.1844) (layer F.SilkS) hide
       (effects (font (thickness 0.3)))
     )
@@ -8204,7 +8204,7 @@
   )
 
   (module PowerLabels:PowerLabel-00 (layer F.Cu) (tedit 630E08DF) (tstamp 631E1D63)
-    (at 153.7208 75.2856)
+    (at 127.8382 128.8669)
     (fp_text reference REF** (at 3.175 7.239) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
@@ -8220,6 +8220,36 @@
     (fp_line (start -1.27 -2.286) (end 1.27 -2.286) (layer F.SilkS) (width 0.3))
     (fp_arc (start -1.27 -1.27) (end -2.286 -1.27) (angle 89.9) (layer F.SilkS) (width 0.3))
     (fp_text user 00 (at 0 0) (layer F.SilkS)
+      (effects (font (size 1.5 1.5) (thickness 0.225)))
+    )
+  )
+
+  (module PowerLabels:DCC_Source_VA (layer F.Cu) (tedit 630E2961) (tstamp 631E200B)
+    (at 155.194 128.9812)
+    (fp_text reference REF** (at 2.159 4.191) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value DCC_Source_VA (at 0.762 -3.937) (layer F.Fab) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_arc (start 5.08 0) (end 5.969 0.889) (angle 45) (layer F.SilkS) (width 0.3))
+    (fp_arc (start 5.08 0) (end 5.08 -1.27) (angle 48.36646066) (layer F.SilkS) (width 0.3))
+    (fp_line (start 5.588 0.127) (end 5.842 -0.127) (layer F.SilkS) (width 0.3))
+    (fp_line (start 5.588 -0.254) (end 5.588 0.127) (layer F.SilkS) (width 0.3))
+    (fp_line (start 6.35 0) (end 5.588 -0.254) (layer F.SilkS) (width 0.3))
+    (fp_line (start 5.461 0.254) (end 6.35 0) (layer F.SilkS) (width 0.3))
+    (fp_line (start 5.334 -0.508) (end 5.461 0.254) (layer F.SilkS) (width 0.3))
+    (fp_line (start 6.985 0) (end 5.334 -0.508) (layer F.SilkS) (width 0.3))
+    (fp_line (start 5.207 0.508) (end 6.985 0) (layer F.SilkS) (width 0.3))
+    (fp_line (start 5.08 -0.762) (end 5.207 0.508) (layer F.SilkS) (width 0.3))
+    (fp_line (start 7.62 0) (end 5.08 -0.762) (layer F.SilkS) (width 0.3))
+    (fp_line (start 5.08 0.762) (end 7.62 0) (layer F.SilkS) (width 0.3))
+    (fp_line (start 5.08 -0.762) (end 5.08 0.762) (layer F.SilkS) (width 0.3))
+    (fp_line (start -3.81 1.27) (end 5.08 1.27) (layer F.SilkS) (width 0.3))
+    (fp_arc (start -3.81 0) (end -3.81 1.27) (angle 84.80557109) (layer F.SilkS) (width 0.3))
+    (fp_line (start -3.683 -1.27) (end 5.08 -1.27) (layer F.SilkS) (width 0.3))
+    (fp_arc (start -3.81 0) (end -5.08 0) (angle 95.19442891) (layer F.SilkS) (width 0.3))
+    (fp_text user DCC/VA (at 0.127 0.127) (layer F.SilkS)
       (effects (font (size 1.5 1.5) (thickness 0.225)))
     )
   )
