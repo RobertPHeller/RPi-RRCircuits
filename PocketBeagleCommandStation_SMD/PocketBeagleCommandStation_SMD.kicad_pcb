@@ -1,14 +1,14 @@
 (kicad_pcb (version 4) (host pcbnew 4.0.7+dfsg1-1ubuntu2)
 
   (general
-    (links 417)
+    (links 0)
     (no_connects 0)
     (area 83.345238 45.56 227.56 177.960001)
     (thickness 1.6)
     (drawings 20)
     (tracks 1583)
     (zones 0)
-    (modules 175)
+    (modules 176)
     (nets 169)
   )
 
@@ -7780,11 +7780,11 @@
   )
 
   (module LCC_LOGO:LCC_LOGO_4.5x4.5 (layer F.Cu) (tedit 0) (tstamp 6089C92C)
-    (at 153.416 70.866)
-    (fp_text reference G*** (at 0 0) (layer F.SilkS) hide
+    (at 153.9367 70.0786)
+    (fp_text reference G*** (at -2.8321 -2.1844) (layer F.SilkS) hide
       (effects (font (thickness 0.3)))
     )
-    (fp_text value LCC (at 0.75 0) (layer F.SilkS) hide
+    (fp_text value LCC (at 3.2258 -2.7305) (layer F.SilkS) hide
       (effects (font (thickness 0.3)))
     )
     (fp_poly (pts (xy -0.508 -1.788584) (xy -0.507429 -1.749651) (xy -0.504854 -1.727347) (xy -0.498982 -1.717145)
@@ -8200,6 +8200,27 @@
       (at (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
+    )
+  )
+
+  (module PowerLabels:PowerLabel-00 (layer F.Cu) (tedit 630E08DF) (tstamp 631E1D63)
+    (at 153.7208 75.2856)
+    (fp_text reference REF** (at 3.175 7.239) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value PowerLabel-00 (at -1.397 -6.477) (layer F.Fab) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_line (start -2.286 1.27) (end -2.286 -1.27) (layer F.SilkS) (width 0.3))
+    (fp_arc (start -1.27 1.27) (end -1.27 2.286) (angle 90) (layer F.SilkS) (width 0.3))
+    (fp_line (start 1.27 2.286) (end -1.27 2.286) (layer F.SilkS) (width 0.3))
+    (fp_arc (start 1.27 1.27) (end 2.286 1.27) (angle 90) (layer F.SilkS) (width 0.3))
+    (fp_line (start 2.286 -1.27) (end 2.286 1.27) (layer F.SilkS) (width 0.3))
+    (fp_arc (start 1.27 -1.27) (end 1.27 -2.286) (angle 90) (layer F.SilkS) (width 0.3))
+    (fp_line (start -1.27 -2.286) (end 1.27 -2.286) (layer F.SilkS) (width 0.3))
+    (fp_arc (start -1.27 -1.27) (end -2.286 -1.27) (angle 89.9) (layer F.SilkS) (width 0.3))
+    (fp_text user 00 (at 0 0) (layer F.SilkS)
+      (effects (font (size 1.5 1.5) (thickness 0.225)))
     )
   )
 

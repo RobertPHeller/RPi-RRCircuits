@@ -8,4 +8,5 @@
   (lib (name RJ45-8N-S)(type Legacy)(uri /home/heller/RRCircuits/RJ45-8N-S.mod)(options "")(descr ""))
   (lib (name DWSLogoBCU)(type Legacy)(uri /home/heller/RRCircuits/DWSLogoBCU.mod)(options "")(descr ""))
   (lib (name LCC_LOGO)(type KiCad)(uri /home/heller/RRCircuits/LCC_LOGO.pretty)(options "")(descr ""))
+  (lib (name PowerLabels)(type KiCad)(uri /home/heller/RRCircuits/PowerLabels.pretty)(options "")(descr ""))
 )
