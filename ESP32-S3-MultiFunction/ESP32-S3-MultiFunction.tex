@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Mon Aug 29 11:04:14 2022
-%  Last Modified : <220831.1418>
+%  Last Modified : <220831.1501>
 %
 %  Description 
 %
@@ -572,11 +572,121 @@ four actions can be set:
 \end{enumerate}
 
 There are 32 logic cells available for implementing the logic for signal masts 
-and other functions.
+and other functions.  The logic cells are more fully described in 
+Section~\ref{sec:LogicCells}.
 
-\subsection{Rule to aspect}
+\subsection{Masts}
 
-\subsection{TRACK CIRCUITS}
+There are 8 masts, with these configuration options:
 
+\begin{enumerate}
+\item \textbf{Function} Mast Processing:
+\begin{enumerate}
+\item \textbf{Unused} The mast is not used.
+\item \textbf{Normal} This is a normal mast.
+\item \textbf{Linked to previous} This mast is linked to the previous mast.
+\end{enumerate}
+\item \textbf{Mast ID} This is a 8 character mast id.
+\item \textbf{(P) Track Circuit Link Address. Copy and Paste into linked Track 
+Circuit. (Read Only)} This is the track circuit base event ID.
+\item \textbf{Rules} There are 8 rules, each with these configuration options:
+\begin{enumerate}
+\item \textbf{Name} The rule name, one of these options:
+\begin{enumerate}
+\item \textbf{0-Stop}
+\item \textbf{1-Take Siding}
+\item \textbf{2-Stop Orders}
+\item \textbf{3-Stop Procede}
+\item \textbf{4-Restricting}
+\item \textbf{5-Permissive}
+\item \textbf{6-Slow-Approach}
+\item \textbf{7-Slow}
+\item \textbf{8-Slow-Medium}
+\item \textbf{9-Slow-Limited}
+\item \textbf{10-Slow-Clear}
+\item \textbf{11-Medium-Approach}
+\item \textbf{12-Medium-Slow}
+\item \textbf{13-Medium}
+\item \textbf{14-Medium-Clear}
+\item \textbf{15-Medium-Limited}
+\item \textbf{16-Limited-Approach}
+\item \textbf{17-Limited-Slow}
+\item \textbf{18-Limited-Medium}
+\item \textbf{19-Limited}
+\item \textbf{20-Limited-Clear}
+\item \textbf{21-Approach}
+\item \textbf{22-Advance-Approach}
+\item \textbf{23-Approach-Slow}
+\item \textbf{24-Advance-Approach-Slow}
+\item \textbf{25-Approach-Medium}
+\item \textbf{26-Advance-Approach-Medium}
+\item \textbf{27-Approach-Limited}
+\item \textbf{28-Advance-Approach-Limited}
+\item \textbf{29-Clear}
+\item \textbf{30-Cab Speed}
+\item \textbf{31-Dark}
+\end{enumerate}
+\item \textbf{(C) Event to Set Aspect. Note: Aspects are cleared automatically 
+by the logic.}
+\item \textbf{(P) Send this event when the Aspect is set.}
+\item \textbf{(P) Send this event when the Aspect clears.}
+\item \textbf{Appearance} This defines the appearence of the aspect.  Up to 4 
+lamps can be defined, using these configuration settings:
+\begin{enumerate}
+\item \textbf{Lamp Selection} This selects the lamp:
+\begin{enumerate}
+\item \textbf{Unused}
+\item \textbf{A0}
+\item \textbf{A1}
+\item \textbf{A2}
+\item \textbf{A3}
+\item \textbf{A4}
+\item \textbf{A5}
+\item \textbf{A6}
+\item \textbf{A7}
+\item \textbf{B0}
+\item \textbf{B1}
+\item \textbf{B2}
+\item \textbf{B3}
+\item \textbf{B4}
+\item \textbf{B5}
+\item \textbf{B6}
+\item \textbf{B7}
+\end{enumerate}
+\item \textbf{Lamp Phase (A-B) - Flash Rate} This is the lamp phase and blink 
+rate:
+\begin{enumerate}
+\item \textbf{Steady}
+\item \textbf{A - Slow}
+\item \textbf{A - Medium}
+\item \textbf{A - Fast}
+\item \textbf{None (not used)}
+\item \textbf{B - Slow}
+\item \textbf{B - Medium}
+\item \textbf{B - Fast}
+\end{enumerate}
+\item \textbf{Lamp brightness, hundreths of a percent (0 to 10000)}
+\item \textbf{PWM Period, in nanoseconds}
+\end{enumerate}
+\end{enumerate}
+\end{enumerate}
 
+Masts are covered in more detail in Section~\ref{sec:Masts}.
+
+\subsection{Track Circuits}
+
+There are 8 track circuits, with these configuration options:
+
+\begin{enumerate}
+\item \textbf{Remote Mast Description} A 16 character name.
+\item \textbf{(C) Remote Mast Link Address. Copy from 'Next' Mast and Paste 
+here.} This field is copy and pasted from the mast this Track Circuit 
+represents.
+\end{enumerate}
+
+\section{Logic Cells}
+\label{sec:LogicCells}
+
+\section{Masts}
+\label{sec:Masts}
 
