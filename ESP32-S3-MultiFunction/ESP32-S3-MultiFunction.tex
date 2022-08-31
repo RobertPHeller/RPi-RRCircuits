@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Mon Aug 29 11:04:14 2022
-%  Last Modified : <220830.1618>
+%  Last Modified : <220831.0930>
 %
 %  Description 
 %
@@ -113,11 +113,13 @@ Drivers and Button Inputs}
   \centering
   \includegraphics{ESP32-S3-MultiFunction-top3D-LEDDrivers.png}
   \caption{3D Rendering of the LED Drivers Section.}
+  \label{fig:ESP32-S3-MultiFunction-top3D-LEDDrivers}
 \end{minipage}
 \begin{minipage}{.45\textwidth}
   \centering
   \includegraphics{ESP32-S3-MultiFunction-top3D-Buttons.png}
   \caption{3D Rendering of the Buttons Section.}
+  \label{fig:ESP32-S3-MultiFunction-top3D-Buttons}
 \end{minipage}\end{centering}\end{figure}
 
 This is the driver ciruits for the generic LED (or other devices) outputs and
@@ -300,4 +302,55 @@ twisted pair wires is recogmended.  A good source of twisted pairs is Ethernet
 cable (Cat5).
 
 
+
+\subsection{Signal Lamp (LED) connections}
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics{ESP32-S3-MultiFunction-PWMSignalLampTerminalBlocks.png}
+\caption{PWM Signal Lamp Terminal Block}
+\label{fig:ESP32-S3-MultiFunction-PWMSignalLampTerminalBlocks}
+\end{centering}\end{figure}
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics{ESP32-S3-MultiFunction-PWMSignalLampWiring.png}
+\caption{Typical Signal Lamp Diver Wiring}
+\label{fig:ESP32-S3-MultiFunction-PWMSignalLampWiring}
+\end{centering}\end{figure}
+
+There are two Signal lamp terminal blocks, as shown in 
+Figure~\ref{fig:ESP32-S3-MultiFunction-PWMSignalLampTerminalBlocks}. Each 
+terminal block has eight terminals for signal lamp LEDs, plus a common.  A 
+typical signal head would be wired as shown in 
+Figure~\ref{fig:ESP32-S3-MultiFunction-PWMSignalLampWiring}.
+
+\subsection{LED/Driver outputs}
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics{ESP32-S3-MultiFunctionLEDDriverWiring.png}
+\caption{Wiring the LED Driver outputs.}
+\label{fig:ESP32-S3-MultiFunctionLEDDriverWiring}
+\end{centering}\end{figure}
+
+The LED / Driver outputs, shown in 
+Figure~\ref{fig:ESP32-S3-MultiFunction-top3D-LEDDrivers}, can be used to drive 
+standard LEDs and can also be used to drive heavier loads, by adding resistors 
+to bypass the on board 1.5K Ohm resistors, as shown in 
+Figure~\ref{fig:ESP32-S3-MultiFunctionLEDDriverWiring}.
+
+
+\subsection{Push Button inputs}
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics{ESP32-S3-MultiFunction-ButtonsTerminalBlock.png}
+\caption{Button input terminal block}
+\label{fig:ESP32-S3-MultiFunction-ButtonsTerminalBlock}
+\end{centering}\end{figure}
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics{ESP32-S3-MultiFunctionButtonWiring.png}
+\caption{Wiring a button}
+\label{fig:ESP32-S3-MultiFunctionButtonWiring}
+\end{centering}\end{figure}
+
+The buttons terminal block, shown in 
+Figure~\ref{fig:ESP32-S3-MultiFunction-ButtonsTerminalBlock}, allows for 4 
+push buttons switches, which would be wired as shown in 
+Figure~\ref{fig:ESP32-S3-MultiFunctionButtonWiring}.
+
+        
 
