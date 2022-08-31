@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Mon Aug 29 11:04:14 2022
-%  Last Modified : <220831.1233>
+%  Last Modified : <220831.1418>
 %
 %  Description 
 %
@@ -380,6 +380,10 @@ becomes occupied.
 clear.
 \end{enumerate}
 
+The debounce parameter can be adjusted depending on how ``noisy'' the signal 
+is.  Otherwise the configuration is just the name of the block and the two 
+produced events.
+
 \subsection{Turnouts}
 
 Each turnout entry has these configuration settings:
@@ -391,7 +395,15 @@ characters.  Typically this is the name of the turnout.
 normal.
 \item \textbf{Reversed} Receiving this event ID will align the turnout to 
 reversed.
+\item \textbf{Veto On} Receiving this event ID will lock the turnout.
+\item \textbf{Veto Off} Receiving this event ID will unlock the turnout.
 \end{enumerate}
+
+The configuration is just the name and the four consumed events. The default
+veto state is ``off'', so the Veto On and Veto Off events can be just not
+used, but they are available to lock and unlock the turnout, should that be
+desirable.  Typically, the OS section occupancy detector events can be used 
+here to lock the turnout when a train is occupying the turnout.
 
 \subsection{Points}
 
@@ -406,6 +418,8 @@ for normal.
 reversed.
 \end{enumerate}
 
+The configuration is just the name and the two produced events.
+
 \subsection{Buttons}
 
 Each button entry has these configuration settings:
@@ -413,20 +427,13 @@ Each button entry has these configuration settings:
 \begin{enumerate}
 \item \textbf{Description} This is a user description of the button. 15 
 characters.  Typically this is the name of the button.
-\item \textbf{Debounce parameter} Amount of time to wait for the input to 
-stabilize before producing the event. Unit is 30 msec of time. Usually a value 
-of 2-3 works well in a non-noisy environment. In high noise (train wheels for 
-example) a setting between 8 -- 15 makes for a slower response time but a more 
-stable signal.
-
-Formally, the parameter tells how many times of tries, each 30 msec apart, the 
-input must have the same value in order for that value to be accepted and the 
-event transition produced.
 \item \textbf{Button Released} This event will be produced when the button is 
 released.
 \item \textbf{Button Pushed} This event will be produced when the button is 
 pushed.
 \end{enumerate}
+
+The configuration is just the name and the two produced events.
 
 \subsection{LEDS}
 
@@ -451,6 +458,10 @@ mode of the output.  Can be one of these options:
 \item \textbf{LED on} This event will be consumed to turn the output on.
 \item \textbf{LED off} This event will be consumed to turn the output off.
 \end{enumerate}
+
+Each of the LED driver lines can be steady on (either high side or low side), 
+a pulse of up to 127 seconds long (either high side or low side), or blinking 
+in one of two phases and three speeds.
 
 \subsection{LOGIC}
 
@@ -560,7 +571,8 @@ four actions can be set:
 \end{enumerate}
 \end{enumerate}
 
-
+There are 32 logic cells available for implementing the logic for signal masts 
+and other functions.
 
 \subsection{Rule to aspect}
 
