@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Mon Aug 29 11:04:14 2022
-%  Last Modified : <220831.0930>
+%  Last Modified : <220831.1233>
 %
 %  Description 
 %
@@ -334,6 +334,9 @@ standard LEDs and can also be used to drive heavier loads, by adding resistors
 to bypass the on board 1.5K Ohm resistors, as shown in 
 Figure~\ref{fig:ESP32-S3-MultiFunctionLEDDriverWiring}.
 
+The LED / Driver outputs require an external DC power source, typically 12V,
+but it can be between 4.5VDC to 18VDC. These outputs are push/pull, so they
+can drive either high-side or low-side loads, upto 1.5A.
 
 \subsection{Push Button inputs}
 \begin{figure}[hbpt]\begin{centering}%
@@ -352,5 +355,216 @@ Figure~\ref{fig:ESP32-S3-MultiFunction-ButtonsTerminalBlock}, allows for 4
 push buttons switches, which would be wired as shown in 
 Figure~\ref{fig:ESP32-S3-MultiFunctionButtonWiring}.
 
-        
+\clearpage
+\section{Configuration}
+
+\subsection{Occupancy Detectors}
+
+Each occupancy detector entry has these configuration settings:
+
+\begin{enumerate}
+\item \textbf{Description} This is a user description of the block. 15 
+characters.  Typically this is the name of the block.
+\item \textbf{Debounce parameter} Amount of time to wait for the input to 
+stabilize before producing the event. Unit is 30 msec of time. Usually a value 
+of 2-3 works well in a non-noisy environment. In high noise (train wheels for 
+example) a setting between 8 -- 15 makes for a slower response time but a more 
+stable signal.
+
+Formally, the parameter tells how many times of tries, each 30 msec apart, the 
+input must have the same value in order for that value to be accepted and the 
+event transition produced.
+\item \textbf{Block Occupied} This event will be produced when the block 
+becomes occupied.
+\item \textbf{Block Clear} This event will be produced when the block becomes 
+clear.
+\end{enumerate}
+
+\subsection{Turnouts}
+
+Each turnout entry has these configuration settings:
+
+\begin{enumerate}
+\item \textbf{Description} This is a user description of the turnout. 8 
+characters.  Typically this is the name of the turnout.
+\item \textbf{Normal} Receiving this event ID will align the turnout to 
+normal.
+\item \textbf{Reversed} Receiving this event ID will align the turnout to 
+reversed.
+\end{enumerate}
+
+\subsection{Points}
+
+Each points entry has these configuration settings:
+
+\begin{enumerate}
+\item \textbf{Description} This is a user description of the points. 15 
+characters.  Typically this is the name of this set of points.
+\item \textbf{Normal} This event will be produced when the points are aligned 
+for normal.
+\item \textbf{Reversed} This event will be produced when the are aligned for 
+reversed.
+\end{enumerate}
+
+\subsection{Buttons}
+
+Each button entry has these configuration settings:
+
+\begin{enumerate}
+\item \textbf{Description} This is a user description of the button. 15 
+characters.  Typically this is the name of the button.
+\item \textbf{Debounce parameter} Amount of time to wait for the input to 
+stabilize before producing the event. Unit is 30 msec of time. Usually a value 
+of 2-3 works well in a non-noisy environment. In high noise (train wheels for 
+example) a setting between 8 -- 15 makes for a slower response time but a more 
+stable signal.
+
+Formally, the parameter tells how many times of tries, each 30 msec apart, the 
+input must have the same value in order for that value to be accepted and the 
+event transition produced.
+\item \textbf{Button Released} This event will be produced when the button is 
+released.
+\item \textbf{Button Pushed} This event will be produced when the button is 
+pushed.
+\end{enumerate}
+
+\subsection{LEDS}
+
+Each LED driver line has these configuration settings:
+
+\begin{enumerate}
+\item \textbf{LED Steady, Pulse, or Blink Phase (A-B)} This sets the operating 
+mode of the output.  Can be one of these options:
+  \begin{enumerate}
+  \item \textbf{Steady Highside} On steady high side drive.
+  \item \textbf{Steady Lowside} On steady low side drive.
+  \item \textbf{Pulse Highside} Pulse high side drive.
+  \item \textbf{Pulse Lowside} Pulse low side drive.
+  \item \textbf{A - Slow} Blink phase A slow.
+  \item \textbf{A - Medium} Blink phase A medium.
+  \item \textbf{A - Fast} Blink phase A fast.
+  \item \textbf{B - Slow} Blink phase B slow.
+  \item \textbf{B - Medium} Blink phase B medium.
+  \item \textbf{B - Fast} Blink phase B fast.
+  \end{enumerate}
+\item \textbf{Pulse width in seconds, 1 to 127} Only used for pulse options.
+\item \textbf{LED on} This event will be consumed to turn the output on.
+\item \textbf{LED off} This event will be consumed to turn the output off.
+\end{enumerate}
+
+\subsection{LOGIC}
+
+Each of the Logic entries has these configuration options:
+
+\begin{enumerate}
+\item \textbf{Logic description} A 32 character description of the logic 
+element.
+\item \textbf{Group Function} The function group type for the logic, one of:
+\begin{enumerate}
+\item \textbf{Blocked} The logic logic entry is blocked.
+\item \textbf{Group} The logic logic entry is part of a group.
+\item \textbf{Last (Single)} The logic logic entry is either a single or the 
+last logic in a group.
+\end{enumerate}
+\item \textbf{Variable \#1} Defines how variable one is set and cleared:
+\begin{enumerate}
+\item \textbf{Variable Trigger} Variable trigger mode.
+\begin{enumerate}
+\item \textbf{On Variable Change} Logic is triggered when variable changes.
+\item \textbf{On Matching Event} Logic is triggered on matching event.
+\item \textbf{None} Logic is never triggered.
+\end{enumerate}
+\item \textbf{Variable Source} Variable source map.
+\begin{enumerate}
+\item \textbf{Use Variable's (C) Events} Use the C events below.
+\item \textbf{Track Circuit 1} use track circuit 1's speed.
+\item \textbf{Track Circuit 2} use track circuit 2's speed.
+\item \textbf{Track Circuit 3} use track circuit 3's speed.
+\item \textbf{Track Circuit 4} use track circuit 4's speed.
+\item \textbf{Track Circuit 5} use track circuit 5's speed.
+\item \textbf{Track Circuit 6} use track circuit 6's speed.
+\item \textbf{Track Circuit 7} use track circuit 7's speed.
+\item \textbf{Track Circuit 8} use track circuit 8's speed.
+\end{enumerate}
+\item \textbf{Variable Track Speed} Variable track circuit speed to use.
+\begin{enumerate}
+\item \textbf{Stop} Stop speed.
+\item \textbf{Restricting/Tumble Down} Restricting speed.
+\item \textbf{Slow} Slow speed.
+\item \textbf{Medium} Medium speed.
+\item \textbf{Limited} Limited speed.
+\item \textbf{Approach} Approach speed.
+\item \textbf{Approach-Medium} Approach-Medium speed.
+\item \textbf{Clear/Procede} Clear speed.
+\end{enumerate}
+\item \textbf{(C) Event to set variable true.} This event is consumed and sets 
+the variable true (but see above).
+\item \textbf{(C) Event to set variable false.} This event is consumed and 
+sets
+the variable false (but see above).
+\end{enumerate}
+\item \textbf{Logic function} The logic function:
+\begin{enumerate}
+\item \textbf{V1 AND V2} The logic is true if both variable 1 and variable 2 
+are true.
+\item \textbf{V1 OR V2} The logic is true if either variable 1 or variable 2 
+is true.
+\item \textbf{V1 XOR V2} The logic is true if only one of the variables is 
+true.
+\item \textbf{V1 AND V2 $=>$ Change} The logic is true if both variable 1 and 
+variable 2    
+are true and this is a change.
+\item \textbf{V1 OR V2 $=>$ Change} The logic is true if either variable 1 or 
+variable 2    
+is true and this is a change.
+\item \textbf{V1 AND then V2 $=>$ true} The logic is true if variable 1 and 
+then variable 2 becomes true.
+\item \textbf{V1 only} The logic is true if variable 1 is true.
+\item \textbf{V2 only} The logic is true if variable 2 is true.
+\item \textbf{null $=>$ true} The logic is always true.
+\end{enumerate}
+\item \textbf{Variable \#2} Defines how variable two is set and cleared. Same 
+settings as Variable \#1 above.
+\item \textbf{Action when Conditional $=$ True} Action when logic is true.
+\begin{enumerate}
+\item \textbf{Send then Exit Group} Send actions then exit group.
+\item \textbf{Send then Evaluate Next} Send actions then evaluate the next 
+logic in the group.
+\item \textbf{Exit Group} Exit group without futher action.
+\item \textbf{Evaluate Next} evaluate the next logic in the group.
+\end{enumerate}
+\item \textbf{Action when Conditional $=$ False} Action when logic is false. 
+Same options as for true.
+\item \textbf{Delay Time (1-60000)} Time Delay before action.
+\item \textbf{Interval} Interval units.
+\begin{enumerate}
+\item \textbf{Milliseconds} Units of .001 seconds.
+\item \textbf{Seconds} Units of seconds.
+\item \textbf{Minutes} Units of minutes.
+\end{enumerate}
+\item \textbf{Retriggerable} Is logic retriggerable?
+\item \textbf{A trigger or change will generate the following events} Up to 
+four actions can be set:
+\begin{enumerate}
+\item Action trigger:
+\begin{enumerate}
+\item \textbf{None} No action.
+\item \textbf{Immediately} Send event Immediately (true or false).
+\item \textbf{After delay} Send event after a delay (see Delay Time above).
+\item \textbf{Immediate if True} Send event Immediately if true.
+\item \textbf{Immediate if False} Send event Immediately if false.
+\item \textbf{Delayed if True} Send event after a delay if true.
+\item \textbf{Delayed if False} Send event after a delay if false.
+\end{enumerate}
+\item \textbf{(P) this event will be sent.}
+\end{enumerate}
+\end{enumerate}
+
+
+
+\subsection{Rule to aspect}
+
+\subsection{TRACK CIRCUITS}
+
+
 
