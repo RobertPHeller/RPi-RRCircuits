@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Feb 24 14:51:54 2019
-//  Last Modified : <210622.1054>
+//  Last Modified : <220831.1322>
 //
 //  Description	
 //
@@ -49,26 +49,13 @@
 #include "utils/ConfigUpdateListener.hxx"
 #include "utils/ConfigUpdateService.hxx"
 #include "utils/Debouncer.hxx"
+#include "Points.hxx"
 
 /// CDI Configuration for a @ref ConfiguredProducer.
 CDI_GROUP(ButtonConfig);
 /// Allows the user to assign a name for this input.
 CDI_GROUP_ENTRY(description, openlcb::StringConfigEntry<15>, //
                 Name("Description"), Description("User name of this button."));
-/// Configures the debounce parameter.
-CDI_GROUP_ENTRY(
-    debounce, openlcb::Uint8ConfigEntry, Name("Debounce parameter"),
-    Default(3),
-    Description("Amount of time to wait for the input to stabilize before "
-                "producing the event. Unit is 30 msec of time. Usually a value "
-                "of 2-3 works well in a non-noisy environment. In high noise "
-                "(train wheels for example) a setting between 8 -- 15 makes "
-                "for a slower response time but a more stable "
-                "signal.\nFormally, the parameter tells how many times of "
-                "tries, each 30 msec apart, the input must have the same value "
-                "in order for that value to be accepted and the event "
-                "transition produced."),
-    Default(3));
 /// This event will be produced when the input goes to HIGH.
 CDI_GROUP_ENTRY(
     event_released, openlcb::EventConfigEntry, //
@@ -96,10 +83,10 @@ class Button : public ConfigUpdateListener
 {
 public:
     using Impl = openlcb::GPIOBit;
-    using ProducerClass = openlcb::PolledProducer<QuiesceDebouncer, Impl>;
+    using ProducerClass = PolledProducerNoDebouncer<Impl>;
 
     Button(openlcb::Node *node, const ButtonConfig &cfg, const Gpio *gpio)
-        : producer_(QuiesceDebouncer::Options(3), node, 0, 0, gpio)
+        : producer_(node, 0, 0, gpio)
         , cfg_(cfg)
     {
         ConfigUpdateService::instance()->register_update_listener(this);
@@ -118,7 +105,6 @@ public:
                                      BarrierNotifiable *done) override
     {
         AutoNotify n(done);
-        uint8_t debounce_arg = cfg_.debounce().read(fd);
         openlcb::EventId cfg_event_released = cfg_.event_released().read(fd);
         openlcb::EventId cfg_event_pressed = cfg_.event_pressed().read(fd);
         if (cfg_event_pressed != producer_.event_off() ||
@@ -130,7 +116,7 @@ public:
             // destruction and construction.
             producer_.ProducerClass::~ProducerClass();
             new (&producer_) ProducerClass(
-                QuiesceDebouncer::Options(debounce_arg), saved_node,
+                saved_node,
                 cfg_event_released, cfg_event_pressed, saved_gpio);
             return REINIT_NEEDED; // Causes events identify.
         }
@@ -140,7 +126,6 @@ public:
     void factory_reset(int fd) OVERRIDE
     {
         cfg_.description().write(fd, "");
-        CDI_FACTORY_RESET(cfg_.debounce);
     }
 
     openlcb::Polling *polling()

@@ -12,6 +12,7 @@ set(deps
 idf_component_register(SRCS Logic.cpp Mast.cpp Rule.cpp 
                         TrackCircuit.cpp esp32multifunction.cpp fs.cpp 
                         nvs_config.cpp BootPauseHelper.cpp
+                        VetoBitEventInterface.cpp
                        REQUIRES "${deps}")
 
 # export the project version as a define for the SNIP data, note it must be
@@ -26,6 +27,7 @@ set(SNIP_PROJECT_PAGE "https://www.deepsoft.com/")
 set(CDI_VERSION "0x0100")
 
 set_source_files_properties(Logic.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers ")
+set_source_files_properties(VetoBitEventInterface.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers ")
 set_source_files_properties(Mast.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")
 set_source_files_properties(Rule.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")
 set_source_files_properties(TrackCircuit.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")
