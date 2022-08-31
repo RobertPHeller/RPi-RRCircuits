@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Mon Aug 29 11:04:14 2022
-%  Last Modified : <220831.1501>
+%  Last Modified : <220831.1712>
 %
 %  Description 
 %
@@ -42,21 +42,40 @@
 
 \chapter{ESP32-S3-MultiFunction: Multifunction board using an ESP32-S3FN8}
 
-This is a circuit board that is based around an Espressif ESP32-S3FN8 MCU to
-manage and operate a collection of model railroad sensors and actuators. The 
-board contains these I/O sections:
+This is a LCC\footnote{Layout Command Control, See
+\url{https://www.nmra.org/lcc} for more details and available standards
+documentation.} node circuit board that is based around an Espressif
+ESP32-S3FN8 MCU to manage and operate a collection of model railroad sensors
+and actuators. The board contains these I/O sections:
 
 \begin{itemize}
-\item Four occupancy detectors.  CT Coil type sensors, so they won't work with 
-DC systems without an AC bias.
-\item Four stall-motor drivers with point sense.
-\item Four Schmitt Trigger inputs, meant for push buttons.
-\item Four Buffered outputs, by default for Panel LEDS, but with drop in 
-resistors, can also drive relays or other loads.
-\item Sixteen PWM Led drivers.  These are meant to light lamps in signal 
+\item Four occupancy detectors. CT Coil type sensors, so they won't work with
+DC systems without an AC bias. 
+\item Four stall-motor drivers with point sense. 
+\item Four Schmitt Trigger inputs, meant for push buttons. 
+\item Four Buffered outputs, by default for Panel LEDS, but with drop in
+resistors, can also drive relays or other loads. 
+\item Sixteen PWM Led drivers. These are meant to light (LED) lamps in signal
 heads.
 \end{itemize}
 
+The board connects to a LCC network and utilizes the Event Transport Protocol
+in its operation. It also uses a CDI\footnote{Configuration Description
+Information.} to describe its configuration. It can be configured with JMRI or
+other available LCC configuration tools.
+
+The board draws about 30ma, plus load. Circuitron specifies that a Tortoise
+switch machine draws about 16ma when stalled, so four Tortoise switch machines
+would add 64ma. This is off the LCC power bus. There are 16 signal lamp
+outputs that have 1.5K Ohm load resistors, this means about 8ma per LED. If
+all lamps are on at full briteness, this comes to 128ma, although turning all
+16 signal on full at a time is not likely to be prototypical, since most
+signal aspects only light one lamp per head. There is a terminal block to
+supply external power for the signal lamps, as a way to reduce the load on the
+LCC power bus. The buffered output section uses an external power source, so
+does not add any load to the LCC power bus.
+
+\clearpage
 \section{Circuit Description}
 
 \subsection{Section Interconnect}
@@ -71,7 +90,7 @@ sheet -- Section Interconnect}
 \end{centering}\end{figure}
 
 This shows how the various subsections are interconnected.
-%\clearpage
+\clearpage
 \subsection{MCU}
 \begin{figure}[hbpt]\begin{centering}%
 \includegraphics[width=4in]{ESP32-S3-MultiFunction-2.pdf}
@@ -689,4 +708,6 @@ represents.
 
 \section{Masts}
 \label{sec:Masts}
+
+\section{Application Notes}
 
