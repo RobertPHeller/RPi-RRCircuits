@@ -6,7 +6,7 @@
     (area 73.609999 25.349999 172.770001 151.180001)
     (thickness 1.6)
     (drawings 16)
-    (tracks 1793)
+    (tracks 1790)
     (zones 0)
     (modules 152)
     (nets 197)
@@ -14,7 +14,7 @@
 
   (page A4)
   (layers
-    (0 F.Cu signal)
+    (0 F.Cu signal hide)
     (31 B.Cu signal)
     (32 B.Adhes user hide)
     (33 F.Adhes user hide)
@@ -32,8 +32,8 @@
     (45 Margin user hide)
     (46 B.CrtYd user hide)
     (47 F.CrtYd user hide)
-    (48 B.Fab user)
-    (49 F.Fab user)
+    (48 B.Fab user hide)
+    (49 F.Fab user hide)
   )
 
   (setup
@@ -6600,11 +6600,11 @@
   )
 
   (module DWSLogoBCU:DWSLogoBCU (layer F.Cu) (tedit 0) (tstamp 630761BC)
-    (at 170.7515 75.819 270)
-    (fp_text reference "" (at 0 0 270) (layer F.SilkS)
+    (at 170.7515 75.819 90)
+    (fp_text reference "" (at 0 0 90) (layer F.SilkS)
       (effects (font (thickness 0.15)))
     )
-    (fp_text value "" (at 0 0 270) (layer F.SilkS)
+    (fp_text value "" (at 0 0 90) (layer F.SilkS)
       (effects (font (thickness 0.15)))
     )
     (fp_poly (pts (xy 1.397 -1.31826) (xy 0.0635 -1.29286) (xy -1.27 -1.26492) (xy -1.27 -1.01854)
@@ -9735,9 +9735,6 @@
   (segment (start 122.97569 30.239491) (end 122.97569 33.49119) (width 0.25) (layer F.Cu) (net 194))
   (segment (start 122.97569 33.49119) (end 123.1215 33.637) (width 0.25) (layer F.Cu) (net 194))
   (segment (start 123.1215 33.637) (end 123.1215 34.417) (width 0.25) (layer F.Cu) (net 194))
-  (segment (start 122.88 29.624) (end 122.675701 29.828299) (width 0.2) (layer F.Cu) (net 194))
-  (segment (start 122.675701 29.828299) (end 122.675701 30.510801) (width 0.2) (layer F.Cu) (net 194))
-  (segment (start 122.675701 30.510801) (end 122.6312 30.555302) (width 0.2) (layer F.Cu) (net 194))
   (segment (start 122.2007 29.57) (end 122.2007 30.51) (width 0.25) (layer F.Cu) (net 195))
   (segment (start 122.2007 30.51) (end 121.2215 31.4892) (width 0.25) (layer F.Cu) (net 195))
   (segment (start 121.2215 33.637) (end 121.2215 34.417) (width 0.25) (layer F.Cu) (net 195))
