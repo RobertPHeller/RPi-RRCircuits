@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Mon Aug 29 11:04:14 2022
-%  Last Modified : <220901.0828>
+%  Last Modified : <220901.1057>
 %
 %  Description 
 %
@@ -75,6 +75,10 @@ since most signal aspects only light one lamp per head. There is a terminal
 block to optionally supply external power for the signal lamps, as a way to
 reduce the load on the LCC power bus. The buffered output section uses an
 external power source, so does not add any load to the LCC power bus.
+
+This board is a multi-purpose board that can be used in a number of 
+situations, including (but not limited to): one end of a siding, a yard or 
+terminal throat, ABS, and interlocking plants.
 
 \clearpage
 \section{Circuit Description}
@@ -709,6 +713,104 @@ represents.
 
 \section{Logic Cells}
 \label{sec:LogicCells}
+
+The 32 logic cells are available to implement ``logic'', commonly for signal 
+masts (see Section~\ref{sec:Masts}).  Cells can be grouped to implement a 
+chain of conditions and actions.  When cells are grouped, the cells are 
+evaluated in order from first to last, even when the group is triggered by 
+something in the middle.  Each cell can have zero, one, or two ``variables'' 
+in its conditional, and get send up to 4 events, either immediately or after a 
+delay.  The variables can be set or cleared either by events or by a 
+specified track speed for a given track circuit. The conditions supported are:
+
+\begin{itemize}
+\item \textbf{V1 AND V2} Both V1 and V2 must be true for this condition to be 
+true.
+\item \textbf{V1 OR V2} Either V1 or V2 must be true for this condition to be 
+true.
+\item \textbf{V1 XOR V2} Only one of V1 or V2 must be true for this condition 
+to be true.
+\item \textbf{V1 AND V2 $=>$ Change} Both V1 and V2 must be true and this must 
+be a change for this condition to be true.
+\item \textbf{V1 OR V2 $=>$ Change} Either V1 or V2 must be true and this must 
+be a change for this condition to be true.
+\item \textbf{V1 AND then V2 $=>$ true} If V1 is true and then V2 becomes true 
+then this condition is true.
+\item \textbf{V1 only} If V1 is true then this condition is true.
+\item \textbf{V2 only} If V2 is true then this condition is true.
+\item \textbf{null $=>$ true} The condition is always true.
+\end{itemize}
+
+\subsection{An Example}
+
+A simple block signal displays \textbf{Stop} when the 
+block it is protecting is occupied, it displays \textbf{Approach} when the 
+next signal displays \textbf{Stop}, and otherwise displays \textbf{Clear}.  
+This can be expressed as this pseudo code:
+
+\begin{verbatim}
+if block is occupied then
+    display Stop
+else if next signal is Stop then
+    display Approach
+else
+    display Clear
+\end{verbatim}
+
+And can be implemented as follows:
+
+\begin{itemize}
+\item Begin by configuring Logic 1 (this will be the ``if'' clause) as 
+follows: 
+\begin{itemize}
+\item \textbf{Group Function} to \textbf{Group}
+\item \textbf{Variable \#1}:
+\begin{itemize}
+\item \textbf{Variable Trigger} to \textbf{On Variable Change}
+\item \textbf{Variable Source} to \textbf{Use Variable's (C) Events}
+\item \textbf{(C) Event to set variable true.} to the eventid produced by the 
+occupied event of the occupancy detector.\footnote{Use the copy and paste 
+buttons of the configuration editor.\label{fn:copypaste}}
+\item \textbf{(C) Event to set variable false.} to the eventid produced by the 
+clear event of the occupancy detector.\footref{fn:copypaste}
+\end{itemize}
+\item \textbf{Logic function} to \textbf{V1 only}
+\item \textbf{Action when Conditional $=$ True} to \textbf{Send then Exit 
+Group}
+\item \textbf{Action when Conditional $=$ False} to \textbf{Evaluate Next}
+\item and the first action to \textbf{Immediately}.  The \textbf{(P) this 
+event will be sent} eventid can be copied to the \textbf{Stop} rule of the 
+signal mast.\footref{fn:copypaste}
+\end{itemize}
+\item Then configure Logic 2  (this will be the ``else if'' clause) as follows:
+\begin{itemize}
+\item \textbf{Group Function} to \textbf{Group}
+\item \textbf{Variable \#1}:
+\begin{itemize}
+\item \textbf{Variable Trigger} to \textbf{On Variable Change}
+\item \textbf{Variable Source} to \textbf{Track Circuit 2} (or whatever Track 
+Circuit the next signal is using)
+\item \textbf{Variable Track Speed} to \textbf{Stop}
+\end{itemize}
+\item \textbf{Logic function} to \textbf{V1 only}
+\item \textbf{Action when Conditional $=$ True} to \textbf{Send then Exit 
+Group}
+\item \textbf{Action when Conditional $=$ False} to \textbf{Evaluate Next}
+\item and the first action to \textbf{Immediately}.  The \textbf{(P) this 
+event will be sent} eventid can be copied to the \textbf{Approach} rule of the 
+signal mast.\footref{fn:copypaste}
+\end{itemize}
+\item Then configure Logic 3 (this will be the ``else'' clause) as follows:
+\begin{itemize}
+\item \textbf{Group Function} to \textbf{Last (Single)}
+\item \textbf{Logic function} to \textbf{null $=>$ true}
+\item \textbf{Action when Conditional $=$ True} to \textbf{Send then Exit
+Group}
+\item and the first action to \textbf{Immediately}.  The \textbf{(P) this 
+event will be sent} eventid can be copied to the \textbf{Clear} rule of the 
+signal mast.\footref{fn:copypaste}
+\end{itemize}
+\end{itemize}
 
 \section{Masts}
 \label{sec:Masts}
