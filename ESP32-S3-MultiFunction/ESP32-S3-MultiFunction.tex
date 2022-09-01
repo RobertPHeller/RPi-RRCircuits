@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Mon Aug 29 11:04:14 2022
-%  Last Modified : <220901.1057>
+%  Last Modified : <220901.1559>
 %
 %  Description 
 %
@@ -653,6 +653,17 @@ Circuit. (Read Only)} This is the track circuit base event ID.
 \item \textbf{30-Cab Speed}
 \item \textbf{31-Dark}
 \end{enumerate}
+\item \textbf{Track Speed (on approach to signal)}
+\begin{enumerate}
+\item \textbf{Stop} Stop speed.
+\item \textbf{Restricting/Tumble Down} Restricting speed.
+\item \textbf{Slow} Slow speed.
+\item \textbf{Medium} Medium speed.
+\item \textbf{Limited} Limited speed.
+\item \textbf{Approach} Approach speed.
+\item \textbf{Approach-Medium} Approach-Medium speed.
+\item \textbf{Clear/Procede} Clear speed.
+\end{enumerate}
 \item \textbf{(C) Event to Set Aspect. Note: Aspects are cleared automatically 
 by the logic.}
 \item \textbf{(P) Send this event when the Aspect is set.}
@@ -660,7 +671,8 @@ by the logic.}
 \item \textbf{Appearance} This defines the appearence of the aspect.  Up to 4 
 lamps can be defined, using these configuration settings:
 \begin{enumerate}
-\item \textbf{Lamp Selection} This selects the lamp:
+\item \textbf{Lamp Selection} This selects the lamp.  The names refer to the 
+labels next to the terminals on the board.
 \begin{enumerate}
 \item \textbf{Unused}
 \item \textbf{A0}
@@ -721,29 +733,11 @@ evaluated in order from first to last, even when the group is triggered by
 something in the middle.  Each cell can have zero, one, or two ``variables'' 
 in its conditional, and get send up to 4 events, either immediately or after a 
 delay.  The variables can be set or cleared either by events or by a 
-specified track speed for a given track circuit. The conditions supported are:
+specified track speed for a given track circuit. 
 
-\begin{itemize}
-\item \textbf{V1 AND V2} Both V1 and V2 must be true for this condition to be 
-true.
-\item \textbf{V1 OR V2} Either V1 or V2 must be true for this condition to be 
-true.
-\item \textbf{V1 XOR V2} Only one of V1 or V2 must be true for this condition 
-to be true.
-\item \textbf{V1 AND V2 $=>$ Change} Both V1 and V2 must be true and this must 
-be a change for this condition to be true.
-\item \textbf{V1 OR V2 $=>$ Change} Either V1 or V2 must be true and this must 
-be a change for this condition to be true.
-\item \textbf{V1 AND then V2 $=>$ true} If V1 is true and then V2 becomes true 
-then this condition is true.
-\item \textbf{V1 only} If V1 is true then this condition is true.
-\item \textbf{V2 only} If V2 is true then this condition is true.
-\item \textbf{null $=>$ true} The condition is always true.
-\end{itemize}
+\subsection{An Example to Illustrate How To Use Logic Cells}
 
-\subsection{An Example}
-
-A simple block signal displays \textbf{Stop} when the 
+A typical block signal displays \textbf{Stop} when the 
 block it is protecting is occupied, it displays \textbf{Approach} when the 
 next signal displays \textbf{Stop}, and otherwise displays \textbf{Clear}.  
 This can be expressed as this pseudo code:
@@ -757,12 +751,14 @@ else
     display Clear
 \end{verbatim}
 
-And can be implemented as follows:
+And can be implemented in three successive logic cells like this:
 
 \begin{itemize}
 \item Begin by configuring Logic 1 (this will be the ``if'' clause) as 
 follows: 
 \begin{itemize}
+\item \textbf{Logic description} to ``Signal nnn Stop''\footnote{Replace nnn 
+with your signal's identification.}
 \item \textbf{Group Function} to \textbf{Group}
 \item \textbf{Variable \#1}:
 \begin{itemize}
@@ -784,6 +780,7 @@ signal mast.\footref{fn:copypaste}
 \end{itemize}
 \item Then configure Logic 2  (this will be the ``else if'' clause) as follows:
 \begin{itemize}
+\item \textbf{Logic description} to ``Signal nnn Approach''
 \item \textbf{Group Function} to \textbf{Group}
 \item \textbf{Variable \#1}:
 \begin{itemize}
@@ -802,18 +799,105 @@ signal mast.\footref{fn:copypaste}
 \end{itemize}
 \item Then configure Logic 3 (this will be the ``else'' clause) as follows:
 \begin{itemize}
+\item \textbf{Logic description} to ``Signal nnn Clear''
 \item \textbf{Group Function} to \textbf{Last (Single)}
 \item \textbf{Logic function} to \textbf{null $=>$ true}
 \item \textbf{Action when Conditional $=$ True} to \textbf{Send then Exit
 Group}
 \item and the first action to \textbf{Immediately}.  The \textbf{(P) this 
 event will be sent} eventid can be copied to the \textbf{Clear} rule of the 
-signal mast.\footref{fn:copypaste}
+signal mast\footref{fn:copypaste}.
 \end{itemize}
 \end{itemize}
 
 \section{Masts}
 \label{sec:Masts}
 
+The \textbf{Mast} elements define the rules and appearance for signal masts, 
+both real (physically modeled) and virtual.  Mast rules are generally selected 
+by logic cells (see Section~\ref{sec:LogicCells}) and communicate their 
+aspects via Track Circuits.
+
+\subsection{An Example to Illustrate How To Configure Signal Mast}
+
+A simple block signal has three aspects, \textbf{Stop}, \textbf{Approach}, and 
+\textbf{Clear}. Standard color lamp display these with red, yellow, and green 
+lamps.  With three aspects, there are three rules, one for each aspect.  This 
+is how we would configure simple block signal mast\footnote{Assumes the signal 
+head is wired like in 
+Figure~\ref{fig:ESP32-S3-MultiFunction-PWMSignalLampWiring}.}:
+
+\begin{itemize}
+\item First configure the \textbf{Function} to \textbf{Normal}
+\item Then configure the \textbf{Mast ID} to the signal id.
+\item Then Copy and paste the \textbf{(P) Track Circuit Link Address.} to 
+Track Circuit for this signal\footref{fn:copypaste}.
+\item Then configure the rules. Rule 1:
+\begin{itemize}
+\item Configure \textbf{Name} to \textbf{0-Stop}
+\item Configure \textbf{Track Speed...} to \textbf{Stop}
+\item Configure \textbf{(C) Event to Set Aspect.} by pasting the eventid from 
+the logic action for \textbf{Stop}\footref{fn:copypaste}.
+\item Then for lamp 1:
+\begin{itemize}
+\item Configure \textbf{Lamp Selection} to \textbf{A2}
+\item Configure \textbf{Lamp Phase...} to \textbf{Steady}.
+\end{itemize}
+\end{itemize}
+\item Rule 2:
+\begin{itemize}                                                                
+\item Configure \textbf{Name} to \textbf{21-Approach}
+\item Configure \textbf{Track Speed...} to \textbf{Approach}
+\item Configure \textbf{(C) Event to Set Aspect.} by pasting the eventid from
+the logic action for \textbf{Approach}.
+\item Then for lamp 1:
+\begin{itemize}
+\item Configure \textbf{Lamp Selection} to \textbf{A1}.
+\item Configure \textbf{Lamp Phase...} to \textbf{Steady}.
+\end{itemize}
+\end{itemize}
+\item Rule 3:
+\begin{itemize}
+\item Configure \textbf{Name} to \textbf{29-Clear}
+\item Configure \textbf{Track Speed...} to \textbf{Clear/Procede}
+\item Configure \textbf{(C) Event to Set Aspect.} by pasting the eventid from 
+the logic action for \textbf{Clear}.
+\item Then for lamp 1:
+\begin{itemize}
+\item Configure \textbf{Lamp Selection} to \textbf{A0}.
+\item Configure \textbf{Lamp Phase...} to \textbf{Steady}.
+\end{itemize}
+\end{itemize}
+\end{itemize}
+
+\clearpage
 \section{Application Notes}
 
+This section covers four common applications, a half-siding, automatic block 
+signals, a level crossing with interchange and a yard throat.
+
+\subsection{Half Siding}
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=4in]{ESP32S3-ExampleSidingCP1Wiring.png}
+\caption{Typical half-siding wiring}
+\label{fig:ExampleSidingCP1Wiring}
+\end{centering}\end{figure}
+
+
+\subsection{ABS (Automatic Block Signals)}
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=4in]{ESP32S3-ABSTrack_Stacked.png}
+\caption{Automatic Block Signals}
+\label{fig:ABSTrackStacked}
+\end{centering}\end{figure}
+
+
+
+\subsection{Level Crossing With Interchange}
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=4in]{ESP32S3-LevelCrossingWInterchange.png}
+\caption{Typical Level Crossing With Interchange}
+\label{fig:LevelCrossingWInterchange}
+\end{centering}\end{figure}
+
+\subsection{Yard Throat}
