@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Mon Aug 29 11:04:14 2022
-%  Last Modified : <220831.1712>
+%  Last Modified : <220901.0828>
 %
 %  Description 
 %
@@ -66,14 +66,15 @@ other available LCC configuration tools.
 
 The board draws about 30ma, plus load. Circuitron specifies that a Tortoise
 switch machine draws about 16ma when stalled, so four Tortoise switch machines
-would add 64ma. This is off the LCC power bus. There are 16 signal lamp
-outputs that have 1.5K Ohm load resistors, this means about 8ma per LED. If
-all lamps are on at full briteness, this comes to 128ma, although turning all
-16 signal on full at a time is not likely to be prototypical, since most
-signal aspects only light one lamp per head. There is a terminal block to
-supply external power for the signal lamps, as a way to reduce the load on the
-LCC power bus. The buffered output section uses an external power source, so
-does not add any load to the LCC power bus.
+would add 64ma. There is a terminal block near the stall motor terminal blocks
+to optionally provide external power for the switch machines. There are 16
+signal lamp outputs that have 1.5K Ohm load resistors, this means about 8ma
+per LED. If all lamps are on at full briteness, this comes to 128ma, although
+turning all 16 signal on full at a time is not likely to be prototypical,
+since most signal aspects only light one lamp per head. There is a terminal
+block to optionally supply external power for the signal lamps, as a way to
+reduce the load on the LCC power bus. The buffered output section uses an
+external power source, so does not add any load to the LCC power bus.
 
 \clearpage
 \section{Circuit Description}
@@ -300,6 +301,9 @@ for this purpose, as shown in
 Figure~\ref{fig:ESP32-S3-MultiFunctionTotoiseWiring}\footnote{Depending on how 
 the motor is positioned and the ``sense'' of the position, the A/B connections 
 can be swapped to suit.}.
+
+There is a two position terminal block to optionally provide power for the
+stall motors.
 
 \subsection{Occupancy Detector connections}
 \begin{figure}[hbpt]\begin{centering}%

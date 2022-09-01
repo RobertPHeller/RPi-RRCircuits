@@ -720,11 +720,54 @@ P4A
 Text Label 9800 3800 2    59   ~ 0
 P4B
 Text GLabel 7600 900  2    60   Input ~ 0
-CAN+12V
+SMPower
 Text GLabel 7750 2450 2    60   Input ~ 0
-CAN+12V
+SMPower
 Text GLabel 4500 850  2    60   Input ~ 0
-CAN+12V
+SMPower
 Text GLabel 4650 2500 2    60   Input ~ 0
+SMPower
+$Comp
+L Screw_Terminal_01x02 J501
+U 1 1 6310ABF3
+P 4875 4950
+F 0 "J501" H 4875 5050 50  0000 C CNN
+F 1 "-SM+" H 4875 4750 50  0000 C CNN
+F 2 "Connectors_Terminal_Blocks:TerminalBlock_Pheonix_MPT-2.54mm_2pol" H 4875 4950 50  0001 C CNN
+F 3 "" H 4875 4950 50  0001 C CNN
+F 4 "651-172565" H 4875 4950 60  0001 C CNN "Mouser Part Number"
+	1    4875 4950
+	1    0    0    -1  
+$EndComp
+$Comp
+L D_Schottky D501
+U 1 1 6310ACCE
+P 4225 4950
+F 0 "D501" H 4225 5050 50  0000 C CNN
+F 1 "DFLS240-7" H 4225 4850 50  0000 C CNN
+F 2 "Diodes_SMD:D_PowerDI-123" H 4225 4950 50  0001 C CNN
+F 3 "" H 4225 4950 50  0001 C CNN
+F 4 "621-DFLS240-7" H 4225 4950 60  0001 C CNN "Mouser Part Number"
+	1    4225 4950
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	4675 4950 4375 4950
+Text GLabel 4075 4950 0    60   Input ~ 0
 CAN+12V
+Text GLabel 4575 4950 1    60   Input ~ 0
+SMPower
+$Comp
+L GND #PWR051
+U 1 1 6310AFEF
+P 4675 5300
+F 0 "#PWR051" H 4675 5050 50  0001 C CNN
+F 1 "GND" H 4675 5150 50  0000 C CNN
+F 2 "" H 4675 5300 50  0001 C CNN
+F 3 "" H 4675 5300 50  0001 C CNN
+	1    4675 5300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4675 5050 4675 5300
 $EndSCHEMATC
