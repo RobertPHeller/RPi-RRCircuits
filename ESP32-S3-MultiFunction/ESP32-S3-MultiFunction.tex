@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Mon Aug 29 11:04:14 2022
-%  Last Modified : <220902.1259>
+%  Last Modified : <220902.1700>
 %
 %  Description 
 %
@@ -873,8 +873,8 @@ the logic action for \textbf{Clear}.
 \clearpage
 \section{Application Notes}
 
-This section covers four common applications, a half-siding, automatic block 
-signals, a level crossing with interchange and a yard throat.
+This section covers five common applications, a half-siding, automatic block 
+signals, a level crossing with interchange, a yard throat, and a yard ladder.
 
 \subsection{Half Siding}
 \label{sec:HalfSiding}
@@ -883,6 +883,23 @@ signals, a level crossing with interchange and a yard throat.
 \caption{Typical half-siding wiring}
 \label{fig:ExampleSidingCP1Wiring}
 \end{centering}\end{figure}
+
+The ESP32-S3 MultiFunction board can handle one end of a siding.
+Figure~\ref{fig:ExampleSidingCP1Wiring} shows a typical siding end and shows
+how the ESP32-S3 MultiFunction board would be wired. This example uses a 3
+over 2 2-headed signal protecting the points and a pair of
+single\footnote{These would marked as absolute signals, either with a ``A''
+marker, a number plate, or possibly a ``dummy'' head (single red lamp).} head
+signal masts protecting the frog ends of the turnout. Th ESP32-S3 MultiFunction
+board's occupancy detectors would detect on the OS and one leg of the siding
+(the ESP32-S3 MultiFunction board at the far end would detect on the other leg
+of the siding).
+
+The OS occupancy detector's events can be used to set and clear the turnout 
+motor's Veto, to prevent moving the points while a train is traversing the 
+turnout.  The occupancy detectors and point sense events would be used as 
+inputs to logic cells that would control the signal masts.  It optionally 
+possible to use the button inputs to control the turnout motor.
 
 
 \subsection{ABS (Automatic Block Signals)}
@@ -893,7 +910,8 @@ signals, a level crossing with interchange and a yard throat.
 \label{fig:ABSTrackStacked}
 \end{centering}\end{figure}
 
-
+The ESP32-S3 MultiFunction board can also handle ABS, as shown in 
+Figure~\ref{fig:ABSTrackStacked}. 
 
 \subsection{Level Crossing With Interchange}
 \label{sec:LevelCrossingInterchange}
@@ -902,6 +920,8 @@ signals, a level crossing with interchange and a yard throat.
 \caption{Typical Level Crossing With Interchange}
 \label{fig:LevelCrossingWInterchange}
 \end{centering}\end{figure}
+
+
 
 \subsection{Yard Throat}
 \label{sec:YardThroat}
