@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed May 31 19:27:54 2017
-#  Last Modified : <201129.1452>
+#  Last Modified : <220902.0909>
 #
 #  Description	
 #
@@ -68,7 +68,9 @@ TEXS=usermanual.tex ../SMCSenseHAT/SMCSenseHAT.tex \
 		    ../PocketBeagleQuadSMCSense/PocketBeagleQuadSMCSense.tex \
 		    ../ESP32QuadSMCSense/ESP32QuadSMCSense.tex \
 		    ../LCCCANCape/LCCCANCape.tex \
-		    ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding.tex
+		    ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding.tex \
+		    ../ESP32-PWMHalfSidingSMD/ESP32-PWMHalfSidingSMD.tex \
+		    ../ESP32-S3-MultiFunction/ESP32-S3-MultiFunction.tex
 
 FIGURES= ../SMCSenseHAT/SMCSenseHAT3DTop.png \
 	 ../SMCSenseHAT/SMCSenseHAT.png \
@@ -102,40 +104,30 @@ FIGURES= ../SMCSenseHAT/SMCSenseHAT3DTop.png \
 	 ../ESP32QuadSMCSense/ESP32QuadSMCSense-2.pdf \
 	 ../ESP32QuadSMCSense/ESP32QuadSMCSense-3.pdf \
 	 ../ESP32QuadSMCSense/ESP32QuadSMCSense.png \
-	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding.png \
-	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding3DTop.png \
+	 ../ESP32-PWMHalfSiding/*.png \
 	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding-1.pdf \
 	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding-2.pdf \
 	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding-3.pdf \
 	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding-4.pdf \
 	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding-5.pdf \
 	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding-6.pdf \
-	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding.png \
-	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSidingTermination.png \
-	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSidingTurnoutMotorsFig.png \
-	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSidingTotoiseWiring.png \
-	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSidingOccupancyDetectors.png \
-	 ../ESP32-PWMHalfSiding/ESP32-PWMHalfSidingLampDivers.png \
-	 ../ESP32-PWMHalfSiding/ExampleSiding.png \
-	 ../ESP32-PWMHalfSiding/ESP32HalfSiding-CP1Wiring.png \
-	 ../ESP32-PWMHalfSiding/ABSTrack_Annotated.png \
-	 ../ESP32-PWMHalfSiding/ABSTrack_Wiring.png \
-	 ../ESP32-PWMHalfSiding/CP1-ID-Config-Annotated.png  \
-	 ../ESP32-PWMHalfSiding/CP1-OC-Config-Annotated.png \
-	 ../ESP32-PWMHalfSiding/CP1-Turnout-Config-Annotated.png \
-	 ../ESP32-PWMHalfSiding/CP1-Mast1-Config-Annotated.png \
-	 ../ESP32-PWMHalfSiding/CP1-OSVeto-Normal1-Annotated.png \
-	 ../ESP32-PWMHalfSiding/CP1-OSVeto-Normal2-Annotated.png \
-	 ../ESP32-PWMHalfSiding/CP1-OSVeto-Normal3-Annotated.png \
-	 ../ESP32-PWMHalfSiding/CP1ME-Stop-Logic-Config1.png  \
-	 ../ESP32-PWMHalfSiding/CP1ME-Stop-Logic-Config3.png  \
-	 ../ESP32-PWMHalfSiding/CP1ME-Stop-Logic-Config2.png  
-	 ../ESP32-PWMHalfSiding/CP1ME-TakeSiding-Logic-Config1.png  \
-	 ../ESP32-PWMHalfSiding/CP1ME-TakeSiding-Logic-Config2.png \
-	 ../ESP32-PWMHalfSiding/CP1ME-Approach-Logic-Config1.png \
-	 ../ESP32-PWMHalfSiding/CP1ME-Approach-Logic-Config2.png \
-	 ../ESP32-PWMHalfSiding/CP1ME-Clear-Logic-Config1.png \
-	 ../ESP32-PWMHalfSiding/CP1ME-Clear-Logic-Config2.png
+	 ../ESP32-PWMHalfSidingSMD/ESP32-PWMHalfSidingSMD-1.pdf \
+	 ../ESP32-PWMHalfSidingSMD/ESP32-PWMHalfSidingSMD-2.pdf \
+	 ../ESP32-PWMHalfSidingSMD/ESP32-PWMHalfSidingSMD-3.pdf \
+	 ../ESP32-PWMHalfSidingSMD/ESP32-PWMHalfSidingSMD-4.pdf \
+	 ../ESP32-PWMHalfSidingSMD/ESP32-PWMHalfSidingSMD-5.pdf \
+	 ../ESP32-PWMHalfSidingSMD/ESP32-PWMHalfSidingSMD-6.pdf \
+	 ../ESP32-PWMHalfSidingSMD/*.png \
+	 ../ESP32-S3-MultiFunction/ESP32-S3-MultiFunction-1.pdf \
+	 ../ESP32-S3-MultiFunction/ESP32-S3-MultiFunction-2.pdf \
+	 ../ESP32-S3-MultiFunction/ESP32-S3-MultiFunction-3.pdf \
+	 ../ESP32-S3-MultiFunction/ESP32-S3-MultiFunction-4.pdf \
+	 ../ESP32-S3-MultiFunction/ESP32-S3-MultiFunction-5.pdf \
+	 ../ESP32-S3-MultiFunction/ESP32-S3-MultiFunction-6.pdf \
+	 ../ESP32-S3-MultiFunction/ESP32-S3-MultiFunction-7.pdf \
+	 ../ESP32-S3-MultiFunction/ESP32-S3-MultiFunction-8.pdf \
+	 ../ESP32-S3-MultiFunction/*.png
+	 
 	 
 
 usermanual.pdf : $(TEXS) $(FIGURES)
