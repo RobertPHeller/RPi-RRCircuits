@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Mon Aug 29 11:04:14 2022
-%  Last Modified : <220902.1700>
+%  Last Modified : <220903.1040>
 %
 %  Description 
 %
@@ -889,17 +889,25 @@ Figure~\ref{fig:ExampleSidingCP1Wiring} shows a typical siding end and shows
 how the ESP32-S3 MultiFunction board would be wired. This example uses a 3
 over 2 2-headed signal protecting the points and a pair of
 single\footnote{These would marked as absolute signals, either with a ``A''
-marker, a number plate, or possibly a ``dummy'' head (single red lamp).} head
-signal masts protecting the frog ends of the turnout. Th ESP32-S3 MultiFunction
-board's occupancy detectors would detect on the OS and one leg of the siding
-(the ESP32-S3 MultiFunction board at the far end would detect on the other leg
-of the siding).
+marker, a number plate, or possibly a ``dummy'' head (single red lamp) above
+(siding side) or below (main side).} head signal masts protecting the frog
+ends of the turnout. Th ESP32-S3 MultiFunction board's occupancy detectors
+would detect on the OS and one leg of the siding (a ESP32-S3 MultiFunction
+board at the far end would be used detect on the other leg of the siding).
 
 The OS occupancy detector's events can be used to set and clear the turnout 
 motor's Veto, to prevent moving the points while a train is traversing the 
 turnout.  The occupancy detectors and point sense events would be used as 
-inputs to logic cells that would control the signal masts.  It optionally 
-possible to use the button inputs to control the turnout motor.
+inputs to logic cells that would control the signal masts.  It is optionally 
+possible to use the button inputs to control the turnout motor from a facia 
+mounted control panel and to use the LED driver outputs to light indicators on 
+that facia mounted control panel.
+
+Virtual masts can be used to drive track circuits for the legs of the sidings
+and those track circuits can in turn drive the logic cells for the actual
+signal masts.
+
+
 
 
 \subsection{ABS (Automatic Block Signals)}
@@ -911,7 +919,10 @@ possible to use the button inputs to control the turnout motor.
 \end{centering}\end{figure}
 
 The ESP32-S3 MultiFunction board can also handle ABS, as shown in 
-Figure~\ref{fig:ABSTrackStacked}. 
+Figure~\ref{fig:ABSTrackStacked}.  This shows a single track bi-directional 
+ABS system, but a dual track mono-directional ABS system could also be 
+implemented.  Using track circuits, it is possible to propagate a signal 
+status back to prior signals and thus fully automate the signals.
 
 \subsection{Level Crossing With Interchange}
 \label{sec:LevelCrossingInterchange}
@@ -921,6 +932,9 @@ Figure~\ref{fig:ABSTrackStacked}.
 \label{fig:LevelCrossingWInterchange}
 \end{centering}\end{figure}
 
+This track layout is not too much different than a pair of half-sidings, with 
+a level crossing added it.  Two ESP32-S3 MultiFunction boards would handle the 
+ends of the interchange track and a third would cover the crossing itself.
 
 
 \subsection{Yard Throat}
