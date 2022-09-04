@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Feb 24 14:51:54 2019
-//  Last Modified : <220831.1322>
+//  Last Modified : <220903.1602>
 //
 //  Description	
 //
@@ -95,7 +95,7 @@ public:
     template <class HW>
     Button(openlcb::Node *node, const ButtonConfig &cfg, const HW &,
         const Gpio *g = HW::instance(), decltype(HW::instance) * = 0)
-        : producer_(QuiesceDebouncer::Options(3), node, 0, 0, g)
+        : producer_(node, 0, 0, g)
         , cfg_(cfg)
     {
         ConfigUpdateService::instance()->register_update_listener(this);

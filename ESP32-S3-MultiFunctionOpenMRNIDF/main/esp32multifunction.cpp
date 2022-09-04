@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 12:17:40 2022
-//  Last Modified : <220823.1357>
+//  Last Modified : <220903.1558>
 //
 //  Description	
 //
@@ -352,6 +352,26 @@ void app_main()
         Turnout turnout3(stack.node(), cfg.seg().turnouts().entry<2>(),Motor3_Pin());
         Turnout turnout4(stack.node(), cfg.seg().turnouts().entry<3>(),Motor4_Pin());
         
+        Points points1(stack.node(), cfg.seg().points().entry<0>(),Points1_Pin());
+        Points points2(stack.node(), cfg.seg().points().entry<1>(),Points2_Pin());
+        Points points3(stack.node(), cfg.seg().points().entry<2>(),Points3_Pin());
+        Points points4(stack.node(), cfg.seg().points().entry<3>(),Points4_Pin());
+        
+        OccupancyDetector od1(stack.node(), cfg.seg().ocs().entry<0>(),OD1_Pin());
+        OccupancyDetector od2(stack.node(), cfg.seg().ocs().entry<1>(),OD2_Pin());
+        OccupancyDetector od3(stack.node(), cfg.seg().ocs().entry<2>(),OD3_Pin());
+        OccupancyDetector od4(stack.node(), cfg.seg().ocs().entry<3>(),OD4_Pin());
+        
+        Button button1(stack.node(), cfg.seg().buttons().entry<0>(),Button1_Pin());
+        Button button2(stack.node(), cfg.seg().buttons().entry<1>(),Button2_Pin());
+        Button button3(stack.node(), cfg.seg().buttons().entry<2>(),Button3_Pin());
+        Button button4(stack.node(), cfg.seg().buttons().entry<3>(),Button4_Pin());
+        
+        LED Led1(stack.node(), cfg.seg().leds().entry<0>(),LED1_Pin());
+        LED Led2(stack.node(), cfg.seg().leds().entry<1>(),LED2_Pin());
+        LED Led3(stack.node(), cfg.seg().leds().entry<2>(),LED3_Pin());
+        LED Led4(stack.node(), cfg.seg().leds().entry<3>(),LED4_Pin());
+
         pwmchip.hw_init(PCA9685_SLAVE_ADDRESS);
         Lamp::PinLookupInit(0,nullptr);
         for (i = 0; i < openmrn_arduino::Esp32PCA9685PWM::NUM_CHANNELS; i++)
