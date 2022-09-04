@@ -115,6 +115,7 @@ void mount_fs(bool cleanup)
     LOG(INFO, "[FS] %.2f/%.2f kb space used", (float)(free_len / 1024.0f)
       , (float)(total_len / 1024.0f));
     recursive_dump_tree(FS_MOUNTPOINT, cleanup);
+    LOG(INFO, "[FS] mount_fs completed");
 }
 
 void unmount_fs()
