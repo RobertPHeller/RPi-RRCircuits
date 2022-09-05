@@ -7,3 +7,6 @@
 [submodule "ESP32-PWMHalfSidingOpenMRNIDF/components/OpenMRNIDF"]
 	path = ESP32-PWMHalfSidingOpenMRNIDF/components/OpenMRNIDF
 	url = git@github.com:atanisoft/OpenMRNIDF.git
+[submodule "OpenMRNIDF"]
+	path = OpenMRNIDF
+	url = git@github.com:atanisoft/OpenMRNIDF.git
