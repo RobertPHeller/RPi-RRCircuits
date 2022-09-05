@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 12:17:40 2022
-//  Last Modified : <220904.1550>
+//  Last Modified : <220905.1438>
 //
 //  Description	
 //
@@ -206,9 +206,17 @@ void app_main()
     Points points1(stack.node(), cfg.seg().points().entry<0>(),Points1_Pin());
     Points points2(stack.node(), cfg.seg().points().entry<1>(),Points2_Pin());
     LOG(INFO, "[MAIN] Points allocated");
-    OccupancyDetector od1(stack.node(), cfg.seg().ocs().entry<0>(),OD1_Pin());
-    OccupancyDetector od2(stack.node(), cfg.seg().ocs().entry<1>(),OD2_Pin());
+    OccupancyDetector oc1(stack.node(), cfg.seg().ocs().entry<0>(),OD1_Pin());
+    OccupancyDetector oc2(stack.node(), cfg.seg().ocs().entry<1>(),OD2_Pin());
     LOG(INFO, "[MAIN] OccupancyDetectors allocated");
+    
+    openlcb::RefreshLoop points_refresh_loop(stack.node(),{
+                                             points1.polling()
+                                             , points2.polling()
+                                             , oc1.polling()
+                                             , oc2.polling()
+                                         });
+    
     pwmchip.hw_init(PCA9685_SLAVE_ADDRESS);
     LOG(INFO, "[MAIN] pwmchip initialized");
     Lamp::PinLookupInit(0,nullptr);
