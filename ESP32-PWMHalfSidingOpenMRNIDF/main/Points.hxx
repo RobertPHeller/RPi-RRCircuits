@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 14 15:16:50 2018
-//  Last Modified : <201125.0858>
+//  Last Modified : <220905.1436>
 //
 //  Description	
 //
@@ -93,7 +93,7 @@ public:
         }
     }
 private:
-    openlcb::BitEventPC producer_;
+    openlcb::BitEventProducer producer_;
     openlcb::EventState old_state;
 };
 

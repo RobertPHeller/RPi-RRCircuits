@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 12:17:40 2022
-//  Last Modified : <220903.1558>
+//  Last Modified : <220905.1441>
 //
 //  Description	
 //
@@ -371,7 +371,22 @@ void app_main()
         LED Led2(stack.node(), cfg.seg().leds().entry<1>(),LED2_Pin());
         LED Led3(stack.node(), cfg.seg().leds().entry<2>(),LED3_Pin());
         LED Led4(stack.node(), cfg.seg().leds().entry<3>(),LED4_Pin());
-
+        
+        openlcb::RefreshLoop points_refresh_loop(stack.node(),{
+                                                 points1.polling()
+                                                 , points2.polling()
+                                                 , points3.polling()
+                                                 , points4.polling()
+                                                 , od1.polling()
+                                                 , od2.polling()
+                                                 , od3.polling()
+                                                 , od4.polling()
+                                                 , button1.polling()
+                                                 , button2.polling()
+                                                 , button3.polling()
+                                                 , button4.polling()
+                                             });
+        
         pwmchip.hw_init(PCA9685_SLAVE_ADDRESS);
         Lamp::PinLookupInit(0,nullptr);
         for (i = 0; i < openmrn_arduino::Esp32PCA9685PWM::NUM_CHANNELS; i++)

@@ -40,4 +40,10 @@ menu "Advanced Configuration"
     config HEALTH_INTERVAL
         int "Health report interval (sec)"
         default 15
+
+    config DEVKIT_BREADBOARD
+        bool "Using DEVKIT Breadboard"
+        default n
 endmenu
+
+

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 12:17:40 2022
-//  Last Modified : <220903.2124>
+//  Last Modified : <220905.1438>
 //
 //  Description	
 //
@@ -100,15 +100,15 @@ namespace openlcb
     const char CDI_FILENAME[] = "/fs/cdi.xml";
 
     // Path to where OpenMRN should persist general configuration data.
-    const char *const CONFIG_FILENAME = "/fs/config";
+    extern const char *const CONFIG_FILENAME = "/fs/config";
 
     // The size of the memory space to export over the above device.
-    const size_t CONFIG_FILE_SIZE =
+    extern const size_t CONFIG_FILE_SIZE =
         cfg.seg().size() + cfg.seg().offset();
 
     // Default to store the dynamic SNIP data is stored in the same persistant
     // data file as general configuration data.
-    const char *const SNIP_DYNAMIC_FILENAME = "/fs/config";
+    extern const char *const SNIP_DYNAMIC_FILENAME = "/fs/config";
 
     /// Defines the identification information for the node. The arguments are:
     ///
@@ -123,7 +123,7 @@ namespace openlcb
     /// - the generated cdi.xml will include this data
     /// - the Simple Node Ident Info Protocol will return this data
     /// - the ACDI memory space will contain this data.
-    const SimpleNodeStaticValues SNIP_STATIC_DATA =
+    extern const SimpleNodeStaticValues SNIP_STATIC_DATA =
     {
         4,
         SNIP_PROJECT_PAGE,
@@ -131,7 +131,11 @@ namespace openlcb
         SNIP_HW_VERSION,
         SNIP_SW_VERSION
     };
-    const char CDI_DATA[] = "";
+    extern const char CDI_DATA[] = "";
+
+    /// Modify this value every time the EEPROM needs to be cleared on the node
+    /// after an update.
+    static constexpr uint16_t CANONICAL_VERSION = CDI_VERSION;
 
 } // namespace openlcb
 
@@ -162,14 +166,21 @@ void app_main()
 
     mount_fs(false);
     openlcb::SimpleCanStack stack(CONFIG_OLCB_NODE_ID);
+    LOG(INFO, "[MAIN] SimpleCanStack allocated");
 #if CONFIG_OLCB_PRINT_ALL_PACKETS
     stack.print_all_packets();
 #endif
     openlcb::MemoryConfigClient memory_client(stack.node(), stack.memory_config_handler());
+    LOG(INFO, "[MAIN] MemoryConfigClient allocated");
     esp32pwmhalfsiding::FactoryResetHelper factory_reset_helper();
+    LOG(INFO, "[MAIN] FactoryResetHelper allocated");
     esp32pwmhalfsiding::EventBroadcastHelper event_helper();
+    LOG(INFO, "[MAIN] EventBroadcastHelper allocated");
     esp32pwmhalfsiding::HealthMonitor health_mon(stack.service());
+    LOG(INFO, "[MAIN] HealthMonitor allocated");
+    
     BlinkTimer blinker(stack.executor()->active_timers());
+    LOG(INFO, "[MAIN] BlinkTimer allocated");
     int i = 0;
     Mast *masts[MASTCOUNT];
     Mast *prevMast = nullptr;
@@ -177,46 +188,59 @@ void app_main()
         masts[i] = new Mast(stack.node(),cfg.seg().masts().entry(i),prevMast);
         prevMast = masts[i];
     }
+    LOG(INFO, "[MAIN] Masts allocated");
     for (i = 0; i < TRACKCIRCUITCOUNT; i++) {
         circuits[i] = new TrackCircuit(stack.node(),cfg.seg().circuits().entry(i));
     }
+    LOG(INFO, "[MAIN] Track Circuits allocated");
     Logic *prevLogic = nullptr;
     Logic *logics[LOGICCOUNT];
     for (i = LOGICCOUNT-1; i >= 0; i--) {
         logics[i] = new Logic(stack.node(), cfg.seg().logics().entry(i),stack.executor()->active_timers(),prevLogic);
         prevLogic = logics[i];
     }
+    LOG(INFO, "[MAIN] Logics allocated");
     Turnout turnout1(stack.node(), cfg.seg().turnouts().entry<0>(),Motor1_Pin());
     Turnout turnout2(stack.node(), cfg.seg().turnouts().entry<1>(),Motor2_Pin());
-            
+    LOG(INFO, "[MAIN] Turnouts allocated");
     Points points1(stack.node(), cfg.seg().points().entry<0>(),Points1_Pin());
     Points points2(stack.node(), cfg.seg().points().entry<1>(),Points2_Pin());
-        
-    OccupancyDetector od1(stack.node(), cfg.seg().ocs().entry<0>(),OD1_Pin());
-    OccupancyDetector od2(stack.node(), cfg.seg().ocs().entry<1>(),OD2_Pin());
-        
+    LOG(INFO, "[MAIN] Points allocated");
+    OccupancyDetector oc1(stack.node(), cfg.seg().ocs().entry<0>(),OD1_Pin());
+    OccupancyDetector oc2(stack.node(), cfg.seg().ocs().entry<1>(),OD2_Pin());
+    LOG(INFO, "[MAIN] OccupancyDetectors allocated");
+    
+    openlcb::RefreshLoop points_refresh_loop(stack.node(),{
+                                             points1.polling()
+                                             , points2.polling()
+                                             , oc1.polling()
+                                             , oc2.polling()
+                                         });
+    
     pwmchip.hw_init(PCA9685_SLAVE_ADDRESS);
+    LOG(INFO, "[MAIN] pwmchip initialized");
     Lamp::PinLookupInit(0,nullptr);
     for (i = 0; i < openmrn_arduino::Esp32PCA9685PWM::NUM_CHANNELS; i++)
     {
         Lamp::PinLookupInit(i+1,pwmchip.get_channel(i));
     }
-    
+    LOG(INFO, "[MAIN] Lamps setup");
     // Create / update CDI, if the CDI is out of date a factory reset will be
     // forced.
     bool reset_cdi = CDIXMLGenerator::create_config_descriptor_xml(
-                                                                   cfg, openlcb::CDI_FILENAME, &stack);
+                                     cfg, openlcb::CDI_FILENAME, &stack);
+    LOG(INFO, "[MAIN] reset_cdi = %d",reset_cdi);
     if (reset_cdi)
     {
         LOG(WARNING, "[CDI] Forcing factory reset due to CDI update");
         unlink(openlcb::CONFIG_FILENAME);
     }
-    
+    LOG(INFO, "[MAIN] config file size is %d",openlcb::CONFIG_FILE_SIZE);
     // Create config file and initiate factory reset if it doesn't exist or is
     // otherwise corrupted.
     int config_fd =
           stack.create_config_file_if_needed(cfg.seg().internal_config(),
-                                             CDI_VERSION,
+                                             openlcb::CANONICAL_VERSION,
                                              openlcb::CONFIG_FILE_SIZE);
     if (reset_events)
     {

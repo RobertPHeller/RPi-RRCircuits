@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sat Jun 25 09:07:59 2022
-//  Last Modified : <220823.1355>
+//  Last Modified : <220905.1621>
 //
 //  Description	
 //
@@ -54,7 +54,11 @@
 GPIO_PIN(Motor1, MotorPin,  9);
 GPIO_PIN(Motor2, MotorPin, 11);
 GPIO_PIN(Motor3, MotorPin,  8);
+#ifdef CONFIG_DEVKIT_BREADBOARD
+GPIO_PIN(Motor4, MotorPin, 45);
+#else
 GPIO_PIN(Motor4, MotorPin, 33);
+#endif
 
 GPIO_PIN(Points1, SensePin, 12);
 GPIO_PIN(Points2, SensePin, 13);
@@ -63,7 +67,11 @@ GPIO_PIN(Points4, SensePin, 10);
 
 #define ODPin  GpioInputNP
 
+#ifdef CONFIG_DEVKIT_BREADBOARD
+GPIO_PIN(OD1, ODPin, 46);
+#else
 GPIO_PIN(OD1, ODPin, 34);
+#endif
 GPIO_PIN(OD2, ODPin, 35);
 GPIO_PIN(OD3, ODPin, 36);
 GPIO_PIN(OD4, ODPin,  7);
