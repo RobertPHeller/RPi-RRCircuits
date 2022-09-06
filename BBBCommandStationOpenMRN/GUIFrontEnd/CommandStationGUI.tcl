@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sat Oct 26 10:09:51 2019
-#  Last Modified : <210509.1625>
+#  Last Modified : <220822.1120>
 #
 #  Description	
 #
@@ -672,9 +672,9 @@ snit::type CommandStationGUI {
     typecomponent csQueue
     typevariable  queueFlag_ false
     typemethod SendMessageToCS {message} {
-        #puts stderr "*** $type SendMessageToCS \{$message\}"
-        #puts stderr "*** $type SendMessageToCS: queueFlag_ is $queueFlag_"
-        #puts stderr "*** $type SendMessageToCS: [$csQueue size] items already in the queue"
+        puts stderr "*** $type SendMessageToCS \{$message\}"
+        puts stderr "*** $type SendMessageToCS: queueFlag_ is $queueFlag_"
+        puts stderr "*** $type SendMessageToCS: [$csQueue size] items already in the queue"
         if {$queueFlag_} {
             $csQueue put $message
         } else {
@@ -862,7 +862,7 @@ snit::type CommandStationGUI {
         if {[$status GetMainsEnabled]} {
             $type SendMessageToCS {power off}
         } else {
-            $type SendMessageToCS{power on}
+            $type SendMessageToCS {power on}
         }
     }
     typemethod _estop {} {
@@ -895,17 +895,17 @@ snit::type CommandStationGUI {
             }
         } else {
             set line [regsub {^> } $line {}]
-            if {$line eq ""} {return}
-            #puts stderr "*** $type _readSocket: [$csQueue size] in the queue"
+            puts stderr "*** $type _readSocket: [$csQueue size] in the queue"
             if {[$csQueue size] > 0} {
-                set line [$csQueue get]
-                #puts stderr "*** $type _readSocket: line is '$line'"
-                puts $socket_ $line
+                set qline [$csQueue get]
+                puts stderr "*** $type _readSocket: qline (from csQueue) is '$qline'"
+                puts $socket_ $qline
                 flush $socket_
             } else {
                 set queueFlag_ false
             }
-            #puts stderr "*** $type _readSocket: line is $line"
+            if {$line eq ""} {return}
+            puts stderr "*** $type _readSocket: line is $line"
             if {[regexp {^#([^#]+)#[[:space:]]+(.*)$} $line => key result] > 0} {
                 switch $key {
                     status {
