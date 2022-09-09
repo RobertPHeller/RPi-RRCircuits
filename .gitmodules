@@ -10,3 +10,6 @@
 [submodule "OpenMRNIDF"]
 	path = OpenMRNIDF
 	url = git@github.com:atanisoft/OpenMRNIDF.git
+[submodule "SVTmaker.pretty"]
+	path = SVTmaker.pretty
+	url = git@github.com:stanleyseow/SVTmaker.pretty.git
