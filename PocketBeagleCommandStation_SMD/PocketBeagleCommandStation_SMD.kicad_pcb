@@ -1,9 +1,9 @@
 (kicad_pcb (version 4) (host pcbnew 4.0.7+dfsg1-1ubuntu2)
 
   (general
-    (links 0)
+    (links 417)
     (no_connects 0)
-    (area 83.345238 45.56 227.56 177.960001)
+    (area 85.039999 58.369999 203.250001 163.880001)
     (thickness 1.6)
     (drawings 20)
     (tracks 1583)
@@ -8265,7 +8265,7 @@
   (gr_text "Caution: can become hot!" (at 196.85 91.44 90) (layer F.SilkS)
     (effects (font (size 2.54 2.54) (thickness 0.508)))
   )
-  (gr_text "Copyright (C) 2021 Deepwoods Software\nPoctketBeagle Command Station (SMD) Rev A" (at 88.9 102.87 270) (layer B.Cu)
+  (gr_text "Copyright (C) 2022 Deepwoods Software\nPoctketBeagle Command Station (SMD) Rev A" (at 88.9 102.87 270) (layer B.Cu)
     (effects (font (size 1.5 1.5) (thickness 0.3)) (justify mirror))
   )
   (dimension 110.49 (width 0.3) (layer Cmts.User)
