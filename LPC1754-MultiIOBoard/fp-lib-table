@@ -1,3 +1,6 @@
 (fp_lib_table
   (lib (name QFP50)(type KiCad)(uri /home/heller/RRCircuits/QFP50.pretty)(options "")(descr ""))
+  (lib (name GCT_USB)(type KiCad)(uri /home/heller/RRCircuits/GCT_USB.pretty)(options "")(descr ""))
+  (lib (name RJ45-8N-S)(type Legacy)(uri /home/heller/RRCircuits/RJ45-8N-S.mod)(options "")(descr ""))
+  (lib (name SRN1060)(type Legacy)(uri /home/heller/RRCircuits/SRN1060.mod)(options "")(descr ""))
 )

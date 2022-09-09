@@ -1,4 +1,4 @@
-update=Fri 09 Sep 2022 02:17:01 PM EDT
+update=Fri 09 Sep 2022 04:26:38 PM EDT
 version=1
 last_client=kicad
 [pcbnew]
@@ -63,3 +63,7 @@ LibName31=contrib
 LibName32=valves
 LibName33=/home/heller/RRCircuits/LPC1754FBD80_551
 LibName34=/home/heller/RRCircuits/217175-0001
+LibName35=/home/heller/RRCircuits/gct_usb4105
+LibName36=/home/heller/RRCircuits/ESP32-S3-MultiFunction/USBLC6-2SC6
+LibName37=/home/heller/RRCircuits/sn65hvd233-ht
+LibName38=/home/heller/RRCircuits/lm2574n-5

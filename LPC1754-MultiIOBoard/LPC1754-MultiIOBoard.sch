@@ -32,11 +32,17 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:LPC1754FBD80_551
+LIBS:217175-0001
+LIBS:gct_usb4105
+LIBS:USBLC6-2SC6
+LIBS:sn65hvd233-ht
+LIBS:lm2574n-5
+LIBS:LPC1754-MultiIOBoard-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 2
+Sheet 1 4
 Title ""
 Date ""
 Rev ""
@@ -51,5 +57,25 @@ S 3700 2450 3325 2575
 U 631B4A0D
 F0 "Micro Processor Unit" 60
 F1 "MCU.sch" 60
+F2 "CAN_RX" I L 3700 3050 60 
+F3 "CAN_TX" O L 3700 3250 60 
+$EndSheet
+$Sheet
+S 1100 2450 1650 2250
+U 631BC9FA
+F0 "CAN Transceiver" 60
+F1 "CANTransceiver.sch" 60
+F2 "CAN_TX" I R 2750 3250 60 
+F3 "CAN_RX" O R 2750 3050 60 
+$EndSheet
+Wire Wire Line
+	3700 3050 2750 3050
+Wire Wire Line
+	3700 3250 2750 3250
+$Sheet
+S 1050 5425 2025 1725
+U 631BD2EB
+F0 "Power Supply" 60
+F1 "PowerSupply.sch" 60
 $EndSheet
 $EndSCHEMATC
