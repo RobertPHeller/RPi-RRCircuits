@@ -42,7 +42,7 @@ EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 4
+Sheet 1 6
 Title ""
 Date ""
 Rev ""
@@ -77,5 +77,17 @@ S 1050 5425 2025 1725
 U 631BD2EB
 F0 "Power Supply" 60
 F1 "PowerSupply.sch" 60
+$EndSheet
+$Sheet
+S 7525 1300 2575 2025
+U 631BF9DD
+F0 "Output Ports" 60
+F1 "OutputPorts.sch" 60
+$EndSheet
+$Sheet
+S 7450 3800 2850 1950
+U 631BF9EC
+F0 "Input Ports" 60
+F1 "InputPorts.sch" 60
 $EndSheet
 $EndSCHEMATC
