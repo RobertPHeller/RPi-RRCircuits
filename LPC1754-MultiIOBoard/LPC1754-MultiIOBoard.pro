@@ -1,4 +1,4 @@
-update=Fri 09 Sep 2022 04:26:38 PM EDT
+update=Sat 10 Sep 2022 01:06:28 PM EDT
 version=1
 last_client=kicad
 [pcbnew]
@@ -67,3 +67,4 @@ LibName35=/home/heller/RRCircuits/gct_usb4105
 LibName36=/home/heller/RRCircuits/ESP32-S3-MultiFunction/USBLC6-2SC6
 LibName37=/home/heller/RRCircuits/sn65hvd233-ht
 LibName38=/home/heller/RRCircuits/lm2574n-5
+LibName39=/home/heller/RRCircuits/tbd62x83a

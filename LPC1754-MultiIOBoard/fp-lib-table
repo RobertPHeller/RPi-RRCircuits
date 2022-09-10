@@ -4,4 +4,6 @@
   (lib (name RJ45-8N-S)(type Legacy)(uri /home/heller/RRCircuits/RJ45-8N-S.mod)(options "")(descr ""))
   (lib (name SRN1060)(type Legacy)(uri /home/heller/RRCircuits/SRN1060.mod)(options "")(descr ""))
   (lib (name Molex)(type KiCad)(uri "$(KIPRJMOD)/Molex.pretty")(options "")(descr ""))
+  (lib (name PolarizedCaps)(type KiCad)(uri /home/heller/RRCircuits/PolarizedCaps.pretty)(options "")(descr ""))
+  (lib (name ResistorWithJumper)(type KiCad)(uri "$(KIPRJMOD)/ResistorWithJumper.pretty")(options "")(descr ""))
 )
