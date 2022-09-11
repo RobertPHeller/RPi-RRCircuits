@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sun Sep 11 12:48:49 2022
-#  Last Modified : <220911.1248>
+#  Last Modified : <220911.1257>
 #
 #  Description	
 #
@@ -43,3 +43,7 @@
 ##############################################################################
 
 
+SUBDIRS = \
+	freertos.armv7m.nxp-lpc175x_6x-generic
+	
+include $(OPENMRNPATH)/etc/recurse.mk

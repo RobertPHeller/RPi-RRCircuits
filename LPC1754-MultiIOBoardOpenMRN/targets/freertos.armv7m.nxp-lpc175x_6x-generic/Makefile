@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sun Sep 11 12:49:02 2022
-#  Last Modified : <220911.1249>
+#  Last Modified : <220911.1259>
 #
 #  Description	
 #
@@ -43,3 +43,8 @@
 ##############################################################################
 
 
+APP_PATH ?= $(realpath ../..)
+-include $(APP_PATH)/config.mk
+
+
+include hardware.mk
