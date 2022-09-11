@@ -6,4 +6,7 @@
   (lib (name Molex)(type KiCad)(uri "$(KIPRJMOD)/Molex.pretty")(options "")(descr ""))
   (lib (name PolarizedCaps)(type KiCad)(uri /home/heller/RRCircuits/PolarizedCaps.pretty)(options "")(descr ""))
   (lib (name ResistorWithJumper)(type KiCad)(uri "$(KIPRJMOD)/ResistorWithJumper.pretty")(options "")(descr ""))
+  (lib (name DWSLogoBCU)(type Legacy)(uri /home/heller/RRCircuits/DWSLogoBCU.mod)(options "")(descr ""))
+  (lib (name LCC_LOGO)(type KiCad)(uri /home/heller/RRCircuits/LCC_LOGO.pretty)(options "")(descr ""))
+  (lib (name PowerLabels)(type KiCad)(uri /home/heller/RRCircuits/PowerLabels.pretty)(options "")(descr ""))
 )
