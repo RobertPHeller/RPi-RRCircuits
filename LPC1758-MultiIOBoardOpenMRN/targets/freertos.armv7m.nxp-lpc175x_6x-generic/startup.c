@@ -223,7 +223,7 @@ void reset_handler(void)
     }
 }
 
-extern void resetblink(unsigned long pattern);
+//extern void resetblink(unsigned long pattern);
 //extern void diewith(unsigned pattern);
 
 
@@ -302,7 +302,7 @@ __attribute__((optimize("-O0"))) void hard_fault_handler_c( unsigned long *hardf
         fault_info->_DFSR       || fault_info->_AFSR       ||
         fault_info->_MMAR       || fault_info->_BFAR)
     {
-        resetblink(BLINK_DIE_HARDFAULT);
+        //resetblink(BLINK_DIE_HARDFAULT);
         for( ;; );
     }
 }

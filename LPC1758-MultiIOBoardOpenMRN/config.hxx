@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 12 12:58:51 2022
-//  Last Modified : <220912.1543>
+//  Last Modified : <220912.1615>
 //
 //  Description	
 //
@@ -82,7 +82,7 @@ static constexpr uint16_t CANONICAL_VERSION = 0x1000;
 using AllConsumers = RepeatedGroup<ConsumerConfig, NUM_OUTPUTS>;
 using AllProducers = RepeatedGroup<ProducerConfig, NUM_INPUTS>;
 
-CDI_GROUP(IoBoardSegment, Name(HARDWARE_IMPL), 
+CDI_GROUP(IoBoardSegment,
           Segment(MemoryConfigDefs::SPACE_CONFIG), Offset(128));
 /// Each entry declares the name of the current entry, then the type and then
 /// optional arguments list.
@@ -110,7 +110,7 @@ CDI_GROUP_ENTRY(acdi, Acdi);
 /// space. UserInfoSegment is defined in the system header.
 CDI_GROUP_ENTRY(userinfo, UserInfoSegment, Name("User Info"));
 /// Adds the main configuration segment.
-CDI_GROUP_ENTRY(seg, IoBoardSegment);
+CDI_GROUP_ENTRY(seg, IoBoardSegment, Name(HARDWARE_IMPL));
 /// Adds the versioning segment.
 CDI_GROUP_ENTRY(version, VersionSeg);
 CDI_GROUP_END();

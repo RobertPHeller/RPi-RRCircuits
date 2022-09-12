@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 12 14:55:18 2022
-//  Last Modified : <220912.1458>
+//  Last Modified : <220912.1617>
 //
 //  Description	
 //
@@ -57,12 +57,6 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "config.hxx"
 #include "utils/GpioInitializer.hxx"
 #include "Hardware.hxx"
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <termios.h>
-#include <sys/ioctl.h>
 
 /** Entry point to application.
  *  * @param argc number of command line arguments
