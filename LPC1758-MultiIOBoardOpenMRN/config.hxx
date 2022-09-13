@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 12 12:58:51 2022
-//  Last Modified : <220913.1321>
+//  Last Modified : <220913.1524>
 //
 //  Description	
 //
@@ -50,10 +50,7 @@
 #include "openlcb/MultiConfiguredConsumer.hxx"
 #include "MultiConfiguredProducer.hxx" // Not in OpenMRN?
 
-//#include "Hardware.hxx"
-#define HARDWARE_IMPL "LPC1758 Multi IO Board"
-#define NUM_INPUTS  24
-#define NUM_OUTPUTS 24
+#include "HardwareDefs.hxx"
 #include "Revision.hxxout"
 
 namespace openlcb
