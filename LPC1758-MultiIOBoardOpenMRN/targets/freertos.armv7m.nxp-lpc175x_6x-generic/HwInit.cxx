@@ -103,7 +103,10 @@ void hw_preinit(void)
 
     /* enable pinmux */
     Chip_IOCON_Init(LPC_IOCON);
-
+    
+    /* set up CAN1 pins */
+    Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 0, IOCON_FUNC1 | IOCON_MODE_INACT); 
+    Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 1, IOCON_FUNC1 | IOCON_MODE_INACT); 
 }
 
 } /* extern "C" */
