@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Tue Sep 13 20:57:15 2022
-//  Last Modified : <220913.2152>
+//  Last Modified : <220914.0847>
 //
 //  Description	
 //
@@ -70,6 +70,10 @@ static uint32_t compute_checksum (const uint32_t *start,
         result += *lp;
     }
     return result;
+}
+
+void nvs_init()
+{
 }
 
 uint8_t load_config(node_config_t *config)

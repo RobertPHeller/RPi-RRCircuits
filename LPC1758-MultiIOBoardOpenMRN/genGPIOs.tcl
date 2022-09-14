@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Mon Sep 12 19:41:31 2022
-#  Last Modified : <220912.1944>
+#  Last Modified : <220914.0812>
 #
 #  Description	
 #
@@ -53,3 +53,62 @@ for {set P 0} {$P < 3} {incr P} {
     }
 }
 
+puts -nonewline "typedef GpioInitializer<"
+set comma ""
+set pincount 0
+
+for {set C 0} {$C < 2} {incr C} {
+    for {set P 0} {$P < 3} {incr P} {
+        for {set B 0} {$B < 8} {incr B} {
+            puts -nonewline [format {%sC%dP%dB%d_Pin} $comma $C $P $B]
+            set comma ", "
+            incr pincount
+            if {($pincount & 0x03) == 0 && $pincount < 48} {
+                puts ","
+                set comma ""
+                puts -nonewline {                        }
+            }
+        }
+    }
+}
+puts "> GpioInit;"
+
+puts "constexpr const static Gpio *const kInputCard\[\] = {"
+set comma "    "
+set pincount 0
+
+for {set P 0} {$P < 3} {incr P} {
+    for {set B 0} {$B < 8} {incr B} {
+        puts -nonewline [format {%sC0P%dB%d_Pin::instance()} $comma $P $B]
+        set comma ", "
+        incr pincount
+        if {($pincount & 0x01) == 0 && $pincount < 24} {
+            puts ", //"
+            set comma "    "
+        }
+    }
+}
+
+puts "  //"
+puts "};"
+
+puts "constexpr const static Gpio *const kOutputCard\[\] = {"
+set comma "    "
+set pincount 0
+
+for {set P 0} {$P < 3} {incr P} {
+    for {set B 0} {$B < 8} {incr B} {
+        puts -nonewline [format {%sC1P%dB%d_Pin::instance()} $comma $P $B]
+        set comma ", "
+        incr pincount
+        if {($pincount & 0x01) == 0 && $pincount < 24} {
+            puts ", //"
+            set comma "    "
+        }
+    }
+}
+
+puts "  //"
+puts "};"
+
+            

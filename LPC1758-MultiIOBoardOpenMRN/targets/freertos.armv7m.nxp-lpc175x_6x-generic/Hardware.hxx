@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 12 14:58:29 2022
-//  Last Modified : <220913.1333>
+//  Last Modified : <220914.0752>
 //
 //  Description	
 //
@@ -108,6 +108,21 @@ GPIO_PIN(C1P2B7, OUTPUT_PIN, 2, 3);
 
 GPIO_PIN(ACT1, ACTLed_PIN, 0, 29);
 GPIO_PIN(ACT2, ACTLed_PIN, 0, 30);
+
+typedef GpioInitializer<C0P0B0_Pin, C0P0B1_Pin, C0P0B2_Pin, C0P0B3_Pin,
+                        C0P0B4_Pin, C0P0B5_Pin, C0P0B6_Pin, C0P0B7_Pin,
+                        C0P1B0_Pin, C0P1B1_Pin, C0P1B2_Pin, C0P1B3_Pin,
+                        C0P1B4_Pin, C0P1B5_Pin, C0P1B6_Pin, C0P1B7_Pin,
+                        C0P2B0_Pin, C0P2B1_Pin, C0P2B2_Pin, C0P2B3_Pin,
+                        C0P2B4_Pin, C0P2B5_Pin, C0P2B6_Pin, C0P2B7_Pin,
+                        C1P0B0_Pin, C1P0B1_Pin, C1P0B2_Pin, C1P0B3_Pin,
+                        C1P0B4_Pin, C1P0B5_Pin, C1P0B6_Pin, C1P0B7_Pin,
+                        C1P1B0_Pin, C1P1B1_Pin, C1P1B2_Pin, C1P1B3_Pin,
+                        C1P1B4_Pin, C1P1B5_Pin, C1P1B6_Pin, C1P1B7_Pin,
+                        C1P2B0_Pin, C1P2B1_Pin, C1P2B2_Pin, C1P2B3_Pin,
+                        C1P2B4_Pin, C1P2B5_Pin, C1P2B6_Pin, C1P2B7_Pin,
+                        ACT1_Pin, ACT2_Pin> GpioInit;
+
 
 #endif // __HARDWARE_HXX
 
