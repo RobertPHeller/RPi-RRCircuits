@@ -1,0 +1,11 @@
+(fp_lib_table
+  (lib (name QFP50)(type KiCad)(uri /home/heller/RRCircuits/QFP50.pretty)(options "")(descr ""))
+  (lib (name Molex)(type KiCad)(uri /home/heller/RRCircuits/LPC1758-MultiIOBoard/Molex.pretty)(options "")(descr ""))
+  (lib (name ResistorWithJumper)(type KiCad)(uri /home/heller/RRCircuits/LPC1758-MultiIOBoard/ResistorWithJumper.pretty)(options "")(descr ""))
+  (lib (name PolarizedCaps)(type KiCad)(uri /home/heller/RRCircuits/PolarizedCaps.pretty)(options "")(descr ""))
+  (lib (name PowerLabels)(type KiCad)(uri /home/heller/RRCircuits/PowerLabels.pretty)(options "")(descr ""))
+  (lib (name DWSLogoBCU)(type Legacy)(uri /home/heller/RRCircuits/DWSLogoBCU.mod)(options "")(descr ""))
+  (lib (name SRN1060)(type Legacy)(uri /home/heller/RRCircuits/SRN1060.mod)(options "")(descr ""))
+  (lib (name LCC_LOGO)(type KiCad)(uri /home/heller/RRCircuits/LCC_LOGO.pretty)(options "")(descr ""))
+  (lib (name RJ45-8N-S)(type Legacy)(uri /home/heller/RRCircuits/RJ45-8N-S.mod)(options "")(descr ""))
+)
