@@ -1,4 +1,4 @@
-update=Thu 15 Sep 2022 01:00:13 PM EDT
+update=Thu 15 Sep 2022 08:42:41 PM EDT
 version=1
 last_client=kicad
 [pcbnew]
@@ -66,3 +66,4 @@ LibName34=/home/heller/RRCircuits/217175-0001
 LibName35=/home/heller/RRCircuits/tbd62x83a
 LibName36=/home/heller/RRCircuits/lm2574n-5
 LibName37=/home/heller/RRCircuits/sn65hvd233-ht
+LibName38=mechanical

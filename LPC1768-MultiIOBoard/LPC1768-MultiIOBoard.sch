@@ -36,6 +36,8 @@ LIBS:217175-0001
 LIBS:tbd62x83a
 LIBS:lm2574n-5
 LIBS:sn65hvd233-ht
+LIBS:mechanical
+LIBS:LPC1768-MultiIOBoard-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
@@ -280,4 +282,81 @@ Wire Wire Line
 	7175 5550 6800 5550
 Wire Wire Line
 	7175 5625 6800 5625
+$Comp
+L Mounting_Hole MK101
+U 1 1 6323D8F5
+P 975 6800
+F 0 "MK101" H 975 7000 50  0000 C CNN
+F 1 "Mounting_Hole" H 975 6925 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3" H 975 6800 50  0001 C CNN
+F 3 "" H 975 6800 50  0001 C CNN
+	1    975  6800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole MK102
+U 1 1 6323DB94
+P 1425 6800
+F 0 "MK102" H 1425 7000 50  0000 C CNN
+F 1 "Mounting_Hole" H 1425 6925 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3" H 1425 6800 50  0001 C CNN
+F 3 "" H 1425 6800 50  0001 C CNN
+	1    1425 6800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole MK103
+U 1 1 6323DE05
+P 1800 6825
+F 0 "MK103" H 1800 7025 50  0000 C CNN
+F 1 "Mounting_Hole" H 1800 6950 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3" H 1800 6825 50  0001 C CNN
+F 3 "" H 1800 6825 50  0001 C CNN
+	1    1800 6825
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole MK104
+U 1 1 6323E07C
+P 2150 6825
+F 0 "MK104" H 2150 7025 50  0000 C CNN
+F 1 "Mounting_Hole" H 2150 6950 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3" H 2150 6825 50  0001 C CNN
+F 3 "" H 2150 6825 50  0001 C CNN
+	1    2150 6825
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole FD101
+U 1 1 6323E327
+P 2225 7350
+F 0 "FD101" H 2225 7550 50  0000 C CNN
+F 1 "Fiduciary Mark" H 2225 7475 50  0000 C CNN
+F 2 "Fiducials:Fiducial_classic_Small_SilkscreenTop_Type1" H 2225 7350 50  0001 C CNN
+F 3 "" H 2225 7350 50  0001 C CNN
+	1    2225 7350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole FD102
+U 1 1 6323E945
+P 2675 7375
+F 0 "FD102" H 2675 7575 50  0000 C CNN
+F 1 "Fiduciary Mark" H 2675 7500 50  0000 C CNN
+F 2 "Fiducials:Fiducial_classic_Small_SilkscreenTop_Type1" H 2675 7375 50  0001 C CNN
+F 3 "" H 2675 7375 50  0001 C CNN
+	1    2675 7375
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole FD103
+U 1 1 6323EBFB
+P 3150 7375
+F 0 "FD103" H 3150 7575 50  0000 C CNN
+F 1 "Fiduciary Mark" H 3150 7500 50  0000 C CNN
+F 2 "Fiducials:Fiducial_classic_Small_SilkscreenTop_Type1" H 3150 7375 50  0001 C CNN
+F 3 "" H 3150 7375 50  0001 C CNN
+	1    3150 7375
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
