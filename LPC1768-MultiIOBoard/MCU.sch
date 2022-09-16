@@ -576,7 +576,7 @@ Text HLabel 5350 7325 3    60   Output ~ 0
 CAN_TX
 Text HLabel 4750 925  1    60   Output ~ 0
 C1P0B0
-Text HLabel 5025 925  1    60   Output ~ 0
+Text HLabel 5050 925  1    60   Output ~ 0
 C1P0B1
 Text HLabel 5150 925  1    60   Output ~ 0
 C1P0B2
