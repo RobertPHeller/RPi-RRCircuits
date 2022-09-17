@@ -1,0 +1,1 @@
+../freertos.armv7m.nxp-lpc1758/hardware.mk
