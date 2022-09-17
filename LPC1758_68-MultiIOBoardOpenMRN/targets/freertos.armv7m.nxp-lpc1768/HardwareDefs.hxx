@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Tue Sep 13 13:32:19 2022
-//  Last Modified : <220913.1332>
+//  Last Modified : <220917.1018>
 //
 //  Description	
 //
@@ -43,7 +43,7 @@
 #ifndef __HARDWAREDEFS_HXX
 #define __HARDWAREDEFS_HXX
 
-#define HARDWARE_IMPL "LPC1758 Multi IO Board"
+#define HARDWARE_IMPL "LPC1768 Multi IO Board"
 #define NUM_INPUTS  24
 #define NUM_OUTPUTS 24
 

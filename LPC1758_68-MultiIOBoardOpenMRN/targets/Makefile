@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sun Sep 11 12:48:49 2022
-#  Last Modified : <220911.1257>
+#  Last Modified : <220917.1014>
 #
 #  Description	
 #
@@ -44,6 +44,8 @@
 
 
 SUBDIRS = \
-	freertos.armv7m.nxp-lpc175x_6x-generic
+	freertos.armv7m.nxp-lpc1758 \
+	freertos.armv7m.nxp-lpc1768 \
+	freertos.armv7m.nxp-lpcexpresso-lpc1769
 	
 include $(OPENMRNPATH)/etc/recurse.mk
