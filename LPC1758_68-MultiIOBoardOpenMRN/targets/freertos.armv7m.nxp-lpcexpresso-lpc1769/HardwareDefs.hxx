@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Tue Sep 13 13:32:19 2022
-//  Last Modified : <220913.1332>
+//  Last Modified : <220917.1550>
 //
 //  Description	
 //
@@ -43,9 +43,9 @@
 #ifndef __HARDWAREDEFS_HXX
 #define __HARDWAREDEFS_HXX
 
-#define HARDWARE_IMPL "LPC1758 Multi IO Board"
-#define NUM_INPUTS  24
-#define NUM_OUTPUTS 24
+#define HARDWARE_IMPL "Breadboard with LPC1769 Expresso"
+#define NUM_INPUTS  8
+#define NUM_OUTPUTS 8
 
 
 #endif // __HARDWAREDEFS_HXX

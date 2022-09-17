@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 12 14:55:18 2022
-//  Last Modified : <220917.1049>
+//  Last Modified : <220917.1610>
 //
 //  Description	
 //
@@ -86,6 +86,7 @@ openlcb::CONFIG_FILENAME;
 
 // Input card pins.
 
+#if NUM_INPUTS == 24
 constexpr const static Gpio *const kInputCard[] = {
     C0P0B0_Pin::instance(), C0P0B1_Pin::instance(), //
     C0P0B2_Pin::instance(), C0P0B3_Pin::instance(), //
@@ -100,9 +101,16 @@ constexpr const static Gpio *const kInputCard[] = {
     C0P2B4_Pin::instance(), C0P2B5_Pin::instance(), //
     C0P2B6_Pin::instance(), C0P2B7_Pin::instance()  //
 };
+#else
+constexpr const static Gpio *const kInputCard[] = {
+    C0P0B0_Pin::instance(), C0P0B1_Pin::instance(), //
+    C0P0B2_Pin::instance(), C0P0B3_Pin::instance()  //
+};
+#endif
 
 // Output card pins
 
+#if NUM_OUTPUTS == 24
 constexpr const static Gpio *const kOutputCard[] = {
     C1P0B0_Pin::instance(), C1P0B1_Pin::instance(), //
     C1P0B2_Pin::instance(), C1P0B3_Pin::instance(), //
@@ -117,7 +125,12 @@ constexpr const static Gpio *const kOutputCard[] = {
     C1P2B4_Pin::instance(), C1P2B5_Pin::instance(), //
     C1P2B6_Pin::instance(), C1P2B7_Pin::instance()  //
 };
-
+#else
+constexpr const static Gpio *const kOutputCard[] = {
+    C1P0B0_Pin::instance(), C1P0B1_Pin::instance(), //
+    C1P0B2_Pin::instance(), C1P0B3_Pin::instance()  //
+};
+#endif
 
 class FactoryResetHelper : public DefaultConfigUpdateListener {
 public:

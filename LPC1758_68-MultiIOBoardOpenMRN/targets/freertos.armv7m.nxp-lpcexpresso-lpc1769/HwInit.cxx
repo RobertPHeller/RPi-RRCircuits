@@ -55,7 +55,7 @@ const char *STDERR_DEVICE = "/dev/ser0";
 static LpcUart uart0("/dev/ser0", LPC_UART3, UART3_IRQn);
 
 /** CAN 0 driver instance */
-static LpcCan can0("/dev/can0", LPC_CAN1);
+static LpcCan can0("/dev/can0", LPC_CAN2);
 
 extern const size_t EEPROMEmulation::SECTOR_SIZE = 0x8000;
 
@@ -105,8 +105,8 @@ void hw_preinit(void)
     Chip_IOCON_Init(LPC_IOCON);
     
     /* set up CAN1 pins */
-    Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 0, IOCON_FUNC1 | IOCON_MODE_INACT); 
-    Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 1, IOCON_FUNC1 | IOCON_MODE_INACT); 
+    Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 4, IOCON_FUNC2 | IOCON_MODE_INACT); 
+    Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 5, IOCON_FUNC2 | IOCON_MODE_INACT); 
 }
 
 } /* extern "C" */
