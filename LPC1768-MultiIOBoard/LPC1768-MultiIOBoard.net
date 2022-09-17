@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/heller/RRCircuits/LPC1768-MultiIOBoard/LPC1768-MultiIOBoard.sch)
-    (date "Fri 16 Sep 2022 01:33:21 PM EDT")
+    (date "Sat 17 Sep 2022 09:54:13 AM EDT")
     (tool "Eeschema 4.0.7+dfsg1-1ubuntu2")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -235,7 +235,7 @@
       (sheetpath (names "/Micro Processor Unit/") (tstamps /6323640E/))
       (tstamp 63245EEC))
     (comp (ref Y201)
-      (value 15Mhz)
+      (value 25Mhz)
       (footprint Crystals:Crystal_SMD_Abracon_ABM8G-4pin_3.2x2.5mm)
       (fields
         (field (name "Mouser Part Number") 815-ABM8G-25-4YT3))
@@ -1229,12 +1229,12 @@
         (pin (num 7) (name CANH) (type BiDi))
         (pin (num 8) (name NC) (type input)))))
   (libraries
+    (library (logical device)
+      (uri /usr/share/kicad/library/device.lib))
     (library (logical switches)
       (uri /usr/share/kicad/library/switches.lib))
     (library (logical conn)
       (uri /usr/share/kicad/library/conn.lib))
-    (library (logical device)
-      (uri /usr/share/kicad/library/device.lib))
     (library (logical LPC1768FBD100K)
       (uri /home/heller/RRCircuits/LPC1768-MultiIOBoard/LPC1768FBD100K.lib))
     (library (logical tbd62x83a)
