@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 12 14:55:18 2022
-//  Last Modified : <220917.1610>
+//  Last Modified : <220921.1657>
 //
 //  Description	
 //
@@ -53,6 +53,7 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "openlcb/ConfigRepresentation.hxx"
 #include "openlcb/MemoryConfig.hxx"
 #include "openlcb/MultiConfiguredConsumer.hxx"
+#include "utils/logging.h"
 #include "MultiConfiguredProducer.hxx" // Not in OpenMRN?
 
 #include "config.hxx"
@@ -157,6 +158,13 @@ TrackCircuit *circuits[TRACKCIRCUITCOUNT];
 int appl_main(int argc, char *argv[])
 {
     bool reset_events = false;
+    LOG(INFO, "[SNIP] version:%d, manufacturer:%s, model:%s, hw-v:%s, sw-v:%s"
+      , openlcb::SNIP_STATIC_DATA.version
+      , openlcb::SNIP_STATIC_DATA.manufacturer_name
+      , openlcb::SNIP_STATIC_DATA.model_name
+      , openlcb::SNIP_STATIC_DATA.hardware_version
+      , openlcb::SNIP_STATIC_DATA.software_version);
+    
     GpioInit::hw_init();
     nvs_init();
     
