@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jul 18 13:22:30 2022
-//  Last Modified : <220823.1155>
+//  Last Modified : <220921.1446>
 //
 //  Description	
 //
@@ -57,9 +57,11 @@ static const char rcsid[] = "@(#) : $Id$";
 #include <freertos_includes.h>
 #include "BootPauseHelper.hxx"
 
+
 void BootPauseHelper::CheckPause()
 {
     bool need_driver_unload = !uart_is_driver_installed(UART_NUM_0);
+    LOG(VERBOSE,"[CheckPause] need_driver_unload = %d",need_driver_unload);
     if (need_driver_unload)
     {
         esp_err_t res = uart_driver_install(UART_NUM_0,RXBufferLength,
@@ -109,7 +111,7 @@ void BootPauseHelper::PauseConsole()
     
     while (true)
     {
-        uart_write_bytes(UART_NUM_0,">>>",3);
+        uart_write_bytes(UART_NUM_0,"\r\n>>>",5);
         size_t len = ReadLine(UART_NUM_0,receivebuffer,sizeof(receivebuffer));
         if (len == 0)
         {
@@ -120,8 +122,9 @@ void BootPauseHelper::PauseConsole()
         case SETNODE:
             {
                 uint64_t nid = ParseNode(&receivebuffer[1],len-1);
+                uart_write_bytes(UART_NUM_0,"\r\n",2);
                 set_node_id(nid);
-                int l = snprintf(transmitBuffer,sizeof(transmitBuffer),"Set Node ID: %0llx\r\n",nid);
+                int l = snprintf(transmitBuffer,sizeof(transmitBuffer),"\r\nSet Node ID: %0llx\r\n",nid);
                 uart_write_bytes(UART_NUM_0,transmitBuffer,l);
                 break;
             }
@@ -180,6 +183,8 @@ size_t BootPauseHelper::ReadLine(uart_port_t uart_num,char *buffer,
     char *p = buffer;
     size_t remainder = bufferlen;
     size_t numread   = 0;
+    const char space[] = "\b \b";
+    const char eol[] = "\r\n";
     
     while (remainder > 0)
     {
@@ -188,12 +193,23 @@ size_t BootPauseHelper::ReadLine(uart_port_t uart_num,char *buffer,
         {
             if (*p == EOL)
             {
+                uart_write_bytes(uart_num,eol,2);
                 numread++;
                 *p = '\0';
                 break;
             }
+            else if (*p == '\b' || *p == 0x7f)
+            {
+                if (p > buffer && remainder < bufferlen)
+                {
+                    p--; remainder++; numread--;
+                    uart_write_bytes(uart_num,space,3);
+                    
+                }
+            }
             else
             {
+                uart_write_bytes(uart_num,p,r);
                 numread++;
                 p++;
                 remainder--;

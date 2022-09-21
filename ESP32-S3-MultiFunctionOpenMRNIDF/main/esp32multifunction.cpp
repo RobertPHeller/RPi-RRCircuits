@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 12:17:40 2022
-//  Last Modified : <220905.1441>
+//  Last Modified : <220921.1605>
 //
 //  Description	
 //
@@ -239,6 +239,7 @@ void bootloader_hw_set_to_safe(void)
 
 void app_main()
 {
+    //bool stackrunning = false;
     // capture the reason for the CPU reset
     uint8_t reset_reason = Esp32SocInfo::print_soc_info();
     // If this is the first power up of the node we need to reset the flag
@@ -273,10 +274,11 @@ void app_main()
     LED_ACT1_Pin::instance()->set();
     LED_ACT2_Pin::instance()->set();
     
+    LOG(INFO, "[BootPauseHelper] starting...");
     BootPauseHelper pause(&config);
     
     pause.CheckPause();
-    
+    LOG(INFO, "[BootPauseHelper] returned...");
     load_config(&config);// Reload config -- CheckPause() might update things.
     
     // Ensure the LEDs are both OFF when we startup.
@@ -320,17 +322,26 @@ void app_main()
     {
         dump_config(&config);
         mount_fs(cleanup_config_tree);
+        LOG(INFO, "[esp32multifunction] about to start the Simple Can Stack");
         openlcb::SimpleCanStack stack(config.node_id);
+        LOG(INFO, "[esp32multifunction] stack started");
         stack.set_tx_activity_led(LED_ACT1_Pin::instance());
+        LOG(INFO, "[esp32multifunction] set activity led");
 #if CONFIG_OLCB_PRINT_ALL_PACKETS
         stack.print_all_packets();
 #endif
         openlcb::MemoryConfigClient memory_client(stack.node(), stack.memory_config_handler());
+        LOG(INFO, "[esp32multifunction] MemoryConfigClient done.");
         esp32multifunction::FactoryResetHelper factory_reset_helper();
+        LOG(INFO, "[esp32multifunction] FactoryResetHelper done.");
         esp32multifunction::EventBroadcastHelper event_helper();
+        LOG(INFO, "[esp32multifunction] EventBroadcastHelper done.");
         esp32multifunction::DelayRebootHelper delayed_reboot(stack.service());
+        LOG(INFO, "[esp32multifunction] DelayRebootHelper done.");
         esp32multifunction::HealthMonitor health_mon(stack.service());
+        LOG(INFO, "[esp32multifunction] HealthMonitor done.");
         BlinkTimer blinker(stack.executor()->active_timers());
+        LOG(INFO, "[esp32multifunction] BlinkTimer done.");
         int i = 0;
         Mast *masts[MASTCOUNT];
         Mast *prevMast = nullptr;
@@ -338,40 +349,43 @@ void app_main()
             masts[i] = new Mast(stack.node(),cfg.seg().masts().entry(i),prevMast);
             prevMast = masts[i];
         }
+        LOG(INFO, "[esp32multifunction] Masts  done.");
         for (i = 0; i < TRACKCIRCUITCOUNT; i++) {
             circuits[i] = new TrackCircuit(stack.node(),cfg.seg().circuits().entry(i));
         }
+        LOG(INFO, "[esp32multifunction] TrackCircuits  done.");
         Logic *prevLogic = nullptr;
         Logic *logics[LOGICCOUNT];
         for (i = LOGICCOUNT-1; i >= 0; i--) {
             logics[i] = new Logic(stack.node(), cfg.seg().logics().entry(i),stack.executor()->active_timers(),prevLogic);
             prevLogic = logics[i];
         }
+        LOG(INFO, "[esp32multifunction] Logics done.");
         Turnout turnout1(stack.node(), cfg.seg().turnouts().entry<0>(),Motor1_Pin());
         Turnout turnout2(stack.node(), cfg.seg().turnouts().entry<1>(),Motor2_Pin());
         Turnout turnout3(stack.node(), cfg.seg().turnouts().entry<2>(),Motor3_Pin());
         Turnout turnout4(stack.node(), cfg.seg().turnouts().entry<3>(),Motor4_Pin());
-        
+        LOG(INFO, "[esp32multifunction] Turnouts done.");
         Points points1(stack.node(), cfg.seg().points().entry<0>(),Points1_Pin());
         Points points2(stack.node(), cfg.seg().points().entry<1>(),Points2_Pin());
         Points points3(stack.node(), cfg.seg().points().entry<2>(),Points3_Pin());
         Points points4(stack.node(), cfg.seg().points().entry<3>(),Points4_Pin());
-        
+        LOG(INFO, "[esp32multifunction] Points done.");
         OccupancyDetector od1(stack.node(), cfg.seg().ocs().entry<0>(),OD1_Pin());
         OccupancyDetector od2(stack.node(), cfg.seg().ocs().entry<1>(),OD2_Pin());
         OccupancyDetector od3(stack.node(), cfg.seg().ocs().entry<2>(),OD3_Pin());
         OccupancyDetector od4(stack.node(), cfg.seg().ocs().entry<3>(),OD4_Pin());
-        
+        LOG(INFO, "[esp32multifunction] OccupancyDetector done."); 
         Button button1(stack.node(), cfg.seg().buttons().entry<0>(),Button1_Pin());
         Button button2(stack.node(), cfg.seg().buttons().entry<1>(),Button2_Pin());
         Button button3(stack.node(), cfg.seg().buttons().entry<2>(),Button3_Pin());
         Button button4(stack.node(), cfg.seg().buttons().entry<3>(),Button4_Pin());
-        
+        LOG(INFO, "[esp32multifunction] Buttons done.");
         LED Led1(stack.node(), cfg.seg().leds().entry<0>(),LED1_Pin());
         LED Led2(stack.node(), cfg.seg().leds().entry<1>(),LED2_Pin());
         LED Led3(stack.node(), cfg.seg().leds().entry<2>(),LED3_Pin());
         LED Led4(stack.node(), cfg.seg().leds().entry<3>(),LED4_Pin());
-        
+        LOG(INFO, "[esp32multifunction] LEDs done.");
         openlcb::RefreshLoop points_refresh_loop(stack.node(),{
                                                  points1.polling()
                                                  , points2.polling()
@@ -386,18 +400,20 @@ void app_main()
                                                  , button3.polling()
                                                  , button4.polling()
                                              });
-        
+        LOG(INFO, "[esp32multifunction] RefreshLoop done.");
         pwmchip.hw_init(PCA9685_SLAVE_ADDRESS);
+        LOG(INFO, "[esp32multifunction] pwmchip inited.");
         Lamp::PinLookupInit(0,nullptr);
         for (i = 0; i < openmrn_arduino::Esp32PCA9685PWM::NUM_CHANNELS; i++)
         {
             Lamp::PinLookupInit(i+1,pwmchip.get_channel(i));
         }
-        
+        LOG(INFO, "[esp32multifunction] Lamps done.");
         // Create / update CDI, if the CDI is out of date a factory reset will be
         // forced.
         bool reset_cdi = CDIXMLGenerator::create_config_descriptor_xml(
-                          cfg, openlcb::CDI_FILENAME, &stack);
+                                                                       cfg, openlcb::CDI_FILENAME, &stack);
+        LOG(INFO, "[esp32multifunction] CDIXMLGenerator done.");
         if (reset_cdi)
         {
             LOG(WARNING, "[CDI] Forcing factory reset due to CDI update");
@@ -435,11 +451,14 @@ void app_main()
         
         // Start the stack in the background using it's own task.
         stack.loop_executor();
+        //stackrunning = true;
     }
-    
     // At this point the OpenMRN stack is running in it's own task and we can
     // safely exit from this one. We do not need to cleanup as that will be
     // handled automatically by ESP-IDF.
+    //if (!stackrunning) {
+    //    reboot();
+    //}
 }
 
 
