@@ -59,6 +59,8 @@ S 600  1800 2300 1950
 U 632C7FE7
 F0 "CAN Transciver" 60
 F1 "CanTransciver.sch" 60
+F2 "CAN_TX" I R 2900 2200 60 
+F3 "CAN_RX" O R 2900 2400 60 
 $EndSheet
 $Sheet
 S 600  4200 2325 1825
