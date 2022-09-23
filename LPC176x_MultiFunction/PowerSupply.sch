@@ -33,12 +33,15 @@ LIBS:contrib
 LIBS:valves
 LIBS:sn65hvd233-ht
 LIBS:lm2574n-5
-LIBS:CommonMCULCCBoard-cache
+LIBS:LPC1768FBD100K
+LIBS:4814p-2
+LIBS:tc442x
+LIBS:LPC176x_MultiFunction-cache
 EELAYER 25 0
 EELAYER END
 $Descr USLetter 11000 8500
 encoding utf-8
-Sheet 4 4
+Sheet 4 8
 Title "ESP32 S3 Multifunction Board"
 Date ""
 Rev "1.0"
@@ -140,6 +143,39 @@ F 3 "" H 3700 2450 50  0001 C CNN
 	1    3700 2450
 	1    0    0    -1  
 $EndComp
+$Comp
+L R R?
+U 1 1 632DDA77
+P 4025 2375
+F 0 "R?" V 4105 2375 50  0000 C CNN
+F 1 "330" V 4025 2375 50  0000 C CNN
+F 2 "Resistors_SMD:R_0402" V 3955 2375 50  0001 C CNN
+F 3 "" H 4025 2375 50  0001 C CNN
+	1    4025 2375
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED D?
+U 1 1 632DDB42
+P 4025 1975
+F 0 "D?" H 4025 2075 50  0000 C CNN
+F 1 "Power" H 4025 1875 50  0000 C CNN
+F 2 "LEDs:LED_0402" H 4025 1975 50  0001 C CNN
+F 3 "" H 4025 1975 50  0001 C CNN
+	1    4025 1975
+	0    1    1    0   
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 632DDB67
+P 4025 1700
+F 0 "#PWR?" H 4025 1450 50  0001 C CNN
+F 1 "GND" H 4025 1550 50  0000 C CNN
+F 2 "" H 4025 1700 50  0001 C CNN
+F 3 "" H 4025 1700 50  0001 C CNN
+	1    4025 1700
+	-1   0    0    1   
+$EndComp
 Wire Wire Line
 	5500 2700 5950 2700
 Wire Wire Line
@@ -177,4 +213,11 @@ Wire Wire Line
 	5950 2500 5950 2750
 Wire Wire Line
 	5950 2500 6250 2500
+Wire Wire Line
+	4025 2525 4025 2600
+Connection ~ 4025 2600
+Wire Wire Line
+	4025 2125 4025 2225
+Wire Wire Line
+	4025 1700 4025 1825
 $EndSCHEMATC

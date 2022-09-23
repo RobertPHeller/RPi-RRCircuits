@@ -1,4 +1,4 @@
-update=Thu 22 Sep 2022 11:57:17 AM EDT
+update=Fri 23 Sep 2022 10:04:53 AM EDT
 version=1
 last_client=kicad
 [pcbnew]
@@ -23,6 +23,8 @@ ModuleOutlineThickness=0.150000000000
 [cvpcb]
 version=1
 NetIExt=net
+[general]
+version=1
 [eeschema]
 version=1
 LibDir=
@@ -61,5 +63,6 @@ LibName31=contrib
 LibName32=valves
 LibName33=/home/heller/RRCircuits/sn65hvd233-ht
 LibName34=/home/heller/RRCircuits/lm2574n-5
-[general]
-version=1
+LibName35=/home/heller/RRCircuits/LPC1768-MultiIOBoard/LPC1768FBD100K
+LibName36=/home/heller/RRCircuits/4814p-2
+LibName37=/home/heller/RRCircuits/tc442x

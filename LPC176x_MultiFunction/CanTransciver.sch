@@ -33,12 +33,15 @@ LIBS:contrib
 LIBS:valves
 LIBS:sn65hvd233-ht
 LIBS:lm2574n-5
-LIBS:CommonMCULCCBoard-cache
+LIBS:LPC1768FBD100K
+LIBS:4814p-2
+LIBS:tc442x
+LIBS:LPC176x_MultiFunction-cache
 EELAYER 25 0
 EELAYER END
 $Descr USLetter 11000 8500
 encoding utf-8
-Sheet 3 4
+Sheet 3 8
 Title "ESP32 S3 Multifunction Board"
 Date ""
 Rev "1.0"
