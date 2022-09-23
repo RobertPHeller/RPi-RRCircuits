@@ -41,7 +41,7 @@ EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 8
+Sheet 2 9
 Title ""
 Date ""
 Rev ""
@@ -881,4 +881,24 @@ Text HLabel 4550 925  1    60   Output ~ 0
 LED7
 Text HLabel 4450 925  1    60   Output ~ 0
 LED8
+Text HLabel 4350 925  1    60   Output ~ 0
+Button1
+Text HLabel 4250 925  1    60   Output ~ 0
+Button2
+Text HLabel 4150 925  1    60   Output ~ 0
+Button3
+Text HLabel 4050 925  1    60   Output ~ 0
+Button4
+Text HLabel 3950 925  1    60   Output ~ 0
+Button5
+Text HLabel 3850 925  1    60   Output ~ 0
+Button6
+Text HLabel 3750 925  1    60   Output ~ 0
+Button7
+Text HLabel 3450 925  1    60   Output ~ 0
+Button8
+Text HLabel 5450 7325 3    60   BiDi ~ 0
+SDA
+Text HLabel 5550 7325 3    60   Output ~ 0
+SCL
 $EndSCHEMATC
