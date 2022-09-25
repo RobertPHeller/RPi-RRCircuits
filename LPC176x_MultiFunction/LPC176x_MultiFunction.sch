@@ -33,12 +33,18 @@ LIBS:contrib
 LIBS:valves
 LIBS:sn65hvd233-ht
 LIBS:lm2574n-5
-LIBS:CommonMCULCCBoard-cache
+LIBS:LPC1768FBD100K
+LIBS:4814p-2
+LIBS:tc442x
+LIBS:pca9685
+LIBS:tbd62x83a
+LIBS:mechanical
+LIBS:LPC176x_MultiFunction-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 4
+Sheet 1 11
 Title ""
 Date ""
 Rev ""
@@ -49,10 +55,54 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Sheet
-S 3375 1525 3350 4925
+S 3150 675  3725 5750
 U 632C7FD0
 F0 "MCU" 60
 F1 "MCU.sch" 60
+F2 "CAN_RX" I L 3150 2400 60 
+F3 "CAN_TX" O L 3150 2200 60 
+F4 "Points1" I R 6875 750 60 
+F5 "Points2" I R 6875 825 60 
+F6 "Points3" I R 6875 900 60 
+F7 "Points4" I R 6875 975 60 
+F8 "Motor1" O R 6875 1050 60 
+F9 "Motor2" O R 6875 1125 60 
+F10 "Motor3" O R 6875 1200 60 
+F11 "Motor4" O R 6875 1275 60 
+F12 "Points5" I R 6875 1525 60 
+F13 "Points6" I R 6875 1600 60 
+F14 "Points7" I R 6875 1675 60 
+F15 "Points8" I R 6875 1750 60 
+F16 "Motor5" O R 6875 1825 60 
+F17 "Motor6" O R 6875 1900 60 
+F18 "Motor7" O R 6875 1975 60 
+F19 "Motor8" O R 6875 2050 60 
+F20 "OD1" I R 6875 2350 60 
+F21 "OD2" I R 6875 2425 60 
+F22 "OD3" I R 6875 2500 60 
+F23 "OD4" I R 6875 2575 60 
+F24 "OD5" I R 6875 2650 60 
+F25 "OD6" I R 6875 2725 60 
+F26 "OD7" I R 6875 2800 60 
+F27 "OD8" I R 6875 2875 60 
+F28 "LED1" O R 6875 3150 60 
+F29 "LED2" O R 6875 3225 60 
+F30 "LED3" O R 6875 3300 60 
+F31 "LED4" O R 6875 3375 60 
+F32 "LED5" O R 6875 3450 60 
+F33 "LED6" O R 6875 3525 60 
+F34 "LED7" O R 6875 3600 60 
+F35 "LED8" O R 6875 3675 60 
+F36 "Button1" O R 6875 4100 60 
+F37 "Button2" O R 6875 4175 60 
+F38 "Button3" O R 6875 4250 60 
+F39 "Button4" O R 6875 4325 60 
+F40 "Button5" O R 6875 4400 60 
+F41 "Button6" O R 6875 4475 60 
+F42 "Button7" O R 6875 4550 60 
+F43 "Button8" O R 6875 4625 60 
+F44 "SDA" B R 6875 5500 60 
+F45 "SCL" O R 6875 5625 60 
 $EndSheet
 $Sheet
 S 600  1800 2300 1950
@@ -68,4 +118,319 @@ U 632C8003
 F0 "Power Supply" 60
 F1 "PowerSupply.sch" 60
 $EndSheet
+Wire Wire Line
+	2900 2200 3150 2200
+Wire Wire Line
+	2900 2400 3150 2400
+$Sheet
+S 7175 700  1050 625 
+U 632DE0A7
+F0 "Stall Motors 1" 60
+F1 "StallMotors1.sch" 60
+F2 "Points1" O L 7175 750 60 
+F3 "Points2" O L 7175 825 60 
+F4 "Points3" O L 7175 900 60 
+F5 "Points4" O L 7175 975 60 
+F6 "Motor1" I L 7175 1050 60 
+F7 "Motor2" I L 7175 1125 60 
+F8 "Motor3" I L 7175 1200 60 
+F9 "Motor4" I L 7175 1275 60 
+$EndSheet
+$Sheet
+S 7175 1475 1075 650 
+U 632E1D57
+F0 "Stall Motors 2" 60
+F1 "StallMotors2.sch" 60
+F2 "Points5" O L 7175 1525 60 
+F3 "Points6" O L 7175 1600 60 
+F4 "Points7" O L 7175 1675 60 
+F5 "Points8" O L 7175 1750 60 
+F6 "Motor5" I L 7175 1825 60 
+F7 "Motor6" I L 7175 1900 60 
+F8 "Motor7" I L 7175 1975 60 
+F9 "Motor8" I L 7175 2050 60 
+$EndSheet
+Wire Wire Line
+	7175 750  6875 750 
+Wire Wire Line
+	6875 825  7175 825 
+Wire Wire Line
+	7175 900  6875 900 
+Wire Wire Line
+	7175 975  6875 975 
+Wire Wire Line
+	7175 1050 6875 1050
+Wire Wire Line
+	7175 1125 6875 1125
+Wire Wire Line
+	7175 1200 6875 1200
+Wire Wire Line
+	7175 1275 6875 1275
+Wire Wire Line
+	7175 1525 6875 1525
+Wire Wire Line
+	7175 1600 6875 1600
+Wire Wire Line
+	7175 1675 6875 1675
+Wire Wire Line
+	7175 1750 6875 1750
+Wire Wire Line
+	7175 1825 6875 1825
+Wire Wire Line
+	7175 1900 6875 1900
+Wire Wire Line
+	7175 1975 6875 1975
+Wire Wire Line
+	7175 2050 6875 2050
+$Sheet
+S 7175 2300 1000 675 
+U 632EB7E2
+F0 "Occupancy Detectors" 60
+F1 "OccupancyDetectors.sch" 60
+F2 "OD1" O L 7175 2350 60 
+F3 "OD2" O L 7175 2425 60 
+F4 "OD3" O L 7175 2500 60 
+F5 "OD4" O L 7175 2575 60 
+F6 "OD5" O L 7175 2650 60 
+F7 "OD6" O L 7175 2725 60 
+F8 "OD7" O L 7175 2800 60 
+F9 "OD8" O L 7175 2875 60 
+$EndSheet
+Wire Wire Line
+	7175 2350 6875 2350
+Wire Wire Line
+	7175 2425 6875 2425
+Wire Wire Line
+	7175 2500 6875 2500
+Wire Wire Line
+	7175 2575 6875 2575
+Wire Wire Line
+	7175 2650 6875 2650
+Wire Wire Line
+	7175 2725 6875 2725
+Wire Wire Line
+	7175 2800 6875 2800
+Wire Wire Line
+	7175 2875 6875 2875
+$Sheet
+S 7175 3100 1050 725 
+U 632FB474
+F0 "LED / Drivers" 60
+F1 "LEDDrivers.sch" 60
+F2 "LED1" I L 7175 3150 60 
+F3 "LED2" I L 7175 3225 60 
+F4 "LED3" I L 7175 3300 60 
+F5 "LED4" I L 7175 3375 60 
+F6 "LED5" I L 7175 3450 60 
+F7 "LED6" I L 7175 3525 60 
+F8 "LED7" I L 7175 3600 60 
+F9 "LED8" I L 7175 3675 60 
+$EndSheet
+Wire Wire Line
+	7175 3675 6875 3675
+Wire Wire Line
+	6875 3600 7175 3600
+Wire Wire Line
+	7175 3525 6875 3525
+Wire Wire Line
+	6875 3450 7175 3450
+Wire Wire Line
+	6875 3375 7175 3375
+Wire Wire Line
+	6875 3300 7175 3300
+Wire Wire Line
+	6875 3225 7175 3225
+Wire Wire Line
+	6875 3150 7175 3150
+$Sheet
+S 7200 4050 1100 700 
+U 6331EF7A
+F0 "Buttons" 60
+F1 "Buttons.sch" 60
+F2 "Button1" O L 7200 4100 60 
+F3 "Button2" O L 7200 4175 60 
+F4 "Button3" O L 7200 4250 60 
+F5 "Button4" O L 7200 4325 60 
+F6 "Button5" O L 7200 4400 60 
+F7 "Button6" O L 7200 4475 60 
+F8 "Button7" O L 7200 4550 60 
+F9 "Button8" O L 7200 4625 60 
+$EndSheet
+$Comp
+L R R101
+U 1 1 633370EB
+P 6975 5350
+F 0 "R101" V 7055 5350 50  0000 C CNN
+F 1 "2.4K" V 6975 5350 50  0000 C CNN
+F 2 "Resistors_SMD:R_0402" V 6905 5350 50  0001 C CNN
+F 3 "" H 6975 5350 50  0001 C CNN
+	1    6975 5350
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R102
+U 1 1 63337838
+P 6975 5775
+F 0 "R102" V 7055 5775 50  0000 C CNN
+F 1 "2.4K" V 6975 5775 50  0000 C CNN
+F 2 "Resistors_SMD:R_0402" V 6905 5775 50  0001 C CNN
+F 3 "" H 6975 5775 50  0001 C CNN
+	1    6975 5775
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6875 5625 7125 5625
+Wire Wire Line
+	6875 5500 7075 5500
+$Comp
+L +3V3 #PWR01
+U 1 1 63338F63
+P 6975 6000
+F 0 "#PWR01" H 6975 5850 50  0001 C CNN
+F 1 "+3V3" H 6975 6140 50  0000 C CNN
+F 2 "" H 6975 6000 50  0001 C CNN
+F 3 "" H 6975 6000 50  0001 C CNN
+	1    6975 6000
+	-1   0    0    1   
+$EndComp
+$Comp
+L +3V3 #PWR02
+U 1 1 63339EB3
+P 6975 5100
+F 0 "#PWR02" H 6975 4950 50  0001 C CNN
+F 1 "+3V3" H 6975 5240 50  0000 C CNN
+F 2 "" H 6975 5100 50  0001 C CNN
+F 3 "" H 6975 5100 50  0001 C CNN
+	1    6975 5100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6975 5100 6975 5200
+Wire Wire Line
+	6975 5925 6975 6000
+Wire Wire Line
+	6875 4100 7200 4100
+Wire Wire Line
+	7200 4175 6875 4175
+Wire Wire Line
+	7200 4250 6875 4250
+Wire Wire Line
+	7200 4325 6875 4325
+Wire Wire Line
+	7200 4400 6875 4400
+Wire Wire Line
+	7200 4475 6875 4475
+Wire Wire Line
+	6875 4550 7200 4550
+Wire Wire Line
+	7200 4625 6875 4625
+$Sheet
+S 7200 4950 1325 600 
+U 632F0993
+F0 "Signal Drivers 1" 60
+F1 "SignalDrivers1.sch" 60
+F2 "SCL" I L 7200 5500 60 
+F3 "SDA" B L 7200 5425 60 
+$EndSheet
+$Sheet
+S 7175 5775 1475 600 
+U 632F0A9A
+F0 "Signal Drivers 2" 60
+F1 "SignalDrivers2.sch" 60
+F2 "SCL" I L 7175 5925 60 
+F3 "SDA" B L 7175 5850 60 
+$EndSheet
+Wire Wire Line
+	7200 5425 7075 5425
+Wire Wire Line
+	7075 5425 7075 5850
+Connection ~ 6975 5500
+Wire Wire Line
+	7075 5850 7175 5850
+Connection ~ 7075 5500
+Wire Wire Line
+	7125 5500 7200 5500
+Wire Wire Line
+	7125 5500 7125 5925
+Connection ~ 6975 5625
+Wire Wire Line
+	7125 5925 7175 5925
+Connection ~ 7125 5625
+$Comp
+L Mounting_Hole MK101
+U 1 1 633010C0
+P 1725 6700
+F 0 "MK101" H 1725 6900 50  0000 C CNN
+F 1 "Mounting_Hole" H 1725 6825 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3" H 1725 6700 50  0001 C CNN
+F 3 "" H 1725 6700 50  0001 C CNN
+	1    1725 6700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole MK102
+U 1 1 633012F8
+P 2100 6775
+F 0 "MK102" H 2100 6975 50  0000 C CNN
+F 1 "Mounting_Hole" H 2100 6900 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3" H 2100 6775 50  0001 C CNN
+F 3 "" H 2100 6775 50  0001 C CNN
+	1    2100 6775
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole MK103
+U 1 1 63301544
+P 2375 6775
+F 0 "MK103" H 2375 6975 50  0000 C CNN
+F 1 "Mounting_Hole" H 2375 6900 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3" H 2375 6775 50  0001 C CNN
+F 3 "" H 2375 6775 50  0001 C CNN
+	1    2375 6775
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole MK104
+U 1 1 6330178B
+P 2750 6800
+F 0 "MK104" H 2750 7000 50  0000 C CNN
+F 1 "Mounting_Hole" H 2750 6925 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3" H 2750 6800 50  0001 C CNN
+F 3 "" H 2750 6800 50  0001 C CNN
+	1    2750 6800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole FD101
+U 1 1 633019DF
+P 3200 6825
+F 0 "FD101" H 3200 7025 50  0000 C CNN
+F 1 "Fudicial" H 3200 6950 50  0000 C CNN
+F 2 "Fiducials:Fiducial_classic_Small_SilkscreenTop_Type1" H 3200 6825 50  0001 C CNN
+F 3 "" H 3200 6825 50  0001 C CNN
+	1    3200 6825
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole FD102
+U 1 1 63301F8C
+P 3525 6900
+F 0 "FD102" H 3525 7100 50  0000 C CNN
+F 1 "Fudicial" H 3525 7025 50  0000 C CNN
+F 2 "Fiducials:Fiducial_classic_Small_SilkscreenTop_Type1" H 3525 6900 50  0001 C CNN
+F 3 "" H 3525 6900 50  0001 C CNN
+	1    3525 6900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole FD103
+U 1 1 633021E0
+P 3950 6975
+F 0 "FD103" H 3950 7175 50  0000 C CNN
+F 1 "Fudicial" H 3950 7100 50  0000 C CNN
+F 2 "Fiducials:Fiducial_classic_Small_SilkscreenTop_Type1" H 3950 6975 50  0001 C CNN
+F 3 "" H 3950 6975 50  0001 C CNN
+	1    3950 6975
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
