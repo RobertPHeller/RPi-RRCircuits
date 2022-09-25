@@ -7,4 +7,5 @@
   (lib (name PolarizedCaps)(type KiCad)(uri /home/heller/RRCircuits/PolarizedCaps.pretty)(options "")(descr ""))
   (lib (name 48xxP)(type Legacy)(uri /home/heller/RRCircuits/48xxP.mod)(options "")(descr ""))
   (lib (name ERNI)(type KiCad)(uri /home/heller/RRCircuits/ERNI.pretty)(options "")(descr ""))
+  (lib (name PowerLabels)(type KiCad)(uri /home/heller/RRCircuits/PowerLabels.pretty)(options "")(descr ""))
 )
