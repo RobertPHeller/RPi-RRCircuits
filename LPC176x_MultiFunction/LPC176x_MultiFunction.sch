@@ -36,12 +36,15 @@ LIBS:lm2574n-5
 LIBS:LPC1768FBD100K
 LIBS:4814p-2
 LIBS:tc442x
+LIBS:pca9685
+LIBS:tbd62x83a
+LIBS:mechanical
 LIBS:LPC176x_MultiFunction-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 9
+Sheet 1 11
 Title ""
 Date ""
 Rev ""
@@ -254,10 +257,10 @@ F8 "Button7" O L 7200 4550 60
 F9 "Button8" O L 7200 4625 60 
 $EndSheet
 $Comp
-L R R?
+L R R101
 U 1 1 633370EB
 P 6975 5350
-F 0 "R?" V 7055 5350 50  0000 C CNN
+F 0 "R101" V 7055 5350 50  0000 C CNN
 F 1 "2.4K" V 6975 5350 50  0000 C CNN
 F 2 "Resistors_SMD:R_0402" V 6905 5350 50  0001 C CNN
 F 3 "" H 6975 5350 50  0001 C CNN
@@ -265,10 +268,10 @@ F 3 "" H 6975 5350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R?
+L R R102
 U 1 1 63337838
 P 6975 5775
-F 0 "R?" V 7055 5775 50  0000 C CNN
+F 0 "R102" V 7055 5775 50  0000 C CNN
 F 1 "2.4K" V 6975 5775 50  0000 C CNN
 F 2 "Resistors_SMD:R_0402" V 6905 5775 50  0001 C CNN
 F 3 "" H 6975 5775 50  0001 C CNN
@@ -276,14 +279,14 @@ F 3 "" H 6975 5775 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6975 5625 6875 5625
+	6875 5625 7125 5625
 Wire Wire Line
-	6975 5500 6875 5500
+	6875 5500 7075 5500
 $Comp
-L +3V3 #PWR?
+L +3V3 #PWR01
 U 1 1 63338F63
 P 6975 6000
-F 0 "#PWR?" H 6975 5850 50  0001 C CNN
+F 0 "#PWR01" H 6975 5850 50  0001 C CNN
 F 1 "+3V3" H 6975 6140 50  0000 C CNN
 F 2 "" H 6975 6000 50  0001 C CNN
 F 3 "" H 6975 6000 50  0001 C CNN
@@ -291,10 +294,10 @@ F 3 "" H 6975 6000 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L +3V3 #PWR?
+L +3V3 #PWR02
 U 1 1 63339EB3
 P 6975 5100
-F 0 "#PWR?" H 6975 4950 50  0001 C CNN
+F 0 "#PWR02" H 6975 4950 50  0001 C CNN
 F 1 "+3V3" H 6975 5240 50  0000 C CNN
 F 2 "" H 6975 5100 50  0001 C CNN
 F 3 "" H 6975 5100 50  0001 C CNN
@@ -321,4 +324,113 @@ Wire Wire Line
 	6875 4550 7200 4550
 Wire Wire Line
 	7200 4625 6875 4625
+$Sheet
+S 7200 4950 1325 600 
+U 632F0993
+F0 "Signal Drivers 1" 60
+F1 "SignalDrivers1.sch" 60
+F2 "SCL" I L 7200 5500 60 
+F3 "SDA" B L 7200 5425 60 
+$EndSheet
+$Sheet
+S 7175 5775 1475 600 
+U 632F0A9A
+F0 "Signal Drivers 2" 60
+F1 "SignalDrivers2.sch" 60
+F2 "SCL" I L 7175 5925 60 
+F3 "SDA" B L 7175 5850 60 
+$EndSheet
+Wire Wire Line
+	7200 5425 7075 5425
+Wire Wire Line
+	7075 5425 7075 5850
+Connection ~ 6975 5500
+Wire Wire Line
+	7075 5850 7175 5850
+Connection ~ 7075 5500
+Wire Wire Line
+	7125 5500 7200 5500
+Wire Wire Line
+	7125 5500 7125 5925
+Connection ~ 6975 5625
+Wire Wire Line
+	7125 5925 7175 5925
+Connection ~ 7125 5625
+$Comp
+L Mounting_Hole MK101
+U 1 1 633010C0
+P 1725 6700
+F 0 "MK101" H 1725 6900 50  0000 C CNN
+F 1 "Mounting_Hole" H 1725 6825 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3" H 1725 6700 50  0001 C CNN
+F 3 "" H 1725 6700 50  0001 C CNN
+	1    1725 6700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole MK102
+U 1 1 633012F8
+P 2100 6775
+F 0 "MK102" H 2100 6975 50  0000 C CNN
+F 1 "Mounting_Hole" H 2100 6900 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3" H 2100 6775 50  0001 C CNN
+F 3 "" H 2100 6775 50  0001 C CNN
+	1    2100 6775
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole MK103
+U 1 1 63301544
+P 2375 6775
+F 0 "MK103" H 2375 6975 50  0000 C CNN
+F 1 "Mounting_Hole" H 2375 6900 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3" H 2375 6775 50  0001 C CNN
+F 3 "" H 2375 6775 50  0001 C CNN
+	1    2375 6775
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole MK104
+U 1 1 6330178B
+P 2750 6800
+F 0 "MK104" H 2750 7000 50  0000 C CNN
+F 1 "Mounting_Hole" H 2750 6925 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3" H 2750 6800 50  0001 C CNN
+F 3 "" H 2750 6800 50  0001 C CNN
+	1    2750 6800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole FD101
+U 1 1 633019DF
+P 3200 6825
+F 0 "FD101" H 3200 7025 50  0000 C CNN
+F 1 "Fudicial" H 3200 6950 50  0000 C CNN
+F 2 "Fiducials:Fiducial_classic_Small_SilkscreenTop_Type1" H 3200 6825 50  0001 C CNN
+F 3 "" H 3200 6825 50  0001 C CNN
+	1    3200 6825
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole FD102
+U 1 1 63301F8C
+P 3525 6900
+F 0 "FD102" H 3525 7100 50  0000 C CNN
+F 1 "Fudicial" H 3525 7025 50  0000 C CNN
+F 2 "Fiducials:Fiducial_classic_Small_SilkscreenTop_Type1" H 3525 6900 50  0001 C CNN
+F 3 "" H 3525 6900 50  0001 C CNN
+	1    3525 6900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole FD103
+U 1 1 633021E0
+P 3950 6975
+F 0 "FD103" H 3950 7175 50  0000 C CNN
+F 1 "Fudicial" H 3950 7100 50  0000 C CNN
+F 2 "Fiducials:Fiducial_classic_Small_SilkscreenTop_Type1" H 3950 6975 50  0001 C CNN
+F 3 "" H 3950 6975 50  0001 C CNN
+	1    3950 6975
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

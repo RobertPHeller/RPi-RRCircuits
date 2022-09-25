@@ -1,4 +1,4 @@
-update=Fri 23 Sep 2022 10:04:53 AM EDT
+update=Sat 24 Sep 2022 08:44:31 AM EDT
 version=1
 last_client=kicad
 [pcbnew]
@@ -66,3 +66,6 @@ LibName34=/home/heller/RRCircuits/lm2574n-5
 LibName35=/home/heller/RRCircuits/LPC1768-MultiIOBoard/LPC1768FBD100K
 LibName36=/home/heller/RRCircuits/4814p-2
 LibName37=/home/heller/RRCircuits/tc442x
+LibName38=/home/heller/RRCircuits/16PWMLedDriverHat/pca9685
+LibName39=/home/heller/RRCircuits/tbd62x83a
+LibName40=mechanical
