@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 28 13:33:31 2019
-//  Last Modified : <210527.0746>
+//  Last Modified : <220925.2047>
 //
 //  Description	
 //
@@ -53,24 +53,24 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "utils/logging.h"
 #include "utils/Singleton.hxx"
 #include <dcc/ProgrammingTrackBackend.hxx>
+#include "ADCWrapper.hxx"
 
-#include "AnalogReadSysFS.h"
 #include "HBridgeControl.hxx"
-#include "Hardware.hxx"
+#include "hardware.hxx"
 
 #include <vector>
 #include <numeric>
 
 HBridgeControl::HBridgeControl(openlcb::Node *node, 
                                const HBridgeControlConfig &cfg, 
-                               uint8_t currentAIN, 
+                               const ADC *currentADC, 
                                const uint32_t limitMilliAmps,
                                const uint32_t maxMilliAmps,
                                const Gpio *enableGpio, 
                                const Gpio *thermFlagGpio)
       : node_(node)
 , cfg_(cfg)
-, currentAIN_(currentAIN)
+, currentADC_(currentADC)
 , enableGpio_(enableGpio)
 , thermFlagGpio_(thermFlagGpio)
 , maxMilliAmps_(maxMilliAmps)
@@ -90,13 +90,13 @@ HBridgeControl::HBridgeControl(openlcb::Node *node,
 
 HBridgeControl::HBridgeControl(openlcb::Node *node, 
                                const HBridgeControlConfig &cfg, 
-                               uint8_t currentAIN, 
+                               const ADC *currentADC, 
                                const uint32_t maxMilliAmps,
                                const Gpio *enableGpio, 
                                const Gpio *thermFlagGpio)
       : node_(node)
 , cfg_(cfg)
-, currentAIN_(currentAIN)
+, currentADC_(currentADC)
 , enableGpio_(enableGpio)
 , thermFlagGpio_(thermFlagGpio)
 , maxMilliAmps_(maxMilliAmps)
@@ -125,7 +125,7 @@ void HBridgeControl::poll_33hz(openlcb::WriteHelper *helper, Notifiable *done)
     
     while (samples.size() < adcSampleCount_)
     {
-        samples.push_back(sysfs_adc_getvalue(currentAIN_));
+        samples.push_back(currentADC_->sample());
         usleep(1);
     }
     

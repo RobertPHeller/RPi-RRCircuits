@@ -24,53 +24,22 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * \file NodeRebootHelper.hxx
+ * \file fs.hxx
  *
- * Helper for triggering a remote reboot of the ESP32 IO Board.
+ * Filesystem management for the ESP32 IO Board.
  *
  * @author Mike Dunston
  * @date 4 July 2020
  */
 
-#include <utils/Singleton.hxx>
-#include <openlcb/SimpleStack.hxx>
+#ifndef FS_HXX_
+#define FS_HXX_
 
-namespace Esp32C3Booster
-{
+/// Mounts the persistent filesystem.
+/// @param cleanup will remove all files from the filesystem during startup.
+void mount_fs(bool cleanup = false);
 
-/// Utility class for rebooting the node safely.
-class NodeRebootHelper : public Singleton<NodeRebootHelper>
-{
-public:
-    /// Constructor.
-    NodeRebootHelper(openlcb::SimpleCanStack *stack, int fd)
-          : stack_(stack), fd_(fd)
-    {
-    }
+/// Unmounts the persistent filesystem.
+void unmount_fs();
 
-    /// Initiates an orderly shutdown of all components before restarting the
-    /// ESP32.
-    void reboot()
-    {
-        // make sure we are not called from the executor thread otherwise there
-        // will be a deadlock
-        HASSERT(os_thread_self() != stack_->executor()->thread_handle());
-        LOG(INFO, "[Reboot] Shutting down LCC executor...");
-        stack_->executor()->sync_run([&]()
-        {
-            close(fd_);
-            unmount_fs();
-            // restart the node
-            LOG(INFO, "[Reboot] Restarting!");
-            esp_restart();
-        });
-    }
-private:
-    /// @ref SimpleCanStack to be shutdown.
-    openlcb::SimpleCanStack *stack_;
-
-    /// Configuration file descriptor to be closed prior to shutdown.
-    int fd_;
-};
-
-} // namespace esp32s2io
+#endif

@@ -7,8 +7,8 @@
 //  Date          : $Date$
 //  Author        : $Author$
 //  Created By    : Robert Heller
-//  Created       : Mon Jul 18 13:17:23 2022
-//  Last Modified : <220925.2054>
+//  Created       : Sun Sep 25 19:45:35 2022
+//  Last Modified : <220925.2058>
 //
 //  Description	
 //
@@ -40,49 +40,48 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef __BOOTPAUSEHELPER_HXX
-#define __BOOTPAUSEHELPER_HXX
+#ifndef __ADCWRAPPER_HXX
+#define __ADCWRAPPER_HXX
 
-#include <algorithm>
-#include <driver/i2c.h>
-#include <driver/uart.h>
-#include <esp_err.h>
-#include <esp_log.h>
-#include <esp_ota_ops.h>
-#include <esp_system.h>
-#include <esp_task_wdt.h>
-#include <esp32c3/rom/rtc.h>
-#include "nvs_config.hxx"
-#include "hardware.hxx"
-#include <freertos_includes.h>
+#include <freertos_drivers/arduino/DummyGPIO.hxx>
+#include <freertos_drivers/esp32/Esp32Gpio.hxx>
 
-class BootPauseHelper {
+class ADC
+{
 public:
-    enum {
-        PauseLoopCount = 100,
-        PauseLoopDelay_us = 100*1000,
-        RXBufferLength = 256,
-        TXBufferLength = 256,
-        EOL = '\r',
-        SETNODE = 'N',
-        BOOTLOADER = 'B',
-        EVENTRESET = 'E',
-        FACTORYRESET = 'F',
-        RESUME = 'R'
-    };
-    BootPauseHelper(node_config_t *config) : config_(config)
+    /** Constructor. It is important that this is constexpr so that the Gpio
+     * object instances can be initialized by the data segment and be avalable
+     * before constructor calls. */
+    constexpr ADC()
     {
     }
     
-    void CheckPause();
-private:
-    void PauseConsole();
-    uint64_t ParseNode(char *buffer,size_t bufferlen);
-    size_t ReadLine(uart_port_t uart_num,char *buffer, size_t bufferlen);
-    node_config_t *config_;
+    virtual int sample() const = 0;
 };
     
 
+template <class ADCPIN> class ADCWrapper : public ADC
+{
+public:
+    /// This constructor is constexpr which ensures that the object can be
+    /// initialized in the data section.
+    constexpr ADCWrapper()
+    {
+    }
+    virtual int sample() const
+    {
+        return ADCPIN::sample();
+    }
+    /// @return the static ADC object instance controlling this pin.
+    static constexpr const ADC *instance()
+    {
+        return &instance_;
+    }
+    static const ADCWrapper instance_;
+};
 
-#endif // __BOOTPAUSEHELPER_HXX
+/// Defines the linker symbol for the wrapped Gpio instance.
+template <class ADCPIN> const ADCWrapper<ADCPIN> ADCWrapper<ADCPIN>::instance_;
+
+#endif // __ADCWRAPPER_HXX
 

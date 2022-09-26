@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 28 13:33:15 2019
-//  Last Modified : <210502.1351>
+//  Last Modified : <220925.2049>
 //
 //  Description	
 //
@@ -55,8 +55,9 @@
 #include <os/OS.hxx>
 #include <utils/ConfigUpdateListener.hxx>
 #include <utils/Debouncer.hxx>
+#include "ADCWrapper.hxx"
 
-#define BIT(n) (1 << n)
+#define BIT_(n) (1 << n)
 
 /// CDI Configuration for a @ref HBridgeControl.
 CDI_GROUP(HBridgeControlConfig);
@@ -93,23 +94,23 @@ class HBridgeControl : public ConfigUpdateListener, public openlcb::Polling {
 public:
     HBridgeControl(openlcb::Node *node, 
                    const HBridgeControlConfig &cfg, 
-                   uint8_t currentAIN, 
+                   const ADC *currentADC, 
                    const uint32_t limitMilliAmps,
                    const uint32_t maxMilliAmps,
                    const Gpio *enableGpio, 
                    const Gpio *thermFlagGpio = NULL);
     HBridgeControl(openlcb::Node *node, 
                    const HBridgeControlConfig &cfg, 
-                   uint8_t currentAIN, 
+                   const ADC *currentADC, 
                    const uint32_t maxMilliAmps,
                    const Gpio *enableGpio, 
                    const Gpio *thermFlagGpio = NULL);
     enum STATE : uint8_t
     {
-        STATE_OVERCURRENT = BIT(0),
-        STATE_SHUTDOWN    = BIT(1),
-        STATE_ON          = BIT(2),
-        STATE_OFF         = BIT(3)
+        STATE_OVERCURRENT = BIT_(0),
+        STATE_SHUTDOWN    = BIT_(1),
+        STATE_ON          = BIT_(2),
+        STATE_OFF         = BIT_(3)
     };
     ~HBridgeControl();
     virtual void poll_33hz(openlcb::WriteHelper *helper, Notifiable *done);
@@ -131,7 +132,7 @@ public:
 private:
     openlcb::Node *node_;
     const HBridgeControlConfig cfg_;
-    const uint8_t currentAIN_;
+    const ADC *currentADC_;
     const uint8_t adcSampleCount_{32};
     const uint8_t overCurrentRetryCount_{3};
     const Gpio *enableGpio_;

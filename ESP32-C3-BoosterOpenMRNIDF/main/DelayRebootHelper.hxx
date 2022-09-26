@@ -42,7 +42,7 @@
 
 extern "C" void reboot();
 
-namespace esp32multifunction
+namespace Esp32C3Booster
 {
 
 /// Utility class that will reboot the node after a pre-defined time has
@@ -86,6 +86,6 @@ private:
     }
 };
 
-} // namespace esp32multifunction
+} // namespace Esp32C3Booster
 
 #endif // DELAY_REBOOT_HXX_

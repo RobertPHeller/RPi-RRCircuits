@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 28 13:33:53 2019
-//  Last Modified : <210526.1945>
+//  Last Modified : <220925.2047>
 //
 //  Description	
 //
@@ -51,20 +51,21 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "utils/ConfigUpdateService.hxx"
 #include "openlcb/RefreshLoop.hxx"
 #include "utils/logging.h"
+#include <freertos_drivers/esp32/Esp32Gpio.hxx>
+#include "ADCWrapper.hxx"
 
-#include "AnalogReadSysFS.h"
 #include "FanControl.hxx"
-#include "Hardware.hxx"
+#include "hardware.hxx"
 #include <vector>
 #include <numeric>
 
 FanControl::FanControl(openlcb::Node *node,
                        const FanControlConfig &cfg,
-                       uint8_t temperatureAIN,
+                       const ADC *temperatureADC,
                        const Gpio *fanGpio)
       : node_(node)
 , cfg_(cfg)
-, temperatureAIN_(temperatureAIN)
+, temperatureADC_(temperatureADC)
 , fanGpio_(fanGpio)
 , alarmBit_(node, 0, 0, &alarmon_, 1)
 , fanBit_(node, 0, 0, &fanon_, 1)
@@ -77,12 +78,12 @@ FanControl::FanControl(openlcb::Node *node,
 template <class FAN>
 FanControl::FanControl(openlcb::Node *node,
                      const FanControlConfig &cfg,
-                     uint8_t temperatureAIN,
+                     const ADC *temperatureADC,
                      const FAN&,
                      const Gpio *fanGpio)
       : node_(node)
 , cfg_(cfg)
-, temperatureAIN_(temperatureAIN)
+, temperatureADC_(temperatureADC)
 , fanGpio_(fanGpio)
 , alarmBit_(node, 0, 0, &alarmon_, 1)
 , fanBit_(node, 0, 0, &fanon_, 1)
@@ -104,7 +105,7 @@ void FanControl::poll_33hz(openlcb::WriteHelper *helper, Notifiable *done)
     
     while (samples.size() < 32)
     {
-        samples.push_back(sysfs_adc_getvalue(temperatureAIN_));
+        samples.push_back(temperatureADC_->sample());
         usleep(1);
     }
     

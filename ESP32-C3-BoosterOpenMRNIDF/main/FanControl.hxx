@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Oct 28 13:33:43 2019
-//  Last Modified : <210503.1140>
+//  Last Modified : <220925.2046>
 //
 //  Description	
 //
@@ -53,6 +53,7 @@
 #include <os/OS.hxx>
 #include <utils/ConfigUpdateListener.hxx>
 #include <utils/Debouncer.hxx>
+#include "ADCWrapper.hxx"
 
 /// CDI Configuration for a @ref FanControl.
 CDI_GROUP(FanControlConfig);
@@ -84,12 +85,12 @@ class FanControl : public ConfigUpdateListener, public openlcb::Polling {
 public:
     FanControl(openlcb::Node *node,
                const FanControlConfig &cfg,
-               uint8_t temperatureAIN,
+               const ADC *temperatureADC,
                const Gpio *fanGpio);
     template <class FAN>
           FanControl(openlcb::Node *node,
                      const FanControlConfig &cfg,
-                     uint8_t temperatureAIN,
+                     const ADC *temperatureADC,
                      const FAN&,
                      const Gpio *fanGpio = FAN::instance());
     ~FanControl();
@@ -105,7 +106,7 @@ public:
 private:
     openlcb::Node *node_;
     const FanControlConfig cfg_;
-    uint8_t temperatureAIN_;
+    const ADC * temperatureADC_;
     const Gpio *fanGpio_;
     uint16_t alarmthresh_{350};
     uint16_t fanthresh_{250};
