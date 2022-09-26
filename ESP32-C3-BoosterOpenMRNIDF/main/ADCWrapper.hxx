@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Sep 25 19:45:35 2022
-//  Last Modified : <220925.2058>
+//  Last Modified : <220926.0900>
 //
 //  Description	
 //
@@ -43,8 +43,15 @@
 #ifndef __ADCWRAPPER_HXX
 #define __ADCWRAPPER_HXX
 
+#if CONFIG_IDF_TARGET_ESP32C3 || CONFIG_IDF_TARGET_ESP32H2
+// Missing declaration?  Assume noop for now.
+#define adc_set_data_width(UNIT, BITS) (ESP_OK)
+#endif
+
 #include <freertos_drivers/arduino/DummyGPIO.hxx>
 #include <freertos_drivers/esp32/Esp32Gpio.hxx>
+#include <driver/adc.h>
+
 
 class ADC
 {
