@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 12 14:55:18 2022
-//  Last Modified : <220926.1454>
+//  Last Modified : <220926.1705>
 //
 //  Description	
 //
@@ -52,16 +52,22 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "openlcb/ConfiguredProducer.hxx"
 #include "openlcb/ConfigRepresentation.hxx"
 #include "openlcb/MemoryConfig.hxx"
-#include "openlcb/MultiConfiguredConsumer.hxx"
 #include "utils/logging.h"
-#include "MultiConfiguredProducer.hxx" // Not in OpenMRN?
-
+#include <freertos_drivers/common/PCA9685PWM.hxx>
 #include "config.hxx"
+#include "nvs_config.hxx"
 #include "utils/GpioInitializer.hxx"
 #include "Hardware.hxx"
-#include "nvs_config.hxx"
-#include "TrackCircuit.hxx"
+#include "Blink.hxx"
+#include "Button.hxx"
+#include "LED.hxx"
+#include "Lamp.hxx"
+#include "OccupancyDetector.hxx"
+#include "Points.hxx"
+#include "Turnout.hxx"
 #include "Logic.hxx"
+#include "Mast.hxx"
+#include "TrackCircuit.hxx"
 
 // ConfigDef comes from config.hxx and is specific to the particular device and
 // target. It defines the layout of the configuration memory space and is also
@@ -100,8 +106,6 @@ public:
         cfg.userinfo().description().write(fd, "" );
     }
 } factory_reset_helper;
-
-TrackCircuit *circuits[TRACKCIRCUITCOUNT];
 
 /** Entry point to application.
  *  * @param argc number of command line arguments
@@ -156,6 +160,13 @@ int appl_main(int argc, char *argv[])
     openlcb::SimpleCanStack stack(config.node_id);
     stack.set_tx_activity_led(ACT1_Pin::instance());
     stack.add_can_port_select("/dev/can0");
+    
+    PCA9685PWM pwmchip1;
+    pwmchip1.init("/dev/i2c0", PWMCHIP_ADDRESS1);
+#if NUM_PWMCHIPS == 2
+    PCA9685PWM pwmchip2;
+    pwmchip2.init("/dev/i2c0", PWMCHIP_ADDRESS2);
+#endif
     
     int fd = stack.create_config_file_if_needed(cfg.seg().internal_config(), 
                                                 openlcb::CANONICAL_VERSION, 

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 21 22:27:50 2021
-//  Last Modified : <220717.1357>
+//  Last Modified : <220926.1636>
 //
 //  Description	
 //
@@ -158,7 +158,7 @@ public:
     }
     const LEDPhase Phase() const {return phase_;}
     const uint8_t PulseWidth() const {return pulseWidth_;}
-    virtual void blink(bool AFast, bool AMedium, bool ASlow)
+    virtual void blink(bool AFast, bool AMedium, bool ASlow) override
     {
         if (gpio_ == nullptr) return;
         if (!IsOn()) {

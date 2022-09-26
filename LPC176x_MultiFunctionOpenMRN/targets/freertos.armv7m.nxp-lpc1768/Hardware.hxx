@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 26 13:54:20 2022
-//  Last Modified : <220926.1504>
+//  Last Modified : <220926.1705>
 //
 //  Description	
 //
@@ -120,6 +120,8 @@ typedef GpioInitializer<Motor1_Pin, Motor2_Pin, Motor3_Pin, Motor4_Pin,
                         ACT1_Pin, ACT2_Pin> GpioInit;
 
 
+#define PWMCHIP_ADDRESS1 0x40
+#define PWMCHIP_ADDRESS2 0x41
 
 #endif // __HARDWARE_HXX
 
