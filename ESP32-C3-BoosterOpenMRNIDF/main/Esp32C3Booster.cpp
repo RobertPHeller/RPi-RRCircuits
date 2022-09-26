@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Sep 25 13:58:44 2022
-//  Last Modified : <220925.2101>
+//  Last Modified : <220925.2108>
 //
 //  Description	
 //
@@ -56,6 +56,7 @@ static const char rcsid[] = "@(#) : $Id$";
 #include <algorithm>
 #include <driver/i2c.h>
 #include <driver/uart.h>
+#include <driver/adc.h>
 #include <esp_err.h>
 #include <esp_log.h>
 #include <esp_ota_ops.h>

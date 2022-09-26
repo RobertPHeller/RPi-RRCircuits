@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Sep 25 18:43:26 2022
-//  Last Modified : <220925.2015>
+//  Last Modified : <220925.2108>
 //
 //  Description	
 //
@@ -47,6 +47,7 @@
 #include <freertos_drivers/esp32/Esp32Gpio.hxx>
 #include <os/Gpio.hxx>
 #include <utils/GpioInitializer.hxx>
+#include <driver/adc.h>
 #include "ADCWrapper.hxx"
 
 

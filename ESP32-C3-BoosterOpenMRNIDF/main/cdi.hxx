@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Sep 25 20:20:23 2022
-//  Last Modified : <220925.2041>
+//  Last Modified : <220925.2109>
 //
 //  Description	
 //
@@ -48,6 +48,7 @@
 #include "openlcb/ConfiguredConsumer.hxx"
 #include "openlcb/ConfiguredProducer.hxx"
 #include "openlcb/MemoryConfig.hxx"
+#include <driver/adc.h>                                                         
 
 #include "HBridgeControl.hxx"
 #include "FanControl.hxx"
