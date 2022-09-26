@@ -7,8 +7,8 @@
 #  Date          : $Date$
 #  Author        : $Author$
 #  Created By    : Robert Heller
-#  Created       : Sun Sep 11 12:48:49 2022
-#  Last Modified : <220926.1111>
+#  Created       : Sun Sep 11 12:49:02 2022
+#  Last Modified : <220911.1259>
 #
 #  Description	
 #
@@ -43,8 +43,8 @@
 ##############################################################################
 
 
-SUBDIRS = \
-	freertos.armv7m.nxp-lpc1768 \
-	freertos.armv7m.nxp-lpcexpresso-lpc1769
-	
-include $(OPENMRNPATH)/etc/recurse.mk
+APP_PATH ?= $(realpath ../..)
+-include $(APP_PATH)/config.mk
+
+
+include hardware.mk

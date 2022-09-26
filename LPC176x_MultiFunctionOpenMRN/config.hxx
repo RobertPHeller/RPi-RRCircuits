@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 12 12:58:51 2022
-//  Last Modified : <220917.1043>
+//  Last Modified : <220926.1315>
 //
 //  Description	
 //
@@ -81,8 +81,6 @@ extern const SimpleNodeStaticValues SNIP_STATIC_DATA = {
 /// the config eeprom file's layout changes.
 static constexpr uint16_t CANONICAL_VERSION = 0x1000;
 
-using AllConsumers = RepeatedGroup<ConsumerConfig, NUM_OUTPUTS>;
-using AllProducers = RepeatedGroup<ProducerConfig, NUM_INPUTS>;
 using LogicGroup = openlcb::RepeatedGroup<LogicConfig, LOGICCOUNT>;
 using TrackCircuitGroup = openlcb::RepeatedGroup<TrackCircuitConfig, TRACKCIRCUITCOUNT>;
 
@@ -91,8 +89,6 @@ CDI_GROUP(IoBoardSegment,
 /// Each entry declares the name of the current entry, then the type and then
 /// optional arguments list.
 CDI_GROUP_ENTRY(internal_config, InternalConfigData);
-CDI_GROUP_ENTRY(outputs,AllConsumers,Name("Output Card"),RepName("Output Bit"))
-CDI_GROUP_ENTRY(inputs,AllProducers,Name("Input Card"),RepName("Input Bit"))
 CDI_GROUP_ENTRY(logics, LogicGroup, Name("LOGIC"), RepName("Logic"));
 CDI_GROUP_ENTRY(circuits, TrackCircuitGroup, Name("TRACK CIRCUITS"), RepName("Circuit"));
 CDI_GROUP_END();

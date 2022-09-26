@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 12 14:55:18 2022
-//  Last Modified : <220921.1657>
+//  Last Modified : <220926.1454>
 //
 //  Description	
 //
@@ -85,53 +85,6 @@ static_assert(openlcb::CONFIG_FILE_SIZE <= 7000, "Need to adjust eeprom size");
 extern const char *const openlcb::SNIP_DYNAMIC_FILENAME =
 openlcb::CONFIG_FILENAME;
 
-// Input card pins.
-
-#if NUM_INPUTS == 24
-constexpr const static Gpio *const kInputCard[] = {
-    C0P0B0_Pin::instance(), C0P0B1_Pin::instance(), //
-    C0P0B2_Pin::instance(), C0P0B3_Pin::instance(), //
-    C0P0B4_Pin::instance(), C0P0B5_Pin::instance(), //
-    C0P0B6_Pin::instance(), C0P0B7_Pin::instance(), //
-    C0P1B0_Pin::instance(), C0P1B1_Pin::instance(), //
-    C0P1B2_Pin::instance(), C0P1B3_Pin::instance(), //
-    C0P1B4_Pin::instance(), C0P1B5_Pin::instance(), //
-    C0P1B6_Pin::instance(), C0P1B7_Pin::instance(), //
-    C0P2B0_Pin::instance(), C0P2B1_Pin::instance(), //
-    C0P2B2_Pin::instance(), C0P2B3_Pin::instance(), //
-    C0P2B4_Pin::instance(), C0P2B5_Pin::instance(), //
-    C0P2B6_Pin::instance(), C0P2B7_Pin::instance()  //
-};
-#else
-constexpr const static Gpio *const kInputCard[] = {
-    C0P0B0_Pin::instance(), C0P0B1_Pin::instance(), //
-    C0P0B2_Pin::instance(), C0P0B3_Pin::instance()  //
-};
-#endif
-
-// Output card pins
-
-#if NUM_OUTPUTS == 24
-constexpr const static Gpio *const kOutputCard[] = {
-    C1P0B0_Pin::instance(), C1P0B1_Pin::instance(), //
-    C1P0B2_Pin::instance(), C1P0B3_Pin::instance(), //
-    C1P0B4_Pin::instance(), C1P0B5_Pin::instance(), //
-    C1P0B6_Pin::instance(), C1P0B7_Pin::instance(), //
-    C1P1B0_Pin::instance(), C1P1B1_Pin::instance(), //
-    C1P1B2_Pin::instance(), C1P1B3_Pin::instance(), //
-    C1P1B4_Pin::instance(), C1P1B5_Pin::instance(), //
-    C1P1B6_Pin::instance(), C1P1B7_Pin::instance(), //
-    C1P2B0_Pin::instance(), C1P2B1_Pin::instance(), //
-    C1P2B2_Pin::instance(), C1P2B3_Pin::instance(), //
-    C1P2B4_Pin::instance(), C1P2B5_Pin::instance(), //
-    C1P2B6_Pin::instance(), C1P2B7_Pin::instance()  //
-};
-#else
-constexpr const static Gpio *const kOutputCard[] = {
-    C1P0B0_Pin::instance(), C1P0B1_Pin::instance(), //
-    C1P0B2_Pin::instance(), C1P0B3_Pin::instance()  //
-};
-#endif
 
 class FactoryResetHelper : public DefaultConfigUpdateListener {
 public:
@@ -203,27 +156,6 @@ int appl_main(int argc, char *argv[])
     openlcb::SimpleCanStack stack(config.node_id);
     stack.set_tx_activity_led(ACT1_Pin::instance());
     stack.add_can_port_select("/dev/can0");
-    
-    openlcb::MultiConfiguredConsumer outputCard(stack.node(), 
-                                                kOutputCard, 
-                                                ARRAYSIZE(kOutputCard), 
-                                                cfg.seg().outputs());
-    MultiConfiguredProducer inputCard(stack.node(),
-                                      kInputCard,
-                                      ARRAYSIZE(kInputCard),
-                                      cfg.seg().inputs());
-    openlcb::RefreshLoop loop(stack.node(), {inputCard.polling()});
-    
-    
-    for (int i = 0; i < TRACKCIRCUITCOUNT; i++) {
-        circuits[i] = new TrackCircuit(stack.node(),cfg.seg().circuits().entry(i));
-    }
-    Logic *prevLogic = nullptr;
-    Logic *logics[LOGICCOUNT];
-    for (int i = LOGICCOUNT-1; i >= 0; i--) {
-        logics[i] = new Logic(stack.node(), cfg.seg().logics().entry(i),stack.executor()->active_timers(),prevLogic);
-        prevLogic = logics[i];
-    }
     
     int fd = stack.create_config_file_if_needed(cfg.seg().internal_config(), 
                                                 openlcb::CANONICAL_VERSION, 
