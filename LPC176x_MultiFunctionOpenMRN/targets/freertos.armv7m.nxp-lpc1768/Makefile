@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sun Sep 11 12:49:02 2022
-#  Last Modified : <220911.1259>
+#  Last Modified : <220927.1437>
 #
 #  Description	
 #
@@ -42,6 +42,15 @@
 #
 ##############################################################################
 
+OPENMRNPATH ?= $(shell \
+sh -c "if [ \"X`printenv OPENMRNPATH`\" != \"X\" ]; then printenv OPENMRNPATH; \
+     elif [ -d /opt/openmrn/src ]; then echo /opt/openmrn; \
+     elif [ -d ~/openmrn/src ]; then echo ~/openmrn; \
+     elif [ -d ../../../src ]; then echo ../../..; \
+     else echo OPENMRNPATH not found; fi" \
+)
+                    
+                    
 
 APP_PATH ?= $(realpath ../..)
 -include $(APP_PATH)/config.mk
