@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 20:26:38 2019
-//  Last Modified : <220625.1508>
+//  Last Modified : <220927.0950>
 //
 //  Description	
 //
@@ -55,6 +55,23 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "Rule.hxx"
 #include "Mast.hxx"
 #include "TrackCircuit.hxx"
+
+Mast * Mast::masts[MASTCOUNT];
+
+void Mast::Init(openlcb::Node *node,
+                const openlcb::RepeatedGroup<MastConfig, MASTCOUNT> &config)
+{
+    openlcb::ConfigReference offset_(config);
+    openlcb::RepeatedGroup<MastConfig, UINT_MAX> grp_ref(offset_.offset());
+    Mast *prevMast = nullptr;
+    for (unsigned i = 0; i < MASTCOUNT; i++) 
+    {
+        masts[i] = new Mast(node,grp_ref.entry(i),prevMast);
+        prevMast = masts[i];
+    }
+}
+
+
 
 ConfigUpdateListener::UpdateAction Mast::apply_configuration(int fd, 
                                                        bool initial_load,

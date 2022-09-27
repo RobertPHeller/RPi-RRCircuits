@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:08:16 2019
-//  Last Modified : <220917.1048>
+//  Last Modified : <220927.1029>
 //
 //  Description	
 //
@@ -55,8 +55,13 @@
 #include "utils/logging.h"
 #include <string>
 #include "TrackCircuit.hxx"
+#include "HardwareDefs.hxx"
 
+#if NUM_PWMCHIPS == 2
+#define LOGICCOUNT 64
+#else
 #define LOGICCOUNT 32
+#endif
 
 static const char GroupFunctionMap[] = 
 "<relation><property>0</property><value>Blocked</value></relation>"
@@ -95,7 +100,18 @@ static const char VariableSourceMap[] =
 "<relation><property>5</property><value>Track Circuit 5</value></relation>"
 "<relation><property>6</property><value>Track Circuit 6</value></relation>"
 "<relation><property>7</property><value>Track Circuit 7</value></relation>"
-"<relation><property>8</property><value>Track Circuit 8</value></relation>";
+"<relation><property>8</property><value>Track Circuit 8</value></relation>"
+#if NUM_PWMCHIPS == 2
+"<relation><property>9</property><value>Track Circuit 9</value></relation>"
+"<relation><property>10</property><value>Track Circuit 10</value></relation>"
+"<relation><property>11</property><value>Track Circuit 11</value></relation>"
+"<relation><property>12</property><value>Track Circuit 12</value></relation>"
+"<relation><property>13</property><value>Track Circuit 13</value></relation>"
+"<relation><property>14</property><value>Track Circuit 14</value></relation>"
+"<relation><property>15</property><value>Track Circuit 15</value></relation>"
+"<relation><property>16</property><value>Track Circuit 16</value></relation>"
+#endif
+;
 
 static const char IntervalMap[] = 
 "<relation><property>0</property><value>Milliseconds</value></relation>"
@@ -151,14 +167,14 @@ public:
         //LOG(ALWAYS,"*** BitEventConsumerOrTrackCircuit::BitEventConsumerOrTrackCircuit(%p,%d,%d)",bit,source,speed);
         int tc = ((int) source_) -1;
         if (source_ == Events) register_handler(bit->event_on(), bit->event_off());
-        else circuits[tc]->RegisterCallback(this);
+        else TrackCircuit::circuits[tc]->RegisterCallback(this);
     }
     ~BitEventConsumerOrTrackCircuit()
     {
         //LOG(ALWAYS,"*** BitEventConsumerOrTrackCircuit::~BitEventConsumerOrTrackCircuit()");
         int tc = ((int) source_) -1;
         if (source_ == Events) unregister_handler();
-        else circuits[tc]->UnregisterCallback(this);
+        else TrackCircuit::circuits[tc]->UnregisterCallback(this);
     }
 
     /// Queries producers and acquires the current state of the bit.
@@ -461,6 +477,10 @@ public:
     virtual void Evaluate(Which v,BarrierNotifiable *done) override;
     virtual const std::string Description() const override {return description_;}
     bool Value();
+    __attribute__((noinline))
+          static void Init(openlcb::Node *node,
+                           ActiveTimers *timers,
+                           const openlcb::RepeatedGroup<LogicConfig, LOGICCOUNT> &config);
 private:
     bool eval_(Which v);
     void _processAction(BarrierNotifiable *done);
@@ -487,6 +507,7 @@ private:
     Timing *timer_;
     Action *actions_[4];
     std::string description_{""};
+    static Logic *logics[LOGICCOUNT];
 };
 
 #endif // __LOGIC_HXX

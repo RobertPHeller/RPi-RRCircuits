@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 26 13:10:16 2022
-//  Last Modified : <220926.1444>
+//  Last Modified : <220927.0830>
 //
 //  Description	
 //
@@ -46,8 +46,8 @@
 #define HARDWARE_IMPL "LPC1768 Multifunction Board"
 
 #define NUM_TURNOUTS 2
-#define NUM_POINTS   2
-#define NUM_OC       2
+#define NUM_POINTSS  2
+#define NUM_OCS      2
 #define NUM_LEDS     2
 #define NUM_BUTTONS  2
 #define NUM_PWMCHIPS 1

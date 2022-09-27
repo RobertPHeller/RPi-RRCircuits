@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:11:23 2019
-//  Last Modified : <220917.1045>
+//  Last Modified : <220927.0939>
 //
 //  Description	
 //
@@ -49,6 +49,7 @@
 #include "utils/ConfigUpdateService.hxx"
 #include "openlcb/RefreshLoop.hxx"
 #include <stdio.h>
+#include "HardwareDefs.hxx"
 
 #include <vector>
 
@@ -63,7 +64,11 @@ static const char TrackSpeedMap[] =
 "<relation><property>6</property><value>Approach-Medium</value></relation>"
 "<relation><property>7</property><value>Clear/Procede</value></relation>";
 
+#if NUM_PWMCHIPS == 2
+#define TRACKCIRCUITCOUNT 16
+#else
 #define TRACKCIRCUITCOUNT 8
+#endif
 
 /// CDI Configuration for a @ref TrackCircuit
 CDI_GROUP(TrackCircuitConfig);
@@ -116,6 +121,10 @@ public:
     void handle_identify_consumer(const EventRegistryEntry &registry_entry,
                                   EventReport *event,
                                   BarrierNotifiable *done) override;
+    static TrackCircuit *circuits[TRACKCIRCUITCOUNT];
+    __attribute__((noinline)) 
+          static void Init(openlcb::Node *node,
+                           const openlcb::RepeatedGroup<TrackCircuitConfig, TRACKCIRCUITCOUNT> &config);
 private:
     openlcb::Node *node_;
     const TrackCircuitConfig cfg_;
@@ -131,7 +140,6 @@ private:
     void SendConsumerIdentified(EventReport *event,BarrierNotifiable *done);
 };
 
-extern TrackCircuit *circuits[TRACKCIRCUITCOUNT];
 
 
 

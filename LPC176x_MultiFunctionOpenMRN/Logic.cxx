@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Mar 1 10:46:51 2019
-//  Last Modified : <220625.1444>
+//  Last Modified : <220927.1032>
 //
 //  Description	
 //
@@ -53,6 +53,24 @@ static const char rcsid[] = "@(#) : $Id$";
 
 #include "TrackCircuit.hxx"
 #include "Logic.hxx"
+
+Logic *Logic::logics[LOGICCOUNT];
+
+void Logic::Init(openlcb::Node *node,
+                 ActiveTimers *timers,
+                 const openlcb::RepeatedGroup<LogicConfig, LOGICCOUNT> &config)
+{
+    openlcb::ConfigReference offset_(config);
+    openlcb::RepeatedGroup<LogicConfig, UINT_MAX> grp_ref(offset_.offset());
+    Logic *prevLogic = nullptr;
+    for (unsigned i = LOGICCOUNT-1; i >= 0; i--) 
+    {
+        logics[i] = new Logic(node, grp_ref.entry(i),
+                              timers, prevLogic);
+    }
+}
+
+
 
 void BitEventConsumerOrTrackCircuit::handle_producer_identified(const EventRegistryEntry& entry, EventReport *event,
                                                 BarrierNotifiable *done)

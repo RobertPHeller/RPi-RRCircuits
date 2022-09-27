@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 15:59:18 2019
-//  Last Modified : <220926.1507>
+//  Last Modified : <220927.0947>
 //
 //  Description	
 //
@@ -54,8 +54,13 @@
 #include "Lamp.hxx"
 #include "Rule.hxx"
 #include "TrackCircuit.hxx"
+#include "HardwareDefs.hxx"
 
+#if NUM_PWMCHIPS == 2
+#define MASTCOUNT 16
+#else
 #define MASTCOUNT 8
+#endif
 
 static const char MastProcessingMap[] = 
 "<relation><property>0</property><value>Unused</value></relation>"
@@ -126,6 +131,9 @@ public:
      void SetCurrentRuleAndSpeed(Rule *r, TrackCircuit::TrackSpeed s, 
                                  BarrierNotifiable *done);
      const std::string Mastid() const {return mastid_;}
+     __attribute__((noinline))
+           static void Init(openlcb::Node *node,
+                            const openlcb::RepeatedGroup<MastConfig, MASTCOUNT> &config);
 private:
     openlcb::Node *node_;
     const MastConfig cfg_;
@@ -145,6 +153,7 @@ private:
     void SendProducerIdentified(EventReport *event,BarrierNotifiable *done);
     openlcb::WriteHelper write_helper[8];
     std::string mastid_{""};
+    static Mast *masts[MASTCOUNT];
 };
 
 

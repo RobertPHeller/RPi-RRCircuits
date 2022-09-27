@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 12 12:58:51 2022
-//  Last Modified : <220926.1315>
+//  Last Modified : <220927.1101>
 //
 //  Description	
 //
@@ -47,18 +47,35 @@
 #include "openlcb/ConfiguredProducer.hxx"
 #include "openlcb/ConfigRepresentation.hxx"
 #include "openlcb/MemoryConfig.hxx"
-#include "openlcb/MultiConfiguredConsumer.hxx"
-#include "MultiConfiguredProducer.hxx" // Not in OpenMRN?
 
 #include "HardwareDefs.hxx"
 #include "Revision.hxxout"
 #include "Logic.hxx"
+#include "Mast.hxx"
 #include "TrackCircuit.hxx"
+
+#include "Turnout.hxx"
+#include "Points.hxx"
+
+#include "OccupancyDetector.hxx" 
+
+#include "Button.hxx"
+
+#include "LED.hxx"
 
 namespace openlcb
 {
 
-    
+using LogicGroup = openlcb::RepeatedGroup<LogicConfig, LOGICCOUNT>;
+using MastGroup = openlcb::RepeatedGroup<MastConfig, MASTCOUNT>;
+using TrackCircuitGroup = openlcb::RepeatedGroup<TrackCircuitConfig, TRACKCIRCUITCOUNT>;
+
+using TurnoutGroup = openlcb::RepeatedGroup<TurnoutConfig, NUM_TURNOUTS>;
+using PointsGroup = openlcb::RepeatedGroup<PointsConfig, NUM_POINTSS>;
+using OCGroup = openlcb::RepeatedGroup<OccupancyDetectorConfig, NUM_OCS>;
+using ButtonGroup = openlcb::RepeatedGroup<ButtonConfig, NUM_BUTTONS>;
+using LEDGroup = openlcb::RepeatedGroup<LEDConfig, NUM_LEDS>;
+
 /// Defines the identification information for the node. The arguments are:
 ///
 /// - 4 (version info, always 4 by the standard
@@ -74,7 +91,7 @@ namespace openlcb
 /// - the ACDI memory space will contain this data.
 extern const SimpleNodeStaticValues SNIP_STATIC_DATA = {
     4,               "Deepwoods Software", HARDWARE_IMPL,
-    "lpc1758-MultiIO", "1.00"};
+    "1.0", "1.00"};
 
 /// Used for detecting when the config file stems from a different config.hxx
 /// version and needs to be factory reset before using. Change every time that
@@ -89,7 +106,13 @@ CDI_GROUP(IoBoardSegment,
 /// Each entry declares the name of the current entry, then the type and then
 /// optional arguments list.
 CDI_GROUP_ENTRY(internal_config, InternalConfigData);
+CDI_GROUP_ENTRY(ocs, OCGroup, Name("OccupancyDetectors"), RepName("OC"));
+CDI_GROUP_ENTRY(turnouts, TurnoutGroup, Name("Turnouts"), RepName("Turnout"));
+CDI_GROUP_ENTRY(points, PointsGroup, Name("Points"), RepName("Points"));
+CDI_GROUP_ENTRY(buttons, ButtonGroup, Name("Buttons"), RepName("Button"));
+CDI_GROUP_ENTRY(leds,LEDGroup, Name("LEDS"), RepName("LED"));
 CDI_GROUP_ENTRY(logics, LogicGroup, Name("LOGIC"), RepName("Logic"));
+CDI_GROUP_ENTRY(masts, MastGroup, Name("Rule to aspect"),RepName("Mast"));
 CDI_GROUP_ENTRY(circuits, TrackCircuitGroup, Name("TRACK CIRCUITS"), RepName("Circuit"));
 CDI_GROUP_END();
 
@@ -99,6 +122,7 @@ CDI_GROUP(VersionSeg, Segment(MemoryConfigDefs::SPACE_CONFIG),
           Name("Version information"));
 CDI_GROUP_ENTRY(acdi_user_version, Uint8ConfigEntry,
                 Name("ACDI User Data version"), Description("Set to 2 and do not change."));
+CDI_GROUP_ENTRY(buildrevisions,BuildRevisions);
 CDI_GROUP_END();
 
 /// The main structure of the CDI. ConfigDef is the symbol we use in main.cxx

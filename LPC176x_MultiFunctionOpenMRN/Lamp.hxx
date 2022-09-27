@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 11:37:34 2019
-//  Last Modified : <220926.1506>
+//  Last Modified : <220927.0754>
 //
 //  Description	
 //
@@ -50,6 +50,7 @@
 #include "openlcb/RefreshLoop.hxx"
 #include "freertos_drivers/common/PWM.hxx"
 #include <stdio.h>
+#include "HardwareDefs.hxx"
 
 #include "Blink.hxx"
 
@@ -74,7 +75,27 @@ static const char LampSelectMap[] =
     "<relation><property>13</property><value>B4</value></relation>"
     "<relation><property>14</property><value>B5</value></relation>"
     "<relation><property>15</property><value>B6</value></relation>"
-    "<relation><property>16</property><value>B7</value></relation>";
+    "<relation><property>16</property><value>B7</value></relation>"
+#if NUM_PWMCHIPS == 2
+    "<relation><property>17</property><value>C0</value></relation>"
+    "<relation><property>18</property><value>C1</value></relation>"
+    "<relation><property>19</property><value>C2</value></relation>"
+    "<relation><property>20</property><value>C3</value></relation>"
+    "<relation><property>21</property><value>C4</value></relation>"
+    "<relation><property>22</property><value>C5</value></relation>"
+    "<relation><property>23</property><value>C6</value></relation>"
+    "<relation><property>24</property><value>C7</value></relation>"
+
+    "<relation><property>25</property><value>D0</value></relation>"
+    "<relation><property>26</property><value>D1</value></relation>"
+    "<relation><property>27</property><value>D2</value></relation>"
+    "<relation><property>28</property><value>D3</value></relation>"
+    "<relation><property>29</property><value>D4</value></relation>"
+    "<relation><property>30</property><value>D5</value></relation>"
+    "<relation><property>31</property><value>D6</value></relation>"
+    "<relation><property>32</property><value>D7</value></relation>"
+#endif
+;
 
 static const char LampPhaseMap[] = 
     "<relation><property>0</property><value>Steady</value></relation>"
@@ -115,7 +136,13 @@ using LampGroup = openlcb::RepeatedGroup<LampConfig, LAMPCOUNT>;
 class Lamp : public ConfigUpdateListener , public Blinking {
 public:
     enum LampID {Unused, A0_, A1_, A2_, A3_, A4_, A5_, A6_, A7_, 
-              B0_, B1_, B2_, B3_, B4_, B5_, B6_, B7_};
+              B0_, B1_, B2_, B3_, B4_, B5_, B6_, B7_
+#if NUM_PWMCHIPS == 2
+              , C0_, C1_, C2_, C3_, C4_, C5_, C6_, C7_, 
+              D0_, D1_, D2_, D3_, D4_, D5_, D6_, D7_
+#endif
+              , MAX_LAMPID
+};
     enum LampPhase {Steady,A_Slow,A_Medium,A_Fast,None,B_Slow,B_Medium,
               B_Fast};
     Lamp(const LampConfig &cfg) : cfg_(cfg)
@@ -196,7 +223,7 @@ public:
         pinlookup_[index] = pin;
     }
 private:
-    static PWM* pinlookup_[17];
+    static PWM* pinlookup_[MAX_LAMPID];
     LampID lampid_;
     LampPhase  phase_;
     const LampConfig cfg_;

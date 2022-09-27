@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 26 13:54:20 2022
-//  Last Modified : <220926.1705>
+//  Last Modified : <220927.1054>
 //
 //  Description	
 //
@@ -70,14 +70,14 @@ GPIO_PIN(Points8, SensePin, 2,  5);
 
 #define ODPin GpioInputNP
 
-GPIO_PIN(OC1, ODPin, 2, 4);
-GPIO_PIN(OC2, ODPin, 2, 3);
-GPIO_PIN(OC3, ODPin, 2, 2);
-GPIO_PIN(OC4, ODPin, 2, 1);
-GPIO_PIN(OC5, ODPin, 2, 0);
-GPIO_PIN(OC6, ODPin, 0, 9);
-GPIO_PIN(OC7, ODPin, 0, 8);
-GPIO_PIN(OC8, ODPin, 0, 7);
+GPIO_PIN(OD1, ODPin, 2, 4);
+GPIO_PIN(OD2, ODPin, 2, 3);
+GPIO_PIN(OD3, ODPin, 2, 2);
+GPIO_PIN(OD4, ODPin, 2, 1);
+GPIO_PIN(OD5, ODPin, 2, 0);
+GPIO_PIN(OD6, ODPin, 0, 9);
+GPIO_PIN(OD7, ODPin, 0, 8);
+GPIO_PIN(OD8, ODPin, 0, 7);
 
 #define LEDPin GpioOutputSafeLow
 
@@ -111,8 +111,8 @@ typedef GpioInitializer<Motor1_Pin, Motor2_Pin, Motor3_Pin, Motor4_Pin,
                         Motor5_Pin, Motor6_Pin, Motor7_Pin, Motor8_Pin,
                         Points1_Pin, Points2_Pin, Points3_Pin, Points4_Pin, 
                         Points5_Pin, Points6_Pin, Points7_Pin, Points8_Pin, 
-                        OC1_Pin, OC2_Pin, OC3_Pin, OC4_Pin, OC5_Pin, 
-                        OC6_Pin, OC7_Pin, OC8_Pin, LED1_Pin, LED2_Pin,
+                        OD1_Pin, OD2_Pin, OD3_Pin, OD4_Pin, OD5_Pin, 
+                        OD6_Pin, OD7_Pin, OD8_Pin, LED1_Pin, LED2_Pin,
                         LED3_Pin, LED4_Pin, LED5_Pin, LED6_Pin, 
                         LED7_Pin, LED8_Pin, Button1_Pin, Button2_Pin, 
                         Button3_Pin, Button4_Pin, Button5_Pin, 

@@ -5,10 +5,10 @@
 
 const char* Revision::REVISION[] = 
 {
-    "Mon, 26 Sep 2022 16:46:07 EDT",
+    "Tue, 27 Sep 2022 10:45:43 EDT",
     "gcc-6-3-1",
-    "b'45bad95':RRCircuits:-d",
-    "b'42418b7':openmrn:-d",
+    "b'455a41c':RRCircuits:-d",
+    "b'08bd6bd':openmrn",
     nullptr
 };
 
@@ -18,10 +18,10 @@ size_t Revision::count()
 }
 
 CDI_GROUP(BuildRevisions, Name("Build Revisions"),
-          Description("Mon, 26 Sep 2022 16:46:07 EDT\n"
+          Description("Tue, 27 Sep 2022 10:45:43 EDT\n"
                       "gcc-6-3-1\n"
-                      "b'45bad95':RRCircuits:-d\n"
-                      "b'42418b7':openmrn:-d\n"));
+                      "b'455a41c':RRCircuits:-d\n"
+                      "b'08bd6bd':openmrn\n"));
 CDI_GROUP_END();
 
-#define REVISION_GIT_HASH "b'45bad95':-d"
+#define REVISION_GIT_HASH "b'455a41c':-d"

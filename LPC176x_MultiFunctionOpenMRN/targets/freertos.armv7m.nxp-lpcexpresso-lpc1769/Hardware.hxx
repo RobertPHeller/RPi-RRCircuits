@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 26 14:44:22 2022
-//  Last Modified : <220926.1706>
+//  Last Modified : <220927.1055>
 //
 //  Description	
 //
@@ -58,8 +58,8 @@ GPIO_PIN(Points2, SensePin, 2,  8);
 
 #define ODPin GpioInputNP
 
-GPIO_PIN(OC1, ODPin, 2, 7);
-GPIO_PIN(OC2, ODPin, 2, 6);
+GPIO_PIN(OD1, ODPin, 2, 7);
+GPIO_PIN(OD2, ODPin, 2, 6);
 
 #define LEDPin GpioOutputSafeLow
 
@@ -78,7 +78,7 @@ GPIO_PIN(ACT2, ACTPin, 2, 0);
 
 // Create an initializer that can initialize all the GPIO pins in one shot
 typedef GpioInitializer<Motor1_Pin, Motor2_Pin, Points1_Pin, Points2_Pin, 
-                        OC1_Pin, OC2_Pin, LED1_Pin, LED2_Pin,
+                        OD1_Pin, OD2_Pin, LED1_Pin, LED2_Pin,
                         Button1_Pin, Button2_Pin, ACT1_Pin, ACT2_Pin> GpioInit;
 
 
