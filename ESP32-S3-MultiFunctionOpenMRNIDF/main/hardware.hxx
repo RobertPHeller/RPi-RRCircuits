@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sat Jun 25 09:07:59 2022
-//  Last Modified : <220905.1621>
+//  Last Modified : <220928.0809>
 //
 //  Description	
 //
@@ -93,7 +93,7 @@ GPIO_PIN(Button4, ButtonPin, 16);
 #define ActPin GpioOutputSafeHighInvert
 
 GPIO_PIN(LED_ACT1, ActPin, 15);
-GPIO_PIN(LED_ACT2, ActPin, 2);
+GPIO_PIN(LED_ACT2, ActPin, 0);
 
 // Create an initializer that can initialize all the GPIO pins in one shot
 typedef GpioInitializer<Motor1_Pin, Motor2_Pin, Motor3_Pin, Motor4_Pin,

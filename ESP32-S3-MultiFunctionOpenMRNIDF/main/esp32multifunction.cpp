@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 12:17:40 2022
-//  Last Modified : <220921.1605>
+//  Last Modified : <220928.0905>
 //
 //  Description	
 //
@@ -239,6 +239,7 @@ void bootloader_hw_set_to_safe(void)
 
 void app_main()
 {
+    
     //bool stackrunning = false;
     // capture the reason for the CPU reset
     uint8_t reset_reason = Esp32SocInfo::print_soc_info();
