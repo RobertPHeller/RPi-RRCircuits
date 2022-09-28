@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:08:16 2019
-//  Last Modified : <220718.1042>
+//  Last Modified : <220928.1026>
 //
 //  Description	
 //
@@ -138,8 +138,10 @@ class BitEventConsumerOrTrackCircuit
       : public openlcb::BitEventHandler, public TrackCircuitCallback
 {
 public:
-    enum Source {Events,TrackCircuit1,TrackCircuit2,TrackCircuit3,TrackCircuit4,TrackCircuit5,TrackCircuit6,TrackCircuit7,TrackCircuit8};
-    BitEventConsumerOrTrackCircuit(openlcb::BitEventInterface *bit,  
+    enum Source {Events, TrackCircuit1, TrackCircuit2, TrackCircuit3,
+              TrackCircuit4, TrackCircuit5, TrackCircuit6, TrackCircuit7,
+              TrackCircuit8, MAX_SOURCE};
+    BitEventConsumerOrTrackCircuit(openlcb::BitEventInterface *bit,
                                    Source source, 
                                    TrackCircuit::TrackSpeed speed,
                                    Variable *parent) 
@@ -148,14 +150,14 @@ public:
           , speed_(speed)
           , parent_(parent)
     {
-        //LOG(ALWAYS,"*** BitEventConsumerOrTrackCircuit::BitEventConsumerOrTrackCircuit(%p,%d,%d)",bit,source,speed);
+        LOG(VERBOSE,"*** BitEventConsumerOrTrackCircuit::BitEventConsumerOrTrackCircuit(%p,%d,%d)",bit,source,speed);
         int tc = ((int) source_) -1;
         if (source_ == Events) register_handler(bit->event_on(), bit->event_off());
         else circuits[tc]->RegisterCallback(this);
     }
     ~BitEventConsumerOrTrackCircuit()
     {
-        //LOG(ALWAYS,"*** BitEventConsumerOrTrackCircuit::~BitEventConsumerOrTrackCircuit()");
+        LOG(VERBOSE,"*** BitEventConsumerOrTrackCircuit::~BitEventConsumerOrTrackCircuit()");
         int tc = ((int) source_) -1;
         if (source_ == Events) unregister_handler();
         else circuits[tc]->UnregisterCallback(this);
