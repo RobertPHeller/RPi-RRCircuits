@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:08:16 2019
-//  Last Modified : <220927.1029>
+//  Last Modified : <220928.1023>
 //
 //  Description	
 //
@@ -154,7 +154,14 @@ class BitEventConsumerOrTrackCircuit
       : public openlcb::BitEventHandler, public TrackCircuitCallback
 {
 public:
-    enum Source {Events,TrackCircuit1,TrackCircuit2,TrackCircuit3,TrackCircuit4,TrackCircuit5,TrackCircuit6,TrackCircuit7,TrackCircuit8};
+    enum Source {Events, TrackCircuit1, TrackCircuit2, TrackCircuit3,
+              TrackCircuit4, TrackCircuit5, TrackCircuit6, TrackCircuit7,
+              TrackCircuit8,
+#if NUM_PWMCHIPS == 2
+              TrackCircuit9, TrackCircuit10, TrackCircuit11, TrackCircuit12,
+              TrackCircuit13, TrackCircuit14, TrackCircuit15, TrackCircuit16,
+#endif
+              MAX_SOURCE};
     BitEventConsumerOrTrackCircuit(openlcb::BitEventInterface *bit,  
                                    Source source, 
                                    TrackCircuit::TrackSpeed speed,
