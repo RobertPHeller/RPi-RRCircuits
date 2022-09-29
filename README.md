@@ -181,6 +181,14 @@ There is a README in each project dir.
     > Backplane for up to 16 DCCOD_SMD's using a ESP32 MCU.  Meant as a thought 
     > experiment to see what this would cost, etc.
 
+1. [ESP32-C3-BoosterOpenMRNIDF](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32-C3-BoosterOpenMRNIDF)
+
+    > 
+
+1. [ESP32-D0WD-V3-MultiFunctionOpenMRNIDF](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32-D0WD-V3-MultiFunctionOpenMRNIDF)
+
+    > 
+
 1. [ESP32-HalfSiding](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32-HalfSiding)
 
     > First draft of a ESP32 HalfSiding node using a MCP23017 on/off signal lamps.
@@ -201,6 +209,14 @@ There is a README in each project dir.
     > track ABS block.  There are other trackwork cases this board can handle as 
     > well.  
 
+1. [ESP32-PWMHalfSidingSMD-T7](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32-PWMHalfSidingSMD-T7)
+
+    > This is a circuit board that supports an ESP32 Dev Kit board or TTGO-T1 board 
+    > to manage one half (one end) of a siding.  This board can also be used to 
+    > manage two bi-directional single track ABS blocks or one bi-directional dual 
+    > track ABS block.  There are other trackwork cases this board can handle as 
+    > well.  
+
 1. [ESP32-PWMHalfSidingSMD](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32-PWMHalfSidingSMD)
 
     > This is a circuit board that supports an ESP32 Dev Kit board or TTGO-T1 board 
@@ -208,6 +224,21 @@ There is a README in each project dir.
     > manage two bi-directional single track ABS blocks or one bi-directional dual 
     > track ABS block.  There are other trackwork cases this board can handle as 
     > well.  
+
+1. [ESP32-S3-MultiFunction](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32-S3-MultiFunction)
+
+    > This is a LCC node circuit board that is based around an Espressif ESP32-S3FN8
+    > MCU to manage and operate a collection of model railroad sensors and
+    > actuators. 
+
+1. [ESP32-S3-MultiFunctionOpenMRNIDF](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32-S3-MultiFunctionOpenMRNIDF)
+
+    > 
+
+1. [ESP32_mini_KiCad_Library](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32_mini_KiCad_Library)
+
+    > KiCad symbol and footprint for the ESP32 Mini, the ESP32 clone of the Wemos D1 mini with more pins and more power!
+    > There is some info on the boards [here](https://www.reddit.com/r/esp8266/comments/a93raj/wemos_ttgo_mini_d1_esp32/). It seems to be a Wemos clone, but is def. not made by them. I really like the boards for the small size and cheap price while giving me the power of an ESP32 and much more IO compared to the Wemos D1 mini.
 
 1. [ESP32ABSBoard](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32ABSBoard)
 
@@ -242,6 +273,11 @@ There is a README in each project dir.
 
     > This is a 16 pin I2C port expander using a MCP230017.
 
+1. [OpenMRNIDF](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/OpenMRNIDF)
+
+    > This is an exported version of the OpenMRN library for the ESP32 which is
+    > usable as an ESP-IDF component.
+
 1. [PBCommandStation](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/PBCommandStation)
 
     > Original through hole version of the Pocket Beagle LCC/DCC Command Station.
@@ -264,6 +300,10 @@ There is a README in each project dir.
     > contains four stall motor drivers with point sense, four CT Coil type
     > occupancy detectors, four Schmitt-Trigger inputs (for push buttons), four
     > driver outputs, 8 GPIO pins in a 5x2 header, and 16 PWM LED drivers. 
+
+1. [PocketBeagleMultifuntionOpenMRN](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/PocketBeagleMultifuntionOpenMRN)
+
+    > OpenMRN program for the PocketBeagleMultifuntion board.
 
 1. [PocketBeagleQuadOCDect](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/PocketBeagleQuadOCDect)
 
@@ -334,5 +374,4 @@ There is a README in each project dir.
     > contains four stall motor drivers with point sense, four CT Coil type
     > occupancy detectors, four Schmitt-Trigger inputs (for push buttons), four
     > driver outputs, 8 GPIO pins in a 5x2 header, and 16 PWM LED drivers. 
-                                                  
 
