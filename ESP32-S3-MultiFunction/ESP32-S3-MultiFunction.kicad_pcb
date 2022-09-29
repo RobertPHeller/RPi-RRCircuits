@@ -1,9 +1,9 @@
 (kicad_pcb (version 4) (host pcbnew 4.0.7+dfsg1-1ubuntu2)
 
   (general
-    (links 0)
+    (links 425)
     (no_connects 0)
-    (area 73.609999 25.349999 172.770001 151.180001)
+    (area 3.81 3.5052 291.287201 204.571601)
     (thickness 1.6)
     (drawings 16)
     (tracks 1790)
@@ -15,16 +15,16 @@
   (page A4)
   (layers
     (0 F.Cu signal hide)
-    (31 B.Cu signal)
+    (31 B.Cu signal hide)
     (32 B.Adhes user hide)
     (33 F.Adhes user hide)
     (34 B.Paste user hide)
     (35 F.Paste user hide)
-    (36 B.SilkS user hide)
+    (36 B.SilkS user)
     (37 F.SilkS user)
     (38 B.Mask user hide)
     (39 F.Mask user hide)
-    (40 Dwgs.User user hide)
+    (40 Dwgs.User user)
     (41 Cmts.User user hide)
     (42 Eco1.User user hide)
     (43 Eco2.User user hide)
@@ -32,8 +32,8 @@
     (45 Margin user hide)
     (46 B.CrtYd user hide)
     (47 F.CrtYd user hide)
-    (48 B.Fab user hide)
-    (49 F.Fab user hide)
+    (48 B.Fab user)
+    (49 F.Fab user)
   )
 
   (setup
@@ -512,7 +512,7 @@
     (fp_text reference J1 (at 0 -4.5 360) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value USB_OTG (at 0 3.4 360) (layer F.Fab)
+    (fp_text value USB_OTG (at 7.9007 -0.522 360) (layer F.Fab)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_text user "PCB Edge" (at 0 1.47 360) (layer Dwgs.User)
@@ -1707,7 +1707,7 @@
     )
   )
 
-  (module LEDs:LED_0402 (layer F.Cu) (tedit 63052AD5) (tstamp 63028B94)
+  (module LEDs:LED_0402 (layer F.Cu) (tedit 6335C16C) (tstamp 63028B94)
     (at 125.0188 41.0376 90)
     (descr "LED 0402 smd package")
     (tags "LED led 0402 SMD smd SMT smt smdled SMDLED smtled SMTLED")
@@ -1716,7 +1716,7 @@
     (fp_text reference D2 (at -0.1739 -0.9398 90) (layer F.SilkS)
       (effects (font (size 0.5 0.5) (thickness 0.075)))
     )
-    (fp_text value ACT1 (at 0 1.4 90) (layer F.Fab)
+    (fp_text value ACT1 (at 0 -1.5748 90) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_line (start -0.95 -0.45) (end -0.95 0.45) (layer F.SilkS) (width 0.12))
@@ -2424,7 +2424,7 @@
     )
   )
 
-  (module Fiducials:Fiducial_1mm_Dia_2.54mm_Outer_CopperTop (layer F.Cu) (tedit 6310A2F9) (tstamp 63028BF9)
+  (module Fiducials:Fiducial_1mm_Dia_2.54mm_Outer_CopperTop (layer F.Cu) (tedit 6335C262) (tstamp 63028BF9)
     (at 108.712 123.952)
     (descr "Circular Fiducial, 1mm bare copper top; 2.54mm keepout")
     (tags marker)
@@ -2433,7 +2433,7 @@
     (fp_text reference FD101 (at 3.4 0.7) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value FidMark (at 0 -1.8) (layer F.Fab)
+    (fp_text value FidMark (at 0 -1.8) (layer F.Fab) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_circle (center 0 0) (end 1.55 0) (layer F.CrtYd) (width 0.05))
@@ -2441,7 +2441,7 @@
       (solder_mask_margin 0.77) (clearance 0.77))
   )
 
-  (module Fiducials:Fiducial_1mm_Dia_2.54mm_Outer_CopperTop (layer F.Cu) (tedit 6310A2EF) (tstamp 63028BFE)
+  (module Fiducials:Fiducial_1mm_Dia_2.54mm_Outer_CopperTop (layer F.Cu) (tedit 6335C25D) (tstamp 63028BFE)
     (at 145.796 103.124)
     (descr "Circular Fiducial, 1mm bare copper top; 2.54mm keepout")
     (tags marker)
@@ -2450,7 +2450,7 @@
     (fp_text reference FD102 (at 3.4 0.7) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value FidMark (at 0 -1.8) (layer F.Fab)
+    (fp_text value FidMark (at 0 -1.8) (layer F.Fab) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_circle (center 0 0) (end 1.55 0) (layer F.CrtYd) (width 0.05))
@@ -2458,7 +2458,7 @@
       (solder_mask_margin 0.77) (clearance 0.77))
   )
 
-  (module Fiducials:Fiducial_1mm_Dia_2.54mm_Outer_CopperTop (layer F.Cu) (tedit 6310A2E0) (tstamp 63028C03)
+  (module Fiducials:Fiducial_1mm_Dia_2.54mm_Outer_CopperTop (layer F.Cu) (tedit 6335C234) (tstamp 63028C03)
     (at 110.998 35.306)
     (descr "Circular Fiducial, 1mm bare copper top; 2.54mm keepout")
     (tags marker)
@@ -2467,7 +2467,7 @@
     (fp_text reference FD103 (at 3.4 0.7) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value FidMark (at 0 -1.8) (layer F.Fab)
+    (fp_text value FidMark (at 0 -1.8) (layer F.Fab) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_circle (center 0 0) (end 1.55 0) (layer F.CrtYd) (width 0.05))
@@ -3143,7 +3143,7 @@
     )
   )
 
-  (module Mounting_Holes:MountingHole_3.7mm (layer F.Cu) (tedit 6310A29D) (tstamp 63028D2C)
+  (module Mounting_Holes:MountingHole_3.7mm (layer F.Cu) (tedit 6335C22E) (tstamp 63028D2C)
     (at 96.52 30.48)
     (descr "Mounting Hole 3.7mm, no annular")
     (tags "mounting hole 3.7mm no annular")
@@ -3151,7 +3151,7 @@
     (fp_text reference MK101 (at 0 -4.7) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value Mounting_Hole (at 0 4.7) (layer F.Fab)
+    (fp_text value Mounting_Hole (at 0 4.7) (layer F.Fab) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_circle (center 0 0) (end 3.7 0) (layer Cmts.User) (width 0.15))
@@ -3159,7 +3159,7 @@
     (pad 1 np_thru_hole circle (at 0 0) (size 3.7 3.7) (drill 3.7) (layers *.Cu *.Mask))
   )
 
-  (module Mounting_Holes:MountingHole_3.7mm (layer F.Cu) (tedit 6310A2A6) (tstamp 63028D31)
+  (module Mounting_Holes:MountingHole_3.7mm (layer F.Cu) (tedit 6335C239) (tstamp 63028D31)
     (at 149.86 30.48)
     (descr "Mounting Hole 3.7mm, no annular")
     (tags "mounting hole 3.7mm no annular")
@@ -3167,7 +3167,7 @@
     (fp_text reference MK102 (at 0 -4.7) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value Mounting_Hole (at 0 4.7) (layer F.Fab)
+    (fp_text value Mounting_Hole (at 0 4.7) (layer F.Fab) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_circle (center 0 0) (end 3.7 0) (layer Cmts.User) (width 0.15))
@@ -3175,7 +3175,7 @@
     (pad 1 np_thru_hole circle (at 0 0) (size 3.7 3.7) (drill 3.7) (layers *.Cu *.Mask))
   )
 
-  (module Mounting_Holes:MountingHole_3.7mm (layer F.Cu) (tedit 6310A2C5) (tstamp 63028D36)
+  (module Mounting_Holes:MountingHole_3.7mm (layer F.Cu) (tedit 6335C257) (tstamp 63028D36)
     (at 78.74 146.05)
     (descr "Mounting Hole 3.7mm, no annular")
     (tags "mounting hole 3.7mm no annular")
@@ -3183,7 +3183,7 @@
     (fp_text reference MK103 (at 0 -4.7) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value Mounting_Hole (at 0 4.7) (layer F.Fab)
+    (fp_text value Mounting_Hole (at 0 4.7) (layer F.Fab) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_circle (center 0 0) (end 3.7 0) (layer Cmts.User) (width 0.15))
@@ -3191,7 +3191,7 @@
     (pad 1 np_thru_hole circle (at 0 0) (size 3.7 3.7) (drill 3.7) (layers *.Cu *.Mask))
   )
 
-  (module Mounting_Holes:MountingHole_3.7mm_Pad (layer F.Cu) (tedit 6310A2BD) (tstamp 63028D3B)
+  (module Mounting_Holes:MountingHole_3.7mm_Pad (layer F.Cu) (tedit 6335C24C) (tstamp 63028D3B)
     (at 167.64 146.05)
     (descr "Mounting Hole 3.7mm")
     (tags "mounting hole 3.7mm")
@@ -3199,7 +3199,7 @@
     (fp_text reference MK104 (at 0 -4.7) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value Mounting_Hole_PAD (at 0 4.7) (layer F.Fab)
+    (fp_text value Mounting_Hole_PAD (at 0 4.7) (layer F.Fab) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_circle (center 0 0) (end 3.7 0) (layer Cmts.User) (width 0.15))
@@ -6408,7 +6408,7 @@
     )
   )
 
-  (module LEDs:LED_0402 (layer F.Cu) (tedit 63052B26) (tstamp 63051AB5)
+  (module LEDs:LED_0402 (layer F.Cu) (tedit 6335C173) (tstamp 63051AB5)
     (at 128.27 41.19 90)
     (descr "LED 0402 smd package")
     (tags "LED led 0402 SMD smd SMT smt smdled SMDLED smtled SMTLED")
@@ -6417,7 +6417,7 @@
     (fp_text reference D4 (at 0.1055 1.143 90) (layer F.SilkS)
       (effects (font (size 0.5 0.5) (thickness 0.075)))
     )
-    (fp_text value ACT2 (at 0 1.4 90) (layer F.Fab)
+    (fp_text value ACT2 (at 0 1.4 90) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_line (start -0.95 -0.45) (end -0.95 0.45) (layer F.SilkS) (width 0.12))
