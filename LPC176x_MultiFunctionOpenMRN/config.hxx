@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 12 12:58:51 2022
-//  Last Modified : <220927.1101>
+//  Last Modified : <221002.1636>
 //
 //  Description	
 //
@@ -98,8 +98,6 @@ extern const SimpleNodeStaticValues SNIP_STATIC_DATA = {
 /// the config eeprom file's layout changes.
 static constexpr uint16_t CANONICAL_VERSION = 0x1000;
 
-using LogicGroup = openlcb::RepeatedGroup<LogicConfig, LOGICCOUNT>;
-using TrackCircuitGroup = openlcb::RepeatedGroup<TrackCircuitConfig, TRACKCIRCUITCOUNT>;
 
 CDI_GROUP(IoBoardSegment,
           Segment(MemoryConfigDefs::SPACE_CONFIG), Offset(128));
@@ -111,9 +109,11 @@ CDI_GROUP_ENTRY(turnouts, TurnoutGroup, Name("Turnouts"), RepName("Turnout"));
 CDI_GROUP_ENTRY(points, PointsGroup, Name("Points"), RepName("Points"));
 CDI_GROUP_ENTRY(buttons, ButtonGroup, Name("Buttons"), RepName("Button"));
 CDI_GROUP_ENTRY(leds,LEDGroup, Name("LEDS"), RepName("LED"));
+#if 0
 CDI_GROUP_ENTRY(logics, LogicGroup, Name("LOGIC"), RepName("Logic"));
 CDI_GROUP_ENTRY(masts, MastGroup, Name("Rule to aspect"),RepName("Mast"));
 CDI_GROUP_ENTRY(circuits, TrackCircuitGroup, Name("TRACK CIRCUITS"), RepName("Circuit"));
+#endif
 CDI_GROUP_END();
 
 /// This segment is only needed temporarily until there is program code to set

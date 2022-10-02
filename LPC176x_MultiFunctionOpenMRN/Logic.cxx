@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Mar 1 10:46:51 2019
-//  Last Modified : <220928.1029>
+//  Last Modified : <221002.1557>
 //
 //  Description	
 //
@@ -67,6 +67,7 @@ void Logic::Init(openlcb::Node *node,
     {
         logics[i] = new Logic(node, grp_ref.entry(i),
                               timers, prevLogic);
+        prevLogic = logics[i];
     }
 }
 

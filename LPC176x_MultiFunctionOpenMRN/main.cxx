@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 12 14:55:18 2022
-//  Last Modified : <221002.1542>
+//  Last Modified : <221002.1643>
 //
 //  Description	
 //
@@ -221,15 +221,18 @@ int appl_main(int argc, char *argv[])
     LED Led8(stack.node(), cfg.seg().leds().entry<7>(),LED8_Pin());
 #endif
     
+#if 0
     Logic::Init(stack.node(),stack.executor()->active_timers(),
                 cfg.seg().logics());
     Mast::Init(stack.node(),cfg.seg().masts());
     TrackCircuit::Init(stack.node(),cfg.seg().circuits());
-
+#endif
 
     
+#if 0
     PCA9685PWM pwmchip1;
     pwmchip1.init("/dev/i2c0", PWMCHIP_ADDRESS1);
+    
     Lamp::PinLookupInit(Lamp::Unused,nullptr);
     
     PCA9685PWMBit LampA0(&pwmchip1,0);
@@ -305,7 +308,7 @@ int appl_main(int argc, char *argv[])
     Lamp::PinLookupInit(Lamp::D7_,&LampD7);
 
 #endif
-    
+#endif
     int fd = stack.create_config_file_if_needed(cfg.seg().internal_config(), 
                                                 openlcb::CANONICAL_VERSION, 
                                                 openlcb::CONFIG_FILE_SIZE);
