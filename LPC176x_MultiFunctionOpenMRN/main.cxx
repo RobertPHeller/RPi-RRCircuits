@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 12 14:55:18 2022
-//  Last Modified : <220927.1056>
+//  Last Modified : <221002.1542>
 //
 //  Description	
 //
@@ -105,7 +105,7 @@ public:
         cfg.userinfo().name().write(fd, HARDWARE_IMPL);
         cfg.userinfo().description().write(fd, "" );
     }
-} factory_reset_helper;
+};
 
 PWM* Lamp::pinlookup_[Lamp::MAX_LAMPID];
 
@@ -163,6 +163,7 @@ int appl_main(int argc, char *argv[])
     stack.set_tx_activity_led(ACT1_Pin::instance());
     stack.add_can_port_select("/dev/can0");
     
+    FactoryResetHelper factory_reset_helper;
     BlinkTimer blinker(stack.executor()->active_timers());
     
     Turnout turnout1(stack.node(), cfg.seg().turnouts().entry<0>(),Motor1_Pin());
