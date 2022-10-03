@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 12 14:55:18 2022
-//  Last Modified : <220921.1657>
+//  Last Modified : <221003.1506>
 //
 //  Description	
 //
@@ -146,7 +146,7 @@ public:
         cfg.userinfo().name().write(fd, HARDWARE_IMPL);
         cfg.userinfo().description().write(fd, "" );
     }
-} factory_reset_helper;
+};
 
 TrackCircuit *circuits[TRACKCIRCUITCOUNT];
 
@@ -204,6 +204,7 @@ int appl_main(int argc, char *argv[])
     stack.set_tx_activity_led(ACT1_Pin::instance());
     stack.add_can_port_select("/dev/can0");
     
+    FactoryResetHelper factory_reset_helper;
     openlcb::MultiConfiguredConsumer outputCard(stack.node(), 
                                                 kOutputCard, 
                                                 ARRAYSIZE(kOutputCard), 

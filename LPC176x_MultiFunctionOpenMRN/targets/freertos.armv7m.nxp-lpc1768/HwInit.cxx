@@ -77,6 +77,11 @@ void hw_set_to_safe(void)
 {
 }
 
+void resetblink(uint32_t pattern)
+{
+}
+
+
 /** Fault handler for assert.
  * @param pattern LED pattern for error
  */
