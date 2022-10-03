@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 12 14:55:18 2022
-//  Last Modified : <221003.1506>
+//  Last Modified : <221003.1547>
 //
 //  Description	
 //
@@ -148,7 +148,9 @@ public:
     }
 };
 
+#if 0
 TrackCircuit *circuits[TRACKCIRCUITCOUNT];
+#endif
 
 /** Entry point to application.
  *  * @param argc number of command line arguments
@@ -216,6 +218,7 @@ int appl_main(int argc, char *argv[])
     openlcb::RefreshLoop loop(stack.node(), {inputCard.polling()});
     
     
+#if 0
     for (int i = 0; i < TRACKCIRCUITCOUNT; i++) {
         circuits[i] = new TrackCircuit(stack.node(),cfg.seg().circuits().entry(i));
     }
@@ -225,6 +228,7 @@ int appl_main(int argc, char *argv[])
         logics[i] = new Logic(stack.node(), cfg.seg().logics().entry(i),stack.executor()->active_timers(),prevLogic);
         prevLogic = logics[i];
     }
+#endif
     
     int fd = stack.create_config_file_if_needed(cfg.seg().internal_config(), 
                                                 openlcb::CANONICAL_VERSION, 

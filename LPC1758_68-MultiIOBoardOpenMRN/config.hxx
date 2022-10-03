@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 12 12:58:51 2022
-//  Last Modified : <220917.1043>
+//  Last Modified : <221003.1547>
 //
 //  Description	
 //
@@ -93,8 +93,10 @@ CDI_GROUP(IoBoardSegment,
 CDI_GROUP_ENTRY(internal_config, InternalConfigData);
 CDI_GROUP_ENTRY(outputs,AllConsumers,Name("Output Card"),RepName("Output Bit"))
 CDI_GROUP_ENTRY(inputs,AllProducers,Name("Input Card"),RepName("Input Bit"))
+#if 0
 CDI_GROUP_ENTRY(logics, LogicGroup, Name("LOGIC"), RepName("Logic"));
 CDI_GROUP_ENTRY(circuits, TrackCircuitGroup, Name("TRACK CIRCUITS"), RepName("Circuit"));
+#endif
 CDI_GROUP_END();
 
 /// This segment is only needed temporarily until there is program code to set
