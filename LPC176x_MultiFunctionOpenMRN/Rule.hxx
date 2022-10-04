@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 17:12:10 2019
-//  Last Modified : <221004.1655>
+//  Last Modified : <221004.1811>
 //
 //  Description	
 //
@@ -130,7 +130,7 @@ using RulesGroup = openlcb::RepeatedGroup<RuleConfig, RULESCOUNT>;
 class Rule : 
              public openlcb::SimpleEventHandler {
 public:
-    enum RuleName : uint8_t {Stop,TakeSiding,StopOrders,StopProcede,
+    enum RuleName {Stop,TakeSiding,StopOrders,StopProcede,
                    Restricting,Permissive,SlowApproach,Slow,
                    SlowMedium,SlowLimited,SlowClear,
                    MediumApproach,MediumSlow,Medium,MediumClear,
@@ -171,17 +171,16 @@ public:
     void ClearRule(BarrierNotifiable *done);
 private:
     openlcb::Node *node_;
-    RuleName name_;
-    TrackCircuit::TrackSpeed speed_;
+    RuleName name_:5;
+    TrackCircuit::TrackSpeed speed_:4;
 #ifdef EFFECTS
     Effects effects_;
     Lamp::LampID effectsLamp_;
 #endif
-    
     Lamp lamps_[LAMPCOUNT];
     openlcb::EventId eventsets_{0},eventset_{0},eventclear_{0};
     Mast *parent_;
-    bool isSet_;
+    unsigned isSet_:1;
     void register_handler();
     void unregister_handler();
     void SendAllConsumersIdentified(EventReport *event,BarrierNotifiable *done);

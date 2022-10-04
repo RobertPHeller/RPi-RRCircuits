@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 12 14:55:18 2022
-//  Last Modified : <221004.1409>
+//  Last Modified : <221004.1817>
 //
 //  Description	
 //
@@ -277,8 +277,8 @@ int appl_main(int argc, char *argv[])
     LED::Init(stack.node(), cfg.seg().leds(), kLEDs,
               ARRAYSIZE(kLEDs));
     
-    Mast::Init(stack.node(),cfg.seg().masts());
 #if 0
+    Mast::Init(stack.node(),cfg.seg().masts());
     Logic::Init(stack.node(),stack.executor()->active_timers(),
                 cfg.seg().logics());
     TrackCircuit::Init(stack.node(),cfg.seg().circuits());

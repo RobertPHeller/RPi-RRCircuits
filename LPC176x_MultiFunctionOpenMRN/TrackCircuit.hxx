@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:11:23 2019
-//  Last Modified : <221004.1405>
+//  Last Modified : <221004.1810>
 //
 //  Description	
 //
@@ -88,7 +88,7 @@ public:
 
 class TrackCircuit : public ConfigUpdateListener, public openlcb::SimpleEventHandler {
 public:
-    enum TrackSpeed :uint8_t {Stop_,Restricting_,Slow_,Medium_,Limited_,
+    enum TrackSpeed {Stop_,Restricting_,Slow_,Medium_,Limited_,
               Approach_,ApproachMedium_,Clear_,Unknown_};
     TrackCircuit(openlcb::Node *n,const TrackCircuitConfig &cfg)
                 : node_(n), cfg_(cfg)
@@ -129,7 +129,7 @@ private:
     openlcb::Node *node_;
     const TrackCircuitConfig cfg_;
     openlcb::EventId remotemastlink_;
-    TrackSpeed speed_;
+    TrackSpeed speed_:4;
     typedef vector<TrackCircuitCallback *> callback_type;
     typedef callback_type::iterator callback_type_iterator;
     callback_type callbacks_;
