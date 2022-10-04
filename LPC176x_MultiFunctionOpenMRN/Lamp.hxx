@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 11:37:34 2019
-//  Last Modified : <220927.0754>
+//  Last Modified : <221004.1611>
 //
 //  Description	
 //
@@ -49,6 +49,7 @@
 #include "utils/ConfigUpdateService.hxx"
 #include "openlcb/RefreshLoop.hxx"
 #include "freertos_drivers/common/PWM.hxx"
+#include "utils/Uninitialized.hxx"
 #include <stdio.h>
 #include "HardwareDefs.hxx"
 
@@ -133,9 +134,9 @@ using LampGroup = openlcb::RepeatedGroup<LampConfig, LAMPCOUNT>;
 
 #define BRIGHNESSHUNDRETHSPERCENT(b) ((b)*.0001)
 
-class Lamp : public ConfigUpdateListener , public Blinking {
+class Lamp : public Blinking {
 public:
-    enum LampID {Unused, A0_, A1_, A2_, A3_, A4_, A5_, A6_, A7_, 
+    enum LampID : uint8_t {Unused, A0_, A1_, A2_, A3_, A4_, A5_, A6_, A7_, 
               B0_, B1_, B2_, B3_, B4_, B5_, B6_, B7_
 #if NUM_PWMCHIPS == 2
               , C0_, C1_, C2_, C3_, C4_, C5_, C6_, C7_, 
@@ -143,9 +144,9 @@ public:
 #endif
               , MAX_LAMPID
 };
-    enum LampPhase {Steady,A_Slow,A_Medium,A_Fast,None,B_Slow,B_Medium,
+    enum LampPhase : uint8_t {Steady,A_Slow,A_Medium,A_Fast,None,B_Slow,B_Medium,
               B_Fast};
-    Lamp(const LampConfig &cfg) : cfg_(cfg)
+    Lamp() 
     {
         lampid_ = Unused;
         phase_  = Steady;
@@ -156,24 +157,14 @@ public:
         // 1Khz
         period_ = 1000000;
         BlinkTimer::instance()->AddMe(this);
-        ConfigUpdateService::instance()->register_update_listener(this);
     }
-    void factory_reset(int fd) OVERRIDE
+    void UpdateConfig(LampID lampid, LampPhase phase, uint16_t brightness, 
+                      uint32_t period)
     {
-        CDI_FACTORY_RESET(cfg_.selection);
-        CDI_FACTORY_RESET(cfg_.phase);
-        CDI_FACTORY_RESET(cfg_.brightness);
-        CDI_FACTORY_RESET(cfg_.period);
-    }
-    UpdateAction apply_configuration(int fd, bool initial_load,
-                                     BarrierNotifiable *done) override
-    {
-        AutoNotify n(done);
-        lampid_ = (LampID)     cfg_.selection().read(fd);
-        phase_  = (LampPhase)  cfg_.phase().read(fd);
-        brightness_ = cfg_.brightness().read(fd);
-        period_ = cfg_.period().read(fd);
-        return UPDATED;
+        lampid_ = lampid;
+        phase_ = phase;
+        brightness_ = brightness;
+        period_ = period;
     }
     PWM* Pin() const       {return pinlookup_[(int)lampid_];}
     const LampPhase Phase() const {return phase_;}
@@ -226,7 +217,6 @@ private:
     static PWM* pinlookup_[MAX_LAMPID];
     LampID lampid_;
     LampPhase  phase_;
-    const LampConfig cfg_;
     bool isOn_;
     bool hasChanged_;
     uint16_t brightness_;

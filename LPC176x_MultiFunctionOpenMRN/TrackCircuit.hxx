@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:11:23 2019
-//  Last Modified : <220927.0939>
+//  Last Modified : <221004.1405>
 //
 //  Description	
 //
@@ -88,7 +88,7 @@ public:
 
 class TrackCircuit : public ConfigUpdateListener, public openlcb::SimpleEventHandler {
 public:
-    enum TrackSpeed {Stop_,Restricting_,Slow_,Medium_,Limited_,
+    enum TrackSpeed :uint8_t {Stop_,Restricting_,Slow_,Medium_,Limited_,
               Approach_,ApproachMedium_,Clear_,Unknown_};
     TrackCircuit(openlcb::Node *n,const TrackCircuitConfig &cfg)
                 : node_(n), cfg_(cfg)

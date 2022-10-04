@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 12 14:55:18 2022
-//  Last Modified : <221004.1043>
+//  Last Modified : <221004.1409>
 //
 //  Description	
 //
@@ -166,7 +166,6 @@ constexpr const static Gpio *const kLEDs[] = {
 
 vector<LED *> LED::leds;
 
-#if 1
 PCA9685PWM pwmchip1;
 PCA9685PWMBit LampA0(&pwmchip1,0);
 PCA9685PWMBit LampA1(&pwmchip1,1);
@@ -176,6 +175,7 @@ PCA9685PWMBit LampA4(&pwmchip1,4);
 PCA9685PWMBit LampA5(&pwmchip1,5);
 PCA9685PWMBit LampA6(&pwmchip1,6);
 PCA9685PWMBit LampA7(&pwmchip1,7);
+
 PCA9685PWMBit LampB0(&pwmchip1,8);
 PCA9685PWMBit LampB1(&pwmchip1,9);
 PCA9685PWMBit LampB2(&pwmchip1,10);
@@ -194,6 +194,7 @@ PCA9685PWMBit LampC4(&pwmchip2,4);
 PCA9685PWMBit LampC5(&pwmchip2,5);
 PCA9685PWMBit LampC6(&pwmchip2,6);
 PCA9685PWMBit LampC7(&pwmchip2,7);
+
 PCA9685PWMBit LampD0(&pwmchip2,8);
 PCA9685PWMBit LampD1(&pwmchip2,9);
 PCA9685PWMBit LampD2(&pwmchip2,10);
@@ -202,7 +203,6 @@ PCA9685PWMBit LampD4(&pwmchip2,12);
 PCA9685PWMBit LampD5(&pwmchip2,13);
 PCA9685PWMBit LampD6(&pwmchip2,14);
 PCA9685PWMBit LampD7(&pwmchip2,15);
-#endif
 #endif
 
 /** Entry point to application.
@@ -277,15 +277,14 @@ int appl_main(int argc, char *argv[])
     LED::Init(stack.node(), cfg.seg().leds(), kLEDs,
               ARRAYSIZE(kLEDs));
     
-#if 0
     Mast::Init(stack.node(),cfg.seg().masts());
+#if 0
     Logic::Init(stack.node(),stack.executor()->active_timers(),
                 cfg.seg().logics());
     TrackCircuit::Init(stack.node(),cfg.seg().circuits());
 #endif
 
     
-#if 1
     pwmchip1.init("/dev/i2c0", PWMCHIP_ADDRESS1);
     
     Lamp::PinLookupInit(Lamp::Unused,nullptr);
@@ -330,7 +329,7 @@ int appl_main(int argc, char *argv[])
     Lamp::PinLookupInit(Lamp::D7_,&LampD7);
 
 #endif
-#endif
+    
     int fd = stack.create_config_file_if_needed(cfg.seg().internal_config(), 
                                                 openlcb::CANONICAL_VERSION, 
                                                 openlcb::CONFIG_FILE_SIZE);

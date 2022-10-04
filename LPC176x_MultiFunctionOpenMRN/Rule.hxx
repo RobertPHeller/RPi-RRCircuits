@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 17:12:10 2019
-//  Last Modified : <220926.1507>
+//  Last Modified : <221004.1655>
 //
 //  Description	
 //
@@ -49,6 +49,7 @@
 #include "utils/ConfigUpdateService.hxx"
 #include "openlcb/RefreshLoop.hxx"
 #include <os/Gpio.hxx>
+#include "utils/Uninitialized.hxx"
 
 class Mast;
 #include "Lamp.hxx"
@@ -126,10 +127,10 @@ CDI_GROUP_END();
 
 using RulesGroup = openlcb::RepeatedGroup<RuleConfig, RULESCOUNT>;
 
-class Rule : public ConfigUpdateListener,
+class Rule : 
              public openlcb::SimpleEventHandler {
 public:
-    enum RuleName {Stop,TakeSiding,StopOrders,StopProcede,
+    enum RuleName : uint8_t {Stop,TakeSiding,StopOrders,StopProcede,
                    Restricting,Permissive,SlowApproach,Slow,
                    SlowMedium,SlowLimited,SlowClear,
                    MediumApproach,MediumSlow,Medium,MediumClear,
@@ -140,10 +141,10 @@ public:
                    ApproachLimited,AdvanceApproachLimited,Clear,
                    CabSpeed,Dark};
 #ifdef EFFECTS
-    enum Effects {None,Transition,H2RedFlash,Strobe};
+    enum Effects : uint8_t {None,Transition,H2RedFlash,Strobe};
 #endif
-    Rule(openlcb::Node *n,const RuleConfig &cfg, Mast *parent) 
-      : node_(n), cfg_(cfg) 
+    Rule(openlcb::Node *n, Mast *parent) 
+      : node_(n)
     {
         name_ = Stop;
         speed_ = TrackCircuit::Stop_;
@@ -151,17 +152,11 @@ public:
         effects_ = None;
         effectsLamp_ = Lamp::Unused;
 #endif
-        for (int i = 0; i < LAMPCOUNT; i++) {
-            lamps_[i] = new Lamp(cfg_.lamps().entry(i));
-        }
         parent_ = parent;
         isSet_ = false;
-        ConfigUpdateService::instance()->register_update_listener(this);
     }
-    virtual UpdateAction apply_configuration(int fd, 
-                                             bool initial_load,
-                                             BarrierNotifiable *done) override;
-    virtual void factory_reset(int fd) override;
+    bool UpdateConfig(const RuleConfig &cfg_,int fd,bool initial_load);
+    void factory_reset(const RuleConfig &cfg_,int fd);
     void handle_identify_global(const openlcb::EventRegistryEntry &registry_entry, 
                                 EventReport *event, BarrierNotifiable *done) override;
     void handle_identify_producer(const EventRegistryEntry &registry_entry,
@@ -176,14 +171,14 @@ public:
     void ClearRule(BarrierNotifiable *done);
 private:
     openlcb::Node *node_;
-    const RuleConfig cfg_;
     RuleName name_;
     TrackCircuit::TrackSpeed speed_;
 #ifdef EFFECTS
     Effects effects_;
     Lamp::LampID effectsLamp_;
 #endif
-    Lamp *lamps_[LAMPCOUNT];
+    
+    Lamp lamps_[LAMPCOUNT];
     openlcb::EventId eventsets_{0},eventset_{0},eventclear_{0};
     Mast *parent_;
     bool isSet_;

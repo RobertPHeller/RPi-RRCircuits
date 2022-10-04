@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 15:59:18 2019
-//  Last Modified : <220927.0947>
+//  Last Modified : <221004.1659>
 //
 //  Description	
 //
@@ -48,6 +48,7 @@
 #include "utils/ConfigUpdateListener.hxx"
 #include "utils/ConfigUpdateService.hxx"
 #include "openlcb/RefreshLoop.hxx"
+#include "utils/Uninitialized.hxx"
 #include <os/Gpio.hxx>
 #include <stdio.h>
 
@@ -56,11 +57,7 @@
 #include "TrackCircuit.hxx"
 #include "HardwareDefs.hxx"
 
-#if NUM_PWMCHIPS == 2
-#define MASTCOUNT 16
-#else
-#define MASTCOUNT 8
-#endif
+#define MASTCOUNT 4
 
 static const char MastProcessingMap[] = 
 "<relation><property>0</property><value>Unused</value></relation>"
@@ -97,9 +94,9 @@ CDI_GROUP_END();
 class Mast : public ConfigUpdateListener, 
              public openlcb::SimpleEventHandler {
 public:
-    enum MastProcessing {Unused, Normal, Linked};
+    enum MastProcessing : uint8_t {Unused, Normal, Linked};
 #ifdef HAVEPWM
-    enum LampFade {None, Incandescent};
+    enum LampFade : uint8_t {None, Incandescent};
 #endif
     Mast(openlcb::Node *n,const MastConfig &cfg, Mast *previous) 
       : node_(n), cfg_(cfg)
@@ -114,7 +111,7 @@ public:
         currentRule_  = nullptr;
         currentSpeed_ = TrackCircuit::Stop_;
         for (int i = 0; i < RULESCOUNT; i++) {
-            rules_[i] = new Rule(node_,cfg_.rules().entry(i),this);
+            rules_[i].emplace(node_,this);
         }
         ConfigUpdateService::instance()->register_update_listener(this);
     }
@@ -143,7 +140,7 @@ private:
 #endif
     openlcb::EventId linkevent_;
     static uint16_t baseLinkEvent_;
-    Rule *rules_[RULESCOUNT];
+    uninitialized<Rule> rules_[RULESCOUNT];
     Rule *currentRule_;
     TrackCircuit::TrackSpeed currentSpeed_;
     Mast *previous_;
@@ -153,7 +150,7 @@ private:
     void SendProducerIdentified(EventReport *event,BarrierNotifiable *done);
     openlcb::WriteHelper write_helper[8];
     std::string mastid_{""};
-    static Mast *masts[MASTCOUNT];
+    static uninitialized<Mast> masts[MASTCOUNT];
 };
 
 
