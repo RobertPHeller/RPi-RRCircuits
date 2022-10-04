@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 12 14:55:18 2022
-//  Last Modified : <221004.1817>
+//  Last Modified : <221004.1946>
 //
 //  Description	
 //
@@ -166,6 +166,7 @@ constexpr const static Gpio *const kLEDs[] = {
 
 vector<LED *> LED::leds;
 
+#ifdef SIGNALS
 PCA9685PWM pwmchip1;
 PCA9685PWMBit LampA0(&pwmchip1,0);
 PCA9685PWMBit LampA1(&pwmchip1,1);
@@ -203,6 +204,7 @@ PCA9685PWMBit LampD4(&pwmchip2,12);
 PCA9685PWMBit LampD5(&pwmchip2,13);
 PCA9685PWMBit LampD6(&pwmchip2,14);
 PCA9685PWMBit LampD7(&pwmchip2,15);
+#endif
 #endif
 
 /** Entry point to application.
@@ -277,12 +279,8 @@ int appl_main(int argc, char *argv[])
     LED::Init(stack.node(), cfg.seg().leds(), kLEDs,
               ARRAYSIZE(kLEDs));
     
-#if 0
+#ifdef SIGNALS
     Mast::Init(stack.node(),cfg.seg().masts());
-    Logic::Init(stack.node(),stack.executor()->active_timers(),
-                cfg.seg().logics());
-    TrackCircuit::Init(stack.node(),cfg.seg().circuits());
-#endif
 
     
     pwmchip1.init("/dev/i2c0", PWMCHIP_ADDRESS1);
@@ -328,6 +326,14 @@ int appl_main(int argc, char *argv[])
     Lamp::PinLookupInit(Lamp::D6_,&LampD6);
     Lamp::PinLookupInit(Lamp::D7_,&LampD7);
 
+#endif
+#endif
+#ifdef LOGICS
+    Logic::Init(stack.node(),stack.executor()->active_timers(),
+                cfg.seg().logics());
+#endif
+#ifdef TRACKCIRCUITS
+    TrackCircuit::Init(stack.node(),cfg.seg().circuits());
 #endif
     
     int fd = stack.create_config_file_if_needed(cfg.seg().internal_config(), 
