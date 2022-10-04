@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Feb 24 14:51:54 2019
-//  Last Modified : <220903.1602>
+//  Last Modified : <221004.1026>
 //
 //  Description	
 //
@@ -50,6 +50,8 @@
 #include "utils/ConfigUpdateService.hxx"
 #include "utils/Debouncer.hxx"
 #include "Points.hxx"
+
+#include <vector>
 
 /// CDI Configuration for a @ref ConfiguredProducer.
 CDI_GROUP(ButtonConfig);
@@ -132,10 +134,29 @@ public:
     {
         return &producer_;
     }
+    template <unsigned N>
+          __attribute__((noinline))
+          static void Init(openlcb::Node *node,
+                           const openlcb::RepeatedGroup<ButtonConfig, N> &config,
+                           const Gpio *const *pins, unsigned size)
+    {
+        HASSERT(size == N);
+        openlcb::ConfigReference offset_(config);
+        openlcb::RepeatedGroup<ButtonConfig, UINT_MAX> grp_ref(offset_.offset());
+        for (unsigned i = 0; i < size; i++)
+        {
+            Button *b = new Button(node,grp_ref.entry(i),pins[i]);
+            buttons.push_back(b);
+            pollers.push_back(new openlcb::RefreshLoop(node,{b->polling()}));
+        }
+    }
+    
 
 private:
     ProducerClass producer_;
     const ButtonConfig cfg_;
+    static vector<Button *> buttons;
+    static vector<openlcb::RefreshLoop *> pollers;
 };
 
 

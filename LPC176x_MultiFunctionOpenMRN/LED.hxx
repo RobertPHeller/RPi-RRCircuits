@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 21 22:27:50 2021
-//  Last Modified : <220926.1636>
+//  Last Modified : <221004.1029>
 //
 //  Description	
 //
@@ -49,6 +49,7 @@
 #include "utils/ConfigUpdateService.hxx"
 #include "openlcb/RefreshLoop.hxx"
 #include <stdio.h>
+#include <vector>
 
 #include "Blink.hxx"
 
@@ -250,6 +251,20 @@ public:
     {
         return ((state_ & 1) != 0);
     }
+    template <unsigned N>
+          __attribute__((noinline)) 
+          static void Init(openlcb::Node *node,
+                           const openlcb::RepeatedGroup<LEDConfig, N> &config, 
+                           const Gpio *const *pins, unsigned size)
+    {
+        HASSERT(size == N);
+        openlcb::ConfigReference offset_(config);
+        openlcb::RepeatedGroup<LEDConfig, UINT_MAX> grp_ref(offset_.offset());
+        for (unsigned i = 0; i < size; i++)
+        {
+            leds.push_back(new LED(node,grp_ref.entry(i),pins[i]));
+        }
+    }
 private:
     Impl impl_;
     openlcb::BitEventConsumer consumer_;
@@ -259,6 +274,7 @@ private:
     uint8_t state_{0};
     uint8_t pulseWidth_;
     uint8_t pulseCount_;
+    static vector<LED *> leds;                                          
 };
 
     

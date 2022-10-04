@@ -11,7 +11,7 @@
 #include "openlcb/RefreshLoop.hxx"
 #include "VetoBitEventInterface.hxx"
 
-#include "HardwareDefs.hxx"
+#include <vector>
 
 /// CDI Configuration for a @ref ConfiguredConsumer.
 CDI_GROUP(TurnoutConfig);
@@ -108,14 +108,14 @@ public:
         openlcb::RepeatedGroup<TurnoutConfig, UINT_MAX> grp_ref(offset_.offset());
         for (unsigned i = 0; i < size; i++)
         {
-            turnouts[i] = new Turnout(node,grp_ref.entry(i),pins[i]);
+            turnouts.push_back(new Turnout(node,grp_ref.entry(i),pins[i]));
         }
     }
 private:
     Impl impl_;
     VetoBitEventConsumer consumer_;
     const TurnoutConfig cfg_;
-    static Turnout *turnouts[NUM_TURNOUTS];
+    static vector<Turnout *> turnouts;
 };
 
 

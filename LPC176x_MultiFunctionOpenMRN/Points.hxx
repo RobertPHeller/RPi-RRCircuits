@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 14 15:16:50 2018
-//  Last Modified : <221003.2255>
+//  Last Modified : <221004.1022>
 //
 //  Description	
 //
@@ -50,6 +50,7 @@
 #include "utils/ConfigUpdateService.hxx"
 
 #include <vector>
+
 /// CDI Configuration for a @ref ConfiguredProducer.
 CDI_GROUP(PointsConfig);
 /// Allows the user to assign a name for this input.
@@ -168,15 +169,16 @@ public:
         openlcb::RepeatedGroup<PointsConfig, UINT_MAX> grp_ref(offset_.offset());
         for (unsigned i = 0; i < size; i++)
         {
-            points[i] = new Points(node,grp_ref.entry(i),pins[i]);
-            pollers[i] = new openlcb::RefreshLoop(node,{points[i]->polling()});
+            Points *p = new Points(node,grp_ref.entry(i),pins[i]);
+            points.push_back(p);
+            pollers.push_back(new openlcb::RefreshLoop(node,{p->polling()}));
         }
     }
 private:
     ProducerClass producer_;
     const PointsConfig cfg_;
-    static Points *points[NUM_POINTSS];
-    static openlcb::RefreshLoop *pollers[NUM_POINTSS];
+    static vector<Points *> points;
+    static vector<openlcb::RefreshLoop *> pollers;
 };
 
 
