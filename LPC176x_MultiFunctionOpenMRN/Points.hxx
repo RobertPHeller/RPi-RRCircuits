@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 14 15:16:50 2018
-//  Last Modified : <201125.0858>
+//  Last Modified : <221003.2255>
 //
 //  Description	
 //
@@ -49,6 +49,7 @@
 #include "utils/ConfigUpdateListener.hxx"
 #include "utils/ConfigUpdateService.hxx"
 
+#include <vector>
 /// CDI Configuration for a @ref ConfiguredProducer.
 CDI_GROUP(PointsConfig);
 /// Allows the user to assign a name for this input.
@@ -93,7 +94,7 @@ public:
         }
     }
 private:
-    openlcb::BitEventPC producer_;
+    openlcb::BitEventProducer producer_;
     openlcb::EventState old_state;
 };
 
@@ -156,9 +157,26 @@ public:
     {
         return producer_.get_current_state();
     }
+    template <unsigned N>
+          __attribute__((noinline))
+          static void Init(openlcb::Node *node,
+                           const openlcb::RepeatedGroup<PointsConfig, N> &config,
+                           const Gpio *const *pins, unsigned size)
+    {
+        HASSERT(size == N);
+        openlcb::ConfigReference offset_(config);
+        openlcb::RepeatedGroup<PointsConfig, UINT_MAX> grp_ref(offset_.offset());
+        for (unsigned i = 0; i < size; i++)
+        {
+            points[i] = new Points(node,grp_ref.entry(i),pins[i]);
+            pollers[i] = new openlcb::RefreshLoop(node,{points[i]->polling()});
+        }
+    }
 private:
     ProducerClass producer_;
     const PointsConfig cfg_;
+    static Points *points[NUM_POINTSS];
+    static openlcb::RefreshLoop *pollers[NUM_POINTSS];
 };
 
 

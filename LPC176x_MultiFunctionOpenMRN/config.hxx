@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 12 12:58:51 2022
-//  Last Modified : <221002.1636>
+//  Last Modified : <221003.1947>
 //
 //  Description	
 //
@@ -109,9 +109,9 @@ CDI_GROUP_ENTRY(turnouts, TurnoutGroup, Name("Turnouts"), RepName("Turnout"));
 CDI_GROUP_ENTRY(points, PointsGroup, Name("Points"), RepName("Points"));
 CDI_GROUP_ENTRY(buttons, ButtonGroup, Name("Buttons"), RepName("Button"));
 CDI_GROUP_ENTRY(leds,LEDGroup, Name("LEDS"), RepName("LED"));
+CDI_GROUP_ENTRY(masts, MastGroup, Name("Rule to aspect"),RepName("Mast"));
 #if 0
 CDI_GROUP_ENTRY(logics, LogicGroup, Name("LOGIC"), RepName("Logic"));
-CDI_GROUP_ENTRY(masts, MastGroup, Name("Rule to aspect"),RepName("Mast"));
 CDI_GROUP_ENTRY(circuits, TrackCircuitGroup, Name("TRACK CIRCUITS"), RepName("Circuit"));
 #endif
 CDI_GROUP_END();

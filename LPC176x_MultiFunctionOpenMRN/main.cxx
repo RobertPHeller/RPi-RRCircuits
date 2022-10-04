@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 12 14:55:18 2022
-//  Last Modified : <221002.1643>
+//  Last Modified : <221003.2224>
 //
 //  Description	
 //
@@ -81,7 +81,7 @@ extern const char *const openlcb::CONFIG_FILENAME = "/dev/eeprom";
 // The size of the memory space to export over the above device. We verify that
 // the available eeprom is not too full (8192 max) to avoid quick wear-out
 // of the flash. Recommended to have at least 10% spare.
-extern const size_t openlcb::CONFIG_FILE_SIZE =
+extern const size_t openlcb::CONFIG_FILE_SIZE = 
 cfg.seg().size() + cfg.seg().offset();
 static_assert(openlcb::CONFIG_FILE_SIZE <= 57344, "Need to adjust eeprom size");
 
@@ -108,6 +108,28 @@ public:
 };
 
 PWM* Lamp::pinlookup_[Lamp::MAX_LAMPID];
+
+constexpr const static Gpio *const kTurnouts[] = {
+    Motor1_Pin::instance(), Motor2_Pin::instance()
+#if NUM_TURNOUTS == 8
+    , Motor3_Pin::instance(), Motor4_Pin::instance()
+    , Motor5_Pin::instance(), Motor6_Pin::instance()
+    , Motor7_Pin::instance(), Motor8_Pin::instance()
+#endif
+};
+Turnout *Turnout::turnouts[NUM_TURNOUTS];
+
+constexpr const static Gpio *const kPoints[] = {
+    Points1_Pin::instance(), Points2_Pin::instance()
+#if NUM_POINTSS == 8
+    , Points3_Pin::instance(), Points4_Pin::instance()
+    , Points5_Pin::instance(), Points6_Pin::instance()
+    , Points7_Pin::instance(), Points8_Pin::instance()
+#endif
+};
+
+Points *Points::points[NUM_POINTSS];
+openlcb::RefreshLoop *Points::pollers[NUM_POINTSS];
 
 /** Entry point to application.
  *  * @param argc number of command line arguments
@@ -166,16 +188,8 @@ int appl_main(int argc, char *argv[])
     FactoryResetHelper factory_reset_helper;
     BlinkTimer blinker(stack.executor()->active_timers());
     
-    Turnout turnout1(stack.node(), cfg.seg().turnouts().entry<0>(),Motor1_Pin());
-    Turnout turnout2(stack.node(), cfg.seg().turnouts().entry<1>(),Motor2_Pin());
-#if NUM_TURNOUTS == 8
-    Turnout turnout3(stack.node(), cfg.seg().turnouts().entry<2>(),Motor3_Pin());
-    Turnout turnout4(stack.node(), cfg.seg().turnouts().entry<3>(),Motor4_Pin());
-    Turnout turnout5(stack.node(), cfg.seg().turnouts().entry<4>(),Motor5_Pin());
-    Turnout turnout6(stack.node(), cfg.seg().turnouts().entry<5>(),Motor6_Pin());
-    Turnout turnout7(stack.node(), cfg.seg().turnouts().entry<6>(),Motor7_Pin());
-    Turnout turnout8(stack.node(), cfg.seg().turnouts().entry<7>(),Motor8_Pin());
-#endif
+    Turnout::Init(stack.node(),  cfg.seg().turnouts(), kTurnouts, 
+                  ARRAYSIZE(kTurnouts));
     
     Points points1(stack.node(), cfg.seg().points().entry<0>(),Points1_Pin());
     Points points2(stack.node(), cfg.seg().points().entry<1>(),Points2_Pin());
@@ -222,9 +236,9 @@ int appl_main(int argc, char *argv[])
 #endif
     
 #if 0
+    Mast::Init(stack.node(),cfg.seg().masts());
     Logic::Init(stack.node(),stack.executor()->active_timers(),
                 cfg.seg().logics());
-    Mast::Init(stack.node(),cfg.seg().masts());
     TrackCircuit::Init(stack.node(),cfg.seg().circuits());
 #endif
 
