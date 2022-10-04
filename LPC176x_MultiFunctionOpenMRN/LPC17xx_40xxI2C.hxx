@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 26 11:28:23 2022
-//  Last Modified : <220926.1538>
+//  Last Modified : <221004.1227>
 //
 //  Description	
 //
@@ -64,6 +64,13 @@ public:
     ~LPC17xx_40xxI2C()
     {
     }
+    static void interrupt_handler(I2C_ID_T port)
+    {
+        if (instances[(unsigned)port])
+        {
+            instances[(unsigned)port]->interrupt_handler();
+        }
+    }
     
 private:
     void enable() override {} /**< function to enable device */
@@ -79,8 +86,10 @@ private:
     /** Default constructor.
      */
     LPC17xx_40xxI2C();
+    void interrupt_handler();
     
     I2C_ID_T port_;
+    static LPC17xx_40xxI2C* instances[3];
     
     DISALLOW_COPY_AND_ASSIGN(LPC17xx_40xxI2C);
 };

@@ -120,6 +120,8 @@ void hw_preinit(void)
     /* Set up I2C2 pins */
     Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 10, IOCON_FUNC2 | IOCON_MODE_INACT); 
     Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 11, IOCON_FUNC2 | IOCON_MODE_INACT); 
+    Chip_IOCON_EnableOD(LPC_IOCON, 0, 10);
+    Chip_IOCON_EnableOD(LPC_IOCON, 0, 11);
 }
 
 } /* extern "C" */

@@ -65,7 +65,7 @@ extern const size_t EEPROMEmulation::SECTOR_SIZE = 0x8000;
 
 
 /** EEPROM file */
-static LpcEEPROMEmulation eeprom("/dev/eeprom", 256);
+static LpcEEPROMEmulation eeprom("/dev/eeprom", 16383);
 
 extern "C" {
 const uint32_t OscRateIn = 16000000;
@@ -190,6 +190,8 @@ void hw_preinit(void)
     /* Set up I2C2 pins */
     Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 10, IOCON_FUNC2 | IOCON_MODE_INACT); 
     Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 11, IOCON_FUNC2 | IOCON_MODE_INACT); 
+    Chip_IOCON_EnableOD(LPC_IOCON, 0, 10);
+    Chip_IOCON_EnableOD(LPC_IOCON, 0, 11);
 }
 
 } /* extern "C" */
