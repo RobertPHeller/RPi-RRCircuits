@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 17:12:10 2019
-//  Last Modified : <221004.1811>
+//  Last Modified : <221005.1658>
 //
 //  Description	
 //
@@ -170,24 +170,24 @@ public:
                                   BarrierNotifiable *done) override;
     void ClearRule(BarrierNotifiable *done);
 private:
-    openlcb::Node *node_;
-    RuleName name_:5;
-    TrackCircuit::TrackSpeed speed_:4;
-#ifdef EFFECTS
-    Effects effects_;
-    Lamp::LampID effectsLamp_;
-#endif
-    Lamp lamps_[LAMPCOUNT];
-    openlcb::EventId eventsets_{0},eventset_{0},eventclear_{0};
-    Mast *parent_;
-    unsigned isSet_:1;
     void register_handler();
     void unregister_handler();
     void SendAllConsumersIdentified(EventReport *event,BarrierNotifiable *done);
     void SendConsumerIdentified(EventReport *event,BarrierNotifiable *done);
     void SendAllProducersIdentified(EventReport *event,BarrierNotifiable *done);
     void SendProducerIdentified(EventReport *event,BarrierNotifiable *done);
-    openlcb::WriteHelper write_helpers[3];
+    openlcb::Node *node_;
+    RuleName name_:5;
+    TrackCircuit::TrackSpeed speed_:4;
+    unsigned isSet_:1;
+#ifdef EFFECTS
+    Effects effects_:2;
+    Lamp::LampID effectsLamp_:5;
+#endif
+    Lamp lamps_[LAMPCOUNT];
+    openlcb::EventId eventsets_{0},eventset_{0},eventclear_{0};
+    Mast *parent_;
+    static openlcb::WriteHelper write_helper;
 };
 
 #endif // __RULE_HXX

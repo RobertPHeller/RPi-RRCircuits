@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 15:59:18 2019
-//  Last Modified : <221004.1659>
+//  Last Modified : <221005.1733>
 //
 //  Description	
 //
@@ -57,7 +57,7 @@
 #include "TrackCircuit.hxx"
 #include "HardwareDefs.hxx"
 
-#define MASTCOUNT 4
+#define MASTCOUNT 8
 
 static const char MastProcessingMap[] = 
 "<relation><property>0</property><value>Unused</value></relation>"
@@ -94,9 +94,9 @@ CDI_GROUP_END();
 class Mast : public ConfigUpdateListener, 
              public openlcb::SimpleEventHandler {
 public:
-    enum MastProcessing : uint8_t {Unused, Normal, Linked};
+    enum MastProcessing {Unused, Normal, Linked};
 #ifdef HAVEPWM
-    enum LampFade : uint8_t {None, Incandescent};
+    enum LampFade {None, Incandescent};
 #endif
     Mast(openlcb::Node *n,const MastConfig &cfg, Mast *previous) 
       : node_(n), cfg_(cfg)
@@ -132,23 +132,23 @@ public:
            static void Init(openlcb::Node *node,
                             const openlcb::RepeatedGroup<MastConfig, MASTCOUNT> &config);
 private:
-    openlcb::Node *node_;
-    const MastConfig cfg_;
-    MastProcessing processing_;
-#ifdef HAVEPWM
-    LampFade fade_;
-#endif
-    openlcb::EventId linkevent_;
-    static uint16_t baseLinkEvent_;
-    uninitialized<Rule> rules_[RULESCOUNT];
-    Rule *currentRule_;
-    TrackCircuit::TrackSpeed currentSpeed_;
-    Mast *previous_;
     void register_handler();
     void unregister_handler();
     void SendAllProducersIdentified(EventReport *event,BarrierNotifiable *done);
     void SendProducerIdentified(EventReport *event,BarrierNotifiable *done);
-    openlcb::WriteHelper write_helper[8];
+    openlcb::Node *node_;
+    const MastConfig cfg_;
+    MastProcessing processing_:2;
+#ifdef HAVEPWM
+    LampFade fade_:1;
+#endif
+    TrackCircuit::TrackSpeed currentSpeed_:4;
+    openlcb::EventId linkevent_;
+    static uint16_t baseLinkEvent_;
+    uninitialized<Rule> rules_[RULESCOUNT];
+    Rule *currentRule_;
+    Mast *previous_;
+    static openlcb::WriteHelper write_helper[8];
     std::string mastid_{""};
     static uninitialized<Mast> masts[MASTCOUNT];
 };

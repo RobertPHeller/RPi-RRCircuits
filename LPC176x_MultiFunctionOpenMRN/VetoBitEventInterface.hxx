@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Feb 27 10:01:16 2022
-//  Last Modified : <220227.1423>
+//  Last Modified : <221005.1515>
 //
 //  Description	
 //
@@ -236,7 +236,7 @@ protected:
 
     VetoBitEventInterface *bit_;
 private:
-    openlcb::WriteHelper write_helpers[4];
+    openlcb::WriteHelper write_helpers[2];
     DISALLOW_COPY_AND_ASSIGN(VetoBitEventConsumer);
 };
 

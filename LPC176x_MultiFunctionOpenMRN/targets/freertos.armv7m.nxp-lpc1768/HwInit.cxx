@@ -65,7 +65,7 @@ extern const size_t EEPROMEmulation::SECTOR_SIZE = 0x8000;
 
 
 /** EEPROM file */
-static LpcEEPROMEmulation eeprom("/dev/eeprom", 256);
+static LpcEEPROMEmulation eeprom("/dev/eeprom", 16383);
 
 extern "C" {
 const uint32_t OscRateIn = 16000000;

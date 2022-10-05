@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 26 14:44:22 2022
-//  Last Modified : <220927.1055>
+//  Last Modified : <221005.1744>
 //
 //  Description	
 //
@@ -73,7 +73,7 @@ GPIO_PIN(Button2, ButtonPin, 2, 2);
 
 #define ACTPin GpioOutputSafeHigh
 
-GPIO_PIN(ACT1, ACTPin, 2, 1);
+GPIO_PIN(ACT1, LedPin, 0, 22);
 GPIO_PIN(ACT2, ACTPin, 2, 0);
 
 // Create an initializer that can initialize all the GPIO pins in one shot

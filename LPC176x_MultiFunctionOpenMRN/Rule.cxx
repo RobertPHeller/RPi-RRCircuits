@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 20:06:13 2019
-//  Last Modified : <221004.1657>
+//  Last Modified : <221005.1659>
 //
 //  Description	
 //
@@ -55,6 +55,8 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "Rule.hxx"
 #include "Mast.hxx"
 #include "TrackCircuit.hxx"
+
+openlcb::WriteHelper Rule::write_helper;
 
 bool Rule::UpdateConfig(const RuleConfig &cfg_,int fd, bool initial_load)
 {
@@ -155,7 +157,7 @@ void Rule::handle_event_report(const EventRegistryEntry &entry,
                 //LOG(ALWAYS, "*** Rule::handle_event_report(): lamps_[%d] (%p) on",i,lamps_[i].Pin());
                 lamps_[i].On();
             }
-            write_helpers[1].WriteAsync(node_,openlcb::Defs::MTI_EVENT_REPORT,
+            event->event_write_helper<1>()->WriteAsync(node_,openlcb::Defs::MTI_EVENT_REPORT,
                                     openlcb::WriteHelper::global(),
                                     openlcb::eventid_to_buffer(eventset_),
                                     done->new_child());
@@ -175,7 +177,7 @@ void Rule::ClearRule(BarrierNotifiable *done)
 #ifdef EFFECTS
     /* Effects after clear go here: effects_, effectsLamp_ */
 #endif
-    write_helpers[2].WriteAsync(node_,openlcb::Defs::MTI_EVENT_REPORT,
+    write_helper.WriteAsync(node_,openlcb::Defs::MTI_EVENT_REPORT,
                             openlcb::WriteHelper::global(),
                             openlcb::eventid_to_buffer(eventclear_),
                                done->new_child());
@@ -201,7 +203,7 @@ void Rule::SendAllConsumersIdentified(EventReport *event,BarrierNotifiable *done
 {
     openlcb::Defs::MTI mti = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_INVALID;
     if (isSet_) mti = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_VALID;
-    write_helpers[0].WriteAsync(node_,mti,
+    event->event_write_helper<3>()->WriteAsync(node_,mti,
                                 openlcb::WriteHelper::global(),
                                 openlcb::eventid_to_buffer(eventsets_),
                                 done->new_child());
@@ -230,11 +232,11 @@ void Rule::SendAllProducersIdentified(EventReport *event,BarrierNotifiable *done
     } else {
         mti_clear = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
     }
-    write_helpers[1].WriteAsync(node_,mti_set,
+    event->event_write_helper<3>()->WriteAsync(node_,mti_set,
                                 openlcb::WriteHelper::global(),
                                 openlcb::eventid_to_buffer(eventset_),
                                 done->new_child());
-    write_helpers[2].WriteAsync(node_,mti_clear,
+    event->event_write_helper<1>()->WriteAsync(node_,mti_clear,
                                 openlcb::WriteHelper::global(),
                                 openlcb::eventid_to_buffer(eventclear_),
                                 done->new_child());
