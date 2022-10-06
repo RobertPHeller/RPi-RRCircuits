@@ -114,12 +114,12 @@ void hw_preinit(void)
     Chip_IOCON_Init(LPC_IOCON);
     
     /* set up CAN1 pins */
-    Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 0, IOCON_FUNC1 | IOCON_MODE_INACT); 
-    Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 1, IOCON_FUNC1 | IOCON_MODE_INACT); 
+    Chip_IOCON_PinMux(LPC_IOCON, 0, 0, IOCON_MODE_INACT, IOCON_FUNC1); 
+    Chip_IOCON_PinMux(LPC_IOCON, 0, 1, IOCON_MODE_INACT, IOCON_FUNC1); 
     
     /* Set up I2C2 pins */
-    Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 10, IOCON_FUNC2 | IOCON_MODE_INACT); 
-    Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 11, IOCON_FUNC2 | IOCON_MODE_INACT); 
+    Chip_IOCON_PinMux(LPC_IOCON, 0, 10, IOCON_MODE_INACT, IOCON_FUNC2); 
+    Chip_IOCON_PinMux(LPC_IOCON, 0, 11, IOCON_MODE_INACT, IOCON_FUNC2); 
     Chip_IOCON_EnableOD(LPC_IOCON, 0, 10);
     Chip_IOCON_EnableOD(LPC_IOCON, 0, 11);
 }

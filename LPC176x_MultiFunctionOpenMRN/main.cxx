@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 12 14:55:18 2022
-//  Last Modified : <221005.1739>
+//  Last Modified : <221006.1048>
 //
 //  Description	
 //
@@ -69,10 +69,10 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "Mast.hxx"
 #include "TrackCircuit.hxx"
 
-//#define SIGNALS 1
+#define SIGNALS 1
 //#define LOGICS 1
 //#define TRACKCIRCUITS 1
-//#define SIZEBRK 1
+#define SIZEBRK 1
 
 // ConfigDef comes from config.hxx and is specific to the particular device and
 // target. It defines the layout of the configuration memory space and is also
@@ -263,23 +263,13 @@ int appl_main(int argc, char *argv[])
     
 #ifdef SIZEBRK
     {
-        size_t WriteHelper_sz = sizeof(openlcb::WriteHelper);
-        size_t VetoBitEventInterface_sz = sizeof(VetoBitEventInterface);
-        size_t VetoBitEventConsumer_sz = sizeof(VetoBitEventConsumer);
-        size_t Turnout_sz = sizeof(Turnout);
-        size_t Points_sz = sizeof(Points);
-        size_t OccupancyDetector_sz = sizeof(OccupancyDetector);
-        size_t Button_sz = sizeof(Button);
-        size_t LED_sz = sizeof(LED);
         size_t Mast_sz = sizeof(Mast);
         size_t Logic_sz = sizeof(Logic);
         size_t TrackCircuit_sz = sizeof(TrackCircuit);
-        LOG(INFO, "[CONFIG] Turnout:%u, Points:%u, OccupancyDetector:%u, Button:%u, LED:%u, Mast:%u, Logic:%u, TrackCircuit:%u",
-            Turnout_sz, Points_sz, OccupancyDetector_sz, Button_sz, LED_sz,
+        LOG(INFO, "[CONFIG] Mast:%u, Logic:%u, TrackCircuit:%u",
             Mast_sz, Logic_sz, TrackCircuit_sz);
-        LOG(INFO, "[CONFIG] VetoBitEventInterface:%u, VetoBitEventConsumer:%u, WriteHelper:%u",
-            VetoBitEventInterface_sz, VetoBitEventConsumer_sz,
-            WriteHelper_sz);
+        LOG(INFO, "[CONFIG] openlcb::CONFIG_FILE_SIZE:%u",
+            openlcb::CONFIG_FILE_SIZE);
         __asm("BKPT #0\n") ; // Break into the debugger 
     }
 #endif
