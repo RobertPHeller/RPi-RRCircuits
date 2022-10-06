@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 26 15:13:10 2022
-//  Last Modified : <221004.1250>
+//  Last Modified : <221006.0954>
 //
 //  Description	
 //
@@ -69,42 +69,17 @@ LPC17xx_40xxI2C::LPC17xx_40xxI2C(const char *name, I2C_ID_T port)
 
 int LPC17xx_40xxI2C::transfer(struct i2c_msg *msg, bool stop)
 {
-    I2C_XFER_T transferMsg;
-    
-    transferMsg.slaveAddr = msg->addr;
     if (msg->flags & I2C_M_RD)
     {
         /* this is a read transfer */
-        transferMsg.txBuff = nullptr;
-        transferMsg.txSz = 0;
-        transferMsg.rxBuff = msg->buf;
-        transferMsg.rxSz = msg->len;
-        int result = Chip_I2C_MasterTransfer(port_, &transferMsg);
-        if (result != I2C_STATUS_DONE)
-        {
-            return -EIO;
-        }
-        else
-        {
-            return msg->len-transferMsg.rxSz;
-        }
+        int tmp = Chip_I2C_MasterRead(port_, msg->addr, (uint8_t *)msg->buf, msg->len);
+        return tmp;
     }
     else
     {
         /* this is a write transfer */
-        transferMsg.txBuff = msg->buf;
-        transferMsg.txSz = msg->len;
-        transferMsg.rxBuff = nullptr;
-        transferMsg.rxSz = 0;
-        int result = Chip_I2C_MasterTransfer(port_, &transferMsg);
-        if (result != I2C_STATUS_DONE)
-        {
-            return -EIO;
-        }
-        else
-        {
-            return msg->len-transferMsg.txSz;
-        }
+        int tmp = Chip_I2C_MasterSend(port_, msg->addr, (uint8_t *)msg->buf, msg->len);
+        return tmp;
     }    
 }
 
