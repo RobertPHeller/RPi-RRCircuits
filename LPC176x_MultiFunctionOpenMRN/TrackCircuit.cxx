@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Feb 28 20:24:32 2019
-//  Last Modified : <220927.0933>
+//  Last Modified : <221006.1715>
 //
 //  Description	
 //
@@ -48,12 +48,14 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "utils/ConfigUpdateService.hxx"
 #include "openlcb/RefreshLoop.hxx"
 #include <stdio.h>
-
+#include "utils/Uninitialized.hxx"
 #include <vector>
 
 #include "TrackCircuit.hxx"
 
-TrackCircuit *TrackCircuit::circuits[TRACKCIRCUITCOUNT];
+uninitialized<TrackCircuit> TrackCircuit::circuits[TRACKCIRCUITCOUNT];
+
+openlcb::WriteHelper TrackCircuit::write_helpers[8];
 
 void TrackCircuit::Init(openlcb::Node *node,
                         const openlcb::RepeatedGroup<TrackCircuitConfig, TRACKCIRCUITCOUNT> &config)
@@ -62,7 +64,7 @@ void TrackCircuit::Init(openlcb::Node *node,
     openlcb::RepeatedGroup<TrackCircuitConfig, UINT_MAX> grp_ref(offset_.offset());
     for (unsigned i = 0; i < TRACKCIRCUITCOUNT; i++)
     {
-        circuits[i] = new TrackCircuit(node,grp_ref.entry(i));
+        circuits[i].emplace(node,grp_ref.entry(i));
     }
 }
 

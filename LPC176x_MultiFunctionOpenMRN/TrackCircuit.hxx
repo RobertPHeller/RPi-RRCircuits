@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:11:23 2019
-//  Last Modified : <221004.1810>
+//  Last Modified : <221006.1717>
 //
 //  Description	
 //
@@ -48,6 +48,7 @@
 #include "utils/ConfigUpdateListener.hxx"
 #include "utils/ConfigUpdateService.hxx"
 #include "openlcb/RefreshLoop.hxx"
+#include "utils/Uninitialized.hxx"
 #include <stdio.h>
 #include "HardwareDefs.hxx"
 
@@ -121,7 +122,7 @@ public:
     void handle_identify_consumer(const EventRegistryEntry &registry_entry,
                                   EventReport *event,
                                   BarrierNotifiable *done) override;
-    static TrackCircuit *circuits[TRACKCIRCUITCOUNT];
+    static uninitialized<TrackCircuit> circuits[TRACKCIRCUITCOUNT];
     __attribute__((noinline)) 
           static void Init(openlcb::Node *node,
                            const openlcb::RepeatedGroup<TrackCircuitConfig, TRACKCIRCUITCOUNT> &config);
@@ -129,11 +130,11 @@ private:
     openlcb::Node *node_;
     const TrackCircuitConfig cfg_;
     openlcb::EventId remotemastlink_;
-    TrackSpeed speed_:4;
     typedef vector<TrackCircuitCallback *> callback_type;
     typedef callback_type::iterator callback_type_iterator;
     callback_type callbacks_;
-    openlcb::WriteHelper write_helpers[8];
+    TrackSpeed speed_:4;
+    static openlcb::WriteHelper write_helpers[8];
     void register_handler();
     void unregister_handler();
     void SendAllConsumersIdentified(EventReport *event,BarrierNotifiable *done);

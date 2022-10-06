@@ -43,6 +43,8 @@
 #include "Lpc17xx40xxEEPROMEmulation.hxx"
 #include "LPC17xx_40xxI2C.hxx"
 
+#include "HardwareDefs.hxx"
+
 /** override stdin */
 const char *STDIN_DEVICE = "/dev/ser0";
 
@@ -65,7 +67,7 @@ extern const size_t EEPROMEmulation::SECTOR_SIZE = 0x8000;
 
 
 /** EEPROM file */
-static LpcEEPROMEmulation eeprom("/dev/eeprom", 16383);
+static LpcEEPROMEmulation eeprom("/dev/eeprom", EEPROM_CONFIGFILE_SIZE);
 
 extern "C" {
 const uint32_t OscRateIn = 16000000;

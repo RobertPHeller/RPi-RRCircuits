@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:08:16 2019
-//  Last Modified : <220928.1023>
+//  Last Modified : <221006.1826>
 //
 //  Description	
 //
@@ -56,12 +56,13 @@
 #include <string>
 #include "TrackCircuit.hxx"
 #include "HardwareDefs.hxx"
+#include "utils/Uninitialized.hxx"
 
-#if NUM_PWMCHIPS == 2
-#define LOGICCOUNT 64
-#else
+//#if NUM_PWMCHIPS == 2
+//#define LOGICCOUNT 64
+//#else
 #define LOGICCOUNT 32
-#endif
+//#endif
 
 static const char GroupFunctionMap[] = 
 "<relation><property>0</property><value>Blocked</value></relation>"
@@ -167,9 +168,9 @@ public:
                                    TrackCircuit::TrackSpeed speed,
                                    Variable *parent) 
                 : BitEventHandler(bit)
+          , parent_(parent)
           , source_(source)
           , speed_(speed)
-          , parent_(parent)
     {
         //LOG(ALWAYS,"*** BitEventConsumerOrTrackCircuit::BitEventConsumerOrTrackCircuit(%p,%d,%d)",bit,source,speed);
         int tc = ((int) source_) -1;
@@ -204,9 +205,9 @@ public:
     Source TheSource () const  {return source_;}
     TrackCircuit::TrackSpeed Speed () const {return speed_;}
 private:
-    Source source_;
-    TrackCircuit::TrackSpeed speed_;
     Variable *parent_;
+    Source source_:5;
+    TrackCircuit::TrackSpeed speed_:4;
 };
 
 class LogicCallback {
@@ -216,28 +217,26 @@ public:
     virtual const std::string Description() const = 0;
 };
 
-class Variable : public ConfigUpdateListener {
+class Variable {
 public:
     using Impl = openlcb::NetworkInitializedBit;
     
     enum Trigger {Change, Event, None};
-    Variable(openlcb::Node *n,const VariableConfig &cfg, LogicCallback *p, const LogicCallback::Which which)
+    Variable(openlcb::Node *n, LogicCallback *p, const LogicCallback::Which which)
                 : node_(n)
-          , cfg_(cfg)
           , parent_(p)
-          , which_(which)
           , impl_(node_, 0, 0, false)
           , consumer_(&impl_, 
                       BitEventConsumerOrTrackCircuit::Source::Events, 
                       TrackCircuit::TrackSpeed::Stop_,
                       nullptr)
+          , which_(which)
     {
-        ConfigUpdateService::instance()->register_update_listener(this);
     }
-    virtual UpdateAction apply_configuration(int fd, 
-                                             bool initial_load,
-                                             BarrierNotifiable *done) override;
-    virtual void factory_reset(int fd) override;
+    bool apply_configuration(int fd, 
+                             bool initial_load,
+                             const VariableConfig &cfg);
+    void factory_reset(int fd,const VariableConfig &cfg);
     bool IsKnown() {
         //LOG(ALWAYS,"*** Variable::IsKnown()");
         return impl_.is_network_state_known();
@@ -263,12 +262,11 @@ public:
     }
 private:
     openlcb::Node *node_;
-    const VariableConfig cfg_;
     LogicCallback *parent_;
-    const LogicCallback::Which which_;
-    Trigger trigger_;
     Impl impl_;
     BitEventConsumerOrTrackCircuit consumer_;
+    const LogicCallback::Which which_:2;
+    Trigger trigger_:2;
 };
 
 
@@ -297,13 +295,12 @@ public:
     virtual void trigger(BarrierNotifiable *done) = 0;
 };
 
-class Timing : public Timer, public ConfigUpdateListener {
+class Timing : public Timer {
 public:
     enum Interval {Milliseconds, Seconds, Minutes};
-    Timing (ActiveTimers *timers, const TimingConfig &cfg) : Timer(timers) , cfg_(cfg)
+    Timing (ActiveTimers *timers) : Timer(timers)
     {
         running_ = false;
-        ConfigUpdateService::instance()->register_update_listener(this);
     }
     long long timeout() override
     {
@@ -314,20 +311,18 @@ public:
         }
         return NONE;
     }
-    virtual UpdateAction apply_configuration(int fd, 
-                                             bool initial_load,
-                                             BarrierNotifiable *done) override
+    void apply_configuration(int fd, 
+                             bool initial_load,
+                             const TimingConfig &cfg)
     {
-        AutoNotify n(done);
-        timedelay_ = cfg_.timedelay().read(fd);
-        interval_ = (Interval) cfg_.interval().read(fd);
-        retriggerable_ = (cfg_.retriggerable().read(fd) != 0);
-        return UPDATED;
+        timedelay_ = cfg.timedelay().read(fd);
+        interval_ = (Interval) cfg.interval().read(fd);
+        retriggerable_ = (cfg.retriggerable().read(fd) != 0);
     }
-    virtual void factory_reset(int fd) override {
-        CDI_FACTORY_RESET(cfg_.timedelay);
-        CDI_FACTORY_RESET(cfg_.interval);
-        CDI_FACTORY_RESET(cfg_.retriggerable);
+    void factory_reset(int fd,const TimingConfig &cfg) {
+        CDI_FACTORY_RESET(cfg.timedelay);
+        CDI_FACTORY_RESET(cfg.interval);
+        CDI_FACTORY_RESET(cfg.retriggerable);
     }
     void AddDelayedAction(ActionTrigger *a) {
         actions_.push_back(a);
@@ -360,14 +355,13 @@ public:
         running_ = true;
     }
 private:
-    bool running_;
-    const TimingConfig cfg_;
-    Interval interval_;
-    uint16_t timedelay_;
-    bool retriggerable_;
     typedef vector<ActionTrigger *> actionVector_type;
     typedef actionVector_type::iterator actionVector_type_iterator;
     actionVector_type actions_;
+    uint16_t timedelay_;
+    Interval interval_:2;
+    bool running_:1;
+    bool retriggerable_:1;
 };
 
 CDI_GROUP(ActionConfig);
@@ -379,21 +373,19 @@ CDI_GROUP_END();
 
 using ActionGroup = openlcb::RepeatedGroup<ActionConfig,4>;
 
-class Action : public ActionTrigger, public ConfigUpdateListener, public openlcb::SimpleEventHandler {
+class Action : public ActionTrigger, public openlcb::SimpleEventHandler {
 public:
     enum Trigger {None, Immediately, AfterDelay, ImmediateTrue, 
               ImmediateFalse, DelayedTrue, DelayedFalse};
-    Action(openlcb::Node *n,const ActionConfig &cfg, Timing *timer) 
-                : node_(n), cfg_(cfg), timer_(timer)
+    Action(openlcb::Node *n, Timing *timer) 
+                : node_(n), timer_(timer)
     {
-        ConfigUpdateService::instance()->register_update_listener(this);
     }
     void trigger(BarrierNotifiable *done) override;
     bool DoAction(bool logicResult,BarrierNotifiable *done);
-    virtual UpdateAction apply_configuration(int fd, 
-                                             bool initial_load,
-                                             BarrierNotifiable *done) override;
-    virtual void factory_reset(int fd) override;
+    bool apply_configuration(int fd, bool initial_load, 
+                             const ActionConfig &cfg);
+    void factory_reset(int fd,const ActionConfig &cfg);
     void handle_identify_global(const openlcb::EventRegistryEntry &registry_entry, 
                                 EventReport *event, BarrierNotifiable *done) override
     {
@@ -425,13 +417,12 @@ public:
     }
 private:
     openlcb::Node *node_;
-    const ActionConfig cfg_;
-    Trigger actionTrigger_;
-    bool lastLogicValue_;
-    openlcb::EventId action_event_;
     Timing *timer_;
+    openlcb::EventId action_event_;
+    Trigger actionTrigger_:3;
+    bool lastLogicValue_:1;
     void SendEventReport(BarrierNotifiable *done);
-    openlcb::WriteHelper write_helper;
+    static openlcb::WriteHelper write_helper;
 };
 
 /// CDI Configuration for a @ref Logic
@@ -465,11 +456,11 @@ public:
                 : node_(node), cfg_(cfg), next_(next)
     {
         previous_ = nullptr;
-        v1_ = new Variable(node_,cfg_.v1(),this,LogicCallback::V1);
-        v2_ = new Variable(node_,cfg_.v2(),this,LogicCallback::V2);
-        timer_ = new Timing(timers, cfg_.timing());
+        v1_.emplace(node_,this,LogicCallback::V1);
+        v2_.emplace(node_,this,LogicCallback::V2);
+        timer_.emplace(timers);
         for (int i = 0; i < 4; i++) {
-            actions_[i] = new Action(node_,cfg_.actions().entry(i),timer_);
+            actions_[i].emplace(node_,timer_.get_mutable());
         }
         if (next_ != nullptr) {
             next_->_setPrevious(this);
@@ -506,15 +497,15 @@ private:
     openlcb::Node *node_;
     const LogicConfig cfg_;
     Logic *next_, *previous_;
-    GroupFunction groupFunction_;
-    Variable *v1_, *v2_;
-    bool oldValue_;
-    LogicFunction logicFunction_;
-    ActionType trueAction_, falseAction_;
-    Timing *timer_;
-    Action *actions_[4];
+    uninitialized<Variable> v1_, v2_;
+    uninitialized<Timing> timer_;
+    uninitialized<Action> actions_[4];
     std::string description_{""};
-    static Logic *logics[LOGICCOUNT];
+    GroupFunction groupFunction_:2;
+    LogicFunction logicFunction_:4;
+    ActionType trueAction_:2, falseAction_:2;
+    bool oldValue_:1;
+    static uninitialized<Logic> logics[LOGICCOUNT];
 };
 
 #endif // __LOGIC_HXX

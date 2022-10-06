@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 26 13:10:16 2022
-//  Last Modified : <220927.0830>
+//  Last Modified : <221006.1341>
 //
 //  Description	
 //
@@ -51,6 +51,8 @@
 #define NUM_LEDS     2
 #define NUM_BUTTONS  2
 #define NUM_PWMCHIPS 1
+
+#define EEPROM_CONFIGFILE_SIZE 8192
 
 #endif // __HARDWAREDEFS_HXX
 

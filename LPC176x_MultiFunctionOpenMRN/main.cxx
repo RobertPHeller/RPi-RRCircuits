@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 12 14:55:18 2022
-//  Last Modified : <221006.1048>
+//  Last Modified : <221006.1829>
 //
 //  Description	
 //
@@ -69,10 +69,10 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "Mast.hxx"
 #include "TrackCircuit.hxx"
 
-#define SIGNALS 1
-//#define LOGICS 1
-//#define TRACKCIRCUITS 1
-#define SIZEBRK 1
+//#define SIGNALS 1
+#define LOGICS 1
+#define TRACKCIRCUITS 1
+//#define SIZEBRK 1
 
 // ConfigDef comes from config.hxx and is specific to the particular device and
 // target. It defines the layout of the configuration memory space and is also
@@ -88,7 +88,7 @@ extern const char *const openlcb::CONFIG_FILENAME = "/dev/eeprom";
 // of the flash. Recommended to have at least 10% spare.
 extern const size_t openlcb::CONFIG_FILE_SIZE = 
 cfg.seg().size() + cfg.seg().offset();
-static_assert(openlcb::CONFIG_FILE_SIZE <= 16383, "Need to adjust eeprom size");
+static_assert(openlcb::CONFIG_FILE_SIZE <= EEPROM_CONFIGFILE_SIZE, "Need to adjust eeprom size");
 
 // The SNIP user-changeable information in also stored in the above eeprom
 // device. In general this could come from different eeprom segments, but it is
@@ -265,9 +265,13 @@ int appl_main(int argc, char *argv[])
     {
         size_t Mast_sz = sizeof(Mast);
         size_t Logic_sz = sizeof(Logic);
+        size_t Variable_sz = sizeof(Variable);
+        size_t Timing_sz = sizeof(Timing);
+        size_t Action_sz = sizeof(Action);
         size_t TrackCircuit_sz = sizeof(TrackCircuit);
-        LOG(INFO, "[CONFIG] Mast:%u, Logic:%u, TrackCircuit:%u",
-            Mast_sz, Logic_sz, TrackCircuit_sz);
+        LOG(INFO, "[CONFIG] Mast:%u, Logic:%u, Variable:%u, Timing:%u, Action:%u, TrackCircuit:%u",
+            Mast_sz, Logic_sz, Variable_sz, Timing_sz, Action_sz, 
+            TrackCircuit_sz);
         LOG(INFO, "[CONFIG] openlcb::CONFIG_FILE_SIZE:%u",
             openlcb::CONFIG_FILE_SIZE);
         __asm("BKPT #0\n") ; // Break into the debugger 
