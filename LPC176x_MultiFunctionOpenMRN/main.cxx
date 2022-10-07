@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Sep 12 14:55:18 2022
-//  Last Modified : <221006.1829>
+//  Last Modified : <221007.1203>
 //
 //  Description	
 //
@@ -69,9 +69,9 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "Mast.hxx"
 #include "TrackCircuit.hxx"
 
-//#define SIGNALS 1
-#define LOGICS 1
-#define TRACKCIRCUITS 1
+#define SIGNALS 1
+//#define LOGICS 1
+//#define TRACKCIRCUITS 1
 //#define SIZEBRK 1
 
 // ConfigDef comes from config.hxx and is specific to the particular device and

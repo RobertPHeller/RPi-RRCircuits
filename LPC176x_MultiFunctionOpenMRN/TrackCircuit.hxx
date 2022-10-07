@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:11:23 2019
-//  Last Modified : <221006.1717>
+//  Last Modified : <221007.1152>
 //
 //  Description	
 //
@@ -65,11 +65,7 @@ static const char TrackSpeedMap[] =
 "<relation><property>6</property><value>Approach-Medium</value></relation>"
 "<relation><property>7</property><value>Clear/Procede</value></relation>";
 
-#if NUM_PWMCHIPS == 2
-#define TRACKCIRCUITCOUNT 16
-#else
 #define TRACKCIRCUITCOUNT 8
-#endif
 
 /// CDI Configuration for a @ref TrackCircuit
 CDI_GROUP(TrackCircuitConfig);

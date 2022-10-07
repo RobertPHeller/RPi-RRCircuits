@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:08:16 2019
-//  Last Modified : <221006.1826>
+//  Last Modified : <221007.1154>
 //
 //  Description	
 //
@@ -58,11 +58,7 @@
 #include "HardwareDefs.hxx"
 #include "utils/Uninitialized.hxx"
 
-//#if NUM_PWMCHIPS == 2
-//#define LOGICCOUNT 64
-//#else
-#define LOGICCOUNT 32
-//#endif
+#define LOGICCOUNT 16
 
 static const char GroupFunctionMap[] = 
 "<relation><property>0</property><value>Blocked</value></relation>"
@@ -102,7 +98,7 @@ static const char VariableSourceMap[] =
 "<relation><property>6</property><value>Track Circuit 6</value></relation>"
 "<relation><property>7</property><value>Track Circuit 7</value></relation>"
 "<relation><property>8</property><value>Track Circuit 8</value></relation>"
-#if NUM_PWMCHIPS == 2
+#if TRACKCIRCUITCOUNT == 16
 "<relation><property>9</property><value>Track Circuit 9</value></relation>"
 "<relation><property>10</property><value>Track Circuit 10</value></relation>"
 "<relation><property>11</property><value>Track Circuit 11</value></relation>"
@@ -158,7 +154,7 @@ public:
     enum Source {Events, TrackCircuit1, TrackCircuit2, TrackCircuit3,
               TrackCircuit4, TrackCircuit5, TrackCircuit6, TrackCircuit7,
               TrackCircuit8,
-#if NUM_PWMCHIPS == 2
+#if TRACKCIRCUITCOUNT == 16
               TrackCircuit9, TrackCircuit10, TrackCircuit11, TrackCircuit12,
               TrackCircuit13, TrackCircuit14, TrackCircuit15, TrackCircuit16,
 #endif
