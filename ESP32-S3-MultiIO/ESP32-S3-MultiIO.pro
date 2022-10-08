@@ -1,4 +1,4 @@
-update=Fri 07 Oct 2022 02:49:29 PM EDT
+update=Fri 07 Oct 2022 09:30:28 PM EDT
 version=1
 last_client=kicad
 [pcbnew]
@@ -67,3 +67,4 @@ LibName35=/home/heller/RRCircuits/ESP32-S3-MultiFunction/ESP32-S3
 LibName36=/home/heller/RRCircuits/MCP23xxx
 LibName37=/home/heller/RRCircuits/tbd62x83a
 LibName38=/home/heller/RRCircuits/ESP32-S3-MultiFunction/USBLC6-2SC6
+LibName39=mechanical
