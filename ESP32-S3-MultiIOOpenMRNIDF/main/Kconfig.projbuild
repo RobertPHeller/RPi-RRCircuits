@@ -1,0 +1,49 @@
+menu "OpenLCB Configuration"
+    config OLCB_NODE_ID
+        hex "Node ID"
+        default 0x050201030000
+        help 
+            This is the OpenLCB unique node identifier for the ESP32 OpenLCB IO
+            Board. It is recommended, but not required, to request your own
+            identifier range via:
+            https://registry.openlcb.org/requestuniqueidrange
+            The default node identifier is part of a reserved range of
+            identifier values.
+
+    config OLCB_CONFIG_SYNC_SEC
+        int
+        default 5
+
+    config OLCB_PRINT_ALL_PACKETS
+        bool "Print all GridConnect packets"
+        default n
+        help
+            Enabling this option will cause all packets that are sent or
+            received to be printed by the ESP32 OpenLCB IO Board.
+
+endmenu
+
+
+menu "Advanced Configuration"
+    config ENABLE_TASK_LIST_REPORTING
+        bool "Enable TaskList reporting"
+        default n
+        select FREERTOS_VTASKLIST_INCLUDE_COREID
+        select FREERTOS_USE_TRACE_FACILITY
+        select FREERTOS_GENERATE_RUN_TIME_STATS
+
+    config TASK_LIST_INTERVAL
+        int "Task list interval (sec)"
+        default 25
+        depends on ENABLE_TASK_LIST_REPORTING
+
+    config HEALTH_INTERVAL
+        int "Health report interval (sec)"
+        default 15
+
+    config DEVKIT_BREADBOARD
+        bool "Using DEVKIT Breadboard"
+        default n
+endmenu
+
+
