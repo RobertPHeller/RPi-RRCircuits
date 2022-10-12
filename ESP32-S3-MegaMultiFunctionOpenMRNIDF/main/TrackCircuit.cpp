@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Feb 28 20:24:32 2019
-//  Last Modified : <220623.1533>
+//  Last Modified : <221006.1715>
 //
 //  Description	
 //
@@ -48,10 +48,25 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "utils/ConfigUpdateService.hxx"
 #include "openlcb/RefreshLoop.hxx"
 #include <stdio.h>
-
+#include "utils/Uninitialized.hxx"
 #include <vector>
 
 #include "TrackCircuit.hxx"
+
+uninitialized<TrackCircuit> TrackCircuit::circuits[TRACKCIRCUITCOUNT];
+
+openlcb::WriteHelper TrackCircuit::write_helpers[8];
+
+void TrackCircuit::Init(openlcb::Node *node,
+                        const openlcb::RepeatedGroup<TrackCircuitConfig, TRACKCIRCUITCOUNT> &config)
+{
+    openlcb::ConfigReference offset_(config);
+    openlcb::RepeatedGroup<TrackCircuitConfig, UINT_MAX> grp_ref(offset_.offset());
+    for (unsigned i = 0; i < TRACKCIRCUITCOUNT; i++)
+    {
+        circuits[i].emplace(node,grp_ref.entry(i));
+    }
+}
 
 ConfigUpdateListener::UpdateAction TrackCircuit::apply_configuration(int fd, bool initial_load, BarrierNotifiable *done) 
 {

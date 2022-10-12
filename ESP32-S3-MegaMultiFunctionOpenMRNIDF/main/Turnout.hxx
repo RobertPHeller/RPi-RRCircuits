@@ -11,6 +11,8 @@
 #include "openlcb/RefreshLoop.hxx"
 #include "VetoBitEventInterface.hxx"
 
+#include <vector>
+
 /// CDI Configuration for a @ref ConfiguredConsumer.
 CDI_GROUP(TurnoutConfig);
 /// Allows the user to assign a name for this output.
@@ -95,11 +97,25 @@ public:
     {
         cfg_.description().write(fd, "");
     }
-
+    template <unsigned N>
+          __attribute__((noinline)) 
+          static void Init(openlcb::Node *node,
+                           const openlcb::RepeatedGroup<TurnoutConfig, N> &config, 
+                           const Gpio *const *pins, unsigned size)
+    {
+        HASSERT(size == N);
+        openlcb::ConfigReference offset_(config);
+        openlcb::RepeatedGroup<TurnoutConfig, UINT_MAX> grp_ref(offset_.offset());
+        for (unsigned i = 0; i < size; i++)
+        {
+            turnouts.push_back(new Turnout(node,grp_ref.entry(i),pins[i]));
+        }
+    }
 private:
     Impl impl_;
     VetoBitEventConsumer consumer_;
     const TurnoutConfig cfg_;
+    static vector<Turnout *> turnouts;
 };
 
 

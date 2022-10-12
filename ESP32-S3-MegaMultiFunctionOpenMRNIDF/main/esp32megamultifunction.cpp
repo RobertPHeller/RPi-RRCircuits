@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 12:17:40 2022
-//  Last Modified : <220928.0905>
+//  Last Modified : <221012.1356>
 //
 //  Description	
 //
@@ -68,11 +68,16 @@ static const char rcsid[] = "@(#) : $Id$";
 #include <freertos_drivers/esp32/Esp32HardwareTwai.hxx>
 #include <freertos_drivers/esp32/Esp32BootloaderHal.hxx>
 #include <freertos_drivers/esp32/Esp32SocInfo.hxx>
+#include <openlcb/MultiConfiguredPC.hxx>
 #include <openlcb/MemoryConfigClient.hxx>
 #include <openlcb/RefreshLoop.hxx>
 #include <openlcb/SimpleStack.hxx>
 #include <utils/constants.hxx>
 #include <utils/format_utils.hxx>
+
+#include "Esp32HardwareI2C.hxx"
+#include "PCA9685PWM.hxx"
+#include "MCP23017Gpio.hxx"
 
 #include "BootPauseHelper.hxx"
 #include "Lamp.hxx"
@@ -85,7 +90,6 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "OccupancyDetector.hxx"
 #include "Button.hxx"
 #include "LED.hxx"
-#include "Esp32PCA9685PWM.hxx"
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -96,9 +100,9 @@ OVERRIDE_CONST(can_rx_buffer_size, 64);
 
 TrackCircuit *circuits[TRACKCIRCUITCOUNT];
 
-esp32multifunction::ConfigDef cfg(0);
-openmrn_arduino::Esp32PCA9685PWM pwmchip;
+esp32megamultifunction::ConfigDef cfg(0);
 Esp32HardwareTwai twai(CONFIG_TWAI_RX_PIN, CONFIG_TWAI_TX_PIN);
+Esp32HardwareI2C i2c0(CONFIG_SDA_PIN, CONFIG_SCL_PIN, 0, "/dev/i2c/i2c0");
 
 namespace openlcb
 {
@@ -168,15 +172,194 @@ void die_with(bool activity1, bool activity2, unsigned period = 1000
 }
 
 DEFINE_SINGLETON_INSTANCE(BlinkTimer);
-PWM* Lamp::pinlookup_[17];
+Executor<1> io_executor("io_thread", 1, 1300);
+MCP23017 gpioChip0(&io_executor, 0, 0, 0);
+#ifndef PRODUCITION
+constexpr const MCP23017Gpio Motor1(&gpioChip0, MCP23017::PORTA, 0);
+constexpr const MCP23017Gpio Motor2(&gpioChip0, MCP23017::PORTA, 1);
 
+constexpr const static Gpio *const kTurnouts[] = {
+    &Motor1, &Motor2
+};
+
+constexpr const MCP23017Gpio Points1(&gpioChip0, MCP23017::PORTA, 2);
+constexpr const MCP23017Gpio Points2(&gpioChip0, MCP23017::PORTA, 3);
+
+constexpr const static Gpio *const kPointss[] = {
+    &Points1, &Points2
+};
+
+constexpr const MCP23017Gpio OD1(&gpioChip0, MCP23017::PORTA, 4);
+constexpr const MCP23017Gpio OD2(&gpioChip0, MCP23017::PORTA, 5);
+
+constexpr const static Gpio *const kOccupancyDetectors[] = {
+    &OD1, &OD2
+};
+
+constexpr const MCP23017Gpio LED1(&gpioChip0, MCP23017::PORTA, 6);
+constexpr const MCP23017Gpio LED2(&gpioChip0, MCP23017::PORTA, 7);
+
+constexpr const static Gpio *const kLEDs[] = {
+    &LED1, &LED2
+};
+
+constexpr const MCP23017Gpio Button1(&gpioChip0, MCP23017::PORTB, 0);
+constexpr const MCP23017Gpio Button2(&gpioChip0, MCP23017::PORTB, 1);
+
+constexpr const static Gpio *const kButtons[] = {
+    &Button1, &Button2
+};
+
+constexpr const MCP23017Gpio Line1(&gpioChip0, MCP23017::PORTB, 2);
+constexpr const MCP23017Gpio Line2(&gpioChip0, MCP23017::PORTB, 3);
+
+constexpr const static Gpio *const kLines[] = {
+    &Line1, &Line2
+};
+
+#else
+constexpr const MCP23017Gpio Motor1(&gpioChip0, MCP23017::PORTA, 0);
+constexpr const MCP23017Gpio Motor2(&gpioChip0, MCP23017::PORTA, 1);
+constexpr const MCP23017Gpio Motor3(&gpioChip0, MCP23017::PORTA, 2);
+constexpr const MCP23017Gpio Motor4(&gpioChip0, MCP23017::PORTA, 3);
+constexpr const MCP23017Gpio Motor5(&gpioChip0, MCP23017::PORTA, 4);
+constexpr const MCP23017Gpio Motor6(&gpioChip0, MCP23017::PORTA, 5);
+constexpr const MCP23017Gpio Motor7(&gpioChip0, MCP23017::PORTA, 6);
+constexpr const MCP23017Gpio Motor8(&gpioChip0, MCP23017::PORTA, 7);
+
+constexpr const static Gpio *const kTurnouts[] = {
+    &Motor1, &Motor2, &Motor3, &Motor4, &Motor5, &Motor6, &Motor7, &Motor8
+};
+
+constexpr const MCP23017Gpio Points1(&gpioChip0, MCP23017::PORTB, 0);
+constexpr const MCP23017Gpio Points2(&gpioChip0, MCP23017::PORTB, 1);
+constexpr const MCP23017Gpio Points3(&gpioChip0, MCP23017::PORTB, 2);
+constexpr const MCP23017Gpio Points4(&gpioChip0, MCP23017::PORTB, 3);
+constexpr const MCP23017Gpio Points5(&gpioChip0, MCP23017::PORTB, 4);
+constexpr const MCP23017Gpio Points6(&gpioChip0, MCP23017::PORTB, 5);
+constexpr const MCP23017Gpio Points7(&gpioChip0, MCP23017::PORTB, 6);
+constexpr const MCP23017Gpio Points8(&gpioChip0, MCP23017::PORTB, 7);
+
+constexpr const static Gpio *const kPointss[] = {
+    &Points1, &Points2, &Points3, &Points4, &Points5, &Points6, &Points7, &Points8
+};
+
+#endif
+#ifdef PRODUCITION
+MCP23017 gpioChip1(&io_executor, 0, 0, 1);
+constexpr const MCP23017Gpio OD1(&gpioChip1, MCP23017::PORTA, 0);
+constexpr const MCP23017Gpio OD2(&gpioChip1, MCP23017::PORTA, 1);
+constexpr const MCP23017Gpio OD3(&gpioChip1, MCP23017::PORTA, 2);
+constexpr const MCP23017Gpio OD4(&gpioChip1, MCP23017::PORTA, 3);
+constexpr const MCP23017Gpio OD5(&gpioChip1, MCP23017::PORTA, 4);
+constexpr const MCP23017Gpio OD6(&gpioChip1, MCP23017::PORTA, 5);
+constexpr const MCP23017Gpio OD7(&gpioChip1, MCP23017::PORTA, 6);
+constexpr const MCP23017Gpio OD8(&gpioChip1, MCP23017::PORTA, 7);
+
+constexpr const static Gpio *const kOccupancyDetectors[] = {
+    &OD1, &OD2, &OD3, &OD4, &OD5, &OD6, &OD7, &OD8
+};
+
+constexpr const MCP23017Gpio LED1(&gpioChip1, MCP23017::PORTB, 0);
+constexpr const MCP23017Gpio LED2(&gpioChip1, MCP23017::PORTB, 1);
+constexpr const MCP23017Gpio LED3(&gpioChip1, MCP23017::PORTB, 2);
+constexpr const MCP23017Gpio LED4(&gpioChip1, MCP23017::PORTB, 3);
+constexpr const MCP23017Gpio LED5(&gpioChip1, MCP23017::PORTB, 4);
+constexpr const MCP23017Gpio LED6(&gpioChip1, MCP23017::PORTB, 5);
+constexpr const MCP23017Gpio LED7(&gpioChip1, MCP23017::PORTB, 6);
+constexpr const MCP23017Gpio LED8(&gpioChip1, MCP23017::PORTB, 7);
+
+constexpr const static Gpio *const kLEDs[] = {
+    &LED1, &LED2, &LED3, &LED4, &LED5, &LED6, &LED7, &LED8
+};
+
+MCP23017 gpioChip2(&io_executor, 0, 1, 0);
+constexpr const MCP23017Gpio Button1(&gpioChip2, MCP23017::PORTA, 0);
+constexpr const MCP23017Gpio Button2(&gpioChip2, MCP23017::PORTA, 1);
+constexpr const MCP23017Gpio Button3(&gpioChip2, MCP23017::PORTA, 2);
+constexpr const MCP23017Gpio Button4(&gpioChip2, MCP23017::PORTA, 3);
+constexpr const MCP23017Gpio Button5(&gpioChip2, MCP23017::PORTA, 4);
+constexpr const MCP23017Gpio Button6(&gpioChip2, MCP23017::PORTA, 5);
+constexpr const MCP23017Gpio Button7(&gpioChip2, MCP23017::PORTA, 6);
+constexpr const MCP23017Gpio Button8(&gpioChip2, MCP23017::PORTA, 7);
+
+constexpr const static Gpio *const kButtons[] = {
+    &Button1, &Button2, &Button3, &Button4, &Button5, &Button6, &Button7, &Button8
+};
+
+constexpr const MCP23017Gpio Line1(&gpioChip2,  MCP23017::PORTB, 0);
+constexpr const MCP23017Gpio Line2(&gpioChip2,  MCP23017::PORTB, 1);
+constexpr const MCP23017Gpio Line3(&gpioChip2,  MCP23017::PORTB, 2);
+constexpr const MCP23017Gpio Line4(&gpioChip2,  MCP23017::PORTB, 3);
+constexpr const MCP23017Gpio Line5(&gpioChip2,  MCP23017::PORTB, 4);
+constexpr const MCP23017Gpio Line6(&gpioChip2,  MCP23017::PORTB, 5);
+constexpr const MCP23017Gpio Line7(&gpioChip2,  MCP23017::PORTB, 6);
+constexpr const MCP23017Gpio Line8(&gpioChip2,  MCP23017::PORTB, 7);
+
+constexpr const static Gpio *const kLines[] = {
+    &Line1, &Line2, &Line3, &Line4, &Line5, &Line6, &Line7, &Line8
+};
+
+#endif
+
+vector<Turnout *> Turnout::turnouts;
+vector<Points *> Points::points;
+vector<openlcb::RefreshLoop *> Points::pollers;
+vector<OccupancyDetector *>OccupancyDetector::ocs;
+vector<openlcb::RefreshLoop *>OccupancyDetector::pollers;
+vector<Button *> Button::buttons;
+vector<openlcb::RefreshLoop *> Button::pollers;
+vector<LED *> LED::leds;
+
+
+PCA9685PWM pwmchip1;
+PCA9685PWMBit LampA0(&pwmchip1,0);
+PCA9685PWMBit LampA1(&pwmchip1,1);
+PCA9685PWMBit LampA2(&pwmchip1,2);
+PCA9685PWMBit LampA3(&pwmchip1,3);
+PCA9685PWMBit LampA4(&pwmchip1,4);
+PCA9685PWMBit LampA5(&pwmchip1,5);
+PCA9685PWMBit LampA6(&pwmchip1,6);
+PCA9685PWMBit LampA7(&pwmchip1,7);
+
+PCA9685PWMBit LampB0(&pwmchip1,8);
+PCA9685PWMBit LampB1(&pwmchip1,9);
+PCA9685PWMBit LampB2(&pwmchip1,10);
+PCA9685PWMBit LampB3(&pwmchip1,11);
+PCA9685PWMBit LampB4(&pwmchip1,12);
+PCA9685PWMBit LampB5(&pwmchip1,13);
+PCA9685PWMBit LampB6(&pwmchip1,14);
+PCA9685PWMBit LampB7(&pwmchip1,15);
+
+#ifdef PRODUCITION
+PCA9685PWM pwmchip2;
+PCA9685PWMBit LampC0(&pwmchip2,0);
+PCA9685PWMBit LampC1(&pwmchip2,1);
+PCA9685PWMBit LampC2(&pwmchip2,2);
+PCA9685PWMBit LampC3(&pwmchip2,3);
+PCA9685PWMBit LampC4(&pwmchip2,4);
+PCA9685PWMBit LampC5(&pwmchip2,5);
+PCA9685PWMBit LampC6(&pwmchip2,6);
+PCA9685PWMBit LampC7(&pwmchip2,7);
+
+PCA9685PWMBit LampD0(&pwmchip2,8);
+PCA9685PWMBit LampD1(&pwmchip2,9);
+PCA9685PWMBit LampD2(&pwmchip2,10);
+PCA9685PWMBit LampD3(&pwmchip2,11);
+PCA9685PWMBit LampD4(&pwmchip2,12);
+PCA9685PWMBit LampD5(&pwmchip2,13);
+PCA9685PWMBit LampD6(&pwmchip2,14);
+PCA9685PWMBit LampD7(&pwmchip2,15);
+#endif
+
+PWM* Lamp::pinlookup_[Lamp::MAX_LAMPID];
 
 extern "C"
 {
 
 void *node_reboot(void *arg)
 {
-    Singleton<esp32multifunction::NodeRebootHelper>::instance()->reboot();
+    Singleton<esp32megamultifunction::NodeRebootHelper>::instance()->reboot();
     return nullptr;
 }
 
@@ -235,7 +418,6 @@ void bootloader_hw_set_to_safe(void)
     LED_ACT1_Pin::hw_init();
     LED_ACT2_Pin::hw_init();
 }
-
 
 void app_main()
 {
@@ -323,98 +505,108 @@ void app_main()
     {
         dump_config(&config);
         mount_fs(cleanup_config_tree);
-        LOG(INFO, "[esp32multifunction] about to start the Simple Can Stack");
+        LOG(INFO, "[esp32megamultifunction] about to start the Simple Can Stack");
         openlcb::SimpleCanStack stack(config.node_id);
-        LOG(INFO, "[esp32multifunction] stack started");
+        LOG(INFO, "[esp32megamultifunction] stack started");
         stack.set_tx_activity_led(LED_ACT1_Pin::instance());
-        LOG(INFO, "[esp32multifunction] set activity led");
+        LOG(INFO, "[esp32megamultifunction] set activity led");
 #if CONFIG_OLCB_PRINT_ALL_PACKETS
         stack.print_all_packets();
 #endif
         openlcb::MemoryConfigClient memory_client(stack.node(), stack.memory_config_handler());
-        LOG(INFO, "[esp32multifunction] MemoryConfigClient done.");
-        esp32multifunction::FactoryResetHelper factory_reset_helper();
-        LOG(INFO, "[esp32multifunction] FactoryResetHelper done.");
-        esp32multifunction::EventBroadcastHelper event_helper();
-        LOG(INFO, "[esp32multifunction] EventBroadcastHelper done.");
-        esp32multifunction::DelayRebootHelper delayed_reboot(stack.service());
-        LOG(INFO, "[esp32multifunction] DelayRebootHelper done.");
-        esp32multifunction::HealthMonitor health_mon(stack.service());
-        LOG(INFO, "[esp32multifunction] HealthMonitor done.");
+        LOG(INFO, "[esp32megamultifunction] MemoryConfigClient done.");
+        esp32megamultifunction::FactoryResetHelper factory_reset_helper();
+        LOG(INFO, "[esp32megamultifunction] FactoryResetHelper done.");
+        esp32megamultifunction::EventBroadcastHelper event_helper();
+        LOG(INFO, "[esp32megamultifunction] EventBroadcastHelper done.");
+        esp32megamultifunction::DelayRebootHelper delayed_reboot(stack.service());
+        LOG(INFO, "[esp32megamultifunction] DelayRebootHelper done.");
+        esp32megamultifunction::HealthMonitor health_mon(stack.service());
+        LOG(INFO, "[esp32megamultifunction] HealthMonitor done.");
         BlinkTimer blinker(stack.executor()->active_timers());
-        LOG(INFO, "[esp32multifunction] BlinkTimer done.");
-        int i = 0;
-        Mast *masts[MASTCOUNT];
-        Mast *prevMast = nullptr;
-        for (i = 0; i < MASTCOUNT; i++) {
-            masts[i] = new Mast(stack.node(),cfg.seg().masts().entry(i),prevMast);
-            prevMast = masts[i];
-        }
-        LOG(INFO, "[esp32multifunction] Masts  done.");
-        for (i = 0; i < TRACKCIRCUITCOUNT; i++) {
-            circuits[i] = new TrackCircuit(stack.node(),cfg.seg().circuits().entry(i));
-        }
-        LOG(INFO, "[esp32multifunction] TrackCircuits  done.");
-        Logic *prevLogic = nullptr;
-        Logic *logics[LOGICCOUNT];
-        for (i = LOGICCOUNT-1; i >= 0; i--) {
-            logics[i] = new Logic(stack.node(), cfg.seg().logics().entry(i),stack.executor()->active_timers(),prevLogic);
-            prevLogic = logics[i];
-        }
-        LOG(INFO, "[esp32multifunction] Logics done.");
-        Turnout turnout1(stack.node(), cfg.seg().turnouts().entry<0>(),Motor1_Pin());
-        Turnout turnout2(stack.node(), cfg.seg().turnouts().entry<1>(),Motor2_Pin());
-        Turnout turnout3(stack.node(), cfg.seg().turnouts().entry<2>(),Motor3_Pin());
-        Turnout turnout4(stack.node(), cfg.seg().turnouts().entry<3>(),Motor4_Pin());
-        LOG(INFO, "[esp32multifunction] Turnouts done.");
-        Points points1(stack.node(), cfg.seg().points().entry<0>(),Points1_Pin());
-        Points points2(stack.node(), cfg.seg().points().entry<1>(),Points2_Pin());
-        Points points3(stack.node(), cfg.seg().points().entry<2>(),Points3_Pin());
-        Points points4(stack.node(), cfg.seg().points().entry<3>(),Points4_Pin());
-        LOG(INFO, "[esp32multifunction] Points done.");
-        OccupancyDetector od1(stack.node(), cfg.seg().ocs().entry<0>(),OD1_Pin());
-        OccupancyDetector od2(stack.node(), cfg.seg().ocs().entry<1>(),OD2_Pin());
-        OccupancyDetector od3(stack.node(), cfg.seg().ocs().entry<2>(),OD3_Pin());
-        OccupancyDetector od4(stack.node(), cfg.seg().ocs().entry<3>(),OD4_Pin());
-        LOG(INFO, "[esp32multifunction] OccupancyDetector done."); 
-        Button button1(stack.node(), cfg.seg().buttons().entry<0>(),Button1_Pin());
-        Button button2(stack.node(), cfg.seg().buttons().entry<1>(),Button2_Pin());
-        Button button3(stack.node(), cfg.seg().buttons().entry<2>(),Button3_Pin());
-        Button button4(stack.node(), cfg.seg().buttons().entry<3>(),Button4_Pin());
-        LOG(INFO, "[esp32multifunction] Buttons done.");
-        LED Led1(stack.node(), cfg.seg().leds().entry<0>(),LED1_Pin());
-        LED Led2(stack.node(), cfg.seg().leds().entry<1>(),LED2_Pin());
-        LED Led3(stack.node(), cfg.seg().leds().entry<2>(),LED3_Pin());
-        LED Led4(stack.node(), cfg.seg().leds().entry<3>(),LED4_Pin());
-        LOG(INFO, "[esp32multifunction] LEDs done.");
-        openlcb::RefreshLoop points_refresh_loop(stack.node(),{
-                                                 points1.polling()
-                                                 , points2.polling()
-                                                 , points3.polling()
-                                                 , points4.polling()
-                                                 , od1.polling()
-                                                 , od2.polling()
-                                                 , od3.polling()
-                                                 , od4.polling()
-                                                 , button1.polling()
-                                                 , button2.polling()
-                                                 , button3.polling()
-                                                 , button4.polling()
-                                             });
-        LOG(INFO, "[esp32multifunction] RefreshLoop done.");
-        pwmchip.hw_init(PCA9685_SLAVE_ADDRESS);
-        LOG(INFO, "[esp32multifunction] pwmchip inited.");
-        Lamp::PinLookupInit(0,nullptr);
-        for (i = 0; i < openmrn_arduino::Esp32PCA9685PWM::NUM_CHANNELS; i++)
-        {
-            Lamp::PinLookupInit(i+1,pwmchip.get_channel(i));
-        }
-        LOG(INFO, "[esp32multifunction] Lamps done.");
+        LOG(INFO, "[esp32megamultifunction] BlinkTimer done.");
+        // Set up all I/O
+        
+        i2c0.hw_init();
+        int i2cfd = ::open("/dev/i2c/i2c0",O_RDWR);
+        gpioChip0.init(i2cfd);
+#ifdef PRODUCTION
+        gpioChip1.init(i2cfd);
+        gpioChip2.init(i2cfd);
+#endif
+        Turnout::Init(stack.node(),  cfg.seg().turnouts(), kTurnouts,
+                      ARRAYSIZE(kTurnouts));
+        Points::Init(stack.node(),  cfg.seg().points(), kPointss,
+                     ARRAYSIZE(kPointss));
+        OccupancyDetector::Init(stack.node(), cfg.seg().ocs(), 
+                                kOccupancyDetectors, 
+                                ARRAYSIZE(kOccupancyDetectors));
+        Button::Init(stack.node(), cfg.seg().buttons(), kButtons,
+                     ARRAYSIZE(kButtons));
+        LED::Init(stack.node(), cfg.seg().leds(), kLEDs,
+                  ARRAYSIZE(kLEDs));
+        openlcb::MultiConfiguredPC lines(stack.node(), kLines, 
+                                         ARRAYSIZE(kLines), cfg.seg().lines());
+        openlcb::RefreshLoop looplines(stack.node(),
+                                {
+                                    lines.polling()
+                                });
+        Logic::Init(stack.node(),stack.executor()->active_timers(),
+                    cfg.seg().logics());
+        Mast::Init(stack.node(),cfg.seg().masts());
+        
+        pwmchip1.init("/dev/i2c/i2c0", PWMCHIP_ADDRESS1);
+        Lamp::PinLookupInit(Lamp::Unused,nullptr);
+        
+        Lamp::PinLookupInit(Lamp::A0_,&LampA0);
+        Lamp::PinLookupInit(Lamp::A1_,&LampA1);
+        Lamp::PinLookupInit(Lamp::A2_,&LampA2);
+        Lamp::PinLookupInit(Lamp::A3_,&LampA3);
+        Lamp::PinLookupInit(Lamp::A4_,&LampA4);
+        Lamp::PinLookupInit(Lamp::A5_,&LampA5);
+        Lamp::PinLookupInit(Lamp::A6_,&LampA6);
+        Lamp::PinLookupInit(Lamp::A7_,&LampA7);
+        
+        Lamp::PinLookupInit(Lamp::B0_,&LampB0);
+        Lamp::PinLookupInit(Lamp::B1_,&LampB1);
+        Lamp::PinLookupInit(Lamp::B2_,&LampB2);
+        Lamp::PinLookupInit(Lamp::B3_,&LampB3);
+        Lamp::PinLookupInit(Lamp::B4_,&LampB4);
+        Lamp::PinLookupInit(Lamp::B5_,&LampB5);
+        Lamp::PinLookupInit(Lamp::B6_,&LampB6);
+        Lamp::PinLookupInit(Lamp::B7_,&LampB7);
+        
+#ifdef PRODUCTION
+        pwmchip2.init("/dev/i2c/i2c0", PWMCHIP_ADDRESS2);
+        
+        Lamp::PinLookupInit(Lamp::C0_,&LampC0);
+        Lamp::PinLookupInit(Lamp::C1_,&LampC1);
+        Lamp::PinLookupInit(Lamp::C2_,&LampC2);
+        Lamp::PinLookupInit(Lamp::C3_,&LampC3);
+        Lamp::PinLookupInit(Lamp::C4_,&LampC4);
+        Lamp::PinLookupInit(Lamp::C5_,&LampC5);
+        Lamp::PinLookupInit(Lamp::C6_,&LampC6);
+        Lamp::PinLookupInit(Lamp::C7_,&LampC7);
+        
+        Lamp::PinLookupInit(Lamp::D0_,&LampD0);
+        Lamp::PinLookupInit(Lamp::D1_,&LampD1);
+        Lamp::PinLookupInit(Lamp::D2_,&LampD2);
+        Lamp::PinLookupInit(Lamp::D3_,&LampD3);
+        Lamp::PinLookupInit(Lamp::D4_,&LampD4);
+        Lamp::PinLookupInit(Lamp::D5_,&LampD5);
+        Lamp::PinLookupInit(Lamp::D6_,&LampD6);
+        Lamp::PinLookupInit(Lamp::D7_,&LampD7);
+        
+#endif
+        TrackCircuit::Init(stack.node(),cfg.seg().circuits());
+        
+        LOG(INFO, "[esp32megamultifunction] IO All Initialized");
+
         // Create / update CDI, if the CDI is out of date a factory reset will be
         // forced.
         bool reset_cdi = CDIXMLGenerator::create_config_descriptor_xml(
                                                                        cfg, openlcb::CDI_FILENAME, &stack);
-        LOG(INFO, "[esp32multifunction] CDIXMLGenerator done.");
+        LOG(INFO, "[esp32megamultifunction] CDIXMLGenerator done.");
         if (reset_cdi)
         {
             LOG(WARNING, "[CDI] Forcing factory reset due to CDI update");
@@ -427,7 +619,7 @@ void app_main()
               stack.create_config_file_if_needed(cfg.seg().internal_config(),
                                                   CDI_VERSION,
                                                   openlcb::CONFIG_FILE_SIZE);
-        esp32multifunction::NodeRebootHelper node_reboot_helper(&stack, config_fd);
+        esp32megamultifunction::NodeRebootHelper node_reboot_helper(&stack, config_fd);
         
         if (reset_events)
         {

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 11:37:34 2019
-//  Last Modified : <220717.1357>
+//  Last Modified : <221012.1326>
 //
 //  Description	
 //
@@ -49,7 +49,9 @@
 #include "utils/ConfigUpdateService.hxx"
 #include "openlcb/RefreshLoop.hxx"
 #include "freertos_drivers/arduino/PWM.hxx"
+#include "utils/Uninitialized.hxx"
 #include <stdio.h>
+#include "hardware.hxx"
 
 #include "Blink.hxx"
 
@@ -74,7 +76,27 @@ static const char LampSelectMap[] =
     "<relation><property>13</property><value>B4</value></relation>"
     "<relation><property>14</property><value>B5</value></relation>"
     "<relation><property>15</property><value>B6</value></relation>"
-    "<relation><property>16</property><value>B7</value></relation>";
+    "<relation><property>16</property><value>B7</value></relation>"
+#ifdef PRODUCTION
+    "<relation><property>17</property><value>C0</value></relation>"
+    "<relation><property>18</property><value>C1</value></relation>"
+    "<relation><property>19</property><value>C2</value></relation>"
+    "<relation><property>20</property><value>C3</value></relation>"
+    "<relation><property>21</property><value>C4</value></relation>"
+    "<relation><property>22</property><value>C5</value></relation>"
+    "<relation><property>23</property><value>C6</value></relation>"
+    "<relation><property>24</property><value>C7</value></relation>"
+
+    "<relation><property>25</property><value>D0</value></relation>"
+    "<relation><property>26</property><value>D1</value></relation>"
+    "<relation><property>27</property><value>D2</value></relation>"
+    "<relation><property>28</property><value>D3</value></relation>"
+    "<relation><property>29</property><value>D4</value></relation>"
+    "<relation><property>30</property><value>D5</value></relation>"
+    "<relation><property>31</property><value>D6</value></relation>"
+    "<relation><property>32</property><value>D7</value></relation>"
+#endif
+;
 
 static const char LampPhaseMap[] = 
     "<relation><property>0</property><value>Steady</value></relation>"
@@ -112,50 +134,46 @@ using LampGroup = openlcb::RepeatedGroup<LampConfig, LAMPCOUNT>;
 
 #define BRIGHNESSHUNDRETHSPERCENT(b) ((b)*.0001)
 
-class Lamp : public ConfigUpdateListener , public Blinking {
+class Lamp : public Blinking {
 public:
     enum LampID {Unused, A0_, A1_, A2_, A3_, A4_, A5_, A6_, A7_, 
-              B0_, B1_, B2_, B3_, B4_, B5_, B6_, B7_};
-    enum LampPhase {Steady,A_Slow,A_Medium,A_Fast,None,B_Slow,B_Medium,
-              B_Fast};
-    Lamp(const LampConfig &cfg) : cfg_(cfg)
+              B0_, B1_, B2_, B3_, B4_, B5_, B6_, B7_
+#ifdef PRODUCTION
+              , C0_, C1_, C2_, C3_, C4_, C5_, C6_, C7_, 
+              D0_, D1_, D2_, D3_, D4_, D5_, D6_, D7_
+#endif
+              , MAX_LAMPID
+};
+    enum LampPhase {Steady,A_Slow,A_Medium,A_Fast,None,B_Slow,
+              B_Medium,B_Fast};
+    Lamp() 
     {
         lampid_ = Unused;
         phase_  = Steady;
-        isOn_   = false;
-        hasChanged_ = false;
+        isOn_ = 0;
+        hasChanged_ = 0;
         // Default: 50%
         brightness_ = 5000;
         // 1Khz
         period_ = 1000000;
         BlinkTimer::instance()->AddMe(this);
-        ConfigUpdateService::instance()->register_update_listener(this);
     }
-    void factory_reset(int fd) OVERRIDE
+    void UpdateConfig(LampID lampid, LampPhase phase, uint16_t brightness, 
+                      uint32_t period)
     {
-        CDI_FACTORY_RESET(cfg_.selection);
-        CDI_FACTORY_RESET(cfg_.phase);
-        CDI_FACTORY_RESET(cfg_.brightness);
-        CDI_FACTORY_RESET(cfg_.period);
-    }
-    UpdateAction apply_configuration(int fd, bool initial_load,
-                                     BarrierNotifiable *done) override
-    {
-        AutoNotify n(done);
-        lampid_ = (LampID)     cfg_.selection().read(fd);
-        phase_  = (LampPhase)  cfg_.phase().read(fd);
-        brightness_ = cfg_.brightness().read(fd);
-        period_ = cfg_.period().read(fd);
-        return UPDATED;
+        lampid_ = lampid;
+        phase_ = phase;
+        brightness_ = brightness;
+        period_ = period;
     }
     PWM* Pin() const       {return pinlookup_[(int)lampid_];}
     const LampPhase Phase() const {return phase_;}
     static PWM* PinLookup(LampID id) {
         return pinlookup_[(int)id];
     }
-    void On() {isOn_ = true;hasChanged_ = true;}
-    void Off() {isOn_ = false;hasChanged_ = true;}
-    virtual void blink(bool AFast, bool AMedium, bool ASlow)
+    void On() {isOn_ = 1;hasChanged_ = 1;}
+    void Off() {isOn_ = 0;hasChanged_ = 1;}
+    virtual void blink(bool AFast, bool AMedium, bool ASlow) override
     {
         if (lampid_ == Unused) return;
         //LOG(ALWAYS, "*** Lamp::blink(): lampid_ = %d, AFast = %d, AMedium = %d, ASlow = %d",
@@ -165,19 +183,19 @@ public:
         if (p == nullptr) return;
         //LOG(ALWAYS, "*** Lamp::blink(): isOn_ = %d",isOn_);
 #if 1
-        if (hasChanged_) {
+        if (isChanged()) {
             //LOG(ALWAYS, "*** Lamp::blink(): lampid_ = %d, isOn_ = %d, phase_ is %d, p is %p",lampid_,isOn_,phase_,p);
         }
 #endif
-        if (!isOn_ && hasChanged_) {
+        if (!isOn() && isChanged()) {
             p->set_duty(0); 
         } else {
             switch (phase_) {
-            case Steady: if (hasChanged_) p->set_duty((uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period())); break;
+            case Steady: if (isChanged()) p->set_duty((uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period())); break;
             case A_Slow: p->set_duty(ASlow?(uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period()):0);break;
             case A_Medium: p->set_duty(AMedium?(uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period()):0); break;
             case A_Fast: p->set_duty(AFast?(uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period()):0); break;
-            case None: if (hasChanged_) p->set_duty(0); break;
+            case None: if (isChanged()) p->set_duty(0); break;
             case B_Slow: p->set_duty(ASlow?0:(uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period())); break;
             case B_Medium: p->set_duty(AMedium?0:(uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period())); break;
             case B_Fast: p->set_duty(AFast?0:(uint32_t)(BRIGHNESSHUNDRETHSPERCENT(brightness_)*p->get_period())); break;
@@ -195,13 +213,14 @@ public:
     {
         pinlookup_[index] = pin;
     }
+    bool isOn() const {return isOn_ == 1;}
+    bool isChanged() const {return hasChanged_ == 1;}
 private:
-    static PWM* pinlookup_[17];
-    LampID lampid_;
-    LampPhase  phase_;
-    const LampConfig cfg_;
-    bool isOn_;
-    bool hasChanged_;
+    static PWM* pinlookup_[MAX_LAMPID];
+    LampID lampid_:6;
+    LampPhase  phase_:3;
+    unsigned isOn_:1;
+    unsigned hasChanged_:1;
     uint16_t brightness_;
     uint32_t period_;    
 };

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 20:06:13 2019
-//  Last Modified : <220623.1533>
+//  Last Modified : <221005.1659>
 //
 //  Description	
 //
@@ -56,11 +56,10 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "Mast.hxx"
 #include "TrackCircuit.hxx"
 
-ConfigUpdateListener::UpdateAction Rule::apply_configuration(int fd, 
-                                       bool initial_load,
-                                       BarrierNotifiable *done)
+openlcb::WriteHelper Rule::write_helper;
+
+bool Rule::UpdateConfig(const RuleConfig &cfg_,int fd, bool initial_load)
 {
-    AutoNotify n(done);
     name_ = (RuleName) cfg_.name().read(fd);
     speed_ = (TrackCircuit::TrackSpeed) cfg_.speed().read(fd);
     openlcb::EventId eventsets_cfg = cfg_.eventsets().read(fd);
@@ -70,6 +69,13 @@ ConfigUpdateListener::UpdateAction Rule::apply_configuration(int fd,
     effects_ = (Effects) cfg_.effects().read(fd);
     effectsLamp_ = (Lamp::LampID) cfg_.effectslamp().read(fd);
 #endif
+    for (int i = 0; i < LAMPCOUNT; i++) {
+        Lamp::LampID lampid = (Lamp::LampID)cfg_.lamps().entry(i).selection().read(fd);
+        Lamp::LampPhase phase = (Lamp::LampPhase) cfg_.lamps().entry(i).phase().read(fd);
+        uint16_t brightness = cfg_.lamps().entry(i).brightness().read(fd);
+        uint32_t period = cfg_.lamps().entry(i).period().read(fd);
+        lamps_[i].UpdateConfig(lampid,phase,brightness,period);
+    }
 #if 0
     LOG(ALWAYS,"*** Rule::apply_configuration(): "
         "eventsets_cfg is %llx, eventsets_ is %llx, "
@@ -87,12 +93,11 @@ ConfigUpdateListener::UpdateAction Rule::apply_configuration(int fd,
         eventset_  = eventset_cfg;
         eventclear_ = eventclear_cfg;
         register_handler();
-        return REINIT_NEEDED; // Causes events identify.
+        return true; // Causes events identify.
     }
-    return UPDATED;
+    return false;
 }
-
-void Rule::factory_reset(int fd)
+void Rule::factory_reset(const RuleConfig &cfg_,int fd)
 {
     CDI_FACTORY_RESET(cfg_.name);
     CDI_FACTORY_RESET(cfg_.speed);
@@ -100,6 +105,12 @@ void Rule::factory_reset(int fd)
     CDI_FACTORY_RESET(cfg_.effects);
     CDI_FACTORY_RESET(cfg_.effectslamp);
 #endif
+    for (int i = 0; i < LAMPCOUNT; i++) {
+        CDI_FACTORY_RESET(cfg_.lamps().entry(i).selection);
+        CDI_FACTORY_RESET(cfg_.lamps().entry(i).phase);
+        CDI_FACTORY_RESET(cfg_.lamps().entry(i).brightness);
+        CDI_FACTORY_RESET(cfg_.lamps().entry(i).period);
+    }
 }
 
 void Rule::handle_identify_global(const openlcb::EventRegistryEntry &registry_entry, 
@@ -143,10 +154,10 @@ void Rule::handle_event_report(const EventRegistryEntry &entry,
             /* Effects before set go here: effects_, effectsLamp_ */
 #endif
             for (int i=0; i < LAMPCOUNT; i++) {
-                //LOG(ALWAYS, "*** Rule::handle_event_report(): lamps_[%d] (%p) on",i,lamps_[i]->Pin());
-                lamps_[i]->On();
+                //LOG(ALWAYS, "*** Rule::handle_event_report(): lamps_[%d] (%p) on",i,lamps_[i].Pin());
+                lamps_[i].On();
             }
-            write_helpers[1].WriteAsync(node_,openlcb::Defs::MTI_EVENT_REPORT,
+            event->event_write_helper<1>()->WriteAsync(node_,openlcb::Defs::MTI_EVENT_REPORT,
                                     openlcb::WriteHelper::global(),
                                     openlcb::eventid_to_buffer(eventset_),
                                     done->new_child());
@@ -161,12 +172,12 @@ void Rule::ClearRule(BarrierNotifiable *done)
 {
     //LOG(ALWAYS, "*** Rule::ClearRule()");
     for (int i=0; i < LAMPCOUNT; i++) {
-        lamps_[i]->Off();
+        lamps_[i].Off();
     }
 #ifdef EFFECTS
     /* Effects after clear go here: effects_, effectsLamp_ */
 #endif
-    write_helpers[2].WriteAsync(node_,openlcb::Defs::MTI_EVENT_REPORT,
+    write_helper.WriteAsync(node_,openlcb::Defs::MTI_EVENT_REPORT,
                             openlcb::WriteHelper::global(),
                             openlcb::eventid_to_buffer(eventclear_),
                                done->new_child());
@@ -192,7 +203,7 @@ void Rule::SendAllConsumersIdentified(EventReport *event,BarrierNotifiable *done
 {
     openlcb::Defs::MTI mti = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_INVALID;
     if (isSet_) mti = openlcb::Defs::MTI_CONSUMER_IDENTIFIED_VALID;
-    write_helpers[0].WriteAsync(node_,mti,
+    event->event_write_helper<3>()->WriteAsync(node_,mti,
                                 openlcb::WriteHelper::global(),
                                 openlcb::eventid_to_buffer(eventsets_),
                                 done->new_child());
@@ -221,11 +232,11 @@ void Rule::SendAllProducersIdentified(EventReport *event,BarrierNotifiable *done
     } else {
         mti_clear = openlcb::Defs::MTI_PRODUCER_IDENTIFIED_VALID;
     }
-    write_helpers[1].WriteAsync(node_,mti_set,
+    event->event_write_helper<3>()->WriteAsync(node_,mti_set,
                                 openlcb::WriteHelper::global(),
                                 openlcb::eventid_to_buffer(eventset_),
                                 done->new_child());
-    write_helpers[2].WriteAsync(node_,mti_clear,
+    event->event_write_helper<1>()->WriteAsync(node_,mti_clear,
                                 openlcb::WriteHelper::global(),
                                 openlcb::eventid_to_buffer(eventclear_),
                                 done->new_child());

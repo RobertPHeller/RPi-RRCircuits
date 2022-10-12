@@ -43,7 +43,7 @@
 #include <utils/ConfigUpdateListener.hxx>
 #include <utils/format_utils.hxx>
 
-namespace esp32multifunction
+namespace esp32megamultifunction
 {
 
 // when the io board starts up the first time the config is blank and needs to
@@ -60,6 +60,6 @@ public:
     void factory_reset(int fd) override;
 };
 
-} // namespace esp32multifunction
+} // namespace esp32megamultifunction
 
 #endif // FACTORY_RESET_HELPER_HXX_

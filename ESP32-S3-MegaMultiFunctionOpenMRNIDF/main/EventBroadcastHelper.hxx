@@ -37,7 +37,7 @@
 
 #include <utils/Singleton.hxx>
 
-namespace esp32multifunction
+namespace esp32megamultifunction
 {
 
 /// Utility class that will send an event out onto the bus.
@@ -54,6 +54,6 @@ public:
     void send_event(uint64_t eventID);
 };
 
-} // namespace esp32multifunction
+} // namespace esp32megamultifunction
 
 #endif // EVENT_BROADCAST_HELPER_HXX_

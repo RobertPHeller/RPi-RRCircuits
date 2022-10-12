@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 20:26:38 2019
-//  Last Modified : <220625.1508>
+//  Last Modified : <221005.1704>
 //
 //  Description	
 //
@@ -55,12 +55,35 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "Rule.hxx"
 #include "Mast.hxx"
 #include "TrackCircuit.hxx"
+#include "utils/Uninitialized.hxx"
+
+uninitialized<Mast> Mast::masts[MASTCOUNT];
+
+void Mast::Init(openlcb::Node *node,
+                const openlcb::RepeatedGroup<MastConfig, MASTCOUNT> &config)
+{
+    openlcb::ConfigReference offset_(config);
+    openlcb::RepeatedGroup<MastConfig, UINT_MAX> grp_ref(offset_.offset());
+    Mast *prevMast = nullptr;
+    for (unsigned i = 0; i < MASTCOUNT; i++) 
+    {
+        masts[i].emplace(node,grp_ref.entry(i),prevMast);
+        prevMast = masts[i].get_mutable();
+    }
+}
+
+
 
 ConfigUpdateListener::UpdateAction Mast::apply_configuration(int fd, 
                                                        bool initial_load,
                                                        BarrierNotifiable *done)
 {
     AutoNotify n(done);
+    bool reinitNeeded = false;
+    for (int i=0; i < RULESCOUNT; i++) {
+        reinitNeeded |= rules_[i]->UpdateConfig(cfg_.rules().entry(i),fd,
+                                                initial_load);
+    }
     MastProcessing processing_cfg = (MastProcessing) cfg_.processing().read(fd);
     if (processing_cfg != processing_ || initial_load) {
         if (previous_ == nullptr && processing_cfg == Linked) {
@@ -76,14 +99,21 @@ ConfigUpdateListener::UpdateAction Mast::apply_configuration(int fd,
     fade_ = (LampFade) cfg_.fade().read(fd);
 #endif
     openlcb::EventId linkevent_cfg = cfg_.linkevent().read(fd);
+    mastid_ = cfg_.mastid().read(fd);
     if ((linkevent_cfg != linkevent_) && (processing_ == Normal || initial_load)) {
         if (!initial_load) unregister_handler();
         linkevent_ = linkevent_cfg;
         register_handler();
-        return REINIT_NEEDED; // Causes events identify.
+        reinitNeeded |= true; // Causes events identify.
     }
-    mastid_ = cfg_.mastid().read(fd);
-    return UPDATED;
+    if (reinitNeeded)
+    {
+        return REINIT_NEEDED;
+    }
+    else
+    {
+        return UPDATED;
+    }
 }
 
 uint16_t Mast::baseLinkEvent_(TRACKCIRCUITBASE);
@@ -104,6 +134,9 @@ void Mast::factory_reset(int fd)
     id |= baseLinkEvent_;
     baseLinkEvent_ += 8;
     cfg_.linkevent().write(fd,id);
+    for (int i = 0; i < RULESCOUNT; i++) {
+        rules_[i]->factory_reset(cfg_.rules().entry(i),fd);
+    }
 }
 
 void Mast::handle_identify_global(const openlcb::EventRegistryEntry &registry_entry, 
@@ -203,4 +236,6 @@ void Mast::SetCurrentRuleAndSpeed(Rule *r, TrackCircuit::TrackSpeed s,
 
 
 
+
+openlcb::WriteHelper Mast::write_helper[8];                                
 

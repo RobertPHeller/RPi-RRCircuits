@@ -42,7 +42,7 @@
 
 #include "sdkconfig.h"
 
-namespace esp32multifunction
+namespace esp32megamultifunction
 {
 
 /// Utility class providing periodic reporting of general health of the
@@ -152,6 +152,6 @@ private:
     }
 };
 
-} // namespace esp32multifunction
+} // namespace esp32megamultifunction
 
 #endif // HEARTBEAT_LED_H_

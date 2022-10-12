@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 15:59:18 2019
-//  Last Modified : <220623.1528>
+//  Last Modified : <221012.1328>
 //
 //  Description	
 //
@@ -48,14 +48,20 @@
 #include "utils/ConfigUpdateListener.hxx"
 #include "utils/ConfigUpdateService.hxx"
 #include "openlcb/RefreshLoop.hxx"
+#include "utils/Uninitialized.hxx"
 #include <os/Gpio.hxx>
 #include <stdio.h>
 
 #include "Lamp.hxx"
 #include "Rule.hxx"
 #include "TrackCircuit.hxx"
+#include "hardware.hxx"
 
+#ifdef PRODUCTION
+#define MASTCOUNT 16
+#else
 #define MASTCOUNT 8
+#endif
 
 static const char MastProcessingMap[] = 
 "<relation><property>0</property><value>Unused</value></relation>"
@@ -109,14 +115,14 @@ public:
         currentRule_  = nullptr;
         currentSpeed_ = TrackCircuit::Stop_;
         for (int i = 0; i < RULESCOUNT; i++) {
-            rules_[i] = new Rule(node_,cfg_.rules().entry(i),this);
+            rules_[i].emplace(node_,this);
         }
         ConfigUpdateService::instance()->register_update_listener(this);
     }
     virtual UpdateAction apply_configuration(int fd, 
                                              bool initial_load,
                                              BarrierNotifiable *done) override;
-    virtual void factory_reset(int fd);
+    virtual void factory_reset(int fd) override;
     void handle_identify_global(const openlcb::EventRegistryEntry &registry_entry, 
                                 EventReport *event, BarrierNotifiable *done) override;
     void handle_identify_producer(const EventRegistryEntry &registry_entry,
@@ -126,25 +132,29 @@ public:
      void SetCurrentRuleAndSpeed(Rule *r, TrackCircuit::TrackSpeed s, 
                                  BarrierNotifiable *done);
      const std::string Mastid() const {return mastid_;}
+     __attribute__((noinline))
+           static void Init(openlcb::Node *node,
+                            const openlcb::RepeatedGroup<MastConfig, MASTCOUNT> &config);
 private:
-    openlcb::Node *node_;
-    const MastConfig cfg_;
-    MastProcessing processing_;
-#ifdef HAVEPWM
-    LampFade fade_;
-#endif
-    openlcb::EventId linkevent_;
-    static uint16_t baseLinkEvent_;
-    Rule *rules_[RULESCOUNT];
-    Rule *currentRule_;
-    TrackCircuit::TrackSpeed currentSpeed_;
-    Mast *previous_;
     void register_handler();
     void unregister_handler();
     void SendAllProducersIdentified(EventReport *event,BarrierNotifiable *done);
     void SendProducerIdentified(EventReport *event,BarrierNotifiable *done);
-    openlcb::WriteHelper write_helper[8];
+    openlcb::Node *node_;
+    const MastConfig cfg_;
+    MastProcessing processing_:2;
+#ifdef HAVEPWM
+    LampFade fade_:1;
+#endif
+    TrackCircuit::TrackSpeed currentSpeed_:4;
+    openlcb::EventId linkevent_;
+    static uint16_t baseLinkEvent_;
+    uninitialized<Rule> rules_[RULESCOUNT];
+    Rule *currentRule_;
+    Mast *previous_;
+    static openlcb::WriteHelper write_helper[8];
     std::string mastid_{""};
+    static uninitialized<Mast> masts[MASTCOUNT];
 };
 
 

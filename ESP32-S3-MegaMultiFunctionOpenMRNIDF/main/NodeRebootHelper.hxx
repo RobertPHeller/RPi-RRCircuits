@@ -34,7 +34,7 @@
 
 #include <utils/Singleton.hxx>
 
-namespace esp32multifunction
+namespace esp32megamultifunction
 {
 
 /// Utility class for rebooting the node safely.

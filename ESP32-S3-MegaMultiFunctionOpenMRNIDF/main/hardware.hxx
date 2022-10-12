@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sat Jun 25 09:07:59 2022
-//  Last Modified : <220928.0809>
+//  Last Modified : <221012.1054>
 //
 //  Description	
 //
@@ -48,47 +48,28 @@
 #include <os/Gpio.hxx>
 #include <utils/GpioInitializer.hxx>
 
-#define MotorPin GpioOutputSafeLow
-#define SensePin GpioInputNP
+//#define PRODUCTION
 
-GPIO_PIN(Motor1, MotorPin,  9);
-GPIO_PIN(Motor2, MotorPin, 11);
-GPIO_PIN(Motor3, MotorPin,  8);
-#ifdef CONFIG_DEVKIT_BREADBOARD
-GPIO_PIN(Motor4, MotorPin, 45);
-#else
-GPIO_PIN(Motor4, MotorPin, 33);
+#define PWMCHIP_ADDRESS1 0x40
+#ifdef PRODUCTION
+#define PWMCHIP_ADDRESS2 0x41
 #endif
 
-GPIO_PIN(Points1, SensePin, 12);
-GPIO_PIN(Points2, SensePin, 13);
-GPIO_PIN(Points3, SensePin, 14);
-GPIO_PIN(Points4, SensePin, 10);
-
-#define ODPin  GpioInputNP
-
-#ifdef CONFIG_DEVKIT_BREADBOARD
-GPIO_PIN(OD1, ODPin, 46);
+#ifdef PRODUCTION
+#define NUM_TURNOUTS 8
+#define NUM_POINTSS  8
+#define NUM_OCS      8
+#define NUM_LEDS     8
+#define NUM_BUTTONS  8
+#define NUM_LINES    8
 #else
-GPIO_PIN(OD1, ODPin, 34);
+#define NUM_TURNOUTS 2
+#define NUM_POINTSS  2
+#define NUM_OCS      2
+#define NUM_LEDS     2
+#define NUM_BUTTONS  2
+#define NUM_LINES    2
 #endif
-GPIO_PIN(OD2, ODPin, 35);
-GPIO_PIN(OD3, ODPin, 36);
-GPIO_PIN(OD4, ODPin,  7);
-
-#define LEDPin GpioOutputSafeLow
-
-GPIO_PIN(LED1, LEDPin, 17);
-GPIO_PIN(LED2, LEDPin, 18);
-GPIO_PIN(LED3, LEDPin, 21);
-GPIO_PIN(LED4, LEDPin,  1);
-
-#define ButtonPin GpioInputNP
-
-GPIO_PIN(Button1, ButtonPin, 38);
-GPIO_PIN(Button2, ButtonPin,  6);
-GPIO_PIN(Button3, ButtonPin, 37);
-GPIO_PIN(Button4, ButtonPin, 16);
 
 #define ActPin GpioOutputSafeHighInvert
 
@@ -96,12 +77,7 @@ GPIO_PIN(LED_ACT1, ActPin, 15);
 GPIO_PIN(LED_ACT2, ActPin, 0);
 
 // Create an initializer that can initialize all the GPIO pins in one shot
-typedef GpioInitializer<Motor1_Pin, Motor2_Pin, Motor3_Pin, Motor4_Pin,
-                        Points1_Pin, Points2_Pin, Points3_Pin, Points4_Pin,
-                        OD1_Pin, OD2_Pin, OD3_Pin, OD4_Pin,
-                        LED1_Pin, LED2_Pin, LED3_Pin, LED4_Pin,
-                        Button1_Pin, Button2_Pin, Button3_Pin, Button4_Pin,
-                        LED_ACT1_Pin, LED_ACT2_Pin> GpioInit;
+typedef GpioInitializer<LED_ACT1_Pin, LED_ACT2_Pin> GpioInit;
 
 /// GPIO Pin connected to the TWAI (CAN) Transceiver RX pin.
 // ADC2_CHANNEL_0

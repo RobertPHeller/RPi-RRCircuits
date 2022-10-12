@@ -37,7 +37,7 @@
 #include "i2c.h"
 #include "i2c-dev.h"
 
-#include "PWM.hxx"
+#include "freertos_drivers/arduino/PWM.hxx"
 
 
 #include "os/OS.hxx"
@@ -60,6 +60,7 @@ public:
         , i2c_(-1)
         , dirty_(0)
         , i2cAddress_(0)
+        , mux_(portMUX_INITIALIZER_UNLOCKED)
     {
         duty_.fill(0);
     }
@@ -251,12 +252,13 @@ private:
     /// @param counts counts for PWM duty cycle
     void set_pwm_duty(unsigned channel, uint16_t counts)
     {
+        
         HASSERT(channel < NUM_CHANNELS);
         duty_[channel] = counts;
 
-        portENTER_CRITICAL();
+        portENTER_CRITICAL(&mux_);
         dirty_ |= 0x1 << channel;
-        portEXIT_CRITICAL();
+        portEXIT_CRITICAL(&mux_);
 
         sem_.post();
     }
@@ -339,7 +341,9 @@ private:
 
     /// I2C address of the device
     uint8_t i2cAddress_;
-
+    
+    portMUX_TYPE mux_;
+        
     DISALLOW_COPY_AND_ASSIGN(PCA9685PWM);
 };
 

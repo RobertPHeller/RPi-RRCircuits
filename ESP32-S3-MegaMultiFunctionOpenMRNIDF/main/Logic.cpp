@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Mar 1 10:46:51 2019
-//  Last Modified : <220928.1028>
+//  Last Modified : <221012.1502>
 //
 //  Description	
 //
@@ -50,9 +50,32 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "openlcb/SimpleStack.hxx"
 #include "executor/Timer.hxx"
 #include <stdio.h>
+#include "utils/Uninitialized.hxx"
 
-#include "TrackCircuit.hxx"
+#include "hardware.hxx"
 #include "Logic.hxx"
+//#include "TrackCircuit.hxx"
+
+uninitialized<Logic> Logic::logics[LOGICCOUNT];
+
+void Logic::Init(openlcb::Node *node,
+                 ActiveTimers *timers,
+                 const openlcb::RepeatedGroup<LogicConfig, LOGICCOUNT> &config)
+{
+    openlcb::ConfigReference offset_(config);
+    openlcb::RepeatedGroup<LogicConfig, UINT_MAX> grp_ref(offset_.offset());
+    Logic *prevLogic = nullptr;
+    for (int i = LOGICCOUNT-1; i > 0; i--) 
+    {
+        logics[i].emplace(node, grp_ref.entry(i),
+                              timers, prevLogic);
+        prevLogic = logics[i].get_mutable();
+    }
+    logics[0].emplace(node, grp_ref.entry(0),
+                      timers, prevLogic);
+}
+
+
 
 void BitEventConsumerOrTrackCircuit::handle_producer_identified(const EventRegistryEntry& entry, EventReport *event,
                                                 BarrierNotifiable *done)
@@ -177,26 +200,19 @@ void BitEventConsumerOrTrackCircuit::trigger(const TrackCircuit *caller,BarrierN
     //LOG(ALWAYS,"*** BitEventConsumerOrTrackCircuit::trigger(): done was notified");
 }
 
-ConfigUpdateListener::UpdateAction Variable::apply_configuration(int fd, 
-                                                                 bool initial_load,
-                                                                 BarrierNotifiable *done)
+bool Variable::apply_configuration(int fd,bool initial_load,
+                                   const VariableConfig &cfg)
 {
-    AutoNotify n(done);
-    trigger_ = (Trigger) cfg_.trigger().read(fd);
-    BitEventConsumerOrTrackCircuit::Source source_cfg = (BitEventConsumerOrTrackCircuit::Source) cfg_.source().read(fd);
-    TrackCircuit::TrackSpeed speed_cfg = (TrackCircuit::TrackSpeed) cfg_.trackspeed().read(fd);
-    openlcb::EventId event_true_cfg = cfg_.eventtrue().read(fd);
-    openlcb::EventId event_false_cfg = cfg_.eventfalse().read(fd);
+    trigger_ = (Trigger) cfg.trigger().read(fd);
+    BitEventConsumerOrTrackCircuit::Source source_cfg = (BitEventConsumerOrTrackCircuit::Source) cfg.source().read(fd);
+    TrackCircuit::TrackSpeed speed_cfg = (TrackCircuit::TrackSpeed) cfg.trackspeed().read(fd);
+    openlcb::EventId event_true_cfg = cfg.eventtrue().read(fd);
+    openlcb::EventId event_false_cfg = cfg.eventfalse().read(fd);
     LOG(VERBOSE,"*** Variable::apply_configuration(): initial_load is %d",initial_load);
     LOG(VERBOSE,"*** Variable::apply_configuration(): source_cfg = %d, source_ = %d",source_cfg,consumer_.TheSource());
     LOG(VERBOSE,"*** Variable::apply_configuration(): event_true_cfg is %llx, event_true_ is %llx",event_true_cfg,impl_.event_on());
     LOG(VERBOSE,"*** Variable::apply_configuration(): event_false_cfg is %llx, event_false_ is %llx",event_false_cfg,impl_.event_off());
-
-    if ((int)source_cfg >= (int)BitEventConsumerOrTrackCircuit::Source::MAX_SOURCE ||
-        (int)speed_cfg > (int)TrackCircuit::TrackSpeed::Unknown_)
-    {
-        LOG(FATAL,"Configuration is corrupt!");
-    }
+    
     if (source_cfg != consumer_.TheSource() ||
         speed_cfg != consumer_.Speed() ||
         event_true_cfg != impl_.event_on() ||
@@ -212,16 +228,16 @@ ConfigUpdateListener::UpdateAction Variable::apply_configuration(int fd,
                                                         speed_cfg,
                                                         this);
         
-        return REINIT_NEEDED; // Causes events identify.
+        return true; // Causes events identify.
     }
-    return UPDATED;
+    return false;
 }
 
-void Variable::factory_reset(int fd)
+void Variable::factory_reset(int fd,const VariableConfig &cfg)
 {
-    CDI_FACTORY_RESET(cfg_.trigger);
-    CDI_FACTORY_RESET(cfg_.source);
-    CDI_FACTORY_RESET(cfg_.trackspeed);
+    CDI_FACTORY_RESET(cfg.trigger);
+    CDI_FACTORY_RESET(cfg.source);
+    CDI_FACTORY_RESET(cfg.trackspeed);
 }
 
 void Action::trigger(BarrierNotifiable *done)
@@ -273,13 +289,11 @@ bool Action::DoAction(bool logicResult,BarrierNotifiable *done)
     return false;
 }
 
-ConfigUpdateListener::UpdateAction Action::apply_configuration(int fd, 
-                                                               bool initial_load,
-                                                               BarrierNotifiable *done)
+bool Action::apply_configuration(int fd, bool initial_load,
+                                 const ActionConfig &cfg)
 {
-    AutoNotify n(done);
-    Trigger actionTrigger_cfg = (Trigger) cfg_.actiontrigger().read(fd);
-    openlcb::EventId action_event_cfg = cfg_.actionevent().read(fd);
+    Trigger actionTrigger_cfg = (Trigger) cfg.actiontrigger().read(fd);
+    openlcb::EventId action_event_cfg = cfg.actionevent().read(fd);
     if (actionTrigger_cfg != actionTrigger_ ||
         action_event_cfg != action_event_ ) {
         switch (actionTrigger_) {
@@ -299,15 +313,15 @@ ConfigUpdateListener::UpdateAction Action::apply_configuration(int fd,
         case DelayedFalse:
             timer_->AddDelayedAction(this);
         default: 
-            return REINIT_NEEDED; // Causes events identify.
+            return true; // Causes events identify.
         }
     }
-    return UPDATED;
+    return false;
 }
 
-void Action::factory_reset(int fd)
+void Action::factory_reset(int fd,const ActionConfig &cfg)
 {
-    CDI_FACTORY_RESET(cfg_.actiontrigger);
+    CDI_FACTORY_RESET(cfg.actiontrigger);
 }
 
 void Action::SendEventReport(BarrierNotifiable *done)
@@ -328,7 +342,23 @@ ConfigUpdateListener::UpdateAction Logic::apply_configuration(int fd,
     trueAction_    = (ActionType)    cfg_.trueAction().read(fd);
     falseAction_   = (ActionType)    cfg_.falseAction().read(fd);
     description_ = cfg_.description().read(fd);
-    return UPDATED;
+    bool reinitNeeded = false;
+    for (int i=0; i < 4; i++)
+    {
+        reinitNeeded |= actions_[i]->apply_configuration(fd,initial_load,
+                                                   cfg_.actions().entry(i));
+    }
+    timer_->apply_configuration(fd,initial_load, cfg_.timing());
+    reinitNeeded |= v1_->apply_configuration(fd,initial_load,cfg_.v1());
+    reinitNeeded |= v2_->apply_configuration(fd,initial_load,cfg_.v2());
+    if (reinitNeeded)
+    {
+        return REINIT_NEEDED;
+    }
+    else
+    {
+        return UPDATED;
+    }
 }
 
 void Logic::factory_reset(int fd)
@@ -338,6 +368,13 @@ void Logic::factory_reset(int fd)
     CDI_FACTORY_RESET(cfg_.logic().logicFunction);
     CDI_FACTORY_RESET(cfg_.trueAction);
     CDI_FACTORY_RESET(cfg_.falseAction);
+    for (int i=0; i < 4; i++)
+    {
+        actions_[i]->factory_reset(fd,cfg_.actions().entry(i));
+    }
+    timer_->factory_reset(fd, cfg_.timing());
+    v1_->factory_reset(fd, cfg_.v1());
+    v2_->factory_reset(fd, cfg_.v2());
 }
 
 bool Logic::Value()
@@ -447,3 +484,4 @@ void Logic::_processAction(BarrierNotifiable *done)
     }
 }
 
+openlcb::WriteHelper Action::write_helper;

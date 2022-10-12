@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Feb 24 14:51:54 2019
-//  Last Modified : <211125.1735>
+//  Last Modified : <221004.1026>
 //
 //  Description	
 //
@@ -49,6 +49,8 @@
 #include "utils/ConfigUpdateListener.hxx"
 #include "utils/ConfigUpdateService.hxx"
 #include "utils/Debouncer.hxx"
+
+#include <vector>
 
 /// CDI Configuration for a @ref ConfiguredProducer.
 CDI_GROUP(OccupancyDetectorConfig);
@@ -153,10 +155,28 @@ public:
     {
         return &producer_;
     }
-
+    template <unsigned N>
+          __attribute__((noinline))
+          static void Init(openlcb::Node *node,
+                           const openlcb::RepeatedGroup<OccupancyDetectorConfig, N> &config,
+                           const Gpio *const *pins, unsigned size)
+    {
+        HASSERT(size == N);
+        openlcb::ConfigReference offset_(config);
+        openlcb::RepeatedGroup<OccupancyDetectorConfig, UINT_MAX> grp_ref(offset_.offset());
+        for (unsigned i = 0; i < size; i++)
+        {
+            OccupancyDetector *o = new OccupancyDetector(node,grp_ref.entry(i),pins[i]);
+            ocs.push_back(o);
+            pollers.push_back(new openlcb::RefreshLoop(node,{o->polling()}));
+        }
+    }
+    
 private:
     ProducerClass producer_;
     const OccupancyDetectorConfig cfg_;
+    static vector<OccupancyDetector *> ocs;
+    static vector<openlcb::RefreshLoop *> pollers;
 };
 
 

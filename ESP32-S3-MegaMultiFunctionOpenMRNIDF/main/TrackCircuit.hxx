@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:11:23 2019
-//  Last Modified : <220718.1041>
+//  Last Modified : <221012.1326>
 //
 //  Description	
 //
@@ -48,7 +48,9 @@
 #include "utils/ConfigUpdateListener.hxx"
 #include "utils/ConfigUpdateService.hxx"
 #include "openlcb/RefreshLoop.hxx"
+#include "utils/Uninitialized.hxx"
 #include <stdio.h>
+#include "hardware.hxx"
 
 #include <vector>
 
@@ -63,7 +65,11 @@ static const char TrackSpeedMap[] =
 "<relation><property>6</property><value>Approach-Medium</value></relation>"
 "<relation><property>7</property><value>Clear/Procede</value></relation>";
 
+#ifdef PRODUCTION
+#define TRACKCIRCUITCOUNT 16
+#else
 #define TRACKCIRCUITCOUNT 8
+#endif
 
 /// CDI Configuration for a @ref TrackCircuit
 CDI_GROUP(TrackCircuitConfig);
@@ -107,7 +113,7 @@ public:
     virtual UpdateAction apply_configuration(int fd, 
                                              bool initial_load,
                                              BarrierNotifiable *done) override;
-    virtual void factory_reset(int fd);
+    virtual void factory_reset(int fd) override;
     void handle_identify_global(const openlcb::EventRegistryEntry &registry_entry, 
                                 EventReport *event, BarrierNotifiable *done) override;
     void handle_event_report(const EventRegistryEntry &entry, 
@@ -116,22 +122,25 @@ public:
     void handle_identify_consumer(const EventRegistryEntry &registry_entry,
                                   EventReport *event,
                                   BarrierNotifiable *done) override;
+    static uninitialized<TrackCircuit> circuits[TRACKCIRCUITCOUNT];
+    __attribute__((noinline)) 
+          static void Init(openlcb::Node *node,
+                           const openlcb::RepeatedGroup<TrackCircuitConfig, TRACKCIRCUITCOUNT> &config);
 private:
     openlcb::Node *node_;
     const TrackCircuitConfig cfg_;
     openlcb::EventId remotemastlink_;
-    TrackSpeed speed_;
     typedef vector<TrackCircuitCallback *> callback_type;
     typedef callback_type::iterator callback_type_iterator;
     callback_type callbacks_;
-    openlcb::WriteHelper write_helpers[8];
+    TrackSpeed speed_:4;
+    static openlcb::WriteHelper write_helpers[8];
     void register_handler();
     void unregister_handler();
     void SendAllConsumersIdentified(EventReport *event,BarrierNotifiable *done);
     void SendConsumerIdentified(EventReport *event,BarrierNotifiable *done);
 };
 
-extern TrackCircuit *circuits[TRACKCIRCUITCOUNT];
 
 
 

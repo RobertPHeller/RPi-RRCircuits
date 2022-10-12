@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sat Jun 25 09:33:40 2022
-//  Last Modified : <220625.1530>
+//  Last Modified : <221012.1355>
 //
 //  Description	
 //
@@ -43,12 +43,11 @@
 #ifndef __CDI_HXX
 #define __CDI_HXX
 
-#include <freertos_drivers/esp32/Esp32WiFiConfiguration.hxx>
 #include <openlcb/ConfigRepresentation.hxx>
 #include "openlcb/ConfiguredConsumer.hxx"
 #include "openlcb/ConfiguredProducer.hxx"
 #include "openlcb/MemoryConfig.hxx"
-
+#include "openlcb/MultiConfiguredPC.hxx"
 #include "Logic.hxx"
 #include "Mast.hxx"
 #include "TrackCircuit.hxx"
@@ -62,14 +61,11 @@
 
 #include "LED.hxx"
 
-namespace esp32multifunction
+#include "hardware.hxx"
+
+namespace esp32megamultifunction
 {
 
-constexpr uint8_t NUM_TURNOUTS = 4;
-constexpr uint8_t NUM_POINTSS = 4;
-constexpr uint8_t NUM_OCS = 4;
-constexpr uint8_t NUM_BUTTONS = 4;
-constexpr uint8_t NUM_LEDS = 4;
 using LogicGroup = openlcb::RepeatedGroup<LogicConfig, LOGICCOUNT>;
 using MastGroup = openlcb::RepeatedGroup<MastConfig, MASTCOUNT>;
 using TrackCircuitGroup = openlcb::RepeatedGroup<TrackCircuitConfig, TRACKCIRCUITCOUNT>;
@@ -79,6 +75,7 @@ using PointsGroup = openlcb::RepeatedGroup<PointsConfig, NUM_POINTSS>;
 using OCGroup = openlcb::RepeatedGroup<OccupancyDetectorConfig, NUM_OCS>;
 using ButtonGroup = openlcb::RepeatedGroup<ButtonConfig, NUM_BUTTONS>;
 using LEDGroup = openlcb::RepeatedGroup<LEDConfig, NUM_LEDS>;
+using LineGroup = openlcb::RepeatedGroup<openlcb::PCConfig, NUM_LINES>;
 
 /// Defines the main segment in the configuration CDI. This is laid out at
 /// origin 128 to give space for the ACDI user data at the beginning.
@@ -92,6 +89,7 @@ CDI_GROUP_ENTRY(turnouts, TurnoutGroup, Name("Turnouts"), RepName("Turnout"));
 CDI_GROUP_ENTRY(points, PointsGroup, Name("Points"), RepName("Points"));
 CDI_GROUP_ENTRY(buttons, ButtonGroup, Name("Buttons"), RepName("Button"));
 CDI_GROUP_ENTRY(leds,LEDGroup, Name("LEDS"), RepName("LED"));
+CDI_GROUP_ENTRY(lines,LineGroup, Name("Lines"), RepName("Line"));
 CDI_GROUP_ENTRY(logics, LogicGroup, Name("LOGIC"), RepName("Logic"));
 CDI_GROUP_ENTRY(masts, MastGroup, Name("Rule to aspect"),RepName("Mast"));
 CDI_GROUP_ENTRY(circuits, TrackCircuitGroup, Name("TRACK CIRCUITS"), RepName("Circuit"));
