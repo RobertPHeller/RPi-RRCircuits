@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/heller/RRCircuits/PocketBeagleCommandStation/PocketBeagleCommandStation.sch)
-    (date "Wed 12 Oct 2022 09:04:48 PM EDT")
+    (date "Thu 13 Oct 2022 12:40:17 PM EDT")
     (tool "Eeschema 4.0.7+dfsg1-1ubuntu2")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -161,7 +161,9 @@
       (tstamp 606FD173))
     (comp (ref J101)
       (value USB_A)
-      (footprint Connectors:USB_A_Vertical)
+      (footprint USB-A-Upright:USB-A-UPRIGHT)
+      (fields
+        (field (name "Mouser Part Number") "710-614004184726 "))
       (libsource (lib conn) (part USB_A))
       (sheetpath (names /) (tstamps /))
       (tstamp 63491D21))
@@ -1338,14 +1340,14 @@
         (pin (num 4) (name GND) (type power_in))
         (pin (num 5) (name Shield) (type passive)))))
   (libraries
-    (library (logical device)
-      (uri /usr/share/kicad/library/device.lib))
-    (library (logical transistors)
-      (uri /usr/share/kicad/library/transistors.lib))
     (library (logical conn)
       (uri /usr/share/kicad/library/conn.lib))
+    (library (logical device)
+      (uri /usr/share/kicad/library/device.lib))
     (library (logical linear)
       (uri /usr/share/kicad/library/linear.lib))
+    (library (logical transistors)
+      (uri /usr/share/kicad/library/transistors.lib))
     (library (logical pocketbeagle)
       (uri /home/heller/RRCircuits/PocketBeagleCommandStation/pocketbeagle.lib))
     (library (logical lm2574n-5)

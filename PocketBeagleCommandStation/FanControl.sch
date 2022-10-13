@@ -57,6 +57,7 @@ F 0 "J5" H 5800 2700 50  0000 C CNN
 F 1 "Fan" H 5800 2400 50  0000 C CNN
 F 2 "Connectors_Terminal_Blocks:TerminalBlock_Pheonix_MPT-2.54mm_2pol" H 5800 2600 50  0001 C CNN
 F 3 "" H 5800 2600 50  0001 C CNN
+F 4 "651-1725656" H 5800 2600 60  0001 C CNN "Mouser Part Number"
 	1    5800 2600
 	1    0    0    -1  
 $EndComp
@@ -68,6 +69,7 @@ F 0 "Q13" H 5700 3375 50  0000 L CNN
 F 1 "TIP120" H 5700 3300 50  0000 L CNN
 F 2 "TO_SOT_Packages_THT:TO-220_Vertical" H 5700 3225 50  0001 L CIN
 F 3 "" H 5450 3300 50  0001 L CNN
+F 4 "583-TIP120 " H 5450 3300 60  0001 C CNN "Mouser Part Number"
 	1    5450 3300
 	1    0    0    -1  
 $EndComp
@@ -79,6 +81,7 @@ F 0 "U7" H 3550 4250 60  0000 C CNN
 F 1 "TMP36" H 3650 4650 60  0000 C CNN
 F 2 "TO_SOT_Packages_THT:TO-92_Molded_Narrow" H 3450 4400 60  0001 C CNN
 F 3 "" H 3450 4400 60  0000 C CNN
+F 4 "485-165 " H 3450 4400 60  0001 C CNN "Mouser Part Number"
 	1    3450 4400
 	1    0    0    -1  
 $EndComp
@@ -90,6 +93,7 @@ F 0 "R31" V 5630 2150 50  0000 C CNN
 F 1 "56 Ohms 1/2 watt" V 5550 2150 50  0000 C CNN
 F 2 "Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Vertical" V 5480 2150 50  0001 C CNN
 F 3 "" H 5550 2150 50  0001 C CNN
+F 4 "660-CF1/2CT52R560J" V 5550 2150 60  0001 C CNN "Mouser Part Number"
 	1    5550 2150
 	1    0    0    -1  
 $EndComp
@@ -101,6 +105,7 @@ F 0 "R30" V 4680 3300 50  0000 C CNN
 F 1 "1K Ohms" V 4600 3300 50  0000 C CNN
 F 2 "Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 4530 3300 50  0001 C CNN
 F 3 "" H 4600 3300 50  0001 C CNN
+F 4 "603-MFR-12FTF52-1K" V 4600 3300 60  0001 C CNN "Mouser Part Number"
 	1    4600 3300
 	0    1    1    0   
 $EndComp
