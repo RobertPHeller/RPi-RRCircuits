@@ -515,6 +515,54 @@ F 3 "" H 1375 2450 50  0001 C CNN
 	1    1375 2450
 	1    0    0    -1  
 $EndComp
+$Comp
+L Fuse_Small F101
+U 1 1 634992B4
+P 4100 4100
+F 0 "F101" H 4100 4040 50  0000 C CNN
+F 1 "3A" H 4100 4160 50  0000 C CNN
+F 2 "Fuse:Fuse_BelFuse_0ZRE0033FF_L11.4mm_W3.8mm" H 4100 4100 50  0001 C CNN
+F 3 "" H 4100 4100 50  0001 C CNN
+F 4 "530-0ZRB0300FF1A" H 4100 4100 60  0001 C CNN "Mouser Part Number"
+	1    4100 4100
+	0    1    1    0   
+$EndComp
+$Comp
+L Fuse_Small F102
+U 1 1 6349A578
+P 4200 4100
+F 0 "F102" H 4200 4040 50  0000 C CNN
+F 1 "3A" H 4200 4160 50  0000 C CNN
+F 2 "Fuse:Fuse_BelFuse_0ZRE0033FF_L11.4mm_W3.8mm" H 4200 4100 50  0001 C CNN
+F 3 "" H 4200 4100 50  0001 C CNN
+F 4 "530-0ZRB0300FF1A" H 4200 4100 60  0001 C CNN "Mouser Part Number"
+	1    4200 4100
+	0    1    1    0   
+$EndComp
+$Comp
+L Fuse_Small F103
+U 1 1 6349A83E
+P 4300 4100
+F 0 "F103" H 4300 4040 50  0000 C CNN
+F 1 "300ma" H 4300 4160 50  0000 C CNN
+F 2 "Fuse:Fuse_Bourns_MF-RG300" H 4300 4100 50  0001 C CNN
+F 3 "" H 4300 4100 50  0001 C CNN
+F 4 "530-0ZRC0030FF1E" H 4300 4100 60  0001 C CNN "Mouser Part Number"
+	1    4300 4100
+	0    1    1    0   
+$EndComp
+$Comp
+L Fuse_Small F104
+U 1 1 6349C74C
+P 4400 4100
+F 0 "F104" H 4400 4040 50  0000 C CNN
+F 1 "300ma" H 4400 4160 50  0000 C CNN
+F 2 "Fuse:Fuse_Bourns_MF-RG300" H 4400 4100 50  0001 C CNN
+F 3 "" H 4400 4100 50  0001 C CNN
+F 4 "530-0ZRC0030FF1E" H 4400 4100 60  0001 C CNN "Mouser Part Number"
+	1    4400 4100
+	0    1    1    0   
+$EndComp
 Wire Wire Line
 	7550 1500 7350 1500
 Wire Wire Line
@@ -560,12 +608,6 @@ Connection ~ 3550 2250
 Wire Wire Line
 	4100 4300 3350 4300
 Wire Wire Line
-	4100 3900 4100 4300
-Wire Wire Line
-	3350 4450 4200 4450
-Wire Wire Line
-	4200 4450 4200 3900
-Wire Wire Line
 	3500 3750 3500 4150
 Wire Wire Line
 	3500 4150 3350 4150
@@ -575,14 +617,7 @@ Wire Wire Line
 	3700 4250 3700 4450
 Connection ~ 3700 4450
 Wire Wire Line
-	4050 3950 4100 3950
-Connection ~ 4100 3950
-Wire Wire Line
-	4300 3900 4300 4500
-Wire Wire Line
 	4300 4500 4950 4500
-Wire Wire Line
-	4400 3900 4400 4300
 Wire Wire Line
 	4400 4300 4950 4300
 Connection ~ 4800 4300
@@ -602,9 +637,6 @@ Wire Wire Line
 	7250 4000 7250 5100
 Wire Wire Line
 	7250 5100 6750 5100
-Wire Wire Line
-	4450 3950 4300 3950
-Connection ~ 4300 3950
 Wire Wire Line
 	3700 2900 3350 2900
 Wire Wire Line
@@ -650,4 +682,28 @@ Wire Wire Line
 	2000 2150 2000 1900
 Wire Wire Line
 	2000 1900 1775 1900
+Wire Wire Line
+	4450 3950 4450 4500
+Connection ~ 4450 4500
+Wire Wire Line
+	4100 3900 4100 4000
+Wire Wire Line
+	4100 4300 4100 4200
+Wire Wire Line
+	4200 3900 4200 4000
+Wire Wire Line
+	4200 4450 4200 4200
+Wire Wire Line
+	4300 3900 4300 4000
+Wire Wire Line
+	4300 4200 4300 4500
+Wire Wire Line
+	4400 4300 4400 4200
+Wire Wire Line
+	4400 3900 4400 4000
+Wire Wire Line
+	3350 4450 4200 4450
+Wire Wire Line
+	4050 3950 4050 4300
+Connection ~ 4050 4300
 $EndSCHEMATC
