@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/heller/RRCircuits/PocketBeagleCommandStation/PocketBeagleCommandStation.sch)
-    (date "Fri 14 Oct 2022 10:14:48 AM EDT")
+    (date "Wed 19 Oct 2022 02:55:13 PM EDT")
     (tool "Eeschema 4.0.7+dfsg1-1ubuntu2")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -85,7 +85,7 @@
       (value POCKETBEAGLE-Header)
       (footprint Socket_Strips:Socket_Strip_Straight_2x18_Pitch2.54mm)
       (fields
-        (field (name "Part Number") 517-929975-01-18-RK))
+        (field (name "Mouser Part Number") 517-929975-01-18-RK))
       (libsource (lib pocketbeagle) (part POCKETBEAGLE-P1))
       (sheetpath (names /) (tstamps /))
       (tstamp 5C7C1FE0))
@@ -93,7 +93,7 @@
       (value POCKETBEAGLE-Header)
       (footprint Socket_Strips:Socket_Strip_Straight_2x18_Pitch2.54mm)
       (fields
-        (field (name "Part Number") 517-929975-01-18-RK))
+        (field (name "Mouser Part Number") 517-929975-01-18-RK))
       (libsource (lib pocketbeagle) (part POCKETBEAGLE-P2))
       (sheetpath (names /) (tstamps /))
       (tstamp 5C7C1FEF))
@@ -101,7 +101,7 @@
       (value "DCC Power In")
       (footprint Connectors_Terminal_Blocks:TerminalBlock_Pheonix_PT-3.5mm_3pol)
       (fields
-        (field (name "Part Number") 651-5442251))
+        (field (name "Mouser Part Number") 651-5442251))
       (libsource (lib conn) (part Screw_Terminal_01x03))
       (sheetpath (names /) (tstamps /))
       (tstamp 603ED4F5))
@@ -109,7 +109,7 @@
       (value SB530)
       (footprint Diodes_THT:D_DO-201AD_P12.70mm_Horizontal)
       (fields
-        (field (name "Part Number") 625-SB530-E3))
+        (field (name "Mouser Part Number") 625-SB530-E3))
       (libsource (lib device) (part D_Schottky))
       (sheetpath (names /) (tstamps /))
       (tstamp 603ED6DD))
@@ -117,7 +117,7 @@
       (value "DCC Output to Tracks")
       (footprint Connectors_Terminal_Blocks:TerminalBlock_Pheonix_PT-3.5mm_4pol)
       (fields
-        (field (name "Part Number") 651-5442264))
+        (field (name "Mouser Part Number") 651-5442264))
       (libsource (lib conn) (part Screw_Terminal_01x04))
       (sheetpath (names /) (tstamps /))
       (tstamp 603ED168))
@@ -125,7 +125,7 @@
       (value "2.4 Ohms")
       (footprint Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical)
       (fields
-        (field (name "Part Number") 603-CFR-25JB-52-2R4))
+        (field (name "Mouser Part Number") 603-CFR-25JB-52-2R4))
       (libsource (lib device) (part R))
       (sheetpath (names /) (tstamps /))
       (tstamp 603EDB79))
@@ -133,7 +133,7 @@
       (value "10 nf")
       (footprint Capacitors_THT:C_Rect_L4.0mm_W2.5mm_P2.50mm)
       (fields
-        (field (name "Part Number") 75-1C10Z5U103M100B))
+        (field (name "Mouser Part Number") 75-1C10Z5U103M100B))
       (libsource (lib device) (part C))
       (sheetpath (names /) (tstamps /))
       (tstamp 603EDE02))
@@ -141,7 +141,7 @@
       (value "2.4 Ohms")
       (footprint Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical)
       (fields
-        (field (name "Part Number") 603-CFR-25JB-52-2R4))
+        (field (name "Mouser Part Number") 603-CFR-25JB-52-2R4))
       (libsource (lib device) (part R))
       (sheetpath (names /) (tstamps /))
       (tstamp 603EF918))
@@ -149,13 +149,15 @@
       (value "10 nf")
       (footprint Capacitors_THT:C_Rect_L4.0mm_W2.5mm_P2.50mm)
       (fields
-        (field (name "Part Number") 75-1C10Z5U103M100B))
+        (field (name "Mouser Part Number") 75-1C10Z5U103M100B))
       (libsource (lib device) (part C))
       (sheetpath (names /) (tstamps /))
       (tstamp 603EFD3C))
     (comp (ref J6)
       (value Console)
       (footprint Pin_Headers:Pin_Header_Straight_1x06_Pitch2.54mm)
+      (fields
+        (field (name "Mouser Part Number") 523-G800W302018EU))
       (libsource (lib conn) (part Conn_01x06_Male))
       (sheetpath (names /) (tstamps /))
       (tstamp 606FD173))
@@ -211,7 +213,7 @@
       (value "220 uf 25V")
       (footprint Capacitors_THT:CP_Radial_D8.0mm_P3.50mm)
       (fields
-        (field (name "Part Number") REA221M1EBK-0811P))
+        (field (name "Mouser Part Number") 710-860080474010))
       (libsource (lib device) (part CP1))
       (sheetpath (names "/Power Supplies/") (tstamps /603E6542/))
       (tstamp 603E6FA8))
@@ -219,7 +221,7 @@
       (value "22 uf 100V")
       (footprint Capacitors_THT:CP_Radial_D8.0mm_P3.50mm)
       (fields
-        (field (name "Part Number") REA220M2ABK-0811P))
+        (field (name "Mouser Part Number") 667-ECA-1VM220I))
       (libsource (lib device) (part CP1))
       (sheetpath (names "/Power Supplies/") (tstamps /603E6542/))
       (tstamp 603E6FAA))
@@ -435,7 +437,7 @@
       (value "LCC Power In")
       (footprint Connectors_Terminal_Blocks:TerminalBlock_Pheonix_MPT-2.54mm_2pol)
       (fields
-        (field (name "Mouser part Number") 651-1725656))
+        (field (name "Mouser Part Number") 651-1725656))
       (libsource (lib conn) (part Screw_Terminal_01x02))
       (sheetpath (names "/CAN Transceiver/") (tstamps /603E6553/))
       (tstamp 603EA095))
@@ -480,7 +482,7 @@
       (sheetpath (names "/CAN Transceiver/") (tstamps /603E6553/))
       (tstamp 60503AA7))
     (comp (ref D5)
-      (value "LED (Red, CAN Tx)")
+      (value "CAN Tx")
       (footprint LEDs:LED_D3.0mm)
       (fields
         (field (name "Mouser Part Number") 710-151031SS04000))
@@ -488,7 +490,7 @@
       (sheetpath (names "/CAN Transceiver/") (tstamps /603E6553/))
       (tstamp 60503C69))
     (comp (ref D6)
-      (value "LED (Yellow, CAN Rx)")
+      (value "CAN Rx")
       (footprint LEDs:LED_D3.0mm)
       (fields
         (field (name "Mouser Part Number") 710-151033YS03000))
@@ -539,7 +541,7 @@
       (value "100 nf")
       (footprint Capacitors_THT:C_Rect_L4.0mm_W2.5mm_P2.50mm)
       (fields
-        (field (name "Mouser  Part Number") 594-K104Z15Y5VF5TL2))
+        (field (name "Mouser Part Number") 594-K104Z15Y5VF5TL2))
       (libsource (lib device) (part C))
       (sheetpath (names "/Operations Driver/") (tstamps /603E6558/))
       (tstamp 603EA99F))
@@ -562,6 +564,8 @@
     (comp (ref R12)
       (value "20K Ohms")
       (footprint Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical)
+      (fields
+        (field (name "Mouser Part Number") 603-MFR-12FTF52-20K))
       (libsource (lib device) (part R))
       (sheetpath (names "/Operations Driver/") (tstamps /603E6558/))
       (tstamp 603EB37F))
@@ -584,12 +588,16 @@
     (comp (ref D9)
       (value "DCC Activity")
       (footprint LEDs:LED_D3.0mm)
+      (fields
+        (field (name "Mouser Part Number") "710-151031SS06000 "))
       (libsource (lib device) (part LED))
       (sheetpath (names "/Operations Driver/") (tstamps /603E6558/))
       (tstamp 60633BC4))
     (comp (ref R42)
       (value "3K Ohms")
       (footprint Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical)
+      (fields
+        (field (name "Mouser Part Number") 660-MF1/4LCT52R302G))
       (libsource (lib device) (part R))
       (sheetpath (names "/Operations Driver/") (tstamps /603E6558/))
       (tstamp 60633BCA))
@@ -615,9 +623,6 @@
       (value L298N)
       (footprint Drivers:TO127P2020X500X2100-15)
       (fields
-        (field (name MAXIMUM_PACKAGE_HEIGHT) 5.0mm)
-        (field (name STANDARD) IPC-7351B)
-        (field (name MANUFACTURER) STMicroelectronics)
         (field (name "Mouser Part Number") 511-L298))
       (libsource (lib L298N) (part L298N))
       (sheetpath (names "/Prog and LCC Alt H/L Driver/") (tstamps /603E655D/))
@@ -641,6 +646,8 @@
     (comp (ref U5)
       (value LM358)
       (footprint Housings_DIP:DIP-8_W7.62mm)
+      (fields
+        (field (name "Mouser Part Number") 595-LM358AP))
       (libsource (lib linear) (part LM358))
       (sheetpath (names "/Prog and LCC Alt H/L Driver/") (tstamps /603E655D/))
       (tstamp 603EDBFA))
@@ -724,7 +731,7 @@
       (value 2N7000)
       (footprint TO_SOT_Packages_THT:TO-92_Molded_Narrow)
       (fields
-        (field (name "Mouser Part Numbr") 512-2N7000BU))
+        (field (name "Mouser Part Number") 512-2N7000BU))
       (libsource (lib transistors) (part 2N7000))
       (sheetpath (names "/Railcomm Interface/") (tstamps /603E65F4/))
       (tstamp 603F9EB6))
@@ -756,7 +763,7 @@
       (value "10K Ohms")
       (footprint Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical)
       (fields
-        (field (name "Mouser part Number") 603-MFR-12FTF52-10K))
+        (field (name "Mouser Part Number") 603-MFR-12FTF52-10K))
       (libsource (lib device) (part R))
       (sheetpath (names "/Railcomm Interface/") (tstamps /603E65F4/))
       (tstamp 603FA20E))
@@ -809,8 +816,10 @@
       (sheetpath (names "/Railcomm Interface/") (tstamps /603E65F4/))
       (tstamp 603FB77F))
     (comp (ref D7)
-      (value 1N581)
+      (value 1N5817)
       (footprint Diodes_THT:D_DO-41_SOD81_P7.62mm_Horizontal)
+      (fields
+        (field (name "Mouser Part Number") 583-1N5817-T))
       (libsource (lib device) (part D_Schottky))
       (sheetpath (names "/Railcomm Interface/") (tstamps /603E65F4/))
       (tstamp 603FBAFB))
@@ -1148,10 +1157,7 @@
       (fields
         (field (name Reference) U)
         (field (name Value) L298N)
-        (field (name Footprint) TO127P2020X500X2100-15)
-        (field (name MAXIMUM_PACKAGE_HEIGHT) 5.0mm)
-        (field (name STANDARD) IPC-7351B)
-        (field (name MANUFACTURER) STMicroelectronics))
+        (field (name Footprint) TO127P2020X500X2100-15))
       (pins
         (pin (num 1) (name SENSE_A) (type passive))
         (pin (num 2) (name OUT1) (type output))
@@ -1569,14 +1575,14 @@
       (uri /home/heller/RRCircuits/sn65hvd233-ht.lib))
     (library (logical L298N)
       (uri /home/heller/RRCircuits/PocketBeagleCommandStation/L298N.lib))
-    (library (logical linear)
-      (uri /usr/share/kicad/library/linear.lib))
-    (library (logical conn)
-      (uri /usr/share/kicad/library/conn.lib))
+    (library (logical transistors)
+      (uri /usr/share/kicad/library/transistors.lib))
     (library (logical device)
       (uri /usr/share/kicad/library/device.lib))
-    (library (logical transistors)
-      (uri /usr/share/kicad/library/transistors.lib)))
+    (library (logical conn)
+      (uri /usr/share/kicad/library/conn.lib))
+    (library (logical linear)
+      (uri /usr/share/kicad/library/linear.lib)))
   (nets
     (net (code 1) (name "Net-(P2-Pad14)")
       (node (ref P2) (pin 14)))

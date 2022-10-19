@@ -57,7 +57,7 @@ F 0 "P1" H 2850 2550 60  0000 C CNN
 F 1 "POCKETBEAGLE-Header" H 2850 3700 60  0000 C CNN
 F 2 "Socket_Strips:Socket_Strip_Straight_2x18_Pitch2.54mm" H 2850 2550 60  0001 C CNN
 F 3 "" H 2850 2550 60  0000 C CNN
-F 4 "517-929975-01-18-RK" H 2850 2550 60  0001 C CNN "Part Number"
+F 4 "517-929975-01-18-RK" H 2850 2550 60  0001 C CNN "Mouser Part Number"
 	1    2850 2550
 	1    0    0    -1  
 $EndComp
@@ -69,7 +69,7 @@ F 0 "P2" H 5150 2550 60  0000 C CNN
 F 1 "POCKETBEAGLE-Header" H 5150 3700 60  0000 C CNN
 F 2 "Socket_Strips:Socket_Strip_Straight_2x18_Pitch2.54mm" H 5150 2550 60  0001 C CNN
 F 3 "" H 5150 2550 60  0000 C CNN
-F 4 "517-929975-01-18-RK" H 5150 2550 60  0001 C CNN "Part Number"
+F 4 "517-929975-01-18-RK" H 5150 2550 60  0001 C CNN "Mouser Part Number"
 	1    5150 2550
 	1    0    0    -1  
 $EndComp
@@ -245,7 +245,7 @@ F 0 "T1" H 6950 1950 50  0000 C CNN
 F 1 "DCC Power In" H 6950 1550 50  0000 C CNN
 F 2 "Connectors_Terminal_Blocks:TerminalBlock_Pheonix_PT-3.5mm_3pol" H 6950 1750 50  0001 C CNN
 F 3 "" H 6950 1750 50  0001 C CNN
-F 4 "651-5442251" H 6950 1750 60  0001 C CNN "Part Number"
+F 4 "651-5442251" H 6950 1750 60  0001 C CNN "Mouser Part Number"
 	1    6950 1750
 	-1   0    0    -1  
 $EndComp
@@ -257,7 +257,7 @@ F 0 "D1" H 7350 1850 50  0000 C CNN
 F 1 "SB530" H 7350 1650 50  0000 C CNN
 F 2 "Diodes_THT:D_DO-201AD_P12.70mm_Horizontal" H 7350 1750 50  0001 C CNN
 F 3 "" H 7350 1750 50  0001 C CNN
-F 4 "625-SB530-E3" H 7350 1750 60  0001 C CNN "Part Number"
+F 4 "625-SB530-E3" H 7350 1750 60  0001 C CNN "Mouser Part Number"
 	1    7350 1750
 	-1   0    0    1   
 $EndComp
@@ -322,7 +322,7 @@ F 0 "J1" H 4200 3900 50  0000 C CNN
 F 1 "DCC Output to Tracks" V 4350 3400 50  0000 C CNN
 F 2 "Connectors_Terminal_Blocks:TerminalBlock_Pheonix_PT-3.5mm_4pol" H 4200 3700 50  0001 C CNN
 F 3 "" H 4200 3700 50  0001 C CNN
-F 4 "651-5442264" H 4200 3700 60  0001 C CNN "Part Number"
+F 4 "651-5442264" H 4200 3700 60  0001 C CNN "Mouser Part Number"
 	1    4200 3700
 	0    -1   -1   0   
 $EndComp
@@ -334,7 +334,7 @@ F 0 "R1" V 3980 3950 50  0000 C CNN
 F 1 "2.4 Ohms" V 3900 3950 50  0000 C CNN
 F 2 "Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 3830 3950 50  0001 C CNN
 F 3 "" H 3900 3950 50  0001 C CNN
-F 4 "603-CFR-25JB-52-2R4" V 3900 3950 60  0001 C CNN "Part Number"
+F 4 "603-CFR-25JB-52-2R4" V 3900 3950 60  0001 C CNN "Mouser Part Number"
 	1    3900 3950
 	0    1    1    0   
 $EndComp
@@ -346,7 +346,7 @@ F 0 "C1" H 3725 4200 50  0000 L CNN
 F 1 "10 nf" H 3725 4000 50  0000 L CNN
 F 2 "Capacitors_THT:C_Rect_L4.0mm_W2.5mm_P2.50mm" H 3738 3950 50  0001 C CNN
 F 3 "" H 3700 4100 50  0001 C CNN
-F 4 "75-1C10Z5U103M100B" H 3700 4100 60  0001 C CNN "Part Number"
+F 4 "75-1C10Z5U103M100B" H 3700 4100 60  0001 C CNN "Mouser Part Number"
 	1    3700 4100
 	1    0    0    -1  
 $EndComp
@@ -367,7 +367,7 @@ F 0 "R2" V 4680 3950 50  0000 C CNN
 F 1 "2.4 Ohms" V 4600 3950 50  0000 C CNN
 F 2 "Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 4530 3950 50  0001 C CNN
 F 3 "" H 4600 3950 50  0001 C CNN
-F 4 "603-CFR-25JB-52-2R4" V 4600 3950 60  0001 C CNN "Part Number"
+F 4 "603-CFR-25JB-52-2R4" V 4600 3950 60  0001 C CNN "Mouser Part Number"
 	1    4600 3950
 	0    1    1    0   
 $EndComp
@@ -379,7 +379,7 @@ F 0 "C2" H 4825 4250 50  0000 L CNN
 F 1 "10 nf" H 4825 4050 50  0000 L CNN
 F 2 "Capacitors_THT:C_Rect_L4.0mm_W2.5mm_P2.50mm" H 4838 4000 50  0001 C CNN
 F 3 "" H 4800 4150 50  0001 C CNN
-F 4 "75-1C10Z5U103M100B" H 4800 4150 60  0001 C CNN "Part Number"
+F 4 "75-1C10Z5U103M100B" H 4800 4150 60  0001 C CNN "Mouser Part Number"
 	1    4800 4150
 	1    0    0    -1  
 $EndComp
@@ -486,6 +486,7 @@ F 0 "J6" H 3900 3400 50  0000 C CNN
 F 1 "Console" H 3900 2700 50  0000 C CNN
 F 2 "Pin_Headers:Pin_Header_Straight_1x06_Pitch2.54mm" H 3900 3100 50  0001 C CNN
 F 3 "" H 3900 3100 50  0001 C CNN
+F 4 "523-G800W302018EU" H 3900 3100 60  0001 C CNN "Mouser Part Number"
 	1    3900 3100
 	-1   0    0    -1  
 $EndComp
