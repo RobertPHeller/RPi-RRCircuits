@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/heller/RRCircuits/ESP32-S3-MegaMultiFunction/ESP32-S3-MegaMultiFunction.sch)
-    (date "Tue 11 Oct 2022 11:38:11 AM EDT")
+    (date "Mon 24 Oct 2022 11:12:25 AM EDT")
     (tool "Eeschema 4.0.7+dfsg1-1ubuntu2")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -1236,7 +1236,7 @@
       (tstamp 6345F117))
     (comp (ref D901)
       (value 1N4148)
-      (footprint Diodes_SMD:D_SOD-123)
+      (footprint Diodes_SMD:D_SOD-323)
       (fields
         (field (name "Mouser Part Number") 750-1N4148WS-HF))
       (libsource (lib device) (part D))
@@ -1244,7 +1244,7 @@
       (tstamp 6345F11B))
     (comp (ref D905)
       (value 1N4148)
-      (footprint Diodes_SMD:D_SOD-123)
+      (footprint Diodes_SMD:D_SOD-323)
       (fields
         (field (name "Mouser Part Number") 750-1N4148WS-HF))
       (libsource (lib device) (part D))
@@ -1252,7 +1252,7 @@
       (tstamp 6345F11C))
     (comp (ref D902)
       (value 1N4148)
-      (footprint Diodes_SMD:D_SOD-123)
+      (footprint Diodes_SMD:D_SOD-323)
       (fields
         (field (name "Mouser Part Number") 750-1N4148WS-HF))
       (libsource (lib device) (part D))
@@ -1260,7 +1260,7 @@
       (tstamp 6345F11D))
     (comp (ref D906)
       (value 1N4148)
-      (footprint Diodes_SMD:D_SOD-123)
+      (footprint Diodes_SMD:D_SOD-323)
       (fields
         (field (name "Mouser Part Number") 750-1N4148WS-HF))
       (libsource (lib device) (part D))
@@ -1268,7 +1268,7 @@
       (tstamp 6345F11E))
     (comp (ref D903)
       (value 1N4148)
-      (footprint Diodes_SMD:D_SOD-123)
+      (footprint Diodes_SMD:D_SOD-323)
       (fields
         (field (name "Mouser Part Number") 750-1N4148WS-HF))
       (libsource (lib device) (part D))
@@ -1276,7 +1276,7 @@
       (tstamp 6345F11F))
     (comp (ref D907)
       (value 1N4148)
-      (footprint Diodes_SMD:D_SOD-123)
+      (footprint Diodes_SMD:D_SOD-323)
       (fields
         (field (name "Mouser Part Number") 750-1N4148WS-HF))
       (libsource (lib device) (part D))
@@ -1284,7 +1284,7 @@
       (tstamp 6345F120))
     (comp (ref D904)
       (value 1N4148)
-      (footprint Diodes_SMD:D_SOD-123)
+      (footprint Diodes_SMD:D_SOD-323)
       (fields
         (field (name "Mouser Part Number") 750-1N4148WS-HF))
       (libsource (lib device) (part D))
@@ -1292,7 +1292,7 @@
       (tstamp 6345F121))
     (comp (ref D908)
       (value 1N4148)
-      (footprint Diodes_SMD:D_SOD-123)
+      (footprint Diodes_SMD:D_SOD-323)
       (fields
         (field (name "Mouser Part Number") 750-1N4148WS-HF))
       (libsource (lib device) (part D))
@@ -1514,7 +1514,7 @@
       (tstamp 6345F148))
     (comp (ref D913)
       (value 1N4148)
-      (footprint Diodes_SMD:D_SOD-123)
+      (footprint Diodes_SMD:D_SOD-323)
       (fields
         (field (name "Mouser Part Number") 750-1N4148WS-HF))
       (libsource (lib device) (part D))
@@ -1522,7 +1522,7 @@
       (tstamp 6345F14C))
     (comp (ref D917)
       (value 1N4148)
-      (footprint Diodes_SMD:D_SOD-123)
+      (footprint Diodes_SMD:D_SOD-323)
       (fields
         (field (name "Mouser Part Number") 750-1N4148WS-HF))
       (libsource (lib device) (part D))
@@ -1530,7 +1530,7 @@
       (tstamp 6345F14D))
     (comp (ref D914)
       (value 1N4148)
-      (footprint Diodes_SMD:D_SOD-123)
+      (footprint Diodes_SMD:D_SOD-323)
       (fields
         (field (name "Mouser Part Number") 750-1N4148WS-HF))
       (libsource (lib device) (part D))
@@ -1538,7 +1538,7 @@
       (tstamp 6345F14E))
     (comp (ref D918)
       (value 1N4148)
-      (footprint Diodes_SMD:D_SOD-123)
+      (footprint Diodes_SMD:D_SOD-323)
       (fields
         (field (name "Mouser Part Number") 750-1N4148WS-HF))
       (libsource (lib device) (part D))
@@ -1546,7 +1546,7 @@
       (tstamp 6345F14F))
     (comp (ref D915)
       (value 1N4148)
-      (footprint Diodes_SMD:D_SOD-123)
+      (footprint Diodes_SMD:D_SOD-323)
       (fields
         (field (name "Mouser Part Number") 750-1N4148WS-HF))
       (libsource (lib device) (part D))
@@ -1554,7 +1554,7 @@
       (tstamp 6345F150))
     (comp (ref D919)
       (value 1N4148)
-      (footprint Diodes_SMD:D_SOD-123)
+      (footprint Diodes_SMD:D_SOD-323)
       (fields
         (field (name "Mouser Part Number") 750-1N4148WS-HF))
       (libsource (lib device) (part D))
@@ -1562,7 +1562,7 @@
       (tstamp 6345F151))
     (comp (ref D916)
       (value 1N4148)
-      (footprint Diodes_SMD:D_SOD-123)
+      (footprint Diodes_SMD:D_SOD-323)
       (fields
         (field (name "Mouser Part Number") 750-1N4148WS-HF))
       (libsource (lib device) (part D))
@@ -1570,7 +1570,7 @@
       (tstamp 6345F152))
     (comp (ref D920)
       (value 1N4148)
-      (footprint Diodes_SMD:D_SOD-123)
+      (footprint Diodes_SMD:D_SOD-323)
       (fields
         (field (name "Mouser Part Number") 750-1N4148WS-HF))
       (libsource (lib device) (part D))
@@ -2725,18 +2725,14 @@
         (pin (num 5) (name VBUS) (type passive))
         (pin (num 6) (name I/O1_2) (type passive)))))
   (libraries
-    (library (logical switches)
-      (uri /usr/share/kicad/library/switches.lib))
-    (library (logical conn)
-      (uri /usr/share/kicad/library/conn.lib))
-    (library (logical linear)
-      (uri /usr/share/kicad/library/linear.lib))
     (library (logical device)
       (uri /usr/share/kicad/library/device.lib))
-    (library (logical 74xx)
-      (uri /usr/share/kicad/library/74xx.lib))
+    (library (logical conn)
+      (uri /usr/share/kicad/library/conn.lib))
     (library (logical microchip)
       (uri /usr/share/kicad/library/microchip.lib))
+    (library (logical switches)
+      (uri /usr/share/kicad/library/switches.lib))
     (library (logical sn65hvd233-ht)
       (uri /home/heller/RRCircuits/sn65hvd233-ht.lib))
     (library (logical lm2574n-5)
@@ -2756,7 +2752,11 @@
     (library (logical mechanical)
       (uri /usr/share/kicad/library/mechanical.lib))
     (library (logical gct_usb4105)
-      (uri /home/heller/RRCircuits/gct_usb4105.lib)))
+      (uri /home/heller/RRCircuits/gct_usb4105.lib))
+    (library (logical 74xx)
+      (uri /usr/share/kicad/library/74xx.lib))
+    (library (logical linear)
+      (uri /usr/share/kicad/library/linear.lib)))
   (nets
     (net (code 1) (name GND)
       (node (ref Y201) (pin 2))
