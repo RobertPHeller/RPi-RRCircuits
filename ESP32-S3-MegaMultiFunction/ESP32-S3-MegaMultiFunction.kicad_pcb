@@ -10488,7 +10488,7 @@
   )
 
   (module Fiducials:Fiducial_Modern_SilkscreenTop (layer F.Cu) (tedit 63448CA8) (tstamp 63430B3C)
-    (at 74.93 -25.4)
+    (at 172.72 132.715)
     (descr "Fiducial, Modern, Silkscreen Top, Passermarke,")
     (tags "Fiducial, Modern, Silkscreen Top, Passermarke,")
     (path /634847CB)
