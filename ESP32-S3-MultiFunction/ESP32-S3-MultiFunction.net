@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/heller/RRCircuits/ESP32-S3-MultiFunction/ESP32-S3-MultiFunction.sch)
-    (date "Thu 01 Sep 2022 08:14:05 AM EDT")
+    (date "Mon 24 Oct 2022 11:02:53 AM EDT")
     (tool "Eeschema 4.0.7+dfsg1-1ubuntu2")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -747,7 +747,7 @@
       (tstamp 62AFEB0C))
     (comp (ref D601)
       (value 1N4148)
-      (footprint Diodes_SMD:D_SOD-123)
+      (footprint Diodes_SMD:D_SOD-323)
       (fields
         (field (name "Mouser Part Number") 750-1N4148WS-HF))
       (libsource (lib device) (part D))
@@ -755,7 +755,7 @@
       (tstamp 62AFEB13))
     (comp (ref D605)
       (value 1N4148)
-      (footprint Diodes_SMD:D_SOD-123)
+      (footprint Diodes_SMD:D_SOD-323)
       (fields
         (field (name "Mouser Part Number") 750-1N4148WS-HF))
       (libsource (lib device) (part D))
@@ -763,7 +763,7 @@
       (tstamp 62AFEB14))
     (comp (ref D602)
       (value 1N4148)
-      (footprint Diodes_SMD:D_SOD-123)
+      (footprint Diodes_SMD:D_SOD-323)
       (fields
         (field (name "Mouser Part Number") 750-1N4148WS-HF))
       (libsource (lib device) (part D))
@@ -771,7 +771,7 @@
       (tstamp 62AFEB15))
     (comp (ref D606)
       (value 1N4148)
-      (footprint Diodes_SMD:D_SOD-123)
+      (footprint Diodes_SMD:D_SOD-323)
       (fields
         (field (name "Mouser Part Number") 750-1N4148WS-HF))
       (libsource (lib device) (part D))
@@ -779,7 +779,7 @@
       (tstamp 62AFEB16))
     (comp (ref D603)
       (value 1N4148)
-      (footprint Diodes_SMD:D_SOD-123)
+      (footprint Diodes_SMD:D_SOD-323)
       (fields
         (field (name "Mouser Part Number") 750-1N4148WS-HF))
       (libsource (lib device) (part D))
@@ -787,7 +787,7 @@
       (tstamp 62AFEB17))
     (comp (ref D607)
       (value 1N4148)
-      (footprint Diodes_SMD:D_SOD-123)
+      (footprint Diodes_SMD:D_SOD-323)
       (fields
         (field (name "Mouser Part Number") 750-1N4148WS-HF))
       (libsource (lib device) (part D))
@@ -795,7 +795,7 @@
       (tstamp 62AFEB18))
     (comp (ref D604)
       (value 1N4148)
-      (footprint Diodes_SMD:D_SOD-123)
+      (footprint Diodes_SMD:D_SOD-323)
       (fields
         (field (name "Mouser Part Number") 750-1N4148WS-HF))
       (libsource (lib device) (part D))
@@ -803,7 +803,7 @@
       (tstamp 62AFEB19))
     (comp (ref D608)
       (value 1N4148)
-      (footprint Diodes_SMD:D_SOD-123)
+      (footprint Diodes_SMD:D_SOD-323)
       (fields
         (field (name "Mouser Part Number") 750-1N4148WS-HF))
       (libsource (lib device) (part D))
@@ -1860,16 +1860,16 @@
         (pin (num 5) (name GND) (type power_in))
         (pin (num 6) (name Shield) (type passive)))))
   (libraries
-    (library (logical device)
-      (uri /usr/share/kicad/library/device.lib))
-    (library (logical switches)
-      (uri /usr/share/kicad/library/switches.lib))
+    (library (logical 74xx)
+      (uri /usr/share/kicad/library/74xx.lib))
     (library (logical conn)
       (uri /usr/share/kicad/library/conn.lib))
     (library (logical linear)
       (uri /usr/share/kicad/library/linear.lib))
-    (library (logical 74xx)
-      (uri /usr/share/kicad/library/74xx.lib))
+    (library (logical switches)
+      (uri /usr/share/kicad/library/switches.lib))
+    (library (logical device)
+      (uri /usr/share/kicad/library/device.lib))
     (library (logical tc442x)
       (uri /home/heller/RRCircuits/tc442x.lib))
     (library (logical lm2574n-5)
