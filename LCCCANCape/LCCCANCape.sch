@@ -739,6 +739,7 @@ F 1 "Console Feed Through" H 3800 1700 50  0000 C CNN
 F 2 "Pin_Headers:Pin_Header_Straight_1x06_Pitch2.54mm" H 3800 2100 50  0001 C CNN
 F 3 "" H 3800 2100 50  0001 C CNN
 F 4 "1x6 pos stacking header" H 3800 2100 60  0001 C CNN "Description"
+F 5 "PRT-09280" H 3800 2100 60  0001 C CNN "Sparkfun Part Number"
 	1    3800 2100
 	1    0    0    -1  
 $EndComp
