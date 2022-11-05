@@ -181,6 +181,10 @@ There is a README in each project dir.
     > Backplane for up to 16 DCCOD_SMD's using a ESP32 MCU.  Meant as a thought 
     > experiment to see what this would cost, etc.
 
+1. [ESP32-C3-Booster](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32-C3-Booster)
+
+    > ESP32 C3 based DCC Booster.
+
 1. [ESP32-C3-BoosterOpenMRNIDF](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/ESP32-C3-BoosterOpenMRNIDF)
 
     > 
