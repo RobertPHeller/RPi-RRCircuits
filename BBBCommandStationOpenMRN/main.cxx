@@ -174,6 +174,7 @@ OVERRIDE_CONST(num_memory_spaces, 7);
 #include "CommandStationStack.hxx"
 #include "CommandStationConsole.hxx"
 #include "Hardware.hxx"
+#include "withrottle/Server.hxx"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -298,6 +299,8 @@ void usage(const char *e)
     fprintf(stderr,"\t-c can_socketname   is the name of the CAN "
             "socket.\n");
 #endif
+    fprintf(stderr,"\t-W name:port Start a WiThrottle named name on port (if :port\n");
+    fprintf(stderr,"\t             is ommited, on the default port).\n");
     exit(1);
 }
 
@@ -357,28 +360,34 @@ openlcb::NodeID parseNodeID(const char *nidstring)
     return (openlcb::NodeID) result;
 }
 
+static bool start_WiThrottle = false;
+static char WiThrottle_Name[256] = "PocketBeagle";
+int WiThrottle_port = -1;
+
+withrottle::Server *WiThrottleServer;
+
 void parse_args(int argc, char *argv[])
 {
     int opt;
 #if defined(USE_OPENLCB_TCP_HOST) || defined(USE_GRIDCONNECT_HOST)
 #  ifdef USE_SOCKET_CAN_PORT
 #    ifdef START_GCTCP_HUB
-#      define OPTSTRING "hn:e:t:M:P:u:q:c:p:"
+#      define OPTSTRING "hn:e:t:M:P:u:q:c:p:W:"
 #    else
-#      define OPTSTRING "hn:e:t:M:P:u:q:c:"
+#      define OPTSTRING "hn:e:t:M:P:u:q:c:W:"
 #    endif
 #  else
-#    define OPTSTRING "hn:e:t:M:P:u:q:"
+#    define OPTSTRING "hn:e:t:M:P:u:q:W:"
 #  endif
 #else
 #  ifdef USE_SOCKET_CAN_PORT
 #    ifdef START_GCTCP_HUB
-#      define OPTSTRING "hn:e:t:M:P:c:p:"
+#      define OPTSTRING "hn:e:t:M:P:c:p:W:"
 #    else
-#      define OPTSTRING "hn:e:t:M:P:c:"
+#      define OPTSTRING "hn:e:t:M:P:c:W:"
 #    endif
 #  else
-#    define OPTSTRING "hn:e:t:M:P:"
+#    define OPTSTRING "hn:e:t:M:P:W:"
 #  endif
 #endif
     while ((opt = getopt(argc, argv, OPTSTRING)) >= 0)
@@ -431,6 +440,22 @@ void parse_args(int argc, char *argv[])
             gctcp_hub_port = atoi(optarg);
             break;
 #endif
+        case 'W':
+            {
+                start_WiThrottle = true;
+                char *c = strchr(optarg,':');
+                if (c != NULL)
+                {
+                    WiThrottle_port = atoi(c+1);
+                    *c = '\0';
+                }
+                else
+                {
+                    WiThrottle_port = -1;
+                }
+                strcpy(WiThrottle_Name,optarg);
+                break;
+            }
         default:
             fprintf(stderr, "Unknown option %c\n", opt);
             usage(argv[0]);
@@ -534,7 +559,12 @@ int appl_main(int argc, char *argv[])
 #if defined(START_GCTCP_HUB)
     stack.start_tcp_hub_server(gctcp_port);
 #endif
-        
+    
+    if (start_WiThrottle)
+    {
+        WiThrottleServer = new withrottle::Server(WiThrottle_Name,WiThrottle_port,stack.node());
+    }
+    
     // This command donates the main thread to the operation of the
     // stack. Alternatively the stack could be started in a separate stack and
     // then application-specific business logic could be executed ion a busy
