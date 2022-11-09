@@ -451,7 +451,7 @@ void parse_args(int argc, char *argv[])
                 }
                 else
                 {
-                    WiThrottle_port = -1;
+                    WiThrottle_port = withrottle::Defs::DEFAULT_PORT;
                 }
                 strcpy(WiThrottle_Name,optarg);
                 break;
@@ -557,7 +557,7 @@ int appl_main(int argc, char *argv[])
     stack.add_socketcan_port_select(cansocket);
 #endif
 #if defined(START_GCTCP_HUB)
-    stack.start_tcp_hub_server(gctcp_port);
+    stack.start_tcp_hub_server(gctcp_hub_port);
 #endif
     
     if (start_WiThrottle)
