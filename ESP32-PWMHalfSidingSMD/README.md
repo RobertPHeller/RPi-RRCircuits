@@ -6,6 +6,9 @@ manage two bi-directional single track ABS blocks or one bi-directional dual
 track ABS block.  There are other trackwork cases this board can handle as 
 well.  
 
+[Order this board as a kit from The Country Robot](https://www.thecountryrobot.com/product/esp32-pwm-half-siding-node-kit/)
+
+
 The board contains these I/O sections:
 
 - Two occupancy detectors.  These are optoisolator based, so they will 
@@ -89,6 +92,5 @@ common anode and common cathode LED signals.
 6|2|T4, T5|651-1725685|Turnout terminals|
 7|2|U0|517-929974-01-19-RK|MCU Headers|
 8|1|U0|517-929850-01-18-10|MCU Headers|
-
 
 
