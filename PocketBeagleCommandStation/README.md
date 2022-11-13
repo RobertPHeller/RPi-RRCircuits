@@ -13,4 +13,5 @@ for a SMD version.)
 * [Mouser Cart](https://www.mouser.com/ProjectManager/ProjectDetail.aspx?AccessID=514917dd80)
 * [Schematic PDF](https://github.com/RobertPHeller/RPi-RRCircuits/blob/master/PocketBeagleCommandStation/PocketBeagleCommandStation.pdf)
 * [Board Rendering](https://github.com/RobertPHeller/RPi-RRCircuits/blob/master/PocketBeagleCommandStation/PocketBeagleCommandStation.png)
+* [Node Software](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/BBBCommandStationOpenMRN)
 
