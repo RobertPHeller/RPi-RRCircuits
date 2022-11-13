@@ -38,5 +38,5 @@ terminal throat, ABS, and interlocking plants.</p>
 The first five of these boards are being fabricated by
 [PCBWay](https://www.pcbway.com/orderonline.aspx), which I have used for my
 other boards. They do an excellent job and I recommend them to anyone seeking
-to get a small run of PCB made, either bare boards or fully assembled boards.
+to get a small run of PCBs made, either bare boards or fully assembled boards.
 
