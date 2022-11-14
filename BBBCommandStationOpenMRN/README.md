@@ -89,6 +89,22 @@ The fan control section has these configuration options:
 - The event to send when the temperature drops below the fan
   temperature threshold.
 
+## Features / Functionallities
+
+### Persistent train database
+
+This program provides a persistent train database (as a file on the Beagle 
+board file system).
+
+### WiThrottle server
+
+This program can start a WiThrottle server and handle WiThrottle connections.
+
+### Concurrent main line and programming track operation
+
+The main line can remain functioning while the programming track is used to 
+program a loco.
+
 ## Subdirectories
 
 ### GUIFrontEnd
