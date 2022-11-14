@@ -10,6 +10,12 @@ class to communicate over a Tcp/Ip channel with a Tcl/Tk coded
 GUI program to provide a user friendly point-and-click high level
 user interface.  
 
+## Supported boards:
+
+* [PocketBeagleCommandStation_SMD](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/PocketBeagleCommandStation_SMD) (targets/pbNTF.linux.armv7a)
+* [PocketBeagleCommandStation](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/PocketBeagleCommandStation) (targets/pb.linux.armv7a)
+* [BBBCommandStation](https://github.com/RobertPHeller/RPi-RRCircuits/https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/BBBCommandStation) (targets/bbb.linux.armv7a)
+
 ## SYNOPSIS
 
 `BBBCommandStationOpenMRN [options]`
@@ -25,6 +31,10 @@ user interface.
 - -u upstream_host   is the host name for an upstream hub.
 - -q upstream_port   is the port number for the upstream hub
 - -c can_socketname   is the name of the CAN socket.
+- -n nodeid is the node id, as a 12 hex digit number (optionally with colons 
+     between pairs of hex digits.
+- -W name[:port] Start a WiThrottle named name on port (if :port is ommited, 
+     on the default port).
 
 The -u and -q options are only available if the program was built
 to support either a OpenLCB Tcp host or a GRIDCONNECT host.
@@ -45,20 +55,6 @@ node, a GridConnect connected node, or a LCC CAN connected node.
 And if a network connected node the default port and host to 
 connect to, also the console port to or to use a terminal console 
 (for debugging).
-
-Also this program uses scripts in the ../CommonOpenMRNExtras 
-directory.  These scripts relate to the NODEID.txt.
-
-The NODEID.txt file contains the seed for the node id generation.
-It contains the node id of the most recent build.  The next build
-will have a node id one more than this.
-
-The scripts used are:
- 
-- GenerateNODEID.tcl -- generates and increments the node id
-- NodeIDBin.mk -- contains the Makefile includes to auto
-                  generate successive node ids.
- 
 
 There are separate Makefiles for the GUI Front End and the PRU firmware 
 programs.
