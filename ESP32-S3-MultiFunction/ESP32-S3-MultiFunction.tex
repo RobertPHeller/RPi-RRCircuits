@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Mon Aug 29 11:04:14 2022
-%  Last Modified : <220906.1532>
+%  Last Modified : <221115.1606>
 %
 %  Description 
 %
@@ -283,7 +283,7 @@ across the CAN bus), with jumpers installed vertically, you will have
 center-tap termination (with a 47pf cap to ground).
 
 \subsection{Stall Motors connections}
-
+\label{sec:StallMotorsconnections}
 \begin{figure}[hbpt]\begin{centering}%
 \includegraphics{ESP32-S3-MultiFunctionTurnoutMotorsFig.png}
 \caption{Stall Motor terminal block connections}
@@ -945,8 +945,48 @@ ends of the interchange track and a third would cover the crossing itself.
 \subsection{Yard Ladder}
 \label{sec:YardLadder}
 \begin{figure}[hbpt]\begin{centering}%
-\includegraphics[width=4in]{ESP32S3-YardLadder.png}
+\includegraphics[width=4in]{ESP32S3-YardLadderAnnotated.png}
 \caption{Yard Ladder}
 \label{fig:YardLadder}
 \end{centering}\end{figure}
+
+The yard ladder shown in Figure~\ref{fig:YardLadder} has four yard tracks plus
+the main line (at the bottom). There are four turnouts, which can be wired to
+the four Stall Motors connections (see
+Section~\ref{sec:StallMotorsconnections}). The main line can be broken up into
+three ``blocks'': the track to the right of the bottom turnout, the bottom
+turnout, and the track to the left of the bottom turnout. There is the 3 over
+2 signal at the yard ladder entrance, the 3 color signal on the frog end of
+the main (bottom) turnout. These two signals can use one bank of PWM signal
+lamps. The other bank can be used for the four two-color dwarf (exit) signals
+on the yard tracks. 
+\begin{figure}[hbpt]\begin{centering}%
+\includegraphics[width=4in]{ESP32S3-YardLadderRouteSelector_bb.png}
+\caption{Yard Ladder Track Selector Switch}
+\label{fig:YardLadderTrackSelectorSwitch}
+\end{centering}\end{figure}
+A simple way to control the yard would be with a 5 position single pole
+rotatary switch. Positions 2-5 (''track 1'', ''track 2'', ''track 3'', and
+''track 4'') would be wired to the four button inputs, with position 1
+(''main'') left unconnected and the common to ground. These inputs would drive
+logic cells to select five possible route: stay on main, divert to track 1,
+track 2, track 3, or track 4 of the yard. See 
+Figure~\ref{fig:YardLadderTrackSelectorSwitch}. A group of five logic cells 
+could implement the routing:
+
+\begin{verbatim}
+if button1 then
+  select track1: SW1 reversed, SW2 reversed
+else if button2 then 
+  select track2: SW1 reversed, SW2 normal, SW3 reversed
+else if button3 then
+  select track3: SW1 reversed, SW2 normal, SW3 normal,
+                 SW4 reversed
+else if button4 then
+  select track4: SW1 reversed, SW2 normal, SW3 normal,
+                 SW4 normal
+else
+  select main:   SW1 normal
+\end{verbatim}
+
 
