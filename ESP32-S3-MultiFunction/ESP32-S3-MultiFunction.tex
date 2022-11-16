@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Mon Aug 29 11:04:14 2022
-%  Last Modified : <221115.1606>
+%  Last Modified : <221116.0950>
 %
 %  Description 
 %
@@ -988,5 +988,148 @@ else if button4 then
 else
   select main:   SW1 normal
 \end{verbatim}
+
+And can be implemented in five successive logic cells like this\footnote{Read 
+Section~\ref{sec:LogicCells} for more information on configuring logic cells.}:
+
+\begin{itemize}
+%% Track 1
+\item Begin by configuring Logic 1 (this will be the ``if'' clause) as
+follows:
+\begin{itemize}
+\item \textbf{Logic description} to ``Track 1''.
+\item \textbf{Group Function} to \textbf{Group}
+\item \textbf{Variable \#1}:
+\begin{itemize}
+\item \textbf{Variable Trigger} to \textbf{On Variable Change}
+\item \textbf{Variable Source} to \textbf{Use Variable's (C) Events}
+\item \textbf{(C) Event to set variable true.} to the eventid produced by 
+Button 1 ON.\footref{fn:copypaste}
+\item \textbf{(C) Event to set variable false.} to the eventid produced by 
+Button 1 OFF.\footref{fn:copypaste}
+\end{itemize}
+\item \textbf{Logic function} to \textbf{V1 only}
+\item \textbf{Action when Conditional $=$ True} to \textbf{Send then Exit 
+Group}
+\item \textbf{Action when Conditional $=$ False} to \textbf{Evaluate Next}
+\item and the first action to \textbf{Immediately}.  The \textbf{(P) this 
+event will be sent} eventid can be copied from turnout 1's (SW1) 
+\textbf{Reversed} event.\footref{fn:copypaste}
+\item and the second action to \textbf{Immediately}.  The \textbf{(P) this 
+event will be sent} eventid can be copied from turnout 2's (SW2) 
+\textbf{Reversed} event.\footref{fn:copypaste}
+\end{itemize}
+
+%% Track 2
+\item Then by configuring Logic 2 (this will be the first ``else if'' clause) 
+as follows:
+\begin{itemize}
+\item \textbf{Logic description} to ``Track 2''.
+\item \textbf{Group Function} to \textbf{Group}
+\item \textbf{Variable \#1}:
+\begin{itemize}
+\item \textbf{Variable Trigger} to \textbf{On Variable Change}
+\item \textbf{Variable Source} to \textbf{Use Variable's (C) Events}
+\item \textbf{(C) Event to set variable true.} to the eventid produced by 
+Button 2 ON.\footref{fn:copypaste}
+\item \textbf{(C) Event to set variable false.} to the eventid produced by 
+Button 2 OFF.\footref{fn:copypaste}
+\end{itemize}
+\item \textbf{Logic function} to \textbf{V1 only}
+\item \textbf{Action when Conditional $=$ True} to \textbf{Send then Exit 
+Group}
+\item \textbf{Action when Conditional $=$ False} to \textbf{Evaluate Next}
+\item and the first action to \textbf{Immediately}.  The \textbf{(P) this 
+event will be sent} eventid can be copied from turnout 1's (SW1) 
+\textbf{Reversed} event.\footref{fn:copypaste}
+\item and the second action to \textbf{Immediately}.  The \textbf{(P) this 
+event will be sent} eventid can be copied from turnout 2's (SW2) 
+\textbf{Normal} event.\footref{fn:copypaste}
+\item and the third action to \textbf{Immediately}.  The \textbf{(P) this 
+event will be sent} eventid can be copied from turnout 3's (SW3) 
+\textbf{Reversed} event.\footref{fn:copypaste}
+\end{itemize}
+
+%% Track 3
+\item Then by configuring Logic 3 (this will be the second ``else if'' clause) 
+as follows:
+\begin{itemize}
+\item \textbf{Logic description} to ``Track 3''.
+\item \textbf{Group Function} to \textbf{Group}
+\item \textbf{Variable \#1}:
+\begin{itemize}
+\item \textbf{Variable Trigger} to \textbf{On Variable Change}
+\item \textbf{Variable Source} to \textbf{Use Variable's (C) Events}
+\item \textbf{(C) Event to set variable true.} to the eventid produced by 
+Button 3 ON.\footref{fn:copypaste}
+\item \textbf{(C) Event to set variable false.} to the eventid produced by 
+Button 3 OFF.\footref{fn:copypaste}
+\end{itemize}
+\item \textbf{Logic function} to \textbf{V1 only}
+\item \textbf{Action when Conditional $=$ True} to \textbf{Send then Exit 
+Group}
+\item \textbf{Action when Conditional $=$ False} to \textbf{Evaluate Next}
+\item and the first action to \textbf{Immediately}.  The \textbf{(P) this 
+event will be sent} eventid can be copied from turnout 1's (SW1) 
+\textbf{Reversed} event.\footref{fn:copypaste}
+\item and the second action to \textbf{Immediately}.  The \textbf{(P) this 
+event will be sent} eventid can be copied from turnout 2's (SW2) 
+\textbf{Normal} event.\footref{fn:copypaste}
+\item and the third action to \textbf{Immediately}.  The \textbf{(P) this 
+event will be sent} eventid can be copied from turnout 3's (SW3) 
+\textbf{Normal} event.\footref{fn:copypaste}
+\item and the fourth action to \textbf{Immediately}.  The \textbf{(P) this 
+event will be sent} eventid can be copied from turnout 4's (SW4) 
+\textbf{Reversed} event.\footref{fn:copypaste}
+\end{itemize}
+
+%%Track 4
+\item Then by configuring Logic 4 (this will be the third ``else if'' clause) 
+as follows:
+\begin{itemize}
+\item \textbf{Logic description} to ``Track 4''.
+\item \textbf{Group Function} to \textbf{Group}
+\item \textbf{Variable \#1}:
+\begin{itemize}
+\item \textbf{Variable Trigger} to \textbf{On Variable Change}
+\item \textbf{Variable Source} to \textbf{Use Variable's (C) Events}
+\item \textbf{(C) Event to set variable true.} to the eventid produced by 
+Button 4 ON.\footref{fn:copypaste}
+\item \textbf{(C) Event to set variable false.} to the eventid produced by 
+Button 4 OFF.\footref{fn:copypaste}
+\end{itemize}
+\item \textbf{Logic function} to \textbf{V1 only}
+\item \textbf{Action when Conditional $=$ True} to \textbf{Send then Exit 
+Group}
+\item \textbf{Action when Conditional $=$ False} to \textbf{Evaluate Next}
+\item and the first action to \textbf{Immediately}.  The \textbf{(P) this 
+event will be sent} eventid can be copied from turnout 1's (SW1) 
+\textbf{Reversed} event.\footref{fn:copypaste}
+\item and the second action to \textbf{Immediately}.  The \textbf{(P) this 
+event will be sent} eventid can be copied from turnout 2's (SW2) 
+\textbf{Normal} event.\footref{fn:copypaste}
+\item and the third action to \textbf{Immediately}.  The \textbf{(P) this 
+event will be sent} eventid can be copied from turnout 3's (SW3) 
+\textbf{Normal} event.\footref{fn:copypaste}
+\item and the fourth action to \textbf{Immediately}.  The \textbf{(P) this 
+event will be sent} eventid can be copied from turnout 4's (SW4) 
+\textbf{Normal} event.\footref{fn:copypaste}
+\end{itemize}
+
+%%Main
+\item Then by configuring Logic 5 (this will be the final ``else'' clause) as 
+follows: 
+\begin{itemize}
+\item \textbf{Logic description} to ``Main''.
+\item \textbf{Group Function} to \textbf{Last (Single)}
+\item \textbf{Logic function} to \textbf{null $=>$ true}
+\item \textbf{Action when Conditional $=$ True} to \textbf{Send then Exit 
+Group}
+\item and the first action to \textbf{Immediately}.  The \textbf{(P) this      
+event will be sent} eventid can be copied from turnout 1's (SW1) 
+\textbf{Normal} event.\footref{fn:copypaste}
+\end{itemize}
+\end{itemize}
+ 
 
 

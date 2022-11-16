@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed May 31 19:27:54 2017
-#  Last Modified : <220902.0909>
+#  Last Modified : <221116.0904>
 #
 #  Description	
 #
@@ -70,7 +70,8 @@ TEXS=usermanual.tex ../SMCSenseHAT/SMCSenseHAT.tex \
 		    ../LCCCANCape/LCCCANCape.tex \
 		    ../ESP32-PWMHalfSiding/ESP32-PWMHalfSiding.tex \
 		    ../ESP32-PWMHalfSidingSMD/ESP32-PWMHalfSidingSMD.tex \
-		    ../ESP32-S3-MultiFunction/ESP32-S3-MultiFunction.tex
+		    ../ESP32-S3-MultiFunction/ESP32-S3-MultiFunction.tex \
+		    ../PocketBeagleCommandStation/PocketBeagleCommandStation.tex
 
 FIGURES= ../SMCSenseHAT/SMCSenseHAT3DTop.png \
 	 ../SMCSenseHAT/SMCSenseHAT.png \
