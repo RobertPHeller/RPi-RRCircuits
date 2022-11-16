@@ -102,22 +102,6 @@
  * connect to, also the console port to or to use a terminal console 
  * (for debugging).
  * 
- * Also this program uses scripts in the ../CommonOpenMRNExtras 
- * directory.  These scripts relate to the NODEID.txt.
- * 
- * The NODEID.txt file contains the seed for the node id generation.
- * It contains the node id of the most recent build.  The next build
- * will have a node id one more than this.
- * 
- * The scripts used are:
- *
- * @arg GenerateNODEID.tcl -- generates and increments the node id
- * @arg NodeIDBin.mk -- contains the Makefile includes to auto
- *                       generate successive node ids.
- * 
- * There is separate Makefiles for the GUI Frontend (in GUIFrontEnd)
- * and for the PRU Firmware (in PRUProgs).
- * 
  * @page Configuration
  * 
  * There are three configuration sections, one for each of the DCC
