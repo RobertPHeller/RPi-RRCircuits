@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed May 31 19:27:54 2017
-#  Last Modified : <221116.0904>
+#  Last Modified : <221116.1153>
 #
 #  Description	
 #
@@ -127,8 +127,9 @@ FIGURES= ../SMCSenseHAT/SMCSenseHAT3DTop.png \
 	 ../ESP32-S3-MultiFunction/ESP32-S3-MultiFunction-6.pdf \
 	 ../ESP32-S3-MultiFunction/ESP32-S3-MultiFunction-7.pdf \
 	 ../ESP32-S3-MultiFunction/ESP32-S3-MultiFunction-8.pdf \
-	 ../ESP32-S3-MultiFunction/*.png
-	 
+	 ../ESP32-S3-MultiFunction/*.png \
+	 ../PocketBeagleCommandStation/PocketBeagleCommandStation-[1234567].pdf \
+	 ../PocketBeagleCommandStation/PocketBeagleCommandStation.png
 	 
 
 usermanual.pdf : $(TEXS) $(FIGURES)
