@@ -14,6 +14,7 @@ for a SMD version.)
 * [Schematic PDF](https://github.com/RobertPHeller/RPi-RRCircuits/blob/master/PocketBeagleCommandStation/PocketBeagleCommandStation.pdf)
 * [Board Rendering](https://github.com/RobertPHeller/RPi-RRCircuits/blob/master/PocketBeagleCommandStation/PocketBeagleCommandStation.png)
 * [Node Software](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/BBBCommandStationOpenMRN)
+* [Kit Booklet](https://github.com/RobertPHeller/RPi-RRCircuits/blob/master/PocketBeagleCommandStation/KitBooklet.pdf)
 * Heat sink files:
   * [Main panel](https://github.com/RobertPHeller/RPi-RRCircuits/blob/master/PocketBeagleCommandStation/HeatSinkMainPanel.pdf)
   * [Fin 1](https://github.com/RobertPHeller/RPi-RRCircuits/blob/master/PocketBeagleCommandStation/HeatSinkFin1Panel.pdf)
