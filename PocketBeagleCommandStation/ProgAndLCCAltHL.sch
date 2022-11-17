@@ -246,11 +246,7 @@ F 3 "" H 6500 3950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3000 2150 3000 2700
-Wire Wire Line
 	3000 2700 3050 2700
-Wire Wire Line
-	3000 2850 3000 3500
 Wire Wire Line
 	3000 3500 3050 3500
 Wire Wire Line
@@ -420,4 +416,36 @@ Connection ~ 3150 2150
 Wire Wire Line
 	4550 2350 4550 2600
 Connection ~ 4550 2600
+$Comp
+L R R501
+U 1 1 63756014
+P 3000 2450
+F 0 "R501" V 3080 2450 50  0000 C CNN
+F 1 "1K" V 3000 2450 50  0000 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 2930 2450 50  0001 C CNN
+F 3 "" H 3000 2450 50  0001 C CNN
+F 4 "603-MFR-12FTF52-1K" V 3000 2450 60  0001 C CNN "Mouser Part Number"
+	1    3000 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R502
+U 1 1 637561CD
+P 3000 3200
+F 0 "R502" V 3080 3200 50  0000 C CNN
+F 1 "1K" V 3000 3200 50  0000 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 2930 3200 50  0001 C CNN
+F 3 "" H 3000 3200 50  0001 C CNN
+F 4 "603-MFR-12FTF52-1K" V 3000 3200 60  0001 C CNN "Mouser Part Number"
+	1    3000 3200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3000 2300 3000 2150
+Wire Wire Line
+	3000 2700 3000 2600
+Wire Wire Line
+	3000 3500 3000 3350
+Wire Wire Line
+	3000 3050 3000 2850
 $EndSCHEMATC
