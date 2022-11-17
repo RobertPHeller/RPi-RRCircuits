@@ -102,6 +102,42 @@
  * connect to, also the console port to or to use a terminal console 
  * (for debugging).
  * 
+ * These build options include:
+ * 
+ * @arg USE_OPENLCB_TCP_HOST
+ * Use a binary OpenLCB over Tcp/Ip connection.  Normally NOT defined.
+ * 
+ * @arg DEFAULT_OPENLCB_TCP_HOST
+ * Default OpenLCB over Tcp/Ip host to connect to normally "localhost". 
+ * @arg DEFAULT_OPENLCB_TCP_PORT
+ * Default OpenLCB over Tcp/Ip port -- normally 12020.
+ * 
+ * @arg USE_GRIDCONNECT_HOST
+ * Use a binary GridConnect over Tcp/Ip connection.  Normally NOT defined.
+ * @arg DEFAULT_TCP_GRIDCONNECT_HOST
+ * Default GridConnect over Tcp/Ip host to connect to -- normally "localhost".
+ * @arg DEFAULT_TCP_GRIDCONNECT_PORT
+ * Default GridConnect over Tcp/Ip port -- normally 12021.
+ * 
+ * @arg PRINT_ALL_PACKETS
+ * Print all LCC Packets.  Normally NOT defined.
+ * 
+ * @arg USE_SOCKET_CAN_PORT
+ * Use a hardware CAN connection.  Normally defined.
+ * @arg DEFAULT_CAN_SOCKET
+ * CAN family socket name.  Normally "can1".
+ * 
+ * @arg START_GCTCP_HUB
+ * Start a Grid Connect Hub server
+ * @arg DEFAULT_GRIDCONNECT_HUB_PORT
+ * Default port the Grid Connect Hub server should listen on -- normally 12021.
+ * 
+ * @arg TERMINALCONSOLE
+ * Use a terminal console. Normally NOT defined -- debug use only.
+ * @arg CONSOLEPORT
+ * Console port to listen on -- normally 9900.
+ * 
+ * 
  * @page Configuration
  * 
  * There are three configuration sections, one for each of the DCC
@@ -474,7 +510,7 @@ int appl_main(int argc, char *argv[])
     // CAN-bus-specific components, a virtual node, PIP, SNIP, Memory configuration
     // protocol, ACDI, CDI, a bunch of memory spaces, etc.
     //openlcb::SimpleCanStack stack(NODE_ID);
-#if defined(USE_GRIDCONNECT_HOST) || defined(USE_SOCKET_CAN_PORT) || defined(START_GRIDCONNECT_SERVER)
+#if defined(USE_GRIDCONNECT_HOST) || defined(USE_SOCKET_CAN_PORT) || defined(START_GCTCP_HUB)
     openlcb::SimpleCommandStationCanStack stack(NODE_ID);
 #else
 #ifdef USE_OPENLCB_TCP_HOST
@@ -523,9 +559,6 @@ int appl_main(int argc, char *argv[])
     //stack.connect_tcp_gridconnect_hub("28k.ch", 50007);
 #ifdef USE_TCP_GRIDCONNECT_HOST
     stack.connect_tcp_gridconnect_hub(upstream_host, upstream_port);
-#endif
-#ifdef START_GRIDCONNECT_SERVER
-    stack.start_tcp_hub_server();
 #endif
 #ifdef USE_OPENLCB_TCP_HOST
     SocketClient socket_client(stack.service(), &g_connect_executor,
