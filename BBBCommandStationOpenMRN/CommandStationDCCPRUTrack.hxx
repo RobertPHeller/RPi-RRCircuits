@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon May 10 14:12:56 2021
-//  Last Modified : <210512.1125>
+//  Last Modified : <221117.1624>
 //
 //  Description	
 //
@@ -17,38 +17,39 @@
 //  History
 //	
 /////////////////////////////////////////////////////////////////////////////
-//
-//    Copyright (C) 2021  Robert Heller D/B/A Deepwoods Software
-//			51 Locke Hill Road
-//			Wendell, MA 01379-9728
-//
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or
-//    (at your option) any later version.
-//
-//    This program is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-//
-//    You should have received a copy of the GNU General Public License
-//    along with this program; if not, write to the Free Software
-//    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-//
-// Defines a class that interfaces with the PRU firmware using the 
-// RPMsg virtual I/O device.  The constructor generates the file
-// pathnames for the partitular PRU (0 or 1) and then loads the 
-// PRU firmware into the PRU.  Both PRUs run the same program, with
-// some compile-time differences -- RPMsg channel, GPIO bits, and
-// preamble length, etc.  The basic DCC waveform is the same for both
-// the main and prog tracks.
-//
-// The PRU firmware just loops sending the last DCC packet over and
-// over again.  This class sends new packets as they become available.
-//
-// 
-//
+//! @copyright
+//!    Copyright (C) 2021  Robert Heller D/B/A Deepwoods Software
+//!			51 Locke Hill Road
+//!			Wendell, MA 01379-9728
+//!
+//!    This program is free software; you can redistribute it and/or modify
+//!    it under the terms of the GNU General Public License as published by
+//!    the Free Software Foundation; either version 2 of the License, or
+//!    (at your option) any later version.
+//!
+//!    This program is distributed in the hope that it will be useful,
+//!    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//!    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//!    GNU General Public License for more details.
+//!
+//!    You should have received a copy of the GNU General Public License
+//!    along with this program; if not, write to the Free Software
+//!    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//!
+//! @file CommandStationDCCPRUTrack.hxx
+//! Defines a class that interfaces with the PRU firmware using the 
+//! RPMsg virtual I/O device.  The constructor generates the file
+//! pathnames for the partitular PRU (0 or 1) and then loads the 
+//! PRU firmware into the PRU.  Both PRUs run the same program, with
+//! some compile-time differences -- RPMsg channel, GPIO bits, and
+//! preamble length, etc.  The basic DCC waveform is the same for both
+//! the main and prog tracks.
+//!
+//! The PRU firmware just loops sending the last DCC packet over and
+//! over again.  This class sends new packets as they become available.
+//!
+//! 
+//!
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __COMMANDSTATIONDCCPRUTRACK_HXX

@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed Nov 16 15:17:01 2022
-#  Last Modified : <221116.1536>
+#  Last Modified : <221117.1539>
 #
 #  Description	
 #
@@ -43,7 +43,9 @@
 ##############################################################################
 
 
-SRCS = ../main.cxx
+SRCS = ../main.cxx ../*.hxx ../*.h \
+	../LCCTrainSearchProtocol/include/*.hxx \
+	../targets/*/*.hxx
 
 
 all: docs
@@ -51,15 +53,15 @@ all: docs
 .PHONY:
 docs: html pdf
 
-html latex man: $(SRCS)
+html latex man: $(SRCS) Makefile Doxyfile
 	doxygen Doxyfile
 	
 pdf: latex
 	$(MAKE) -C latex
-	
+	touch pdf
 
 clean::
-	rm -rf latex html warnings man
+	rm -rf latex html warnings man pdf
 
 veryclean:: clean
 
