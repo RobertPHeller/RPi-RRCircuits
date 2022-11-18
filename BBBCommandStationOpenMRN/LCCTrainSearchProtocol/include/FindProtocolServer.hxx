@@ -24,7 +24,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * \file FindProtocolDefs.hxx
+ * \file FindProtocolServer.hxx
  *
  * Implementation of the find protocol event handler.
  *

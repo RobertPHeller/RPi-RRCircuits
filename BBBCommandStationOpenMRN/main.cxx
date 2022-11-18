@@ -60,6 +60,8 @@
  * @arg -c can_socketname   is the name of the CAN socket.
  * @arg -M mainPRUfirmware  is the path to the Main (PRU0) firmware
  * @arg -P progPRUfirmware  is the path to the Prog (PRU1) firmware
+ * @arg -W name:port Start a WiThrottle named name on port (if :port
+ *         is ommited, on the default port).
  * @par
  * 
  * The -u and -q options are only available if the program was built 
