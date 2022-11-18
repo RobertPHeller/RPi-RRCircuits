@@ -8,7 +8,7 @@
 %  Author        : $Author$
 %  Created By    : Robert Heller
 %  Created       : Wed Nov 16 09:04:20 2022
-%  Last Modified : <221116.1434>
+%  Last Modified : <221118.0914>
 %
 %  Description 
 %
@@ -150,7 +150,27 @@ On the left side is a 6 position header for a TTY console and at the upper
 left is a female USB A (2.0) host connector.  A USB Ethernet or USB WiFi 
 dongle can be plugged in here.
 
-\section{Configuration}
+\section{Software}
+
+The PocketBeagle runs the Linux operating system and runs the
+BBBCommandStationOpenMRN program. This through-hole PocketBeagle version uses
+the pb.linux.armv7a target. This code along with the OpenMRN package it
+depends on is included on the MicroSD card. There are build configuration
+options in the Hardware.hxx in the pb.linux.armv7a target directory. The built
+program also has run-time settings in the form of command line options. This
+is all described in the separate software manual. A brief overview of the
+software is presented in the following subsections.
+
+\subsection{PocketBeagle logon}
+
+There is a TTY serial console connector that can be used to connect to the 
+PocketBeagle and then used to configure and administrate the PocketBeagle. The 
+PocketBeagle is also running the SSH server and can be connected to via the 
+network, either via a  USB Ethernet or USB WiFi dongle or as 192.168.6.2 or 
+192.168.7.2 via its Micro-USB connector (Tcp/Ip over USB).  The default 
+username:password is [debian:temppwd].
+
+\subsection{Configuration}
 
 The CDI for the Command Station includes the event ids for short detected and 
 cleared, H-Bridge Shutdown and H-Bridge Shutdown Cleared, and thermal overload 
@@ -162,19 +182,19 @@ produces the above listed events.
 The command station creates virtual LCC nodes for decoders and these LCC nodes 
 have their own CDI's that map to CVs on the decoders.
 
-\section{WiThrottle}
+\subsection{WiThrottle}
 
 The Command Station starts a WiThrottle server, which is available if the 
 command station is connected to a network with WiFi (eg there is a USB 
 Ethernet or USB WiFi dongle in the USB A (2.0) host connector and is connected 
 to a network).
 
-\section{Gridconnect Hub server}
+\subsection{Gridconnect Hub server}
 
 The Command Station can optionally start a Gridconnect Hub server to allow LCC 
 nodes (like WiFi LCC throttles) to connect to the LCC network.
 
-\section{Command Station ``console'' interface.}
+\subsection{Command Station ``console'' interface.}
 
 The Command Station starts a Tcp/IP console server on port 9900 and listens
 for connections. This server is a simple text-based command-line interface
@@ -185,21 +205,3 @@ is available. This is not needed for the Command Station to work. While the
 simple text-based command-line interface could be used directly, it is not
 really meant for human interface.
 
-\section{PocketBeagle logon}
-
-There is a TTY serial console connector that can be used to connect to the 
-PocketBeagle and then used to configure and administrate the PocketBeagle. The 
-PocketBeagle is also running the SSH server and can be connected to via the 
-network, either via a  USB Ethernet or USB WiFi dongle or as 192.168.6.2 or 
-192.168.7.2 via its Micro-USB connector (Tcp/Ip over USB).  The default 
-username:password is [debian:temppwd].
-
-\section{Software}
-
-The PocketBeagle runs the Linux operating system and runs the 
-BBBCommandStationOpenMRN program. This through-hole PocketBeagle version uses 
-the pb.linux.armv7a target.  This code alone with the OpenMRN package it 
-depends on is included on the MicroSD card.  There are build configuration 
-options in the Hardware.hxx in the pb.linux.armv7a target directory.  The 
-built program also has run-time settings in the form of command line options. 
-This is all described in the separate software manual. 
