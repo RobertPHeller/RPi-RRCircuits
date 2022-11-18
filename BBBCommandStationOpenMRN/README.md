@@ -5,7 +5,7 @@ station.  It uses OpenMRN to interface with tha LCC/OpenLCB network
 to implement a LCC/OpenLCB aware command station node that can 
 operate DCC/Railcom locomotives.  It should work with any of the
 Beagle Board addon boards I have designed.  It uses the AM335X's
-PRUs to generate the DCC signals.  It ises the OpenMRN Console
+PRUs to generate the DCC signals.  It uses the OpenMRN Console
 class to communicate over a Tcp/Ip channel with a Tcl/Tk coded
 GUI program to provide a user friendly point-and-click high level
 user interface.  
@@ -15,6 +15,10 @@ user interface.
 * [PocketBeagleCommandStation_SMD](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/PocketBeagleCommandStation_SMD) (targets/pbNTF.linux.armv7a)
 * [PocketBeagleCommandStation](https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/PocketBeagleCommandStation) (targets/pb.linux.armv7a)
 * [BBBCommandStation](https://github.com/RobertPHeller/RPi-RRCircuits/https://github.com/RobertPHeller/RPi-RRCircuits/tree/master/BBBCommandStation) (targets/bbb.linux.armv7a)
+
+## PDF Reference Manual:
+
+* [refman.pdf](https://github.com/RobertPHeller/RPi-RRCircuits/blob/master/BBBCommandStationOpenMRN/refman.pdf)
 
 ## SYNOPSIS
 
