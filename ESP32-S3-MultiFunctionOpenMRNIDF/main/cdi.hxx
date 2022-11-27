@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sat Jun 25 09:33:40 2022
-//  Last Modified : <220625.1530>
+//  Last Modified : <221126.0900>
 //
 //  Description	
 //
@@ -114,9 +114,9 @@ CDI_GROUP_ENTRY(ident, openlcb::Identification);
 CDI_GROUP_ENTRY(acdi, openlcb::Acdi);
 /// Adds a segment for changing the values in the ACDI user-defined
 /// space. UserInfoSegment is defined in the system header.
-CDI_GROUP_ENTRY(userinfo, openlcb::UserInfoSegment);
+CDI_GROUP_ENTRY(userinfo, openlcb::UserInfoSegment, Name("User Info"));
 /// Adds the main configuration segment.
-CDI_GROUP_ENTRY(seg, IoBoard);
+CDI_GROUP_ENTRY(seg, IoBoard, Name("Board Configuration"));
 /// Adds the versioning segment.
 CDI_GROUP_ENTRY(version, VersionSeg);
 CDI_GROUP_END();

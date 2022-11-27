@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 12:17:40 2022
-//  Last Modified : <220928.0905>
+//  Last Modified : <221127.0853>
 //
 //  Description	
 //
@@ -85,7 +85,9 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "OccupancyDetector.hxx"
 #include "Button.hxx"
 #include "LED.hxx"
-#include "Esp32PCA9685PWM.hxx"
+#include "hardware.hxx"
+#include "Esp32HardwareI2C.hxx"
+#include "PCA9685PWM.hxx"
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -97,8 +99,9 @@ OVERRIDE_CONST(can_rx_buffer_size, 64);
 TrackCircuit *circuits[TRACKCIRCUITCOUNT];
 
 esp32multifunction::ConfigDef cfg(0);
-openmrn_arduino::Esp32PCA9685PWM pwmchip;
 Esp32HardwareTwai twai(CONFIG_TWAI_RX_PIN, CONFIG_TWAI_TX_PIN);
+Esp32HardwareI2C i2c0(CONFIG_SDA_PIN, CONFIG_SCL_PIN, 0, "/dev/i2c/i2c0");
+
 
 namespace openlcb
 {
@@ -236,6 +239,96 @@ void bootloader_hw_set_to_safe(void)
     LED_ACT2_Pin::hw_init();
 }
 
+namespace esp32multifunction {
+
+ConfigUpdateListener::UpdateAction FactoryResetHelper::apply_configuration(
+    int fd, bool initial_load, BarrierNotifiable *done)
+{
+    // nothing to do here as we do not load config
+    AutoNotify n(done);
+    LOG(VERBOSE, "[CFG] apply_configuration(%d, %d)", fd, initial_load);
+
+    return ConfigUpdateListener::UpdateAction::UPDATED;
+}
+
+void FactoryResetHelper::factory_reset(int fd)
+{
+    LOG(VERBOSE, "[CFG] factory_reset(%d)", fd);
+    // set the name of the node to the SNIP model name
+    cfg.userinfo().name().write(fd, openlcb::SNIP_STATIC_DATA.model_name);
+    cfg.userinfo().description().write(fd, "");
+    
+    for(int i = 0; i < NUM_TURNOUTS; i++)
+    {
+        cfg.seg().turnouts().entry(i).description().write(fd, "");
+    }
+    for(int i = 0; i < NUM_POINTSS; i++)
+    {
+        cfg.seg().points().entry(i).description().write(fd, "");
+    }
+    for(int i = 0; i < NUM_OCS; i++)
+    {
+        cfg.seg().ocs().entry(i).description().write(fd, "");
+        CDI_FACTORY_RESET(cfg.seg().ocs().entry(i).debounce);
+    }
+#if 1
+        for(int i = 0; i < LOGICCOUNT; i++)
+        {
+            cfg.seg().logics().entry(i).description().write(fd, "");
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).groupFunction);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).logic().logicFunction);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).trueAction);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).falseAction);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).timing().timedelay);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).timing().interval);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).timing().retriggerable);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v1().trigger);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v1().source);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v1().trackspeed);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v2().trigger);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v2().source);
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v2().trackspeed);
+            for (int j = 0; j < 4 ; j++)
+            {
+                CDI_FACTORY_RESET(cfg.seg().logics().entry(i).actions().entry(j).actiontrigger);
+            }
+        }
+        for(int i = 0; i < MASTCOUNT; i++)
+        {
+            CDI_FACTORY_RESET(cfg.seg().masts().entry(i).processing);
+            cfg.seg().masts().entry(i).mastid().write(fd,"");
+#ifdef HAVEPWM
+            CDI_FACTORY_RESET(cfg.seg().masts().entry(i).fade);
+#endif
+        }
+        for(int i = 0; i < TRACKCIRCUITCOUNT; i++)
+        {
+            cfg.seg().circuits().entry(i).description().write(fd,"");
+        }
+#endif
+}
+
+}
+
+PCA9685PWM pwmchip1;
+PCA9685PWMBit LampA0(&pwmchip1,0);
+PCA9685PWMBit LampA1(&pwmchip1,1);
+PCA9685PWMBit LampA2(&pwmchip1,2);
+PCA9685PWMBit LampA3(&pwmchip1,3);
+PCA9685PWMBit LampA4(&pwmchip1,4);
+PCA9685PWMBit LampA5(&pwmchip1,5);
+PCA9685PWMBit LampA6(&pwmchip1,6);
+PCA9685PWMBit LampA7(&pwmchip1,7);
+
+PCA9685PWMBit LampB0(&pwmchip1,8);
+PCA9685PWMBit LampB1(&pwmchip1,9);
+PCA9685PWMBit LampB2(&pwmchip1,10);
+PCA9685PWMBit LampB3(&pwmchip1,11);
+PCA9685PWMBit LampB4(&pwmchip1,12);
+PCA9685PWMBit LampB5(&pwmchip1,13);
+PCA9685PWMBit LampB6(&pwmchip1,14);
+PCA9685PWMBit LampB7(&pwmchip1,15);
+
 
 void app_main()
 {
@@ -343,6 +436,7 @@ void app_main()
         LOG(INFO, "[esp32multifunction] HealthMonitor done.");
         BlinkTimer blinker(stack.executor()->active_timers());
         LOG(INFO, "[esp32multifunction] BlinkTimer done.");
+        
         int i = 0;
         Mast *masts[MASTCOUNT];
         Mast *prevMast = nullptr;
@@ -402,14 +496,32 @@ void app_main()
                                                  , button4.polling()
                                              });
         LOG(INFO, "[esp32multifunction] RefreshLoop done.");
-        pwmchip.hw_init(PCA9685_SLAVE_ADDRESS);
-        LOG(INFO, "[esp32multifunction] pwmchip inited.");
-        Lamp::PinLookupInit(0,nullptr);
-        for (i = 0; i < openmrn_arduino::Esp32PCA9685PWM::NUM_CHANNELS; i++)
-        {
-            Lamp::PinLookupInit(i+1,pwmchip.get_channel(i));
-        }
+        Esp32HardwareI2C::Mount("/dev/i2c");
+        i2c0.hw_init();
+        pwmchip1.init("/dev/i2c/i2c0", PWMCHIP_ADDRESS1);
         LOG(INFO, "[esp32multifunction] Lamps done.");
+        
+        Lamp::PinLookupInit(0,nullptr);
+        
+        Lamp::PinLookupInit(Lamp::A0_,&LampA0);
+        Lamp::PinLookupInit(Lamp::A1_,&LampA1);
+        Lamp::PinLookupInit(Lamp::A2_,&LampA2);
+        Lamp::PinLookupInit(Lamp::A3_,&LampA3);
+        Lamp::PinLookupInit(Lamp::A4_,&LampA4);
+        Lamp::PinLookupInit(Lamp::A5_,&LampA5);
+        Lamp::PinLookupInit(Lamp::A6_,&LampA6);
+        Lamp::PinLookupInit(Lamp::A7_,&LampA7);
+        
+        Lamp::PinLookupInit(Lamp::B0_,&LampB0);
+        Lamp::PinLookupInit(Lamp::B1_,&LampB1);
+        Lamp::PinLookupInit(Lamp::B2_,&LampB2);
+        Lamp::PinLookupInit(Lamp::B3_,&LampB3);
+        Lamp::PinLookupInit(Lamp::B4_,&LampB4);
+        Lamp::PinLookupInit(Lamp::B5_,&LampB5);
+        Lamp::PinLookupInit(Lamp::B6_,&LampB6);
+        Lamp::PinLookupInit(Lamp::B7_,&LampB7);
+        
+        LOG(INFO, "[esp32multifunction] pwmchip inited.");
         // Create / update CDI, if the CDI is out of date a factory reset will be
         // forced.
         bool reset_cdi = CDIXMLGenerator::create_config_descriptor_xml(

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sat Jun 25 09:07:59 2022
-//  Last Modified : <220928.0809>
+//  Last Modified : <221127.1312>
 //
 //  Description	
 //
@@ -115,6 +115,9 @@ static constexpr gpio_num_t CONFIG_SDA_PIN = GPIO_NUM_2;
 
 /// GPIO Pin used for I2C SCL.
 static constexpr gpio_num_t CONFIG_SCL_PIN = GPIO_NUM_3;
+
+#define PWMCHIP_ADDRESS1 0x40
+
 
 #endif // __HARDWARE_HXX
 

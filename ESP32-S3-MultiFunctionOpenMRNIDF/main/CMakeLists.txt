@@ -12,7 +12,8 @@ set(deps
 idf_component_register(SRCS Logic.cpp Mast.cpp Rule.cpp 
                         TrackCircuit.cpp esp32multifunction.cpp fs.cpp 
                         nvs_config.cpp BootPauseHelper.cpp
-                        VetoBitEventInterface.cpp
+                        VetoBitEventInterface.cpp Esp32HardwareI2C.cpp
+                        PCA9685PWM.cpp
                        REQUIRES "${deps}")
 
 # export the project version as a define for the SNIP data, note it must be
@@ -24,7 +25,7 @@ string(SUBSTRING "${project_name}" 0 40 SNIP_PROJECT_NAME)
 
 set(SNIP_HW_VERSION "1.0.0")
 set(SNIP_PROJECT_PAGE "https://www.deepsoft.com/")
-set(CDI_VERSION "0x0100")
+set(CDI_VERSION "0x0101")
 
 set_source_files_properties(Logic.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers ")
 set_source_files_properties(VetoBitEventInterface.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers ")
@@ -36,3 +37,5 @@ set_source_files_properties(esp32multifunction.cpp PROPERTIES COMPILE_DEFINITION
 set_source_files_properties(fs.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")
 set_source_files_properties(nvs_config.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")
 set_source_files_properties(BootPauseHelper.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")
+set_source_files_properties(Esp32HardwareI2C.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")
+set_source_files_properties(PCA9685PWM.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")

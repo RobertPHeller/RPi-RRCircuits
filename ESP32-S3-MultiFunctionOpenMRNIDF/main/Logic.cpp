@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Mar 1 10:46:51 2019
-//  Last Modified : <220928.1028>
+//  Last Modified : <221126.1202>
 //
 //  Description	
 //
@@ -195,7 +195,15 @@ ConfigUpdateListener::UpdateAction Variable::apply_configuration(int fd,
     if ((int)source_cfg >= (int)BitEventConsumerOrTrackCircuit::Source::MAX_SOURCE ||
         (int)speed_cfg > (int)TrackCircuit::TrackSpeed::Unknown_)
     {
-        LOG(FATAL,"Configuration is corrupt!");
+        LOG(WARNING,"Configuration is corrupt!");
+        if ((int)source_cfg >= (int)BitEventConsumerOrTrackCircuit::Source::MAX_SOURCE)
+        {
+            source_cfg = consumer_.TheSource();
+        }
+        if ((int)speed_cfg > (int)TrackCircuit::TrackSpeed::Unknown_)
+        {
+            speed_cfg = consumer_.Speed();
+        }
     }
     if (source_cfg != consumer_.TheSource() ||
         speed_cfg != consumer_.Speed() ||
