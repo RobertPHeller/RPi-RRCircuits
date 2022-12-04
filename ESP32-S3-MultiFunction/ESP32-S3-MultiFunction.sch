@@ -46,6 +46,7 @@ LIBS:ESP32-S3-MultiFunction-cache
 LIBS:ESP32-S3-MultiFunction-rescue
 LIBS:USBLC6-2SC6
 LIBS:esp32_s3_wroom
+LIBS:gct_usb4105
 EELAYER 25 0
 EELAYER END
 $Descr USLetter 11000 8500

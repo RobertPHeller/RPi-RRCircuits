@@ -10,4 +10,5 @@
   (lib (name LCC_LOGO)(type KiCad)(uri /home/heller/RRCircuits/LCC_LOGO.pretty)(options "")(descr ""))
   (lib (name PowerLabels)(type KiCad)(uri /home/heller/RRCircuits/PowerLabels.pretty)(options "")(descr ""))
   (lib (name ESP32-S3-WROOM)(type KiCad)(uri /home/heller/RRCircuits/ESP32-S3-WROOM.pretty)(options "")(descr ""))
+  (lib (name GCT_USB)(type KiCad)(uri /home/heller/RRCircuits/GCT_USB.pretty)(options "")(descr ""))
 )

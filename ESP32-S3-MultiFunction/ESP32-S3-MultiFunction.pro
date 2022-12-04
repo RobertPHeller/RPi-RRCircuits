@@ -1,4 +1,4 @@
-update=Sat 03 Dec 2022 10:39:55 AM EST
+update=Sun 04 Dec 2022 01:24:09 PM EST
 version=1
 last_client=kicad
 [cvpcb]
@@ -76,3 +76,4 @@ LibName44=ESP32-S3-MultiFunction-cache
 LibName45=ESP32-S3-MultiFunction-rescue
 LibName46=USBLC6-2SC6
 LibName47=/home/heller/RRCircuits/esp32_s3_wroom
+LibName48=/home/heller/RRCircuits/gct_usb4105
