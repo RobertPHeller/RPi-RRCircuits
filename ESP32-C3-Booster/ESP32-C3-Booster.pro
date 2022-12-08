@@ -1,4 +1,4 @@
-update=Mon 29 Aug 2022 08:30:19 AM EDT
+update=Thu 08 Dec 2022 11:32:12 AM EST
 version=1
 last_client=kicad
 [pcbnew]
@@ -70,3 +70,5 @@ LibName38=/home/heller/RRCircuits/PocketBeagleCommandStation_SMD/mcp9701at
 LibName39=/home/heller/RRCircuits/PocketBeagleCommandStation_SMD/MCP9700T-E_LT
 LibName40=ina180b
 LibName41=mechanical
+LibName42=/home/heller/RRCircuits/esp32-c3-wroom-2
+LibName43=/home/heller/RRCircuits/gct_usb4105

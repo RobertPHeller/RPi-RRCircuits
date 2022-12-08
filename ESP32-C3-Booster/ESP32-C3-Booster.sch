@@ -40,6 +40,8 @@ LIBS:mcp9701at
 LIBS:MCP9700T-E_LT
 LIBS:ina180b
 LIBS:mechanical
+LIBS:esp32-c3-wroom-2
+LIBS:gct_usb4105
 LIBS:ESP32-C3-Booster-cache
 EELAYER 25 0
 EELAYER END
