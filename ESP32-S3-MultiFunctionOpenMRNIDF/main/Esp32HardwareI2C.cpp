@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sat Oct 8 12:47:31 2022
-//  Last Modified : <221127.0848>
+//  Last Modified : <221129.1148>
 //
 //  Description	
 //
@@ -303,6 +303,10 @@ int Esp32HardwareI2C::smbus(FD *f, struct i2c_smbus_ioctl_data* sm_data) const
 
 int Esp32HardwareI2C::transfer(struct i2c_msg *msg, bool stop) const
 {
+    //LOG(INFO,"[Esp32HardwareI2C::transfer]: msg->flags is %d.",msg->flags);
+    //LOG(INFO,"[Esp32HardwareI2C::transfer]: msg->len = %d", msg->len);
+    //LOG(INFO,"[Esp32HardwareI2C::transfer]: msg->addr = %d", msg->addr);
+    //LOG(INFO,"[Esp32HardwareI2C::transfer]: msg->buf = %p",msg->buf);
     int bytes = msg->len;
     if (msg->flags & I2C_M_RD)
     {
@@ -311,6 +315,7 @@ int Esp32HardwareI2C::transfer(struct i2c_msg *msg, bool stop) const
                                                     (uint8_t *)msg->buf,
                                                     bytes,
                                                     I2C_MASTER_TIMEOUT_MS / portTICK_RATE_MS);
+        //LOG(INFO,"[Esp32HardwareI2C::transfer]: (i2c_master_read_from_device) err = %d.",err);
         if (err != ESP_OK) return -EIO;
         else return bytes;
     }
@@ -321,6 +326,7 @@ int Esp32HardwareI2C::transfer(struct i2c_msg *msg, bool stop) const
                                                    (uint8_t *)msg->buf,
                                                    bytes,
                                                    I2C_MASTER_TIMEOUT_MS / portTICK_RATE_MS);
+        //LOG(INFO,"[Esp32HardwareI2C::transfer]: (i2c_master_write_to_device) err = %d.",err);
         if (err != ESP_OK) return -EIO;
         else return bytes;
     }

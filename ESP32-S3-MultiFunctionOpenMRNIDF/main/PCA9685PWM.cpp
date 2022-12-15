@@ -32,27 +32,25 @@
  */
 
 #include "PCA9685PWM.hxx"
+#include "utils/logging.h"
 
-//
-// entry()
-//
-void *PCA9685PWM::entry()
+void PCA9685PWM::set_pwm_duty(unsigned channel, uint16_t counts)
 {
-    for ( ; /* forever */ ; )
+    LOG(INFO,"[PCA9685PWM::set_pwm_duty(%d,%d)]",channel,counts);
+    HASSERT(channel < NUM_CHANNELS);
+    duty_[channel] = counts;
+    
+    dirty_ |= 0x1 << channel;
+    LOG(INFO,"[PCA9685PWM::set_pwm_duty]: dirty_ is now 0x%04x",dirty_);
+    uint16_t dirty_shaddow = dirty_;
+    dirty_ = 0;
+    
+    for (unsigned i = 0; i < NUM_CHANNELS; ++i)
     {
-        sem_.wait();
-        uint16_t dirty_shaddow = dirty_;
-        dirty_ = 0;
-
-        for (unsigned i = 0; i < NUM_CHANNELS; ++i)
+        if (dirty_shaddow & (0x1 << i))
         {
-            if (dirty_shaddow & (0x1 << i))
-            {
-                write_pwm_duty(i, duty_[i]);
-            }
+            write_pwm_duty(i, duty_[i]);
         }
     }
-
-    return NULL;
 }
 

@@ -40,13 +40,12 @@
 #include "freertos_drivers/arduino/PWM.hxx"
 
 
-#include "os/OS.hxx"
 #include "utils/logging.h"
 
 class PCA9685PWMBit;
 
 /// Agragate of 16 PWM channels for a PCA9685PWM
-class PCA9685PWM : public OSThread
+class PCA9685PWM 
 {
 public:
     /// maximum number of PWM channels supported by the PCA9685
@@ -57,11 +56,9 @@ public:
 
     /// Constructor.
     PCA9685PWM()
-        : sem_(0)
-        , i2c_(-1)
+        : i2c_(-1)
         , dirty_(0)
         , i2cAddress_(0)
-        , mux_(portMUX_INITIALIZER_UNLOCKED)
     {
         duty_.fill(0);
     }
@@ -108,8 +105,6 @@ public:
         mode2.och = 1;
         register_write(MODE2, mode2.byte);
 
-        /* start the thread at the highest priority in the system */
-        start(name, configMAX_PRIORITIES - 1, 1024);
     }
 
     /// Destructor.
@@ -209,10 +204,6 @@ private:
         Off off; ///< off registers instance
     };
 
-    /// User entry point for the created thread.
-    /// @return exit status
-    void *entry() override;
-
     /// Bit modify to an I2C register.
     /// @param address address to modify
     /// @param data data to modify
@@ -252,18 +243,7 @@ private:
     /// Set the pwm duty cycle
     /// @param channel channel index (0 through 15)
     /// @param counts counts for PWM duty cycle
-    void set_pwm_duty(unsigned channel, uint16_t counts)
-    {
-        
-        HASSERT(channel < NUM_CHANNELS);
-        duty_[channel] = counts;
-
-        portENTER_CRITICAL(&mux_);
-        dirty_ |= 0x1 << channel;
-        portEXIT_CRITICAL(&mux_);
-
-        sem_.post();
-    }
+    void set_pwm_duty(unsigned channel, uint16_t counts);
 
     /// Get the pwm duty cycle
     /// @param channel channel index (0 through 15)
@@ -329,9 +309,6 @@ private:
     /// Allow access to private members
     friend PCA9685PWMBit;
 
-    /// Wakeup for the thread processing
-    OSSem sem_;
-
     /// I2C file descriptor
     int i2c_;
 
@@ -344,8 +321,6 @@ private:
     /// I2C address of the device
     uint8_t i2cAddress_;
     
-    portMUX_TYPE mux_;
-        
     DISALLOW_COPY_AND_ASSIGN(PCA9685PWM);
 };
 

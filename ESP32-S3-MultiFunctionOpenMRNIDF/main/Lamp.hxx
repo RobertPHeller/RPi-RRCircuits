@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 11:37:34 2019
-//  Last Modified : <220717.1357>
+//  Last Modified : <221129.0822>
 //
 //  Description	
 //
@@ -157,6 +157,7 @@ public:
     void Off() {isOn_ = false;hasChanged_ = true;}
     virtual void blink(bool AFast, bool AMedium, bool ASlow)
     {
+        //LOG(ALWAYS, "*** Lamp::blink(%d,%d,%d)",AFast,AMedium,ASlow);
         if (lampid_ == Unused) return;
         //LOG(ALWAYS, "*** Lamp::blink(): lampid_ = %d, AFast = %d, AMedium = %d, ASlow = %d",
         //    lampid_,AFast,AMedium,ASlow);

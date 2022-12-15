@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 12:17:40 2022
-//  Last Modified : <221127.0853>
+//  Last Modified : <221129.0821>
 //
 //  Description	
 //
@@ -172,6 +172,24 @@ void die_with(bool activity1, bool activity2, unsigned period = 1000
 
 DEFINE_SINGLETON_INSTANCE(BlinkTimer);
 PWM* Lamp::pinlookup_[17];
+PCA9685PWM pwmchip1;
+PCA9685PWMBit LampA0(&pwmchip1,0);
+PCA9685PWMBit LampA1(&pwmchip1,1);
+PCA9685PWMBit LampA2(&pwmchip1,2);
+PCA9685PWMBit LampA3(&pwmchip1,3);
+PCA9685PWMBit LampA4(&pwmchip1,4);
+PCA9685PWMBit LampA5(&pwmchip1,5);
+PCA9685PWMBit LampA6(&pwmchip1,6);
+PCA9685PWMBit LampA7(&pwmchip1,7);
+
+PCA9685PWMBit LampB0(&pwmchip1,8);
+PCA9685PWMBit LampB1(&pwmchip1,9);
+PCA9685PWMBit LampB2(&pwmchip1,10);
+PCA9685PWMBit LampB3(&pwmchip1,11);
+PCA9685PWMBit LampB4(&pwmchip1,12);
+PCA9685PWMBit LampB5(&pwmchip1,13);
+PCA9685PWMBit LampB6(&pwmchip1,14);
+PCA9685PWMBit LampB7(&pwmchip1,15);
 
 
 extern "C"
@@ -310,25 +328,6 @@ void FactoryResetHelper::factory_reset(int fd)
 
 }
 
-PCA9685PWM pwmchip1;
-PCA9685PWMBit LampA0(&pwmchip1,0);
-PCA9685PWMBit LampA1(&pwmchip1,1);
-PCA9685PWMBit LampA2(&pwmchip1,2);
-PCA9685PWMBit LampA3(&pwmchip1,3);
-PCA9685PWMBit LampA4(&pwmchip1,4);
-PCA9685PWMBit LampA5(&pwmchip1,5);
-PCA9685PWMBit LampA6(&pwmchip1,6);
-PCA9685PWMBit LampA7(&pwmchip1,7);
-
-PCA9685PWMBit LampB0(&pwmchip1,8);
-PCA9685PWMBit LampB1(&pwmchip1,9);
-PCA9685PWMBit LampB2(&pwmchip1,10);
-PCA9685PWMBit LampB3(&pwmchip1,11);
-PCA9685PWMBit LampB4(&pwmchip1,12);
-PCA9685PWMBit LampB5(&pwmchip1,13);
-PCA9685PWMBit LampB6(&pwmchip1,14);
-PCA9685PWMBit LampB7(&pwmchip1,15);
-
 
 void app_main()
 {
@@ -435,6 +434,7 @@ void app_main()
         esp32multifunction::HealthMonitor health_mon(stack.service());
         LOG(INFO, "[esp32multifunction] HealthMonitor done.");
         BlinkTimer blinker(stack.executor()->active_timers());
+        blinker.start(500000000);
         LOG(INFO, "[esp32multifunction] BlinkTimer done.");
         
         int i = 0;
@@ -498,6 +498,7 @@ void app_main()
         LOG(INFO, "[esp32multifunction] RefreshLoop done.");
         Esp32HardwareI2C::Mount("/dev/i2c");
         i2c0.hw_init();
+
         pwmchip1.init("/dev/i2c/i2c0", PWMCHIP_ADDRESS1);
         LOG(INFO, "[esp32multifunction] Lamps done.");
         
