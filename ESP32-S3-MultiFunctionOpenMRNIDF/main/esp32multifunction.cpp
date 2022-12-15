@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 12:17:40 2022
-//  Last Modified : <221129.0821>
+//  Last Modified : <221215.1608>
 //
 //  Description	
 //
@@ -64,7 +64,6 @@ static const char rcsid[] = "@(#) : $Id$";
 #include <esp32s3/rom/rtc.h>
 #include <freertos_includes.h>   
 #include <openlcb/SimpleStack.hxx>
-#include <CDIXMLGenerator.hxx>
 #include <freertos_drivers/esp32/Esp32HardwareTwai.hxx>
 #include <freertos_drivers/esp32/Esp32BootloaderHal.hxx>
 #include <freertos_drivers/esp32/Esp32SocInfo.hxx>
@@ -140,7 +139,6 @@ namespace openlcb
         SNIP_HW_VERSION,
         SNIP_SW_VERSION
     };
-    const char CDI_DATA[] = "";
 
 } // namespace openlcb
 
@@ -523,16 +521,6 @@ void app_main()
         Lamp::PinLookupInit(Lamp::B7_,&LampB7);
         
         LOG(INFO, "[esp32multifunction] pwmchip inited.");
-        // Create / update CDI, if the CDI is out of date a factory reset will be
-        // forced.
-        bool reset_cdi = CDIXMLGenerator::create_config_descriptor_xml(
-                                                                       cfg, openlcb::CDI_FILENAME, &stack);
-        LOG(INFO, "[esp32multifunction] CDIXMLGenerator done.");
-        if (reset_cdi)
-        {
-            LOG(WARNING, "[CDI] Forcing factory reset due to CDI update");
-            unlink(openlcb::CONFIG_FILENAME);
-        }
         
         // Create config file and initiate factory reset if it doesn't exist or is
         // otherwise corrupted.

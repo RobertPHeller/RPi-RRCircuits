@@ -42,7 +42,7 @@
 
 #include "sdkconfig.h"
 
-namespace esp32s3controlstand
+namespace esp32multifunction
 {
 
 /// Utility class providing periodic reporting of general health of the
