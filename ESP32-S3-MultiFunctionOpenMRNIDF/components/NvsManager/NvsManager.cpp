@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sat Dec 17 14:03:56 2022
-//  Last Modified : <221217.1642>
+//  Last Modified : <221217.1657>
 //
 //  Description	
 //
@@ -53,7 +53,6 @@ static const char rcsid[] = "@(#) : $Id$";
 #include <nvs.h>
 #include <nvs_flash.h>
 #include <utils/Singleton.hxx>
-#include "NvsManagerStruct.hxx"
 #include "NvsManager.hxx"
 #include <utils/logging.h>
 
