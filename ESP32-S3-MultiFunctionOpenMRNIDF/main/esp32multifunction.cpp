@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 12:17:40 2022
-//  Last Modified : <221215.1608>
+//  Last Modified : <221217.1625>
 //
 //  Description	
 //
@@ -44,6 +44,7 @@ static const char rcsid[] = "@(#) : $Id$";
 
 #include "sdkconfig.h"
 #include "cdi.hxx"
+#include "cdidata.hxx"
 #include "DelayRebootHelper.hxx"
 #include "EventBroadcastHelper.hxx"
 #include "FactoryResetHelper.hxx"
@@ -51,7 +52,7 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "fs.hxx"
 #include "hardware.hxx"
 #include "NodeRebootHelper.hxx"
-#include "nvs_config.hxx"
+#include "NvsManager.hxx"
 
 #include <algorithm>
 #include <driver/i2c.h>
@@ -212,12 +213,19 @@ ssize_t os_get_free_heap()
 
 /// Verifies that the bootloader has been requested.
 ///
-/// @return true if bootloader_request is set to one, otherwise false.
+/// @return true (always).
+///
+/// NOTE: On the ESP32 this defaults to always return true since this code will
+/// not be invoked through normal node startup.
 bool request_bootloader(void)
 {
     LOG(VERBOSE, "[Bootloader] request_bootloader");
-    return bootloader_request;
+    // Default to allow bootloader to run since we are not entering the
+    // bootloader loop unless requested by app_main.
+    return true;
 }
+
+
 
 /// Updates the state of a status LED.
 ///
@@ -335,10 +343,6 @@ void app_main()
     uint8_t reset_reason = Esp32SocInfo::print_soc_info();
     // If this is the first power up of the node we need to reset the flag
     // since it will not be initialized automatically.
-    if (reset_reason == POWERON_RESET)
-    {
-        bootloader_request = 0;
-    }
     LOG(INFO, "[SNIP] version:%d, manufacturer:%s, model:%s, hw-v:%s, sw-v:%s"
       , openlcb::SNIP_STATIC_DATA.version
       , openlcb::SNIP_STATIC_DATA.manufacturer_name
@@ -346,75 +350,64 @@ void app_main()
       , openlcb::SNIP_STATIC_DATA.hardware_version
       , openlcb::SNIP_STATIC_DATA.software_version);
     bool reset_events = false;
-
+    bool run_bootloader = false;
+    bool cleanup_config_tree = false;
     GpioInit::hw_init();
 
-    nvs_init();
+    esp32multifunction::NvsManager nvs;
+    nvs.init(reset_reason);
 
-    // load non-CDI based config from NVS.
-    bool cleanup_config_tree = false;
-    node_config_t config;
-    if (load_config(&config) != ESP_OK)
-    {
-        default_config(&config);
-        cleanup_config_tree = true;
-    }
-    bool run_bootloader = false;
-    
     // Ensure the LEDs are both ON for PauseCheck
     LED_ACT1_Pin::instance()->set();
     LED_ACT2_Pin::instance()->set();
     
     LOG(INFO, "[BootPauseHelper] starting...");
-    BootPauseHelper pause(&config);
+    
+    esp32multifunction::BootPauseHelper pause;
     
     pause.CheckPause();
     LOG(INFO, "[BootPauseHelper] returned...");
-    load_config(&config);// Reload config -- CheckPause() might update things.
     
     // Ensure the LEDs are both OFF when we startup.
     LED_ACT1_Pin::instance()->clr();
     LED_ACT2_Pin::instance()->clr();
     
     // Check for and reset factory reset flag.
-    if (config.force_reset)
+    if (nvs.should_reset_config())
     {
         cleanup_config_tree = true;
-        config.force_reset = false;
-        save_config(&config);
+        nvs.clear_factory_reset();
     }
 
-    if (config.bootloader_req)
+    if (nvs.should_start_bootloader())
     {
         run_bootloader = true;
         // reset the flag so we start in normal operating mode next time.
-        config.bootloader_req = false;
-        save_config(&config);
+        nvs.clear_bootloader();
     }
     
-    if (config.reset_events_req)
+    if (nvs.should_reset_events())
     {
         reset_events = true;
         // reset the flag so we start in normal operating mode next time.
-        config.reset_events_req = false;
-        save_config(&config);
+        nvs.clear_reset_events();
     }
-
+    nvs.CheckPersist();
 
     if (run_bootloader)
     {
-        LOG(VERBOSE, "[Bootloader] bootloader_hw_set_to_safe");                     
-        LED_ACT1_Pin::hw_init();                                                    
+        LOG(VERBOSE, "[Bootloader] bootloader_hw_set_to_safe");
+        LED_ACT1_Pin::hw_init();
         LED_ACT2_Pin::hw_init();
-        esp32_bootloader_run(config.node_id, CONFIG_TWAI_TX_PIN, CONFIG_TWAI_RX_PIN, true);
+        esp32_bootloader_run(nvs.node_id(), CONFIG_TWAI_TX_PIN, CONFIG_TWAI_RX_PIN, true);
         esp_restart();
     }
     else
     {
-        dump_config(&config);
+        nvs.DisplayNvsConfiguration();
         mount_fs(cleanup_config_tree);
         LOG(INFO, "[esp32multifunction] about to start the Simple Can Stack");
-        openlcb::SimpleCanStack stack(config.node_id);
+        openlcb::SimpleCanStack stack(nvs.node_id());
         LOG(INFO, "[esp32multifunction] stack started");
         stack.set_tx_activity_led(LED_ACT1_Pin::instance());
         LOG(INFO, "[esp32multifunction] set activity led");
@@ -534,7 +527,7 @@ void app_main()
         {
             LOG(WARNING, "[CDI] Resetting event IDs");
             stack.factory_reset_all_events(
-                    cfg.seg().internal_config(), config.node_id, config_fd);
+                    cfg.seg().internal_config(), nvs.node_id(), config_fd);
             fsync(config_fd);
         }
         

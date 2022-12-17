@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 21 22:27:50 2021
-//  Last Modified : <220717.1357>
+//  Last Modified : <221217.0923>
 //
 //  Description	
 //
@@ -49,43 +49,9 @@
 #include "utils/ConfigUpdateService.hxx"
 #include "openlcb/RefreshLoop.hxx"
 #include <stdio.h>
+#include "LEDConfig.hxx"
 
 #include "Blink.hxx"
-
-static const char LEDPhaseMap[] =
-    "<relation><property>0</property><value>Steady Highside</value></relation>"
-    "<relation><property>1</property><value>Steady Lowside</value></relation>"
-
-    "<relation><property>2</property><value>Pulse Highside</value></relation>"
-    "<relation><property>3</property><value>Pulse Lowside</value></relation>"
-
-    "<relation><property>4</property><value>A - Slow</value></relation>"
-    "<relation><property>5</property><value>A - Medium</value></relation>"
-    "<relation><property>6</property><value>A - Fast</value></relation>"
-
-    "<relation><property>7</property><value>B - Slow</value></relation>"
-    "<relation><property>8</property><value>B - Medium</value></relation>"
-    "<relation><property>9</property><value>B - Fast</value></relation>";
-
-/// CDI Configuration for a @ref LED
-CDI_GROUP(LEDConfig);
-CDI_GROUP_ENTRY(phase, openlcb::Uint8ConfigEntry,
-                Name("LED Steady, Pulse, or Blink Phase (A-B)"),
-                MapValues(LEDPhaseMap),Default(0));
-CDI_GROUP_ENTRY(pulsewidth, openlcb::Uint8ConfigEntry,
-                Name("Pulse width in seconds, 1 to 127"),
-                Min(1), Max(127), Default(1));
-/// This event will be consumed to turn the output on.
-CDI_GROUP_ENTRY(
-    event_on, openlcb::EventConfigEntry, //
-    Name("LED on"),
-    Description("This event will be consumed to turn the output on."));
-/// This event will be consumed to turn the output off.
-CDI_GROUP_ENTRY(
-    event_off, openlcb::EventConfigEntry, //
-    Name("LED off"),
-    Description("This event will be consumed to turn the output off."));
-CDI_GROUP_END();
 
 
 

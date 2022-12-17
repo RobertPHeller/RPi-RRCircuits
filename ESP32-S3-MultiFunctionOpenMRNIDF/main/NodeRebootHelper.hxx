@@ -33,6 +33,7 @@
  */
 
 #include <utils/Singleton.hxx>
+#include <openlcb/SimpleStack.hxx>
 
 namespace esp32multifunction
 {

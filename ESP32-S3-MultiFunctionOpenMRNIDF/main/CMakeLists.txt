@@ -6,13 +6,16 @@ set(deps
     app_update
     spiffs
     OpenMRNIDF
+    Config
+    I2CDriver
+    GeneralIO
+    Signals
+    Logic
+    NvsManager
     json
 )
 
-idf_component_register(SRCS Logic.cpp Mast.cpp Rule.cpp 
-                        TrackCircuit.cpp esp32multifunction.cpp fs.cpp 
-                        nvs_config.cpp BootPauseHelper.cpp
-                        VetoBitEventInterface.cpp Esp32HardwareI2C.cpp
+idf_component_register(SRCS esp32multifunction.cpp fs.cpp 
                         PCA9685PWM.cpp
                        REQUIRES "${deps}")
 
@@ -27,15 +30,33 @@ set(SNIP_HW_VERSION "1.0.0")
 set(SNIP_PROJECT_PAGE "https://www.deepsoft.com/")
 set(CDI_VERSION "0x0101")
 
-set_source_files_properties(Logic.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers ")
-set_source_files_properties(VetoBitEventInterface.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers ")
-set_source_files_properties(Mast.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")
-set_source_files_properties(Rule.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")
-set_source_files_properties(TrackCircuit.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")
 set_source_files_properties(esp32multifunction.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")
 set_source_files_properties(esp32multifunction.cpp PROPERTIES COMPILE_DEFINITIONS "SNIP_PROJECT_PAGE=\"${SNIP_PROJECT_PAGE}\"; SNIP_HW_VERSION=\"${SNIP_HW_VERSION}\"; SNIP_SW_VERSION=\"${SNIP_SW_VERSION}\"; SNIP_PROJECT_NAME=\"${SNIP_PROJECT_NAME}\"; CDI_VERSION=${CDI_VERSION}")
 set_source_files_properties(fs.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")
-set_source_files_properties(nvs_config.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")
-set_source_files_properties(BootPauseHelper.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")
-set_source_files_properties(Esp32HardwareI2C.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")
 set_source_files_properties(PCA9685PWM.cpp PROPERTIES COMPILE_FLAGS "-Wno-error=maybe-uninitialized -Wno-implicit-fallthrough -Wno-ignored-qualifiers")
+
+set(CDIDEPS
+    ${CMAKE_CURRENT_SOURCE_DIR}/../components/Config/include/ButtonConfig.hxx
+    ${CMAKE_CURRENT_SOURCE_DIR}/../components/Config/include/LEDConfig.hxx
+    ${CMAKE_CURRENT_SOURCE_DIR}/../components/Config/include/LampConfig.hxx
+    ${CMAKE_CURRENT_SOURCE_DIR}/../components/Config/include/LogicConfig.hxx
+    ${CMAKE_CURRENT_SOURCE_DIR}/../components/Config/include/MastConfig.hxx
+    ${CMAKE_CURRENT_SOURCE_DIR}/../components/Config/include/OccupancyDetectorConfig.hxx
+    ${CMAKE_CURRENT_SOURCE_DIR}/../components/Config/include/PointsConfig.hxx
+    ${CMAKE_CURRENT_SOURCE_DIR}/../components/Config/include/RuleConfig.hxx
+    ${CMAKE_CURRENT_SOURCE_DIR}/../components/Config/include/TrackCircuitConfig.hxx
+    ${CMAKE_CURRENT_SOURCE_DIR}/../components/Config/include/TurnoutConfig.hxx
+    ${CMAKE_CURRENT_SOURCE_DIR}/../components/Config/include/cdi.hxx
+   )
+
+add_custom_command(OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/../components/Config/include/cdidata.hxx"
+                   COMMAND make -C ${CMAKE_CURRENT_SOURCE_DIR}/../components/Config/CDI 
+                   DEPENDS "${CDIDEPS}"
+                   VERBATIM
+                  )
+
+add_custom_target(FORCE 
+                  ALL
+                  DEPENDS                                                     
+                  "${CMAKE_CURRENT_SOURCE_DIR}/../components/Config/include/cdidata.hxx"
+                 )

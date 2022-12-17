@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Feb 24 14:51:54 2019
-//  Last Modified : <211125.1735>
+//  Last Modified : <221217.0921>
 //
 //  Description	
 //
@@ -49,37 +49,7 @@
 #include "utils/ConfigUpdateListener.hxx"
 #include "utils/ConfigUpdateService.hxx"
 #include "utils/Debouncer.hxx"
-
-/// CDI Configuration for a @ref ConfiguredProducer.
-CDI_GROUP(OccupancyDetectorConfig);
-/// Allows the user to assign a name for this input.
-CDI_GROUP_ENTRY(description, openlcb::StringConfigEntry<15>, //
-                Name("Description"), Description("User name of this block."));
-/// Configures the debounce parameter.
-CDI_GROUP_ENTRY(
-    debounce, openlcb::Uint8ConfigEntry, Name("Debounce parameter"),
-    Default(3),
-    Description("Amount of time to wait for the input to stabilize before "
-                "producing the event. Unit is 30 msec of time. Usually a value "
-                "of 2-3 works well in a non-noisy environment. In high noise "
-                "(train wheels for example) a setting between 8 -- 15 makes "
-                "for a slower response time but a more stable "
-                "signal.\nFormally, the parameter tells how many times of "
-                "tries, each 30 msec apart, the input must have the same value "
-                "in order for that value to be accepted and the event "
-                "transition produced."),
-    Default(3));
-/// This event will be produced when the input goes to HIGH.
-CDI_GROUP_ENTRY(
-    event_occupied, openlcb::EventConfigEntry, //
-    Name("Block Occupied"),
-    Description("This event will be produced when the block becomes occupied."));
-/// This event will be produced when the input goes to LOW.
-CDI_GROUP_ENTRY(
-    event_clear, openlcb::EventConfigEntry, //
-    Name("Block Clear"),
-    Description("This event will be produced when the block becomes clear."));
-CDI_GROUP_END();
+#include "OccupancyDetectorConfig.hxx"
 
 /// OpenLCB Producer class integrating a simple CDI-based configuration for two
 /// event IDs, and an input GPIO object whose value will determine when to

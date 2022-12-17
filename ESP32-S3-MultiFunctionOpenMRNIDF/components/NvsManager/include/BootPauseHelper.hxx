@@ -7,8 +7,8 @@
 //  Date          : $Date$
 //  Author        : $Author$
 //  Created By    : Robert Heller
-//  Created       : Mon Jul 18 13:17:23 2022
-//  Last Modified : <220823.1156>
+//  Created       : Sat Dec 17 13:49:15 2022
+//  Last Modified : <221217.1355>
 //
 //  Description	
 //
@@ -43,20 +43,17 @@
 #ifndef __BOOTPAUSEHELPER_HXX
 #define __BOOTPAUSEHELPER_HXX
 
-#include <algorithm>
-#include <driver/i2c.h>
-#include <driver/uart.h>
 #include <esp_err.h>
 #include <esp_log.h>
 #include <esp_ota_ops.h>
 #include <esp_system.h>
 #include <esp_task_wdt.h>
 #include <esp32s3/rom/rtc.h>
-#include "nvs_config.hxx"
-#include "hardware.hxx"
-#include <freertos_includes.h>
+#include <utils/Singleton.hxx>
 
-class BootPauseHelper {
+namespace esp32multifunction
+{
+class BootPauseHelper : public Singleton<BootPauseHelper> {
 public:
     enum {
         PauseLoopCount = 100,
@@ -70,19 +67,14 @@ public:
         FACTORYRESET = 'F',
         RESUME = 'R'
     };
-    BootPauseHelper(node_config_t *config) : config_(config)
-    {
-    }
-    
     void CheckPause();
 private:
     void PauseConsole();
     uint64_t ParseNode(char *buffer,size_t bufferlen);
     size_t ReadLine(uart_port_t uart_num,char *buffer, size_t bufferlen);
-    node_config_t *config_;
 };
-    
 
+}
 
 #endif // __BOOTPAUSEHELPER_HXX
 

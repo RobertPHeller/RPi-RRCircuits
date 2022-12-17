@@ -10,33 +10,7 @@
 #include "utils/ConfigUpdateService.hxx"
 #include "openlcb/RefreshLoop.hxx"
 #include "VetoBitEventInterface.hxx"
-
-/// CDI Configuration for a @ref ConfiguredConsumer.
-CDI_GROUP(TurnoutConfig);
-/// Allows the user to assign a name for this output.
-CDI_GROUP_ENTRY(description, openlcb::StringConfigEntry<8>, //
-                Name("Description"), Description("User name of this turnout."));
-/// Specifies the event ID to set the output to ON.
-CDI_GROUP_ENTRY(
-    normal, openlcb::EventConfigEntry, //
-    Name("Normal"),
-    Description("Receiving this event ID will align the turnout to normal."));
-/// Specifies the event ID to set the output to OFF.
-CDI_GROUP_ENTRY(
-    reversed, openlcb::EventConfigEntry, //
-    Name("Reversed"),
-    Description("Receiving this event ID will align the turnout to reversed."));
-/// Specifies the event ID to set the veto to ON.
-CDI_GROUP_ENTRY(
-    veto_on, openlcb::EventConfigEntry, //
-    Name("Veto On"),
-    Description("Receiving this event ID will lock the turnout."));
-/// Specifies the event ID to set the output to OFF.
-CDI_GROUP_ENTRY(
-    veto_off, openlcb::EventConfigEntry, //
-    Name("Veto Off"),
-    Description("Receiving this event ID will unlock the turnout."));
-CDI_GROUP_END();
+#include "TurnoutConfig.hxx"
 
 /// OpenLCB Consumer class integrating a simple CDI-based configuration for two
 /// event IDs, and an output GPIO object that will be turned on or off

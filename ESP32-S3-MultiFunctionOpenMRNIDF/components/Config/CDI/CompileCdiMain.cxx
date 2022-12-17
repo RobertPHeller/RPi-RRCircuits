@@ -3,7 +3,7 @@
 using std::string;
 
 #include "openlcb/ConfigRepresentation.hxx"
-#include "config.hxx"
+#include "cdi.hxx"
 
 #include "utils/StringPrintf.cxx"
 #include "utils/FileUtils.cxx"
@@ -25,14 +25,14 @@ namespace openlcb {
 const SimpleNodeStaticValues SNIP_STATIC_DATA =
     {
         4,
-        SNIP_PROJECT_PAGE,
-        SNIP_PROJECT_NAME,
-        SNIP_HW_VERSION,
-        SNIP_SW_VERSION
+        "@SNIP_PROJECT_PAGE@",
+        "@SNIP_PROJECT_NAME@",
+        "@SNIP_HW_VERSION@",
+        "@SNIP_SW_VERSION@"
     };
 
 }
-bool raw_render = true;
+bool raw_render = false;
 
 // esp32multifunction::ConfigDef def(0);
 
@@ -58,7 +58,7 @@ void render_cdi_helper(const CdiType &t, string ns, string name)
     }
     else
     {
-        printf("namespace %s {\n\nextern const char %s_DATA[];\n", ns.c_str(),
+        printf("namespace openlcb {\n\nextern const char %s_DATA[];\n", 
             name.c_str());
         printf("// This is a C++11 raw string.\n");
         printf("const char %s_DATA[] = R\"xmlpayload(%s)xmlpayload\";\n",
@@ -66,7 +66,7 @@ void render_cdi_helper(const CdiType &t, string ns, string name)
         printf("extern const size_t %s_SIZE;\n", name.c_str());
         printf("const size_t %s_SIZE = sizeof(%s_DATA);\n", name.c_str(),
             name.c_str());
-        printf("\n}  // namespace %s\n\n", ns.c_str());
+        printf("\n}  // namespace openlcb\n\n");
     }
 }
 
