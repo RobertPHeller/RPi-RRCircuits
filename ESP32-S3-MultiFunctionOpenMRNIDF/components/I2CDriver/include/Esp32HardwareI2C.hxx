@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sat Oct 8 11:16:35 2022
-//  Last Modified : <221127.0843>
+//  Last Modified : <221219.1734>
 //
 //  Description	
 //
@@ -43,9 +43,6 @@
 #ifndef __ESP32HARDWAREI2C_HXX
 #define __ESP32HARDWAREI2C_HXX
 
-namespace openmrn_arduino
-{
-
 #include <driver/i2c.h>
 #include <esp_err.h>
 #include <esp_log.h>
@@ -76,20 +73,26 @@ using std::pair;
 
 
 
+namespace openmrn_arduino
+{
+
 class Esp32HardwareI2C
 {
 public:
+    
+    struct FD {
+        unsigned address;
+        FD(unsigned addr) : address(addr) {}
+    };
+    
     /// Constructor.
     ///
     /// @param sda is the GPIO pin connected to SDA 
     /// @param scl is the GPIO pin connected to SCL
     /// @param master I2C master number, default is 0
-    /// @param path is the VFS mount point for the for this I2C port, default 
-    /// is "/dev/i2c".
     
-    Esp32HardwareI2C(uint8_t sda, uint8_t scl, uint8_t master = 0, 
-                     const char *path = "/dev/i2c/i2c0")
-                : sda_(sda), scl_(scl), master_(master), vfsPath_(path)
+    Esp32HardwareI2C(uint8_t sda, uint8_t scl, uint8_t master = 0)
+                : sda_(sda), scl_(scl), master_(master)
     {
     }
     /// Destructor.
@@ -99,8 +102,12 @@ public:
     ///
     /// NOTE: This must be called prior to opening connections the I2C
     void hw_init();
-    static void Mount(const char *mp = "/dev/i2c");
-    static void Unmount();
+    
+    ssize_t write(FD* f,const void *buf, size_t size) const;
+    ssize_t read(FD *f,void *buf, size_t size) const;
+    int ioctl(FD *f,int cmd, ...) const;
+    FD *open() const;
+    void close(FD *f) const;
 private:
     /// Default constructor.
     Esp32HardwareI2C() {}
@@ -111,21 +118,8 @@ private:
     uint8_t scl_;
     /// I2C master.
     uint8_t master_;
-    /// device path. relative to the VFS mount point.
-    const char *vfsPath_;
-    
-    struct FD {
-        const Esp32HardwareI2C *parent;
-        unsigned address;
-        FD(const Esp32HardwareI2C *p,unsigned addr) 
-                    : parent(p), address(addr) {}
-    };
     
     DISALLOW_COPY_AND_ASSIGN(Esp32HardwareI2C);
-    
-    ssize_t write(FD* f,const void *buf, size_t size) const;
-    ssize_t read(FD *f,void *buf, size_t size) const;
-    int ioctl(FD *f,int cmd, va_list args) const;
     
     /** Conduct multiple message transfers with one stop at the end.
      * @param msgs array of messages to transfer
@@ -147,22 +141,6 @@ private:
      * @return bytes transfered upon success or -1 with errno set
      */
     int transfer(struct i2c_msg *msg, bool stop) const;
-    
-    static char mountpoint[ESP_VFS_PATH_MAX];
-    typedef map<const string,Esp32HardwareI2C *> pathMapType;
-    typedef pathMapType::iterator pathMapType_iterator;
-    typedef pathMapType::const_iterator pathMapType_const_iterator;
-    static pathMapType instances;
-    typedef map<const int, Esp32HardwareI2C::FD *> fdMap;
-    typedef fdMap::iterator fdMap_iterator;
-    typedef fdMap::const_iterator fdMap_const_iterator;
-    static fdMap opened;
-    
-    static ssize_t vfs_write(int fd, const void *buf, size_t size);
-    static ssize_t vfs_read(int fd, void *buf, size_t size);
-    static int vfs_open(const char *path, int flags, int mode);
-    static int vfs_close(int fd);
-    static int vfs_ioctl(int fd, int cmd, va_list args);
     
 };
 

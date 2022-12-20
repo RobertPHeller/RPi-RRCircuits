@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 12:17:40 2022
-//  Last Modified : <221217.1625>
+//  Last Modified : <221219.1726>
 //
 //  Description	
 //
@@ -100,7 +100,7 @@ TrackCircuit *circuits[TRACKCIRCUITCOUNT];
 
 esp32multifunction::ConfigDef cfg(0);
 Esp32HardwareTwai twai(CONFIG_TWAI_RX_PIN, CONFIG_TWAI_TX_PIN);
-Esp32HardwareI2C i2c0(CONFIG_SDA_PIN, CONFIG_SCL_PIN, 0, "/dev/i2c/i2c0");
+Esp32HardwareI2C i2c0(CONFIG_SDA_PIN, CONFIG_SCL_PIN, 0);
 
 
 namespace openlcb
@@ -171,7 +171,7 @@ void die_with(bool activity1, bool activity2, unsigned period = 1000
 
 DEFINE_SINGLETON_INSTANCE(BlinkTimer);
 PWM* Lamp::pinlookup_[17];
-PCA9685PWM pwmchip1;
+PCA9685PWM pwmchip1(&i2c0);
 PCA9685PWMBit LampA0(&pwmchip1,0);
 PCA9685PWMBit LampA1(&pwmchip1,1);
 PCA9685PWMBit LampA2(&pwmchip1,2);
@@ -487,10 +487,9 @@ void app_main()
                                                  , button4.polling()
                                              });
         LOG(INFO, "[esp32multifunction] RefreshLoop done.");
-        Esp32HardwareI2C::Mount("/dev/i2c");
         i2c0.hw_init();
 
-        pwmchip1.init("/dev/i2c/i2c0", PWMCHIP_ADDRESS1);
+        pwmchip1.init(PWMCHIP_ADDRESS1);
         LOG(INFO, "[esp32multifunction] Lamps done.");
         
         Lamp::PinLookupInit(0,nullptr);

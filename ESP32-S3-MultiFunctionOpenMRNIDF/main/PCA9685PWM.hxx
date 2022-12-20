@@ -34,6 +34,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include "stropts.h"
+#include "Esp32HardwareI2C.hxx"
 #include "i2c.h"
 #include "i2c-dev.h"
 
@@ -55,8 +56,9 @@ public:
     static constexpr size_t MAX_PWM_COUNTS = 4096;
 
     /// Constructor.
-    PCA9685PWM()
-        : i2c_(-1)
+    /// @param i2c Pointer to I2C driver class instance.
+    PCA9685PWM(const Esp32HardwareI2C *i2c)
+        : i2c_(i2c)
         , dirty_(0)
         , i2cAddress_(0)
     {
@@ -64,23 +66,22 @@ public:
     }
 
     /// Initialize device.
-    /// @param name name of the I2C device
     /// @param i2c_address I2C address of the device on the bus
     /// @param pwm_frequency target PWM frequency (will truncate at minimum and
     ///                      maximum prescaler values)
     /// @param external_clock frequency of an external clock in Hz, -1
     ///                       if internal clock is used
-    void init(const char * name, uint8_t i2c_address,
+    void init(uint8_t i2c_address,
               uint16_t pwm_freq = 200, int32_t external_clock_freq = -1)
     {
         uint32_t clock_freq = external_clock_freq >= 0 ? external_clock_freq :
                                                          25000000;
         i2cAddress_ = i2c_address;
 
-        LOG(INFO,"[PCA9685PWM::init]: name is '%s'.",name);
-        i2c_ = ::open(name, O_RDWR);
-        HASSERT(i2c_ >= 0);
-        ::ioctl(i2c_, I2C_SLAVE, i2cAddress_);
+        LOG(INFO,"[PCA9685PWM::init].");
+        i2cfd_ = i2c_->open();
+        HASSERT(i2cfd_ != NULL);
+        i2c_->ioctl(i2cfd_, I2C_SLAVE, i2cAddress_);
 
         HASSERT(clock_freq <= 50000000);
         HASSERT(pwm_freq < (clock_freq / (4096 * 4)));
@@ -110,6 +111,7 @@ public:
     /// Destructor.
     ~PCA9685PWM()
     {
+        if (i2c_ != NULL && i2cfd_ != NULL) i2c_->close(i2cfd_);
     }
 
 private:
@@ -232,7 +234,7 @@ private:
         struct i2c_rdwr_ioctl_data ioctl_data =
             {.msgs = msgs, .nmsgs = ARRAYSIZE(msgs)};
 
-        ::ioctl(i2c_, I2C_RDWR, &ioctl_data);
+        i2c_->ioctl(i2cfd_, I2C_RDWR, &ioctl_data);
 
         rd_data &= ~mask;
         rd_data |= (data & mask);
@@ -291,7 +293,7 @@ private:
     void register_write(Registers address, uint8_t data)
     {
         uint8_t payload[] = {address, data};
-        ::write(i2c_, payload, sizeof(payload));
+        i2c_->write(i2cfd_, payload, sizeof(payload));
     }
 
     /// Write to multiple sequential I2C registers.
@@ -303,14 +305,15 @@ private:
         uint8_t payload[count + 1];
         payload[0] = address;
         memcpy(payload + 1, data, count);
-        ::write(i2c_, payload, sizeof(payload));
+        i2c_->write(i2cfd_, payload, sizeof(payload));
     }
 
     /// Allow access to private members
     friend PCA9685PWMBit;
 
     /// I2C file descriptor
-    int i2c_;
+    const Esp32HardwareI2C *i2c_;
+    Esp32HardwareI2C::FD *i2cfd_;
 
     /// local cache of the duty cycles
     std::array<uint16_t, NUM_CHANNELS> duty_;

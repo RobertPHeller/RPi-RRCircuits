@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sat Oct 8 12:47:31 2022
-//  Last Modified : <221129.1148>
+//  Last Modified : <221219.1737>
 //
 //  Description	
 //
@@ -75,17 +75,13 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "i2c-dev.h"
 #include "Esp32HardwareI2C.hxx"
 
+#include <cstdarg>
 
 void Esp32HardwareI2C::hw_init()
 {
-    char path[ESP_VFS_PATH_MAX];
-    strncpy(path,vfsPath_,sizeof(path)-1);
-    char *p = strstr(path,mountpoint);
-    HASSERT(p == path);
-    p += strlen(mountpoint);
     LOG(INFO,
-        "ESP-I2C: Configuring I2C (SDA:%d, SCL:%d, Master:%d, Path:%s)",
-        sda_, scl_, master_, vfsPath_);
+        "ESP-I2C: Configuring I2C (SDA:%d, SCL:%d, Master:%d)",
+        sda_, scl_, master_);
     
     HASSERT(master_ < I2C_NUM_MAX);
     int i2c_master_port = master_;
@@ -105,109 +101,24 @@ void Esp32HardwareI2C::hw_init()
                                        I2C_MASTER_RX_BUF_DISABLE,
                                        I2C_MASTER_TX_BUF_DISABLE,
                                        0));
-    instances[p] = this; 
 }
-
-void Esp32HardwareI2C::Mount(const char *mp)
-{
-    esp_vfs_t vfs = {};
-    vfs.write = vfs_write;
-    vfs.read  = vfs_read;
-    vfs.open  = vfs_open;
-    vfs.close = vfs_close;
-    vfs.ioctl = vfs_ioctl;
-    vfs.flags = ESP_VFS_FLAG_DEFAULT;
-    strcpy(mountpoint,mp);
-
-    ESP_ERROR_CHECK(esp_vfs_register(mountpoint, &vfs, NULL));
-    LOG(INFO,"[Esp32HardwareI2C::Mount]: mountpoint is '%s'.",mountpoint);
-}
-
-void Esp32HardwareI2C::Unmount()
-{
-    for (fdMap_const_iterator o = opened.begin(); o != opened.end(); o++)
-    {
-        auto v = *o;
-        ::close(v.first);
-    }
-    esp_vfs_unregister(mountpoint);
-    memset(mountpoint,0,sizeof(mountpoint));
-}
-    
 
 Esp32HardwareI2C::~Esp32HardwareI2C()
 {
-    for (fdMap_const_iterator o = opened.begin(); o != opened.end(); o++)
-    {
-        auto v = *o;
-        HASSERT(v.second->parent != this);
-    }
     ESP_ERROR_CHECK(i2c_driver_delete(master_));
 }
 
-int Esp32HardwareI2C::vfs_open(const char *path, int flags, int mode)
+Esp32HardwareI2C::FD *Esp32HardwareI2C::open() const
 {
-    int newfd = 0;
-    LOG(INFO,"[Esp32HardwareI2C::vfs_open] path is '%s', flags = %d. mode = %d.",
-        path, flags, mode);
-    pathMapType_const_iterator p = instances.find(path);
-    if (p == instances.end())
-    {
-        errno = ENOENT;
-        return -ENOENT;
-    }
-    do {
-        newfd++;
-    } while (opened.find(newfd) != opened.end());
-    opened[newfd] = new FD(p->second,0);
-    return newfd;
+    return new FD(0);
 }
 
-int Esp32HardwareI2C::vfs_close(int fd)
+void Esp32HardwareI2C::close(Esp32HardwareI2C::FD *f) const
 {
-    fdMap_iterator p = opened.find(fd);
-    if (p == opened.end())
-    {
-        errno = EIO;
-        return -EIO;
-    }
-    opened.erase(p);
-    return 0;
+    delete f;
 }
 
 
-ssize_t Esp32HardwareI2C::vfs_write(int fd, const void *buf, size_t size)
-{
-    fdMap_iterator p = opened.find(fd);
-    if (p == opened.end())
-    {
-        errno = EIO;
-        return -EIO;
-    }
-    return p->second->parent->write(p->second,buf,size);
-}
-
-ssize_t Esp32HardwareI2C::vfs_read(int fd, void *buf, size_t size)
-{
-    fdMap_iterator p = opened.find(fd);
-    if (p == opened.end())
-    {
-        errno = EIO;
-        return -EIO;
-    }
-    return p->second->parent->read(p->second,buf,size);
-}
-
-int Esp32HardwareI2C::vfs_ioctl(int fd, int cmd, va_list args)
-{
-    fdMap_iterator p = opened.find(fd);
-    if (p == opened.end())
-    {
-        errno = EIO;
-        return -EIO;
-    }
-    return p->second->parent->ioctl(p->second, cmd, args);
-}
 
 ssize_t Esp32HardwareI2C::write(Esp32HardwareI2C::FD* f, const void *buf, size_t size) const
 {
@@ -234,8 +145,12 @@ ssize_t Esp32HardwareI2C::read(Esp32HardwareI2C::FD* f, void *buf, size_t size) 
     return result;
 }
 
-int Esp32HardwareI2C::ioctl(Esp32HardwareI2C::FD* f, int cmd, va_list args) const
+int Esp32HardwareI2C::ioctl(Esp32HardwareI2C::FD* f, int cmd, ...) const
 {
+    va_list args;
+    va_start(args, cmd);
+    
+    
     HASSERT(IOC_TYPE(cmd) == I2C_MAGIC);
     
     switch (cmd)
@@ -332,10 +247,3 @@ int Esp32HardwareI2C::transfer(struct i2c_msg *msg, bool stop) const
     }
 }
 
-char Esp32HardwareI2C::mountpoint[ESP_VFS_PATH_MAX] = "";
-
-Esp32HardwareI2C::pathMapType Esp32HardwareI2C::instances;
-
-
-
-Esp32HardwareI2C::fdMap Esp32HardwareI2C::opened;
