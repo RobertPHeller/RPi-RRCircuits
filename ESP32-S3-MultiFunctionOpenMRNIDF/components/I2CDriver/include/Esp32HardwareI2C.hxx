@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sat Oct 8 11:16:35 2022
-//  Last Modified : <221219.1734>
+//  Last Modified : <221222.1006>
 //
 //  Description	
 //
@@ -44,6 +44,9 @@
 #define __ESP32HARDWAREI2C_HXX
 
 #include <driver/i2c.h>
+#include <esp_check.h>
+#include <os/OS.hxx>
+#include <sys/ioctl.h>
 #include <esp_err.h>
 #include <esp_log.h>
 #include <esp_ota_ops.h>
@@ -66,7 +69,7 @@ using std::string;
 using std::map;
 using std::pair;
 
-#define I2C_MASTER_FREQ_HZ          400000                     /*!< I2C master clock frequency */
+#define I2C_MASTER_FREQ_HZ          100000                     /*!< I2C master clock frequency */
 #define I2C_MASTER_TX_BUF_DISABLE   0                          /*!< I2C master doesn't need buffer */
 #define I2C_MASTER_RX_BUF_DISABLE   0                          /*!< I2C master doesn't need buffer */
 #define I2C_MASTER_TIMEOUT_MS       1000
@@ -79,7 +82,8 @@ namespace openmrn_arduino
 class Esp32HardwareI2C
 {
 public:
-    
+    /// Maximum number of ticks to wait for an I2C transaction to complete.
+    static constexpr TickType_t MAX_I2C_WAIT_TICKS = pdMS_TO_TICKS(100);
     struct FD {
         unsigned address;
         FD(unsigned addr) : address(addr) {}
@@ -108,6 +112,16 @@ public:
     int ioctl(FD *f,int cmd, ...) const;
     FD *open() const;
     void close(FD *f) const;
+    esp_err_t ping(uint8_t address) const
+    {
+        i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+        i2c_master_start(cmd);
+        i2c_master_write_byte(cmd, (address << 1) | I2C_MASTER_WRITE, true);
+        i2c_master_stop(cmd);
+        esp_err_t err = i2c_master_cmd_begin(master_, cmd, MAX_I2C_WAIT_TICKS);
+        i2c_cmd_link_delete(cmd);
+        return err;
+    }
 private:
     /// Default constructor.
     Esp32HardwareI2C() {}

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sat Oct 8 12:47:31 2022
-//  Last Modified : <221219.1737>
+//  Last Modified : <221222.1007>
 //
 //  Description	
 //
@@ -92,7 +92,7 @@ void Esp32HardwareI2C::hw_init()
         .sda_pullup_en = GPIO_PULLUP_ENABLE,
         .scl_pullup_en = GPIO_PULLUP_ENABLE,
         .master = {.clk_speed = I2C_MASTER_FREQ_HZ},
-        .clk_flags = 0
+        .clk_flags = I2C_SCLK_DEFAULT
     };
     i2c_param_config(i2c_master_port, &conf);
     
@@ -218,10 +218,14 @@ int Esp32HardwareI2C::smbus(FD *f, struct i2c_smbus_ioctl_data* sm_data) const
 
 int Esp32HardwareI2C::transfer(struct i2c_msg *msg, bool stop) const
 {
-    //LOG(INFO,"[Esp32HardwareI2C::transfer]: msg->flags is %d.",msg->flags);
-    //LOG(INFO,"[Esp32HardwareI2C::transfer]: msg->len = %d", msg->len);
-    //LOG(INFO,"[Esp32HardwareI2C::transfer]: msg->addr = %d", msg->addr);
-    //LOG(INFO,"[Esp32HardwareI2C::transfer]: msg->buf = %p",msg->buf);
+    LOG(INFO,"[Esp32HardwareI2C::transfer]: msg->flags is %d.",msg->flags);
+    LOG(INFO,"[Esp32HardwareI2C::transfer]: msg->len = %d", msg->len);
+    LOG(INFO,"[Esp32HardwareI2C::transfer]: msg->addr = 0x%02x", msg->addr);
+    LOG(INFO,"[Esp32HardwareI2C::transfer]: msg->buf = %p",msg->buf);
+    for (int i = 0; i < msg->len; i++) 
+    {
+        LOG(INFO,"[Esp32HardwareI2C::transfer]: %d: 0x%02x", i, msg->buf[i]);
+    }
     int bytes = msg->len;
     if (msg->flags & I2C_M_RD)
     {
@@ -230,7 +234,7 @@ int Esp32HardwareI2C::transfer(struct i2c_msg *msg, bool stop) const
                                                     (uint8_t *)msg->buf,
                                                     bytes,
                                                     I2C_MASTER_TIMEOUT_MS / portTICK_RATE_MS);
-        //LOG(INFO,"[Esp32HardwareI2C::transfer]: (i2c_master_read_from_device) err = %d.",err);
+        LOG(INFO,"[Esp32HardwareI2C::transfer]: (i2c_master_read_from_device) err = %d.",err);
         if (err != ESP_OK) return -EIO;
         else return bytes;
     }
@@ -241,7 +245,7 @@ int Esp32HardwareI2C::transfer(struct i2c_msg *msg, bool stop) const
                                                    (uint8_t *)msg->buf,
                                                    bytes,
                                                    I2C_MASTER_TIMEOUT_MS / portTICK_RATE_MS);
-        //LOG(INFO,"[Esp32HardwareI2C::transfer]: (i2c_master_write_to_device) err = %d.",err);
+        LOG(INFO,"[Esp32HardwareI2C::transfer]: (i2c_master_write_to_device) err = %d.",err);
         if (err != ESP_OK) return -EIO;
         else return bytes;
     }

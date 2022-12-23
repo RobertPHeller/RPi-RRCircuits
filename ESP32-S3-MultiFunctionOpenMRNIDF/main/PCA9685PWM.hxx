@@ -48,6 +48,13 @@ class PCA9685PWMBit;
 /// Agragate of 16 PWM channels for a PCA9685PWM
 class PCA9685PWM 
 {
+private:
+    std::string uint8_to_string_hex(uint8_t x)
+    {
+        char buff[4];
+        snprintf(buff,sizeof(buff),"%02x",(unsigned)x);
+        return std::string(buff);
+    }
 public:
     /// maximum number of PWM channels supported by the PCA9685
     static constexpr size_t NUM_CHANNELS = 16;
@@ -71,17 +78,47 @@ public:
     ///                      maximum prescaler values)
     /// @param external_clock frequency of an external clock in Hz, -1
     ///                       if internal clock is used
-    void init(uint8_t i2c_address,
+    esp_err_t init(uint8_t i2c_address,
               uint16_t pwm_freq = 200, int32_t external_clock_freq = -1)
     {
         uint32_t clock_freq = external_clock_freq >= 0 ? external_clock_freq :
                                                          25000000;
         i2cAddress_ = i2c_address;
-
+        
         LOG(INFO,"[PCA9685PWM::init].");
         i2cfd_ = i2c_->open();
         HASSERT(i2cfd_ != NULL);
-        i2c_->ioctl(i2cfd_, I2C_SLAVE, i2cAddress_);
+        if (i2c_->ping(i2cAddress_) != ESP_OK)
+        {
+            std::string scanresults =
+                  "     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f\n"
+                  "00:         ";
+            scanresults.reserve(256);
+            for (uint8_t addr = 3; addr < 0x78; addr++)
+            {
+                if (addr % 16 == 0)
+                {
+                    scanresults += "\n" + uint8_to_string_hex(addr) + ":";
+                }
+                esp_err_t ret = i2c_->ping(addr);
+                if (ret == ESP_OK)
+                {
+                    scanresults += uint8_to_string_hex(addr);
+                }
+                else if (ret == ESP_ERR_TIMEOUT)
+                {
+                    scanresults += " ??";
+                }
+                else
+                {
+                    scanresults += " --";
+                }
+            }
+            LOG(WARNING, "[PCA9685PWM::init] I2C devices:\n%s", scanresults.c_str());
+            return ESP_ERR_NOT_FOUND;    
+        }
+        int status = i2c_->ioctl(i2cfd_, I2C_SLAVE, i2cAddress_);
+        LOG(INFO,"[PCA9685PWM::init] ioctl status=%d",status);
 
         HASSERT(clock_freq <= 50000000);
         HASSERT(pwm_freq < (clock_freq / (4096 * 4)));
@@ -105,7 +142,7 @@ public:
         Mode2 mode2;
         mode2.och = 1;
         register_write(MODE2, mode2.byte);
-
+        return ESP_OK;
     }
 
     /// Destructor.
@@ -284,6 +321,8 @@ private:
         htole16(ctl.off.word);
 
         Registers offset = (Registers)(LED0_ON_L + (channel * 4));
+        LOG(INFO,"[%02x:%d] Setting PWM to %d:%d", 
+            i2cAddress_,channel,ctl.on.word,ctl.off.word);
         register_write_multiple(offset, &ctl, sizeof(ctl));
     }
 
@@ -293,7 +332,8 @@ private:
     void register_write(Registers address, uint8_t data)
     {
         uint8_t payload[] = {address, data};
-        i2c_->write(i2cfd_, payload, sizeof(payload));
+        size_t status = i2c_->write(i2cfd_, payload, sizeof(payload));
+        LOG(INFO,"[PCA9685PWM::register_write] status = %d",status);
     }
 
     /// Write to multiple sequential I2C registers.
@@ -305,7 +345,8 @@ private:
         uint8_t payload[count + 1];
         payload[0] = address;
         memcpy(payload + 1, data, count);
-        i2c_->write(i2cfd_, payload, sizeof(payload));
+        size_t status = i2c_->write(i2cfd_, payload, sizeof(payload));
+        LOG(INFO,"[PCA9685PWM::register_write_multiple] status = %d",status);
     }
 
     /// Allow access to private members
