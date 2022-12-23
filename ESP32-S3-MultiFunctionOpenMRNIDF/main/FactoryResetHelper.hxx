@@ -51,7 +51,7 @@ namespace esp32multifunction
 class FactoryResetHelper : public DefaultConfigUpdateListener
 {
 public:
-    FactoryResetHelper()
+    FactoryResetHelper() : DefaultConfigUpdateListener()
     {
     }
 

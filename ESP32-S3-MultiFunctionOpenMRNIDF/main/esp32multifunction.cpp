@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 12:17:40 2022
-//  Last Modified : <221219.1726>
+//  Last Modified : <221223.1050>
 //
 //  Description	
 //
@@ -282,6 +282,11 @@ void FactoryResetHelper::factory_reset(int fd)
     cfg.userinfo().name().write(fd, openlcb::SNIP_STATIC_DATA.model_name);
     cfg.userinfo().description().write(fd, "");
     
+    for(int i = 0; i < NUM_OCS; i++)
+    {
+        cfg.seg().ocs().entry(i).description().write(fd, "");
+        CDI_FACTORY_RESET(cfg.seg().ocs().entry(i).debounce);
+    }
     for(int i = 0; i < NUM_TURNOUTS; i++)
     {
         cfg.seg().turnouts().entry(i).description().write(fd, "");
@@ -290,45 +295,62 @@ void FactoryResetHelper::factory_reset(int fd)
     {
         cfg.seg().points().entry(i).description().write(fd, "");
     }
-    for(int i = 0; i < NUM_OCS; i++)
+    for(int i = 0; i < NUM_BUTTONS; i++)
     {
-        cfg.seg().ocs().entry(i).description().write(fd, "");
-        CDI_FACTORY_RESET(cfg.seg().ocs().entry(i).debounce);
+        cfg.seg().buttons().entry(i).description().write(fd, "");
     }
+    for(int i = 0; i < NUM_LEDS; i++)
+    {
+        CDI_FACTORY_RESET(cfg.seg().leds().entry(i).phase);
+        CDI_FACTORY_RESET(cfg.seg().leds().entry(i).pulsewidth);
+    }
+    
 #if 1
-        for(int i = 0; i < LOGICCOUNT; i++)
+    for(int i = 0; i < LOGICCOUNT; i++)
+    {
+        cfg.seg().logics().entry(i).description().write(fd, "");
+        CDI_FACTORY_RESET(cfg.seg().logics().entry(i).groupFunction);
+        CDI_FACTORY_RESET(cfg.seg().logics().entry(i).logic().logicFunction);
+        CDI_FACTORY_RESET(cfg.seg().logics().entry(i).trueAction);
+        CDI_FACTORY_RESET(cfg.seg().logics().entry(i).falseAction);
+        CDI_FACTORY_RESET(cfg.seg().logics().entry(i).timing().timedelay);
+        CDI_FACTORY_RESET(cfg.seg().logics().entry(i).timing().interval);
+        CDI_FACTORY_RESET(cfg.seg().logics().entry(i).timing().retriggerable);
+        CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v1().trigger);
+        CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v1().source);
+        CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v1().trackspeed);
+        CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v2().trigger);
+        CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v2().source);
+        CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v2().trackspeed);
+        for (int j = 0; j < 4 ; j++)
         {
-            cfg.seg().logics().entry(i).description().write(fd, "");
-            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).groupFunction);
-            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).logic().logicFunction);
-            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).trueAction);
-            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).falseAction);
-            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).timing().timedelay);
-            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).timing().interval);
-            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).timing().retriggerable);
-            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v1().trigger);
-            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v1().source);
-            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v1().trackspeed);
-            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v2().trigger);
-            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v2().source);
-            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).v2().trackspeed);
-            for (int j = 0; j < 4 ; j++)
+            CDI_FACTORY_RESET(cfg.seg().logics().entry(i).actions().entry(j).actiontrigger);
+        }
+    }
+    for(int i = 0; i < MASTCOUNT; i++)
+    {
+        CDI_FACTORY_RESET(cfg.seg().masts().entry(i).processing);
+        cfg.seg().masts().entry(i).mastid().write(fd,"");
+#ifdef HAVEPWM
+        CDI_FACTORY_RESET(cfg.seg().masts().entry(i).fade);
+#endif
+        for (int j = 0; j < RULESCOUNT; j++)
+        {
+            CDI_FACTORY_RESET(cfg.seg().masts().entry(i).rules().entry(j).name);
+            CDI_FACTORY_RESET(cfg.seg().masts().entry(i).rules().entry(j).speed);
+            for (int k = 0; k < LAMPCOUNT; k++)
             {
-                CDI_FACTORY_RESET(cfg.seg().logics().entry(i).actions().entry(j).actiontrigger);
+                CDI_FACTORY_RESET(cfg.seg().masts().entry(i).rules().entry(j).lamps().entry(k).selection);
+                CDI_FACTORY_RESET(cfg.seg().masts().entry(i).rules().entry(j).lamps().entry(k).phase);
+                CDI_FACTORY_RESET(cfg.seg().masts().entry(i).rules().entry(j).lamps().entry(k).brightness);
+                CDI_FACTORY_RESET(cfg.seg().masts().entry(i).rules().entry(j).lamps().entry(k).period);
             }
         }
-        for(int i = 0; i < MASTCOUNT; i++)
-        {
-            CDI_FACTORY_RESET(cfg.seg().masts().entry(i).processing);
-            cfg.seg().masts().entry(i).mastid().write(fd,"");
-#ifdef HAVEPWM
-            CDI_FACTORY_RESET(cfg.seg().masts().entry(i).fade);
-#endif
-        }
-        for(int i = 0; i < TRACKCIRCUITCOUNT; i++)
-        {
-            cfg.seg().circuits().entry(i).description().write(fd,"");
-        }
+    }
+    for(int i = 0; i < TRACKCIRCUITCOUNT; i++)
+    {
+        cfg.seg().circuits().entry(i).description().write(fd,"");
+    }
 #endif
 }
 
@@ -520,6 +542,10 @@ void app_main()
               stack.create_config_file_if_needed(cfg.seg().internal_config(),
                                                   CDI_VERSION,
                                                   openlcb::CONFIG_FILE_SIZE);
+        stack.check_version_and_factory_reset(cfg.seg().internal_config(),
+                                              CDI_VERSION,
+                                              cleanup_config_tree);
+
         esp32multifunction::NodeRebootHelper node_reboot_helper(&stack, config_fd);
         
         if (reset_events)
