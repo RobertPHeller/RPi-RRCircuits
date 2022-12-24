@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 12:17:40 2022
-//  Last Modified : <221224.1227>
+//  Last Modified : <221224.1315>
 //
 //  Description	
 //
@@ -214,7 +214,7 @@ void app_main()
     
     nvs.DisplayNvsConfiguration();
     mount_fs(cleanup_config_tree);
-    openlcb::SimpleCanStack stack(CONFIG_OLCB_NODE_ID);
+    openlcb::SimpleCanStack stack(nvs.node_id());
     LOG(INFO, "[MAIN] SimpleCanStack allocated");
 #if CONFIG_OLCB_PRINT_ALL_PACKETS
     stack.print_all_packets();
@@ -265,7 +265,7 @@ void app_main()
                                              , oc1.polling()
                                              , oc2.polling()
                                          });
-    
+    i2c0.hw_init();
     pwmchip.init(PCA9685_SLAVE_ADDRESS);
     LOG(INFO, "[MAIN] pwmchip initialized");
     Lamp::PinLookupInit(0,nullptr);
@@ -303,7 +303,7 @@ void app_main()
     {
         LOG(WARNING, "[CDI] Resetting event IDs");
         stack.factory_reset_all_events(cfg.seg().internal_config(), 
-                                       CONFIG_OLCB_NODE_ID, config_fd);
+                                       nvs.node_id(), config_fd);
         fsync(config_fd);
     }
     
