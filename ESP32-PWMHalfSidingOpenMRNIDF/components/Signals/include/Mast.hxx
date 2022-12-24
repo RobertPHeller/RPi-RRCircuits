@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 15:59:18 2019
-//  Last Modified : <220623.1528>
+//  Last Modified : <221217.0916>
 //
 //  Description	
 //
@@ -54,40 +54,7 @@
 #include "Lamp.hxx"
 #include "Rule.hxx"
 #include "TrackCircuit.hxx"
-
-#define MASTCOUNT 8
-
-static const char MastProcessingMap[] = 
-"<relation><property>0</property><value>Unused</value></relation>"
-"<relation><property>1</property><value>Normal</value></relation>"
-"<relation><property>2</property><value>Linked to previous</value></relation>";
-
-
-static const char LampFadeMap[] =
-"<relation><property>0</property><value>None</value></relation>"
-"<relation><property>1</property><value>Incandescent</value></relation>";
-
-
-
-/// CDI Configuration for a @ref Mast
-CDI_GROUP(MastConfig);
-CDI_GROUP_ENTRY(processing,openlcb::Uint8ConfigEntry,
-                Name("Function"),Default(0),
-                Description("Mast Processing"),
-                MapValues(MastProcessingMap));
-CDI_GROUP_ENTRY(mastid, openlcb::StringConfigEntry<8>,
-                Name("Mast ID"));
-CDI_GROUP_ENTRY(linkevent,openlcb::EventConfigEntry,
-                Name("(P) Track Circuit Link Address. Copy and Paste into linked Track Circuit. (Read Only)"));
-#define TRACKCIRCUITBASE 2048 // Leave lots of room
-#ifdef HAVEPWM
-CDI_GROUP_ENTRY(fade,openlcb::Uint8ConfigEntry,
-                Name("Lamp Fade"),Default(0),
-                MapValues(LampFadeMap));
-#endif
-CDI_GROUP_ENTRY(rules,RulesGroup,Name("Rules"),RepName("Rule"));
-CDI_GROUP_END();
-
+#include "MastConfig.hxx"
 
 class Mast : public ConfigUpdateListener, 
              public openlcb::SimpleEventHandler {

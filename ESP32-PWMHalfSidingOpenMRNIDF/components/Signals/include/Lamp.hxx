@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Feb 25 11:37:34 2019
-//  Last Modified : <220717.1357>
+//  Last Modified : <221217.0933>
 //
 //  Description	
 //
@@ -50,65 +50,10 @@
 #include "openlcb/RefreshLoop.hxx"
 #include "freertos_drivers/arduino/PWM.hxx"
 #include <stdio.h>
+#include "LampConfig.hxx"
 
 #include "Blink.hxx"
 
-#define LAMPCOUNT 4
-
-static const char LampSelectMap[] = 
-    "<relation><property>0</property><value>Unused</value></relation>"
-
-    "<relation><property>1</property><value>A0</value></relation>"
-    "<relation><property>2</property><value>A1</value></relation>"
-    "<relation><property>3</property><value>A2</value></relation>"
-    "<relation><property>4</property><value>A3</value></relation>"
-    "<relation><property>5</property><value>A4</value></relation>"
-    "<relation><property>6</property><value>A5</value></relation>"
-    "<relation><property>7</property><value>A6</value></relation>"
-    "<relation><property>8</property><value>A7</value></relation>"
-
-    "<relation><property>9</property><value>B0</value></relation>"
-    "<relation><property>10</property><value>B1</value></relation>"
-    "<relation><property>11</property><value>B2</value></relation>"
-    "<relation><property>12</property><value>B3</value></relation>"
-    "<relation><property>13</property><value>B4</value></relation>"
-    "<relation><property>14</property><value>B5</value></relation>"
-    "<relation><property>15</property><value>B6</value></relation>"
-    "<relation><property>16</property><value>B7</value></relation>";
-
-static const char LampPhaseMap[] = 
-    "<relation><property>0</property><value>Steady</value></relation>"
-
-    "<relation><property>1</property><value>A - Slow</value></relation>"
-    "<relation><property>2</property><value>A - Medium</value></relation>"
-    "<relation><property>3</property><value>A - Fast</value></relation>"
-
-    "<relation><property>4</property><value>None (not used)</value></relation>"
-
-    "<relation><property>5</property><value>B - Slow</value></relation>"
-    "<relation><property>6</property><value>B - Medium</value></relation>"
-    "<relation><property>7</property><value>B - Fast</value></relation>";
-
-
-/// CDI Configuration for a @ref Lamp
-CDI_GROUP(LampConfig);
-/// Specifies the lamp selection for this lamp
-CDI_GROUP_ENTRY(selection, openlcb::Uint8ConfigEntry, 
-                Name("Lamp Selection"), MapValues(LampSelectMap),
-                Default(0));
-CDI_GROUP_ENTRY(phase, openlcb::Uint8ConfigEntry,
-                Name("Lamp Phase (A-B) - Flash Rate"),
-                MapValues(LampPhaseMap), Default(0));
-CDI_GROUP_ENTRY(brightness, openlcb::Uint16ConfigEntry,
-                Name("Lamp brightness, hundreths of a percent (0 to 10000)"),
-                Min(0), Max(10000), Default(5000));
-CDI_GROUP_ENTRY(period, openlcb::Uint32ConfigEntry,
-                Name("PWM Period, in nanoseconds"),
-                Default(1000000));
-CDI_GROUP_END();
-
-
-using LampGroup = openlcb::RepeatedGroup<LampConfig, LAMPCOUNT>;
 
 #define BRIGHNESSHUNDRETHSPERCENT(b) ((b)*.0001)
 
@@ -157,6 +102,7 @@ public:
     void Off() {isOn_ = false;hasChanged_ = true;}
     virtual void blink(bool AFast, bool AMedium, bool ASlow)
     {
+        //LOG(ALWAYS, "*** Lamp::blink(%d,%d,%d)",AFast,AMedium,ASlow);
         if (lampid_ == Unused) return;
         //LOG(ALWAYS, "*** Lamp::blink(): lampid_ = %d, AFast = %d, AMedium = %d, ASlow = %d",
         //    lampid_,AFast,AMedium,ASlow);

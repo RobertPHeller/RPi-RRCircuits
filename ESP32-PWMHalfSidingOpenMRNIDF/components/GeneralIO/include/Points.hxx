@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Oct 14 15:16:50 2018
-//  Last Modified : <220905.1436>
+//  Last Modified : <221217.1020>
 //
 //  Description	
 //
@@ -48,23 +48,8 @@
 #include "openlcb/ConfigRepresentation.hxx"
 #include "utils/ConfigUpdateListener.hxx"
 #include "utils/ConfigUpdateService.hxx"
+#include "PointsConfig.hxx"
 
-/// CDI Configuration for a @ref ConfiguredProducer.
-CDI_GROUP(PointsConfig);
-/// Allows the user to assign a name for this input.
-CDI_GROUP_ENTRY(description, openlcb::StringConfigEntry<15>, //
-                Name("Description"), Description("User name of this set of points."));
-/// This event will be produced when the input goes to HIGH.
-CDI_GROUP_ENTRY(
-    normal, openlcb::EventConfigEntry, //
-    Name("Normal"),
-    Description("This event will be produced when the points are aligned for normal."));
-/// This event will be produced when the input goes to LOW.
-CDI_GROUP_ENTRY(
-    reversed, openlcb::EventConfigEntry, //
-    Name("Reversed"),
-    Description("This event will be produced when the are aligned for reversed."));
-CDI_GROUP_END();
 
 template <class BaseBit> class PolledProducerNoDebouncer : public BaseBit, public openlcb::Polling
 {
@@ -93,7 +78,7 @@ public:
         }
     }
 private:
-    openlcb::BitEventProducer producer_;
+    openlcb::BitEventPC producer_;
     openlcb::EventState old_state;
 };
 

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sat Jun 25 09:07:59 2022
-//  Last Modified : <220903.1526>
+//  Last Modified : <221224.1205>
 //
 //  Description	
 //
@@ -80,6 +80,8 @@ static constexpr gpio_num_t CONFIG_SDA_PIN = GPIO_NUM_21;
 /// 22 is fine for the ESP32 DevKit, but 23 is better for the TTGO-T1
 static constexpr gpio_num_t CONFIG_SCL_PIN = GPIO_NUM_22;
 /// static constexpr gpio_num_t CONFIG_SCL_PIN = GPIO_NUM_23;
+
+static constexpr uint8_t PCA9685_SLAVE_ADDRESS = 0x40;
 
 #endif // __HARDWARE_HXX
 

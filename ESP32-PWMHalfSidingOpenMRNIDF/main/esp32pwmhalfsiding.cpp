@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 12:17:40 2022
-//  Last Modified : <220905.1438>
+//  Last Modified : <221224.1227>
 //
 //  Description	
 //
@@ -44,11 +44,14 @@ static const char rcsid[] = "@(#) : $Id$";
 
 #include "sdkconfig.h"
 #include "cdi.hxx"
+#include "cdidata.hxx"
 #include "EventBroadcastHelper.hxx"
 #include "FactoryResetHelper.hxx"
 #include "HealthMonitor.hxx"
 #include "fs.hxx"
 #include "hardware.hxx"
+#include "NvsManager.hxx"
+#include "BootPauseHelper.hxx"
 
 #include <algorithm>
 #include <driver/i2c.h>
@@ -61,7 +64,6 @@ static const char rcsid[] = "@(#) : $Id$";
 #include <esp32/rom/rtc.h>
 #include <freertos_includes.h>   
 #include <openlcb/SimpleStack.hxx>
-#include <CDIXMLGenerator.hxx>
 #include <freertos_drivers/esp32/Esp32HardwareTwai.hxx>
 #include <freertos_drivers/esp32/Esp32BootloaderHal.hxx>
 #include <freertos_drivers/esp32/Esp32SocInfo.hxx>
@@ -79,7 +81,8 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "Turnout.hxx"
 #include "Points.hxx"
 #include "OccupancyDetector.hxx"
-#include "Esp32PCA9685PWM.hxx"
+#include "Esp32HardwareI2C.hxx"
+#include "PCA9685PWM.hxx"
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -91,8 +94,8 @@ OVERRIDE_CONST(can_rx_buffer_size, 64);
 TrackCircuit *circuits[TRACKCIRCUITCOUNT];
 
 esp32pwmhalfsiding::ConfigDef cfg(0);
-openmrn_arduino::Esp32PCA9685PWM pwmchip;
 Esp32HardwareTwai twai(CONFIG_TWAI_RX_PIN, CONFIG_TWAI_TX_PIN);
+Esp32HardwareI2C i2c0(CONFIG_SDA_PIN, CONFIG_SCL_PIN, 0);
 
 namespace openlcb
 {
@@ -131,7 +134,6 @@ namespace openlcb
         SNIP_HW_VERSION,
         SNIP_SW_VERSION
     };
-    extern const char CDI_DATA[] = "";
 
     /// Modify this value every time the EEPROM needs to be cleared on the node
     /// after an update.
@@ -142,7 +144,24 @@ namespace openlcb
 
 DEFINE_SINGLETON_INSTANCE(BlinkTimer);
 PWM* Lamp::pinlookup_[17];
+PCA9685PWM pwmchip(&i2c0);
+PCA9685PWMBit LampA0(&pwmchip,0);
+PCA9685PWMBit LampA1(&pwmchip,1);
+PCA9685PWMBit LampA2(&pwmchip,2);
+PCA9685PWMBit LampA3(&pwmchip,3);
+PCA9685PWMBit LampA4(&pwmchip,4);
+PCA9685PWMBit LampA5(&pwmchip,5);
+PCA9685PWMBit LampA6(&pwmchip,6);
+PCA9685PWMBit LampA7(&pwmchip,7);
 
+PCA9685PWMBit LampB0(&pwmchip,8);
+PCA9685PWMBit LampB1(&pwmchip,9);
+PCA9685PWMBit LampB2(&pwmchip,10);
+PCA9685PWMBit LampB3(&pwmchip,11);
+PCA9685PWMBit LampB4(&pwmchip,12);
+PCA9685PWMBit LampB5(&pwmchip,13);
+PCA9685PWMBit LampB6(&pwmchip,14);
+PCA9685PWMBit LampB7(&pwmchip,15);
 
 extern "C"
 {
@@ -154,6 +173,9 @@ ssize_t os_get_free_heap()
 
 void app_main()
 {
+    // capture the reason for the CPU reset
+    uint8_t reset_reason = Esp32SocInfo::print_soc_info();
+    
     LOG(INFO, "[SNIP] version:%d, manufacturer:%s, model:%s, hw-v:%s, sw-v:%s"
       , openlcb::SNIP_STATIC_DATA.version
       , openlcb::SNIP_STATIC_DATA.manufacturer_name
@@ -161,10 +183,37 @@ void app_main()
       , openlcb::SNIP_STATIC_DATA.hardware_version
       , openlcb::SNIP_STATIC_DATA.software_version);
     bool reset_events = false;
-
+    bool cleanup_config_tree = false;
+    
     GpioInit::hw_init();
-
-    mount_fs(false);
+    
+    esp32pwmhalfsiding::NvsManager nvs;
+    nvs.init(reset_reason);
+    
+    LOG(INFO, "[BootPauseHelper] starting...");
+    
+    esp32pwmhalfsiding::BootPauseHelper pause;
+    
+    pause.CheckPause();
+    LOG(INFO, "[BootPauseHelper] returned...");
+    
+    // Check for and reset factory reset flag.
+    if (nvs.should_reset_config())
+    {
+        cleanup_config_tree = true;
+        nvs.clear_factory_reset();
+    }
+    
+    if (nvs.should_reset_events())
+    {
+        reset_events = true;
+        // reset the flag so we start in normal operating mode next time.
+        nvs.clear_reset_events();
+    }
+    nvs.CheckPersist();
+    
+    nvs.DisplayNvsConfiguration();
+    mount_fs(cleanup_config_tree);
     openlcb::SimpleCanStack stack(CONFIG_OLCB_NODE_ID);
     LOG(INFO, "[MAIN] SimpleCanStack allocated");
 #if CONFIG_OLCB_PRINT_ALL_PACKETS
@@ -217,24 +266,29 @@ void app_main()
                                              , oc2.polling()
                                          });
     
-    pwmchip.hw_init(PCA9685_SLAVE_ADDRESS);
+    pwmchip.init(PCA9685_SLAVE_ADDRESS);
     LOG(INFO, "[MAIN] pwmchip initialized");
     Lamp::PinLookupInit(0,nullptr);
-    for (i = 0; i < openmrn_arduino::Esp32PCA9685PWM::NUM_CHANNELS; i++)
-    {
-        Lamp::PinLookupInit(i+1,pwmchip.get_channel(i));
-    }
+    
+    Lamp::PinLookupInit(Lamp::A0_,&LampA0);
+    Lamp::PinLookupInit(Lamp::A1_,&LampA1);
+    Lamp::PinLookupInit(Lamp::A2_,&LampA2);
+    Lamp::PinLookupInit(Lamp::A3_,&LampA3);
+    Lamp::PinLookupInit(Lamp::A4_,&LampA4);
+    Lamp::PinLookupInit(Lamp::A5_,&LampA5);
+    Lamp::PinLookupInit(Lamp::A6_,&LampA6);
+    Lamp::PinLookupInit(Lamp::A7_,&LampA7);
+    
+    Lamp::PinLookupInit(Lamp::B0_,&LampB0);
+    Lamp::PinLookupInit(Lamp::B1_,&LampB1);
+    Lamp::PinLookupInit(Lamp::B2_,&LampB2);
+    Lamp::PinLookupInit(Lamp::B3_,&LampB3);
+    Lamp::PinLookupInit(Lamp::B4_,&LampB4);
+    Lamp::PinLookupInit(Lamp::B5_,&LampB5);
+    Lamp::PinLookupInit(Lamp::B6_,&LampB6);
+    Lamp::PinLookupInit(Lamp::B7_,&LampB7);
+    
     LOG(INFO, "[MAIN] Lamps setup");
-    // Create / update CDI, if the CDI is out of date a factory reset will be
-    // forced.
-    bool reset_cdi = CDIXMLGenerator::create_config_descriptor_xml(
-                                     cfg, openlcb::CDI_FILENAME, &stack);
-    LOG(INFO, "[MAIN] reset_cdi = %d",reset_cdi);
-    if (reset_cdi)
-    {
-        LOG(WARNING, "[CDI] Forcing factory reset due to CDI update");
-        unlink(openlcb::CONFIG_FILENAME);
-    }
     LOG(INFO, "[MAIN] config file size is %d",openlcb::CONFIG_FILE_SIZE);
     // Create config file and initiate factory reset if it doesn't exist or is
     // otherwise corrupted.
@@ -242,6 +296,9 @@ void app_main()
           stack.create_config_file_if_needed(cfg.seg().internal_config(),
                                              openlcb::CANONICAL_VERSION,
                                              openlcb::CONFIG_FILE_SIZE);
+    stack.check_version_and_factory_reset(cfg.seg().internal_config(),
+                                          CDI_VERSION,
+                                          cleanup_config_tree);
     if (reset_events)
     {
         LOG(WARNING, "[CDI] Resetting event IDs");
@@ -263,6 +320,7 @@ void app_main()
     // safely exit from this one. We do not need to cleanup as that will be
     // handled automatically by ESP-IDF.
 }
+
 
 
 } // extern "C"

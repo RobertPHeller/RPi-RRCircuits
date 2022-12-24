@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sat Jun 25 09:33:40 2022
-//  Last Modified : <220904.1548>
+//  Last Modified : <221224.1122>
 //
 //  Description	
 //
@@ -43,20 +43,21 @@
 #ifndef __CDI_HXX
 #define __CDI_HXX
 
-#include <freertos_drivers/esp32/Esp32WiFiConfiguration.hxx>
+#include "NodeIdConfigurationGroup.hxx"
+#include "WiFiConfigurationGroup.hxx"
 #include <openlcb/ConfigRepresentation.hxx>
 #include "openlcb/ConfiguredConsumer.hxx"
 #include "openlcb/ConfiguredProducer.hxx"
 #include "openlcb/MemoryConfig.hxx"
 
-#include "Logic.hxx"
-#include "Mast.hxx"
-#include "TrackCircuit.hxx"
+#include "LogicConfig.hxx"
+#include "MastConfig.hxx"
+#include "TrackCircuitConfig.hxx"
 
-#include "Turnout.hxx"
-#include "Points.hxx"
+#include "TurnoutConfig.hxx"
+#include "PointsConfig.hxx"
 
-#include "OccupancyDetector.hxx" 
+#include "OccupancyDetectorConfig.hxx" 
 
 namespace esp32pwmhalfsiding
 {
@@ -106,7 +107,11 @@ CDI_GROUP_ENTRY(acdi, openlcb::Acdi);
 /// space. UserInfoSegment is defined in the system header.
 CDI_GROUP_ENTRY(userinfo, openlcb::UserInfoSegment, Name("User Info"));
 /// Adds the main configuration segment.
-CDI_GROUP_ENTRY(seg, IoBoard, Name("Settings"));
+CDI_GROUP_ENTRY(seg, IoBoard, Name("Board Configuration"));
+CDI_GROUP_ENTRY(node, NodeIdConfig, Name("Node ID"));
+#if defined(CONFIG_ESP32_WIFI_ENABLED)
+CDI_GROUP_ENTRY(wifi, WiFiConfiguration, Name("WiFi Configuration"));
+#endif
 /// Adds the versioning segment.
 CDI_GROUP_ENTRY(version, VersionSeg);
 CDI_GROUP_END();

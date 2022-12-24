@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:11:23 2019
-//  Last Modified : <220718.1041>
+//  Last Modified : <221217.0918>
 //
 //  Description	
 //
@@ -49,30 +49,9 @@
 #include "utils/ConfigUpdateService.hxx"
 #include "openlcb/RefreshLoop.hxx"
 #include <stdio.h>
-
+#include "TrackCircuitConfig.hxx"
 #include <vector>
 
-
-static const char TrackSpeedMap[] = 
-"<relation><property>0</property><value>Stop</value></relation>"
-"<relation><property>1</property><value>Restricting/Tumble Down</value></relation>"
-"<relation><property>2</property><value>Slow</value></relation>"
-"<relation><property>3</property><value>Medium</value></relation>"
-"<relation><property>4</property><value>Limited</value></relation>"
-"<relation><property>5</property><value>Approach</value></relation>"
-"<relation><property>6</property><value>Approach-Medium</value></relation>"
-"<relation><property>7</property><value>Clear/Procede</value></relation>";
-
-#define TRACKCIRCUITCOUNT 8
-
-/// CDI Configuration for a @ref TrackCircuit
-CDI_GROUP(TrackCircuitConfig);
-CDI_GROUP_ENTRY(description,openlcb::StringConfigEntry<16>,
-                Name("Remote Mast Description"));
-CDI_GROUP_ENTRY(remotemastlink,openlcb::EventConfigEntry,
-                Name("(C) Remote Mast Link Address."
-                     "Copy from 'Next' Mast and Paste here."));
-CDI_GROUP_END();
 
 class TrackCircuit;
 

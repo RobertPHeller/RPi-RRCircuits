@@ -1,0 +1,163 @@
+menu "OpenLCB Configuration"
+    config OLCB_NODE_ID
+        hex "Node ID"
+        default 0x050101012200
+        help 
+            This is the OpenLCB unique node identifier for the ESP32 OpenLCB IO
+            Board. It is recommended, but not required, to request your own
+            identifier range via:
+            https://registry.openlcb.org/requestuniqueidrange
+            The default node identifier is part of a reserved range of
+            identifier values.
+
+    config OLCB_ENABLE_TWAI
+        bool "Enable TWAI (CAN) interface"
+        default y
+
+    config OLCB_NODEID_MEMORY_SPACE_ID
+        hex
+        default 0xAA
+                            
+    config OLCB_NODEID_MEMORY_SPACE_OFFSET
+        int
+        default 0
+                                
+    config OLCB_WIFI_MEMORY_SPACE_ID
+        hex
+        default 0xAB
+                                
+    config OLCB_WIFI_MEMORY_SPACE_OFFSET
+        int
+        default 250
+
+    menu "Advanced"
+        choice OLCB_WIFI_MODE
+            bool "WiFi Uplink/Hub Behavior"
+            default OLCB_WIFI_MODE_OFF if OLCB_TWAI
+            default OLCB_WIFI_MODE_UPLINK_ONLY
+            config OLCB_WIFI_MODE_UPLINK_ONLY
+                bool "Uplink Only"
+            config OLCB_WIFI_MODE_HUB_ONLY
+                bool "Hub Only"
+            config OLCB_WIFI_MODE_HUB_AND_UPLINK
+                bool "Hub and Uplink"
+            config OLCB_WIFI_MODE_OFF
+                bool "Disabled"
+        endchoice
+
+        config OLCB_WIFI_MODE
+            int
+            default 0 if OLCB_WIFI_MODE_OFF
+            default 1 if OLCB_WIFI_MODE_HUB_ONLY
+            default 2 if OLCB_WIFI_MODE_UPLINK_ONLY
+            default 3 if OLCB_WIFI_MODE_HUB_AND_UPLINK
+
+        config OLCB_EXECUTOR_SELECT_PRESCALER
+            int "StateFlows to execute between select() calls"
+            range 5 300
+            default 60
+            help
+                Executors will run this many Executables (if there is anything
+                scheduled) before two calls to select. This helps in reducing the
+                overhead of the select calls.
+
+        config OLCB_GC_OUTBOUND_PACKET_LIMIT
+            int "GridConnect outbound packet count limit"
+            default 5
+            help
+                Number of pending buffers (of type string) in the outgoing hub on a
+                per-connection basis. This limit ensures that we don't leak memory
+                if the output socket cannot send the data fast enough.
+
+        config OLCB_PRINT_ALL_PACKETS
+            bool "Print all packets"
+            default n
+            help
+                Enabling this option will cause all LCC packets to be printed to
+                the serial console.
+
+        config OLCB_GC_NEWLINES
+            bool "Add newline to GridConnect packets"
+            default y if OLCB_PRINT_ALL_PACKETS
+            default n
+            help
+                Enabling this option will generate a newline character after
+                every GridConnect packet that is sent out. This is generally
+                only needed for debug purposes.
+
+        config OLCB_GC_BUFFER_SIZE
+            int "GridConnect Buffer fill time (usec)"
+            default LWIP_TCP_MSS
+            help
+                Size of the GridConnect buffer in bytes.
+
+        config OLCB_GC_BUFFER_DELAY_USEC
+            int "GridConnect Buffer fill time (usec)"
+            default 2000
+            help
+                Number of microseconds to allow the GridConnect buffer to fill
+                before flushing to the socket.
+
+        config OLCB_TWAI_RX_BUFFER_SIZE
+            int "Number of TWAI (CAN) packets to queue for RX"
+            range 16 128
+            default 32
+
+        config OLCB_TWAI_TX_BUFFER_SIZE
+            int "Number of TWAI (CAN) packets to queue for TX"
+            range 16 128
+            default 32
+            
+    endmenu
+endmenu
+
+
+menu "WiFi Configuration"
+    choice WIFI_MODE
+        bool "WiFi Mode"
+        config WIFI_MODE_STATION
+            bool "Station only"
+        config WIFI_MODE_OFF
+            bool "Off"
+    endchoice
+
+    config WIFI_MODE
+        int
+        default 0 if WIFI_MODE_OFF
+        default 1 if WIFI_MODE_STATION
+
+    config WIFI_HOSTNAME_PREFIX
+        string "Hostname prefix"
+        default "esp32halfside_"
+        help
+            The OpenLCB node identifier will be appended to this value, ie:
+            esp32halfside_0502010300000.
+            Note: The maximum hostname length is 32 characters.
+
+    config WIFI_STATION_SSID
+        string "Station SSID"
+        depends on WIFI_MODE_STATION
+
+    config WIFI_STATION_PASSWORD
+        string "Station Password"
+        depends on WIFI_MODE_STATION
+
+endmenu
+
+menu "Advanced Configuration"
+    config ENABLE_TASK_LIST_REPORTING
+        bool "Enable TaskList reporting"
+        default n
+        select FREERTOS_VTASKLIST_INCLUDE_COREID
+        select FREERTOS_USE_TRACE_FACILITY
+        select FREERTOS_GENERATE_RUN_TIME_STATS
+
+    config TASK_LIST_INTERVAL
+        int "Task list interval (sec)"
+        default 25
+        depends on ENABLE_TASK_LIST_REPORTING
+
+    config HEALTH_INTERVAL
+        int "Health report interval (sec)"
+        default 15
+endmenu

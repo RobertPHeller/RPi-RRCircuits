@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Feb 27 14:08:16 2019
-//  Last Modified : <220718.1042>
+//  Last Modified : <221217.1121>
 //
 //  Description	
 //
@@ -55,82 +55,7 @@
 #include "utils/logging.h"
 #include <string>
 #include "TrackCircuit.hxx"
-
-#define LOGICCOUNT 32
-
-static const char GroupFunctionMap[] = 
-"<relation><property>0</property><value>Blocked</value></relation>"
-"<relation><property>1</property><value>Group</value></relation>"
-"<relation><property>2</property><value>Last (Single)</value></relation>";
-
-static const char LogicFunctionMap[] = 
-"<relation><property>0</property><value>V1 AND V2</value></relation>"
-"<relation><property>1</property><value>V1 OR V2</value></relation>"
-"<relation><property>2</property><value>V1 XOR V2</value></relation>"
-"<relation><property>3</property><value>V1 AND V2 => Change</value></relation>"
-"<relation><property>4</property><value>V1 OR V2 => Change</value></relation>"
-"<relation><property>5</property><value>V1 AND then V2 => true</value></relation>"
-"<relation><property>6</property><value>V1 only</value></relation>"
-"<relation><property>7</property><value>V2 only</value></relation>"
-"<relation><property>8</property><value>null => true</value></relation>";
-
-static const char ActionMap[] =
-"<relation><property>0</property><value>Send then Exit Group</value></relation>"
-"<relation><property>1</property><value>Send then Evaluate Next</value></relation>"
-"<relation><property>2</property><value>Exit Group</value></relation>"
-"<relation><property>3</property><value>Evaluate Next</value></relation>";
-
-static const char VariableTriggerMap[] = 
-"<relation><property>0</property><value>On Variable Change</value></relation>"
-"<relation><property>1</property><value>On Matching Event</value></relation>"
-"<relation><property>2</property><value>None</value></relation>";
-
-
-static const char VariableSourceMap[] = 
-"<relation><property>0</property><value>Use Variable's (C) Events</value></relation>"
-"<relation><property>1</property><value>Track Circuit 1</value></relation>"
-"<relation><property>2</property><value>Track Circuit 2</value></relation>"
-"<relation><property>3</property><value>Track Circuit 3</value></relation>"
-"<relation><property>4</property><value>Track Circuit 4</value></relation>"
-"<relation><property>5</property><value>Track Circuit 5</value></relation>"
-"<relation><property>6</property><value>Track Circuit 6</value></relation>"
-"<relation><property>7</property><value>Track Circuit 7</value></relation>"
-"<relation><property>8</property><value>Track Circuit 8</value></relation>";
-
-static const char IntervalMap[] = 
-"<relation><property>0</property><value>Milliseconds</value></relation>"
-"<relation><property>1</property><value>Seconds</value></relation>"
-"<relation><property>2</property><value>Minutes</value></relation>";
-
-static const char RetriggerableMap[] = 
-"<relation><property>0</property><value>No</value></relation>"
-"<relation><property>1</property><value>Yes</value></relation>"; 
-
-static const char ActionTriggerMap[] =
-"<relation><property>0</property><value>None</value></relation>"
-"<relation><property>1</property><value>Immediately</value></relation>"
-"<relation><property>2</property><value>After delay</value></relation>"
-"<relation><property>3</property><value>Immediate if True</value></relation>"
-"<relation><property>4</property><value>Immediate if False</value></relation>"
-"<relation><property>5</property><value>Delayed if True</value></relation>"
-"<relation><property>6</property><value>Delayed if False</value></relation>";
-
-
-CDI_GROUP(VariableConfig);
-CDI_GROUP_ENTRY(trigger,openlcb::Uint8ConfigEntry,
-                Name("Variable Trigger"),Default(0),
-                MapValues(VariableTriggerMap));
-CDI_GROUP_ENTRY(source,openlcb::Uint8ConfigEntry,
-                Name("Variable Source"),Default(0),
-                MapValues(VariableSourceMap));
-CDI_GROUP_ENTRY(trackspeed,openlcb::Uint8ConfigEntry,
-                Name("Variable Track Speed"),Default(0),
-                MapValues(TrackSpeedMap));
-CDI_GROUP_ENTRY(eventtrue,openlcb::EventConfigEntry,
-                Name("(C) Event to set variable true."));
-CDI_GROUP_ENTRY(eventfalse,openlcb::EventConfigEntry,
-                Name("(C) Event to set variable false."));
-CDI_GROUP_END();
+#include "LogicConfig.hxx"
 
 class Variable;
 
@@ -138,8 +63,10 @@ class BitEventConsumerOrTrackCircuit
       : public openlcb::BitEventHandler, public TrackCircuitCallback
 {
 public:
-    enum Source {Events,TrackCircuit1,TrackCircuit2,TrackCircuit3,TrackCircuit4,TrackCircuit5,TrackCircuit6,TrackCircuit7,TrackCircuit8};
-    BitEventConsumerOrTrackCircuit(openlcb::BitEventInterface *bit,  
+    enum Source {Events, TrackCircuit1, TrackCircuit2, TrackCircuit3,
+              TrackCircuit4, TrackCircuit5, TrackCircuit6, TrackCircuit7,
+              TrackCircuit8, MAX_SOURCE};
+    BitEventConsumerOrTrackCircuit(openlcb::BitEventInterface *bit,
                                    Source source, 
                                    TrackCircuit::TrackSpeed speed,
                                    Variable *parent) 
@@ -148,14 +75,14 @@ public:
           , speed_(speed)
           , parent_(parent)
     {
-        //LOG(ALWAYS,"*** BitEventConsumerOrTrackCircuit::BitEventConsumerOrTrackCircuit(%p,%d,%d)",bit,source,speed);
+        LOG(VERBOSE,"*** BitEventConsumerOrTrackCircuit::BitEventConsumerOrTrackCircuit(%p,%d,%d)",bit,source,speed);
         int tc = ((int) source_) -1;
         if (source_ == Events) register_handler(bit->event_on(), bit->event_off());
         else circuits[tc]->RegisterCallback(this);
     }
     ~BitEventConsumerOrTrackCircuit()
     {
-        //LOG(ALWAYS,"*** BitEventConsumerOrTrackCircuit::~BitEventConsumerOrTrackCircuit()");
+        LOG(VERBOSE,"*** BitEventConsumerOrTrackCircuit::~BitEventConsumerOrTrackCircuit()");
         int tc = ((int) source_) -1;
         if (source_ == Events) unregister_handler();
         else circuits[tc]->UnregisterCallback(this);
@@ -249,26 +176,6 @@ private:
 };
 
 
-CDI_GROUP(LogicOperatorConfig);
-CDI_GROUP_ENTRY(logicFunction,openlcb::Uint8ConfigEntry,
-                Name("Logic function"),Default(0),
-                MapValues(LogicFunctionMap));
-CDI_GROUP_END();
-
-
-
-CDI_GROUP(TimingConfig)
-CDI_GROUP_ENTRY(timedelay,openlcb::Uint16ConfigEntry,
-                Description("Time Delay before action\n"
-                            "Delay Time (1-60000)."),
-                Default(0),Min(0),Max(60000));
-CDI_GROUP_ENTRY(interval,openlcb::Uint8ConfigEntry,
-                Name("Interval"),Default(0),MapValues(IntervalMap));
-CDI_GROUP_ENTRY(retriggerable,openlcb::Uint8ConfigEntry,
-                Name("Retriggerable"),Default(0),
-                MapValues(RetriggerableMap));
-CDI_GROUP_END();
-
 class ActionTrigger {
 public:
     virtual void trigger(BarrierNotifiable *done) = 0;
@@ -347,15 +254,6 @@ private:
     actionVector_type actions_;
 };
 
-CDI_GROUP(ActionConfig);
-CDI_GROUP_ENTRY(actiontrigger,openlcb::Uint8ConfigEntry,
-                MapValues(ActionTriggerMap),Default(0));
-CDI_GROUP_ENTRY(actionevent,openlcb::EventConfigEntry,
-                Name("(P) this event will be sent."));
-CDI_GROUP_END();
-
-using ActionGroup = openlcb::RepeatedGroup<ActionConfig,4>;
-
 class Action : public ActionTrigger, public ConfigUpdateListener, public openlcb::SimpleEventHandler {
 public:
     enum Trigger {None, Immediately, AfterDelay, ImmediateTrue, 
@@ -410,28 +308,6 @@ private:
     void SendEventReport(BarrierNotifiable *done);
     openlcb::WriteHelper write_helper;
 };
-
-/// CDI Configuration for a @ref Logic
-CDI_GROUP(LogicConfig);
-CDI_GROUP_ENTRY(description,openlcb::StringConfigEntry<32>,
-                Name("Logic description"));
-CDI_GROUP_ENTRY(groupFunction,openlcb::Uint8ConfigEntry,
-                Name("Group Function"),Default(0),
-                MapValues(GroupFunctionMap));
-CDI_GROUP_ENTRY(v1,VariableConfig,Name("Variable #1"));
-CDI_GROUP_ENTRY(logic,LogicOperatorConfig);
-CDI_GROUP_ENTRY(v2,VariableConfig,Name("Variable #2"));
-CDI_GROUP_ENTRY(trueAction,openlcb::Uint8ConfigEntry,
-                Name("Action when Conditional = True"),
-                Default(0),
-                MapValues(ActionMap));
-CDI_GROUP_ENTRY(falseAction,openlcb::Uint8ConfigEntry,
-                Name("Action when Conditional = False"),
-                Default(3),
-                MapValues(ActionMap));
-CDI_GROUP_ENTRY(timing,TimingConfig);
-CDI_GROUP_ENTRY(actions,ActionGroup,Name("A trigger or change will generate the following events."),RepName("Action"));
-CDI_GROUP_END();
 
 class Logic : public LogicCallback, public ConfigUpdateListener {
 public:

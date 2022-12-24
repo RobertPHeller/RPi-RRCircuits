@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Fri Mar 1 10:46:51 2019
-//  Last Modified : <220625.1444>
+//  Last Modified : <221126.1202>
 //
 //  Description	
 //
@@ -187,11 +187,24 @@ ConfigUpdateListener::UpdateAction Variable::apply_configuration(int fd,
     TrackCircuit::TrackSpeed speed_cfg = (TrackCircuit::TrackSpeed) cfg_.trackspeed().read(fd);
     openlcb::EventId event_true_cfg = cfg_.eventtrue().read(fd);
     openlcb::EventId event_false_cfg = cfg_.eventfalse().read(fd);
-    //LOG(ALWAYS,"*** Variable::apply_configuration(): initial_load is %d",initial_load);
-    //LOG(ALWAYS,"*** Variable::apply_configuration(): source_cfg = %d, source_ = %d",source_cfg,consumer_.TheSource());
-    //LOG(ALWAYS,"*** Variable::apply_configuration(): event_true_cfg is %llx, event_true_ is %llx",event_true_cfg,impl_.event_on());
-    //LOG(ALWAYS,"*** Variable::apply_configuration(): event_false_cfg is %llx, event_false_ is %llx",event_false_cfg,impl_.event_off());
-    
+    LOG(VERBOSE,"*** Variable::apply_configuration(): initial_load is %d",initial_load);
+    LOG(VERBOSE,"*** Variable::apply_configuration(): source_cfg = %d, source_ = %d",source_cfg,consumer_.TheSource());
+    LOG(VERBOSE,"*** Variable::apply_configuration(): event_true_cfg is %llx, event_true_ is %llx",event_true_cfg,impl_.event_on());
+    LOG(VERBOSE,"*** Variable::apply_configuration(): event_false_cfg is %llx, event_false_ is %llx",event_false_cfg,impl_.event_off());
+
+    if ((int)source_cfg >= (int)BitEventConsumerOrTrackCircuit::Source::MAX_SOURCE ||
+        (int)speed_cfg > (int)TrackCircuit::TrackSpeed::Unknown_)
+    {
+        LOG(WARNING,"Configuration is corrupt!");
+        if ((int)source_cfg >= (int)BitEventConsumerOrTrackCircuit::Source::MAX_SOURCE)
+        {
+            source_cfg = consumer_.TheSource();
+        }
+        if ((int)speed_cfg > (int)TrackCircuit::TrackSpeed::Unknown_)
+        {
+            speed_cfg = consumer_.Speed();
+        }
+    }
     if (source_cfg != consumer_.TheSource() ||
         speed_cfg != consumer_.Speed() ||
         event_true_cfg != impl_.event_on() ||
