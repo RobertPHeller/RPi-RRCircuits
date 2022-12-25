@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sat Dec 17 14:34:03 2022
-//  Last Modified : <221224.1229>
+//  Last Modified : <221224.1608>
 //
 //  Description	
 //
@@ -145,6 +145,9 @@ void BootPauseHelper::PauseConsole()
             break;
         case SETWIFI:
             NvsManager::instance()->wifi_mode(GetMode(&receivebuffer[1],len-1));
+            break;
+        case TESTSIGLAMPS:
+            NvsManager::instance()->force_test_signal_lamps();
             break;
         case RESUME:
             return;

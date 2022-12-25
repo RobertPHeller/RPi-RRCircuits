@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 12:17:40 2022
-//  Last Modified : <221224.1315>
+//  Last Modified : <221225.1539>
 //
 //  Description	
 //
@@ -83,6 +83,7 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "OccupancyDetector.hxx"
 #include "Esp32HardwareI2C.hxx"
 #include "PCA9685PWM.hxx"
+#include "SignalLampTester.hxx"
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -184,6 +185,7 @@ void app_main()
       , openlcb::SNIP_STATIC_DATA.software_version);
     bool reset_events = false;
     bool cleanup_config_tree = false;
+    bool test_signal_lamps = false;
     
     GpioInit::hw_init();
     
@@ -210,6 +212,11 @@ void app_main()
         // reset the flag so we start in normal operating mode next time.
         nvs.clear_reset_events();
     }
+    if (nvs.should_test_signal_lamps())
+    {
+        test_signal_lamps = true;
+        nvs.clear_test_signal_lamps();
+    }
     nvs.CheckPersist();
     
     nvs.DisplayNvsConfiguration();
@@ -229,6 +236,8 @@ void app_main()
     LOG(INFO, "[MAIN] HealthMonitor allocated");
     
     BlinkTimer blinker(stack.executor()->active_timers());
+    blinker.start(500000000);
+    
     LOG(INFO, "[MAIN] BlinkTimer allocated");
     int i = 0;
     Mast *masts[MASTCOUNT];
@@ -268,6 +277,15 @@ void app_main()
     i2c0.hw_init();
     pwmchip.init(PCA9685_SLAVE_ADDRESS);
     LOG(INFO, "[MAIN] pwmchip initialized");
+    esp32pwmhalfsiding::SignalLampTester tester;
+    if (test_signal_lamps)
+    {
+        tester.testLamps(
+                     {&LampA0,&LampA1,&LampA2,&LampA3,
+                         &LampA4,&LampA5,&LampA6,&LampA7,
+                         &LampB0,&LampB1,&LampB2,&LampB3,
+                         &LampB4,&LampB5,&LampB6,&LampB7});
+    }
     Lamp::PinLookupInit(0,nullptr);
     
     Lamp::PinLookupInit(Lamp::A0_,&LampA0);

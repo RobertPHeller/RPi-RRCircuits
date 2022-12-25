@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sat Dec 17 13:49:15 2022
-//  Last Modified : <221224.1228>
+//  Last Modified : <221224.1604>
 //
 //  Description	
 //
@@ -70,6 +70,7 @@ public:
         SETPASS = 'P',
         SETHOST = 'H',
         SETWIFI = 'W',
+        TESTSIGLAMPS = 'T',
         RESUME = 'R'
     };
     void CheckPause();
