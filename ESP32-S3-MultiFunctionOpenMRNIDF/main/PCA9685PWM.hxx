@@ -79,7 +79,7 @@ public:
     /// @param external_clock frequency of an external clock in Hz, -1
     ///                       if internal clock is used
     esp_err_t init(uint8_t i2c_address,
-              uint16_t pwm_freq = 200, int32_t external_clock_freq = -1)
+              uint16_t pwm_freq = 1000, int32_t external_clock_freq = -1)
     {
         uint32_t clock_freq = external_clock_freq >= 0 ? external_clock_freq :
                                                          25000000;
@@ -228,7 +228,7 @@ private:
         {
             /// Constructor.
             Off()
-                : word(0x1000)
+                : word(0x0000)
             {
             }
             uint16_t word; ///< full word data
@@ -311,10 +311,10 @@ private:
         }
         else
         {
-            // the "256" count offset is to help average the current accross
-            // all 16 channels when the duty cycle is low
-            ctl.on.counts = (channel * 256);
-            ctl.off.counts = (counts + (channel * 256)) % 0x1000;
+            ctl.on.word = 0;
+            ctl.off.word = 0;
+            ctl.on.counts = 0;
+            ctl.off.counts = counts % 0x1000;
         }
 
         htole16(ctl.on.word);

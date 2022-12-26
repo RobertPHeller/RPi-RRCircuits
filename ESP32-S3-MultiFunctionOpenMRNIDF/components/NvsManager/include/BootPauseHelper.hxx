@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sat Dec 17 13:49:15 2022
-//  Last Modified : <221217.1355>
+//  Last Modified : <221226.0911>
 //
 //  Description	
 //
@@ -65,6 +65,7 @@ public:
         BOOTLOADER = 'B',
         EVENTRESET = 'E',
         FACTORYRESET = 'F',
+        TESTSIGLAMPS = 'T',
         RESUME = 'R'
     };
     void CheckPause();
