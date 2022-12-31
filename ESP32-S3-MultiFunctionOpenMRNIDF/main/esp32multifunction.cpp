@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jun 23 12:17:40 2022
-//  Last Modified : <221223.1050>
+//  Last Modified : <221226.0922>
 //
 //  Description	
 //
@@ -88,7 +88,7 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "hardware.hxx"
 #include "Esp32HardwareI2C.hxx"
 #include "PCA9685PWM.hxx"
-
+#include "SignalLampTester.hxx"
 
 ///////////////////////////////////////////////////////////////////////////////
 // Increase the CAN RX frame buffer size to reduce overruns when there is high
@@ -374,6 +374,7 @@ void app_main()
     bool reset_events = false;
     bool run_bootloader = false;
     bool cleanup_config_tree = false;
+    bool test_signal_lamps = false;
     GpioInit::hw_init();
 
     esp32multifunction::NvsManager nvs;
@@ -413,6 +414,11 @@ void app_main()
         reset_events = true;
         // reset the flag so we start in normal operating mode next time.
         nvs.clear_reset_events();
+    }
+    if (nvs.should_test_signal_lamps())
+    {
+        test_signal_lamps = true;
+        nvs.clear_test_signal_lamps();
     }
     nvs.CheckPersist();
 
@@ -513,6 +519,15 @@ void app_main()
 
         pwmchip1.init(PWMCHIP_ADDRESS1);
         LOG(INFO, "[esp32multifunction] Lamps done.");
+        esp32multifunction::SignalLampTester tester;
+        if (test_signal_lamps)
+        {
+            tester.testLamps(
+                         {&LampA0,&LampA1,&LampA2,&LampA3,
+                             &LampA4,&LampA5,&LampA6,&LampA7,
+                             &LampB0,&LampB1,&LampB2,&LampB3,
+                             &LampB4,&LampB5,&LampB6,&LampB7});
+        }
         
         Lamp::PinLookupInit(0,nullptr);
         

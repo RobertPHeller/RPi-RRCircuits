@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sat Dec 17 14:34:03 2022
-//  Last Modified : <221217.1532>
+//  Last Modified : <221226.0912>
 //
 //  Description	
 //
@@ -135,6 +135,9 @@ void BootPauseHelper::PauseConsole()
             break;
         case FACTORYRESET:
             NvsManager::instance()->force_factory_reset();
+            break;
+        case TESTSIGLAMPS:
+            NvsManager::instance()->force_test_signal_lamps();
             break;
         case RESUME:
             return;
