@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Fri Apr 16 08:44:50 2021
-#  Last Modified : <220825.1125>
+#  Last Modified : <231019.1209>
 #
 #  Description	
 #
@@ -52,9 +52,9 @@ snit::type KiCadBOM2PCBWayBOM {
     delegate option * to matrix except -sourcechanel
     typevariable CollatedComponentsPattern {^"Collated Components:"}
     constructor {args} {
-        puts stderr "*** $type create $self $args"
+        #puts stderr "*** $type create $self $args"
         $self configurelist $args
-        puts stderr "*** $type create $self: options(-sourcefile) is '$options(-sourcefile)'"
+        #puts stderr "*** $type create $self: options(-sourcefile) is '$options(-sourcefile)'"
         if {[catch {open $options(-sourcefile) r} fp]} {
             error "Could not open source file: $options(-sourcefile), because $fp"
             return
@@ -104,12 +104,15 @@ snit::type KiCadBOM2PCBWayBOM {
             $matrix set cell $Manufacturer_Name_index $i $manName
             $matrix set cell $Manufacturer_Part_Number_index $i $manPN
         }
+        set descol [$self headingcol "Reference(s)"]
         for {set i [expr {[$matrix rows]-1}]} {$i >= 0} {incr i -1} {
+            #puts stderr "*** $type create $self: $i => [$matrix get row $i]"
             set footprint [$matrix get cell $Footprint_index $i]
             if {[_nonFootprint $footprint]} {
+                #puts stderr "*** $type create $self: deleting $i {not a footprint} ([$matrix get cell $descol $i])"
                 $matrix delete row $i
-            }
-            if {$options(-smdonly) && [_nonSMDFootprint $footprint]} {
+            } elseif {$options(-smdonly) && [_nonSMDFootprint $footprint]} {
+                #puts stderr "*** $type create $self: deleting $i {not a SMD footprint} ([$matrix get cell $descol $i])"
                 $matrix delete row $i
             }
         }
@@ -175,6 +178,7 @@ snit::type KiCadBOM2PCBWayBOM {
         583 Rectron
         865 {Torex Semiconductor}
         863 {ON Semiconductor}
+        698 Onsemi
         942 {Infineon / IR}
         512 {ON Semiconductor / Fairchild}
         579 {Microchip Technology}
@@ -201,20 +205,26 @@ snit::type KiCadBOM2PCBWayBOM {
             return {}
         }
     }
-    typevariable nonComponentFPs {Fiducial 25mmFanMount MountingHole Axial_DIN}
+    typevariable nonComponentFPs {Fiducial 25mmFanMount MountingHole Axial_DIN
+                                  JP_0603_Closed JP_0603_Open}
     typevariable thoughholeFPs {TerminalBlock Pin_Header RJ45_8N 
-        MFR500 8964300490000000 ESP32-Combo 
-        bornier2 Axial_DIN0207 Socket_Strip}
+        MFR500 8964300490000000 ESP32-Combo ESP32_mini
+        bornier2 Axial_DIN0207 Socket_Strip USB-A-UPRIGHT 95501-2661 
+        PowerPlus5X2 SmallPad SolderWirePad BottomPad Socket_BeagleBone_Black}
     proc _nonSMDFootprint {foot} {
+        #puts stderr "*** KiCadBOM2PCBWayBOM _nonSMDFootprint $foot"
         foreach thoughholeFP $thoughholeFPs {
             if {[regexp "^$thoughholeFP" $foot] > 0} {return yes}
         }
+        #puts stderr "*** KiCadBOM2PCBWayBOM _nonSMDFootprint: keeping $foot" 
         return no
     }
     proc _nonFootprint {foot} {
+        #puts stderr "*** KiCadBOM2PCBWayBOM _nonFootprint $foot"
         foreach nonFP $nonComponentFPs {
             if {[regexp "^$nonFP" $foot] > 0} {return yes}
         }
+        #puts stderr "*** KiCadBOM2PCBWayBOM _nonFootprint: keeping $foot"
         return no
     }
     typevariable pcbwayHeadings {"Item #" "Designator" "Qty" "Manufacturer" 
@@ -261,3 +271,4 @@ snit::type KiCadBOM2PCBWayBOM {
 }
 
 KiCadBOM2PCBWayBOM main
+

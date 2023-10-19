@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Sat Apr 3 12:04:06 2021
-#  Last Modified : <210416.0846>
+#  Last Modified : <230708.0941>
 #
 #  Description	
 #
@@ -47,9 +47,9 @@ SDX = /usr/local/bin/sdx
 TCLKIT = /usr/local/bin/tclkit
 TCLSH = /usr/bin/tclsh
 
-SNITLIB = /usr/share/tcltk/tcllib1.19/snit
-CSVLIB  = /usr/share/tcltk/tcllib1.19/csv
-STRUCTLIB  = /usr/share/tcltk/tcllib1.19/struct
+SNITLIB = /usr/share/tcltk/tcllib1.20/snit
+CSVLIB  = /usr/share/tcltk/tcllib1.20/csv
+STRUCTLIB  = /usr/share/tcltk/tcllib1.20/struct
 
 KiCadBOM2PCBWayBOM.kit : KiCadBOM2PCBWayBOM.tcl \
 		csvmatrix.tcl
