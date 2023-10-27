@@ -1,0 +1,6 @@
+(fp_lib_table
+  (lib (name "Jumpers_SMD")(type "KiCad")(uri "$(KIPRJMOD)/Jumpers_SMD.pretty")(options "")(descr ""))
+  (lib (name "LCC")(type "KiCad")(uri "$(KIPRJMOD)/../LCC_LOGO.pretty")(options "")(descr ""))
+  (lib (name "PowerLab")(type "KiCad")(uri "$(KIPRJMOD)/../PowerLabels.pretty")(options "")(descr ""))
+  (lib (name "DWS")(type "KiCad")(uri "$(KIPRJMOD)/../DWSLogos.pretty")(options "")(descr ""))
+)
