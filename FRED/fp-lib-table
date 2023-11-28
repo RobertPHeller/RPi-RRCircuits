@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name "Pads")(type "KiCad")(uri "${KIPRJMOD}/Pads.pretty")(options "")(descr ""))
+  (lib (name "CBRHD-04_TR13_PBFRE")(type "KiCad")(uri "${KIPRJMOD}/CBRHD-04_TR13_PBFRE.pretty")(options "")(descr ""))
+)
