@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Fri Apr 16 08:44:50 2021
-#  Last Modified : <240424.2024>
+#  Last Modified : <240425.1456>
 #
 #  Description	
 #
@@ -97,12 +97,16 @@ snit::type KiCadBOM2PCBWayBOM {
             $matrix set cell $LibPart_index $i [_processLibPart [$matrix get cell $LibPart_index $i]]
             $matrix set cell $Footprint_index $i [_processFootprint [$matrix get cell $Footprint_index $i]]
             set mpn [$matrix get cell $Manufacturer_Part_Number_index $i]
-            #puts stderr "*** $type create $self: mpn is '$mpn'"
-            if {$mpn ne ""} {continue}
-            set mouserPN [$matrix get cell $MouserPN_index $i]
-            lassign [_processMouserPN $mouserPN] manName manPN
-            $matrix set cell $Manufacturer_Name_index $i $manName
-            $matrix set cell $Manufacturer_Part_Number_index $i $manPN
+            if {$mpn ne ""} {
+                #puts stderr "*** $type create $self: ($i) mpn is '$mpn'"
+            } else {
+                set mouserPN [$matrix get cell $MouserPN_index $i]
+                #puts stderr "*** $type create $self: ($i) mouserPN is '$mouserPN'"
+                lassign [_processMouserPN $mouserPN] manName manPN
+                $matrix set cell $Manufacturer_Name_index $i $manName
+                $matrix set cell $Manufacturer_Part_Number_index $i $manPN
+            }
+            #puts stderr "*** $type create $self: ($i) [$matrix get row $i]"
         }
         set descol [$self headingcol "Reference(s)"]
         for {set i [expr {[$matrix rows]-1}]} {$i >= 0} {incr i -1} {
@@ -199,6 +203,15 @@ snit::type KiCadBOM2PCBWayBOM {
         517 {3M Electronic Solutions Division}
         743 Inolux
         581 {KYOCERA AVX}
+        74 {Vishay / Sprague} 
+        604 Kingbright
+        706 Grayhill
+        992 Gravitech 
+        855 Harwin 
+        774 {CTS Electronic Components} 
+        653 {Omron Electronics} 
+        356 {Espressif Systems}
+        640 GCT 
     }
     proc _lookupMan {mannum} {
         if {[info exists _MouserManufaturers($mannum)]} {
@@ -213,7 +226,7 @@ snit::type KiCadBOM2PCBWayBOM {
         MFR500 8964300490000000 ESP32-Combo ESP32_mini
         bornier2 Axial_DIN0207 Socket_Strip USB-A-UPRIGHT 95501-2661 
         PowerPlus5X2 SmallPad SolderWirePad BottomPad Socket_BeagleBone_Black
-        {Track Pickup Pad} SolderWire SolderPads_1x2_1}q
+        {Track Pickup Pad} SolderWire SolderPads_1x2_1}
     proc _nonSMDFootprint {foot} {
         #puts stderr "*** KiCadBOM2PCBWayBOM _nonSMDFootprint $foot"
         foreach thoughholeFP $thoughholeFPs {
@@ -228,6 +241,7 @@ snit::type KiCadBOM2PCBWayBOM {
             if {[regexp "^$nonFP" $foot] > 0} {return yes}
         }
         #puts stderr "*** KiCadBOM2PCBWayBOM _nonFootprint: keeping $foot"
+        if {$foot eq {}} {return yes}
         return no
     }
     typevariable pcbwayHeadings {"Item #" "Designator" "Qty" "Manufacturer" 
