@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Fri Apr 16 08:44:50 2021
-#  Last Modified : <231019.1209>
+#  Last Modified : <240424.2024>
 #
 #  Description	
 #
@@ -197,6 +197,8 @@ snit::type KiCadBOM2PCBWayBOM {
         732 {Epson}
         538 {Molex}
         517 {3M Electronic Solutions Division}
+        743 Inolux
+        581 {KYOCERA AVX}
     }
     proc _lookupMan {mannum} {
         if {[info exists _MouserManufaturers($mannum)]} {
@@ -210,7 +212,8 @@ snit::type KiCadBOM2PCBWayBOM {
     typevariable thoughholeFPs {TerminalBlock Pin_Header RJ45_8N 
         MFR500 8964300490000000 ESP32-Combo ESP32_mini
         bornier2 Axial_DIN0207 Socket_Strip USB-A-UPRIGHT 95501-2661 
-        PowerPlus5X2 SmallPad SolderWirePad BottomPad Socket_BeagleBone_Black}
+        PowerPlus5X2 SmallPad SolderWirePad BottomPad Socket_BeagleBone_Black
+        {Track Pickup Pad} SolderWire SolderPads_1x2_1}q
     proc _nonSMDFootprint {foot} {
         #puts stderr "*** KiCadBOM2PCBWayBOM _nonSMDFootprint $foot"
         foreach thoughholeFP $thoughholeFPs {
