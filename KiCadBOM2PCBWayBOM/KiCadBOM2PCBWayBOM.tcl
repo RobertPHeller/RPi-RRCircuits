@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Fri Apr 16 08:44:50 2021
-#  Last Modified : <240425.1456>
+#  Last Modified : <240426.1445>
 #
 #  Description	
 #
@@ -212,6 +212,7 @@ snit::type KiCadBOM2PCBWayBOM {
         653 {Omron Electronics} 
         356 {Espressif Systems}
         640 GCT 
+        798 {Hirose Connector}
     }
     proc _lookupMan {mannum} {
         if {[info exists _MouserManufaturers($mannum)]} {
@@ -226,7 +227,8 @@ snit::type KiCadBOM2PCBWayBOM {
         MFR500 8964300490000000 ESP32-Combo ESP32_mini
         bornier2 Axial_DIN0207 Socket_Strip USB-A-UPRIGHT 95501-2661 
         PowerPlus5X2 SmallPad SolderWirePad BottomPad Socket_BeagleBone_Black
-        {Track Pickup Pad} SolderWire SolderPads_1x2_1}
+        {Track Pickup Pad} SolderWire SolderPads_1x2_1 
+        IDC-Header_2x05_P2.54mm_Vertical PinHeader_}
     proc _nonSMDFootprint {foot} {
         #puts stderr "*** KiCadBOM2PCBWayBOM _nonSMDFootprint $foot"
         foreach thoughholeFP $thoughholeFPs {
