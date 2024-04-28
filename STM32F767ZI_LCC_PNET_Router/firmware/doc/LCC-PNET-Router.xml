@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<cdi xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://openlcb.org/schema/cdi/1/1/cdi.xsd">
+<identification>
+<manufacturer>Deepwoods Software</manufacturer>
+<model>LCC-PNET-Router</model>
+<hardwareVersion>linux.armv7a</hardwareVersion>
+<softwareVersion>1.00</softwareVersion>
+</identification>
+<acdi/>
+<segment space='251' origin='1'>
+<name>User Info</name>
+<string size='63'>
+<name>User name</name>
+<description>This name will appear in network browsers for the current node.</description>
+</string>
+<string size='64'>
+<name>User description</name>
+<description>This description will appear in network browsers for the current node.</description>
+</string>
+</segment>
+<segment space='253' origin='128'>
+<name>LCC-PNET-Router</name>
+<group>
+<name>Internal data</name>
+<description>Do not change these settings.</description>
+<int size='2'>
+<name>Version</name>
+</int>
+<int size='2'>
+<name>Next event ID</name>
+</int>
+</group>
+<group replication='32'>
+<name>PNET Triggers</name>
+<description>PNET Triggers</description>
+<repname>Trigger</repname>
+<string size='16'>
+<name>Description</name>
+<description>User name of this trigger.</description>
+</string>
+<eventid>
+<name>Event Produced</name>
+<description>(P) This event is produced when a matching Trigger message is received.</description>
+</eventid>
+<eventid>
+<name>Event Consumed</name>
+<description>(C) This event will cause the defined Trigger to be sent.</description>
+</eventid>
+<int size='1'>
+<name>Enable</name>
+<description>Enable this trigger.</description>
+<min>0</min>
+<max>1</max>
+<default>0</default>
+<map><relation><property>0</property><value>No</value></relation><relation><property>1</property><value>Yes</value></relation></map>
+</int>
+<int size='1'>
+<name>Slot</name>
+<description>The trigger slot number (0-31).</description>
+<min>0</min>
+<max>31</max>
+<default>0</default>
+</int>
+<int size='1'>
+<name>Trigger Number</name>
+<description>The trigger number.</description>
+<min>1</min>
+<max>4</max>
+<default>1</default>
+</int>
+</group>
+<group replication='32'>
+<name>PNET Controls</name>
+<description>PNET Controls</description>
+<repname>Control</repname>
+<string size='16'>
+<name>Description</name>
+<description>User name of this Control.</description>
+</string>
+<eventid>
+<name>Event Produced</name>
+<description>(P) This event is produced when a matching Control message is received.</description>
+</eventid>
+<eventid>
+<name>Event Consumed</name>
+<description>(C) This event will cause the defined Control to be sent.</description>
+</eventid>
+<int size='1'>
+<name>Enable</name>
+<description>Enable this Control.</description>
+<min>0</min>
+<max>1</max>
+<default>0</default>
+<map><relation><property>0</property><value>No</value></relation><relation><property>1</property><value>Yes</value></relation></map>
+</int>
+<int size='1'>
+<name>Slot</name>
+<description>The Control slot number (0-31).</description>
+<min>0</min>
+<max>31</max>
+<default>0</default>
+</int>
+<int size='1'>
+<name>Control Number</name>
+<description>The control number.</description>
+<default>0</default>
+</int>
+<int size='1'>
+<name>Attributes</name>
+<description>The control attributes.</description>
+<default>0</default>
+</int>
+</group>
+<group replication='32'>
+<name>PNET Dimmers</name>
+<description>PNET Dimmers</description>
+<repname>Dimmer</repname>
+<string size='16'>
+<name>Description</name>
+<description>User name of this dimmer.</description>
+</string>
+<eventid>
+<name>Event Produced</name>
+<description>(P) This event is produced when a matching Dimmer message is received.</description>
+</eventid>
+<eventid>
+<name>Event Consumed</name>
+<description>(C) This event will cause the defined Dimmer to be sent.</description>
+</eventid>
+<int size='1'>
+<name>Enable</name>
+<description>Enable this dimmer.</description>
+<min>0</min>
+<max>1</max>
+<default>0</default>
+<map><relation><property>0</property><value>No</value></relation><relation><property>1</property><value>Yes</value></relation></map>
+</int>
+<int size='1'>
+<name>Slot</name>
+<description>The dimmer slot number (0-31).</description>
+<min>0</min>
+<max>31</max>
+<default>0</default>
+</int>
+<int size='1'>
+<name>Value A</name>
+<description>Dimmer value A.</description>
+<default>0</default>
+</int>
+<int size='1'>
+<name>Value B</name>
+<description>Dimmer value B.</description>
+<default>0</default>
+</int>
+<int size='1'>
+<name>Value C</name>
+<description>Dimmer value C.</description>
+<default>0</default>
+</int>
+<int size='1'>
+<name>Value D</name>
+<description>Dimmer value D.</description>
+<default>0</default>
+</int>
+</group>
+</segment>
+<segment space='253'>
+<name>Version information</name>
+<int size='1'>
+<name>ACDI User Data version</name>
+<description>Set to 2 and do not change.</description>
+</int>
+<group>
+<name>Build Revisions</name>
+<description>Thu, 30 Mar 2023 12:20:00 EDT
+gcc-8
+1e173d2:LCC-PNET-Router:-d-u
+d198306:openmrn
+</description>
+</group>
+</segment>
+</cdi>
