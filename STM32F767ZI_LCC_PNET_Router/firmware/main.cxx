@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jan 12 14:03:18 2023
-//  Last Modified : <230322.1019>
+//  Last Modified : <240429.1345>
 //
 //  Description	
 //
@@ -145,8 +145,7 @@ OVERRIDE_CONST(gc_generate_newlines, 1);
 OVERRIDE_CONST(main_thread_stack_size, 2500);
 
 // easily incrementable method.
-#define DefaultNODEID 0x050101012200ULL // 05 01 01 01 22 00
-static openlcb::NodeID NODE_ID = DefaultNODEID;
+extern const openlcb::NodeID NODE_ID;
 // ConfigDef comes from config.hxx and is specific to the particular device and
 // target. It defines the layout of the configuration memory space and is also
 // used to generate the cdi.xml file. Here we instantiate the configuration

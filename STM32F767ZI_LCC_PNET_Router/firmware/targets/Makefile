@@ -1,6 +1,4 @@
 SUBDIRS = \
-	  pb.linux.armv7a \
-#          rpi.linux.armv7a \
-	  
+	freertos.armv7m.st-stm32f767zi-nucleo	  
 
 include $(OPENMRNPATH)/etc/recurse.mk

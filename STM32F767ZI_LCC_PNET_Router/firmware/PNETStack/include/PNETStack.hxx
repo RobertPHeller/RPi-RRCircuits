@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Mar 15 15:13:10 2023
-//  Last Modified : <230322.0943>
+//  Last Modified : <240429.1326>
 //
 //  Description	
 //
@@ -136,12 +136,63 @@ public:
     {
         return &static_cast<CanPhysicalIf *>(ifaceHolder_.get())->canHub0_;
     }
+    /// Adds a CAN bus port with synchronous driver API.
+    void add_can_port_blocking(const char *device)
+    {
+        int can_fd = ::open(device, O_RDWR);
+        HASSERT(can_fd >= 0);
+        auto *port = new FdHubPort<CanHubFlow>(
+            can_hub(), can_fd, EmptyNotifiable::DefaultInstance());
+        additionalComponents_.emplace_back(port);
+    }
+
+#ifdef OPENMRN_FEATURE_FD_CAN_DEVICE
+    /// Adds a CAN bus port with asynchronous driver API.
+    ///
+    /// @deprecated: most current FreeRTOS drivers use the the select-based
+    /// asynchronous API, so they need add_can_port_select().
+    void add_can_port_async(const char *device)
+    {
+        auto *port = new HubDeviceNonBlock<CanHubFlow>(can_hub(), device);
+        additionalComponents_.emplace_back(port);
+    }
+
+    /// Adds a CAN bus port with select-based asynchronous driver API.
+    void add_can_port_select(const char *device)
+    {
+        auto *port = new HubDeviceSelect<CanHubFlow>(can_hub(), device);
+        additionalComponents_.emplace_back(port);
+    }
+
+    /// Adds a CAN bus port with select-based asynchronous driver API.
+    /// @param fd file descriptor to add to can hub
+    /// @param on_error Notifiable to wakeup on error
+    void add_can_port_select(int fd, Notifiable *on_error = nullptr)
+    {
+        auto *port = new HubDeviceSelect<CanHubFlow>(can_hub(), fd, on_error);
+        additionalComponents_.emplace_back(port);
+    }
+#endif // OPENMRN_FEATURE_FD_CAN_DEVICE
+
+    /// Adds a gridconnect port to the CAN bus.
+    void add_gridconnect_port(const char *path, Notifiable *on_exit = nullptr);
+
+#if defined(__linux__) || defined(__MACH__)
+    /// Adds a gridconnect port to the CAN bus with setting the TTY options to
+    /// raw. Suitablefor linux /dev/ttyACMxx devices. The most important option
+    /// this call sets is to not echo characters coming in from the device back
+    /// to the device. Echoing data back causes alias allocation problems and
+    /// nodes on the bus repeatedly dropping their allocated aliases.
+    void add_gridconnect_tty(const char *device, Notifiable *on_exit = nullptr);
+#endif
+#if defined(__linux__)
     /// Adds a CAN bus port with select-based asynchronous driver API.
     /// @params device CAN device name, for example: "can0" or "can1"
     /// @params loopback 1 to enable loopback localy to other open references,
     ///                  0 to enable loopback localy to other open references,
     ///                  in most cases, this paramter won't matter
     void add_socketcan_port_select(const char *device, int loopback = 1);
+#endif
     
 protected:
     /// Helper function for start_stack et al.
