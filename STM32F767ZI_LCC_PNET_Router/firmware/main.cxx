@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jan 12 14:03:18 2023
-//  Last Modified : <240429.2114>
+//  Last Modified : <240430.1441>
 //
 //  Description	
 //
@@ -49,46 +49,6 @@
  * 
  * @author Robert Heller
  * @date Thu Jan 12 14:03:18 2023
- * 
- * @defgroup LCC-PNET-Router LCC PNET Router
- * 
- * @section SYNOPSIS SYNOPSIS
- * 
- * LCC-PNET-Router [-n nodeid] [-m mode] [-g host] [-c lcc_can_socketname] [-p pnet_can_socketname] [-e EEPROM_file_path] 
- * 
- * @section DESCRIPTION DESCRIPTION
- * 
- * Implements a "router" between LCC and PNET.  Sends selected PNET 
- * messages (Trigger, Control, and Dimmer) in response to LCC events 
- * and sends LCC event reports in response to selected PNET messages 
- * (Trigger, Control, and Dimmer).
- * 
- * @section OPTIONS OPTIONS
- * 
- * @arg -n nodeid The node id to use for the LCC node. The default is 
- * @c 05:01:01:01:22:00
- * @arg -m mode The LCC connection mode.  One of:
- * - server start a GC hub
- * - gcclient connect a GC hub. 
- * - canclient connect a CAN Socket
- * @arg -g host the GC hub server to connect to (-m gcclient).
- * @arg -c lcc_can_socketname the CAN socket for LCC (-m canclient)
- * @arg -p pnet_can_socketname
- * @arg -e EEPROM_file_path
- * @par
- * 
- * @section PARAMETERS PARAMETERS
- * 
- * None.
- * 
- * @section FILES FILES
- * 
- * None.
- * 
- * @section AUTHOR AUTHOR
- * @author Robert Heller
- * @date Sun Mar 19 12:16:13 2023
- * 
  * @mainpage Introduction
  * 
  * This is an implementation of a "router" between the LCC network and
@@ -102,11 +62,7 @@
  * Dimmer messages.  These numbers can be changed in the config.hxx 
  * file to allow more (or less) matching messages to be implemented.
  * 
- * This firmware is expected to run on a Linux SBC with at least one
- * CAN IF, preferably two CAN IFs.  This includes the BeagleBone and
- * PocketBeagle, but the code should run on any other Linux SBC that
- * has least one CAN IF  -- this would include a Raspberry (or 
- * other flavors) Pi with a Seeed systems CAN Hat.
+ * This firmware is expected to run on a NUCLEO-F767ZI - STM32 Nucleo-144.
  * 
  */
 

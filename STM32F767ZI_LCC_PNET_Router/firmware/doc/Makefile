@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed Mar 15 13:51:40 2023
-#  Last Modified : <230331.1121>
+#  Last Modified : <240430.1447>
 #
 #  Description	
 #
@@ -51,19 +51,16 @@ SRCS =  ../main.cxx $(wildcard ../*.hxx) \
 	$(wildcard ../targets/*/*.hxx) \
 	Revision.h KitBooklet.h
 	
-Revision.h: ../targets/pb.linux.armv7a/Revision.hxxout
+Revision.h: ../targets/freertos.armv7m.st-stm32f767zi-nucleo/Revision.hxxout
 	echo '/** @page Revision Build Revisions' > $@
 	grep '^[[:space:]]*"[^"]*",$$' $< |sed 's/^[[:space:]]*"/ * - /g'|sed 's/",$$//g' >> $@
 	echo '*/' >> $@
 	
 .PHONY:
-docs: html pdf man
+docs: html pdf
 
 html latex : $(SRCS) Makefile Doxyfile
 	doxygen Doxyfile
-	
-man : ../main.cxx
-	doxygen Doxyfile.man
 	
 pdf: latex
 	$(MAKE) -C latex

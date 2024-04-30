@@ -6,7 +6,7 @@ sh -c "if [ \"X`printenv OPENMRNPATH`\" != \"X\" ]; then printenv OPENMRNPATH; \
      else echo OPENMRNPATH not found; fi" \
 )
 
-SUBDIRS = targets #doc
+SUBDIRS = targets doc
 
 -include config.mk
 include $(OPENMRNPATH)/etc/recurse.mk
