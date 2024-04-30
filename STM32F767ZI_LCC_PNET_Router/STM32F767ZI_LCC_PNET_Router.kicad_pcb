@@ -801,7 +801,7 @@
       (net 3 "GND") (pintype "passive") (tstamp 54b7056a-bc30-48ba-9824-6da34d0f2ed5))
     (pad "6" thru_hole circle locked (at -1.905 -6.35 270) (size 1.4 1.4) (drill 0.9) (layers *.Cu *.Mask)
       (net 5 "/PNET CAN Transceiver/PNet +12V") (pintype "passive") (tstamp 0fb525f3-eda9-4f8b-89bc-37007456e448))
-    (model "95501-2661.stp"
+    (model "${KIPRJMOD}/Connectors_RJ.3dshapes/95501-2661.stp"
       (offset (xyz -5.15999977 -7.989999651 5.699999724))
       (scale (xyz 1 1 1))
       (rotate (xyz -90 0 0))
@@ -1127,10 +1127,10 @@
       (net 3 "GND") (pintype "passive") (tstamp 3f7cdcba-330f-4dd3-be3c-33c0377a6c8d))
     (pad "8" thru_hole circle (at 4.445 -8.89 90) (size 1.50114 1.50114) (drill 0.89916) (layers *.Cu *.Mask "F.SilkS")
       (net 8 "/LCC-CAN-12VDC") (pintype "passive") (tstamp f3d04180-6865-46b2-8e52-2aa04fdd93c5))
-    (model "connectors/RJ45_8.wrl"
-      (offset (xyz 0 0 0))
-      (scale (xyz 0.4 0.4 0.4))
-      (rotate (xyz 0 0 0))
+    (model "${KIPRJMOD}/Connectors_RJ.3dshapes/615008144221.stp"
+      (offset (xyz 0 1.5 7.5))
+      (scale (xyz 1 1 1))
+      (rotate (xyz -90 0 0))
     )
   )
 
@@ -1185,7 +1185,7 @@
       (net 5 "/PNET CAN Transceiver/PNet +12V") (pinfunction "Pin_1") (pintype "passive") (tstamp 4afa2a28-8d37-4304-8a99-0253dee25c71))
     (pad "2" thru_hole circle (at 2.54 0 270) (size 2.1 2.1) (drill 1.1) (layers *.Cu *.Mask)
       (net 3 "GND") (pinfunction "Pin_2") (pintype "passive") (tstamp f1037893-a713-4f85-bf84-7a2a89c15d02))
-    (model "${KICAD6_3DMODEL_DIR}/TerminalBlock_TE-Connectivity.3dshapes/TerminalBlock_TE_282834-2_1x02_P2.54mm_Horizontal.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/TerminalBlock_Phoenix.3dshapes/TerminalBlock_Phoenix_MPT-0,5-2-2.54_1x02_P2.54mm_Horizontal.wrl"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -1238,10 +1238,10 @@
       (net 3 "GND") (pintype "passive") (tstamp 83b82454-1b06-436c-b3ef-ab9179a34a12))
     (pad "8" thru_hole circle (at 4.445 -8.89 90) (size 1.50114 1.50114) (drill 0.89916) (layers *.Cu *.Mask "F.SilkS")
       (net 8 "/LCC-CAN-12VDC") (pintype "passive") (tstamp 2b5f2276-67d6-4ac0-b088-5fbc87d87f38))
-    (model "connectors/RJ45_8.wrl"
-      (offset (xyz 0 0 0))
-      (scale (xyz 0.4 0.4 0.4))
-      (rotate (xyz 0 0 0))
+    (model "${KIPRJMOD}/Connectors_RJ.3dshapes/615008144221.stp"
+      (offset (xyz 0 1.5 7.5))
+      (scale (xyz 1 1 1))
+      (rotate (xyz -90 0 0))
     )
   )
 
@@ -1292,7 +1292,7 @@
       (net 3 "GND") (pintype "passive") (tstamp 60f9b102-6059-4f3b-be24-47828123596d))
     (pad "6" thru_hole circle locked (at -1.905 -6.35 270) (size 1.4 1.4) (drill 0.9) (layers *.Cu *.Mask)
       (net 5 "/PNET CAN Transceiver/PNet +12V") (pintype "passive") (tstamp 895b8fa8-c66c-4bcb-8b98-35f44b9206b8))
-    (model "95501-2661.stp"
+    (model "${KIPRJMOD}/Connectors_RJ.3dshapes/95501-2661.stp"
       (offset (xyz -5.15999977 -7.989999651 5.699999724))
       (scale (xyz 1 1 1))
       (rotate (xyz -90 0 0))
@@ -1438,7 +1438,7 @@
       (net 14 "Net-(D204-Pad2)") (pinfunction "Pin_1") (pintype "passive") (tstamp c0030468-452a-4357-8c32-1c126cd22af5))
     (pad "2" thru_hole circle (at 2.54 0 90) (size 2.1 2.1) (drill 1.1) (layers *.Cu *.Mask)
       (net 3 "GND") (pinfunction "Pin_2") (pintype "passive") (tstamp e0bd870a-1728-4195-ba7f-9a83d8cc1c87))
-    (model "${KICAD6_3DMODEL_DIR}/TerminalBlock_TE-Connectivity.3dshapes/TerminalBlock_TE_282834-2_1x02_P2.54mm_Horizontal.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/TerminalBlock_Phoenix.3dshapes/TerminalBlock_Phoenix_MPT-0,5-2-2.54_1x02_P2.54mm_Horizontal.wrl"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -1747,7 +1747,7 @@
       (net 13 "Net-(D203-Pad1)") (pinfunction "Pin_1") (pintype "passive") (tstamp f3f6bc3b-f7c6-4a93-a16b-8114ef4ecb2d))
     (pad "2" thru_hole circle (at 2.54 0 90) (size 2.1 2.1) (drill 1.1) (layers *.Cu *.Mask)
       (net 3 "GND") (pinfunction "Pin_2") (pintype "passive") (tstamp 57110b56-f67c-4f9a-8f34-6f67cb75de68))
-    (model "${KICAD6_3DMODEL_DIR}/TerminalBlock_TE-Connectivity.3dshapes/TerminalBlock_TE_282834-2_1x02_P2.54mm_Horizontal.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/TerminalBlock_Phoenix.3dshapes/TerminalBlock_Phoenix_MPT-0,5-2-2.54_1x02_P2.54mm_Horizontal.wrl"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))

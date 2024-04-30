@@ -8,7 +8,7 @@
  *  Author        : $Author$
  *  Created By    : Robert Heller
  *  Created       : Thr Mar 30 10:49:54 2023
- *  Last Modified : <240430.1443>
+ *  Last Modified : <240430.1556>
  *
  *  Description	
  *
@@ -50,16 +50,15 @@
  * 
  * Assembly is straight forward.  The SMD parts are already soldered,
  * so only the through hole part need to be soldered to the board. 
- * Start with the shortest parts and work towards the tallest.  The
- * pin headers are in the form of a single 2x40 "break away" header.
- * This header can be cut with a pair of wire cutters.  You will need
- * two 2x2 and two 2x18 headers.  The two 2x2 headers are for the 
- * termination headers and the two 2x18 headers will go in the Pocket
- * Beagle.  Also be sure to face the wire openings of the screw 
- * terminals out from the board.
+ * Start with the shortest parts and work towards the tallest. Their are
+ * two 2x2 and two 2x19 headers.  The two 2x2 headers are for the 
+ * termination headers and the two 2x19 headers will go in the NUCLEO-F767ZI.
+ * NUCLEO-F767ZI has holes for extended ST Morpho connectors -- only the base 
+ * ST Morpho is used, at the end towards the ST-Link. Also be sure to face the
+ * wire openings of the screw terminals out from the board.
  * 
- * @image html LCC-PNET-ROUTER-3D.png
- * @image latex LCC-PNET-ROUTER-3D.png "3D top view of the PCB"
+ * @image html STM32F767ZI_LCC_PNET_Router.png
+ * @image latex STM32F767ZI_LCC_PNET_Router.png "3D top view of the PCB"
  * 
  * 
  * 
@@ -85,6 +84,9 @@
  * available. The router is powered from the LCC network power bus,
  * which can be the local power input terminals or from a power input
  * somewhere else on the LCC network.
+ * 
+ * There is a power input terminal for the PNET network.  This terminal allows
+ * for providing power to PNET boards that need power.
  * 
  * @page download Downloadables and Software Support
  * 
