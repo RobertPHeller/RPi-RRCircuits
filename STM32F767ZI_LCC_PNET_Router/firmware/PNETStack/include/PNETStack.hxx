@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Wed Mar 15 15:13:10 2023
-//  Last Modified : <240429.1326>
+//  Last Modified : <240429.2107>
 //
 //  Description	
 //
@@ -173,18 +173,6 @@ public:
         additionalComponents_.emplace_back(port);
     }
 #endif // OPENMRN_FEATURE_FD_CAN_DEVICE
-
-    /// Adds a gridconnect port to the CAN bus.
-    void add_gridconnect_port(const char *path, Notifiable *on_exit = nullptr);
-
-#if defined(__linux__) || defined(__MACH__)
-    /// Adds a gridconnect port to the CAN bus with setting the TTY options to
-    /// raw. Suitablefor linux /dev/ttyACMxx devices. The most important option
-    /// this call sets is to not echo characters coming in from the device back
-    /// to the device. Echoing data back causes alias allocation problems and
-    /// nodes on the bus repeatedly dropping their allocated aliases.
-    void add_gridconnect_tty(const char *device, Notifiable *on_exit = nullptr);
-#endif
 #if defined(__linux__)
     /// Adds a CAN bus port with select-based asynchronous driver API.
     /// @params device CAN device name, for example: "can0" or "can1"

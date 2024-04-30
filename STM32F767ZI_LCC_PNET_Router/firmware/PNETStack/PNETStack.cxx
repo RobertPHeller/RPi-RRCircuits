@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Mar 16 16:37:58 2023
-//  Last Modified : <240429.1329>
+//  Last Modified : <240429.2107>
 //
 //  Description	
 //
@@ -98,32 +98,6 @@ void PNETCanStack::start_iface(bool restart)
     }
 }
 
-void PNETCanStack::add_gridconnect_port(
-    const char *path, Notifiable *on_exit)
-{
-    int fd = ::open(path, O_RDWR);
-    HASSERT(fd >= 0);
-    LOG(INFO, "Adding device %s as fd %d", path, fd);
-    create_gc_port_for_can_hub(can_hub(), fd, on_exit);
-}
-
-#if defined(__linux__) || defined(__MACH__)
-void PNETCanStack::add_gridconnect_tty(
-    const char *device, Notifiable *on_exit)
-{
-    int fd = ::open(device, O_RDWR);
-    HASSERT(fd >= 0);
-    LOG(INFO, "Adding device %s as fd %d", device, fd);
-    create_gc_port_for_can_hub(can_hub(), fd, on_exit);
-
-    HASSERT(!tcflush(fd, TCIOFLUSH));
-    struct termios settings;
-    HASSERT(!tcgetattr(fd, &settings));
-    cfmakeraw(&settings);
-    cfsetspeed(&settings, B115200);
-    HASSERT(!tcsetattr(fd, TCSANOW, &settings));
-}
-#endif
 #if defined(__linux__)
 void PNETCanStack::add_socketcan_port_select(const char *device, int loopback)
 {

@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Mar 20 12:19:01 2023
-//  Last Modified : <230321.1232>
+//  Last Modified : <240429.2117>
 //
 //  Description	
 //
@@ -310,7 +310,7 @@ public:
     /// @param done  Notification object.
     /// @returns nothing.
     void process_dimmer(const pnet::DimmerData &td,
-                         BarrierNotifiable *done)
+                         BarrierNotifiable *done) override
     {
         dimmer_event_helper.WriteAsync(node_,openlcb::Defs::MTI_EVENT_REPORT,
                                         openlcb::WriteHelper::global(),

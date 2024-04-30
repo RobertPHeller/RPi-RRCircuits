@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Mar 19 14:31:22 2023
-//  Last Modified : <230321.1233>
+//  Last Modified : <240429.2116>
 //
 //  Description	
 //
@@ -276,7 +276,7 @@ public:
     /// @param done  Notification object.
     /// @returns nothing.
     void process_trigger(const pnet::TriggerData &td,
-                         BarrierNotifiable *done)
+                         BarrierNotifiable *done) override
     {
         trigger_event_helper.WriteAsync(node_,openlcb::Defs::MTI_EVENT_REPORT,
                                         openlcb::WriteHelper::global(),

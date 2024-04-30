@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jan 12 14:03:18 2023
-//  Last Modified : <240429.1951>
+//  Last Modified : <240429.2114>
 //
 //  Description	
 //
@@ -128,14 +128,7 @@ static const char rcsid[] = "@(#) : $Id$";
 
 #include "config.hxx"
 #include "utils/GpioInitializer.hxx"
-#include "Hardware.hxx"
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <termios.h>
-#include <sys/ioctl.h>
 
 // Changes the default behavior by adding a newline after each gridconnect
 // packet. Makes it easier for debugging the raw device.

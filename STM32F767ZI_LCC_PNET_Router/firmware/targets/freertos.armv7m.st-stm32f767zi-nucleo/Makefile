@@ -10,10 +10,6 @@ sh -c "if [ \"X`printenv OPENMRNPATH`\" != \"X\" ]; then printenv OPENMRNPATH; \
      else echo OPENMRNPATH not found; fi" \
 )
 
-INCLUDES += -I$(realpath ../../PNETStack/include)
-SUBDIRS = PNETStack
-GITREPOS += $(realpath $(CURDIR)/../../../..)
-
 # Find STM32CubeF3 libraries
 include $(OPENMRNPATH)/etc/stm32cubef7.mk
 
@@ -24,6 +20,10 @@ OBJEXTRA +=
 CFLAGS += -DSTM32F767xx
 CXXFLAGS += -DSTM32F767xx
 OPENOCDARGS = -f board/st_nucleo_f7.cfg
+
+INCLUDES += -I$(realpath ../../PNETStack/include)
+SUBDIRS = PNETStack
+GITREPOS += $(realpath $(CURDIR)/../../../..)
 
 ifndef TARGET
 export TARGET := freertos.armv7m

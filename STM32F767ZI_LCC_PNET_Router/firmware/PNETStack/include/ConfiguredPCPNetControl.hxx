@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Mar 20 12:18:05 2023
-//  Last Modified : <230321.1233>
+//  Last Modified : <240429.2117>
 //
 //  Description	
 //
@@ -289,7 +289,7 @@ public:
     /// @param done  Notification object.
     /// @returns nothing.
     void process_control(const pnet::ControlData &td,
-                         BarrierNotifiable *done)
+                         BarrierNotifiable *done) override
     {
         control_event_helper.WriteAsync(node_,openlcb::Defs::MTI_EVENT_REPORT,
                                         openlcb::WriteHelper::global(),

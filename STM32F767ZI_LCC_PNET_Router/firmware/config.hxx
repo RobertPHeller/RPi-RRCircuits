@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jan 12 14:23:01 2023
-//  Last Modified : <230320.1358>
+//  Last Modified : <240429.2113>
 //
 //  Description	
 //
@@ -62,7 +62,8 @@
 #include "PNETStack/include/ConfiguredPCPNetControl.hxx"
 #include "PNETStack/include/ConfiguredPCPNetDimmer.hxx"
 
-#include "Hardware.hxx"
+#define HARDWARE_IMPL "LCC-PNET-Router"
+
 #include "Revision.hxxout"
 
 namespace openlcb
