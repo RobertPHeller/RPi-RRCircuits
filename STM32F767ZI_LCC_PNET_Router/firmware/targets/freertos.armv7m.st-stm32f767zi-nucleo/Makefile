@@ -1,3 +1,4 @@
+export EXECUTABLE:=$(notdir $(realpath $(CURDIR)/../../..))
 APP_PATH ?= $(realpath ../..)
 -include $(APP_PATH)/config.mk
 -include local_config.mk
