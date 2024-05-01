@@ -328,4 +328,9 @@ void hw_postinit(void)
 {
     spiffs0.mount("/ffs");
 }
+void hw_shutdown(void)
+{
+    spiffs0.~Stm32SPIFFS();
+    reboot();
+}
 }

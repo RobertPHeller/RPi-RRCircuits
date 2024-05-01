@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jan 12 14:23:01 2023
-//  Last Modified : <240429.2113>
+//  Last Modified : <240501.1646>
 //
 //  Description	
 //
@@ -61,6 +61,7 @@
 #include "PNETStack/include/ConfiguredPCPNetTrigger.hxx"
 #include "PNETStack/include/ConfiguredPCPNetControl.hxx"
 #include "PNETStack/include/ConfiguredPCPNetDimmer.hxx"
+#include "NodeIdConfigurationGroup.hxx"
 
 #define HARDWARE_IMPL "LCC-PNET-Router"
 
@@ -135,6 +136,7 @@ CDI_GROUP_ENTRY(acdi, Acdi);
 CDI_GROUP_ENTRY(userinfo, UserInfoSegment, Name("User Info"));
 /// Adds the main configuration segment.
 CDI_GROUP_ENTRY(seg, IoBoardSegment);
+CDI_GROUP_ENTRY(node,NodeIdConfig,Name("Node ID"));
 /// Adds the versioning segment.
 CDI_GROUP_ENTRY(version, VersionSeg);
 CDI_GROUP_END();

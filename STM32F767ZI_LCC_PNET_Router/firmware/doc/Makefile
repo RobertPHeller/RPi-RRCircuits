@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed Mar 15 13:51:40 2023
-#  Last Modified : <240501.1002>
+#  Last Modified : <240501.1702>
 #
 #  Description	
 #
@@ -66,6 +66,7 @@ latex2 : ../main.cxx KitBooklet.h \
 	../PNETStack/include/ConfiguredPCPNetControl.hxx  \
 	../PNETStack/include/ConfiguredPCPNetDimmer.hxx \
 	../PNETStack/include/ConfiguredPCPNetTrigger.hxx \
+	../NodeIdConfigurationGroup.hxx \
 	Makefile Doxyfile.kit
 	doxygen Doxyfile.kit
 

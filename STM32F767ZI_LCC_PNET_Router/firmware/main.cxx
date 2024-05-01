@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Thu Jan 12 14:03:18 2023
-//  Last Modified : <240430.2301>
+//  Last Modified : <240501.1651>
 //
 //  Description	
 //
@@ -81,6 +81,7 @@ static const char rcsid[] = "@(#) : $Id$";
 #include "ConfiguredPCPNetTrigger.hxx"
 #include "ConfiguredPCPNetControl.hxx"
 #include "ConfiguredPCPNetDimmer.hxx"
+#include "NodeIdConfigurationGroup.hxx"
 
 #include "config.hxx"
 #include "utils/GpioInitializer.hxx"
@@ -93,8 +94,7 @@ OVERRIDE_CONST(gc_generate_newlines, 1);
 // thread. Useful tuning parameter in case the application runs out of memory.
 OVERRIDE_CONST(main_thread_stack_size, 2500);
 
-// easily incrementable method.
-extern const openlcb::NodeID NODE_ID;
+static openlcb::NodeID NODE_ID = 0x050101012200ULL; // 05 01 01 01 22 00
 // ConfigDef comes from config.hxx and is specific to the particular device and
 // target. It defines the layout of the configuration memory space and is also
 // used to generate the cdi.xml file. Here we instantiate the configuration
@@ -104,9 +104,9 @@ openlcb::ConfigDef cfg(0);
 // the volatile configuration information. This device name appears in
 // HwInit.cxx that creates the device drivers.
 
-char pathnamebuffer[256];
-
 extern const char *const openlcb::CONFIG_FILENAME = "/ffs/eeprom";
+const char *const NODEID_FILENAME = "/ffs/nodeid";
+
 // The size of the memory space to export over the above device.
 extern const size_t openlcb::CONFIG_FILE_SIZE =
 cfg.seg().size() + cfg.seg().offset();
@@ -158,12 +158,15 @@ int appl_main(int argc, char *argv[])
     // Initialize GPIO
     //GpioInit::hw_init();
     
+    NodeIdMemoryConfigSpace nodeIdSpace(NODE_ID,NODEID_FILENAME);
+    NODE_ID = nodeIdSpace.node_id();
     
     // Sets up a comprehensive OpenLCB stack for a single virtual node. This stack
     // contains everything needed for a usual peripheral node -- all
     // CAN-bus-specific components, a virtual node, PIP, SNIP, Memory configuration
     // protocol, ACDI, CDI, a bunch of memory spaces, etc.
     openlcb::SimpleCanStack stack(NODE_ID);
+    nodeIdSpace.RegisterSpace(&stack);
     pnet::PNETCanStack pnet(stack.executor());
     
     FactoryResetHelper  factory_reset_helper;

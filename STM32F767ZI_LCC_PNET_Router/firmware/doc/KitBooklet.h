@@ -8,7 +8,7 @@
  *  Author        : $Author$
  *  Created By    : Robert Heller
  *  Created       : Thr Mar 30 10:49:54 2023
- *  Last Modified : <240501.0901>
+ *  Last Modified : <240501.1712>
  *
  *  Description	
  *
@@ -88,5 +88,9 @@
  * There is a power input terminal for the PNET network.  This terminal allows
  * for providing power to PNET boards that need power.
  * 
+ *
+ * @page initialConfig Initial Configuration
  * 
+ * The first time the node is started, it is necessary to set the node id.
+ * See \ref NodeIdConfig for information about this.
  ****************************************************************************/
