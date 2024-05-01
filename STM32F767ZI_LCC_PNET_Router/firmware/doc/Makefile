@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed Mar 15 13:51:40 2023
-#  Last Modified : <240501.1702>
+#  Last Modified : <240501.1716>
 #
 #  Description	
 #
@@ -61,6 +61,7 @@ docs: html latex kitbooklet.pdf
 
 html latex : $(SRCS) Makefile Doxyfile
 	doxygen Doxyfile
+	$(MAKE) -C latex
 
 latex2 : ../main.cxx KitBooklet.h \
 	../PNETStack/include/ConfiguredPCPNetControl.hxx  \
