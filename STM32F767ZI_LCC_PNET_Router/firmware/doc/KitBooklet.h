@@ -8,7 +8,7 @@
  *  Author        : $Author$
  *  Created By    : Robert Heller
  *  Created       : Thr Mar 30 10:49:54 2023
- *  Last Modified : <240430.1556>
+ *  Last Modified : <240430.2313>
  *
  *  Description	
  *
@@ -89,8 +89,6 @@
  * for providing power to PNET boards that need power.
  * 
  * @page download Downloadables and Software Support
- * 
- * @section initialsetup Initial Setup
  * 
  * @section configuration Configuring the Router
  * 

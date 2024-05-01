@@ -16,4 +16,4 @@ refman.pdf: doc/latex/refman.pdf
 	
 
 doc/latex/refman.pdf: 
-	$(MAKE) -c doc pdf
+	$(MAKE) -C doc

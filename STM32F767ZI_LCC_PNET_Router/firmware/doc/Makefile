@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed Mar 15 13:51:40 2023
-#  Last Modified : <240430.1447>
+#  Last Modified : <240430.2312>
 #
 #  Description	
 #
@@ -57,14 +57,18 @@ Revision.h: ../targets/freertos.armv7m.st-stm32f767zi-nucleo/Revision.hxxout
 	echo '*/' >> $@
 	
 .PHONY:
-docs: html pdf
+docs: html latex kitbooklet.pdf
 
 html latex : $(SRCS) Makefile Doxyfile
 	doxygen Doxyfile
-	
-pdf: latex
-	$(MAKE) -C latex
-	touch pdf
+
+latex2 : ../main.cxx KitBooklet.h  Makefile Doxyfile.kit
+	doxygen Doxyfile.kit
+
+kitbooklet.pdf: latex2
+	$(MAKE) -C latex2
+	pdfbook2 --paper=letter latex2/refman.pdf
+	mv latex2/refman-book.pdf kitbooklet.pdf
 	
 clean::
 	rm -rf latex html warnings man pdf
