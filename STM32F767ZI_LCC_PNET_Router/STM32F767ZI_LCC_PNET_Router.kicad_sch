@@ -1492,13 +1492,13 @@
       (reference "R304") (unit 1) (value "60 Ohms") (footprint "Resistor_SMD:R_1206_3216Metric")
     )
     (path "/a629ab52-59fe-4ed9-a621-0dbd0130fcc0/00000000-0000-0000-0000-000063c03318"
-      (reference "T201") (unit 1) (value "LCC Power Out") (footprint "TerminalBlock_TE-Connectivity:TerminalBlock_TE_282834-2_1x02_P2.54mm_Horizontal")
+      (reference "T201") (unit 1) (value "+ LCC Power Out") (footprint "TerminalBlock_TE-Connectivity:TerminalBlock_TE_282834-2_1x02_P2.54mm_Horizontal")
     )
     (path "/a629ab52-59fe-4ed9-a621-0dbd0130fcc0/00000000-0000-0000-0000-000063c03319"
-      (reference "T202") (unit 1) (value "LCC Power In") (footprint "TerminalBlock_TE-Connectivity:TerminalBlock_TE_282834-2_1x02_P2.54mm_Horizontal")
+      (reference "T202") (unit 1) (value "+ LCC Power In") (footprint "TerminalBlock_TE-Connectivity:TerminalBlock_TE_282834-2_1x02_P2.54mm_Horizontal")
     )
     (path "/9fa490be-59e6-4602-95e9-cb9964319313/26a976ee-1dc1-4f04-a319-dcc92010ab88"
-      (reference "T401") (unit 1) (value "PNet Power In") (footprint "TerminalBlock_TE-Connectivity:TerminalBlock_TE_282834-2_1x02_P2.54mm_Horizontal")
+      (reference "T401") (unit 1) (value "+ PNet Power In") (footprint "TerminalBlock_TE-Connectivity:TerminalBlock_TE_282834-2_1x02_P2.54mm_Horizontal")
     )
     (path "/a629ab52-59fe-4ed9-a621-0dbd0130fcc0/00000000-0000-0000-0000-000063c0331e"
       (reference "U201") (unit 1) (value "LM358") (footprint "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm")

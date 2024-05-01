@@ -1580,7 +1580,7 @@
     (in_bom yes) (on_board yes)
     (uuid 26a976ee-1dc1-4f04-a319-dcc92010ab88)
     (property "Reference" "T401" (id 0) (at 200.025 73.66 0))
-    (property "Value" "PNet Power In" (id 1) (at 200.025 81.28 0))
+    (property "Value" "+ PNet Power In" (id 1) (at 200.025 81.28 0))
     (property "Footprint" "TerminalBlock_TE-Connectivity:TerminalBlock_TE_282834-2_1x02_P2.54mm_Horizontal" (id 2) (at 200.025 76.2 0)
       (effects (font (size 1.27 1.27)) hide)
     )
