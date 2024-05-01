@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Mar 20 12:19:01 2023
-//  Last Modified : <240429.2117>
+//  Last Modified : <240501.0912>
 //
 //  Description	
 //
@@ -44,25 +44,44 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * \file ConfiguredPCPNetDimmer.hxx
- * 
- * Configured Producer/Consumer for PNET Dimmer messages.
- *
- * <b>Configuration Options</b>
- * 
- * - Description (16 char string) User name of this Dimmer.
- * - Event Produced (Event ID) (P) This event is produced when a matching Control message is received.
- * - Event Consumed (Event ID) (C) This event will cause the defined Control to be sent.
- * - Enable (Yes/No) Enable this Dimmer.
- * - Slot (0-31) The Control slot number (0-31).
- * - Value A (0-255) Dimmer value A.
- * - Value B (0-255) Dimmer value B.
- * - Value C (0-255) Dimmer value C.
- * - Value D (0-255) Dimmer value D.
- * 
  * @author Robert Heller
  * @date Mon Mar 20 12:19:01 2023
  */
-
+/** @page ConfiguredPCPNetDimmer PNET Dimmer Configuration
+ * 
+ * Configured Producer/Consumer for PNET Dimmer messages.
+ * 
+ * These messages control the brightness of outputs.
+ *
+ * Upto 32 PNET Dimmer messages can be configured and enabled. 
+ * 
+ * @section DimmerOpts Configuration Options
+ * 
+ *  Each message
+ * has these configuration options:
+ * 
+ * - Description (16 char string) User name of this Dimmer.
+ *   This is just a name for the message for identifing purposes.
+ * - Event Produced (Event ID) (P) This event is produced when a matching Control message is received.
+ *   This event id is sent by the router onto the LCC network when a PNET node
+ *   sends a matching Dimmer message.
+ * - Event Consumed (Event ID) (C) This event will cause the defined Control to be sent.
+ *   When the node receives this event id, it sends a PNET Dimmer message out
+ *   on the PNET network. 
+ * - Enable (Yes/No) Enable this Dimmer.
+ *   This enables or disables this message.
+ * - Slot (0-31) The Control slot number (0-31).
+ *   This the slot number (board id) of the message.
+ * - Value A (0-255) Dimmer value A.
+ *   This is the brightness of the first output.
+ * - Value B (0-255) Dimmer value B.
+ *   This is the brightness of the second output.
+ * - Value C (0-255) Dimmer value C.
+ *   This is the brightness of the third output.
+ * - Value D (0-255) Dimmer value D.
+ *   This is the brightness of the fourth output.
+ */ 
+ 
 #ifndef __CONFIGUREDPCPNETDIMMER_HXX
 #define __CONFIGUREDPCPNETDIMMER_HXX
 

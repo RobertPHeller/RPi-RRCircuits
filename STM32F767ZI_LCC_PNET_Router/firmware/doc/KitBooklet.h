@@ -8,7 +8,7 @@
  *  Author        : $Author$
  *  Created By    : Robert Heller
  *  Created       : Thr Mar 30 10:49:54 2023
- *  Last Modified : <240430.2313>
+ *  Last Modified : <240501.0901>
  *
  *  Description	
  *
@@ -87,25 +87,6 @@
  * 
  * There is a power input terminal for the PNET network.  This terminal allows
  * for providing power to PNET boards that need power.
- * 
- * @page download Downloadables and Software Support
- * 
- * @section configuration Configuring the Router
- * 
- * The router has three configuration tabs, each with 32 instances:
- * 
- * -# PNET Triggers
- * -# PNET Controls
- * -# PNET Dimmers
- * 
- * They are all very similar.  For each instance there is a name, an
- * enable flag, two events, and a set of instance specific parameters.
- * 
- * One of the events will be produced when a matching PNET message is
- * received and the other event will be consumed and will cause a
- * PNET message to be sent.
- * 
- * There are 32 of each of these message types as the code is shipped.
  * 
  * 
  ****************************************************************************/

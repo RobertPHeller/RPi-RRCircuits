@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Mar 20 12:18:05 2023
-//  Last Modified : <240429.2117>
+//  Last Modified : <240501.0909>
 //
 //  Description	
 //
@@ -45,23 +45,44 @@
  *
  * \file ConfiguredPCPNetControl.hxx
  * 
- * Configured Producer/Consumer for PNET Control messages.
- *
- *  <b>Configuration Options</b>
- * 
- * - Description (16 char string) User name of this Control.
- * - Event Produced (Event ID) (P) This event is produced when a matching Control message is received.
- * - Event Consumed (Event ID) (C) This event will cause the defined Control to be sent.
- * - Enable (Yes/No) Enable this Control.
- * - Slot (0-31) The Control slot number (0-31).
- * - Control Number (0-255) The control number.
- * - Attributes (0-255) The control attributes.
- * 
- * 
  * @author Robert Heller
  * @date Mon Mar 20 12:18:05 2023
  */
 
+/** @page ConfiguredPCPNetControl PNET Control Configuration
+ * 
+ * 
+ * Configured Producer/Consumer for PNET Control messages.
+ *
+ * PNET Control messages either turn outputs steady on, pulsed on, or off.
+ * Upto 32 PNET Control messages can be configured and enabled.  
+ * 
+ *  @section ControlOpts Configuration Options
+ * 
+ * Each message has these configuration options:
+ * 
+ * - Description (16 char string) User name of this Control.
+ *   This is just a name for the message for identifing purposes.
+ * - Event Produced (Event ID) (P) This event is produced when a matching Control message is received.
+ *   This event id is sent by the router onto the LCC network when a PNET node
+ *   sends a matching Control message.
+ * - Event Consumed (Event ID) (C) This event will cause the defined Control to be sent.
+ *   When the node receives this event id, it sends a PNET Control message out
+ *   on the PNET network.
+ * - Enable (Yes/No) Enable this Control.
+ *   This enables or disables this message.
+ * - Slot (0-31) The Control slot number (0-31).
+ *   This the slot number (board id) of the message.
+ * - Control Number (0-255) The control number.
+ *   This is the control number (output number) of the message.
+ * - Attributes (0-255) The control attributes.
+ *   This is the control's attributes.  Zero (0) turns the output off, 255
+ *   turns the output steady on. A value in between pulses the output for that
+ *   number of milliseconds.
+ * 
+ * 
+ * 
+ */
 
 #ifndef __CONFIGUREDPCPNETCONTROL_HXX
 #define __CONFIGUREDPCPNETCONTROL_HXX

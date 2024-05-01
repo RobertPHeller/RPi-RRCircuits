@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Sun Mar 19 14:31:22 2023
-//  Last Modified : <240429.2116>
+//  Last Modified : <240501.0911>
 //
 //  Description	
 //
@@ -44,21 +44,35 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * \file ConfiguredPCPNetTrigger.hxx
- * 
- * Configured Producer/Consumer for PNET Trigger messages.
- *
- *  <b>Configuration Options</b>
- * 
- * - Description (16 char string) User name of this Trigger.
- * - Event Produced (Event ID) (P) This event is produced when a matching Control message is received.
- * - Event Consumed (Event ID) (C) This event will cause the defined Control to be sent.
- * - Enable (Yes/No) Enable this Trigger.
- * - Slot (0-31) The Control slot number (0-31).
- * - Trigger Number (1-4) The trigger number.
- * 
  * @author Robert Heller
  * @date Sun Mar 19 14:31:22 2023
  */
+/** @page ConfiguredPCPNetTrigger PNET Trigger Configuration
+ * 
+ * Configured Producer/Consumer for PNET Trigger messages.
+ * 
+ * Trigger messages are used for inputs, such as button presses.
+ * Upto 32 PNET Trigger messages can be configured and enabled. 
+ *
+ *  @section TriggerOpts Configuration Options
+ * 
+ *  Each message has these configuration options:
+ * 
+ * - Description (16 char string) User name of this Trigger.
+ *   This is just a name for the message for identifing purposes.
+ * - Event Produced (Event ID) (P) This event is produced when a matching Control message is received.
+ *   This event id is sent by the router onto the LCC network when a PNET node
+ *   sends a matching Trigger message.
+ * - Event Consumed (Event ID) (C) This event will cause the defined Control to be sent.
+ *   When the node receives this event id, it sends a PNET Trigger message out
+ *   on the PNET network.
+ * - Enable (Yes/No) Enable this Trigger.
+ *   This enables or disables this message.
+ * - Slot (0-31) The Control slot number (0-31).
+ *   This the slot number (board id) of the message.
+ * - Trigger Number (1-4) The trigger number.
+ *   This the trigger (input number) of the message. 
+ */ 
 
 
 #ifndef __CONFIGUREDPCPNETTRIGGER_HXX

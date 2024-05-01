@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed Mar 15 13:51:40 2023
-#  Last Modified : <240430.2312>
+#  Last Modified : <240501.1002>
 #
 #  Description	
 #
@@ -62,15 +62,20 @@ docs: html latex kitbooklet.pdf
 html latex : $(SRCS) Makefile Doxyfile
 	doxygen Doxyfile
 
-latex2 : ../main.cxx KitBooklet.h  Makefile Doxyfile.kit
+latex2 : ../main.cxx KitBooklet.h \
+	../PNETStack/include/ConfiguredPCPNetControl.hxx  \
+	../PNETStack/include/ConfiguredPCPNetDimmer.hxx \
+	../PNETStack/include/ConfiguredPCPNetTrigger.hxx \
+	Makefile Doxyfile.kit
 	doxygen Doxyfile.kit
 
 kitbooklet.pdf: latex2
+	sed -i~ '/chapter{Class Index}/,/input{classPCPNetTrigger}/d' latex2/refman.tex
 	$(MAKE) -C latex2
 	pdfbook2 --paper=letter latex2/refman.pdf
 	mv latex2/refman-book.pdf kitbooklet.pdf
 	
 clean::
-	rm -rf latex html warnings man pdf
+	rm -rf latex html warnings latex2 kitbooklet.pdf
 	
 veryclean:: clean
