@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed Mar 15 13:51:40 2023
-#  Last Modified : <240502.1409>
+#  Last Modified : <240502.1453>
 #
 #  Description	
 #
@@ -57,11 +57,13 @@ Revision.h: ../targets/freertos.armv7m.st-stm32f767zi-nucleo/Revision.hxxout
 	echo '*/' >> $@
 	
 .PHONY:
-docs: html latex kitbooklet.pdf
+docs: html latex kitbooklet.pdf UserManual.pdf
 
-html latex : $(SRCS) Makefile Doxyfile
+html/index.html UserManual.pdf  : $(SRCS) Makefile Doxyfile
+	rm -rf html latex
 	doxygen Doxyfile
 	$(MAKE) -C latex
+	mv latex/refman.pdf ./UserManual.pdf
 
 latex2/refman.tex : ../main.cxx KitBooklet.h \
 	../PNETStack/include/ConfiguredPCPNetControl.hxx  \
@@ -69,6 +71,7 @@ latex2/refman.tex : ../main.cxx KitBooklet.h \
 	../PNETStack/include/ConfiguredPCPNetTrigger.hxx \
 	../NodeIdConfigurationGroup.hxx \
 	Makefile Doxyfile.kit
+	rm -rf latex2
 	doxygen Doxyfile.kit
 
 kitbooklet.pdf: latex2/refman.tex
