@@ -380,6 +380,7 @@
         "nets": [
           "+3.3V",
           "+5V",
+          "/E5V",
           "/LCC-CAN-12VDC",
           "/PNET CAN Transceiver/PNet +12V",
           "GND",

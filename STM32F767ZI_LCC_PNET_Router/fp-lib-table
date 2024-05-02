@@ -2,4 +2,7 @@
   (lib (name "RJ45")(type "Legacy")(uri "/home/heller/RRCircuits/RJ45-8N-S.mod")(options "")(descr ""))
   (lib (name "RJ12Molex")(type "KiCad")(uri "${KIPRJMOD}/RJ12Molex.pretty")(options "")(descr ""))
   (lib (name "STMorpho")(type "Legacy")(uri "${KIPRJMOD}/STMorpho.mod")(options "")(descr ""))
+  (lib (name "PowerLabels")(type "KiCad")(uri "/home/heller/RRCircuits/PowerLabels.pretty")(options "")(descr ""))
+  (lib (name "DWSLogos")(type "KiCad")(uri "/home/heller/RRCircuits/DWSLogos.pretty")(options "")(descr ""))
+  (lib (name "LCCLogo")(type "KiCad")(uri "/home/heller/RRCircuits/LCC_LOGO.pretty")(options "")(descr ""))
 )
