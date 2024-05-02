@@ -790,11 +790,10 @@ WARN_LOGFILE           =
 # spaces. See also FILE_PATTERNS and EXTENSION_MAPPING
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  =  ../main.cxx KitBooklet.h ../ \
+INPUT                  = Revision.h ../main.cxx KitBooklet.h ../ \
                          ../PNETStack/include/ \
                          ../PNETStack/ \
-                         ../targets/pb.linux.armv7a/Hardware.hxx \
-                         Revision.h
+                         ../targets/pb.linux.armv7a/Hardware.hxx 
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses

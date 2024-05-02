@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed Mar 15 13:51:40 2023
-#  Last Modified : <240502.1453>
+#  Last Modified : <240502.1511>
 #
 #  Description	
 #
@@ -57,7 +57,7 @@ Revision.h: ../targets/freertos.armv7m.st-stm32f767zi-nucleo/Revision.hxxout
 	echo '*/' >> $@
 	
 .PHONY:
-docs: html latex kitbooklet.pdf UserManual.pdf
+docs: html/index.html kitbooklet.pdf UserManual.pdf
 
 html/index.html UserManual.pdf  : $(SRCS) Makefile Doxyfile
 	rm -rf html latex
