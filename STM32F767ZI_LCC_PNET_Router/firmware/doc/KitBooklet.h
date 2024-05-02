@@ -8,7 +8,7 @@
  *  Author        : $Author$
  *  Created By    : Robert Heller
  *  Created       : Thr Mar 30 10:49:54 2023
- *  Last Modified : <240501.1712>
+ *  Last Modified : <240502.1122>
  *
  *  Description	
  *
@@ -46,7 +46,34 @@
  *  @author Robert Heller
  *  @date Thr Mar 30 10:49:54 2023
  * 
- * @page assembly Assembly
+ * @page 00kitContents Kit Contents
+ * This kit contains:
+ * -# This booklet.
+ * -# The router PCB.
+ * @image html STM32F767ZI_LCC_PNET_Router_thumb.png
+ * @image latex STM32F767ZI_LCC_PNET_Router_thumb.png height=1in
+ * -# 2 2x19 socket headers
+ * @image html ssq-101-01-f-d_SPL.jpg
+ * @image latex ssq-101-01-f-d_SPL.jpg height=1in
+ * -# 2 RJ45 connectors
+ * @image html WR-MJ_SPL.jpg
+ * @image latex WR-MJ_SPL.jpg height=1in
+ * -# 2 RJ12 connectors
+ * @image html 95501-2661_SPL.jpg
+ * @image latex 95501-2661_SPL.jpg height=1in
+ * -# 3 2-position 2.54 pitch screw terminals
+ * @image html ITP_538-39773-0002_2.jpg
+ * @image latex ITP_538-39773-0002_2.jpg height=1in
+ * -# 2 2x2 2.54 pitch pin headers
+ * @image html 87227-2.jpg
+ * @image latex 87227-2.jpg height=1in
+ * -# 2 2x19 2.54 pitch pin headers
+ * @image html MFG_TSW-119-09-T-D_tmb64x64.jpg
+ * @image latex MFG_TSW-119-09-T-D_tmb64x64.jpg height=1in
+ * -# 1 NUCLEO-F767ZI
+ * @image html NUCLEO-F767ZI.jpg
+ * @image latex NUCLEO-F767ZI.jpg height=1in
+ * @page 01assembly Assembly
  * 
  * Assembly is straight forward.  The SMD parts are already soldered,
  * so only the through hole part need to be soldered to the board. 
@@ -62,7 +89,7 @@
  * 
  * 
  * 
- * @page wiring General Wiring Notes
+ * @page 02wiring General Wiring Notes
  * @section termination Termination of the networks.
  * 
  * Each of the two CAN networks includes a termination jumper block.
@@ -89,7 +116,7 @@
  * for providing power to PNET boards that need power.
  * 
  *
- * @page initialConfig Initial Configuration
+ * @page 03initialConfig Initial Configuration
  * 
  * The first time the node is started, it is necessary to set the node id.
  * See \ref NodeIdConfig for information about this.
