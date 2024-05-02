@@ -8,7 +8,7 @@
  *  Author        : $Author$
  *  Created By    : Robert Heller
  *  Created       : Thr Mar 30 10:49:54 2023
- *  Last Modified : <240502.1122>
+ *  Last Modified : <240502.1411>
  *
  *  Description	
  *
@@ -87,7 +87,10 @@
  * @image html STM32F767ZI_LCC_PNET_Router.png
  * @image latex STM32F767ZI_LCC_PNET_Router.png "3D top view of the PCB"
  * 
- * 
+ * Caution: before applying power to the router board, including connecting
+ * to a LCC network, be sure that jumper JP1 ("PWR-EXT") next to the uUSB 
+ * connector) is OFF and JP3 ("Power Source") has its jumper on the leftmost 
+ * pair of pins (labeled E5V).
  * 
  * @page 02wiring General Wiring Notes
  * @section termination Termination of the networks.
