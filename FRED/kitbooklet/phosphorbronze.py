@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Fri May 3 11:36:09 2024
-#  Last Modified : <240503.1204>
+#  Last Modified : <240503.1540>
 #
 #  Description	
 #
@@ -52,7 +52,7 @@ import Mesh
 import datetime
 
 class ContactWipers(object):
-    __PadWidth = 5
+    __PadWidth = 13.5
     __PadHeight = 3.5
     __Thick = .008*25.4
     def __init__(self,name,origin):
@@ -60,7 +60,7 @@ class ContactWipers(object):
         if not isinstance(origin,Base.Vector):
             raise RuntimeError("origin is not a Vector!")
         self.origin = origin
-        wiper = Part.makePlane(self.__PadWidth,self.__PadHeight*2,self.origin)\
+        wiper = Part.makePlane(self.__PadWidth,self.__PadHeight+12.5,self.origin)\
             .extrude(Base.Vector(0,0,self.__Thick))
         self.wiper = wiper
         #line = Part.makeLine(self.origin.add(Base.Vector(0,self.__PadHeight,\
