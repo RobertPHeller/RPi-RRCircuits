@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Wed Mar 15 13:51:40 2023
-#  Last Modified : <240502.1511>
+#  Last Modified : <240502.1943>
 #
 #  Description	
 #
@@ -48,7 +48,6 @@ all: docs
 SRCS =  ../main.cxx $(wildcard ../*.hxx) \
 	$(wildcard ../PNETStack/include/*.hxx) \
 	$(wildcard ../PNETStack/*.cxx) \
-	$(wildcard ../targets/*/*.hxx) \
 	Revision.h KitBooklet.h $(wildcard images/*)
 	
 Revision.h: ../targets/freertos.armv7m.st-stm32f767zi-nucleo/Revision.hxxout
@@ -70,7 +69,7 @@ latex2/refman.tex : ../main.cxx KitBooklet.h \
 	../PNETStack/include/ConfiguredPCPNetDimmer.hxx \
 	../PNETStack/include/ConfiguredPCPNetTrigger.hxx \
 	../NodeIdConfigurationGroup.hxx \
-	Makefile Doxyfile.kit
+	Makefile Doxyfile.kit $(wildcard images/*)
 	rm -rf latex2
 	doxygen Doxyfile.kit
 
