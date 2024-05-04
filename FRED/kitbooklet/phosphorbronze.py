@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Fri May 3 11:36:09 2024
-#  Last Modified : <240503.1540>
+#  Last Modified : <240503.2137>
 #
 #  Description	
 #
@@ -70,8 +70,9 @@ class ContactWipers(object):
         #                                                 0)))
         #self.wiper.fuse(Part.Face(Part.Wire(line))\
         #    .extrude(Base.Vector(0,0,self.__Thick)))
-    def show(self):
-        doc = App.activeDocument()
+    def show(self,doc=None):
+        if doc==None:
+            doc = App.activeDocument()
         obj = doc.addObject("Part::Feature",self.name);
         obj.Shape=self.wiper
         obj.Label=self.name
@@ -79,10 +80,12 @@ class ContactWipers(object):
         
 
 if __name__ == '__main__':
-    App.ActiveDocument=App.newDocument("Temp")
-    doc = App.activeDocument()
-    Wiper = ContactWipers("Wiper",Base.Vector(0,0,0))
-    Wiper.show()
+    doc = App.getDocument('FRED')
+    Gui.setActiveDocument(doc)
+    Left = ContactWipers("LeftWiper",Base.Vector(-9.67+.25,-8.02-(3.5+12.5+.25),-0.781-(.008*25.4)))
+    Left.show(doc)
+    Right =  ContactWipers("RightWiper",Base.Vector(-9.67+.25,4.838,-0.781-(.008*25.4)))
+    Right.show(doc)
     Gui.SendMsgToActiveView("ViewFit")
     Gui.activeDocument().activeView().viewTop()
     
