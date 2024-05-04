@@ -8,7 +8,7 @@
 #  Author        : $Author$
 #  Created By    : Robert Heller
 #  Created       : Fri May 3 11:36:09 2024
-#  Last Modified : <240503.2137>
+#  Last Modified : <240503.2306>
 #
 #  Description	
 #
@@ -54,13 +54,14 @@ import datetime
 class ContactWipers(object):
     __PadWidth = 13.5
     __PadHeight = 3.5
+    __fold = 6.26
     __Thick = .008*25.4
     def __init__(self,name,origin):
         self.name = name
         if not isinstance(origin,Base.Vector):
             raise RuntimeError("origin is not a Vector!")
         self.origin = origin
-        wiper = Part.makePlane(self.__PadWidth,self.__PadHeight+12.5,self.origin)\
+        wiper = Part.makePlane(self.__PadWidth,self.__PadHeight+self.__fold,self.origin)\
             .extrude(Base.Vector(0,0,self.__Thick))
         self.wiper = wiper
         #line = Part.makeLine(self.origin.add(Base.Vector(0,self.__PadHeight,\
@@ -78,14 +79,65 @@ class ContactWipers(object):
         obj.Label=self.name
         obj.ViewObject.ShapeColor=tuple([.72156,.52549,.04313])
         
+class ContactWipersBent(object):
+    __PadWidth = 13.5
+    __PadHeight = 3.5
+    __fold = 6.26
+    __Thick = .008*25.4
+    def __init__(self,name,origin,dir='Left'):
+        self.name = name
+        if not isinstance(origin,Base.Vector):
+            raise RuntimeError("origin is not a Vector!")
+        self.origin = origin
+        wiper = Part.makePlane(self.__PadWidth,self.__PadHeight,self.origin)\
+            .extrude(Base.Vector(0,0,self.__Thick))
+        self.wiper = wiper
+        bent=None
+        if dir=='Left':
+            orient = Base.Vector(0,1,1)
+            bent=Part.makePlane(self.__fold,self.__PadWidth, \
+                                self.origin.add(Base.Vector(self.__PadWidth,\
+                                                            0,\
+                                                            0)),\
+                                orient).extrude(orient.multiply(self.__Thick))
+        elif dir=='Right':
+            orient = Base.Vector(0,1,-1)
+            bent=Part.makePlane(self.__fold,self.__PadWidth, \
+                                self.origin.add(Base.Vector(self.__PadWidth,\
+                                                            self.__PadHeight,\
+                                                            0)),\
+                                orient).extrude(orient.multiply(self.__Thick))
+        else:
+            raise RuntimeError("Unknown direction: "+dir)
+        self.wiper = self.wiper.fuse(bent)
+    def show(self,doc=None):
+        if doc==None:
+            doc = App.activeDocument()
+        obj = doc.addObject("Part::Feature",self.name);
+        obj.Shape=self.wiper
+        obj.Label=self.name
+        obj.ViewObject.ShapeColor=tuple([.72156,.52549,.04313])
+        
 
 if __name__ == '__main__':
     doc = App.getDocument('FRED')
     Gui.setActiveDocument(doc)
-    Left = ContactWipers("LeftWiper",Base.Vector(-9.67+.25,-8.02-(3.5+12.5+.25),-0.781-(.008*25.4)))
+    Left = ContactWipers("LeftWiper",Base.Vector(-9.67+.25,-8.02-(3.5+6.255+.25),-0.781-(.008*25.4)))
     Left.show(doc)
     Right =  ContactWipers("RightWiper",Base.Vector(-9.67+.25,4.838,-0.781-(.008*25.4)))
     Right.show(doc)
+    #Left = ContactWipersBent("LeftWiper",\
+    #                         Base.Vector(-9.67+.25,\
+    #                                     -8.02-(3.5+.25),\
+    #                                     -0.781-(.008*25.4)),\
+    #                         'Left')
+    #Left.show(doc)
+    #Right =  ContactWipersBent("RightWiper",\
+    #                           Base.Vector(-9.67+.25,\
+    #                                       4.838,\
+    #                                       -0.781-(.008*25.4)),\
+    #                           'Right')
+    #Right.show(doc)
     Gui.SendMsgToActiveView("ViewFit")
     Gui.activeDocument().activeView().viewTop()
     
