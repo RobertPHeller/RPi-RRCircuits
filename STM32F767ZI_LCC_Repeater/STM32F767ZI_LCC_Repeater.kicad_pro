@@ -345,7 +345,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "STM32F767ZI_LCC_Repater.kicad_pro",
+    "filename": "STM32F767ZI_LCC_Repeater.kicad_pro",
     "version": 1
   },
   "net_settings": {
