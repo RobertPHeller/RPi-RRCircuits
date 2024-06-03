@@ -17,3 +17,10 @@ refman.pdf: doc/latex/refman.pdf
 
 doc/latex/refman.pdf: 
 	$(MAKE) -C doc
+
+flash:	$(BUILDDIRS)
+	+$(MAKE) -C targets flash
+	
+gdb:	$(BUILDDIRS)
+	+$(MAKE) -C targets gdb
+	
