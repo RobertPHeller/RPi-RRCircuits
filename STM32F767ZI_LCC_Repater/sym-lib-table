@@ -1,0 +1,5 @@
+(sym_lib_table
+  (lib (name "STM32_Nucleo_MorphoBoard-rescue")(type "Legacy")(uri "${KICAD_USER_TEMPLATE_DIR}/STM32_Nucleo_MorphoBoard/STM32_Nucleo_MorphoBoard-rescue.lib")(options "")(descr ""))
+  (lib (name "st_morpho")(type "Legacy")(uri "${KICAD_USER_TEMPLATE_DIR}/STM32_Nucleo_MorphoBoard/st_morpho.lib")(options "")(descr ""))
+  (lib (name "LCC-PNET-Router-rescue")(type "Legacy")(uri "/home/heller/LCC-PNET-Router/LCC-PNET-Router-rescue.lib")(options "")(descr ""))
+)
