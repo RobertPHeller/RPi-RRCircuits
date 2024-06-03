@@ -48,7 +48,13 @@
           "min_clearance": 0.508
         }
       },
-      "diff_pair_dimensions": [],
+      "diff_pair_dimensions": [
+        {
+          "gap": 0.0,
+          "via_gap": 0.0,
+          "width": 0.0
+        }
+      ],
       "drc_exclusions": [],
       "meta": {
         "filename": "board_design_settings.json",
@@ -111,8 +117,15 @@
         "min_via_diameter": 0.889,
         "use_height_for_length_calcs": true
       },
-      "track_widths": [],
-      "via_dimensions": [],
+      "track_widths": [
+        0.0
+      ],
+      "via_dimensions": [
+        {
+          "diameter": 0.0,
+          "drill": 0.0
+        }
+      ],
       "zones_allow_external_fillets": false,
       "zones_use_no_outline": true
     },
@@ -332,7 +345,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "STM32_Nucleo_MorphoBoard.kicad_pro",
+    "filename": "STM32F767ZI_LCC_Repater.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -352,6 +365,33 @@
         "track_width": 0.254,
         "via_diameter": 0.889,
         "via_drill": 0.635,
+        "wire_width": 6.0
+      },
+      {
+        "bus_width": 12.0,
+        "clearance": 0.254,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 1.016,
+        "microvia_drill": 0.254,
+        "name": "Power",
+        "nets": [
+          "+3.3V",
+          "+5V",
+          "/VIN",
+          "GND",
+          "Net-(D203-Pad2)",
+          "Net-(D204-Pad2)",
+          "Net-(D303-Pad2)",
+          "Net-(D304-Pad2)"
+        ],
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.508,
+        "via_diameter": 1.778,
+        "via_drill": 1.27,
         "wire_width": 6.0
       }
     ],
@@ -413,6 +453,14 @@
     [
       "61bb92e4-c2cb-4696-a99a-9ed40f40035b",
       ""
+    ],
+    [
+      "b510d532-0020-4eb1-a818-268e8b8b625c",
+      " LCC CAN0 transceiver"
+    ],
+    [
+      "f9754200-6050-4039-824d-b4b8d34b11f5",
+      "LCC CAN1 Transceiver"
     ]
   ],
   "text_variables": {}
