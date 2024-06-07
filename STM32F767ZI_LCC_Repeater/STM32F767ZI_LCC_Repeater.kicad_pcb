@@ -269,6 +269,11 @@
       (net 35 "/PC3") (pintype "input") (tstamp 9c290edd-9608-4ace-a9e0-bb5f5f0ed1e4))
     (pad "38" thru_hole circle (at 1.27 22.86) (size 1.524 1.524) (drill 1.016) (layers *.Cu *.Mask "F.SilkS")
       (net 34 "/PC0") (pintype "input") (tstamp 2cf8abec-c600-488a-8200-045910a6c446))
+    (model "${KICAD6_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_2x19_P2.54mm_Vertical.wrl"
+      (offset (xyz 1.5 22.5 0))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 0))
+    )
   )
 
   (footprint "STMorpho:ST_Morpho" (layer "F.Cu")
@@ -366,6 +371,11 @@
       (net 65 "/PA3") (pintype "input") (tstamp 98d8c7af-28e4-4a67-807a-bcefe6c9ed70))
     (pad "38" thru_hole circle (at 1.27 22.86) (size 1.524 1.524) (drill 1.016) (layers *.Cu *.Mask "F.SilkS")
       (net 64 "unconnected-(CN10-Pad38)") (pintype "input+no_connect") (tstamp b90376cf-3758-438f-be94-5e0c6828b224))
+    (model "${KICAD6_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_2x19_P2.54mm_Vertical.wrl"
+      (offset (xyz 1.5 22.5 0))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 0))
+    )
   )
 
   (footprint "MountingHole_2-5mm_RevA_Date21Jun2010" (layer "F.Cu")

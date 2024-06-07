@@ -8,7 +8,7 @@
 //  Author        : $Author$
 //  Created By    : Robert Heller
 //  Created       : Mon Jun 3 13:53:32 2024
-//  Last Modified : <240603.1409>
+//  Last Modified : <240607.1529>
 //
 //  Description	
 //
@@ -38,7 +38,11 @@
 /// @file main.cxx
 /// @author Robert Heller
 /// @date Mon Jun 3 13:53:32 2024
-/// 
+///
+/// @mainpage Introduction
+/// This in a LCC network segment "repeater".  All traffic on one segment is
+/// repeated on the other.  Thus there is one logical network with two
+/// separate physical segments.
 ///
 //////////////////////////////////////////////////////////////////////////////
 
